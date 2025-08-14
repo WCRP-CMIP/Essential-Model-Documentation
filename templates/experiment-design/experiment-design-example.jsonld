@@ -1,0 +1,171 @@
+{
+  "@context": {
+    "@vocab": "https://wcrp-cmip.org/emd/",
+    "emd": "https://wcrp-cmip.org/emd/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "mip": "https://wcrp-cmip.org/mip/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@type": "emd:ExperimentDesign",
+  "@id": "https://mpimet.mpg.de/experiments/historical-r1i1p1f1",
+  
+  "emd:experimentName": "CMIP6 Historical Simulation",
+  "emd:experimentID": "historical",
+  "emd:mipEra": "CMIP6",
+  "emd:activity": "CMIP",
+  "emd:experimentTier": 1,
+  
+  "dcterms:description": "Historical simulation (1850-2014) with observed anthropogenic and natural forcings, designed to reproduce observed climate evolution including both internal variability and responses to external forcings",
+  
+  "emd:simulationPeriod": {
+    "@type": "emd:TemporalExtent",
+    "emd:startDate": "1850-01-01",
+    "emd:endDate": "2014-12-31",
+    "emd:calendar": "gregorian",
+    "emd:runLength": "165 years",
+    "emd:spinupPeriod": "50 years from piControl"
+  },
+  
+  "emd:forcings": [
+    {
+      "@type": "emd:Forcing",
+      "emd:forcingType": "GHG",
+      "emd:forcingDataset": "CMIP6 historical GHG concentrations v1.2.0",
+      "emd:forcingDescription": "Well-mixed greenhouse gases including CO2, CH4, N2O, and halocarbons",
+      "emd:forcingSource": "https://esgf-node.llnl.gov/search/input4mips/GHG",
+      "emd:forcingTimeSpan": {
+        "@type": "emd:TemporalExtent",
+        "emd:startDate": "1850-01-01",
+        "emd:endDate": "2014-12-31",
+        "emd:temporalResolution": "annual"
+      },
+      "emd:forcingTreatment": "prescribed",
+      "emd:forcingVariables": ["mole_fraction_of_carbon_dioxide_in_air", "mole_fraction_of_methane_in_air", "mole_fraction_of_nitrous_oxide_in_air"]
+    },
+    {
+      "@type": "emd:Forcing",
+      "emd:forcingType": "aerosol",
+      "emd:forcingDataset": "CMIP6 historical aerosol emissions v1.2.1",
+      "emd:forcingDescription": "Anthropogenic aerosol emissions and precursors including SO2, BC, OC",
+      "emd:forcingSource": "https://esgf-node.llnl.gov/search/input4mips/aerosol",
+      "emd:forcingTimeSpan": {
+        "@type": "emd:TemporalExtent",
+        "emd:startDate": "1850-01-01",
+        "emd:endDate": "2014-12-31",
+        "emd:temporalResolution": "monthly"
+      },
+      "emd:forcingTreatment": "prescribed",
+      "emd:forcingVariables": ["emission_of_sulfur_dioxide", "emission_of_black_carbon", "emission_of_organic_carbon"]
+    },
+    {
+      "@type": "emd:Forcing",
+      "emd:forcingType": "solar",
+      "emd:forcingDataset": "CMIP6 solar forcing v3.2",
+      "emd:forcingDescription": "Solar irradiance variations based on 14C and 10Be records",
+      "emd:forcingSource": "https://solarisheppa.geomar.de/cmip6",
+      "emd:forcingTimeSpan": {
+        "@type": "emd:TemporalExtent",
+        "emd:startDate": "1850-01-01",
+        "emd:endDate": "2014-12-31",
+        "emd:temporalResolution": "monthly"
+      },
+      "emd:forcingTreatment": "prescribed",
+      "emd:forcingVariables": ["solar_irradiance_per_unit_wavelength"]
+    },
+    {
+      "@type": "emd:Forcing",
+      "emd:forcingType": "volcanic",
+      "emd:forcingDataset": "CMIP6 volcanic forcing v1.0",
+      "emd:forcingDescription": "Stratospheric volcanic aerosol optical properties from ice core records",
+      "emd:forcingSource": "https://esgf-node.llnl.gov/search/input4mips/volcanic",
+      "emd:forcingTimeSpan": {
+        "@type": "emd:TemporalExtent",
+        "emd:startDate": "1850-01-01",
+        "emd:endDate": "2014-12-31",
+        "emd:temporalResolution": "monthly"
+      },
+      "emd:forcingTreatment": "prescribed",
+      "emd:forcingVariables": ["stratospheric_aerosol_optical_depth", "stratospheric_aerosol_effective_radius"]
+    }
+  ],
+  
+  "emd:boundaryConditions": [
+    {
+      "@type": "emd:BoundaryCondition",
+      "emd:conditionType": "land_use",
+      "emd:conditionSource": "Land Use Harmonization 2 (LUH2) v2.1f",
+      "emd:conditionDescription": "Historical land use and land cover change including crop, pasture, and urban fractions",
+      "emd:updateFrequency": "annual",
+      "emd:spatialCoverage": "global",
+      "emd:conditionTreatment": "prescribed"
+    }
+  ],
+  
+  "emd:initialConditions": {
+    "@type": "emd:InitialCondition",
+    "emd:initializationType": "branch",
+    "emd:initializationMethod": "Branch from piControl simulation after 500 years of spinup to ensure quasi-equilibrium",
+    "emd:initializationDate": "1850-01-01",
+    "emd:parentExperimentId": "piControl",
+    "emd:parentSimulationId": "https://mpimet.mpg.de/simulations/mpi-esm1-2-lr-piControl",
+    "emd:branchTimeInParent": "year 500",
+    "emd:initializationFiles": ["piControl_restart_y0500.nc"]
+  },
+  
+  "emd:ensembleInfo": {
+    "@type": "emd:Ensemble",
+    "emd:ensembleSize": 1,
+    "emd:perturbationMethod": "none",
+    "emd:perturbationDescription": "Single realization with no perturbations",
+    "emd:realization_index": 1,
+    "emd:initialization_index": 1,
+    "emd:physics_index": 1,
+    "emd:forcing_index": 1,
+    "emd:variant_label": "r1i1p1f1"
+  },
+  
+  "emd:conformsTo": {
+    "@id": "https://wcrp-cmip.org/cmip6/experiment-protocols/historical",
+    "@type": "mip:ExperimentProtocol",
+    "emd:protocolVersion": "1.0",
+    "emd:protocolURL": "https://www.wcrp-climate.org/wgcm-cmip/wgcm-cmip6/cmip6-experiment-design"
+  },
+  
+  "emd:modelConfiguration": {
+    "@type": "emd:ExperimentModelConfig",
+    "emd:requiredComponents": ["atmosphere", "ocean", "land", "seaIce"],
+    "emd:optionalComponents": ["biogeochemistry", "atmosphericChemistry"],
+    "emd:componentCoupling": "fully_coupled",
+    "emd:resolution": "low"
+  },
+  
+  "emd:outputRequirements": {
+    "@type": "emd:OutputSpec",
+    "emd:outputFrequencies": ["mon", "day", "6hr", "3hr"],
+    "emd:priorityVariables": ["tas", "pr", "psl", "tos", "sic"],
+    "emd:outputTables": ["Amon", "Omon", "Lmon", "SImon", "CFmon"],
+    "emd:dataVolume": "3.5 TB"
+  },
+  
+  "prov:wasGeneratedBy": {
+    "@type": "prov:Activity",
+    "prov:startedAtTime": "2018-03-15T00:00:00Z",
+    "prov:endedAtTime": "2018-06-20T00:00:00Z",
+    "prov:wasAssociatedWith": "https://mpimet.mpg.de/models/mpi-esm-1-2-lr"
+  },
+  
+  "emd:scientificObjectives": [
+    "Reproduce observed climate evolution from 1850-2014",
+    "Evaluate model response to historical forcings",
+    "Provide baseline for future projections"
+  ],
+  "emd:targetedProcesses": [
+    "greenhouse gas warming",
+    "aerosol-cloud interactions",
+    "volcanic cooling",
+    "land use change impacts"
+  ],
+  "emd:relatedExperiments": ["piControl", "1pctCO2", "abrupt-4xCO2", "ssp245", "ssp585"],
+  "emd:experimentNotes": "Standard CMIP6 historical simulation following protocol version 1.0 with no deviations"
+}

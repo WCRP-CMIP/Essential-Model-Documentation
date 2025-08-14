@@ -1,0 +1,134 @@
+{
+  "@context": {
+    "@vocab": "https://wcrp-cmip.org/emd/",
+    "emd": "https://wcrp-cmip.org/emd/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@type": "emd:DataOutput",
+  "@id": "https://[INSTITUTION_DOMAIN]/data/[MODEL_ID]-[EXPERIMENT_ID]-[VARIABLE_NAME]",
+  
+  "dcterms:title": "[Variable Long Name] from [Model Name] [Experiment Name]",
+  "dcterms:description": "[Detailed description of the data output, including time frequency, spatial resolution, and any special processing]",
+  
+  "emd:associatedSimulationId": "https://[INSTITUTION_DOMAIN]/simulations/[SIMULATION_ID]",
+  "emd:associatedModelName": "[Model Name and Version]",
+  "emd:associatedExperimentId": "[Experiment ID]",
+  
+  "emd:dataVariables": [
+    {
+      "@type": "emd:Variable",
+      "emd:variableName": "[CMIP short name, e.g., tas]",
+      "emd:standardName": "[CF standard name, e.g., air_temperature]",
+      "emd:longName": "[Full descriptive name]",
+      "emd:units": "[SI units]",
+      "emd:frequency": "[mon|day|6hr|3hr|1hr]",
+      "emd:realm": "[atmos|ocean|land|seaIce|landIce]",
+      "emd:dimensions": ["time", "lat", "lon", "[lev if applicable]"],
+      "emd:cellMethods": "[e.g., area: mean time: mean]",
+      "emd:missingValue": -999999.0,
+      "emd:validMin": null,
+      "emd:validMax": null,
+      "emd:positiveDirection": "[up|down|none]"
+    }
+  ],
+  
+  "emd:spatialCoverage": {
+    "@type": "dcterms:Location",
+    "emd:gridLabel": "[e.g., gn, gr, gr1]",
+    "emd:nominalResolution": "[e.g., 100 km, 1 degree]",
+    "emd:geographicExtent": {
+      "@type": "emd:BoundingBox",
+      "emd:westBoundLongitude": -180.0,
+      "emd:eastBoundLongitude": 180.0,
+      "emd:southBoundLatitude": -90.0,
+      "emd:northBoundLatitude": 90.0
+    },
+    "emd:verticalExtent": {
+      "@type": "emd:VerticalExtent",
+      "emd:minimumHeight": null,
+      "emd:maximumHeight": null,
+      "emd:verticalLevels": null,
+      "emd:verticalUnits": "[m|Pa|hPa|sigma|hybrid]",
+      "emd:verticalCoordinateType": "[height|pressure|sigma|hybrid]"
+    },
+    "emd:gridSpecification": {
+      "@type": "emd:GridSpec",
+      "emd:gridType": "[regular_lat_lon|gaussian|tripolar|unstructured]",
+      "emd:horizontalResolution": "[e.g., 1.875x1.875 degrees]",
+      "emd:numberOfGridCells": null,
+      "emd:gridMappingName": "[e.g., latitude_longitude]"
+    }
+  },
+  
+  "emd:temporalCoverage": {
+    "@type": "dcterms:PeriodOfTime",
+    "dcat:startDate": "YYYY-MM-DD",
+    "dcat:endDate": "YYYY-MM-DD",
+    "emd:timeSteps": null,
+    "emd:calendar": "[gregorian|365_day|360_day|proleptic_gregorian]",
+    "emd:timeResolution": "[monthly|daily|hourly]"
+  },
+  
+  "emd:dataFormat": {
+    "@type": "dcterms:MediaType",
+    "emd:formatName": "netCDF",
+    "emd:formatVersion": "[3|4]",
+    "emd:compression": "[none|deflate level 1-9|shuffle]",
+    "emd:chunkingStrategy": "[time|spatial|hybrid]",
+    "emd:encodingConvention": "CF-1.8"
+  },
+  
+  "emd:dataVolume": {
+    "@type": "emd:DataSize",
+    "emd:totalSize": "[Size with unit, e.g., 825 MB]",
+    "emd:numberOfFiles": null,
+    "emd:averageFileSize": "[Size with unit]",
+    "emd:fileNamingConvention": "[variable]_[table]_[model]_[experiment]_[variant]_[grid]_[startdate]-[enddate].nc"
+  },
+  
+  "emd:dataQuality": {
+    "@type": "emd:QualityInformation",
+    "emd:qualityFlag": "[passed|warning|failed]",
+    "emd:qualityControlProcedure": "[List of QC procedures applied]",
+    "emd:qualityControlDate": "YYYY-MM-DD",
+    "emd:qualityControlVersion": "[Version of QC software]",
+    "emd:knownIssues": [],
+    "emd:corrections": []
+  },
+  
+  "emd:dataAccess": {
+    "@type": "dcat:Distribution",
+    "dcat:accessURL": "https://[ESGF_NODE]/search/[PROJECT]/",
+    "dcat:downloadURL": "https://[ESGF_NODE]/thredds/fileServer/[PATH]/",
+    "dcterms:license": "[CC BY 4.0|CC0|Other]",
+    "emd:dataNode": "[Node Name]",
+    "emd:accessProtocol": ["HTTPServer", "OPeNDAP", "GridFTP"],
+    "emd:persistentIdentifier": {
+      "@type": "emd:PID",
+      "emd:identifierType": "[DOI|Handle|ARK]",
+      "emd:identifierValue": "[Identifier]"
+    }
+  },
+  
+  "emd:postProcessing": {
+    "@type": "emd:ProcessingInformation",
+    "emd:cmorVersion": "[CMOR version]",
+    "emd:processingDate": "YYYY-MM-DD",
+    "emd:processingLevel": "[raw|bias-corrected|regridded|derived]",
+    "emd:processingTools": [],
+    "emd:processingScript": "[URL or reference to processing script]",
+    "emd:interpolationMethod": "[conservative|bilinear|nearest]"
+  },
+  
+  "prov:wasGeneratedBy": "https://[INSTITUTION_DOMAIN]/simulations/[SIMULATION_ID]",
+  "prov:generatedAtTime": "YYYY-MM-DDTHH:MM:SSZ",
+  "prov:wasAttributedTo": "[Institution or Person Name]",
+  
+  "emd:keywords": ["[keyword1]", "[keyword2]"],
+  "emd:geospatialCoverage": "[Global|Regional description]",
+  "emd:intendedUse": "[Research|Education|Policy]",
+  "emd:usageNotes": "[Any special notes about using this data]"
+}

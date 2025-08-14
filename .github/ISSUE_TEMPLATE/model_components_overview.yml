@@ -1,0 +1,217 @@
+name: Model Components Overview Submission
+description: Submit overview information about all model components and their integration.
+title: "[EMD] Model Components Overview Submission"
+labels: ["emd-submission", "model_components"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields to document the **Model Components Overview**.
+        This captures how different components are integrated and coupled within your model system.
+
+  # Model System Overview
+  - type: markdown
+    attributes:
+      value: "## Model System Overview"
+
+  - type: input
+    id: model_name
+    attributes:
+      label: Model Name
+      description: Name of the complete model system.
+      placeholder: "e.g., CESM2, ICON-ESM, MPI-ESM1.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: system_description
+    attributes:
+      label: System Description
+      description: Overview of how components work together as an integrated system.
+      placeholder: "Describe the overall system architecture, coupling strategy, and integration philosophy."
+    validations:
+      required: true
+
+  # Component Summary Matrix
+  - type: markdown
+    attributes:
+      value: "## Component Summary"
+
+  - type: textarea
+    id: atmosphere_summary
+    attributes:
+      label: Atmosphere Component Summary
+      description: Brief summary of atmospheric component and its role.
+      placeholder: "Component name, version, resolution, key features (e.g., ECHAM6.3, T63L47, includes prognostic clouds)"
+
+  - type: textarea
+    id: ocean_summary
+    attributes:
+      label: Ocean Component Summary
+      description: Brief summary of ocean component and its role.
+      placeholder: "Component name, version, resolution, key features (e.g., MPIOM 1.6.3, GR15L40, includes sea ice)"
+
+  - type: textarea
+    id: land_summary
+    attributes:
+      label: Land Surface Component Summary
+      description: Brief summary of land surface component and its role.
+      placeholder: "Component name, version, resolution, key features (e.g., JSBACH 3.2, dynamic vegetation, carbon cycle)"
+
+  - type: textarea
+    id: seaice_summary
+    attributes:
+      label: Sea Ice Component Summary
+      description: Brief summary of sea ice component (if separate from ocean).
+      placeholder: "Component name, version, thermodynamics/dynamics treatment (e.g., CICE5, EVP dynamics, multilayer)"
+
+  - type: textarea
+    id: landice_summary
+    attributes:
+      label: Land Ice Component Summary
+      description: Brief summary of land ice component (if included).
+      placeholder: "Component name, version, ice sheet treatment (e.g., PISM, full dynamics, Antarctica and Greenland)"
+
+  - type: textarea
+    id: aerosol_summary
+    attributes:
+      label: Aerosol Component Summary
+      description: Brief summary of aerosol component.
+      placeholder: "Component name, version, species treated (e.g., MAM4, modal aerosols, 15 species)"
+
+  - type: textarea
+    id: chemistry_summary
+    attributes:
+      label: Atmospheric Chemistry Component Summary
+      description: Brief summary of atmospheric chemistry component (if included).
+      placeholder: "Component name, version, chemistry mechanism (e.g., MOZART-4, tropospheric chemistry, 85 species)"
+
+  - type: textarea
+    id: bgc_summary
+    attributes:
+      label: Ocean Biogeochemistry Component Summary
+      description: Brief summary of ocean biogeochemistry component (if included).
+      placeholder: "Component name, version, biogeochemical cycles (e.g., HAMOCC, marine carbon cycle, 12 tracers)"
+
+  # Coupling Configuration
+  - type: markdown
+    attributes:
+      value: "## Coupling Configuration"
+
+  - type: input
+    id: coupler_software
+    attributes:
+      label: Coupling Software
+      description: Name and version of the coupler used.
+      placeholder: "e.g., OASIS3-MCT v3.0, FMS Coupler, MCT 2.11"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: coupling_strategy
+    attributes:
+      label: Coupling Strategy
+      description: Overall approach to component coupling.
+      options:
+        - Sequential coupling (components run in sequence)
+        - Concurrent coupling (components run simultaneously)
+        - Mixed coupling (combination of sequential and concurrent)
+        - Embedded coupling (some components embedded in others)
+    validations:
+      required: true
+
+  - type: textarea
+    id: coupling_frequencies
+    attributes:
+      label: Coupling Frequencies
+      description: How often do components exchange information?
+      placeholder: |
+        atmosphere-ocean: every hour
+        atmosphere-land: every timestep
+        ocean-seaice: every ocean timestep
+        land-atmosphere: every atmosphere timestep
+
+  - type: checkboxes
+    id: flux_corrections
+    attributes:
+      label: Flux Adjustments
+      description: Are any flux adjustments or corrections applied?
+      options:
+        - label: No flux adjustments (fully coupled)
+        - label: Heat flux adjustment
+        - label: Freshwater flux adjustment
+        - label: Momentum flux adjustment
+        - label: Carbon flux adjustment
+        - label: Other biogeochemical adjustments
+
+  - type: textarea
+    id: conserved_quantities
+    attributes:
+      label: Conserved Quantities
+      description: What quantities are conserved in the coupled system?
+      placeholder: "e.g., Total energy, water mass, momentum, carbon mass"
+
+  # Technical Integration
+  - type: markdown
+    attributes:
+      value: "## Technical Integration"
+
+  - type: dropdown
+    id: calendar_system
+    attributes:
+      label: Calendar System
+      description: Calendar used across all components.
+      options:
+        - Gregorian
+        - 360-day
+        - Julian
+        - No calendar
+      default: 0
+
+  - type: textarea
+    id: grid_compatibility
+    attributes:
+      label: Grid Compatibility
+      description: How are different component grids handled?
+      placeholder: "Grid matching strategies, interpolation methods, conservative remapping approaches"
+
+  - type: textarea
+    id: parallel_architecture
+    attributes:
+      label: Parallel Architecture
+      description: How is parallelization handled across components?
+      placeholder: "MPI decomposition strategy, load balancing, component processor allocation"
+
+  - type: textarea
+    id: io_coordination
+    attributes:
+      label: I/O Coordination
+      description: How is input/output coordinated across components?
+      placeholder: "Shared I/O servers, component-specific output, restart file coordination"
+
+  # Validation and Quality
+  - type: markdown
+    attributes:
+      value: "## System Validation"
+
+  - type: textarea
+    id: system_validation
+    attributes:
+      label: System-Level Validation
+      description: How is the integrated system validated?
+      placeholder: "System-level metrics, coupled model benchmarks, conservation checks, climate performance indicators"
+
+  - type: textarea
+    id: known_coupled_issues
+    attributes:
+      label: Known Coupling Issues
+      description: Any known issues or limitations in the coupled system.
+      placeholder: "Drift problems, coupling artifacts, component imbalances, areas for improvement"
+
+  - type: textarea
+    id: references
+    attributes:
+      label: System Integration References
+      description: References specifically about the coupled system and integration approach.
+      placeholder: "Papers describing the coupling methodology, system validation studies, benchmarking results"

@@ -1,0 +1,134 @@
+{
+  "@context": {
+    "@vocab": "https://wcrp-cmip.org/emd/",
+    "emd": "https://wcrp-cmip.org/emd/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@type": "emd:DataOutput",
+  "@id": "https://mpimet.mpg.de/data/mpi-esm1-2-lr-historical-tas",
+  
+  "dcterms:title": "Near-Surface Air Temperature from MPI-ESM1.2-LR Historical Simulation",
+  "dcterms:description": "Monthly mean near-surface (2m) air temperature from the MPI-ESM1.2-LR CMIP6 historical simulation covering 1850-2014, processed through CMOR3 for CMIP6 compliance",
+  
+  "emd:associatedSimulationId": "https://mpimet.mpg.de/simulations/mpi-esm1-2-lr-historical-r1i1p1f1",
+  "emd:associatedModelName": "MPI-ESM1.2-LR",
+  "emd:associatedExperimentId": "historical",
+  
+  "emd:dataVariables": [
+    {
+      "@type": "emd:Variable",
+      "emd:variableName": "tas",
+      "emd:standardName": "air_temperature",
+      "emd:longName": "Near-Surface Air Temperature",
+      "emd:units": "K",
+      "emd:frequency": "mon",
+      "emd:realm": "atmos",
+      "emd:dimensions": ["time", "lat", "lon"],
+      "emd:cellMethods": "area: mean time: mean",
+      "emd:missingValue": 1e20,
+      "emd:validMin": 180.0,
+      "emd:validMax": 350.0,
+      "emd:positiveDirection": "none"
+    }
+  ],
+  
+  "emd:spatialCoverage": {
+    "@type": "dcterms:Location",
+    "emd:gridLabel": "gn",
+    "emd:nominalResolution": "250 km",
+    "emd:geographicExtent": {
+      "@type": "emd:BoundingBox",
+      "emd:westBoundLongitude": -180.0,
+      "emd:eastBoundLongitude": 180.0,
+      "emd:southBoundLatitude": -90.0,
+      "emd:northBoundLatitude": 90.0
+    },
+    "emd:verticalExtent": {
+      "@type": "emd:VerticalExtent",
+      "emd:minimumHeight": 2.0,
+      "emd:maximumHeight": 2.0,
+      "emd:verticalLevels": 1,
+      "emd:verticalUnits": "m",
+      "emd:verticalCoordinateType": "height"
+    },
+    "emd:gridSpecification": {
+      "@type": "emd:GridSpec",
+      "emd:gridType": "regular_lat_lon",
+      "emd:horizontalResolution": "T63 (1.875x1.875 degrees)",
+      "emd:numberOfGridCells": 18432,
+      "emd:gridMappingName": "latitude_longitude"
+    }
+  },
+  
+  "emd:temporalCoverage": {
+    "@type": "dcterms:PeriodOfTime",
+    "dcat:startDate": "1850-01-01",
+    "dcat:endDate": "2014-12-31",
+    "emd:timeSteps": 1980,
+    "emd:calendar": "gregorian",
+    "emd:timeResolution": "monthly"
+  },
+  
+  "emd:dataFormat": {
+    "@type": "dcterms:MediaType",
+    "emd:formatName": "netCDF",
+    "emd:formatVersion": "4",
+    "emd:compression": "deflate level 1",
+    "emd:chunkingStrategy": "time",
+    "emd:encodingConvention": "CF-1.7"
+  },
+  
+  "emd:dataVolume": {
+    "@type": "emd:DataSize",
+    "emd:totalSize": "825 MB",
+    "emd:numberOfFiles": 165,
+    "emd:averageFileSize": "5 MB",
+    "emd:fileNamingConvention": "tas_Amon_MPI-ESM1-2-LR_historical_r1i1p1f1_gn_185001-186912.nc"
+  },
+  
+  "emd:dataQuality": {
+    "@type": "emd:QualityInformation",
+    "emd:qualityFlag": "passed",
+    "emd:qualityControlProcedure": "CMOR3 compliance check, CF-1.7 standard compliance, ESMValTool QC suite",
+    "emd:qualityControlDate": "2018-06-25",
+    "emd:qualityControlVersion": "CMOR 3.4.0",
+    "emd:knownIssues": [],
+    "emd:corrections": []
+  },
+  
+  "emd:dataAccess": {
+    "@type": "dcat:Distribution",
+    "dcat:accessURL": "https://esgf-data.dkrz.de/search/cmip6-dkrz/",
+    "dcat:downloadURL": "https://esgf-data.dkrz.de/thredds/fileServer/cmip6/CMIP/MPI-M/MPI-ESM1-2-LR/historical/r1i1p1f1/Amon/tas/gn/",
+    "dcterms:license": "CC BY 4.0",
+    "emd:dataNode": "DKRZ ESGF Node",
+    "emd:accessProtocol": ["HTTPServer", "OPeNDAP"],
+    "emd:persistentIdentifier": {
+      "@type": "emd:PID",
+      "emd:identifierType": "DOI",
+      "emd:identifierValue": "10.22033/ESGF/CMIP6.6595"
+    }
+  },
+  
+  "emd:postProcessing": {
+    "@type": "emd:ProcessingInformation",
+    "emd:cmorVersion": "3.4.0",
+    "emd:processingDate": "2018-06-25",
+    "emd:processingLevel": "raw",
+    "emd:processingTools": ["CDO 1.9.5", "CMOR 3.4.0"],
+    "emd:processingScript": "https://gitlab.dkrz.de/cmip6/processing/tas_processing.sh",
+    "emd:interpolationMethod": "conservative"
+  },
+  
+  "prov:wasGeneratedBy": "https://mpimet.mpg.de/simulations/mpi-esm1-2-lr-historical-r1i1p1f1",
+  "prov:generatedAtTime": "2018-06-25T14:30:00Z",
+  "prov:wasAttributedTo": "Max Planck Institute for Meteorology",
+  
+  "emd:keywords": ["near-surface temperature", "CMIP6", "historical", "MPI-ESM"],
+  "emd:geospatialCoverage": "Global",
+  "emd:intendedUse": "Research",
+  "emd:usageNotes": "This data has been quality controlled for CMIP6 compliance. Users should note that the historical simulation includes both natural and anthropogenic forcings."
+}

@@ -1,0 +1,287 @@
+name: Top Level Model Submission
+description: Submit comprehensive metadata for the top-level model in the EMD form.
+title: "[EMD] Top Level Model Submission"
+labels: ["emd-submission", "top_level_model"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields for the **Top Level Model** documentation.
+        This captures the overall model identity, configuration, and capabilities.
+
+  # Model Identity Section
+  - type: markdown
+    attributes:
+      value: "## Model Identity"
+
+  - type: input
+    id: model_name
+    attributes:
+      label: Model Name
+      description: Full name of the Earth System Model or Climate Model.
+      placeholder: "e.g., Community Earth System Model, ICON Earth System Model"
+    validations:
+      required: true
+
+  - type: input
+    id: model_acronym
+    attributes:
+      label: Model Acronym
+      description: Standard acronym used to identify this model.
+      placeholder: "e.g., CESM2, ICON-ESM, UKESM1"
+    validations:
+      required: true
+
+  - type: input
+    id: model_version
+    attributes:
+      label: Model Version
+      description: Version number or identifier for this model release.
+      placeholder: "e.g., 2.1.3, version 1.0, release 2024"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: model_type
+    attributes:
+      label: Model Type
+      description: Primary classification of this model.
+      options:
+        - ESM (Earth System Model)
+        - GCM (General Circulation Model)
+        - AOGCM (Atmosphere-Ocean GCM)
+        - RCM (Regional Climate Model)
+        - EMIC (Earth System Model of Intermediate Complexity)
+        - Specialized Component Model
+    validations:
+      required: true
+
+  - type: dropdown
+    id: model_scope
+    attributes:
+      label: Model Scope
+      description: Spatial scope of the model domain.
+      options:
+        - Global
+        - Regional
+        - Local/Limited Area
+    validations:
+      required: true
+
+  - type: textarea
+    id: model_description
+    attributes:
+      label: Model Description
+      description: Comprehensive scientific overview of the model system.
+      placeholder: "Describe the model's purpose, scientific basis, key features, and typical applications."
+    validations:
+      required: true
+
+  # Institution Information
+  - type: markdown
+    attributes:
+      value: "## Institution Information"
+
+  - type: input
+    id: institution_name
+    attributes:
+      label: Institution Name
+      description: Full name of the primary modeling institution.
+      placeholder: "e.g., National Center for Atmospheric Research"
+    validations:
+      required: true
+
+  - type: input
+    id: institution_acronym
+    attributes:
+      label: Institution Acronym
+      description: Standard acronym for the institution.
+      placeholder: "e.g., NCAR, MPI-M, NOAA-GFDL"
+
+  - type: input
+    id: institution_country
+    attributes:
+      label: Institution Country
+      description: Country where the modeling center is located.
+      placeholder: "e.g., United States, Germany, United Kingdom"
+    validations:
+      required: true
+
+  - type: input
+    id: institution_url
+    attributes:
+      label: Institution Website
+      description: Official website URL for the modeling institution.
+      placeholder: "https://www.institution.org"
+
+  # Model Configuration
+  - type: markdown
+    attributes:
+      value: "## Model Configuration"
+
+  - type: dropdown
+    id: calendar
+    attributes:
+      label: Calendar Type
+      description: Calendar system used in model simulations.
+      options:
+        - Gregorian
+        - 360-day
+        - Julian
+        - No calendar
+      default: 0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: component_configuration
+    attributes:
+      label: Component Configuration
+      description: Select the implementation status of each component in your model.
+      options:
+        - label: Atmosphere (Dynamic)
+          required: false
+        - label: Atmosphere (Prescribed)
+          required: false
+        - label: Ocean (Dynamic)
+          required: false
+        - label: Ocean (Prescribed)
+          required: false
+        - label: Sea Ice (Dynamic)
+          required: false
+        - label: Sea Ice (Prescribed)
+          required: false
+        - label: Land Surface (Dynamic)
+          required: false
+        - label: Land Surface (Prescribed)
+          required: false
+        - label: Land Ice (Dynamic)
+          required: false
+        - label: Land Ice (Prescribed)
+          required: false
+        - label: Aerosol (Dynamic)
+          required: false
+        - label: Aerosol (Prescribed)
+          required: false
+        - label: Ocean Biogeochemistry (Dynamic)
+          required: false
+        - label: Ocean Biogeochemistry (Prescribed)
+          required: false
+        - label: Atmospheric Chemistry (Dynamic)
+          required: false
+        - label: Atmospheric Chemistry (Prescribed)
+          required: false
+        - label: Dynamic Vegetation
+          required: false
+        - label: Carbon Cycle
+          required: false
+        - label: Nitrogen Cycle
+          required: false
+
+  - type: input
+    id: coupler_name
+    attributes:
+      label: Coupler Name
+      description: Name and version of the coupling software used.
+      placeholder: "e.g., OASIS3-MCT v3.0, FMS Coupler, MCT 2.11"
+
+  # Model Capabilities
+  - type: markdown
+    attributes:
+      value: "## Model Capabilities"
+
+  - type: checkboxes
+    id: supported_experiments
+    attributes:
+      label: Supported CMIP Experiments
+      description: Select CMIP experiments this model can perform.
+      options:
+        - label: piControl (Pre-industrial control)
+        - label: historical (Historical simulations)
+        - label: 1pctCO2 (1% CO2 increase)
+        - label: abrupt-4xCO2 (Abrupt quadrupling)
+        - label: ssp126 (SSP1-2.6 scenario)
+        - label: ssp245 (SSP2-4.5 scenario)
+        - label: ssp370 (SSP3-7.0 scenario)
+        - label: ssp585 (SSP5-8.5 scenario)
+        - label: amip (AMIP runs)
+        - label: aqua-planet (Aqua-planet)
+        - label: idealized experiments
+
+  - type: textarea
+    id: typical_resolution
+    attributes:
+      label: Typical Resolution
+      description: Standard resolution configuration for this model.
+      placeholder: "e.g., ~100km atmosphere, ~1° ocean, T63L47 atmosphere, ORCA1L75 ocean"
+
+  - type: textarea
+    id: performance_metrics
+    attributes:
+      label: Performance Metrics
+      description: Computational performance characteristics.
+      placeholder: "e.g., 5 SYPD on 1000 cores, 500 core-hours per simulated year, scales to 10000 cores"
+
+  # Documentation and Support
+  - type: markdown
+    attributes:
+      value: "## Documentation and Support"
+
+  - type: input
+    id: model_website
+    attributes:
+      label: Model Website
+      description: Official website for model documentation and information.
+      placeholder: "https://www.model-website.org"
+
+  - type: input
+    id: user_guide_url
+    attributes:
+      label: User Guide URL
+      description: Link to comprehensive user documentation.
+      placeholder: "https://docs.model.org/user-guide"
+
+  - type: input
+    id: technical_docs_url
+    attributes:
+      label: Technical Documentation URL
+      description: Link to detailed technical documentation.
+      placeholder: "https://docs.model.org/technical"
+
+  - type: textarea
+    id: primary_references
+    attributes:
+      label: Primary Model References
+      description: Key papers describing the overall model system.
+      placeholder: "Include main model description papers with DOIs, fundamental reference papers, and overview publications."
+    validations:
+      required: true
+
+  - type: textarea
+    id: license_info
+    attributes:
+      label: License and Access Information
+      description: Information about model licensing and access procedures.
+      placeholder: "License type, access restrictions, registration requirements, citation requirements"
+
+  - type: textarea
+    id: model_lineage
+    attributes:
+      label: Model Lineage
+      description: Relationship to previous model versions or other models.
+      placeholder: "e.g., Based on CESM1.2, evolved from HadGEM2, uses NEMO v3.6 ocean component"
+
+  - type: textarea
+    id: development_history
+    attributes:
+      label: Development History
+      description: Brief history of model development and major milestones.
+      placeholder: "Key development phases, major upgrades, participation in MIP activities"
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Information
+      description: Any other relevant information about the model system.
+      placeholder: "Special features, experimental capabilities, ongoing development, community aspects"

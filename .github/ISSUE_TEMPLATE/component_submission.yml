@@ -1,0 +1,305 @@
+name: Model Component Submission
+description: Submit comprehensive metadata for a model component in the EMD form.
+title: "[EMD] Model Component Submission"
+labels: ["emd-submission", "component"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields to document a **Model Component**.
+        Complete as much detail as possible - some fields are optional but provide valuable documentation.
+
+  # Component Identity
+  - type: markdown
+    attributes:
+      value: "## Component Identity"
+
+  - type: dropdown
+    id: component_type
+    attributes:
+      label: Component Type
+      description: Select the type of component you are documenting.
+      options:
+        - Atmosphere
+        - Ocean
+        - Land Surface
+        - Sea Ice
+        - Land Ice
+        - Aerosol
+        - Ocean Biogeochemistry
+        - Atmospheric Chemistry
+    validations:
+      required: true
+
+  - type: input
+    id: component_name
+    attributes:
+      label: Component Name
+      description: Enter the specific name of this component.
+      placeholder: "e.g., ECHAM6.3, MPIOM, JSBACH, CICE5"
+    validations:
+      required: true
+
+  - type: input
+    id: component_version
+    attributes:
+      label: Component Version
+      description: Enter the version number of this component.
+      placeholder: "e.g., 6.3, v4.0, 2.1.5"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component_status
+    attributes:
+      label: Component Status
+      description: How is this component implemented in your model?
+      options:
+        - Dynamic (fully interactive/prognostic)
+        - Prescribed (using pre-determined data)
+        - Omitted (not included in this model)
+        - Embedded (included within another component)
+    validations:
+      required: true
+
+  # Scientific Description
+  - type: markdown
+    attributes:
+      value: "## Scientific Description"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Scientific Overview
+      description: Provide a comprehensive scientific overview of the component.
+      placeholder: "Describe the scientific basis, physical processes represented, mathematical formulation, and scope of this component."
+    validations:
+      required: true
+
+  - type: textarea
+    id: physics_schemes
+    attributes:
+      label: Physical Parameterizations
+      description: List and describe all physical schemes used in this component.
+      placeholder: |
+        For each scheme include:
+        - Scheme name and reference
+        - Key equations or approximations  
+        - Parameter values
+        - Tuning considerations
+        - Known limitations
+        
+        e.g., Radiation: RRTMG-SW/LW with 14/16 bands; Convection: Tiedtke-Nordeng mass flux; Clouds: Sundqvist prognostic
+
+  - type: textarea
+    id: prognostic_variables
+    attributes:
+      label: Prognostic Variables
+      description: List all prognostic (time-evolved) variables in this component.
+      placeholder: "e.g., temperature, velocity components, pressure, humidity, tracer concentrations, cloud water, cloud ice"
+
+  - type: textarea
+    id: diagnostic_variables
+    attributes:
+      label: Key Diagnostic Variables
+      description: List important diagnostic variables computed by this component.
+      placeholder: "e.g., heat fluxes, precipitation, cloud fraction, mixed layer depth, surface stress, radiative fluxes"
+
+  # Technical Specifications
+  - type: markdown
+    attributes:
+      value: "## Technical Specifications"
+
+  - type: textarea
+    id: grid_specification
+    attributes:
+      label: Grid and Coordinate System
+      description: Detailed specification of the computational grid and coordinates.
+      placeholder: |
+        Grid type: [spectral/finite-difference/finite-element/unstructured]
+        Horizontal: [resolution, grid points, e.g., T63 spectral (~1.875°), 192x96 points]
+        Vertical: [coordinate type, levels, boundaries, e.g., hybrid sigma-pressure, 47 levels, top at 0.01 hPa]
+        Staggering: [A-grid/B-grid/C-grid/Arakawa scheme]
+    validations:
+      required: true
+
+  - type: textarea
+    id: numerical_methods
+    attributes:
+      label: Numerical Methods
+      description: Describe numerical schemes and solution algorithms.
+      placeholder: |
+        Time integration: [explicit/implicit/semi-implicit scheme, order]
+        Spatial discretization: [finite difference/spectral/finite volume, order]
+        Advection scheme: [method, order, limiters]
+        Diffusion treatment: [scheme, coefficients, stability]
+
+  - type: textarea
+    id: temporal_discretization
+    attributes:
+      label: Time Stepping
+      description: Describe time stepping scheme and temporal discretization.
+      placeholder: "e.g., 450s physics timestep, 150s dynamics timestep, semi-implicit integration, leapfrog scheme with time filter"
+
+  - type: dropdown
+    id: calendar
+    attributes:
+      label: Calendar Type
+      description: Select the calendar used in this component.
+      options:
+        - Gregorian
+        - 360-day
+        - Julian
+        - No calendar
+      default: 0
+
+  - type: textarea
+    id: boundary_conditions
+    attributes:
+      label: Boundary Conditions
+      description: Specify boundary conditions and their treatment.
+      placeholder: |
+        Top boundary: [rigid lid/free surface/radiation condition/sponge layer]
+        Bottom boundary: [no-slip/free-slip/drag law/topographic coupling]
+        Lateral boundaries: [periodic/closed/open/nested]
+        Interface treatment: [flux specifications, interpolation methods]
+
+  - type: textarea
+    id: conservation_properties
+    attributes:
+      label: Conservation Properties
+      description: Describe what quantities are conserved and how.
+      placeholder: "e.g., Energy conservation: total energy conserved to machine precision; Mass conservation: global mass drift < 1e-14 kg/year; Momentum conservation: angular momentum conserved"
+
+  # Coupling and Integration
+  - type: markdown
+    attributes:
+      value: "## Coupling and Integration"
+
+  - type: textarea
+    id: coupling_details
+    attributes:
+      label: Coupling Details
+      description: Comprehensive description of coupling interfaces and exchange processes.
+      placeholder: |
+        Coupled to: [list other components]
+        Coupling frequency: [timesteps between exchanges]
+        Exchanged variables: [complete list with units]
+        Interpolation methods: [conservative/bilinear/nearest neighbor]
+        Flux adjustments: [any corrections applied]
+        Coordinate transformations: [grid transformations required]
+
+  - type: textarea
+    id: initialization
+    attributes:
+      label: Initialization and Restart
+      description: Describe initialization procedures and restart capabilities.
+      placeholder: "Initial conditions source, spin-up procedures, restart file formats, equilibration methods, cold start vs warm start capabilities"
+
+  # Performance and Quality
+  - type: markdown
+    attributes:
+      value: "## Performance and Quality"
+
+  - type: textarea
+    id: performance_characteristics
+    attributes:
+      label: Performance Characteristics
+      description: Document computational performance and scaling properties.
+      placeholder: |
+        Computational cost: [relative to other components, percentage of total]
+        Scaling efficiency: [weak/strong scaling limits, parallel efficiency curves]
+        Memory requirements: [per core/total, peak vs average usage]
+        Bottlenecks: [identified performance constraints, communication overhead]
+        Typical performance: [SYPD contribution, core-hours per simulated year]
+
+  - type: textarea
+    id: validation_metrics
+    attributes:
+      label: Validation and Metrics
+      description: Key metrics used to validate component performance.
+      placeholder: "Observational datasets used for validation, key performance metrics tracked, typical biases or model signatures, benchmark comparisons, skill scores"
+
+  - type: textarea
+    id: known_issues
+    attributes:
+      label: Known Issues and Limitations
+      description: Document known problems, limitations, or areas for improvement.
+      placeholder: "Known biases, numerical instabilities, parameter sensitivities, planned improvements, workarounds for known bugs, code limitations"
+
+  # Configuration and Parameters
+  - type: markdown
+    attributes:
+      value: "## Configuration and Parameters"
+
+  - type: textarea
+    id: key_parameters
+    attributes:
+      label: Key Tunable Parameters
+      description: List important tunable parameters and their typical values.
+      placeholder: |
+        Parameter name: value [units] - description
+        e.g., auto_conversion_coefficient: 4e-4 [1/s] - cloud-to-rain conversion rate
+        cloud_droplet_number: 40e6 [m^-3] - prescribed droplet concentration
+
+  - type: textarea
+    id: configuration_options
+    attributes:
+      label: Configuration Options
+      description: Available configuration options and compile-time switches.
+      placeholder: "Compile-time options, runtime switches, alternative physics packages, resolution variants, optional features"
+
+  # Documentation and References
+  - type: markdown
+    attributes:
+      value: "## Documentation and References"
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Comprehensive list of references for this component.
+      placeholder: "Include primary model papers, parameterization references, validation studies, and technical documentation with DOIs where available."
+    validations:
+      required: true
+
+  - type: input
+    id: documentation_url
+    attributes:
+      label: Component Documentation URL
+      description: Link to detailed component documentation (if available).
+      placeholder: "https://docs.model.org/components/atmosphere"
+
+  - type: input
+    id: source_code_url
+    attributes:
+      label: Source Code URL
+      description: Link to component source code (if publicly available).
+      placeholder: "https://github.com/institution/component-name"
+
+  # Additional Information
+  - type: markdown
+    attributes:
+      value: "## Additional Information"
+
+  - type: textarea
+    id: technical_notes
+    attributes:
+      label: Technical Implementation Notes
+      description: Additional technical details for model developers and advanced users.
+      placeholder: "Code structure, key subroutines, compilation requirements, platform-specific considerations, debugging tips, performance tuning advice"
+
+  - type: textarea
+    id: development_status
+    attributes:
+      label: Development Status and Future Plans
+      description: Current development status and planned improvements.
+      placeholder: "Active development areas, planned improvements, experimental features, deprecated functionality, roadmap items"
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other relevant information about this component.
+      placeholder: "Special configurations, experimental features, compatibility notes, community contributions, unique aspects"

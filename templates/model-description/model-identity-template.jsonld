@@ -1,0 +1,143 @@
+{
+  "@context": {
+    "@vocab": "https://wcrp-cmip.org/emd/",
+    "emd": "https://wcrp-cmip.org/emd/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "schema": "http://schema.org/"
+  },
+  "@type": "emd:ModelIdentity",
+  "@id": "https://[INSTITUTION_DOMAIN]/models/[MODEL_ID]",
+  
+  "emd:modelName": "[Full Model Name]",
+  "emd:modelVersion": "[X.Y.Z]",
+  "emd:modelAcronym": "[MODEL-ACRONYM]",
+  "emd:modelLineage": "[Previous model version or parent model]",
+  
+  "emd:institutionName": "[Full Institution Name]",
+  "emd:institutionAcronym": "[ACRONYM]",
+  "emd:institutionCountry": "[Country]",
+  "emd:institutionType": "[research|university|government|commercial]",
+  "emd:modelDevelopmentCenter": "[City, Country]",
+  "emd:institutionURL": "https://[institution.domain]",
+  
+  "dcterms:description": "[Comprehensive model description]",
+  "dcterms:created": "YYYY-MM-DD",
+  "dcterms:modified": "YYYY-MM-DD",
+  "emd:modelType": "[ESM|AOGCM|AGCM|OGCM]",
+  "emd:modelScope": "[global|regional]",
+  
+  "emd:componentSummary": {
+    "atmosphere": {
+      "componentName": "[Name]",
+      "componentVersion": "[Version]",
+      "resolution": "[Resolution]"
+    },
+    "ocean": {
+      "componentName": "[Name]",
+      "componentVersion": "[Version]",
+      "resolution": "[Resolution]"
+    },
+    "land": {
+      "componentName": "[Name]",
+      "componentVersion": "[Version]",
+      "resolution": "[Resolution]"
+    },
+    "seaIce": {
+      "componentName": "[Name]",
+      "componentVersion": "[Version]",
+      "resolution": "[Resolution]"
+    }
+  },
+  
+  "emd:modelWebsite": {
+    "@type": "schema:WebPage",
+    "schema:url": "https://[model.website]",
+    "schema:name": "[Model Official Website]",
+    "schema:description": "[Website description]"
+  },
+  
+  "emd:documentation": [
+    {
+      "@type": "emd:Documentation",
+      "emd:docType": "[technical|user_guide|scientific]",
+      "emd:docTitle": "[Document Title]",
+      "emd:docURL": "https://[document.url]",
+      "emd:docVersion": "[Version]",
+      "emd:docDate": "YYYY-MM-DD"
+    }
+  ],
+  
+  "emd:contacts": [
+    {
+      "@type": "foaf:Person",
+      "foaf:name": "[Full Name]",
+      "foaf:title": "[Job Title]",
+      "foaf:mbox": "[email@domain]",
+      "foaf:organization": "[Organization]",
+      "emd:contactRole": "[scientific_lead|technical_lead|data_manager]",
+      "emd:orcid": "[ORCID if available]"
+    }
+  ],
+  
+  "emd:developmentTeam": {
+    "@type": "prov:Agent",
+    "foaf:name": "[Team Name]",
+    "emd:teamSize": null,
+    "emd:fundingSources": [],
+    "prov:actedOnBehalfOf": "[Institution Name]"
+  },
+  
+  "emd:references": [
+    {
+      "@type": "dcterms:BibliographicResource",
+      "dcterms:title": "[Paper Title]",
+      "dcterms:creator": [],
+      "dcterms:date": "YYYY",
+      "dcterms:identifier": "https://doi.org/[DOI]",
+      "emd:referenceType": "[model_description|evaluation|technical]"
+    }
+  ],
+  
+  "emd:modelCapabilities": {
+    "@type": "emd:Capabilities",
+    "emd:supportedExperiments": [],
+    "emd:supportedMIPs": [],
+    "emd:interactiveComponents": [],
+    "emd:couplingCapabilities": []
+  },
+  
+  "emd:technicalSpecs": {
+    "@type": "emd:TechnicalDetails",
+    "emd:programmingLanguages": [],
+    "emd:parallelization": "[MPI|OpenMP|hybrid]",
+    "emd:operatingSystems": [],
+    "emd:hardwareRequirements": "[Minimum hardware specs]",
+    "emd:typicalPerformance": "[SYPD on reference system]"
+  },
+  
+  "emd:licensing": {
+    "@type": "emd:License",
+    "dcterms:license": "[License type]",
+    "emd:licenseURL": "https://[license.url]",
+    "emd:accessRestrictions": "[none|registration|agreement]",
+    "emd:citationRequirement": "[How to cite the model]"
+  },
+  
+  "emd:versionHistory": [
+    {
+      "@type": "emd:Version",
+      "emd:versionNumber": "[X.Y.Z]",
+      "emd:releaseDate": "YYYY-MM-DD",
+      "emd:majorChanges": [],
+      "emd:backwardCompatible": true
+    }
+  ],
+  
+  "prov:wasAttributedTo": {
+    "@type": "prov:Agent",
+    "foaf:name": "[Development Team Name]",
+    "prov:actedOnBehalfOf": "[Institution Name]"
+  }
+}

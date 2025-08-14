@@ -1,0 +1,224 @@
+name: Contact Information Submission
+description: Submit contact information and institutional details for the EMD form.
+title: "[EMD] Contact Information Submission"
+labels: ["emd-submission", "contact_information"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please provide contact information for key personnel associated with this model.
+        Include both scientific leads and technical contacts for each relevant area.
+
+  # Primary Model Contact
+  - type: markdown
+    attributes:
+      value: "## Primary Model Contact"
+
+  - type: input
+    id: primary_contact_name
+    attributes:
+      label: Primary Contact Name
+      description: Full name of the main model contact person.
+      placeholder: "Dr. Jane Smith"
+    validations:
+      required: true
+
+  - type: input
+    id: primary_contact_email
+    attributes:
+      label: Primary Contact Email
+      description: Email address for the primary model contact.
+      placeholder: "jane.smith@institution.org"
+    validations:
+      required: true
+
+  - type: input
+    id: primary_contact_orcid
+    attributes:
+      label: Primary Contact ORCID
+      description: ORCID identifier for the primary contact (if available).
+      placeholder: "0000-0000-0000-0000"
+
+  - type: input
+    id: primary_contact_title
+    attributes:
+      label: Primary Contact Title/Role
+      description: Professional title and role in model development.
+      placeholder: "Principal Scientist, Model Development Team Lead"
+
+  # Scientific Leads
+  - type: markdown
+    attributes:
+      value: "## Scientific Leadership"
+
+  - type: textarea
+    id: scientific_leads
+    attributes:
+      label: Scientific Leads by Component
+      description: List scientific leads for each model component.
+      placeholder: |
+        Atmosphere: Dr. A. Atmos (a.atmos@inst.org, ORCID: 0000-0000-0000-0001)
+        Ocean: Dr. O. Ocean (o.ocean@inst.org, ORCID: 0000-0000-0000-0002)
+        Land: Dr. L. Land (l.land@inst.org, ORCID: 0000-0000-0000-0003)
+
+  # Technical Contacts
+  - type: markdown
+    attributes:
+      value: "## Technical Support"
+
+  - type: input
+    id: technical_contact_name
+    attributes:
+      label: Technical Support Contact
+      description: Name of primary technical support contact.
+      placeholder: "Dr. Tech Support"
+
+  - type: input
+    id: technical_contact_email
+    attributes:
+      label: Technical Support Email
+      description: Email for technical questions and support.
+      placeholder: "tech.support@institution.org"
+
+  - type: input
+    id: user_support_email
+    attributes:
+      label: User Support Email
+      description: General email for user questions and support.
+      placeholder: "model-help@institution.org"
+
+  # Development Team Information
+  - type: markdown
+    attributes:
+      value: "## Development Team"
+
+  - type: textarea
+    id: development_team
+    attributes:
+      label: Core Development Team
+      description: Key members of the model development team.
+      placeholder: |
+        List core developers with their roles:
+        - Dr. Developer 1 (Component Lead): atmosphere@inst.org
+        - Dr. Developer 2 (Coupling): coupling@inst.org
+        Format: Name (Role): email
+
+  - type: input
+    id: team_size
+    attributes:
+      label: Development Team Size
+      description: Approximate number of people in the core development team.
+      placeholder: "e.g., 15, 20-25, >50"
+
+  # Institutional Information
+  - type: markdown
+    attributes:
+      value: "## Institution Details"
+
+  - type: input
+    id: institution_full_name
+    attributes:
+      label: Institution Full Name
+      description: Complete official name of the modeling institution.
+      placeholder: "National Center for Atmospheric Research"
+    validations:
+      required: true
+
+  - type: input
+    id: institution_address
+    attributes:
+      label: Institution Address
+      description: Physical address of the modeling center.
+      placeholder: "1850 Table Mesa Drive, Boulder, CO 80305, USA"
+
+  - type: dropdown
+    id: institution_type
+    attributes:
+      label: Institution Type
+      description: Type of institution developing the model.
+      options:
+        - Research Institution
+        - University
+        - Government Agency
+        - National Laboratory
+        - Private Company
+        - International Organization
+        - Consortium
+    validations:
+      required: true
+
+  # Funding and Collaboration
+  - type: markdown
+    attributes:
+      value: "## Funding and Collaboration"
+
+  - type: textarea
+    id: funding_sources
+    attributes:
+      label: Primary Funding Sources
+      description: Main funding agencies or sources supporting model development.
+      placeholder: "e.g., National Science Foundation, Department of Energy, European Commission Horizon 2020"
+
+  - type: textarea
+    id: collaborating_institutions
+    attributes:
+      label: Collaborating Institutions
+      description: Other institutions involved in model development or maintenance.
+      placeholder: "List partner institutions and their roles in model development"
+
+  # Community and Access
+  - type: markdown
+    attributes:
+      value: "## Community Access"
+
+  - type: dropdown
+    id: model_availability
+    attributes:
+      label: Model Availability
+      description: How can the community access this model?
+      options:
+        - Fully Open Source
+        - Registration Required
+        - Licensed Access
+        - Restricted/Internal Only
+        - Available on Request
+        - Commercial License
+    validations:
+      required: true
+
+  - type: input
+    id: model_repository
+    attributes:
+      label: Code Repository
+      description: URL to source code repository (if publicly available).
+      placeholder: "https://github.com/institution/model-name"
+
+  - type: input
+    id: documentation_portal
+    attributes:
+      label: Documentation Portal
+      description: Main website for model documentation and resources.
+      placeholder: "https://model-docs.institution.org"
+
+  - type: textarea
+    id: user_community
+    attributes:
+      label: User Community Information
+      description: Information about the model user community and support.
+      placeholder: "User mailing lists, forums, workshops, training opportunities"
+
+  # Additional Information
+  - type: textarea
+    id: special_features
+    attributes:
+      label: Special Features
+      description: Unique capabilities or notable features of this model.
+      placeholder: "e.g., Interactive carbon cycle, high-resolution atmospheric chemistry, machine learning components"
+
+  - type: textarea
+    id: recent_developments
+    attributes:
+      label: Recent Developments
+      description: Recent major updates or developments in the model.
+      placeholder: "Major changes in the last 2-3 years, upcoming releases, significant improvements"

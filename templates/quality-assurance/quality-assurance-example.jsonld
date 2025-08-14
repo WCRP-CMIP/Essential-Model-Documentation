@@ -1,0 +1,327 @@
+{
+  "@context": {
+    "@vocab": "https://wcrp-cmip.org/emd/",
+    "emd": "https://wcrp-cmip.org/emd/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@type": "emd:QualityAssurance",
+  "@id": "https://mpimet.mpg.de/qa/mpi-esm1-2-lr-cmip6-qa",
+  
+  "emd:qaTitle": "MPI-ESM1.2-LR CMIP6 Quality Assurance Report",
+  "dcterms:description": "Comprehensive quality assurance testing for MPI-ESM1.2-LR CMIP6 simulations including validation against observations, performance benchmarks, conservation checks, and reproducibility tests",
+  
+  "emd:targetModelId": "https://mpimet.mpg.de/models/mpi-esm-1-2-lr",
+  "emd:targetModelName": "MPI-ESM1.2-LR",
+  
+  "emd:targetSimulationId": "https://mpimet.mpg.de/simulations/mpi-esm1-2-lr-historical-r1i1p1f1",
+  "emd:targetExperimentId": "historical",
+  
+  "emd:validationTests": [
+    {
+      "@type": "emd:ValidationTest",
+      "emd:testName": "Global Mean Surface Temperature",
+      "emd:testType": "climatology",
+      "emd:testDescription": "Validation of global mean surface temperature against observations",
+      "emd:testProcedure": "Calculate area-weighted global mean of tas, compute 30-year climatology for 1981-2010, compare with observational reference",
+      "emd:referenceDataset": "HadCRUT5.0.1.0",
+      "emd:referenceDatasetURL": "https://www.metoffice.gov.uk/hadobs/hadcrut5/",
+      "emd:testPeriod": {
+        "startDate": "1981-01-01",
+        "endDate": "2010-12-31"
+      },
+      "emd:testMetrics": [
+        {
+          "@type": "emd:Metric",
+          "emd:metricName": "bias",
+          "emd:metricValue": -0.12,
+          "emd:metricUnit": "K",
+          "emd:acceptanceThreshold": 0.5,
+          "emd:acceptanceRange": {
+            "min": -0.5,
+            "max": 0.5
+          }
+        },
+        {
+          "@type": "emd:Metric",
+          "emd:metricName": "RMSE",
+          "emd:metricValue": 0.85,
+          "emd:metricUnit": "K",
+          "emd:acceptanceThreshold": 1.0,
+          "emd:acceptanceRange": {
+            "min": 0,
+            "max": 1.0
+          }
+        }
+      ],
+      "emd:testResult": {
+        "@type": "emd:TestOutcome",
+        "emd:passed": true,
+        "emd:resultSummary": "Global mean temperature within acceptable range",
+        "emd:resultDetails": "Model shows slight cold bias of -0.12K but within CMIP6 model spread. RMSE of 0.85K indicates good agreement with observations",
+        "emd:confidenceLevel": "high"
+      }
+    },
+    {
+      "@type": "emd:ValidationTest",
+      "emd:testName": "ENSO Variability",
+      "emd:testType": "variability",
+      "emd:testDescription": "Validation of El Niño-Southern Oscillation amplitude and frequency",
+      "emd:testProcedure": "Calculate monthly SST anomalies in Niño3.4 region, detrend, compute standard deviation",
+      "emd:referenceDataset": "ERSSTv5",
+      "emd:referenceDatasetURL": "https://www.ncdc.noaa.gov/data-access/marineocean-data/ersst/",
+      "emd:testPeriod": {
+        "startDate": "1950-01-01",
+        "endDate": "2014-12-31"
+      },
+      "emd:testMetrics": [
+        {
+          "@type": "emd:Metric",
+          "emd:metricName": "Niño3.4 std dev",
+          "emd:metricValue": 0.88,
+          "emd:metricUnit": "K",
+          "emd:acceptanceThreshold": 0.2,
+          "emd:acceptanceRange": {
+            "min": 0.6,
+            "max": 1.0
+          }
+        }
+      ],
+      "emd:testResult": {
+        "@type": "emd:TestOutcome",
+        "emd:passed": true,
+        "emd:resultSummary": "ENSO variability well represented",
+        "emd:resultDetails": "Niño3.4 standard deviation of 0.88K is within 10% of observed value (0.81K), indicating realistic ENSO amplitude",
+        "emd:confidenceLevel": "high"
+      }
+    }
+  ],
+  
+  "emd:performanceTests": [
+    {
+      "@type": "emd:PerformanceTest",
+      "emd:testName": "Strong Scaling Test",
+      "emd:testDescription": "Parallel efficiency test with fixed problem size",
+      "emd:scalingType": "strong",
+      "emd:hardwarePlatform": "Bull/Atos Mistral at DKRZ, Intel Xeon E5-2680v3",
+      "emd:performanceMetrics": [
+        {
+          "@type": "emd:PerformanceMetric",
+          "emd:metricName": "speedup",
+          "emd:coreCount": 144,
+          "emd:nodeCount": 6,
+          "emd:metricValue": 1.0,
+          "emd:metricUnit": "relative",
+          "emd:theoreticalMaximum": 1.0
+        },
+        {
+          "@type": "emd:PerformanceMetric",
+          "emd:metricName": "speedup",
+          "emd:coreCount": 288,
+          "emd:nodeCount": 12,
+          "emd:metricValue": 1.85,
+          "emd:metricUnit": "relative",
+          "emd:theoreticalMaximum": 2.0
+        },
+        {
+          "@type": "emd:PerformanceMetric",
+          "emd:metricName": "speedup",
+          "emd:coreCount": 576,
+          "emd:nodeCount": 24,
+          "emd:metricValue": 3.2,
+          "emd:metricUnit": "relative",
+          "emd:theoreticalMaximum": 4.0
+        }
+      ],
+      "emd:bottlenecks": ["Ocean model communication", "I/O at high core counts"],
+      "emd:optimizationNotes": "Best performance achieved with 288-432 cores for this resolution"
+    }
+  ],
+  
+  "emd:conservationChecks": [
+    {
+      "@type": "emd:ConservationCheck",
+      "emd:conservedQuantity": "total_energy",
+      "emd:checkMethod": "Global integral of total energy (sensible + latent + potential + kinetic) computed every timestep",
+      "emd:checkFrequency": "every_timestep",
+      "emd:tolerance": 0.01,
+      "emd:toleranceType": "relative",
+      "emd:result": {
+        "@type": "emd:ConservationResult",
+        "emd:isConserved": true,
+        "emd:maxDeviation": 0.0023,
+        "emd:meanDeviation": 0.0008,
+        "emd:deviationUnit": "W/m²",
+        "emd:deviationLocation": "Polar regions during sea ice formation",
+        "emd:deviationTime": "Winter months"
+      }
+    },
+    {
+      "@type": "emd:ConservationCheck",
+      "emd:conservedQuantity": "total_water",
+      "emd:checkMethod": "Global water budget closure including atmosphere, ocean, land, and cryosphere",
+      "emd:checkFrequency": "monthly",
+      "emd:tolerance": 0.001,
+      "emd:toleranceType": "relative",
+      "emd:result": {
+        "@type": "emd:ConservationResult",
+        "emd:isConserved": true,
+        "emd:maxDeviation": 0.0008,
+        "emd:meanDeviation": 0.0003,
+        "emd:deviationUnit": "mm/year",
+        "emd:deviationLocation": "River mouths",
+        "emd:deviationTime": "During high discharge events"
+      }
+    }
+  ],
+  
+  "emd:reproducibilityTests": [
+    {
+      "@type": "emd:ReproducibilityTest",
+      "emd:testType": "bit-identical",
+      "emd:testDescription": "Bit-for-bit reproducibility with restart",
+      "emd:testConfiguration": {
+        "compilers": ["Intel 17.0.6"],
+        "platforms": ["Mistral"],
+        "parallelization": ["288 cores"]
+      },
+      "emd:isReproducible": true,
+      "emd:reproducibilityLevel": "bit-for-bit",
+      "emd:reproducibilityDetails": "Model produces identical results when restarted from saved state files",
+      "emd:deviationThreshold": 0.0
+    },
+    {
+      "@type": "emd:ReproducibilityTest",
+      "emd:testType": "compiler",
+      "emd:testDescription": "Reproducibility across compiler versions",
+      "emd:testConfiguration": {
+        "compilers": ["Intel 17.0.6", "Intel 18.0.5"],
+        "platforms": ["Mistral"],
+        "parallelization": ["288 cores"]
+      },
+      "emd:isReproducible": false,
+      "emd:reproducibilityLevel": "statistical",
+      "emd:reproducibilityDetails": "Small differences observed with Intel Compiler 18.0 vs 17.0 due to optimization differences, but climatology remains statistically identical",
+      "emd:deviationThreshold": 1e-10
+    }
+  ],
+  
+  "emd:numericalStability": {
+    "@type": "emd:StabilityAnalysis",
+    "emd:cflCondition": {
+      "satisfied": true,
+      "maxCFL": 0.85,
+      "criticalRegions": ["Steep topography", "High-latitude ocean"]
+    },
+    "emd:numericalNoise": {
+      "level": "low",
+      "sources": ["Spectral transforms", "Polar filtering"],
+      "mitigation": ["Conservative remapping", "Flux corrections"]
+    },
+    "emd:crashTests": {
+      "crashFrequency": 0.001,
+      "commonCauses": ["Extreme precipitation events", "Sea ice formation"],
+      "robustness": "high"
+    }
+  },
+  
+  "emd:dataComplianceChecks": {
+    "@type": "emd:ComplianceCheck",
+    "emd:standards": ["CF-1.7", "CMIP6", "CMOR3"],
+    "emd:checksPerformed": [
+      {
+        "standard": "CF-1.7",
+        "tool": "cf-checker 4.0.0",
+        "passed": true,
+        "issues": []
+      },
+      {
+        "standard": "CMIP6",
+        "tool": "PrePARE 2.3.1",
+        "passed": true,
+        "issues": []
+      },
+      {
+        "standard": "CMOR3",
+        "tool": "CMOR 3.4.0",
+        "passed": true,
+        "issues": []
+      }
+    ],
+    "emd:metadataCompleteness": 100.0,
+    "emd:formatCompliance": true
+  },
+  
+  "emd:knownIssues": [
+    {
+      "@type": "emd:Issue",
+      "emd:issueID": "ESM-2018-001",
+      "emd:issueDescription": "Slight warm bias in Southern Ocean SST",
+      "emd:issueSeverity": "minor",
+      "emd:issueStatus": "acknowledged",
+      "emd:issueWorkaround": "No workaround needed, bias within acceptable range",
+      "emd:affectedVariables": ["tos", "sos"],
+      "emd:affectedRegions": ["Southern Ocean 50S-65S"],
+      "emd:reportedDate": "2018-03-15",
+      "emd:fixedDate": null
+    },
+    {
+      "@type": "emd:Issue",
+      "emd:issueID": "ESM-2018-002",
+      "emd:issueDescription": "Occasional conservation violation during extreme precipitation",
+      "emd:issueSeverity": "minor",
+      "emd:issueStatus": "fixed",
+      "emd:issueWorkaround": "Implemented flux limiter in precipitation routine",
+      "emd:affectedVariables": ["pr", "evspsbl"],
+      "emd:affectedRegions": ["Tropical convergence zones"],
+      "emd:reportedDate": "2018-04-20",
+      "emd:fixedDate": "2018-05-15"
+    }
+  ],
+  
+  "emd:qaProcess": {
+    "@type": "emd:QAProcess",
+    "emd:qaVersion": "CMIP6 QA Protocol v1.0",
+    "emd:qaTools": [
+      {
+        "toolName": "ESMValTool",
+        "toolVersion": "2.0.0",
+        "toolPurpose": "Model evaluation and performance metrics"
+      },
+      {
+        "toolName": "CDO",
+        "toolVersion": "1.9.5",
+        "toolPurpose": "Data processing and analysis"
+      },
+      {
+        "toolName": "PrePARE",
+        "toolVersion": "2.3.1",
+        "toolPurpose": "CMIP6 compliance checking"
+      }
+    ],
+    "emd:qaFrequency": "continuous",
+    "emd:automationLevel": "semi-automated"
+  },
+  
+  "emd:qaReport": {
+    "@type": "emd:Report",
+    "emd:reportURL": "https://mpimet.mpg.de/reports/mpi-esm1-2-lr-qa-report.pdf",
+    "emd:reportFormat": "PDF",
+    "dcterms:created": "2018-07-15",
+    "emd:reportSections": ["Executive Summary", "Validation Results", "Performance Analysis", "Conservation Tests", "Reproducibility", "Known Issues"],
+    "emd:executiveSummary": "MPI-ESM1.2-LR passes all required CMIP6 quality assurance tests with minor known issues that do not affect scientific validity"
+  },
+  
+  "prov:wasAssociatedWith": {
+    "@type": "prov:Agent",
+    "foaf:name": "MPI-ESM QA Team",
+    "foaf:organization": "Max Planck Institute for Meteorology"
+  },
+  
+  "prov:generatedAtTime": "2018-07-15T12:00:00Z",
+  "prov:used": [
+    "https://pcmdi.llnl.gov/CMIP6/Guide/qa.html",
+    "https://www.esmvaltool.org/"
+  ]
+}
