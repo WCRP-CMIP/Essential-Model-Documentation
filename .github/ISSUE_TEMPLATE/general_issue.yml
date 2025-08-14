@@ -1,0 +1,181 @@
+name: General Issue
+description: Report bugs, ask questions, or suggest improvements
+title: "[EMD] Issue:"
+labels: ['question', 'general']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## General Issue
+        
+        Report bugs, ask questions, or suggest improvements to the EMD repository.
+        
+        > [!NOTE]
+        > For model/component/grid registrations, use the specific registration forms instead.
+        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue Type
+      description: |
+        The category of issue being reported.
+        
+        <details markdown="1">
+        <summary>Guidance</summary>
+        
+        **Issue category**
+        
+        - **Bug Report**: Something isn't working as expected
+        - **Feature Request**: New functionality or improvement
+        - **Question**: Need help understanding EMD
+        - **Documentation Issue**: Docs unclear or incomplete
+        - **Data Quality Issue**: Problem with existing entries
+        
+        </details>
+      options:
+        - "Not specified"
+        - "Bug Report"
+        - "Data Quality Issue"
+        - "Documentation Issue"
+        - "Feature Request"
+        - "Question"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected_areas
+    attributes:
+      multiple: true
+      label: Affected Areas
+      description: |
+        The parts of EMD that are affected by this issue. **Select multiple.**
+        
+        <details markdown="1">
+        <summary>Guidance</summary>
+        
+        **Affected parts of EMD**
+        
+        - **Grid Registration**: Stage 1-2 issues
+        - **Component Registration**: Stage 3 issues
+        - **Model Registration**: Stage 4 issues
+        - **Model Family**: Family registration issues
+        - **Documentation**: Docs, README, specification
+        - **Issue Templates**: Form problems
+        - **Workflows**: Automation, CI/CD issues
+        
+        </details>
+      options:
+        - "Component Registration"
+        - "Documentation"
+        - "Grid Registration"
+        - "Issue Templates"
+        - "Model Family"
+        - "Model Registration"
+        - "Other"
+        - "Workflows"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A clear description of the issue including what happened and what you expected.
+        
+        <details markdown="1">
+        <summary>Guidance</summary>
+        
+        **Issue details**
+        
+        **What to include:**
+        1. What happened or what you need
+        2. What you expected
+        3. Any error messages
+        
+        **For bugs:** Be specific about what went wrong
+        **For questions:** Explain your use case
+        **For features:** Describe why it would be useful
+        
+        </details>
+      placeholder: "1. What happened or what you need
+2. What you expected
+3. Any error messages"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        The steps needed to reproduce this issue for bugs.
+        
+        <details markdown="1">
+        <summary>Guidance</summary>
+        
+        **Reproduction steps** (bugs only)
+        
+        **What to include:**
+        1. Which form/page you used
+        2. What data you entered
+        3. What error you saw
+        
+        </details>
+      placeholder: "1. Go to...
+2. Enter...
+3. See error..."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: |
+        The urgency of this issue.
+        
+        <details markdown="1">
+        <summary>Guidance</summary>
+        
+        **Issue urgency**
+        
+        - **Low**: Minor inconvenience, workaround exists
+        - **Medium**: Impacts workflow but not blocking
+        - **High**: Blocking important work
+        - **Critical**: Data integrity or system-wide issue
+        
+        </details>
+      options:
+        - "Not specified"
+        - "Critical"
+        - "High"
+        - "Low"
+        - "Medium"
+      default: 0
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Issue Handling
+        
+        **After submission:**
+        - Issue will be triaged by maintainers
+        - You may be asked for clarification
+        - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Whether this is a new submission or a modification to an existing entry.
+      options:
+        - "Modify"
+        - "New"
+      default: 0
+    validations:
+      required: true

@@ -1,0 +1,58 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Reusable Components
+
+> [!TIP]
+> **Using a pre-registered component?** Select from the list below to auto-populate fields.
+>
+> NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` to refresh after selecting in order for the pre-filled links to update.
+
+<details>
+<summary>Pre-registered Model Components (must be opened in a new window)</summary>
+
+{prefill_links}
+
+</details>
+
+## Stage 3: Model Component
+
+This form has two sections:
+1. **Component Definition** — Registers the model component itself (name, type, description)
+2. **Grid Configuration** — Links the component to computational grids for use in a source_id registration
+
+[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
+
+> [!NOTE]
+> Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+
+---
+
+### Component Definition
+
+This section defines the model component that can be reused across multiple source_id and component-grid registrations.",none,false,,,
+2,dropdown,component,Component Type,The scientific domain that this component simulates.,component_type,true,,list_with_na,0
+3,input,name,Component Name,The official component name including version information.,none,true,NEMO v3.6,,
+4,dropdown,family,Component Family,The component family that this component belongs to.,component_family,false,,dict_keys,0
+5,textarea,description,Description,A scientific overview of the component including main processes and key physics.,none,true,"1. Main processes simulated
+2. Key physics/parameterizations
+3. Notable features of this version",,
+6,input,code_base,Code Repository,The URL to the source code repository or 'private' if not publicly available.,none,false,https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6,,
+7,textarea,reference_dois,Reference DOIs,The DOI URLs for publications describing this component.,none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
+8,markdown,grid_section,,"---
+
+### Grid Configuration
+
+This section links the component to computational grids, generating a composite configuration ID (e.g., `ocean_nemo-v3-6_c101_v103`) for use in Stage 4: Model (source_id) registration.
+
+**Prerequisites:** Horizontal grid ID (c###) from Stage 2a and/or Vertical grid ID (v###) from Stage 2b.",none,false,,,
+9,dropdown,horizontal_computational_grid,Horizontal Grid,The horizontal computational grid that this component uses.,horizontal_grid,true,,list_with_na,0
+10,dropdown,vertical_computational_grid,Vertical Grid,The vertical computational grid that this component uses.,vertical_grid,true,,list_with_na,0
+11,markdown,metadata_header,,"---
+
+## Issue Handling
+
+**After submission:**
+- Creates `model_component` and `component_config` entries
+- Config ID format: `<domain>_<component>_<c###>_<v###>`
+- Use the config ID in Stage 4 (Model)
+- [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
+12,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

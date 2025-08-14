@@ -1,0 +1,213 @@
+name: "Stage 2b: Vertical Computational Grid"
+description: Register vertical computational grid (Stage 2b of 4)
+title: "[EMD] Vertical Grid:"
+labels: ['emd-submission', 'vertical_computational_grid', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Stage 2b: Vertical Computational Grid
+        
+        Defines the vertical level structure for a model component.
+        
+        **Prerequisites:** None — can be submitted in parallel with Stage 2a.
+        
+        > [!NOTE]
+        > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+        
+        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50-rNWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DZtA0dE_JAyXNNhid1rfIldq1mxrVaj1mpZLatp1VvAvITt2n6l5RzAqNkNp9k4aNwa-CrTUKvstxoGpuBPGQ_zdi3r2m5_Ayb4HJE)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A brief characterization of this vertical grid including number of levels and coordinate type.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid characterization**
+        
+        Brief description of this vertical grid.
+        
+        **What to include:**
+        1. Number of levels
+        2. Coordinate type
+        3. Vertical extent
+        
+        **Examples:**
+        - '91-level hybrid sigma-pressure coordinate extending to 0.01 hPa'
+        - '75-level z-coordinate ocean grid from surface to 6000m'
+        - '14 soil layers from 0.01m to 12m depth'
+        
+        </details>
+      placeholder: "1. Number of levels
+2. Coordinate type
+3. Vertical extent"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: vertical_coordinate
+    attributes:
+      label: Coordinate Type
+      description: |
+        The vertical coordinate system used to define level positions.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Coordinate system**
+        
+        **Atmosphere:**
+        - **atmosphere-hybrid-height-coordinate**: Height-based with terrain following near surface
+        - **atmosphere-hybrid-sigma-pressure-coordinate**: Pressure-based with terrain following (most common)
+        - **atmosphere-sigma-coordinate**: Pure terrain-following
+        
+        **Ocean:**
+        - **depth**: Fixed depth levels (z-coordinate)
+        - **ocean-s-coordinate**: Stretched terrain-following
+        - **ocean-sigma-coordinate**: Pure terrain-following
+        - **ocean-sigma-z-coordinate**: Hybrid sigma near coast, z in deep ocean
+        
+        **Other:**
+        - **height**: Simple height coordinate (ice, snow)
+        - **land-ice-sigma-coordinate**: Ice sheet terrain-following
+        
+        See [CF Conventions](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#dimensionless-v-coord) for details.
+        
+        </details>
+      options:
+        - "Not specified"
+        - "air_potential_temperature"
+        - "air_pressure"
+        - "atmosphere_hybrid_height_coordinate"
+        - "atmosphere_hybrid_sigma_pressure_coordinate"
+        - "atmosphere_ln_pressure_coordinate"
+        - "atmosphere_sigma_coordinate"
+        - "atmosphere_sleve_coordinate"
+        - "depth"
+        - "geopotential_height"
+        - "height"
+        - "land_ice_sigma_coordinate"
+        - "ocean_double_sigma_coordinate"
+        - "ocean_s_coordinate"
+        - "ocean_s_coordinate_g1"
+        - "ocean_s_coordinate_g2"
+        - "ocean_sigma_coordinate"
+        - "ocean_sigma_z_coordinate"
+        - "sea_water_potential_temperature"
+        - "sea_water_pressure"
+        - "z*"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: n_z
+    attributes:
+      label: Number of Levels
+      description: |
+        The total number of vertical levels in the grid.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Number of vertical levels**
+        
+        Total grid cells in vertical.
+        
+        **Leave blank if:** Number varies (e.g., adaptive snow layers).
+        
+        </details>
+      placeholder: "91"
+
+  - type: input
+    id: top_layer_thickness
+    attributes:
+      label: Top Layer Thickness (m)
+      description: |
+        The thickness of the uppermost layer in metres.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Uppermost layer thickness** (metres)
+        
+        Typical values:
+        - Atmosphere: 10-100m
+        - Ocean surface: 1-10m
+        
+        Provide nominal value if thickness varies.
+        
+        </details>
+      placeholder: "2.0"
+
+  - type: input
+    id: bottom_layer_thickness
+    attributes:
+      label: Bottom Layer Thickness (m)
+      description: |
+        The thickness of the lowest layer in metres.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Lowest layer thickness** (metres)
+        
+        Typical values:
+        - Atmosphere near-surface: 10-50m
+        - Deep ocean: 100-500m
+        
+        **Leave blank if:** Layer is expandable (e.g., ice accumulation).
+        
+        </details>
+      placeholder: "25.0"
+
+  - type: input
+    id: total_thickness
+    attributes:
+      label: Total Thickness (m)
+      description: |
+        The total vertical extent of the grid in metres.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Total vertical extent** (metres)
+        
+        Typical values:
+        - Atmosphere: 30,000-85,000m (to stratosphere/mesosphere)
+        - Ocean: 5,000-6,000m
+        - Soil: 3-15m
+        
+        Provide nominal value if extent varies spatially.
+        
+        </details>
+      placeholder: "80000"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Issue Handling
+        
+        **After submission:**
+        - Creates `vertical_computational_grid` (v###)
+        - Use this ID with a c### in Stage 3 (Model Component)
+        - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Whether this is a new submission or a modification to an existing entry.
+      options:
+        - "Modify"
+        - "New"
+      default: 0
+    validations:
+      required: true

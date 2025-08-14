@@ -1,0 +1,13 @@
+{
+  "name": "Stage 2a: Horizontal Computational Grid",
+  "description": "Register horizontal computational grid (Stage 2a of 4)",
+  "title": "[EMD] Horizontal Grid:",
+  "labels": ["emd-submission", "horizontal_computational_grid", "Review"],
+  "issue_category": "horizontal_computational_grid",
+  "dropdown_title": "Detailed Guidance",
+  "field_guidance": {
+    "description": "**Grid characterization**\n\nBrief description of this computational grid.\n\n**What to include:**\n1. Arrangement type (e.g., Arakawa-C)\n2. Key properties (resolution, spectral truncation)\n3. Typical use (atmosphere, ocean, etc.)\n\n**Example:** 'Arakawa-C grid combining TL127 spectral Gaussian and 1.25°×0.9° regular lat-lon subgrids for atmospheric modelling.'",
+    "arrangement": "**Grid staggering pattern**\n\nDefines relative positions of mass and velocity variables.\n\n- **arakawa-a / unstaggered**: All variables at same location\n- **arakawa-b**: Velocities at cell corners\n- **arakawa-c**: U at east/west edges, V at north/south edges (common for ocean)\n- **arakawa-d**: U at north/south edges, V at east/west edges\n- **arakawa-e**: Mass at edge midpoints\n\n**Number of subgrids needed:**\n- Unstaggered/A: 1 subgrid\n- B: 2 subgrids (mass + corner velocity)\n- C/D: 2-3 subgrids (mass + edge velocities)",
+    "horizontal_subgrids": "**Subgrid references**\n\nList the s### IDs from Stage 1.\n\n**Format:** One ID per line\n\n**Example for Arakawa-C:**\n```\ns100\ns101\n```\nWhere s100 = mass variables, s101 = velocity variables.\n\nNumber of subgrids must match your arrangement type."
+  }
+}

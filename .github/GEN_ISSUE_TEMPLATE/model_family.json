@@ -1,0 +1,20 @@
+{
+  "name": "Model Family Registration",
+  "description": "Register a model family for genealogy tracking",
+  "title": "[EMD] Model Family:",
+  "labels": ["emd-submission", "model_family", "Review"],
+  "issue_category": "model_family",
+  "dropdown_title": "Detailed Guidance",
+  "field_guidance": {
+    "name": "**Family identifier**\n\nShort name, often the first part of model names.\n\n**Examples:** HadGEM3, CESM, CNRM-CM, ACCESS, NEMO, CLM\n\n**Conventions:**\n- Use hyphens as separators\n- Typically: institution/project acronym + model type\n\nSee [Masson and Knutti (2011)](https://doi.org/10.1029/2011GL046864) for model genealogy examples.",
+    "family_type": "**Family classification**\n\nDetermines how this family is used in the workflow.\n\n**Earth System Model:**\n- Coupled models with multiple interacting components\n- Include atmosphere AND ocean/land-surface\n- Examples: CESM, HadGEM3, CNRM-CM, ACCESS, IPSL-CM\n- Referenced in Stage 4 (Model)\n\n**Component Family:**\n- Single scientific domain\n- May be coupled into larger systems\n- Examples: NEMO (ocean), CAM (atmosphere), CLM (land)\n- Referenced in Stage 3 (Model Component)",
+    "description": "**Family characterization**\n\n**What to include:**\n1. Scientific focus and approach\n2. Common code base and physics\n3. How family members differ (resolution, components, parameters)\n\n2-3 paragraphs typical.",
+    "primary_institution": "**Lead institution**\n\nInstitution primarily responsible for development and maintenance.",
+    "collaborative_institutions": "**Contributing institutions**\n\nOther institutions involved in development.\n\n**Leave empty if:** Single-institution project.",
+    "scientific_domains": "**Domains covered**\n\nAll domains covered by ANY member of this family.\n\n- aerosol, atmosphere, atmospheric-chemistry\n- land-ice, land-surface\n- ocean, ocean-biogeochemistry, sea-ice\n\nIndividual models may cover a subset.",
+    "established": "**Year established**\n\nWhen the family was first developed.\n\n**Leave blank if:** Unknown.",
+    "representative_member": "**Canonical configuration**\n\nA well-known member for quick reference.\n\n**Examples:** HadGEM3-GC31-LL, CESM2, CNRM-CM6-1",
+    "website": "**Documentation URL**\n\nOfficial website with family documentation, technical references, or code access.",
+    "reference_dois": "**Family-level publications**\n\nDOIs for papers describing the family as a whole.\n\n**Format:** `https://doi.org/...` (one per line)\n\n**Do NOT include:** Model-specific or component-specific papers."
+  }
+}

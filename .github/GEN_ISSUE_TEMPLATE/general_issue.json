@@ -1,0 +1,15 @@
+{
+  "name": "General Issue",
+  "description": "Report bugs, ask questions, or suggest improvements",
+  "title": "[EMD] Issue:",
+  "labels": ["question", "general"],
+  "issue_category": "general_issue",
+  "dropdown_title": "Guidance",
+  "field_guidance": {
+    "issue_type": "**Issue category**\n\n- **Bug Report**: Something isn't working as expected\n- **Feature Request**: New functionality or improvement\n- **Question**: Need help understanding EMD\n- **Documentation Issue**: Docs unclear or incomplete\n- **Data Quality Issue**: Problem with existing entries",
+    "affected_areas": "**Affected parts of EMD**\n\n- **Grid Registration**: Stage 1-2 issues\n- **Component Registration**: Stage 3 issues\n- **Model Registration**: Stage 4 issues\n- **Model Family**: Family registration issues\n- **Documentation**: Docs, README, specification\n- **Issue Templates**: Form problems\n- **Workflows**: Automation, CI/CD issues",
+    "description": "**Issue details**\n\n**What to include:**\n1. What happened or what you need\n2. What you expected\n3. Any error messages\n\n**For bugs:** Be specific about what went wrong\n**For questions:** Explain your use case\n**For features:** Describe why it would be useful",
+    "steps_to_reproduce": "**Reproduction steps** (bugs only)\n\n**What to include:**\n1. Which form/page you used\n2. What data you entered\n3. What error you saw",
+    "priority": "**Issue urgency**\n\n- **Low**: Minor inconvenience, workaround exists\n- **Medium**: Impacts workflow but not blocking\n- **High**: Blocking important work\n- **Critical**: Data integrity or system-wide issue"
+  }
+}
