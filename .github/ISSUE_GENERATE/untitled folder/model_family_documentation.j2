@@ -1,0 +1,62 @@
+name: Model Family Documentation
+description: Document a model family that encompasses multiple model configurations and components.
+title: "[EMD] Model Family Documentation"
+labels: ["emd-submission", "model_family"]
+body:
+  - type: markdown
+    attributes:
+      label: Instructions
+      description: Please fill out the following fields to document a **Model Family**.
+      value: |
+        Please fill out the following fields to document a **Model Family**.
+
+  - type: input
+    id: family_name
+    attributes:
+      label: Family Name
+      description: The name of the model family
+      placeholder: "e.g., HadGEM3, CESM"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family_type
+    attributes:
+      label: Family Type
+      description: Is this a family of complete models or individual components?
+      options:
+        - "Model Family (complete Earth system models)"
+        - "Component Family (individual model components)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: family_description
+    attributes:
+      label: Family Description
+      description: Scientific and technical overview of the family
+      placeholder: "Describe what defines this family."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family_license
+    attributes:
+      label: Family License
+      description: General licensing approach
+      options:
+{% for key in licenses.keys() %}
+        - "{{ key }}"
+{% endfor %}
+        - "Open Source"
+        - "Registration Required"
+        - "Proprietary"
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Primary Reference DOI
+      description: DOI for the primary family reference
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true

@@ -1,0 +1,17 @@
+{
+  "id": "ec-earth",
+  "validation-key": "EC-Earth",
+  "ui-label": "",
+  "description": "Community-developed Earth system model based on IFS",
+  "origin": "EC-Earth Consortium (EC-Earth Consortium)",
+  "permissible_realms": [
+    "atmos",
+    "land",
+    "ocean",
+    "seaice"
+  ],
+  "@context": "_context_",
+  "type": [
+    "wcrp:model-family"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "ukesm1",
+  "validation-key": "UKESM1",
+  "ui-label": "",
+  "description": "UK Earth System Model (based on HadGEM3)",
+  "origin": "Met Office Hadley Centre (Met Office Hadley Centre)",
+  "permissible_realms": [
+    "atmos",
+    "land",
+    "ocean",
+    "ocnbgchem"
+  ],
+  "@context": "_context_",
+  "type": [
+    "wcrp:model-family"
+  ]
+}

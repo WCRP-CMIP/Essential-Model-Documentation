@@ -1,0 +1,253 @@
+name: Model Component Submission
+description: Submit metadata for a model component as specified in the EMD specification.
+title: "[EMD] Model Component Submission"
+labels: ["emd-submission", "component"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields to document a **Model Component**.
+        All fields correspond directly to the Model Components section (Section 3) of the EMD specification.
+
+  - type: dropdown
+    id: component_process
+    attributes:
+      label: Component Process
+      description: Select the process that this model component simulates (from Model component process CV).
+      options:
+{% for key in realms.keys() %}
+        - "{{ key }}"
+{% endfor %}
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The name of the model component that simulated the process.
+      placeholder: "e.g., BISICLES-UKESM-ISMIP6, MOSES2, ECHAM6.3"
+    validations:
+      required: true
+
+  - type: input
+    id: family
+    attributes:
+      label: Family
+      description: The name of the family of models that the model component belongs to. Family components share code bases but may be configured differently.
+      placeholder: "e.g., BISICLES, CLM4, ECHAM"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A scientific overview of the model component. Summarize key processes simulated. Address easy-to-answer MIP-relevant questions using free text.
+      placeholder: |
+        Provide a scientific overview summarizing:
+        - Key processes simulated by this component
+        - Scientific basis and approach
+        - Easy-to-answer MIP-relevant questions such as:
+          • For aerosol: "Are aerosols driven by emissions or concentration?" "What is the aerosol activation scheme?"
+          • For atmosphere: "What convection scheme is used?" "How are clouds parameterized?"
+          • For ocean: "What mixing scheme is used?" "How is overflow parameterized?"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## References"
+
+  - type: markdown
+    attributes:
+      value: |
+        **Instructions:** Each reference must include both Citation and DOI. 
+        A DOI is required - if one doesn't exist, create one (e.g., with Zenodo).
+
+  - type: textarea
+    id: reference_1_citation
+    attributes:
+      label: Reference 1 - Citation
+      description: Human-readable citation for the primary component reference.
+      placeholder: "Author(s). (Year). Title. Journal/Report. DOI or URL"
+    validations:
+      required: true
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Reference 1 - DOI
+      description: The persistent identifier (DOI) for the primary component reference.
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference_2_citation
+    attributes:
+      label: Reference 2 - Citation (Optional)
+      description: Human-readable citation for additional component reference.
+      placeholder: "Additional reference citation (optional)"
+
+  - type: input
+    id: reference_2_doi
+    attributes:
+      label: Reference 2 - DOI (Optional)
+      description: DOI for additional component reference.
+      placeholder: "https://doi.org/..."
+
+  - type: input
+    id: code_base
+    attributes:
+      label: Code Base
+      description: A URL (preferably DOI) for the source code. Must identify specific point in repository history if version controlled. Set to "private" if not publicly available.
+      placeholder: "https://github.com/organization/repo/tree/v1.2.3 or https://doi.org/... or 'private'"
+
+  - type: checkboxes
+    id: embedded_in
+    attributes:
+      label: Embedded In
+      description: Select the model component(s) in which this component is embedded (omit if not applicable).
+      options:
+{% for key in realms.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
+
+  - type: checkboxes
+    id: coupled_with
+    attributes:
+      label: Coupled With
+      description: Select the model component(s) to which this component is coupled (omit if not applicable).
+      options:
+{% for key in realms.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
+
+  - type: markdown
+    attributes:
+      value: "## Native Horizontal Grid"
+
+  - type: dropdown
+    id: horizontal_same_as_component
+    attributes:
+      label: Same as Component (Horizontal)
+      description: If this component uses the same horizontal grid as another component, select it here. If set, no other horizontal grid properties are required.
+      options:
+        - "Not applicable"
+{% for key in realms.keys() %}
+        - "{{ key }}"
+{% endfor %}
+      default: 0
+
+  - type: dropdown
+    id: horizontal_descriptor
+    attributes:
+      label: Descriptor
+      description: Common-usage short description of horizontal type and resolution (from Native horizontal grid Descriptor CV).
+      options:
+        - "Not applicable"
+{% for descriptor in grid_descriptors %}
+        - "{{ descriptor }}"
+{% endfor %}
+      default: 0
+
+  - type: dropdown
+    id: horizontal_type
+    attributes:
+      label: Type
+      description: The horizontal grid type - method of distributing grid points over the sphere (from Native horizontal grid Type CV).
+      options:
+{% for grid_type in horizontal_grid_types %}
+        - "{{ grid_type.get('validation-key', grid_type.get('id', '')) }}"
+{% endfor %}
+
+  - type: dropdown
+    id: horizontal_grid_mapping
+    attributes:
+      label: Grid Mapping
+      description: The coordinate reference system of the horizontal coordinates (from Native horizontal grid Grid Mapping CV).
+      options:
+{% for mapping in grid_mappings %}
+        - "{{ mapping }}"
+{% endfor %}
+
+  - type: dropdown
+    id: horizontal_region
+    attributes:
+      label: Region
+      description: The portion of the globe where horizontal grid calculations are performed (from Native horizontal grid Region CV).
+      options:
+{% for region in horizontal_regions %}
+        - "{{ region.get('validation-key', region.get('id', '')) }}"
+{% endfor %}
+
+  - type: dropdown
+    id: horizontal_arrangement
+    attributes:
+      label: Arrangement
+      description: Grid arrangement of orthogonal physical quantities (from Native horizontal grid Arrangement CV).
+      options:
+        - "Not applicable"
+{% for arrangement in grid_arrangements %}
+        - "{{ arrangement }}"
+{% endfor %}
+      default: 0
+
+  - type: dropdown
+    id: horizontal_nominal_resolution
+    attributes:
+      label: Nominal Resolution
+      description: Nominal resolution that characterizes the grid resolution (from Native horizontal grid Nominal resolution CV).
+      options:
+{% for resolution in nominal_resolutions %}
+        - "{{ resolution }}"
+{% endfor %}
+
+  - type: markdown
+    attributes:
+      value: "## Native Vertical Grid"
+
+  - type: dropdown
+    id: vertical_same_as_component
+    attributes:
+      label: Same as Component (Vertical)
+      description: If this component uses the same vertical grid as another component, select it here. If set, no other vertical grid properties are required.
+      options:
+        - "Not applicable"
+{% for key in realms.keys() %}
+        - "{{ key }}"
+{% endfor %}
+      default: 0
+
+  - type: dropdown
+    id: vertical_coordinate
+    attributes:
+      label: Coordinate
+      description: The coordinate type of the vertical grid (from Native vertical grid Coordinate CV). Select "none" if no vertical dimension.
+      options:
+{% for coord in vertical_coordinates %}
+        - "{{ coord.get('validation-key', coord.get('id', '')) }}"
+{% endfor %}
+    validations:
+      required: true
+
+  - type: input
+    id: vertical_n_z
+    attributes:
+      label: N z
+      description: Number of grid cells in Z direction for mass-related quantities. Omit when not applicable or not constant.
+      placeholder: "e.g., 70"
+
+  - type: dropdown
+    id: vertical_units
+    attributes:
+      label: Units
+      description: Physical units of the Bottom layer thickness, Top layer thickness, and Top of Model values (from Native vertical grid Units CV).
+      options:
+        - "Not applicable"
+{% for unit in vertical_units %}
+        - "{{ unit.get('validation-key', unit.get('id', '')) }}"
+{% endfor %}
+      default: 0

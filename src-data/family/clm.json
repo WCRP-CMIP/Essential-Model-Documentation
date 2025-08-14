@@ -1,0 +1,60 @@
+{
+  "@context": "_context_",
+  "id": "clm",
+  "validation-key": "clm",
+  "ui-label": "CLM (Community Land Model)",
+  "name": "CLM",
+  "type": "Component Family (individual model components)",
+  "description": "The Community Land Model (CLM) family represents several aspects of the land surface including surface heterogeneity and consists of components or submodels related to land biogeophysics, the hydrologic cycle, biogeochemistry, human dimensions, and ecosystem dynamics. Spatial land surface heterogeneity in CLM is represented as a nested subgrid hierarchy in which grid cells are composed of multiple landunits, snow/soil columns, and PFTs. Each grid cell can have a different number of landunits, each landunit can have a different number of columns, and each column can have multiple PFTs.",
+  
+  "shared-code-base": "All CLM family members share the nested subgrid hierarchy architecture where biogeophysical processes are simulated for each subgrid landunit, column, and PFT independently. Each subgrid unit maintains its own prognostic variables. The same atmospheric forcing is used to force all subgrid units within a grid cell, and surface variables and fluxes required by the atmosphere are obtained by averaging the subgrid quantities weighted by their fractional areas.",
+  
+  "common-scientific-basis": "Common scientific approach across CLM family includes the nested subgrid representation of land surface heterogeneity, independent simulation of biogeophysical processes for each landunit/column/PFT combination, area-weighted averaging for atmosphere-land coupling, and consistent treatment of land biogeophysics, hydrology, biogeochemistry, and ecosystem dynamics.",
+  
+  "variation-dimensions": "CLM family members differ in: Version complexity and included processes (basic biogeophysics to full biogeochemistry), Number of soil layers (typically 5-15 layers), Vegetation representation (prescribed vs dynamic), Biogeochemical cycle complexity (carbon only vs full CNP), Spatial resolution capabilities, Coupling interface specifications for different atmospheric models, Parameter tuning for different applications.",
+  
+  "representative-member": "CLM4",
+  
+  "development-institution": "National Center for Atmospheric Research (NCAR)",
+  
+  "collaborating-institutions": "Development involves NCAR Climate and Global Dynamics Laboratory, contributions from Lawrence Berkeley National Laboratory, Pacific Northwest National Laboratory, and multiple university partners for specialized process development and validation.",
+  
+  "established": "1996",
+  
+  "evolution": "CLM family began as part of the Community Climate System Model development in the late 1990s. Evolution from simple land surface schemes to comprehensive terrestrial system models with progressive addition of biogeochemistry, dynamic vegetation, human dimensions, and enhanced process representations through versions CLM1 through CLM5 and beyond.",
+  
+  "programming-languages": "Fortran 90/95, Python",
+  
+  "software-dependencies": "NetCDF for I/O, MPI for parallelization when coupled, ESMF/MCT for coupling frameworks, standard mathematical libraries",
+  
+  "computational-requirements": "Typically embedded within atmospheric models, computational cost scales with subgrid complexity and number of PFTs. Memory requirements depend on subgrid hierarchy depth. Generally represents 10-25% of total coupled model computational cost.",
+  
+  "scientific-domains": [
+    "Land surface processes",
+    "Biogeochemical cycles",
+    "Hydrology", 
+    "Vegetation dynamics",
+    "Human dimensions"
+  ],
+  
+  "typical-applications": [
+    "Climate projections",
+    "Historical climate analysis",
+    "Process studies",
+    "Model intercomparison projects (MIPs)",
+    "Impact assessments",
+    "Educational purposes"
+  ],
+  
+  "website": "https://www.cesm.ucar.edu/models/cesm2/land",
+  
+  "documentation": "https://escomp.github.io/ctsm-docs/",
+  
+  "source-code-repository": "https://github.com/ESCOMP/CTSM",
+  
+  "license": "Open Source",
+  
+  "reference-1-doi": "https://doi.org/10.5065/D6FB50WZ",
+  
+  "additional-notes": "CLM is embedded within atmospheric models and represents land surface processes through a sophisticated subgrid hierarchy. The reference provided is from the EMD PDF example: 'Oleson K, Lawrence D, Gordon B, Flanner M, Kluzek E, Peter J, Levis S, Swenson S, Thornton P, and Feddema J, Technical description of version 4.0 of the Community Land Model (CLM), 2010, http://www.cesm.ucar.edu/models/cesm1.0/clm/CLM4_Tech_Note.pdf, 2023'. Vegetated, wetland, and glacier landunits have 15 vertical layers. Lakes have 10 layers. Snow can have up to 5 layers."
+}

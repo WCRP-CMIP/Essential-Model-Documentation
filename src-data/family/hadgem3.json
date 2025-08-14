@@ -1,0 +1,65 @@
+{
+  "@context": "_context_",
+  "id": "hadgem3",
+  "validation-key": "hadgem3",
+  "ui-label": "HadGEM3 (Hadley Centre Global Environmental Model version 3)",
+  "name": "HadGEM3",
+  "type": "Model Family (complete Earth system models)",
+  "description": "HadGEM3 is a family of Met Office Hadley Centre climate models that form the basis for UK Earth system modeling activities. The family shares the Unified Model atmosphere, NEMO ocean model, CICE sea ice model, and JULES land surface model as core components, but members differ in resolution, component coupling configurations, and specific scientific enhancements. HadGEM3 family models are designed for weather prediction through climate projection timescales.",
+  
+  "shared-code-base": "All HadGEM3 family members share: Unified Model (UM) atmospheric component with semi-Lagrangian advection and semi-implicit time stepping, NEMO ocean general circulation model, CICE sea ice model, JULES land surface model, OASIS coupler for component integration. Common build system, shared physics parameterizations, and consistent coupling methodology across family members.",
+  
+  "common-scientific-basis": "Shared scientific approach includes: Non-hydrostatic atmospheric dynamics with terrain-following hybrid height coordinates, Primitive equation ocean dynamics with split-explicit time stepping, Comprehensive land surface biogeophysics and biogeochemistry, Multi-category sea ice representation with elastic-viscous-plastic rheology, Consistent coupling methodology for flux exchanges between components.",
+  
+  "variation-dimensions": "HadGEM3 family members differ in: Horizontal resolution (from ~200km to ~25km atmosphere, ~100km to ~25km ocean), Atmospheric vertical levels (38-85 levels), Component selection (atmosphere-only vs fully coupled), Ocean biogeochemistry inclusion (simple vs MEDUSA), Atmospheric chemistry complexity (simple vs UKCA), Domain configuration (global vs regional variants), Parameter tuning optimized for specific resolutions and applications.",
+  
+  "representative-member": "HadGEM3-GC31-LL",
+  
+  "development-institution": "Met Office Hadley Centre",
+  
+  "collaborating-institutions": "Primary development at Met Office with significant contributions from: National Centre for Atmospheric Science (NCAS), Centre for Ecology and Hydrology (land surface), National Oceanography Centre (ocean processes), British Antarctic Survey (polar processes), University partners across the UK for specialized components and evaluation.",
+  
+  "established": "2009",
+  
+  "evolution": "HadGEM3 evolved from HadGEM1 and HadGEM2, incorporating lessons learned from CMIP3 and CMIP5 participation. Major developments include transition to NEMO ocean model, enhanced resolution capabilities, improved atmospheric physics, addition of Earth system components, and optimization for different timescale applications from weather to climate.",
+  
+  "programming-languages": "Fortran 90/95, C",
+  
+  "software-dependencies": "Unified Model build system, NEMO ocean model framework, CICE sea ice model, JULES land surface model, OASIS3-MCT coupler, NetCDF/HDF5 I/O libraries, MPI parallelization",
+  
+  "computational-requirements": "Resolution-dependent requirements ranging from 100s to 1000s of processor cores, typically 2-8 GB memory per core, performance ranges from 1-10 SYPD depending on resolution and component selection. Requires high-performance computing infrastructure with fast interconnects.",
+  
+  "scientific-domains": [
+    "Atmospheric dynamics",
+    "Ocean circulation",
+    "Land surface processes", 
+    "Sea ice dynamics",
+    "Biogeochemical cycles",
+    "Atmospheric chemistry",
+    "Weather prediction",
+    "Seasonal forecasting"
+  ],
+  
+  "typical-applications": [
+    "Climate projections",
+    "Historical climate analysis",
+    "Seasonal prediction",
+    "Decadal prediction", 
+    "Process studies",
+    "Model intercomparison projects (MIPs)",
+    "Impact assessments",
+    "Policy support"
+  ],
+  
+  "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model",
+  
+  "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+  
+  "source-code-repository": "https://code.metoffice.gov.uk/ (registration required)",
+  
+  "license": "Registration Required",
+  
+  "reference-1-doi": "https://doi.org/10.1029/2019MS001739",
+  
+  "additional-notes": "HadGEM3 family mentioned in EMD PDF as example of model family. The name HadGEM3-GC31-HH appears in EMD examples. Family includes both atmosphere-only configurations for weather prediction and fully coupled Earth system configurations for climate applications. Strong focus on seamless prediction across timescales from weather to climate."
+}

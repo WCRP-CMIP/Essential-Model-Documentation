@@ -1,0 +1,54 @@
+{
+  "@context": "_context_",
+  "id": "hadcm2",
+  "validation-key": "hadcm2",
+  "ui-label": "HadCM2 (Hadley Centre Coupled Model version 2)",
+  "name": "HadCM2",
+  "type": "Model Family (complete Earth system models)",
+  "description": "HadCM2 is an early family of Met Office Hadley Centre coupled climate models that established foundational approaches for UK climate modeling. The family represents atmosphere-ocean coupled models used for climate research and early climate projection studies, serving as predecessors to the more comprehensive HadGEM family of models.",
+  
+  "shared-code-base": "HadCM2 family members share common atmospheric and oceanic model components developed at the Met Office, with consistent coupling methodologies and shared physics parameterizations appropriate for the computational capabilities of the era.",
+  
+  "common-scientific-basis": "Common scientific approach based on primitive equation atmospheric and oceanic dynamics, consistent flux coupling between atmosphere and ocean components, and shared approaches to representing key climate processes within the computational constraints of early climate modeling.",
+  
+  "variation-dimensions": "HadCM2 family members differ in: Resolution configurations, Parameter tuning for different applications, Specific physics parameterization choices, Domain configurations (global vs regional), Experimental design optimizations for different research questions.",
+  
+  "representative-member": "HadCM2",
+  
+  "development-institution": "Met Office Hadley Centre",
+  
+  "collaborating-institutions": "Primary development at Met Office Hadley Centre with collaboration from UK academic institutions and international climate modeling centers for model evaluation and application.",
+  
+  "established": "1995",
+  
+  "evolution": "HadCM2 developed in the mid-1990s as part of early coupled climate modeling efforts, evolved through various configurations and improvements, and served as foundation for subsequent HadCM3 and eventually HadGEM model family development.",
+  
+  "programming-languages": "Fortran 77/90",
+  
+  "software-dependencies": "Standard numerical libraries appropriate for 1990s computing environments, basic I/O libraries, message passing libraries for parallel implementations",
+  
+  "computational-requirements": "Designed for computing capabilities of the 1990s, typically requiring 10s to 100s of processors for climate simulations, with memory and storage requirements modest by current standards but significant for the era.",
+  
+  "scientific-domains": [
+    "Atmospheric dynamics",
+    "Ocean circulation"
+  ],
+  
+  "typical-applications": [
+    "Climate projections",
+    "Historical climate analysis",
+    "Process studies"
+  ],
+  
+  "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+  
+  "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",
+  
+  "source-code-repository": "Historical - not publicly available",
+  
+  "license": "Proprietary",
+  
+  "reference-1-doi": "https://doi.org/10.1007/BF00208992",
+  
+  "additional-notes": "HadCM2 family mentioned in EMD PDF Section 2 as example of model family. This represents an early generation of coupled climate models that established many foundational approaches still used in modern climate modeling. Historical significance as one of the first widely-used coupled atmosphere-ocean climate models for IPCC assessments."
+}

@@ -1,0 +1,76 @@
+name: Top Level Model Submission
+description: Submit metadata for the top-level model properties as specified in the EMD specification.
+title: "[EMD] Top Level Model Submission"
+labels: ["emd-submission", "top_level_model"]
+body:
+  - type: markdown
+    attributes:
+      label: Instructions
+      description: Please fill out the following fields for the **Top Level Model**.
+      value: |
+        Please fill out the following fields for the **Top Level Model**.
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The name of the model
+      placeholder: "e.g., HadGEM3-GC31-HH, CESM2"
+    validations:
+      required: true
+
+  - type: input
+    id: family
+    attributes:
+      label: Family
+      description: The name of the model family
+      placeholder: "e.g., HadGEM3, CESM"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: components
+    attributes:
+      label: Components
+      description: Select the processes dynamically simulated
+      options:
+{% for key in realms.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Brief scientific overview of the model
+      placeholder: "Brief scientific overview of the model and its capabilities."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: calendar
+    attributes:
+      label: Calendar
+      description: The calendars that define permitted dates
+      options:
+{% for key in calendars.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
+
+  - type: input
+    id: release_year
+    attributes:
+      label: Release Year
+      description: Year when this model was released
+      placeholder: "e.g., 2019, 2023"
+    validations:
+      required: true
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Primary Reference DOI
+      description: DOI for the primary model reference
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true

@@ -1,0 +1,619 @@
+name: Model Component Submission
+description: Submit metadata for a model component as specified in the EMD specification.
+title: "[EMD] Model Component Submission"
+labels: ['emd-submission', 'component']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Model Component Documentation
+        
+        This template documents individual components of your climate model (atmosphere, ocean, land, etc.) as required for CMIP7 participation. Each component description enables traceability across different models, supports scientific evaluation, and is mandatory for publishing model data to ESGF. The information you provide helps the climate modeling community understand your component's scientific basis, track how components are shared between institutions, and ensure proper attribution in research studies.
+
+  - type: dropdown
+    id: component_process
+    attributes:
+      label: Component Process
+      description: |
+        Select the process that this model component simulates.
+        
+        From Model component process CV: aerosol, atmosphere, atmospheric chemistry, land surface, land ice, ocean, ocean biogeochemistry, sea ice
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: |
+        The name of the model component that simulated the process.
+        
+        E.g. BISICLES-UKESM-ISMIP6, MOSES2, ECHAM6.3
+      placeholder: "e.g., ECHAM6.3, NEMO3.6"
+    validations:
+      required: true
+
+  - type: input
+    id: family
+    attributes:
+      label: Family
+      description: |
+        The name of the family of models that the model component belongs to.
+        
+        Family components share code bases but may be configured differently (e.g. different resolutions, parameter choices).
+      placeholder: "e.g., ECHAM, NEMO, CLM"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A scientific overview of the model component.
+        
+        The description should summarise the key processes simulated by the model component.
+        
+        Easy-to-answer MIP-relevant questions may be addressed using free text, such as:
+        - For aerosol: 'Are aerosols driven by emissions or concentration?' 'What is the aerosol activation scheme?'
+        - For atmosphere: 'What convection scheme is used?' 'How are clouds parameterized?'
+        - For ocean: 'What mixing scheme is used?' 'How is overflow parameterized?'
+      placeholder: "Provide a scientific overview summarizing key processes simulated, scientific basis, and MIP-relevant details."
+    validations:
+      required: true
+
+  - type: input
+    id: reference_doi
+    attributes:
+      label: Reference 1 - DOI
+      description: |
+        The persistent identifier (DOI) for the primary component reference. You may enter multiple separated by a comma.
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true
+
+  - type: input
+    id: code_base
+    attributes:
+      label: Code Base
+      description: |
+        A URL (preferably DOI) for the source code.
+        
+        Must identify specific point in repository history if version controlled.
+        
+        Set to 'private' if not publicly available.
+      placeholder: "https://github.com/organization/repo/tree/v1.2.3 or 'private'"
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Embedded In
+      description: |
+        Select the model component(s) in which this component is embedded.
+        
+        Select all that apply.
+        
+        See section 3.1 for definition of embedded components.
+        
+        Omit if not applicable.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Coupled With
+      description: |
+        Select the model component(s) to which this component is coupled.
+        
+        Select all that apply.
+        
+        See section 3.1 for definition of coupled components.
+        
+        Omit if not applicable.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Native Horizontal Grid
+        
+        Standardised description of the model component's horizontal grid.
+
+  - type: dropdown
+    id: horizontal_same_as_component
+    attributes:
+      label: Same as Component (Horizontal)
+      description: |
+        If this component uses the same horizontal grid as another component, select it here.
+        
+        If set, no other horizontal grid properties are required.
+        
+        Most 'embedded in' component grids will share the same grid as their parent component.
+      options:
+        - "Not applicable"
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+      default: 0
+
+  - type: dropdown
+    id: horizontal_descriptor
+    attributes:
+      label: Descriptor
+      description: |
+        Common-usage short description of horizontal type and resolution.
+        
+        From Native horizontal grid Descriptor CV (e.g., N96, ORCA1, T63).
+      options:
+        - "Not applicable"
+        - "N48"
+        - "N96"
+        - "N216"
+        - "N512"
+        - "N1280"
+        - "ORCA2"
+        - "eORCA2"
+        - "ORCA1"
+        - "eORCA1"
+        - "ORCA025"
+        - "eORCA025"
+        - "ORCA012"
+        - "eORCA012"
+        - "T42"
+        - "T63"
+        - "T85"
+        - "T106"
+        - "T127"
+        - "T255"
+        - "TL95"
+        - "TL159"
+        - "TL255"
+        - "TL319"
+        - "TL511"
+        - "TL959"
+        - "TL1279"
+        - "Tco199"
+        - "Tco399"
+        - "R30"
+        - "C96"
+      default: 0
+
+  - type: dropdown
+    id: horizontal_type
+    attributes:
+      label: Type
+      description: |
+        The horizontal grid type - method of distributing grid points over the sphere.
+        
+        From Native horizontal grid Type CV.
+      options:
+        - "no-horizontal-grid"
+        - "cubed-sphere"
+        - "cubic-octahedral-spectral-reduced-gaussian"
+        - "displaced-pole"
+        - "icosahedral-geodesic-dual"
+        - "icosahedral-geodesic"
+        - "linear-spectral-gaussian"
+        - "no-grid"
+        - "plane-projection"
+        - "quadratic-spectral-gaussian"
+        - "reduced-gaussian"
+        - "regular-gaussian"
+        - "regular-latitude-longitude"
+        - "rotated-pole"
+        - "spectral-gaussian"
+        - "spectral-reduced-gaussian"
+        - "stretched"
+        - "tripolar"
+        - "unstructured-polygonal"
+        - "unstructured-triangular"
+        - "yin-yang"
+
+  - type: dropdown
+    id: horizontal_grid_mapping
+    attributes:
+      label: Grid Mapping
+      description: |
+        The coordinate reference system of the horizontal coordinates.
+        
+        From Native horizontal grid Grid Mapping CV (CF grid mapping names).
+      options:
+        - "albers_conical_equal_area"
+        - "azimuthal_equidistant"
+        - "geostationary"
+        - "lambert_azimuthal_equal_area"
+        - "lambert_conformal_conic"
+        - "lambert_cylindrical_equal_area"
+        - "latitude_longitude"
+        - "orthographic"
+        - "polar_stereographic"
+        - "rotated_latitude_longitude"
+        - "sinusoidal"
+        - "stereographic"
+        - "transverse_mercator"
+        - "vertical_perspective"
+
+  - type: dropdown
+    id: horizontal_region
+    attributes:
+      label: Region
+      description: |
+        The portion of the globe where horizontal grid calculations are performed.
+        
+        From Native horizontal grid Region CV.
+      options:
+        - "antarctica"
+        - "global"
+        - "greenland"
+        - "limited-area"
+
+  - type: dropdown
+    id: horizontal_temporal_refinement
+    attributes:
+      label: Temporal Refinement
+      description: |
+        How the distribution of grid cells varies with time.
+        
+        From Native horizontal grid Temporal refinement CV.
+      options:
+        - "adaptive"
+        - "dynamically-stretched"
+        - "static"
+
+  - type: dropdown
+    id: horizontal_arrangement
+    attributes:
+      label: Arrangement
+      description: |
+        Grid arrangement of orthogonal physical quantities (Arakawa grid).
+        
+        From Native horizontal grid Arrangement CV.
+      options:
+        - "Not applicable"
+        - "arakawa_A"
+        - "arakawa_B"
+        - "arakawa_C"
+        - "arakawa_D"
+        - "arakawa_E"
+      default: 0
+
+  - type: textarea
+    id: horizontal_description
+    attributes:
+      label: Grid Description (Optional)
+      description: |
+        Free-text description of the grid.
+        
+        Only required if there is information not covered by other properties.
+      placeholder: "Additional grid details if needed"
+
+  - type: input
+    id: horizontal_n_x
+    attributes:
+      label: N x
+      description: |
+        Number of grid cells in X direction for mass-related quantities.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 192"
+
+  - type: input
+    id: horizontal_n_y
+    attributes:
+      label: N y
+      description: |
+        Number of grid cells in Y direction for mass-related quantities.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 173"
+
+  - type: input
+    id: horizontal_n_xy
+    attributes:
+      label: N xy
+      description: |
+        Number of grid cells in horizontal plane for mass-related quantities.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 33216"
+
+  - type: input
+    id: horizontal_n_polygon
+    attributes:
+      label: N polygon
+      description: |
+        Number of primal polygons in an unstructured grid.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 265160"
+
+  - type: input
+    id: horizontal_n_side
+    attributes:
+      label: N side
+      description: |
+        Total number of unique primal cell sides (edges) in unstructured grid.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 714274"
+
+  - type: input
+    id: horizontal_n_vertex
+    attributes:
+      label: N vertex
+      description: |
+        Number of unique primal vertices (nodes) in unstructured grid.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 567145"
+
+  - type: dropdown
+    id: horizontal_truncation_method
+    attributes:
+      label: Truncation Method
+      description: |
+        Method for truncating spherical harmonic expansion of spectral grid.
+        
+        From Native horizontal grid Truncation method CV.
+        
+        Omit when not applicable.
+      options:
+        - "Not applicable"
+        - "triangular"
+        - "rhomboidal"
+      default: 0
+
+  - type: input
+    id: horizontal_truncation_number
+    attributes:
+      label: Truncation Number
+      description: |
+        Zonal (east-west) wave number at which spectral grid is truncated.
+        
+        Omit when not applicable.
+      placeholder: "e.g., 63"
+
+  - type: input
+    id: horizontal_resolution_range_km
+    attributes:
+      label: Resolution Range (km)
+      description: |
+        Minimum and maximum resolution in km (to 3 significant figures).
+        
+        Calculated as min/max values of dmax from CMIP6 metadata specifications.
+        
+        Format: min, max
+      placeholder: "e.g., 57.0, 290"
+
+  - type: input
+    id: horizontal_mean_resolution_km
+    attributes:
+      label: Mean Resolution (km)
+      description: |
+        Mean resolution in km (to 3 significant figures) of the native grid.
+        
+        Calculated as mean of dmax values from CMIP6 metadata specifications.
+      placeholder: "e.g., 234"
+
+  - type: dropdown
+    id: horizontal_nominal_resolution
+    attributes:
+      label: Nominal Resolution
+      description: |
+        Nominal resolution in km that characterises the grid resolution.
+        
+        Calculated using CMIP6 metadata specifications procedure.
+        
+        From Native horizontal grid Nominal resolution CV.
+      options:
+        - "0.5 km"
+        - "10000 km"
+        - "1000 km"
+        - "100 km"
+        - "10 km"
+        - "1 km"
+        - "1x1 degree"
+        - "2.5 km"
+        - "2500 km"
+        - "250 km"
+        - "25 km"
+        - "5000 km"
+        - "500 km"
+        - "50 km"
+        - "5 km"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Native Vertical Grid
+        
+        Standardised description of the model component's vertical grid.
+
+  - type: dropdown
+    id: vertical_same_as_component
+    attributes:
+      label: Same as Component (Vertical)
+      description: |
+        If this component uses the same vertical grid as another component, select it here.
+        
+        If set, no other vertical grid properties are required.
+      options:
+        - "Not applicable"
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+      default: 0
+
+  - type: dropdown
+    id: vertical_coordinate
+    attributes:
+      label: Coordinate
+      description: |
+        The coordinate type of the vertical grid.
+        
+        From Native vertical grid Coordinate CV.
+        
+        Select 'none' if no vertical dimension.
+      options:
+        - "no-vertical-grid"
+        - "air-potential-temperature"
+        - "air-pressure"
+        - "atmosphere-hybrid-height-coordinate"
+        - "atmosphere-hybrid-sigma-pressure-coordinate"
+        - "atmosphere-ln-pressure-coordinate"
+        - "atmosphere-sigma-coordinate"
+        - "atmosphere-sleve-coordinate"
+        - "depth"
+        - "geopotential-height"
+        - "height"
+        - "ocean-double-sigma-coordinate"
+        - "ocean-s-coordinate-g1"
+        - "ocean-s-coordinate-g2"
+        - "ocean-s-coordinate"
+        - "ocean-sigma-coordinate"
+        - "ocean-sigma-z-coordinate"
+        - "sea-water-potential-temperature"
+        - "sea-water-pressure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: vertical_description
+    attributes:
+      label: Grid Description (Optional)
+      description: |
+        Free-text description of the vertical grid.
+        
+        Only required if there is information not covered by other properties.
+      placeholder: "Additional vertical grid details if needed"
+
+  - type: input
+    id: vertical_n_z
+    attributes:
+      label: N z
+      description: |
+        Number of grid cells in Z direction for mass-related quantities.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 70"
+
+  - type: input
+    id: vertical_n_z_range
+    attributes:
+      label: N z Range
+      description: |
+        For variable resolution grids: minimum and maximum number of Z grid cells.
+        
+        Omit if N z property has been set.
+        
+        Format: min, max
+      placeholder: "e.g., 5, 15"
+
+  - type: input
+    id: vertical_bottom_layer_thickness
+    attributes:
+      label: Bottom Layer Thickness
+      description: |
+        Thickness of bottom model layer for mass-related quantities.
+        
+        Report as dimensional quantity. Units given by Units property.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 10"
+
+  - type: input
+    id: vertical_top_layer_thickness
+    attributes:
+      label: Top Layer Thickness
+      description: |
+        Thickness of top model layer for mass-related quantities.
+        
+        Report as dimensional quantity. Units given by Units property.
+        
+        Omit when not applicable or not constant.
+      placeholder: "e.g., 10"
+
+  - type: input
+    id: vertical_top_of_model
+    attributes:
+      label: Top of Model
+      description: |
+        Value of upper boundary of top model layer.
+        
+        Relative to lower boundary of bottom layer or appropriate datum (e.g., mean sea level).
+        
+        Report as dimensional quantity. Units given by Units property.
+      placeholder: "e.g., 85003.5"
+
+  - type: dropdown
+    id: vertical_units
+    attributes:
+      label: Units
+      description: |
+        Physical units of Bottom layer thickness, Top layer thickness, and Top of Model values.
+        
+        From Native vertical grid Units CV.
+        
+        Omit when not applicable.
+      options:
+        - "K"
+        - "m"
+        - "Pa"
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "component"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
+    validations:
+      required: true

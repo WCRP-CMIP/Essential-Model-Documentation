@@ -1,0 +1,17 @@
+{
+  "id": "miroc",
+  "validation-key": "MIROC",
+  "ui-label": "",
+  "description": "Model for Interdisciplinary Research on Climate",
+  "origin": "JAMSTEC/AORI/NIES (Japan Agency for Marine-Earth Science and Technology/Atmosphere and Ocean Research Institute/National Institute for Environmental Studies)",
+  "permissible_realms": [
+    "atmos",
+    "land",
+    "ocean",
+    "seaice"
+  ],
+  "@context": "_context_",
+  "type": [
+    "wcrp:model-family"
+  ]
+}
