@@ -1,0 +1,17 @@
+{
+  "id": "ipsl-cm",
+  "validation-key": "IPSL-CM",
+  "ui-label": "",
+  "description": "Institut Pierre-Simon Laplace model",
+  "origin": "IPSL (Institut Pierre-Simon Laplace)",
+  "permissible_realms": [
+    "atmos",
+    "land",
+    "ocean",
+    "ocnbgchem"
+  ],
+  "@context": "_context_",
+  "type": [
+    "wcrp:model-family"
+  ]
+}

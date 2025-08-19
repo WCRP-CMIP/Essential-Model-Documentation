@@ -1,0 +1,17 @@
+{
+  "id": "icon",
+  "validation-key": "ICON",
+  "ui-label": "",
+  "description": "Icosahedral Nonhydrostatic model",
+  "origin": "DWD/MPI-M (Deutscher Wetterdienst/Max Planck Institute for Meteorology)",
+  "permissible_realms": [
+    "atmos",
+    "land",
+    "ocean",
+    "seaice"
+  ],
+  "@context": "_context_",
+  "type": [
+    "wcrp:model-family"
+  ]
+}

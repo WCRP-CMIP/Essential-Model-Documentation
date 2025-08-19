@@ -1,0 +1,107 @@
+name: Experiment Documentation 
+description: Submit metadata for a CMIP7 experiment configuration.
+title: "[EMD] Experiment Documentation"
+labels: ["emd-submission", "experiment"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields to document an **Experiment Configuration**.
+        This template follows the CMIP7 controlled vocabularies and experiment specifications.
+
+  - type: dropdown
+    id: experiment_id
+    attributes:
+      label: Experiment ID
+      description: Select the CMIP7 experiment identifier (from CMIP7-CVs experiment registry).
+      options:
+{%- for key in experiments.keys() %}
+        - {{ key }}
+{%- endfor %}
+    validations:
+      required: true
+
+  - type: dropdown
+    id: activity
+    attributes:
+      label: Activity/MIP
+      description: Select the primary MIP activity for this experiment (from CMIP7-CVs activity registry).
+      options:
+{%- for key in activities.keys() %}
+        - {{ key }}
+{%- endfor %}
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Experiment Tier
+      description: CMIP7 tier classification for this experiment.
+      options:
+        - "0"
+        - "1"
+        - "2" 
+        - "3"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: required_model_realms
+    attributes:
+      label: Required Model Realms
+      description: Select the model components/realms that are REQUIRED for this experiment.
+      options:
+{%- for key in source_types.keys() %}
+        - label: {{ key }}
+{%- endfor %}
+
+  - type: checkboxes
+    id: optional_model_realms
+    attributes:
+      label: Optional Model Realms
+      description: Select the model components/realms that are OPTIONAL for this experiment.
+      options:
+{%- for key in source_types.keys() %}
+        - label: {{ key }}
+{%- endfor %}
+
+  - type: input
+    id: minimum_years
+    attributes:
+      label: Minimum Number of Years
+      description: Minimum simulation length required for this experiment.
+      placeholder: "e.g., 30, 100, 150"
+
+  - type: input
+    id: start_date
+    attributes:
+      label: Start Date
+      description: Standard start date for this experiment (if applicable).
+      placeholder: "e.g., 1850-01-01, 1979-01-01, none"
+
+  - type: input
+    id: parent_experiment
+    attributes:
+      label: Parent Experiment
+      description: Parent experiment this branches from (if applicable).
+      placeholder: "e.g., piControl, historical, none"
+
+  - type: textarea
+    id: experiment_description
+    attributes:
+      label: Experiment Description
+      description: Detailed description of the experiment setup and scientific goals.
+      placeholder: "Provide a comprehensive description of the experiment configuration, forcing conditions, and scientific objectives."
+    validations:
+      required: true
+
+  - type: input
+    id: reference_doi
+    attributes:
+      label: Primary Reference DOI
+      description: DOI for the primary reference describing this experiment.
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true

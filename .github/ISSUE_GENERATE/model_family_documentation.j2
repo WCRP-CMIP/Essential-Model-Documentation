@@ -1,0 +1,99 @@
+name: Model Family Documentation
+description: Document a model family that encompasses multiple model configurations and components.
+title: "[EMD] Model Family Documentation"
+labels: ["emd-submission", "model_family"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields to document a **Model Family**.
+        
+        Model families are referenced in both EMD Model Properties and Component documentation.
+        A family represents models or components that share much of their code bases but may be 
+        configured in different ways (e.g. different resolutions, parameter choices, or component inclusion).
+        
+        **Examples of Model Families:** HadGEM3, CESM, ICON, MPI-ESM, CNRM-CM
+        **Examples of Component Families:** ECHAM, NEMO, JSBACH, CICE
+
+  - type: input
+    id: family_name
+    attributes:
+      label: Family Name
+      description: The name of the model or component family.
+      placeholder: "e.g., HadGEM3, CESM, ECHAM, NEMO"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family_type
+    attributes:
+      label: Family Type
+      description: Is this a family of complete models or individual components?
+      options:
+        - Model Family (complete Earth system models)
+        - Component Family (individual model components)
+    validations:
+      required: true
+
+  - type: textarea
+    id: family_description
+    attributes:
+      label: Family Description
+      description: Scientific and technical overview of what defines this family and what members share.
+      placeholder: "Describe the common scientific basis, shared code heritage, and what distinguishes this family from others. Explain what all family members have in common."
+    validations:
+      required: true
+
+  - type: input
+    id: representative_member
+    attributes:
+      label: Representative Family Member
+      description: Which family member best represents the typical or flagship configuration?
+      placeholder: "e.g., CESM2, HadGEM3-GC31-LL, ICON-ESM-LR"
+
+  - type: input
+    id: family_established
+    attributes:
+      label: Family Established
+      description: Year when this model family was first established or named.
+      placeholder: "e.g., 2008, 2015"
+
+  - type: dropdown
+    id: family_license
+    attributes:
+      label: Family License
+      description: General licensing approach for the family.
+      options:
+{%- for key in licenses.keys() %}
+        - {{ key }}
+{%- endfor %}
+        - Open Source
+        - Academic License
+        - Registration Required
+        - Commercial License
+        - Mixed/Component Dependent
+        - Proprietary
+
+  - type: input
+    id: source_code_repository
+    attributes:
+      label: Source Code Repository
+      description: Main repository for family source code (if publicly available).
+      placeholder: "https://github.com/organization/family-name"
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Primary Family Reference - DOI
+      description: DOI for the primary family reference.
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other relevant information about this model family.
+      placeholder: "Special characteristics, historical context, relationships with other families, community aspects"
