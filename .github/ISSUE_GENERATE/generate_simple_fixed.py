@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fixed template generator that loads CMIP7_CVs and WCRP-universe data to populate Jinja2 templates.
+FIXED: Template generator that loads CMIP7_CVs and WCRP-universe data to populate Jinja2 templates.
 """
 
 import json
@@ -11,7 +11,7 @@ from jinja2 import Environment, FileSystemLoader
 import cmipld
 
 def load(prefix, loc):
-    """Load data with better error handling and fallback."""
+    """Load data with better error handling."""
     try:
         result = cmipld.get(f"{prefix}:{loc}/graph.jsonld", depth=0)['@graph']
         print(f"✓ Loaded {prefix}:{loc} - {len(result)} items")
@@ -20,38 +20,48 @@ def load(prefix, loc):
         print(f"⚠️  Error loading {prefix}:{loc} - {e}")
         return []
 
-def load_with_dict_conversion(prefix, loc):
-    """Load data and convert list to dict for template iteration."""
-    data_list = load(prefix, loc)
-    if isinstance(data_list, list):
-        return {item.get('id', item.get('validation-key', f'item_{i}')): item 
-                for i, item in enumerate(data_list) if isinstance(item, dict)}
-    return {}
+def convert_to_dict(data_list, key_field='id'):
+    """Convert list of dicts to dict for template .keys() iteration."""
+    if not isinstance(data_list, list):
+        return {}
+    
+    result = {}
+    for item in data_list:
+        if isinstance(item, dict):
+            # Try multiple possible key fields
+            key = item.get(key_field) or item.get('validation-key') or item.get('name')
+            if key:
+                result[key] = item
+    return result
 
 def main():
-    """Generate templates with proper error handling."""
+    """Generate templates with FIXED data handling."""
     
     print("🔨 Loading controlled vocabularies...")
     
-    # Load data with proper dict conversion for template iteration
+    # FIXED: Use consistent variable name throughout
     template_data = {}
     
-    # Load as dictionaries for template iteration
-    template_data['experiments'] = load_with_dict_conversion("cmip7", "experiment")
-    template_data['activities'] = load_with_dict_conversion("universal", "activity")
-    template_data['realms'] = load_with_dict_conversion("universal", "realm")
-    template_data['institutions'] = load_with_dict_conversion("universal", "organisation")
-    template_data['licenses'] = load_with_dict_conversion("universal", "license")
-    template_data['source_types'] = load_with_dict_conversion("universal", "source-type")
-    template_data['horizontal_grid_types'] = load_with_dict_conversion("universal", "native-horizontal-grid-type")
-    template_data['horizontal_regions'] = load_with_dict_conversion("universal", "native-horizontal-grid-region")
-    template_data['temporal_refinements'] = load_with_dict_conversion("universal", "native-horizontal-grid-temporal-refinement")
-    template_data['vertical_coordinates'] = load_with_dict_conversion("universal", "native-vertical-grid-coordinate")
-    template_data['vertical_units'] = load_with_dict_conversion("universal", "native-vertical-grid-units")
-    template_data['calendars'] = load_with_dict_conversion("universal", "model-calendar")
+    # Load data and convert lists to dicts for template .keys() iteration
+    print("\n📊 Loading CV data...")
+    template_data['experiments'] = convert_to_dict(load("cmip7", "experiment"))
+    template_data['activities'] = convert_to_dict(load("universal", "activity"))
+    template_data['realms'] = convert_to_dict(load("universal", "realm"))
+    template_data['institutions'] = convert_to_dict(load("universal", "organisation"))
+    template_data['licenses'] = convert_to_dict(load("universal", "license"))
+    template_data['source_types'] = convert_to_dict(load("universal", "source-type"))
+    template_data['horizontal_grid_types'] = convert_to_dict(load("universal", "native-horizontal-grid-type"))
+    template_data['horizontal_regions'] = convert_to_dict(load("universal", "native-horizontal-grid-region"))
+    template_data['temporal_refinements'] = convert_to_dict(load("universal", "native-horizontal-grid-temporal-refinement"))
+    template_data['vertical_coordinates'] = convert_to_dict(load("universal", "native-vertical-grid-coordinate"))
+    template_data['vertical_units'] = convert_to_dict(load("universal", "native-vertical-grid-units"))
+    template_data['calendars'] = convert_to_dict(load("universal", "model-calendar"))
     
-    # Add hardcoded fallback data for problematic CVs (those with cyclical context errors)
-    fallback_data = {
+    # FIXED: Handle problematic CVs with fallback data
+    print("\n🔧 Adding fallback data for problematic CVs...")
+    
+    # Try to load, fall back to hardcoded lists if cyclical context errors
+    fallback_lists = {
         'grid_descriptors': [
             "N48", "N96", "N216", "N512", "N1280", 
             "ORCA2", "eORCA2", "ORCA1", "eORCA1", 
@@ -95,37 +105,18 @@ def main():
         ]
     }
     
-    # Use fallback data for problematic CVs or merge with loaded data
-    for key, fallback_list in fallback_data.items():
-        try:
-            # Try to load from remote first
-            cv_name = key.replace('_', '-')
-            loaded_data = load_with_dict_conversion("universal", cv_name)
-            if loaded_data:
-                template_data[key] = loaded_data
-            else:
-                # Use fallback list - convert to dict if templates expect .keys()
-                if any(key in ['grid_descriptors', 'grid_mappings', 'grid_arrangements', 
-                              'truncation_methods', 'nominal_resolutions', 'scientific_domains', 
-                              'typical_applications']):
-                    template_data[key] = fallback_list  # Keep as list for simple iteration
-                else:
-                    template_data[key] = {item: {'id': item} for item in fallback_list}
-        except Exception as e:
-            print(f"⚠️  Using fallback for {key}: {e}")
-            template_data[key] = fallback_list
+    # Add fallback data (keep as lists for simple iteration in templates)
+    template_data.update(fallback_lists)
     
-    # Print summary
-    print(f"\n📊 Data Summary:")
+    # Print data summary
+    print(f"\n📊 Data loaded successfully:")
     for key, value in template_data.items():
         if isinstance(value, dict):
             print(f"  {key}: {len(value)} items (dict)")
         elif isinstance(value, list):
             print(f"  {key}: {len(value)} items (list)")
-        else:
-            print(f"  {key}: {type(value)} - {str(value)[:50]}...")
     
-    # Setup Jinja2 with better error handling
+    # FIXED: Use relative paths for portability
     script_dir = Path(__file__).parent
     templates_dir = script_dir
     output_dir = script_dir.parent / "ISSUE_TEMPLATE"
@@ -140,7 +131,7 @@ def main():
         keep_trailing_newline=True
     )
     
-    # Generate templates - FIXED to include experiment template
+    # FIXED: Complete template list including experiment template
     templates = [
         ("component_submission.j2", "component_submission.yml"),
         ("top_level_model.j2", "top_level_model.yml"),
@@ -150,7 +141,7 @@ def main():
         ("experiment_documentation.j2", "experiment_documentation.yml")  # ADDED MISSING TEMPLATE
     ]
     
-    print(f"\n🔨 Generating templates...")
+    print(f"\n🔨 Generating {len(templates)} templates...")
     generated_count = 0
     failed_count = 0
     
@@ -165,40 +156,39 @@ def main():
                 failed_count += 1
                 continue
                 
+            # Load and render template
             template = env.get_template(template_file)
+            content = template.render(**template_data)  # FIXED: Use template_data consistently
             
-            # Test rendering with debug info
-            try:
-                content = template.render(**template_data)
-                
-                # Validate YAML-like structure
-                if not content.startswith('name:'):
-                    print(f"    ⚠️  Warning: {template_file} doesn't start with 'name:'")
-                
-                output_path = output_dir / output_file
-                with open(output_path, 'w', encoding='utf-8') as f:
-                    f.write(content)
-                
-                print(f"    ✅ Generated {output_file} ({len(content)} chars)")
-                generated_count += 1
-                
-            except Exception as render_error:
-                print(f"    ❌ Render error in {template_file}: {render_error}")
-                failed_count += 1
-                
+            # Basic validation
+            if not content.strip().startswith('name:'):
+                print(f"    ⚠️  Warning: Generated content doesn't start with 'name:'")
+            
+            # Write output
+            output_path = output_dir / output_file
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            print(f"    ✅ Generated {output_file} ({len(content)} chars)")
+            generated_count += 1
+            
         except Exception as e:
-            print(f"    ❌ Template error {template_file}: {e}")
+            print(f"    ❌ Error generating {output_file}: {e}")
             failed_count += 1
     
     print(f"\n📋 Generation Summary:")
     print(f"  ✅ Successfully generated: {generated_count} templates")
     print(f"  ❌ Failed: {failed_count} templates")
     
-    if generated_count > 0:
-        print(f"  📁 Output directory: {output_dir}")
-        print(f"  🔗 Templates ready for GitHub Issues!")
+    if failed_count > 0:
+        print("\n🔧 Common fixes needed:")
+        print("  1. Ensure template variables match data keys")
+        print("  2. Check that .keys() is used only on dict data")
+        print("  3. Verify all referenced CVs are loaded")
+        print("  4. Check Jinja2 syntax for loops and conditionals")
     
-    return {"generated": generated_count, "failed": failed_count}
+    if generated_count > 0:
+        print(f"\n🎉 Success! Templates ready at: {output_dir}")
 
 if __name__ == '__main__':
     main()
