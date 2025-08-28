@@ -1,8 +1,0 @@
-field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,instructions,Instructions,"Please fill out this **example contact form**.\n\nThis demonstrates the universal template system.",none,false,,,
-2,input,name,Name,Your full name,none,true,"e.g., Jane Smith",,
-3,input,email,Email,Your email address,none,true,"e.g., jane@example.com",,
-4,dropdown,contact_type,Contact Type,What type of inquiry is this?,contact_types,true,,dict_keys,
-5,dropdown,contact_method,Preferred Contact Method,How would you like to be contacted?,contact_method,false,,hardcoded,
-6,dropdown,priority,Priority Level,How urgent is your inquiry?,priority_levels,false,,list,2
-7,textarea,message,Message,"Please describe your inquiry or question in detail.\n\nInclude any relevant background information.",none,true,"Enter your message here...",,

@@ -6,9 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please fill out the following fields for the **Top Level Model** as specified in the EMD specification.
+        # Document Your Complete Climate Model
         
-        All fields correspond directly to the Model Properties section (Section 2) of the EMD specification.
+        This form helps you describe your entire climate model - like giving it an ID card that shows what it can do. Every climate model participating in CMIP7 must have this documentation before it can share data with the global science community.
+        
+        This is important because it helps other scientists find and understand your model, compare it with other models, and know what experiments it can run. The form asks about the main parts of your model (like atmosphere and ocean) and when it was built.
+        
+        Once you fill this out, your model becomes part of the official CMIP7 catalog that researchers worldwide use to find the right models for their climate studies.
 
   - type: input
     id: name

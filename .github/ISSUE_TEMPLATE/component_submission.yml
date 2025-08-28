@@ -6,9 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please fill out the following fields to document a **Model Component** as specified in the EMD specification.
+        # Document Your Model Component
         
-        All fields correspond directly to the Model Components section (Section 3) of the EMD specification.
+        This form helps you describe a piece of your climate model - like the atmosphere part or ocean part. Think of it like writing a report card for each piece of your model so other scientists can understand how it works.
+        
+        You need to fill this out for CMIP7 because it helps everyone share and compare climate models fairly. Without this information, you cannot publish your model's data to the big climate database that scientists around the world use.
+        
+        The information you provide here gets used by other researchers to understand your model, compare it with other models, and make sure all the climate science is done properly.
 
   - type: dropdown
     id: component_process

@@ -6,9 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please fill out the following fields to document **Grid Properties**.
+        # Document Your Model Grid
         
-        This template captures grid specifications that can be referenced by model components.
+        This form helps you describe the grid that your climate model uses - think of it like describing the coordinate system or mesh that your model uses to divide up the Earth. Just like how a map has latitude and longitude lines, climate models need grids to organize their calculations.
+        
+        Documenting your grid is important because it helps other scientists understand how detailed your model is, what parts of the Earth it covers, and how the calculations are organized. Different types of grids are good for different things - some are better for global studies, others for regional details.
+        
+        This information gets used when scientists want to compare models, understand computational requirements, or combine results from different models that might use different grids.
 
   - type: input
     id: grid_name

@@ -6,7 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please fill out the following fields to document a **Model Family**.
+        # Document Your Model Family
+        
+        A model family is like a family of cars - they all share the same basic design but come in different versions. For example, Toyota makes different Camry models but they all share the same basic car design. Climate models work the same way.
+        
+        This form helps you describe the 'family' that your climate model belongs to. This is useful because it helps scientists understand which models are related to each other and share similar approaches to simulating climate. When you document components and complete models, you'll reference these families.
+        
+        The information helps researchers group and compare models that are scientifically related, track how model families evolve over time, and understand which institutions share modeling approaches.
 
   - type: input
     id: family_name
