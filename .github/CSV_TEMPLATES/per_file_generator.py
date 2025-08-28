@@ -104,11 +104,11 @@ def generate_field_yaml(field_def, data):
         yaml_lines.append(f"      placeholder: \"{placeholder}\"")
     
     # Handle options for dropdowns and checkboxes
-    if field_type in ['dropdown', 'checkboxes'] and data_source != 'none':
+    if field_type in ['dropdown', 'checkboxes']:
         yaml_lines.append("      options:")
         
         # Get data from the data dictionary
-        if data_source in data:
+        if data_source != 'none' and data_source in data:
             source_data = data[data_source]
             
             if options_type == 'dict_keys':
@@ -126,13 +126,23 @@ def generate_field_yaml(field_def, data):
                     for key in source_data.keys():
                         yaml_lines.append(f"        - label: \"{key}\"")
             
+            elif options_type == 'dict_with_extra':
+                # Add dictionary keys first
+                if isinstance(source_data, dict):
+                    for key in source_data.keys():
+                        yaml_lines.append(f"        - \"{key}\"")
+                # Add extra hardcoded options
+                yaml_lines.append("        - \"Open Source\"")
+                yaml_lines.append("        - \"Registration Required\"")
+                yaml_lines.append("        - \"Proprietary\"")
+            
             elif options_type == 'list_with_na':
                 yaml_lines.append("        - \"Not applicable\"")
                 if isinstance(source_data, list):
                     for item in source_data:
                         yaml_lines.append(f"        - \"{item}\"")
         
-        # Handle hardcoded options
+        # Handle hardcoded options when no data_source or data_source not found
         elif options_type == 'hardcoded':
             # Look for hardcoded data in the data dict
             hardcoded_key = f"{field_id}_options"
@@ -143,7 +153,11 @@ def generate_field_yaml(field_def, data):
         # Handle tier options
         elif options_type == 'tier_hardcoded':
             for tier in ['0', '1', '2', '3']:
-                yaml_lines.append(f"        - \"{tier}\"")
+                yaml_lines.append(f"        - \"{tier}\"") 
+        
+        # Remove the options: line if no options were added
+        if len([line for line in yaml_lines if line.startswith('        - ')]) == 0:
+            yaml_lines = [line for line in yaml_lines if not line.strip() == 'options:']
     
     # Add default value
     if default_value:

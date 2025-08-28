@@ -44,6 +44,11 @@ body:
     attributes:
       label: Experiment Tier
       description: CMIP7 tier classification
+      options:
+        - "0"
+        - "1"
+        - "2"
+        - "3"
     validations:
       required: true
 
