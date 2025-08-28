@@ -47,7 +47,7 @@ DATA = {
         'unstructured_triangular': {'id': 'unstructured_triangular', 'validation-key': 'unstructured_triangular'},
         'unstructured_polygonal': {'id': 'unstructured_polygonal', 'validation-key': 'unstructured_polygonal'},
         'plane_projection': {'id': 'plane_projection', 'validation-key': 'plane_projection'},
-        'none': {'id': 'none', 'validation-key': 'none'}
+        'not-applicable': {'id': 'not-applicable', 'validation-key': 'not-applicable'}
     },
     'grid_mappings': [
         'albers_conical_equal_area', 'azimuthal_equidistant', 'geostationary',
@@ -76,7 +76,7 @@ DATA = {
         '100 km', '250 km', '500 km', '1000 km', '2500 km', '5000 km', '10000 km'
     ],
     'vertical_coordinates': {
-        'none': {'id': 'none', 'validation-key': 'none'},
+        'no-vertical-grid': {'id': 'no-vertical-grid', 'validation-key': 'no-vertical-grid'},
         'height': {'id': 'height', 'validation-key': 'height'},
         'geopotential_height': {'id': 'geopotential_height', 'validation-key': 'geopotential_height'},
         'air_pressure': {'id': 'air_pressure', 'validation-key': 'air_pressure'},

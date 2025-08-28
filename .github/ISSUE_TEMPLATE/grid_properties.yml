@@ -111,7 +111,7 @@ body:
         - "unstructured_triangular"
         - "unstructured_polygonal"
         - "plane_projection"
-        - "none"
+        - "no-horizontal-grid"
     validations:
       required: true
 
@@ -282,7 +282,7 @@ body:
         
         Select 'none' if no vertical dimension.
       options:
-        - "none"
+        - "no-vertical-dimension"
         - "height"
         - "geopotential_height"
         - "air_pressure"

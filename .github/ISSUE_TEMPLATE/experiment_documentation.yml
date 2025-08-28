@@ -7,12 +7,17 @@ body:
     attributes:
       value: |
         Please fill out the following fields to document an **Experiment Configuration**.
+        
+        This template follows CMIP7 controlled vocabularies and experiment specifications.
 
   - type: dropdown
     id: experiment_id
     attributes:
       label: Experiment ID
-      description: Select the CMIP7 experiment identifier
+      description: |
+        Select the CMIP7 experiment identifier.
+        
+        From CMIP7-CVs experiment registry.
       options:
         - "piControl"
         - "historical"
@@ -28,7 +33,10 @@ body:
     id: activity
     attributes:
       label: Activity/MIP
-      description: Select the primary MIP activity
+      description: |
+        Select the primary MIP activity for this experiment.
+        
+        From CMIP7-CVs activity registry.
       options:
         - "CMIP"
         - "ScenarioMIP"
@@ -43,7 +51,13 @@ body:
     id: tier
     attributes:
       label: Experiment Tier
-      description: CMIP7 tier classification
+      description: |
+        CMIP7 tier classification for this experiment.
+        
+        - Tier 0: Flagship experiments
+        - Tier 1: High priority
+        - Tier 2: Standard priority
+        - Tier 3: Lower priority
       options:
         - "0"
         - "1"
@@ -56,7 +70,27 @@ body:
     id: required_model_realms
     attributes:
       label: Required Model Realms
-      description: Select the model components/realms REQUIRED
+      description: |
+        Select the model components/realms that are REQUIRED for this experiment.
+        
+        From source_type CV - indicates minimum model complexity needed.
+      options:
+        - label: "AOGCM"
+        - label: "AGCM"
+        - label: "OGCM"
+        - label: "ESM"
+        - label: "BGCM"
+        - label: "AER"
+        - label: "CHEM"
+
+  - type: checkboxes
+    id: optional_model_realms
+    attributes:
+      label: Optional Model Realms
+      description: |
+        Select the model components/realms that are OPTIONAL for this experiment.
+        
+        From source_type CV - indicates additional model capabilities that enhance the experiment.
       options:
         - label: "AOGCM"
         - label: "AGCM"
@@ -67,15 +101,60 @@ body:
         - label: "CHEM"
 
   - type: input
-    id: experiment_title
+    id: minimum_years
     attributes:
-      label: Experiment Title
+      label: Minimum Number of Years
       description: |
-        A short phrase that can help in interpreting the unique
-        experiment_id's.
+        Minimum simulation length required for this experiment.
         
-        As examples, the CMIP6 titles are listed [here](https://wcrp-cmip.github.io/CMIP6_CVs/docs/CMIP6_experiment_id.html) in the third column labeled "experiments".
-      placeholder: "e.g., AMIP plus 4K sea surface temperature"
+        Specified by the MIP protocol.
+      placeholder: "e.g., 30, 100, 150"
+
+  - type: input
+    id: start_date
+    attributes:
+      label: Start Date
+      description: |
+        Standard start date for this experiment (if applicable).
+        
+        Use YYYY-MM-DD format or 'none' for experiments without fixed start dates.
+      placeholder: "e.g., 1850-01-01, 1979-01-01, none"
+
+  - type: input
+    id: parent_experiment
+    attributes:
+      label: Parent Experiment
+      description: |
+        Parent experiment this branches from (if applicable).
+        
+        Specify the experiment_id this experiment uses as initial conditions.
+      placeholder: "e.g., piControl, historical, none"
+
+  - type: textarea
+    id: experiment_description
+    attributes:
+      label: Experiment Description
+      description: |
+        Detailed description of the experiment setup and scientific goals.
+        
+        Include:
+        - Forcing conditions and scenarios
+        - Scientific objectives and questions
+        - Relationship to other experiments
+        - Expected outcomes and applications
+      placeholder: "Provide a comprehensive description of the experiment configuration, forcing conditions, and scientific objectives."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference_citation
+    attributes:
+      label: Primary Reference Citation
+      description: |
+        Human-readable citation for the primary reference describing this experiment.
+        
+        Should cite the MIP protocol paper or experiment design document.
+      placeholder: "Author(s). (Year). Title. Journal. DOI"
     validations:
       required: true
 
@@ -83,7 +162,10 @@ body:
     id: reference_doi
     attributes:
       label: Primary Reference DOI
-      description: DOI for the primary reference
+      description: |
+        DOI for the primary reference describing this experiment.
+        
+        Typically the MIP protocol or experiment design paper.
       placeholder: "https://doi.org/..."
     validations:
       required: true

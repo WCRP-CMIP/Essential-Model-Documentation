@@ -28,6 +28,6 @@ DATA = {
         '360_day': {'id': '360_day', 'validation-key': '360_day'},
         '365_day': {'id': '365_day', 'validation-key': '365_day'},
         '366_day': {'id': '366_day', 'validation-key': '366_day'},
-        'none': {'id': 'none', 'validation-key': 'none'}
+        'no-calendar': {'id': 'no-calendar', 'validation-key': 'no-calendar'}
     }
 }

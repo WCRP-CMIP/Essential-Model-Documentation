@@ -249,7 +249,7 @@ body:
         - "unstructured_triangular"
         - "unstructured_polygonal"
         - "plane_projection"
-        - "none"
+        - "not-applicable"
 
   - type: dropdown
     id: horizontal_grid_mapping
@@ -495,7 +495,7 @@ body:
         
         Select 'none' if no vertical dimension.
       options:
-        - "none"
+        - "no-vertical-grid"
         - "height"
         - "geopotential_height"
         - "air_pressure"

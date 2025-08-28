@@ -47,7 +47,7 @@ DATA = {
         'unstructured_triangular': {'id': 'unstructured_triangular'},
         'unstructured_polygonal': {'id': 'unstructured_polygonal'},
         'plane_projection': {'id': 'plane_projection'},
-        'none': {'id': 'none'}
+        'no-horizontal-grid': {'id': 'no-horizontal-grid'}
     },
     'grid_mappings': [
         'albers_conical_equal_area', 'azimuthal_equidistant', 'geostationary',
@@ -75,7 +75,7 @@ DATA = {
         '100 km', '250 km', '500 km', '1000 km', '2500 km', '5000 km', '10000 km'
     ],
     'vertical_coordinates': {
-        'none': {'id': 'none'},
+        'no-vertical-dimension': {'id': 'no-vertical-dimension'},
         'height': {'id': 'height'},
         'geopotential_height': {'id': 'geopotential_height'},
         'air_pressure': {'id': 'air_pressure'},
