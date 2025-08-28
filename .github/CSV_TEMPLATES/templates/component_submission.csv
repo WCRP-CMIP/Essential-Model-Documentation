@@ -1,0 +1,10 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,instructions,Instructions,"Please fill out the following fields to document a **Model Component**.",none,false,,,
+2,dropdown,component_process,Component Process,Select the process that this model component simulates,realms,true,,dict_keys,
+3,input,name,Name,The name of the model component,none,true,"e.g., ECHAM6.3, NEMO3.6",,
+4,input,family,Family,The name of the component family,none,true,"e.g., ECHAM, NEMO",,
+5,textarea,description,Description,"Provide a comprehensive scientific overview including:\n\n- Key physical processes simulated\n- Numerical methods and algorithms used\n- Parameter settings and tuning approach\n- Known limitations and approximations",none,true,"Describe the scientific basis and implementation details of this component.",,
+6,input,code_base,Code Base,URL for source code or 'private' if not available,none,false,"https://github.com/org/repo or 'private'",,
+7,checkboxes,embedded_in,Embedded In,Select components this is embedded in (if applicable),realms,false,,dict_checkbox,
+8,dropdown,horizontal_descriptor,Horizontal Grid Descriptor,Grid descriptor (if applicable),grid_descriptors,false,,list_with_na,0
+9,input,reference_1_doi,Primary Reference DOI,DOI for the primary component reference,none,true,https://doi.org/...,,

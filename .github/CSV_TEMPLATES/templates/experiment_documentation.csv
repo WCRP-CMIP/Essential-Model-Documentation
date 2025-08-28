@@ -1,0 +1,8 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,instructions,Instructions,"Please fill out the following fields to document an **Experiment Configuration**.",none,false,,,
+2,dropdown,experiment_id,Experiment ID,Select the CMIP7 experiment identifier,experiments,true,,dict_keys,
+3,dropdown,activity,Activity/MIP,Select the primary MIP activity,activities,true,,dict_keys,
+4,dropdown,tier,Experiment Tier,CMIP7 tier classification,none,true,,tier_hardcoded,
+5,checkboxes,required_model_realms,Required Model Realms,Select the model components/realms REQUIRED,source_types,false,,dict_checkbox,
+6,input,experiment_title,Experiment Title,"A short phrase that can help in interpreting the unique\nexperiment_id's.\n\nAs examples, the CMIP6 titles are listed [here](https://wcrp-cmip.github.io/CMIP6_CVs/docs/CMIP6_experiment_id.html) in the third column labeled ""experiments"".",none,true,"e.g., AMIP plus 4K sea surface temperature",,
+7,input,reference_doi,Primary Reference DOI,DOI for the primary reference,none,true,https://doi.org/...,,

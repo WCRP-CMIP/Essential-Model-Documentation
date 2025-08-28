@@ -1,0 +1,78 @@
+name: Simple Contact Form
+description: A simple example contact form template.
+title: "[Example] Contact Form"
+labels: ['example', 'contact']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out this **example contact form**.
+        
+        This demonstrates the universal template system.
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Your full name
+      placeholder: "e.g., Jane Smith"
+    validations:
+      required: true
+
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: Your email address
+      placeholder: "e.g., jane@example.com"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contact_type
+    attributes:
+      label: Contact Type
+      description: What type of inquiry is this?
+      options:
+        # Generated from contact_types
+        - "technical"
+        - "scientific"
+        - "administrative"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contact_method
+    attributes:
+      label: Preferred Contact Method
+      description: How would you like to be contacted?
+      options:
+        - "Email"
+        - "Phone"
+        - "Video Call"
+        - "In Person"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How urgent is your inquiry?
+      options:
+        # Generated from priority_levels
+        - "Low"
+        - "Medium"
+        - "High"
+        - "Urgent"
+      default: 2
+
+  - type: textarea
+    id: message
+    attributes:
+      label: Message
+      description: |
+        Please describe your inquiry or question in detail.
+        
+        Include any relevant background information.
+      placeholder: "Enter your message here..."
+    validations:
+      required: true

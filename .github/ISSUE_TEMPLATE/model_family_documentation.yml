@@ -1,7 +1,7 @@
 name: Model Family Documentation
 description: Document a model family that encompasses multiple model configurations and components.
 title: "[EMD] Model Family Documentation"
-labels: ["emd-submission", "model_family"]
+labels: ['emd-submission', 'model_family']
 body:
   - type: markdown
     attributes:
@@ -32,7 +32,13 @@ body:
     id: family_description
     attributes:
       label: Family Description
-      description: Scientific and technical overview of the family
+      description: |
+        Scientific and technical overview of the family including:
+        
+        - Common scientific basis
+        - Shared code heritage
+        - What distinguishes this family
+        - What all family members have in common
       placeholder: "Describe what defines this family."
     validations:
       required: true
@@ -43,17 +49,11 @@ body:
       label: Family License
       description: General licensing approach
       options:
-
         - "CC0-1.0"
-
         - "CC-BY-4.0"
-
         - "MIT"
-
         - "GPL-3.0"
-
         - "Apache-2.0"
-
         - "Open Source"
         - "Registration Required"
         - "Proprietary"

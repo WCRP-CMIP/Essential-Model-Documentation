@@ -1,7 +1,7 @@
 name: Model Component Submission
 description: Submit metadata for a model component as specified in the EMD specification.
 title: "[EMD] Model Component Submission"
-labels: ["emd-submission", "component"]
+labels: ['emd-submission', 'component']
 body:
   - type: markdown
     attributes:
@@ -14,23 +14,15 @@ body:
       label: Component Process
       description: Select the process that this model component simulates
       options:
-
+        # Generated from realms
         - "atmos"
-
         - "ocean"
-
         - "land"
-
         - "seaice"
-
         - "ocnbgchem"
-
         - "landice"
-
         - "aerosol"
-
         - "atmoschem"
-
     validations:
       required: true
 
@@ -80,23 +72,15 @@ body:
       label: Embedded In
       description: Select components this is embedded in (if applicable)
       options:
-
+        # Generated from realms
         - label: "atmos"
-
         - label: "ocean"
-
         - label: "land"
-
         - label: "seaice"
-
         - label: "ocnbgchem"
-
         - label: "landice"
-
         - label: "aerosol"
-
         - label: "atmoschem"
-
 
   - type: dropdown
     id: horizontal_descriptor
@@ -105,65 +89,25 @@ body:
       description: Grid descriptor (if applicable)
       options:
         - "Not applicable"
-
         - "N48"
-
         - "N96"
-
         - "N216"
-
         - "N512"
-
         - "N1280"
-
         - "ORCA2"
-
         - "eORCA2"
-
         - "ORCA1"
-
         - "eORCA1"
-
         - "ORCA025"
-
         - "eORCA025"
-
         - "ORCA012"
-
         - "eORCA012"
-
         - "T42"
-
         - "T63"
-
         - "T85"
-
         - "T106"
-
         - "T127"
-
         - "T255"
-
-        - "TL95"
-
-        - "TL159"
-
-        - "TL255"
-
-        - "TL319"
-
-        - "TL511"
-
-        - "Tco199"
-
-        - "Tco399"
-
-        - "R30"
-
-        - "C96"
-
-        - "ne30np4"
-
       default: 0
 
   - type: input
