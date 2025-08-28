@@ -6,13 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        # Document Your Complete Climate Model
+        # Top Level Model Documentation
         
-        This form helps you describe your entire climate model - like giving it an ID card that shows what it can do. Every climate model participating in CMIP7 must have this documentation before it can share data with the global science community.
-        
-        This is important because it helps other scientists find and understand your model, compare it with other models, and know what experiments it can run. The form asks about the main parts of your model (like atmosphere and ocean) and when it was built.
-        
-        Once you fill this out, your model becomes part of the official CMIP7 catalog that researchers worldwide use to find the right models for their climate studies.
+        This template documents your complete climate model as required for CMIP7 participation and is mandatory for publishing datasets to ESGF. The documentation enables model discovery and comparison across institutions, provides essential context for interpreting model output, and supports automated validation workflows that ensure data quality and scientific reproducibility in the global climate research community.
 
   - type: input
     id: name

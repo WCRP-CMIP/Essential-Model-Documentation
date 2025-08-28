@@ -6,13 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        # Document Your Model Component
+        # Model Component Documentation
         
-        This form helps you describe a piece of your climate model - like the atmosphere part or ocean part. Think of it like writing a report card for each piece of your model so other scientists can understand how it works.
-        
-        You need to fill this out for CMIP7 because it helps everyone share and compare climate models fairly. Without this information, you cannot publish your model's data to the big climate database that scientists around the world use.
-        
-        The information you provide here gets used by other researchers to understand your model, compare it with other models, and make sure all the climate science is done properly.
+        This template documents individual components of your climate model (atmosphere, ocean, land, etc.) as required for CMIP7 participation. Each component description enables traceability across different models, supports scientific evaluation, and is mandatory for publishing model data to ESGF. The information you provide helps the climate modeling community understand your component's scientific basis, track how components are shared between institutions, and ensure proper attribution in research studies.
 
   - type: dropdown
     id: component_process

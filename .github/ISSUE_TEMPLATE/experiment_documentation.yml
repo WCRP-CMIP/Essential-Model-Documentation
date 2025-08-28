@@ -6,13 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        # Document Your Climate Experiment
+        # Experiment Configuration Documentation
         
-        This form helps you describe a climate experiment - like explaining the rules of a scientific test that climate models will run. Think of it like writing instructions for a recipe that all the world's climate modeling groups will follow to make sure they're all cooking the same dish.
-        
-        While this isn't required for basic CMIP7 participation like the model documentation, it's really helpful for organizing all the different climate experiments and making sure everyone runs them the same way. It helps coordinate between different research groups and makes sure the scientific results can be properly compared.
-        
-        The information gets used by modeling groups to understand how to set up and run the experiments, and by scientists to understand what the experiment results mean and how they should be interpreted.
+        This template documents CMIP7 experiment protocols and configurations to ensure consistent implementation across modeling groups and support scientific reproducibility. While not part of core EMD requirements, experiment documentation coordinates multi-institutional research efforts, validates protocol compliance, and provides essential metadata for interpreting simulation results in model intercomparison studies.
 
   - type: dropdown
     id: experiment_id
