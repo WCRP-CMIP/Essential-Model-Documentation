@@ -9,6 +9,7 @@ Python files contain simple data dictionaries that get fed directly to Jinja2.
 import csv
 import sys
 import yaml
+import argparse
 from pathlib import Path
 from jinja2 import Template
 
@@ -235,22 +236,115 @@ def process_template_pair(template_name, csv_file, py_file, output_dir):
         print(f"    ❌ Error: {e}")
         return False
 
+def parse_arguments():
+    """Parse command line arguments."""
+    
+    parser = argparse.ArgumentParser(
+        description='Generate GitHub issue templates from CSV/Python pairs',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python per_file_generator.py                           # Use default directories
+  python per_file_generator.py -t ./templates           # Custom template dir
+  python per_file_generator.py -t ./templates -o ./out  # Custom both dirs
+  python per_file_generator.py --list                   # List available templates
+        """
+    )
+    
+    parser.add_argument(
+        '-t', '--template-dir',
+        type=Path,
+        default=None,
+        help='Directory containing template CSV/Python pairs (default: ./templates)'
+    )
+    
+    parser.add_argument(
+        '-o', '--output-dir', 
+        type=Path,
+        default=None,
+        help='Output directory for generated YAML files (default: ../ISSUE_TEMPLATE)'
+    )
+    
+    parser.add_argument(
+        '--list',
+        action='store_true',
+        help='List available templates and exit'
+    )
+    
+    parser.add_argument(
+        '--template',
+        type=str,
+        help='Generate only specific template (by name)'
+    )
+    
+    parser.add_argument(
+        '--validate-only',
+        action='store_true',
+        help='Only validate templates without generating output'
+    )
+    
+    parser.add_argument(
+        '-v', '--verbose',
+        action='store_true',
+        help='Enable verbose output'
+    )
+    
+    return parser.parse_args()
+
+def list_available_templates(template_dir):
+    """List all available template pairs."""
+    
+    print(f"📋 Available templates in {template_dir}:")
+    print("=" * 40)
+    
+    csv_files = list(template_dir.glob('*.csv'))
+    
+    if not csv_files:
+        print("❌ No CSV files found")
+        return
+    
+    for csv_file in csv_files:
+        template_name = csv_file.stem
+        py_file = template_dir / f"{template_name}.py"
+        
+        status = "✅" if py_file.exists() else "❌"
+        print(f"  {status} {template_name}")
+        
+        if py_file.exists():
+            # Load config to show template info
+            try:
+                config, data = load_template_data(py_file)
+                if config:
+                    print(f"      Name: {config['name']}")
+                    print(f"      Description: {config['description']}")
+                    print(f"      Data sources: {len(data)} items")
+                else:
+                    print(f"      ⚠️  No configuration found")
+            except Exception as e:
+                print(f"      ❌ Error loading: {e}")
+        else:
+            print(f"      ❌ Missing Python file: {template_name}.py")
+        print()
+
 def main():
-    """Main function - process templates individually."""
+    """Main function with argparse support."""
+    
+    args = parse_arguments()
     
     print("🔧 Per-File Template Generator")
     print("=" * 30)
     
-    # Parse arguments
-    if len(sys.argv) >= 3:
-        template_dir = Path(sys.argv[1])
-        output_dir = Path(sys.argv[2])
-    elif len(sys.argv) == 2:
-        template_dir = Path(sys.argv[1])
-        output_dir = Path.cwd() / "output"
+    # Set up default directories
+    script_dir = Path(__file__).parent
+    
+    if args.template_dir:
+        template_dir = args.template_dir
     else:
-        script_dir = Path(__file__).parent
         template_dir = script_dir / "templates"
+    
+    if args.output_dir:
+        output_dir = args.output_dir
+    else:
         output_dir = script_dir.parent / "ISSUE_TEMPLATE"
     
     print(f"📁 Template directory: {template_dir}")
@@ -261,16 +355,33 @@ def main():
         print(f"❌ Template directory not found: {template_dir}")
         return False
     
-    output_dir.mkdir(exist_ok=True)
+    # Handle list command
+    if args.list:
+        list_available_templates(template_dir)
+        return True
     
-    # Find CSV files and process each one
+    # Create output directory if needed
+    if not args.validate_only:
+        output_dir.mkdir(exist_ok=True)
+    
+    # Find CSV files
     csv_files = list(template_dir.glob('*.csv'))
     
     if not csv_files:
         print("❌ No CSV files found")
         return False
     
-    print(f"🔍 Found {len(csv_files)} CSV files")
+    # Filter for specific template if requested
+    if args.template:
+        csv_files = [f for f in csv_files if f.stem == args.template]
+        if not csv_files:
+            print(f"❌ Template '{args.template}' not found")
+            return False
+    
+    print(f"🔍 Found {len(csv_files)} CSV file(s) to process")
+    
+    if args.verbose:
+        print(f"📋 Templates to process: {[f.stem for f in csv_files]}")
     
     success_count = 0
     
@@ -283,19 +394,65 @@ def main():
             continue
         
         # Process this template pair
-        if process_template_pair(template_name, csv_file, py_file, output_dir):
-            success_count += 1
+        if args.validate_only:
+            # Just validate, don't generate
+            if validate_template_pair(template_name, csv_file, py_file):
+                success_count += 1
+        else:
+            # Generate template
+            if process_template_pair(template_name, csv_file, py_file, output_dir):
+                success_count += 1
     
     # Summary
+    action = "validated" if args.validate_only else "generated"
     print(f"\n🎯 Results:")
-    print(f"  ✅ Success: {success_count}/{len(csv_files)}")
-    print(f"  📁 Output: {output_dir}")
+    print(f"  ✅ Successfully {action}: {success_count}/{len(csv_files)}")
+    
+    if not args.validate_only:
+        print(f"  📁 Output: {output_dir}")
     
     if success_count > 0:
-        print(f"🎉 Templates generated successfully!")
+        if args.validate_only:
+            print(f"✅ All templates validated successfully!")
+        else:
+            print(f"🎉 Templates generated successfully!")
         return True
     else:
-        print(f"❌ No templates generated")
+        print(f"❌ No templates {action}")
+        return False
+
+def validate_template_pair(template_name, csv_file, py_file):
+    """Validate a template pair without generating output."""
+    
+    print(f"🧪 Validating {template_name}...")
+    
+    try:
+        # Load configuration and data
+        config, data = load_template_data(py_file)
+        if not config:
+            print(f"    ❌ No TEMPLATE_CONFIG found")
+            return False
+        
+        print(f"    ✅ Config valid: {config['name']}")
+        print(f"    ✅ Data loaded: {len(data)} items")
+        
+        # Load fields
+        fields = load_csv_fields(csv_file)
+        print(f"    ✅ CSV valid: {len(fields)} fields")
+        
+        # Test YAML generation
+        yaml_content = generate_template_yaml(config, fields, data)
+        
+        # Validate YAML
+        if validate_yaml(yaml_content):
+            print(f"    ✅ YAML validation passed")
+            return True
+        else:
+            print(f"    ❌ YAML validation failed")
+            return False
+            
+    except Exception as e:
+        print(f"    ❌ Error: {e}")
         return False
 
 if __name__ == '__main__':
