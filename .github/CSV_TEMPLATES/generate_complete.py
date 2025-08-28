@@ -196,7 +196,12 @@ def generate_field_jinja2(field_def):
     field_yaml += f"      label: {label}\n"
     
     if description:
-        if '**' in description or len(description) > 80:
+        # Handle multiline descriptions - replace \n with actual newlines
+        if '\n' in description:
+            # Replace \n with actual line breaks and use block scalar
+            formatted_description = description.replace('\n', '\n        ')
+            field_yaml += f"      description: |\n        {formatted_description}\n"
+        elif '**' in description or len(description) > 80:
             field_yaml += f"      description: |\n        {description}\n"
         else:
             field_yaml += f"      description: {description}\n"
