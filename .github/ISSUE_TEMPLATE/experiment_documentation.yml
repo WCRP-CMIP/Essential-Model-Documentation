@@ -5,23 +5,33 @@ labels: ["emd-submission", "experiment"]
 body:
   - type: markdown
     attributes:
+      label: Instructions
+      description: |
+        Please fill out the following fields to document an **Experiment Configuration**.
       value: |
-        ## Instructions
         Please fill out the following fields to document an **Experiment Configuration**.
 
   - type: dropdown
     id: experiment_id
     attributes:
       label: Experiment ID
-      description: Select the CMIP7 experiment identifier.
+      description: Select the CMIP7 experiment identifier
       options:
+
         - "piControl"
+
         - "historical"
+
         - "ssp126"
+
         - "ssp245"
+
         - "ssp585"
+
         - "1pctCO2"
+
         - "abrupt-4xCO2"
+
     validations:
       required: true
 
@@ -29,14 +39,21 @@ body:
     id: activity
     attributes:
       label: Activity/MIP
-      description: Select the primary MIP activity for this experiment.
+      description: Select the primary MIP activity
       options:
+
         - "CMIP"
+
         - "ScenarioMIP"
+
         - "DAMIP"
+
         - "AerChemMIP"
+
         - "C4MIP"
+
         - "DCPP"
+
     validations:
       required: true
 
@@ -44,7 +61,7 @@ body:
     id: tier
     attributes:
       label: Experiment Tier
-      description: CMIP7 tier classification for this experiment.
+      description: CMIP7 tier classification
       options:
         - "0"
         - "1"
@@ -57,21 +74,29 @@ body:
     id: required_model_realms
     attributes:
       label: Required Model Realms
-      description: Select the model components/realms that are REQUIRED for this experiment.
+      description: Select the model components/realms REQUIRED
       options:
+
         - label: "AOGCM"
+
         - label: "AGCM"
+
         - label: "OGCM"
+
         - label: "ESM"
+
         - label: "BGCM"
+
         - label: "AER"
+
         - label: "CHEM"
+
 
   - type: input
     id: reference_doi
     attributes:
       label: Primary Reference DOI
-      description: DOI for the primary reference describing this experiment.
+      description: DOI for the primary reference
       placeholder: "https://doi.org/..."
     validations:
       required: true

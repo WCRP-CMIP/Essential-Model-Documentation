@@ -6,8 +6,7 @@ body:
   - type: markdown
     attributes:
       label: Instructions
-      description: |
-        Please fill out the following fields to document a **Model Component**.
+      description: Please fill out the following fields to document a **Model Component**.
       value: |
         Please fill out the following fields to document a **Model Component**.
 
@@ -17,23 +16,9 @@ body:
       label: Component Process
       description: Select the process that this model component simulates
       options:
-
-        - "atmos"
-
-        - "ocean"
-
-        - "land"
-
-        - "seaice"
-
-        - "ocnbgchem"
-
-        - "landice"
-
-        - "aerosol"
-
-        - "atmoschem"
-
+{% for key in realms.keys() %}
+        - "{{ key }}"
+{% endfor %}
     validations:
       required: true
 
@@ -77,23 +62,9 @@ body:
       label: Embedded In
       description: Select components this is embedded in (if applicable)
       options:
-
-        - label: "atmos"
-
-        - label: "ocean"
-
-        - label: "land"
-
-        - label: "seaice"
-
-        - label: "ocnbgchem"
-
-        - label: "landice"
-
-        - label: "aerosol"
-
-        - label: "atmoschem"
-
+{% for key in realms.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
 
   - type: dropdown
     id: horizontal_descriptor
@@ -102,65 +73,9 @@ body:
       description: Grid descriptor (if applicable)
       options:
         - "Not applicable"
-
-        - "N48"
-
-        - "N96"
-
-        - "N216"
-
-        - "N512"
-
-        - "N1280"
-
-        - "ORCA2"
-
-        - "eORCA2"
-
-        - "ORCA1"
-
-        - "eORCA1"
-
-        - "ORCA025"
-
-        - "eORCA025"
-
-        - "ORCA012"
-
-        - "eORCA012"
-
-        - "T42"
-
-        - "T63"
-
-        - "T85"
-
-        - "T106"
-
-        - "T127"
-
-        - "T255"
-
-        - "TL95"
-
-        - "TL159"
-
-        - "TL255"
-
-        - "TL319"
-
-        - "TL511"
-
-        - "Tco199"
-
-        - "Tco399"
-
-        - "R30"
-
-        - "C96"
-
-        - "ne30np4"
-
+{% for item in grid_descriptors %}
+        - "{{ item }}"
+{% endfor %}
       default: 0
 
   - type: input

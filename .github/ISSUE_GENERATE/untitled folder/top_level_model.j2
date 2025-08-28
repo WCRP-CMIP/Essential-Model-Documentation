@@ -6,8 +6,7 @@ body:
   - type: markdown
     attributes:
       label: Instructions
-      description: |
-        Please fill out the following fields for the **Top Level Model**.
+      description: Please fill out the following fields for the **Top Level Model**.
       value: |
         Please fill out the following fields for the **Top Level Model**.
 
@@ -35,23 +34,9 @@ body:
       label: Components
       description: Select the processes dynamically simulated
       options:
-
-        - label: "atmos"
-
-        - label: "ocean"
-
-        - label: "land"
-
-        - label: "seaice"
-
-        - label: "ocnbgchem"
-
-        - label: "landice"
-
-        - label: "aerosol"
-
-        - label: "atmoschem"
-
+{% for key in realms.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
 
   - type: textarea
     id: description
@@ -68,15 +53,9 @@ body:
       label: Calendar
       description: The calendars that define permitted dates
       options:
-
-        - label: "gregorian"
-
-        - label: "noleap"
-
-        - label: "360_day"
-
-        - label: "julian"
-
+{% for key in calendars.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
 
   - type: input
     id: release_year
