@@ -32,7 +32,6 @@ body:
       label: Components
       description: Select the processes dynamically simulated
       options:
-        # Generated from realms
         - label: "atmos"
         - label: "ocean"
         - label: "land"
@@ -62,7 +61,6 @@ body:
       label: Calendar
       description: The calendars that define permitted dates
       options:
-        # Generated from calendars
         - label: "gregorian"
         - label: "noleap"
         - label: "360_day"

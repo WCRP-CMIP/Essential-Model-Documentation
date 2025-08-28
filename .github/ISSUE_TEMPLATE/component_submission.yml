@@ -14,7 +14,6 @@ body:
       label: Component Process
       description: Select the process that this model component simulates
       options:
-        # Generated from realms
         - "atmos"
         - "ocean"
         - "land"
@@ -72,7 +71,6 @@ body:
       label: Embedded In
       description: Select components this is embedded in (if applicable)
       options:
-        # Generated from realms
         - label: "atmos"
         - label: "ocean"
         - label: "land"

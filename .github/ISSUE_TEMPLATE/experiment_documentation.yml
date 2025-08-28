@@ -14,7 +14,6 @@ body:
       label: Experiment ID
       description: Select the CMIP7 experiment identifier
       options:
-        # Generated from experiments
         - "piControl"
         - "historical"
         - "ssp126"
@@ -31,7 +30,6 @@ body:
       label: Activity/MIP
       description: Select the primary MIP activity
       options:
-        # Generated from activities
         - "CMIP"
         - "ScenarioMIP"
         - "DAMIP"
@@ -46,11 +44,6 @@ body:
     attributes:
       label: Experiment Tier
       description: CMIP7 tier classification
-      options:
-        - "0"
-        - "1"
-        - "2"
-        - "3"
     validations:
       required: true
 
@@ -60,7 +53,6 @@ body:
       label: Required Model Realms
       description: Select the model components/realms REQUIRED
       options:
-        # Generated from source_types
         - label: "AOGCM"
         - label: "AGCM"
         - label: "OGCM"
