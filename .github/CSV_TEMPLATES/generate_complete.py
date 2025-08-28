@@ -184,9 +184,14 @@ def generate_field_jinja2(field_def):
     # Start building the field YAML
     field_yaml = f"  - type: {field_type}\n"
     
-    if field_type != 'markdown':
-        field_yaml += f"    id: {field_id}\n"
+    # Handle markdown fields differently - they don't have id, label, or description
+    if field_type == 'markdown':
+        field_yaml += f"    attributes:\n"
+        field_yaml += f"      value: |\n        {description}\n"
+        return field_yaml
     
+    # For all other field types, add id and attributes
+    field_yaml += f"    id: {field_id}\n"
     field_yaml += f"    attributes:\n"
     field_yaml += f"      label: {label}\n"
     
@@ -195,15 +200,13 @@ def generate_field_jinja2(field_def):
             field_yaml += f"      description: |\n        {description}\n"
         else:
             field_yaml += f"      description: {description}\n"
-    
-    # Handle different field types
-    if field_type == 'markdown':
-        field_yaml += f"      value: |\n        {description}\n"
-        
-    elif field_type in ['input', 'textarea']:
+            
+    # Handle input and textarea fields
+    if field_type in ['input', 'textarea']:
         if placeholder:
             field_yaml += f"      placeholder: \"{placeholder}\"\n"
             
+    # Handle dropdown fields            
     elif field_type == 'dropdown':
         field_yaml += f"      options:\n"
         
@@ -246,6 +249,7 @@ def generate_field_jinja2(field_def):
         if default_value:
             field_yaml += f"      default: {default_value}\n"
             
+    # Handle checkbox fields
     elif field_type == 'checkboxes':
         field_yaml += f"      options:\n"
         
@@ -255,7 +259,7 @@ def generate_field_jinja2(field_def):
             field_yaml += f"{{% endfor %}}\n"
     
     # Add validation section if required
-    if required and field_type != 'markdown':
+    if required:
         field_yaml += f"    validations:\n"
         field_yaml += f"      required: true\n"
     
