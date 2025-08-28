@@ -1,0 +1,99 @@
+name: Model Component Submission
+description: Submit metadata for a model component as specified in the EMD specification.
+title: "[EMD] Model Component Submission"
+labels: ["emd-submission", "component"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Instructions
+        Please fill out the following fields to document a **Model Component**.
+        All fields correspond to the Model Components section of the EMD specification.
+
+  - type: dropdown
+    id: component_process
+    attributes:
+      label: Component Process
+      description: Select the process that this model component simulates.
+      options:
+        - "atmos"
+        - "ocean"
+        - "land"
+        - "seaice"
+        - "ocnbgchem"
+        - "landice"
+        - "aerosol"
+        - "atmoschem"
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The name of the model component.
+      placeholder: "e.g., ECHAM6.3, NEMO3.6, JSBACH"
+    validations:
+      required: true
+
+  - type: input
+    id: family
+    attributes:
+      label: Family
+      description: The name of the component family.
+      placeholder: "e.g., ECHAM, NEMO, JSBACH"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Scientific overview of the model component.
+      placeholder: "Describe key processes simulated by this component and scientific approach used."
+    validations:
+      required: true
+
+  - type: input
+    id: code_base
+    attributes:
+      label: Code Base
+      description: URL for source code or 'private' if not publicly available.
+      placeholder: "https://github.com/org/repo/tree/version or 'private'"
+
+  - type: checkboxes
+    id: embedded_in
+    attributes:
+      label: Embedded In
+      description: Select components this is embedded in (if applicable).
+      options:
+        - label: "atmos"
+        - label: "ocean"
+        - label: "land"
+        - label: "seaice"
+        - label: "ocnbgchem"
+        - label: "landice"
+        - label: "aerosol"
+        - label: "atmoschem"
+
+  - type: dropdown
+    id: horizontal_descriptor
+    attributes:
+      label: Horizontal Grid Descriptor
+      description: Grid descriptor (if applicable).
+      options:
+        - "Not applicable"
+        - "N96"
+        - "N216"
+        - "ORCA1"
+        - "T63"
+        - "T127"
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Primary Reference DOI
+      description: DOI for the primary component reference.
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true

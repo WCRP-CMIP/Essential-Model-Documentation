@@ -35,7 +35,7 @@ body:
       description: Select the processes that are dynamically simulated by the model components (from Model component process CV).
       options:
 {%- for key in realms.keys() %}
-        - label: "{{ key }}"
+        - label: {{ key }}
 {%- endfor %}
 
   - type: textarea
@@ -54,7 +54,7 @@ body:
       description: The calendars that define which dates are permitted in the model. Multiple calendars may be selected for different simulations.
       options:
 {%- for calendar in calendars %}
-        - label: "{{ calendar.get('validation-key', calendar.get('id', '')) }}"
+        - label: {{ calendar.get('validation-key', calendar.get('id', '')) }}
 {%- endfor %}
 
   - type: input

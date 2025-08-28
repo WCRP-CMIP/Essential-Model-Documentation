@@ -111,9 +111,9 @@ body:
       label: Embedded In
       description: Select the model component(s) in which this component is embedded (omit if not applicable).
       options:
-{%- for key in realms.keys() %}
+{% for key in realms.keys() %}
         - label: "{{ key }}"
-{%- endfor %}
+{% endfor %}
 
   - type: checkboxes
     id: coupled_with
@@ -121,9 +121,9 @@ body:
       label: Coupled With
       description: Select the model component(s) to which this component is coupled (omit if not applicable).
       options:
-{%- for key in realms.keys() %}
-        - label: {{ key }}
-{%- endfor %}
+{% for key in realms.keys() %}
+        - label: "{{ key }}"
+{% endfor %}
 
   - type: markdown
     attributes:
@@ -136,9 +136,9 @@ body:
       description: If this component uses the same horizontal grid as another component, select it here. If set, no other horizontal grid properties are required.
       options:
         - "Not applicable"
-{%- for key in realms.keys() %}
-        - {{ key }}
-{%- endfor %}
+{% for key in realms.keys() %}
+        - "{{ key }}"
+{% endfor %}
       default: 0
 
   - type: dropdown
@@ -147,10 +147,10 @@ body:
       label: Descriptor
       description: Common-usage short description of horizontal type and resolution (from Native horizontal grid Descriptor CV).
       options:
-        - Not applicable
-{%- for descriptor in grid_descriptors %}
+        - "Not applicable"
+{% for descriptor in grid_descriptors %}
         - "{{ descriptor }}"
-{%- endfor %}
+{% endfor %}
       default: 0
 
   - type: dropdown
@@ -159,9 +159,9 @@ body:
       label: Type
       description: The horizontal grid type - method of distributing grid points over the sphere (from Native horizontal grid Type CV).
       options:
-{%- for grid_type in horizontal_grid_types %}
+{% for grid_type in horizontal_grid_types %}
         - "{{ grid_type.get('validation-key', grid_type.get('id', '')) }}"
-{%- endfor %}
+{% endfor %}
 
   - type: dropdown
     id: horizontal_grid_mapping
@@ -169,9 +169,9 @@ body:
       label: Grid Mapping
       description: The coordinate reference system of the horizontal coordinates (from Native horizontal grid Grid Mapping CV).
       options:
-{%- for mapping in grid_mappings %}
+{% for mapping in grid_mappings %}
         - "{{ mapping }}"
-{%- endfor %}
+{% endfor %}
 
   - type: dropdown
     id: horizontal_region
@@ -179,9 +179,9 @@ body:
       label: Region
       description: The portion of the globe where horizontal grid calculations are performed (from Native horizontal grid Region CV).
       options:
-{%- for region in horizontal_regions %}
+{% for region in horizontal_regions %}
         - "{{ region.get('validation-key', region.get('id', '')) }}"
-{%- endfor %}
+{% endfor %}
 
   - type: dropdown
     id: horizontal_arrangement
@@ -189,10 +189,10 @@ body:
       label: Arrangement
       description: Grid arrangement of orthogonal physical quantities (from Native horizontal grid Arrangement CV).
       options:
-        - Not applicable
-{%- for arrangement in grid_arrangements %}
+        - "Not applicable"
+{% for arrangement in grid_arrangements %}
         - "{{ arrangement }}"
-{%- endfor %}
+{% endfor %}
       default: 0
 
   - type: dropdown
@@ -201,9 +201,9 @@ body:
       label: Nominal Resolution
       description: Nominal resolution that characterizes the grid resolution (from Native horizontal grid Nominal resolution CV).
       options:
-{%- for resolution in nominal_resolutions %}
+{% for resolution in nominal_resolutions %}
         - "{{ resolution }}"
-{%- endfor %}
+{% endfor %}
 
   - type: markdown
     attributes:
@@ -216,9 +216,9 @@ body:
       description: If this component uses the same vertical grid as another component, select it here. If set, no other vertical grid properties are required.
       options:
         - "Not applicable"
-{%- for key in realms.keys() %}
+{% for key in realms.keys() %}
         - "{{ key }}"
-{%- endfor %}
+{% endfor %}
       default: 0
 
   - type: dropdown
@@ -227,9 +227,9 @@ body:
       label: Coordinate
       description: The coordinate type of the vertical grid (from Native vertical grid Coordinate CV). Select "none" if no vertical dimension.
       options:
-{%- for coord in vertical_coordinates %}
+{% for coord in vertical_coordinates %}
         - "{{ coord.get('validation-key', coord.get('id', '')) }}"
-{%- endfor %}
+{% endfor %}
     validations:
       required: true
 
@@ -247,7 +247,7 @@ body:
       description: Physical units of the Bottom layer thickness, Top layer thickness, and Top of Model values (from Native vertical grid Units CV).
       options:
         - "Not applicable"
-{%- for unit in vertical_units %}
+{% for unit in vertical_units %}
         - "{{ unit.get('validation-key', unit.get('id', '')) }}"
-{%- endfor %}
+{% endfor %}
       default: 0

@@ -64,11 +64,7 @@ body:
     attributes:
       label: Family License
       description: General licensing approach for the family.
-      options:
-{%- for key in licenses.keys() %}
-        - "{{ key }}"
-{%- endfor %}
-        - "Open Source"
+      options:        - "CC0-1.0"        - "CC-BY-4.0"        - "MIT"        - "GPL-3.0"        - "Open Source"
         - "Academic License"
         - "Registration Required"
         - "Commercial License"

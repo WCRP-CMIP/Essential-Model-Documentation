@@ -37,11 +37,7 @@ body:
     attributes:
       label: Model Type
       description: Primary classification of this model.
-      options:
-{%- for key in source_types.keys() %}
-        - "{{ key }}"
-{%- endfor %}
-
+      options:        - "AOGCM"        - "AGCM"        - "OGCM"        - "ESM"        - "BGCM"
   - type: dropdown
     id: model_scope
     attributes:
@@ -71,21 +67,13 @@ body:
     attributes:
       label: Supported CMIP7 Experiments
       description: Select CMIP7 experiments this model can perform.
-      options:
-{%- for key in experiments.keys() %}
-        - label: "{{ key }}"
-{%- endfor %}
-
+      options:        - label: "piControl"        - label: "historical"        - label: "ssp126"        - label: "ssp245"        - label: "ssp585"        - label: "1pctCO2"
   - type: dropdown
     id: license_type
     attributes:
       label: License Type
       description: Primary license for model code and documentation.
-      options:
-{%- for key in licenses.keys() %}
-        - "{{ key }}"
-{%- endfor %}
-        - "Other - see description"
+      options:        - "CC0-1.0"        - "CC-BY-4.0"        - "MIT"        - "GPL-3.0"        - "Other - see description"
         - "Proprietary"
         - "Multiple licenses"
 

@@ -15,11 +15,7 @@ body:
     attributes:
       label: Experiment ID
       description: Select the CMIP7 experiment identifier (from CMIP7-CVs experiment registry).
-      options:
-{%- for key in experiments.keys() %}
-        - "{{ key }}"
-{%- endfor %}
-    validations:
+      options:        - "piControl"        - "historical"        - "ssp126"        - "ssp245"        - "ssp585"        - "1pctCO2"    validations:
       required: true
 
   - type: dropdown
@@ -27,11 +23,7 @@ body:
     attributes:
       label: Activity/MIP
       description: Select the primary MIP activity for this experiment (from CMIP7-CVs activity registry).
-      options:
-{%- for key in activities.keys() %}
-        - "{{ key }}"
-{%- endfor %}
-    validations:
+      options:        - "CMIP"        - "ScenarioMIP"        - "DAMIP"        - "AerChemMIP"    validations:
       required: true
 
   - type: dropdown
@@ -52,21 +44,13 @@ body:
     attributes:
       label: Required Model Realms
       description: Select the model components/realms that are REQUIRED for this experiment.
-      options:
-{%- for key in source_types.keys() %}
-        - label: "{{ key }}"
-{%- endfor %}
-
+      options:        - label: "AOGCM"        - label: "AGCM"        - label: "OGCM"        - label: "ESM"        - label: "BGCM"
   - type: checkboxes
     id: optional_model_realms
     attributes:
       label: Optional Model Realms
       description: Select the model components/realms that are OPTIONAL for this experiment.
-      options:
-{%- for key in source_types.keys() %}
-        - label: "{{ key }}"
-{%- endfor %}
-
+      options:        - label: "AOGCM"        - label: "AGCM"        - label: "OGCM"        - label: "ESM"        - label: "BGCM"
   - type: input
     id: minimum_years
     attributes:

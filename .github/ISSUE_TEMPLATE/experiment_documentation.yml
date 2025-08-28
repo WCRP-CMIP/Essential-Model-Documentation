@@ -1,4 +1,4 @@
-name: Experiment Documentation 
+name: Experiment Documentation
 description: Submit metadata for a CMIP7 experiment configuration.
 title: "[EMD] Experiment Documentation"
 labels: ["emd-submission", "experiment"]
@@ -8,22 +8,36 @@ body:
       value: |
         ## Instructions
         Please fill out the following fields to document an **Experiment Configuration**.
-        This template follows the CMIP7 controlled vocabularies and experiment specifications.
 
   - type: dropdown
     id: experiment_id
     attributes:
       label: Experiment ID
-      description: Select the CMIP7 experiment identifier (from CMIP7-CVs experiment registry).
-      options:        - cmip7:experiment/1pctco2-bgc        - cmip7:experiment/1pctco2-rad        - cmip7:experiment/1pctco2        - cmip7:experiment/abrupt-0p5co2        - cmip7:experiment/abrupt-0p5xco2        - cmip7:experiment/abrupt-127k        - cmip7:experiment/abrupt-2xco2        - cmip7:experiment/abrupt-4xco2-1950        - cmip7:experiment/abrupt-4xco2        - cmip7:experiment/amip-m4k        - cmip7:experiment/amip-p4k-sst-rad        - cmip7:experiment/amip-p4k-sst-turb        - cmip7:experiment/amip-p4k        - cmip7:experiment/amip-piforcing        - cmip7:experiment/amip        - cmip7:experiment/control-1950        - cmip7:experiment/dcppb-forecast-cmip6        - cmip7:experiment/esm-flat10-cdr        - cmip7:experiment/esm-flat10-zec        - cmip7:experiment/esm-flat10        - cmip7:experiment/esm-hist        - cmip7:experiment/esm-picontrol        - cmip7:experiment/esm-scen7-h-aer        - cmip7:experiment/esm-scen7-h-aq        - cmip7:experiment/esm-scen7-h-ext-os        - cmip7:experiment/esm-scen7-h-ext        - cmip7:experiment/esm-scen7-h        - cmip7:experiment/esm-scen7-l-ext        - cmip7:experiment/esm-scen7-l        - cmip7:experiment/esm-scen7-m-ext        - cmip7:experiment/esm-scen7-m        - cmip7:experiment/esm-scen7-ml-ext        - cmip7:experiment/esm-scen7-ml        - cmip7:experiment/esm-scen7-vlho-aer        - cmip7:experiment/esm-scen7-vlho-aq        - cmip7:experiment/esm-scen7-vlho-ext        - cmip7:experiment/esm-scen7-vlho        - cmip7:experiment/esm-scen7-vllo-ext        - cmip7:experiment/esm-scen7-vllo        - cmip7:experiment/esm-up2p0-gwl2p0        - cmip7:experiment/esm-up2p0        - cmip7:experiment/g7-1p5k-sai        - cmip7:experiment/highres-future-scen7-mc        - cmip7:experiment/highres-yr2020        - cmip7:experiment/highressst-p2k-pat        - cmip7:experiment/highressst-p4k-pat        - cmip7:experiment/highressst-p4k-uni        - cmip7:experiment/highressst-present        - cmip7:experiment/hist-1950        - cmip7:experiment/hist-aer        - cmip7:experiment/hist-ghg        - cmip7:experiment/hist-irr        - cmip7:experiment/hist-nat        - cmip7:experiment/hist-nofire        - cmip7:experiment/hist-noirr        - cmip7:experiment/hist-piaer        - cmip7:experiment/hist-piaq        - cmip7:experiment/hist-pislcf        - cmip7:experiment/historical        - cmip7:experiment/initialised-prediction-2025-2036        - cmip7:experiment/land-hist        - cmip7:experiment/ligabrupt        - cmip7:experiment/piclim-2xbvoc        - cmip7:experiment/piclim-2xdmsppmoa        - cmip7:experiment/piclim-2xdust        - cmip7:experiment/piclim-2xfire        - cmip7:experiment/piclim-2xss        - cmip7:experiment/piclim-2xwet        - cmip7:experiment/piclim-4xco2        - cmip7:experiment/piclim-aer        - cmip7:experiment/piclim-anthro        - cmip7:experiment/piclim-aq        - cmip7:experiment/piclim-bc        - cmip7:experiment/piclim-ch4        - cmip7:experiment/piclim-control        - cmip7:experiment/piclim-hc        - cmip7:experiment/piclim-histaer        - cmip7:experiment/piclim-histall        - cmip7:experiment/piclim-n2o        - cmip7:experiment/piclim-nh3        - cmip7:experiment/piclim-nox        - cmip7:experiment/piclim-o3        - cmip7:experiment/piclim-oc        - cmip7:experiment/piclim-ods        - cmip7:experiment/piclim-p4k        - cmip7:experiment/piclim-so2        - cmip7:experiment/piclim-voc        - cmip7:experiment/picontrol        - cmip7:experiment/scen7-hc-aer        - cmip7:experiment/scen7-hc-aq        - cmip7:experiment/scen7-hc-ext-os        - cmip7:experiment/scen7-hc-ext        - cmip7:experiment/scen7-hc        - cmip7:experiment/scen7-lc-ext        - cmip7:experiment/scen7-lc        - cmip7:experiment/scen7-mc-ext        - cmip7:experiment/scen7-mc        - cmip7:experiment/scen7-mlc-ext        - cmip7:experiment/scen7-mlc        - cmip7:experiment/scen7-vlhoc-aer        - cmip7:experiment/scen7-vlhoc-aq        - cmip7:experiment/scen7-vlhoc-ext        - cmip7:experiment/scen7-vlhoc        - cmip7:experiment/scen7-vlloc-ext        - cmip7:experiment/scen7-vlloc        - cmip7:experiment/spinup-1950        - cmip7:experiment/sspx-slcf    validations:
+      description: Select the CMIP7 experiment identifier.
+      options:
+        - "piControl"
+        - "historical"
+        - "ssp126"
+        - "ssp245"
+        - "ssp585"
+        - "1pctCO2"
+        - "abrupt-4xCO2"
+    validations:
       required: true
 
   - type: dropdown
     id: activity
     attributes:
       label: Activity/MIP
-      description: Select the primary MIP activity for this experiment (from CMIP7-CVs activity registry).
-      options:        - universal:activity/aera-mip        - universal:activity/aerchemmip        - universal:activity/aerchemmip2        - universal:activity/c4mip        - universal:activity/cdrmip        - universal:activity/ceresmip        - universal:activity/cfmip        - universal:activity/cmip        - universal:activity/cordex        - universal:activity/damip        - universal:activity/dcpp        - universal:activity/firemip        - universal:activity/fishmip        - universal:activity/geomip        - universal:activity/highresmip        - universal:activity/irrmip        - universal:activity/ismip7        - universal:activity/lesfmip        - universal:activity/lmip        - universal:activity/longrunmip        - universal:activity/lumip        - universal:activity/methanemip        - universal:activity/misomip2        - universal:activity/mumip        - universal:activity/nahosmip        - universal:activity/none        - universal:activity/omip        - universal:activity/pmip        - universal:activity/ppemip        - universal:activity/ramip         - universal:activity/ramip        - universal:activity/rfmip        - universal:activity/scenariomip        - universal:activity/simip        - universal:activity/sofiamip        - universal:activity/sp-mip        - universal:activity/tbimip        - universal:activity/tipmip        - universal:activity/volmip        - universal:activity/whatifmip    validations:
+      description: Select the primary MIP activity for this experiment.
+      options:
+        - "CMIP"
+        - "ScenarioMIP"
+        - "DAMIP"
+        - "AerChemMIP"
+        - "C4MIP"
+        - "DCPP"
+    validations:
       required: true
 
   - type: dropdown
@@ -34,7 +48,7 @@ body:
       options:
         - "0"
         - "1"
-        - "2" 
+        - "2"
         - "3"
     validations:
       required: true
@@ -44,42 +58,14 @@ body:
     attributes:
       label: Required Model Realms
       description: Select the model components/realms that are REQUIRED for this experiment.
-      options:        - label: universal:source-type/aer        - label: universal:source-type/agcm        - label: universal:source-type/aogcm        - label: universal:source-type/bgc        - label: universal:source-type/chem        - label: universal:source-type/gridded-insitu        - label: universal:source-type/ism        - label: universal:source-type/land        - label: universal:source-type/ogcm        - label: universal:source-type/rad        - label: universal:source-type/reanalysis        - label: universal:source-type/satellite-blended        - label: universal:source-type/satellite-retrieval        - label: universal:source-type/slab
-  - type: checkboxes
-    id: optional_model_realms
-    attributes:
-      label: Optional Model Realms
-      description: Select the model components/realms that are OPTIONAL for this experiment.
-      options:        - label: universal:source-type/aer        - label: universal:source-type/agcm        - label: universal:source-type/aogcm        - label: universal:source-type/bgc        - label: universal:source-type/chem        - label: universal:source-type/gridded-insitu        - label: universal:source-type/ism        - label: universal:source-type/land        - label: universal:source-type/ogcm        - label: universal:source-type/rad        - label: universal:source-type/reanalysis        - label: universal:source-type/satellite-blended        - label: universal:source-type/satellite-retrieval        - label: universal:source-type/slab
-  - type: input
-    id: minimum_years
-    attributes:
-      label: Minimum Number of Years
-      description: Minimum simulation length required for this experiment.
-      placeholder: "e.g., 30, 100, 150"
-
-  - type: input
-    id: start_date
-    attributes:
-      label: Start Date
-      description: Standard start date for this experiment (if applicable).
-      placeholder: "e.g., 1850-01-01, 1979-01-01, none"
-
-  - type: input
-    id: parent_experiment
-    attributes:
-      label: Parent Experiment
-      description: Parent experiment this branches from (if applicable).
-      placeholder: "e.g., piControl, historical, none"
-
-  - type: textarea
-    id: experiment_description
-    attributes:
-      label: Experiment Description
-      description: Detailed description of the experiment setup and scientific goals.
-      placeholder: "Provide a comprehensive description of the experiment configuration, forcing conditions, and scientific objectives."
-    validations:
-      required: true
+      options:
+        - label: "AOGCM"
+        - label: "AGCM"
+        - label: "OGCM"
+        - label: "ESM"
+        - label: "BGCM"
+        - label: "AER"
+        - label: "CHEM"
 
   - type: input
     id: reference_doi

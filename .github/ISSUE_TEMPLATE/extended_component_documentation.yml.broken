@@ -19,11 +19,7 @@ body:
     attributes:
       label: Component Process
       description: Reference component process (should match EMD submission).
-      options:
-{%- for key in realms.keys() %}
-        - "{{ key }}"
-{%- endfor %}
-    validations:
+      options:        - "atmos"        - "ocean"        - "land"        - "seaice"        - "ocnbgchem"        - "landice"        - "aerosol"        - "atmoschem"    validations:
       required: true
 
   - type: input
