@@ -7,22 +7,27 @@ TEMPLATE_CONFIG = {
     'labels': ['emd-submission', 'top_level_model']
 }
 
-# Data for this template
+# Data for this template - model-level CV data
 DATA = {
     'realms': {
-        'atmos': {'id': 'atmos', 'validation-key': 'atmos'},
-        'ocean': {'id': 'ocean', 'validation-key': 'ocean'},
-        'land': {'id': 'land', 'validation-key': 'land'},
-        'seaice': {'id': 'seaice', 'validation-key': 'seaice'},
-        'ocnbgchem': {'id': 'ocnbgchem', 'validation-key': 'ocnbgchem'},
-        'landice': {'id': 'landice', 'validation-key': 'landice'},
         'aerosol': {'id': 'aerosol', 'validation-key': 'aerosol'},
-        'atmoschem': {'id': 'atmoschem', 'validation-key': 'atmoschem'}
+        'atmosphere': {'id': 'atmosphere', 'validation-key': 'atmosphere'},
+        'atmospheric chemistry': {'id': 'atmospheric chemistry', 'validation-key': 'atmospheric chemistry'},
+        'land surface': {'id': 'land surface', 'validation-key': 'land surface'},
+        'land ice': {'id': 'land ice', 'validation-key': 'land ice'},
+        'ocean': {'id': 'ocean', 'validation-key': 'ocean'},
+        'ocean biogeochemistry': {'id': 'ocean biogeochemistry', 'validation-key': 'ocean biogeochemistry'},
+        'sea ice': {'id': 'sea ice', 'validation-key': 'sea ice'}
     },
     'calendars': {
-        'gregorian': {'id': 'gregorian', 'validation-key': 'gregorian'},
-        'noleap': {'id': 'noleap', 'validation-key': 'noleap'},
+        'standard': {'id': 'standard', 'validation-key': 'standard'},
+        'proleptic_gregorian': {'id': 'proleptic_gregorian', 'validation-key': 'proleptic_gregorian'},
+        'julian': {'id': 'julian', 'validation-key': 'julian'},
+        'utc': {'id': 'utc', 'validation-key': 'utc'},
+        'tai': {'id': 'tai', 'validation-key': 'tai'},
         '360_day': {'id': '360_day', 'validation-key': '360_day'},
-        'julian': {'id': 'julian', 'validation-key': 'julian'}
+        '365_day': {'id': '365_day', 'validation-key': '365_day'},
+        '366_day': {'id': '366_day', 'validation-key': '366_day'},
+        'none': {'id': 'none', 'validation-key': 'none'}
     }
 }

@@ -6,13 +6,22 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please fill out the following fields for the **Top Level Model**.
+        Please fill out the following fields for the **Top Level Model** as specified in the EMD specification.
+        
+        All fields correspond directly to the Model Properties section (Section 2) of the EMD specification.
 
   - type: input
     id: name
     attributes:
       label: Name
-      description: The name of the model
+      description: |
+        The name of the model.
+        
+        For CMIP7, must be a registered source_id.
+        
+        May include family indication but not version.
+        
+        E.g. HadGEM3-GC31-HH, CESM2, ICON-ESM
       placeholder: "e.g., HadGEM3-GC31-HH, CESM2"
     validations:
       required: true
@@ -21,7 +30,12 @@ body:
     id: family
     attributes:
       label: Family
-      description: The name of the model family
+      description: |
+        The name of the family of models that this model belongs to.
+        
+        Family models share code bases but may be configured differently.
+        
+        E.g. HadCM2, HadGEM3
       placeholder: "e.g., HadGEM3, CESM"
     validations:
       required: true
@@ -30,28 +44,37 @@ body:
     id: components
     attributes:
       label: Components
-      description: Select the processes dynamically simulated
+      description: |
+        Select the processes that are dynamically simulated by the model components.
+        
+        Each process must be further described by model component properties.
+        
+        From Model component process CV.
+        
+        E.g. atmosphere, aerosol, land surface, ocean, sea ice
       options:
-        - label: "atmos"
-        - label: "ocean"
-        - label: "land"
-        - label: "seaice"
-        - label: "ocnbgchem"
-        - label: "landice"
         - label: "aerosol"
-        - label: "atmoschem"
+        - label: "atmosphere"
+        - label: "atmospheric chemistry"
+        - label: "land surface"
+        - label: "land ice"
+        - label: "ocean"
+        - label: "ocean biogeochemistry"
+        - label: "sea ice"
+    validations:
+      required: true
 
   - type: textarea
     id: description
     attributes:
       label: Description
       description: |
-        Brief scientific overview of the model including:
+        A brief, free-text scientific overview of the model.
         
-        - Main scientific purpose and application
-        - Key dynamically simulated processes
-        - Notable features or capabilities
-      placeholder: "Brief scientific overview of the model and its capabilities."
+        Include mention of dynamically simulated processes but avoid duplicating component-level information.
+        
+        Should provide high-level model purpose and capabilities.
+      placeholder: "Brief scientific overview of the model, its purpose, and key capabilities. Mention the dynamically simulated processes selected above."
     validations:
       required: true
 
@@ -59,27 +82,90 @@ body:
     id: calendar
     attributes:
       label: Calendar
-      description: The calendars that define permitted dates
+      description: |
+        The calendars that define which dates are permitted in the model.
+        
+        Multiple calendars may be selected for different simulations.
+        
+        For CMIP7, note that simulation calendar is defined in output datasets.
+        
+        From Model Calendar CV.
       options:
-        - label: "gregorian"
-        - label: "noleap"
-        - label: "360_day"
+        - label: "standard"
+        - label: "proleptic_gregorian"
         - label: "julian"
+        - label: "utc"
+        - label: "tai"
+        - label: "360_day"
+        - label: "365_day"
+        - label: "366_day"
+        - label: "none"
 
   - type: input
     id: release_year
     attributes:
       label: Release Year
-      description: Year when this model was released
-      placeholder: "e.g., 2019, 2023"
+      description: |
+        The year in which this model configuration was released, or first used for published simulations.
+        
+        E.g. 2016, 2019, 2023
+      placeholder: "e.g., 2016, 2019, 2023"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## References
+        
+        **Instructions for References:** Each reference must include both Citation and DOI properties.
+        A DOI is required for all references - if one doesn't exist, you must create one (e.g., with Zenodo).
+
+  - type: textarea
+    id: reference_1_citation
+    attributes:
+      label: Reference 1 - Citation
+      description: |
+        Human-readable citation for the primary model reference.
+        
+        Must include complete bibliographic information.
+      placeholder: "Smith, R. S., et al. (2021). Model Name: Description of the model. Journal Name, Volume, Pages. https://doi.org/..."
     validations:
       required: true
 
   - type: input
     id: reference_1_doi
     attributes:
-      label: Primary Reference DOI
-      description: DOI for the primary model reference
-      placeholder: "https://doi.org/..."
+      label: Reference 1 - DOI
+      description: The persistent identifier (DOI) for the primary model reference.
+      placeholder: "https://doi.org/10.1029/2021MS002520"
     validations:
       required: true
+
+  - type: textarea
+    id: reference_2_citation
+    attributes:
+      label: Reference 2 - Citation (Optional)
+      description: Human-readable citation for additional model reference.
+      placeholder: "Additional reference citation (optional)"
+
+  - type: input
+    id: reference_2_doi
+    attributes:
+      label: Reference 2 - DOI (Optional)
+      description: DOI for additional model reference.
+      placeholder: "https://doi.org/..."
+
+  - type: textarea
+    id: reference_3_citation
+    attributes:
+      label: Reference 3 - Citation (Optional)
+      description: Human-readable citation for additional model reference.
+      placeholder: "Additional reference citation (optional)"
+
+  - type: input
+    id: reference_3_doi
+    attributes:
+      label: Reference 3 - DOI (Optional)
+      description: DOI for additional model reference.
+      placeholder: "https://doi.org/..."
