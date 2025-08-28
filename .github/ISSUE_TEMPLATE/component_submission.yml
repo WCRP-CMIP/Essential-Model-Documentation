@@ -57,7 +57,12 @@ body:
     attributes:
       label: Description
       description: |
-        Provide a comprehensive scientific overview including:\n\n- Key physical processes simulated\n- Numerical methods and algorithms used\n- Parameter settings and tuning approach\n- Known limitations and approximations
+        Provide a comprehensive scientific overview including:
+        
+        - Key physical processes simulated
+        - Numerical methods and algorithms used
+        - Parameter settings and tuning approach
+        - Known limitations and approximations
       placeholder: "Describe the scientific basis and implementation details of this component."
     validations:
       required: true
