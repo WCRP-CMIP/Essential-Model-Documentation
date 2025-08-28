@@ -56,8 +56,9 @@ body:
     id: description
     attributes:
       label: Description
-      description: Scientific overview of the model component
-      placeholder: "Describe key processes simulated by this component."
+      description: |
+        Provide a comprehensive scientific overview including:\n\n- Key physical processes simulated\n- Numerical methods and algorithms used\n- Parameter settings and tuning approach\n- Known limitations and approximations
+      placeholder: "Describe the scientific basis and implementation details of this component."
     validations:
       required: true
 

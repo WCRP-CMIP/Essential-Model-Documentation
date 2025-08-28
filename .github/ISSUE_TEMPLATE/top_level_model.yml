@@ -54,7 +54,8 @@ body:
     id: description
     attributes:
       label: Description
-      description: Brief scientific overview of the model
+      description: |
+        Brief scientific overview of the model including:\n\n- Main scientific purpose and application\n- Key dynamically simulated processes\n- Notable features or capabilities
       placeholder: "Brief scientific overview of the model and its capabilities."
     validations:
       required: true

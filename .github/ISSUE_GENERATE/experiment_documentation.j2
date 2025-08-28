@@ -56,6 +56,16 @@ body:
 {% endfor %}
 
   - type: input
+    id: experiment_title
+    attributes:
+      label: Experiment Title
+      description: |
+        A short phrase that can help in interpreting the unique\nexperiment_id's.\n\nAs examples, the CMIP6 titles are listed [here](https://wcrp-cmip.github.io/CMIP6_CVs/docs/CMIP6_experiment_id.html) in the third column labeled "experiments".
+      placeholder: "e.g., AMIP plus 4K sea surface temperature"
+    validations:
+      required: true
+
+  - type: input
     id: reference_doi
     attributes:
       label: Primary Reference DOI
