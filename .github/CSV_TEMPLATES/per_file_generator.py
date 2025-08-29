@@ -101,7 +101,6 @@ def generate_field_yaml(field_def, data):
             elif options_type in ['dict_checkbox', 'dict_multiple']:
                 for key in source_data.keys():
                     yaml_lines.append(f"        - label: \"{key}\"")
-                    yaml_lines.append(f"          value: \"{key}\"")
             
             elif options_type == 'dict_with_extra':
                 for key in source_data.keys():

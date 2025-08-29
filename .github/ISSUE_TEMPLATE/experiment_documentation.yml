@@ -78,19 +78,12 @@ body:
         From source_type CV - indicates minimum model complexity needed.
       options:
         - label: "AOGCM"
-          value: "AOGCM"
         - label: "AGCM"
-          value: "AGCM"
         - label: "OGCM"
-          value: "OGCM"
         - label: "ESM"
-          value: "ESM"
         - label: "BGCM"
-          value: "BGCM"
         - label: "AER"
-          value: "AER"
         - label: "CHEM"
-          value: "CHEM"
 
   - type: checkboxes
     id: optional_model_realms
@@ -104,19 +97,12 @@ body:
         From source_type CV - indicates additional model capabilities that enhance the experiment.
       options:
         - label: "AOGCM"
-          value: "AOGCM"
         - label: "AGCM"
-          value: "AGCM"
         - label: "OGCM"
-          value: "OGCM"
         - label: "ESM"
-          value: "ESM"
         - label: "BGCM"
-          value: "BGCM"
         - label: "AER"
-          value: "AER"
         - label: "CHEM"
-          value: "CHEM"
 
   - type: input
     id: minimum_years

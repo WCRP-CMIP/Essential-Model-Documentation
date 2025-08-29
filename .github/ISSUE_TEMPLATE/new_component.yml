@@ -107,21 +107,13 @@ body:
         Omit if not applicable.
       options:
         - label: "aerosol"
-          value: "aerosol"
         - label: "atmosphere"
-          value: "atmosphere"
         - label: "atmospheric chemistry"
-          value: "atmospheric chemistry"
         - label: "land surface"
-          value: "land surface"
         - label: "land ice"
-          value: "land ice"
         - label: "ocean"
-          value: "ocean"
         - label: "ocean biogeochemistry"
-          value: "ocean biogeochemistry"
         - label: "sea ice"
-          value: "sea ice"
 
   - type: checkboxes
     id: coupled_with
@@ -137,21 +129,13 @@ body:
         Omit if not applicable.
       options:
         - label: "aerosol"
-          value: "aerosol"
         - label: "atmosphere"
-          value: "atmosphere"
         - label: "atmospheric chemistry"
-          value: "atmospheric chemistry"
         - label: "land surface"
-          value: "land surface"
         - label: "land ice"
-          value: "land ice"
         - label: "ocean"
-          value: "ocean"
         - label: "ocean biogeochemistry"
-          value: "ocean biogeochemistry"
         - label: "sea ice"
-          value: "sea ice"
 
   - type: markdown
     attributes:
