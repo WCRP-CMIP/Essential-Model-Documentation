@@ -8,15 +8,15 @@ TEMPLATE_CONFIG = {
     'issue_category': 'model_family'
 }
 
+import cmipld
+from cmipld.utils.ldparse import *
+
 # Data for this template
 DATA = {
-    'licenses': {
-        'CC0-1.0': {'id': 'CC0-1.0', 'validation-key': 'CC0-1.0'},
-        'CC-BY-4.0': {'id': 'CC-BY-4.0', 'validation-key': 'CC-BY-4.0'},
-        'MIT': {'id': 'MIT', 'validation-key': 'MIT'},
-        'GPL-3.0': {'id': 'GPL-3.0', 'validation-key': 'GPL-3.0'},
-        'Apache-2.0': {'id': 'Apache-2.0', 'validation-key': 'Apache-2.0'}
-    },
+    'licenses': name_multikey_extract(
+        cmipld.get('universal:license/graph.jsonld')['@graph'],
+        ['id','validation-key','ui-label'],'validation-key'
+    ),
     # Hardcoded options for family_type field
     'family_type_options': [
         'Model Family (complete Earth system models)',

@@ -8,28 +8,21 @@ TEMPLATE_CONFIG = {
     'issue_category': 'top_level_model'
 }
 
+import cmipld
+from cmipld.utils.ldparse import *
+
 # Data for this template - model-level CV data
 DATA = {
-    'realms': {
-        'aerosol': {'id': 'aerosol', 'validation-key': 'aerosol'},
-        'atmosphere': {'id': 'atmosphere', 'validation-key': 'atmosphere'},
-        'atmospheric chemistry': {'id': 'atmospheric chemistry', 'validation-key': 'atmospheric chemistry'},
-        'land surface': {'id': 'land surface', 'validation-key': 'land surface'},
-        'land ice': {'id': 'land ice', 'validation-key': 'land ice'},
-        'ocean': {'id': 'ocean', 'validation-key': 'ocean'},
-        'ocean biogeochemistry': {'id': 'ocean biogeochemistry', 'validation-key': 'ocean biogeochemistry'},
-        'sea ice': {'id': 'sea ice', 'validation-key': 'sea ice'}
-    },
+    'realms': name_multikey_extract(
+        cmipld.get('universal:realm/graph.jsonld')['@graph'],
+        ['id','validation-key','ui-label'],'validation-key'
+    ),
     'calendars': {
-        'standard': {'id': 'standard', 'validation-key': 'standard'},
-        'proleptic_gregorian': {'id': 'proleptic_gregorian', 'validation-key': 'proleptic_gregorian'},
-        'julian': {'id': 'julian', 'validation-key': 'julian'},
-        'utc': {'id': 'utc', 'validation-key': 'utc'},
-        'tai': {'id': 'tai', 'validation-key': 'tai'},
-        '360_day': {'id': '360_day', 'validation-key': '360_day'},
-        '365_day': {'id': '365_day', 'validation-key': '365_day'},
-        '366_day': {'id': '366_day', 'validation-key': '366_day'},
-        'no-calendar': {'id': 'no-calendar', 'validation-key': 'no-calendar'}
+        'no-calendar': {'id': 'no-calendar', 'validation-key': 'no-calendar'},
+        ** name_multikey_extract(
+            cmipld.get('universal:model-calendar/graph.jsonld')['@graph'],
+            ['id','validation-key','ui-label'],'validation-key'
+        )
     },
     # Issue tracking fields
     'issue_category_options': ['top_level_model'],

@@ -8,9 +8,14 @@ TEMPLATE_CONFIG = {
     'issue_category': 'experiment'
 }
 
+import cmipld
+from cmipld.utils.ldparse import *
+
 # Data for this template
 DATA = {
     'experiments': {
+        # Note: experiments would come from CMIP7 CVs, not universal
+        # Using fallback data since not in universal repo
         'piControl': {'id': 'piControl', 'validation-key': 'piControl'},
         'historical': {'id': 'historical', 'validation-key': 'historical'},
         'ssp126': {'id': 'ssp126', 'validation-key': 'ssp126'},
@@ -19,23 +24,14 @@ DATA = {
         '1pctCO2': {'id': '1pctCO2', 'validation-key': '1pctCO2'},
         'abrupt-4xCO2': {'id': 'abrupt-4xCO2', 'validation-key': 'abrupt-4xCO2'}
     },
-    'activities': {
-        'CMIP': {'id': 'CMIP', 'validation-key': 'CMIP'},
-        'ScenarioMIP': {'id': 'ScenarioMIP', 'validation-key': 'ScenarioMIP'},
-        'DAMIP': {'id': 'DAMIP', 'validation-key': 'DAMIP'},
-        'AerChemMIP': {'id': 'AerChemMIP', 'validation-key': 'AerChemMIP'},
-        'C4MIP': {'id': 'C4MIP', 'validation-key': 'C4MIP'},
-        'DCPP': {'id': 'DCPP', 'validation-key': 'DCPP'}
-    },
-    'source_types': {
-        'AOGCM': {'id': 'AOGCM', 'validation-key': 'AOGCM'},
-        'AGCM': {'id': 'AGCM', 'validation-key': 'AGCM'},
-        'OGCM': {'id': 'OGCM', 'validation-key': 'OGCM'},
-        'ESM': {'id': 'ESM', 'validation-key': 'ESM'},
-        'BGCM': {'id': 'BGCM', 'validation-key': 'BGCM'},
-        'AER': {'id': 'AER', 'validation-key': 'AER'},
-        'CHEM': {'id': 'CHEM', 'validation-key': 'CHEM'}
-    },
+    'activities': name_multikey_extract(
+        cmipld.get('universal:activity/graph.jsonld')['@graph'],
+        ['id','validation-key','ui-label'],'validation-key'
+    ),
+    'source_types': name_multikey_extract(
+        cmipld.get('universal:source-type/graph.jsonld')['@graph'],
+        ['id','validation-key','ui-label'],'validation-key'
+    ),
     # Issue tracking fields
     'issue_category_options': ['experiment'],
     'issue_kind_options': ['new', 'modify']

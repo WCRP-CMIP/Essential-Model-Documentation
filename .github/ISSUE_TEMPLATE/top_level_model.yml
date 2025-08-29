@@ -56,13 +56,13 @@ body:
         E.g. atmosphere, aerosol, land surface, ocean, sea ice
       options:
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
     validations:
       required: true
 
@@ -95,15 +95,14 @@ body:
         
         From Model Calendar CV.
       options:
-        - "standard"
-        - "proleptic_gregorian"
-        - "julian"
-        - "utc"
-        - "tai"
-        - "360_day"
-        - "365_day"
-        - "366_day"
         - "no-calendar"
+        - "360-day"
+        - "365-day"
+        - "366-day"
+        - "julian"
+        - "none"
+        - "proleptic-gregorian"
+        - "standard"
 
   - type: input
     id: release_year

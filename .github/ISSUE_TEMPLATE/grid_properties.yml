@@ -26,13 +26,13 @@ body:
       description: Primary component type this grid is designed for.
       options:
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
     validations:
       required: true
 
@@ -92,26 +92,27 @@ body:
         
         From Native horizontal grid Type CV.
       options:
-        - "regular_latitude_longitude"
-        - "regular_gaussian"
-        - "reduced_gaussian"
-        - "spectral_gaussian"
-        - "spectral_reduced_gaussian"
-        - "linear_spectral_gaussian"
-        - "quadratic_spectral_gaussian"
-        - "cubic_octahedral_spectral_reduced_gaussian"
-        - "rotated_pole"
-        - "stretched"
-        - "displaced_pole"
-        - "tripolar"
-        - "cubed_sphere"
-        - "icosahedral_geodesic"
-        - "icosahedral_geodesic_dual"
-        - "yin_yang"
-        - "unstructured_triangular"
-        - "unstructured_polygonal"
-        - "plane_projection"
         - "no-horizontal-grid"
+        - "cubed-sphere"
+        - "cubic-octahedral-spectral-reduced-gaussian"
+        - "displaced-pole"
+        - "icosahedral-geodesic-dual"
+        - "icosahedral-geodesic"
+        - "linear-spectral-gaussian"
+        - "no-grid"
+        - "plane-projection"
+        - "quadratic-spectral-gaussian"
+        - "reduced-gaussian"
+        - "regular-gaussian"
+        - "regular-latitude-longitude"
+        - "rotated-pole"
+        - "spectral-gaussian"
+        - "spectral-reduced-gaussian"
+        - "stretched"
+        - "tripolar"
+        - "unstructured-polygonal"
+        - "unstructured-triangular"
+        - "yin-yang"
     validations:
       required: true
 
@@ -148,12 +149,10 @@ body:
         
         From Native horizontal grid Region CV.
       options:
-        - "global"
-        - "global_land"
-        - "global_ocean"
         - "antarctica"
+        - "global"
         - "greenland"
-        - "limited_area"
+        - "limited-area"
 
   - type: dropdown
     id: horizontal_temporal_refinement
@@ -164,9 +163,9 @@ body:
         
         From Native horizontal grid Temporal refinement CV.
       options:
-        - "static"
-        - "dynamically_stretched"
         - "adaptive"
+        - "dynamically-stretched"
+        - "static"
 
   - type: dropdown
     id: horizontal_arrangement
@@ -252,19 +251,20 @@ body:
         From Native horizontal grid Nominal resolution CV.
       options:
         - "0.5 km"
-        - "1 km"
-        - "2.5 km"
-        - "5 km"
-        - "10 km"
-        - "25 km"
-        - "50 km"
-        - "100 km"
-        - "250 km"
-        - "500 km"
-        - "1000 km"
-        - "2500 km"
-        - "5000 km"
         - "10000 km"
+        - "1000 km"
+        - "100 km"
+        - "10 km"
+        - "1 km"
+        - "1x1 degree"
+        - "2.5 km"
+        - "2500 km"
+        - "250 km"
+        - "25 km"
+        - "5000 km"
+        - "500 km"
+        - "50 km"
+        - "5 km"
 
   - type: markdown
     attributes:
@@ -283,26 +283,24 @@ body:
         Select 'none' if no vertical dimension.
       options:
         - "no-vertical-dimension"
-        - "height"
-        - "geopotential_height"
-        - "air_pressure"
-        - "air_potential_temperature"
-        - "atmosphere_ln_pressure_coordinate"
-        - "atmosphere_sigma_coordinate"
-        - "atmosphere_hybrid_sigma_pressure_coordinate"
-        - "atmosphere_hybrid_height_coordinate"
-        - "atmosphere_sleve_coordinate"
+        - "air-potential-temperature"
+        - "air-pressure"
+        - "atmosphere-hybrid-height-coordinate"
+        - "atmosphere-hybrid-sigma-pressure-coordinate"
+        - "atmosphere-ln-pressure-coordinate"
+        - "atmosphere-sigma-coordinate"
+        - "atmosphere-sleve-coordinate"
         - "depth"
-        - "sea_water_pressure"
-        - "sea_water_potential_temperature"
-        - "ocean_sigma_coordinate"
-        - "ocean_s_coordinate"
-        - "ocean_s_coordinate_g1"
-        - "ocean_s_coordinate_g2"
-        - "ocean_sigma_z_coordinate"
-        - "ocean_double_sigma_coordinate"
-        - "land_ice_sigma_coordinate"
-        - "z*"
+        - "geopotential-height"
+        - "height"
+        - "ocean-double-sigma-coordinate"
+        - "ocean-s-coordinate-g1"
+        - "ocean-s-coordinate-g2"
+        - "ocean-s-coordinate"
+        - "ocean-sigma-coordinate"
+        - "ocean-sigma-z-coordinate"
+        - "sea-water-potential-temperature"
+        - "sea-water-pressure"
     validations:
       required: true
 
@@ -365,9 +363,9 @@ body:
         
         From Native vertical grid Units CV.
       options:
+        - "K"
         - "m"
         - "Pa"
-        - "K"
 
   - type: dropdown
     id: issue_category
