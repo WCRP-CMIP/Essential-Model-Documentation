@@ -40,7 +40,7 @@ body:
     validations:
       required: true
 
-  - type: select
+  - type: dropdown
     attributes:
       multiple: true
       label: Components
@@ -80,7 +80,7 @@ body:
     validations:
       required: true
 
-  - type: select
+  - type: dropdown
     attributes:
       multiple: true
       label: Calendar

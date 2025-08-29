@@ -45,8 +45,9 @@ def generate_field_yaml(field_def, data):
     options_type = field_def['options_type']
     default_value = field_def['default_value']
     
-    # Start field
-    yaml_lines = [f"  - type: {field_type}"]
+    # Map multi-select to dropdown with multiple attribute
+    actual_field_type = 'dropdown' if field_type == 'multi-select' else field_type
+    yaml_lines = [f"  - type: {actual_field_type}"]
     
     # Handle markdown differently
     if field_type == 'markdown':
@@ -60,8 +61,8 @@ def generate_field_yaml(field_def, data):
             yaml_lines.append(f"        {description}")
         return '\n'.join(yaml_lines)
     
-    # For select fields, add multiple attribute and no id
-    if field_type == 'select':
+    # For multi-select fields, add multiple attribute and no id
+    if field_type == 'multi-select':
         yaml_lines.append("    attributes:")
         yaml_lines.append("      multiple: true")
         yaml_lines.append(f"      label: {label}")
@@ -87,8 +88,8 @@ def generate_field_yaml(field_def, data):
     if field_type in ['input', 'textarea'] and placeholder:
         yaml_lines.append(f"      placeholder: \"{placeholder}\"")
     
-    # Add options for dropdowns and selects
-    if field_type in ['dropdown', 'select']:
+    # Add options for dropdowns and multi-selects
+    if field_type in ['dropdown', 'multi-select']:
         yaml_lines.append("      options:")
         
         if data_source != 'none' and data_source in data:
@@ -103,7 +104,7 @@ def generate_field_yaml(field_def, data):
                     yaml_lines.append(f"        - \"{item}\"")
             
             elif options_type in ['dict_multiple']:
-                # For select multiple, use simple string options (no label/value)
+                # For multi-select, use simple string options (no label needed)
                 for key in source_data.keys():
                     yaml_lines.append(f"        - \"{key}\"")
             

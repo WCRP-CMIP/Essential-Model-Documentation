@@ -93,7 +93,7 @@ body:
         Set to 'private' if not publicly available.
       placeholder: "https://github.com/organization/repo/tree/v1.2.3 or 'private'"
 
-  - type: select
+  - type: dropdown
     attributes:
       multiple: true
       label: Embedded In
@@ -115,7 +115,7 @@ body:
         - "ocean biogeochemistry"
         - "sea ice"
 
-  - type: select
+  - type: dropdown
     attributes:
       multiple: true
       label: Coupled With
