@@ -66,9 +66,9 @@ body:
     validations:
       required: true
 
-  - type: checkboxes
-    id: required_model_realms
+  - type: select
     attributes:
+      multiple: true
       label: Required Model Realms
       description: |
         Select the model components/realms that are REQUIRED for this experiment.
@@ -77,17 +77,17 @@ body:
         
         From source_type CV - indicates minimum model complexity needed.
       options:
-        - label: "AOGCM"
-        - label: "AGCM"
-        - label: "OGCM"
-        - label: "ESM"
-        - label: "BGCM"
-        - label: "AER"
-        - label: "CHEM"
+        - "AOGCM"
+        - "AGCM"
+        - "OGCM"
+        - "ESM"
+        - "BGCM"
+        - "AER"
+        - "CHEM"
 
-  - type: checkboxes
-    id: optional_model_realms
+  - type: select
     attributes:
+      multiple: true
       label: Optional Model Realms
       description: |
         Select the model components/realms that are OPTIONAL for this experiment.
@@ -96,13 +96,13 @@ body:
         
         From source_type CV - indicates additional model capabilities that enhance the experiment.
       options:
-        - label: "AOGCM"
-        - label: "AGCM"
-        - label: "OGCM"
-        - label: "ESM"
-        - label: "BGCM"
-        - label: "AER"
-        - label: "CHEM"
+        - "AOGCM"
+        - "AGCM"
+        - "OGCM"
+        - "ESM"
+        - "BGCM"
+        - "AER"
+        - "CHEM"
 
   - type: input
     id: minimum_years

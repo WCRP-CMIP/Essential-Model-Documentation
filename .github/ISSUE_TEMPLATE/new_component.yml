@@ -93,9 +93,9 @@ body:
         Set to 'private' if not publicly available.
       placeholder: "https://github.com/organization/repo/tree/v1.2.3 or 'private'"
 
-  - type: checkboxes
-    id: embedded_in
+  - type: select
     attributes:
+      multiple: true
       label: Embedded In
       description: |
         Select the model component(s) in which this component is embedded.
@@ -106,18 +106,18 @@ body:
         
         Omit if not applicable.
       options:
-        - label: "aerosol"
-        - label: "atmosphere"
-        - label: "atmospheric chemistry"
-        - label: "land surface"
-        - label: "land ice"
-        - label: "ocean"
-        - label: "ocean biogeochemistry"
-        - label: "sea ice"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric chemistry"
+        - "land surface"
+        - "land ice"
+        - "ocean"
+        - "ocean biogeochemistry"
+        - "sea ice"
 
-  - type: checkboxes
-    id: coupled_with
+  - type: select
     attributes:
+      multiple: true
       label: Coupled With
       description: |
         Select the model component(s) to which this component is coupled.
@@ -128,14 +128,14 @@ body:
         
         Omit if not applicable.
       options:
-        - label: "aerosol"
-        - label: "atmosphere"
-        - label: "atmospheric chemistry"
-        - label: "land surface"
-        - label: "land ice"
-        - label: "ocean"
-        - label: "ocean biogeochemistry"
-        - label: "sea ice"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric chemistry"
+        - "land surface"
+        - "land ice"
+        - "ocean"
+        - "ocean biogeochemistry"
+        - "sea ice"
 
   - type: markdown
     attributes:

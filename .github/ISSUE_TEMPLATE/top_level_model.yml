@@ -40,9 +40,9 @@ body:
     validations:
       required: true
 
-  - type: checkboxes
-    id: components
+  - type: select
     attributes:
+      multiple: true
       label: Components
       description: |
         Select the processes that are dynamically simulated by the model components.
@@ -55,14 +55,14 @@ body:
         
         E.g. atmosphere, aerosol, land surface, ocean, sea ice
       options:
-        - label: "aerosol"
-        - label: "atmosphere"
-        - label: "atmospheric chemistry"
-        - label: "land surface"
-        - label: "land ice"
-        - label: "ocean"
-        - label: "ocean biogeochemistry"
-        - label: "sea ice"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric chemistry"
+        - "land surface"
+        - "land ice"
+        - "ocean"
+        - "ocean biogeochemistry"
+        - "sea ice"
     validations:
       required: true
 
@@ -80,9 +80,9 @@ body:
     validations:
       required: true
 
-  - type: checkboxes
-    id: calendar
+  - type: select
     attributes:
+      multiple: true
       label: Calendar
       description: |
         The calendars that define which dates are permitted in the model.
@@ -95,15 +95,15 @@ body:
         
         From Model Calendar CV.
       options:
-        - label: "standard"
-        - label: "proleptic_gregorian"
-        - label: "julian"
-        - label: "utc"
-        - label: "tai"
-        - label: "360_day"
-        - label: "365_day"
-        - label: "366_day"
-        - label: "no-calendar"
+        - "standard"
+        - "proleptic_gregorian"
+        - "julian"
+        - "utc"
+        - "tai"
+        - "360_day"
+        - "365_day"
+        - "366_day"
+        - "no-calendar"
 
   - type: input
     id: release_year

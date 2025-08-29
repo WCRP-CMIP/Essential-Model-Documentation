@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Per-File Template Generator - Fixed Duplicate Description Issue
+Per-File Template Generator - Fixed for Select Multiple Fields
 
-Processes each CSV/Python template pair independently.
+Handles select fields properly without value attributes.
 """
 
 import csv
@@ -12,20 +12,17 @@ import argparse
 from pathlib import Path
 
 def load_template_data(py_file):
-    """Load simple data dictionary from Python file."""
-    
+    """Load configuration and data from Python file."""
     namespace = {}
     with open(py_file, 'r', encoding='utf-8') as f:
         exec(f.read(), namespace)
     
     config = namespace.get('TEMPLATE_CONFIG', {})
-    data = namespace.get('DATA', {}) or namespace.get('TEMPLATE_DATA', {}) or namespace.get('CV_DATA', {})
-    
+    data = namespace.get('DATA', {})
     return config, data
 
 def load_csv_fields(csv_file):
     """Load field definitions from CSV."""
-    
     fields = []
     with open(csv_file, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -48,9 +45,10 @@ def generate_field_yaml(field_def, data):
     options_type = field_def['options_type']
     default_value = field_def['default_value']
     
+    # Start field
     yaml_lines = [f"  - type: {field_type}"]
     
-    # Markdown fields
+    # Handle markdown differently
     if field_type == 'markdown':
         yaml_lines.append("    attributes:")
         if '\\n' in description:
@@ -62,12 +60,18 @@ def generate_field_yaml(field_def, data):
             yaml_lines.append(f"        {description}")
         return '\n'.join(yaml_lines)
     
-    # All other fields
-    yaml_lines.append(f"    id: {field_id}")
-    yaml_lines.append("    attributes:")
-    yaml_lines.append(f"      label: {label}")
+    # For select fields, add multiple attribute and no id
+    if field_type == 'select':
+        yaml_lines.append("    attributes:")
+        yaml_lines.append("      multiple: true")
+        yaml_lines.append(f"      label: {label}")
+    else:
+        # Regular fields with id
+        yaml_lines.append(f"    id: {field_id}")
+        yaml_lines.append("    attributes:")
+        yaml_lines.append(f"      label: {label}")
     
-    # Handle description (only add one description)
+    # Add description if present
     if description:
         if '\\n' in description:
             formatted_desc = description.replace('\\n', '\n        ')
@@ -79,12 +83,12 @@ def generate_field_yaml(field_def, data):
         else:
             yaml_lines.append(f"      description: {description}")
     
-    # Handle placeholders
+    # Add placeholder for inputs
     if field_type in ['input', 'textarea'] and placeholder:
         yaml_lines.append(f"      placeholder: \"{placeholder}\"")
     
-    # Handle options
-    if field_type in ['dropdown', 'checkboxes']:
+    # Add options for dropdowns and selects
+    if field_type in ['dropdown', 'select']:
         yaml_lines.append("      options:")
         
         if data_source != 'none' and data_source in data:
@@ -98,9 +102,10 @@ def generate_field_yaml(field_def, data):
                 for item in source_data:
                     yaml_lines.append(f"        - \"{item}\"")
             
-            elif options_type in ['dict_checkbox', 'dict_multiple']:
+            elif options_type in ['dict_multiple']:
+                # For select multiple, use simple string options (no label/value)
                 for key in source_data.keys():
-                    yaml_lines.append(f"        - label: \"{key}\"")
+                    yaml_lines.append(f"        - \"{key}\"")
             
             elif options_type == 'dict_with_extra':
                 for key in source_data.keys():
@@ -150,7 +155,7 @@ body:
     return yaml_content.rstrip() + "\n"
 
 def validate_yaml(content):
-    """Simple YAML validation."""
+    """Validate YAML syntax."""
     try:
         parsed = yaml.safe_load(content)
         return isinstance(parsed, dict) and 'name' in parsed and 'body' in parsed
@@ -165,26 +170,25 @@ def process_template_pair(template_name, csv_file, py_file, output_dir):
     try:
         config, data = load_template_data(py_file)
         if not config:
-            print(f"    No TEMPLATE_CONFIG found in {py_file}")
+            print(f"    No TEMPLATE_CONFIG found")
             return False
         
-        print(f"    Loaded config: {config['name']}")
-        print(f"    Loaded data: {len(data)} items")
+        print(f"    Loaded: {config['name']}")
         
         fields = load_csv_fields(csv_file)
-        print(f"    Loaded {len(fields)} fields from CSV")
+        print(f"    Fields: {len(fields)}")
         
         yaml_content = generate_template_yaml(config, fields, data)
         
         if not validate_yaml(yaml_content):
-            print(f"    Generated invalid YAML")
+            print(f"    Invalid YAML generated")
             return False
         
         output_file = output_dir / f"{template_name}.yml"
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(yaml_content)
         
-        print(f"    Generated {template_name}.yml ({len(yaml_content)} chars)")
+        print(f"    Generated {template_name}.yml")
         return True
         
     except Exception as e:
@@ -193,41 +197,29 @@ def process_template_pair(template_name, csv_file, py_file, output_dir):
 
 def parse_arguments():
     """Parse command line arguments."""
-    
-    parser = argparse.ArgumentParser(description='Generate GitHub issue templates from CSV/Python pairs')
-    
+    parser = argparse.ArgumentParser(description='Generate GitHub issue templates')
     parser.add_argument('-t', '--template-dir', type=Path, help='Template directory')
     parser.add_argument('-o', '--output-dir', type=Path, help='Output directory')
-    parser.add_argument('--list', action='store_true', help='List available templates')
-    parser.add_argument('--template', type=str, help='Generate specific template only')
-    parser.add_argument('--validate-only', action='store_true', help='Validate without generating')
-    
+    parser.add_argument('--template', type=str, help='Generate specific template')
     return parser.parse_args()
 
 def main():
     """Main function."""
-    
     args = parse_arguments()
     
     print("Per-File Template Generator")
-    print("=" * 30)
     
     script_dir = Path(__file__).parent
     template_dir = args.template_dir or script_dir / "templates"
     output_dir = args.output_dir or script_dir.parent / "ISSUE_TEMPLATE"
     
-    print(f"Template directory: {template_dir}")
-    print(f"Output directory: {output_dir}")
-    
     if not template_dir.exists():
         print(f"Template directory not found: {template_dir}")
         return False
     
-    if not args.validate_only:
-        output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(exist_ok=True)
     
     csv_files = list(template_dir.glob('*.csv'))
-    
     if args.template:
         csv_files = [f for f in csv_files if f.stem == args.template]
     
@@ -235,7 +227,7 @@ def main():
         print("No CSV files found")
         return False
     
-    print(f"Found {len(csv_files)} CSV file(s) to process")
+    print(f"Processing {len(csv_files)} templates")
     
     success_count = 0
     for csv_file in csv_files:
@@ -245,10 +237,8 @@ def main():
         if py_file.exists():
             if process_template_pair(template_name, csv_file, py_file, output_dir):
                 success_count += 1
-        else:
-            print(f"No Python file for {csv_file.name}")
     
-    print(f"\nResults: {success_count}/{len(csv_files)} successful")
+    print(f"Results: {success_count}/{len(csv_files)} successful")
     return success_count > 0
 
 if __name__ == '__main__':

@@ -8,6 +8,11 @@ TEMPLATE_CONFIG = {
     'issue_category': 'component'
 }
 
+import cmipld
+from cmipld.utils.ldparse import *
+
+
+
 # Data for this template - includes all CV data needed for component documentation
 DATA = {
     'realms': {
