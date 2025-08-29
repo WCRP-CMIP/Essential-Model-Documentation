@@ -105,7 +105,6 @@ body:
         See section 3.1 for definition of embedded components.
         
         Omit if not applicable.
-      description: Select all that apply
       options:
         - label: "aerosol"
           value: "aerosol"
@@ -136,7 +135,6 @@ body:
         See section 3.1 for definition of coupled components.
         
         Omit if not applicable.
-      description: Select all that apply
       options:
         - label: "aerosol"
           value: "aerosol"
@@ -174,6 +172,14 @@ body:
         Most 'embedded in' component grids will share the same grid as their parent component.
       options:
         - "Not applicable"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric chemistry"
+        - "land surface"
+        - "land ice"
+        - "ocean"
+        - "ocean biogeochemistry"
+        - "sea ice"
       default: 0
 
   - type: dropdown
@@ -479,6 +485,14 @@ body:
         If set, no other vertical grid properties are required.
       options:
         - "Not applicable"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric chemistry"
+        - "land surface"
+        - "land ice"
+        - "ocean"
+        - "ocean biogeochemistry"
+        - "sea ice"
       default: 0
 
   - type: dropdown

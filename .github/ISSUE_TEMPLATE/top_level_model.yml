@@ -54,7 +54,6 @@ body:
         From Model component process CV.
         
         E.g. atmosphere, aerosol, land surface, ocean, sea ice
-      description: Select all that apply
       options:
         - label: "aerosol"
           value: "aerosol"
@@ -103,7 +102,6 @@ body:
         For CMIP7, note that simulation calendar is defined in output datasets.
         
         From Model Calendar CV.
-      description: Select all that apply
       options:
         - label: "standard"
           value: "standard"
