@@ -368,3 +368,26 @@ body:
         - "m"
         - "Pa"
         - "K"
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "grid"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
+    validations:
+      required: true

@@ -104,7 +104,11 @@ def generate_field_yaml(field_def, data):
     if field_type in ['input', 'textarea'] and placeholder:
         yaml_lines.append(f"      placeholder: \"{placeholder}\"")
     
-    # Handle options for dropdowns and checkboxes
+    # Add "Select all that apply" description for multiple select fields
+    if field_type == 'checkboxes' and options_type == 'dict_multiple':
+        yaml_lines.append("      description: Select all that apply")
+    
+    # Handle options for dropdowns and multiple selects
     if field_type in ['dropdown', 'checkboxes']:
         yaml_lines.append("      options:")
         
@@ -122,10 +126,11 @@ def generate_field_yaml(field_def, data):
                     for item in source_data:
                         yaml_lines.append(f"        - \"{item}\"")
             
-            elif options_type == 'dict_checkbox':
+            elif options_type == 'dict_checkbox' or options_type == 'dict_multiple':
                 if isinstance(source_data, dict):
                     for key in source_data.keys():
                         yaml_lines.append(f"        - label: \"{key}\"")
+                        yaml_lines.append(f"          value: \"{key}\"")
             
             elif options_type == 'dict_with_extra':
                 # Add dictionary keys first

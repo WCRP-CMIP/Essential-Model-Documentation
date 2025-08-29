@@ -4,7 +4,8 @@ TEMPLATE_CONFIG = {
     'name': 'Grid Properties Documentation',
     'description': 'Document standardized grid specifications for model components.',
     'title': '[EMD] Grid Properties Documentation',
-    'labels': ['emd-submission', 'grid']
+    'labels': ['emd-submission', 'grid'],
+    'issue_category': 'grid'
 }
 
 # Data for this template
@@ -101,5 +102,8 @@ DATA = {
         'm': {'id': 'm'},
         'Pa': {'id': 'Pa'},
         'K': {'id': 'K'}
-    }
+    },
+    # Issue tracking fields
+    'issue_category_options': ['grid'],
+    'issue_kind_options': ['new', 'modify']
 }

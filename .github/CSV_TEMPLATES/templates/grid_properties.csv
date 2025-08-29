@@ -24,3 +24,5 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 23,input,vertical_top_layer_thickness,Top Layer Thickness,"Thickness of top model layer.\n\nReport as dimensional quantity. Units given by Units property.",none,false,"e.g., 10",,
 24,input,vertical_top_of_model,Top of Model,"Value of upper boundary of top model layer.\n\nRelative to lower boundary or datum. Units given by Units property.",none,false,"e.g., 85003.5",,
 25,dropdown,vertical_units,Units,"Physical units of thickness and boundary values.\n\nFrom Native vertical grid Units CV.",vertical_units,false,,dict_keys,
+26,dropdown,issue_category,Issue Type,This is pre-set and cannot be changed.,issue_category,true,,hardcoded,0
+27,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,hardcoded,0

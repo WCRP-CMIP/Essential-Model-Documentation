@@ -71,40 +71,15 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: reference_1_citation
-    attributes:
-      label: Reference 1 - Citation
-      description: |
-        Human-readable citation for the primary component reference.
-        
-        Each reference must include both Citation and DOI. A DOI is required - if one doesn't exist, create one (e.g., with Zenodo).
-      placeholder: "Author(s). (Year). Title. Journal/Report. DOI or URL"
-    validations:
-      required: true
-
   - type: input
-    id: reference_1_doi
+    id: reference_doi
     attributes:
       label: Reference 1 - DOI
-      description: The persistent identifier (DOI) for the primary component reference.
+      description: |
+        The persistent identifier (DOI) for the primary component reference. You may enter multiple separated by a comma.
       placeholder: "https://doi.org/..."
     validations:
       required: true
-
-  - type: textarea
-    id: reference_2_citation
-    attributes:
-      label: Reference 2 - Citation (Optional)
-      description: Human-readable citation for additional component reference.
-      placeholder: "Additional reference citation (optional)"
-
-  - type: input
-    id: reference_2_doi
-    attributes:
-      label: Reference 2 - DOI (Optional)
-      description: DOI for additional component reference.
-      placeholder: "https://doi.org/..."
 
   - type: input
     id: code_base
@@ -125,18 +100,29 @@ body:
       description: |
         Select the model component(s) in which this component is embedded.
         
+        Select all that apply.
+        
         See section 3.1 for definition of embedded components.
         
         Omit if not applicable.
+      description: Select all that apply
       options:
         - label: "aerosol"
+          value: "aerosol"
         - label: "atmosphere"
+          value: "atmosphere"
         - label: "atmospheric chemistry"
+          value: "atmospheric chemistry"
         - label: "land surface"
+          value: "land surface"
         - label: "land ice"
+          value: "land ice"
         - label: "ocean"
+          value: "ocean"
         - label: "ocean biogeochemistry"
+          value: "ocean biogeochemistry"
         - label: "sea ice"
+          value: "sea ice"
 
   - type: checkboxes
     id: coupled_with
@@ -145,18 +131,29 @@ body:
       description: |
         Select the model component(s) to which this component is coupled.
         
+        Select all that apply.
+        
         See section 3.1 for definition of coupled components.
         
         Omit if not applicable.
+      description: Select all that apply
       options:
         - label: "aerosol"
+          value: "aerosol"
         - label: "atmosphere"
+          value: "atmosphere"
         - label: "atmospheric chemistry"
+          value: "atmospheric chemistry"
         - label: "land surface"
+          value: "land surface"
         - label: "land ice"
+          value: "land ice"
         - label: "ocean"
+          value: "ocean"
         - label: "ocean biogeochemistry"
+          value: "ocean biogeochemistry"
         - label: "sea ice"
+          value: "sea ice"
 
   - type: markdown
     attributes:
@@ -601,3 +598,26 @@ body:
         - "m"
         - "Pa"
         - "K"
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "component"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
+    validations:
+      required: true

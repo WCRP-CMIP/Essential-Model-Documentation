@@ -4,7 +4,8 @@ TEMPLATE_CONFIG = {
     'name': 'Top Level Model Submission',
     'description': 'Submit metadata for the top-level model properties as specified in the EMD specification.',
     'title': '[EMD] Top Level Model Submission',
-    'labels': ['emd-submission', 'top_level_model']
+    'labels': ['emd-submission', 'top_level_model'],
+    'issue_category': 'top_level_model'
 }
 
 # Data for this template - model-level CV data
@@ -29,5 +30,8 @@ DATA = {
         '365_day': {'id': '365_day', 'validation-key': '365_day'},
         '366_day': {'id': '366_day', 'validation-key': '366_day'},
         'no-calendar': {'id': 'no-calendar', 'validation-key': 'no-calendar'}
-    }
+    },
+    # Issue tracking fields
+    'issue_category_options': ['top_level_model'],
+    'issue_kind_options': ['new', 'modify']
 }

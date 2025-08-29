@@ -5,3 +5,5 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 4,textarea,family_description,Family Description,"Scientific and technical overview of the family including:\n\n- Common scientific basis\n- Shared code heritage\n- What distinguishes this family\n- What all family members have in common",none,true,"Describe what defines this family.",,
 5,dropdown,family_license,Family License,General licensing approach,licenses,false,,dict_with_extra,
 6,input,reference_1_doi,Primary Reference DOI,DOI for the primary family reference,none,true,https://doi.org/...,,
+7,dropdown,issue_category,Issue Type,This is pre-set and cannot be changed.,issue_category,true,,hardcoded,0
+8,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,hardcoded,0

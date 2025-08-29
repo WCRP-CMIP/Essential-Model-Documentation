@@ -4,7 +4,8 @@ TEMPLATE_CONFIG = {
     'name': 'Experiment Documentation',
     'description': 'Submit metadata for a CMIP7 experiment configuration.',
     'title': '[EMD] Experiment Documentation',
-    'labels': ['emd-submission', 'experiment']
+    'labels': ['emd-submission', 'experiment'],
+    'issue_category': 'experiment'
 }
 
 # Data for this template
@@ -34,5 +35,8 @@ DATA = {
         'BGCM': {'id': 'BGCM', 'validation-key': 'BGCM'},
         'AER': {'id': 'AER', 'validation-key': 'AER'},
         'CHEM': {'id': 'CHEM', 'validation-key': 'CHEM'}
-    }
+    },
+    # Issue tracking fields
+    'issue_category_options': ['experiment'],
+    'issue_kind_options': ['new', 'modify']
 }

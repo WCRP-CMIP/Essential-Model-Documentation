@@ -47,20 +47,31 @@ body:
       description: |
         Select the processes that are dynamically simulated by the model components.
         
+        Select all that apply.
+        
         Each process must be further described by model component properties.
         
         From Model component process CV.
         
         E.g. atmosphere, aerosol, land surface, ocean, sea ice
+      description: Select all that apply
       options:
         - label: "aerosol"
+          value: "aerosol"
         - label: "atmosphere"
+          value: "atmosphere"
         - label: "atmospheric chemistry"
+          value: "atmospheric chemistry"
         - label: "land surface"
+          value: "land surface"
         - label: "land ice"
+          value: "land ice"
         - label: "ocean"
+          value: "ocean"
         - label: "ocean biogeochemistry"
+          value: "ocean biogeochemistry"
         - label: "sea ice"
+          value: "sea ice"
     validations:
       required: true
 
@@ -85,21 +96,33 @@ body:
       description: |
         The calendars that define which dates are permitted in the model.
         
+        Select all that apply.
+        
         Multiple calendars may be selected for different simulations.
         
         For CMIP7, note that simulation calendar is defined in output datasets.
         
         From Model Calendar CV.
+      description: Select all that apply
       options:
         - label: "standard"
+          value: "standard"
         - label: "proleptic_gregorian"
+          value: "proleptic_gregorian"
         - label: "julian"
+          value: "julian"
         - label: "utc"
+          value: "utc"
         - label: "tai"
+          value: "tai"
         - label: "360_day"
+          value: "360_day"
         - label: "365_day"
+          value: "365_day"
         - label: "366_day"
+          value: "366_day"
         - label: "no-calendar"
+          value: "no-calendar"
 
   - type: input
     id: release_year
@@ -169,3 +192,26 @@ body:
       label: Reference 3 - DOI (Optional)
       description: DOI for additional model reference.
       placeholder: "https://doi.org/..."
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "top_level_model"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
+    validations:
+      required: true

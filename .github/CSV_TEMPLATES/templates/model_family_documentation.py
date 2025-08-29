@@ -4,7 +4,8 @@ TEMPLATE_CONFIG = {
     'name': 'Model Family Documentation',
     'description': 'Document a model family that encompasses multiple model configurations and components.',
     'title': '[EMD] Model Family Documentation',
-    'labels': ['emd-submission', 'model_family']
+    'labels': ['emd-submission', 'model_family'],
+    'issue_category': 'model_family'
 }
 
 # Data for this template
@@ -20,5 +21,8 @@ DATA = {
     'family_type_options': [
         'Model Family (complete Earth system models)',
         'Component Family (individual model components)'
-    ]
+    ],
+    # Issue tracking fields
+    'issue_category_options': ['model_family'],
+    'issue_kind_options': ['new', 'modify']
 }

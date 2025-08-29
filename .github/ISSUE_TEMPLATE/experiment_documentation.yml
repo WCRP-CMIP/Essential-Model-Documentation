@@ -73,15 +73,25 @@ body:
       description: |
         Select the model components/realms that are REQUIRED for this experiment.
         
+        Select all that apply.
+        
         From source_type CV - indicates minimum model complexity needed.
+      description: Select all that apply
       options:
         - label: "AOGCM"
+          value: "AOGCM"
         - label: "AGCM"
+          value: "AGCM"
         - label: "OGCM"
+          value: "OGCM"
         - label: "ESM"
+          value: "ESM"
         - label: "BGCM"
+          value: "BGCM"
         - label: "AER"
+          value: "AER"
         - label: "CHEM"
+          value: "CHEM"
 
   - type: checkboxes
     id: optional_model_realms
@@ -90,15 +100,25 @@ body:
       description: |
         Select the model components/realms that are OPTIONAL for this experiment.
         
+        Select all that apply.
+        
         From source_type CV - indicates additional model capabilities that enhance the experiment.
+      description: Select all that apply
       options:
         - label: "AOGCM"
+          value: "AOGCM"
         - label: "AGCM"
+          value: "AGCM"
         - label: "OGCM"
+          value: "OGCM"
         - label: "ESM"
+          value: "ESM"
         - label: "BGCM"
+          value: "BGCM"
         - label: "AER"
+          value: "AER"
         - label: "CHEM"
+          value: "CHEM"
 
   - type: input
     id: minimum_years
@@ -167,5 +187,28 @@ body:
         
         Typically the MIP protocol or experiment design paper.
       placeholder: "https://doi.org/..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "experiment"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
     validations:
       required: true

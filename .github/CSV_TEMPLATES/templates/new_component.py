@@ -3,8 +3,9 @@
 TEMPLATE_CONFIG = {
     'name': 'Model Component Submission',
     'description': 'Submit metadata for a model component as specified in the EMD specification.',
-    'title': '[EMD] Model Component Submission', 
-    'labels': ['emd-submission', 'component']
+    'title': '[EMD] Model Component Submission',
+    'labels': ['emd-submission', 'component'],
+    'issue_category': 'component'
 }
 
 # Data for this template - includes all CV data needed for component documentation
@@ -99,8 +100,11 @@ DATA = {
         'z*': {'id': 'z*', 'validation-key': 'z*'}
     },
     'vertical_units': {
-        'm': {'id': 'm', 'validation-key': 'm'},
-        'Pa': {'id': 'Pa', 'validation-key': 'Pa'},
-        'K': {'id': 'K', 'validation-key': 'K'}
-    }
+        'm': {'id': 'm'},
+        'Pa': {'id': 'Pa'},
+        'K': {'id': 'K'}
+    },
+    # Issue tracking fields
+    'issue_category_options': ['component'],
+    'issue_kind_options': ['new', 'modify']
 }
