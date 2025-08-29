@@ -15,16 +15,11 @@ from cmipld.utils.ldparse import *
 
 # Data for this template - includes all CV data needed for component documentation
 DATA = {
-    'realms': {
-        'aerosol': {'id': 'aerosol', 'validation-key': 'aerosol'},
-        'atmosphere': {'id': 'atmosphere', 'validation-key': 'atmosphere'},
-        'atmospheric chemistry': {'id': 'atmospheric chemistry', 'validation-key': 'atmospheric chemistry'},
-        'land surface': {'id': 'land surface', 'validation-key': 'land surface'},
-        'land ice': {'id': 'land ice', 'validation-key': 'land ice'},
-        'ocean': {'id': 'ocean', 'validation-key': 'ocean'},
-        'ocean biogeochemistry': {'id': 'ocean biogeochemistry', 'validation-key': 'ocean biogeochemistry'},
-        'sea ice': {'id': 'sea ice', 'validation-key': 'sea ice'}
-    },
+    'realms': name_multikey_extract(
+            cmipld.get('universal:realm/graph.jsonld')['@graph'],
+            ['id','validation-key','ui-label'],'validation-key'
+    ),
+    
     'grid_descriptors': [
         'N48', 'N96', 'N216', 'N512', 'N1280',
         'ORCA2', 'eORCA2', 'ORCA1', 'eORCA1', 

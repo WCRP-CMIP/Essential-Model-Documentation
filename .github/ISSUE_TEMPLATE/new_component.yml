@@ -20,13 +20,13 @@ body:
         From Model component process CV: aerosol, atmosphere, atmospheric chemistry, land surface, land ice, ocean, ocean biogeochemistry, sea ice
       options:
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
     validations:
       required: true
 
@@ -107,13 +107,13 @@ body:
         Omit if not applicable.
       options:
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
 
   - type: dropdown
     attributes:
@@ -129,13 +129,13 @@ body:
         Omit if not applicable.
       options:
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
 
   - type: markdown
     attributes:
@@ -157,13 +157,13 @@ body:
       options:
         - "Not applicable"
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
       default: 0
 
   - type: dropdown
@@ -470,13 +470,13 @@ body:
       options:
         - "Not applicable"
         - "aerosol"
-        - "atmosphere"
-        - "atmospheric chemistry"
-        - "land surface"
-        - "land ice"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
         - "ocean"
-        - "ocean biogeochemistry"
-        - "sea ice"
+        - "ocnBgchem"
+        - "seaIce"
       default: 0
 
   - type: dropdown
