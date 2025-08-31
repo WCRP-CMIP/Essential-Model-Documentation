@@ -18,6 +18,8 @@ body:
         Select the process that this model component simulates.
         
         MANDATORY field from Model component process CV.
+        
+        If your component type is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/realm
       options:
         - "aerosol"
         - "atmos"
@@ -119,6 +121,8 @@ body:
         Select all that apply.
         
         OPTIONAL field from Model component process CV.
+        
+        If your component type is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/realm
       options:
         - "aerosol"
         - "atmos"
@@ -139,6 +143,8 @@ body:
         Select all that apply.
         
         OPTIONAL field from Model component process CV.
+        
+        If your component type is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/realm
       options:
         - "aerosol"
         - "atmos"
@@ -164,6 +170,8 @@ body:
         The horizontal grid type.
         
         MANDATORY field from Native horizontal grid Type CV.
+        
+        If your grid type is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/native-horizontal-grid-type
       options:
         - "no-horizontal-grid"
         - "cubed-sphere"
@@ -233,6 +241,8 @@ body:
         The portion of the globe where horizontal grid calculations are performed.
         
         MANDATORY field from Region CV.
+        
+        If your region is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/native-horizontal-grid-region
       options:
         - "antarctica"
         - "global"
@@ -249,6 +259,8 @@ body:
         How the distribution of grid cells varies with time.
         
         MANDATORY field from Temporal refinement CV.
+        
+        If your temporal refinement type is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/native-horizontal-grid-temporal-refinement
       options:
         - "adaptive"
         - "dynamically-stretched"
@@ -394,6 +406,8 @@ body:
         Nominal resolution characterizing the grid.
         
         MANDATORY field from Nominal resolution CV.
+        
+        If your resolution is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/resolution
       options:
         - "0.5 km"
         - "10000 km"
@@ -428,6 +442,8 @@ body:
         The coordinate type of the vertical grid.
         
         MANDATORY field from Coordinate CV.
+        
+        If your coordinate type is not listed, you can register a new entry at: https://github.com/WCRP-CMIP/WCRP-universe/tree/main/native-vertical-grid-coordinate
       options:
         - "no-vertical-grid"
         - "air-potential-temperature"
