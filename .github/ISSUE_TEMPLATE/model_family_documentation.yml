@@ -1,0 +1,92 @@
+name: Model Family Documentation
+description: Document a model family that encompasses multiple model configurations and components.
+title: "[EMD] Model Family Documentation"
+labels: ['emd-submission', 'model_family']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Model Family Documentation
+        
+        This template documents model families - groups of related models or components that share common code bases but may be configured differently for various applications. Model family documentation provides essential context for understanding relationships between models and components, supports scientific evaluation of model lineage, and helps researchers track how modeling approaches evolve and are shared across institutions.
+
+  - type: input
+    id: family_name
+    attributes:
+      label: Family Name
+      description: The name of the model family
+      placeholder: "e.g., HadGEM3, CESM"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family_type
+    attributes:
+      label: Family Type
+      description: Is this a family of complete models or individual components?
+      options:
+        - "Model Family (complete Earth system models)"
+        - "Component Family (individual model components)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: family_description
+    attributes:
+      label: Family Description
+      description: |
+        Scientific and technical overview of the family including:
+        
+        - Common scientific basis
+        - Shared code heritage
+        - What distinguishes this family
+        - What all family members have in common
+      placeholder: "Describe what defines this family."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family_license
+    attributes:
+      label: Family License
+      description: General licensing approach
+      options:
+        - "CC BY 4.0"
+        - "CC BY-NC-SA 4.0"
+        - "CC BY-SA 4.0"
+        - "CC0 1.0"
+        - "Open Source"
+        - "Registration Required"
+        - "Proprietary"
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Primary Reference DOI
+      description: DOI for the primary family reference
+      placeholder: "https://doi.org/..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "model_family"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
+    validations:
+      required: true
