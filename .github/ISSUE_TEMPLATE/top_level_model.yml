@@ -19,9 +19,7 @@ body:
         
         For CMIP7, must be a registered source_id.
         
-        May include family indication but not version.
-        
-        E.g. HadGEM3-GC31-HH, CESM2, ICON-ESM
+        MANDATORY field.
       placeholder: "e.g., HadGEM3-GC31-HH, CESM2"
     validations:
       required: true
@@ -33,9 +31,7 @@ body:
       description: |
         The name of the family of models that this model belongs to.
         
-        Family models share code bases but may be configured differently.
-        
-        E.g. HadCM2, HadGEM3
+        MANDATORY field.
       placeholder: "e.g., HadGEM3, CESM"
     validations:
       required: true
@@ -43,17 +39,57 @@ body:
   - type: dropdown
     attributes:
       multiple: true
-      label: Components
+      label: Dynamic Components
       description: |
         Select the processes that are dynamically simulated by the model components.
         
         Select all that apply.
         
-        Each process must be further described by model component properties.
+        MANDATORY field from Model component process CV.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Prescribed Components
+      description: |
+        Select the processes that use prescribed (externally provided) data rather than dynamic simulation.
         
-        From Model component process CV.
+        Select all that apply.
         
-        E.g. atmosphere, aerosol, land surface, ocean, sea ice
+        MANDATORY field from Model component process CV.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Omitted Components
+      description: |
+        Select the processes that are completely absent from this model.
+        
+        Select all that apply.
+        
+        MANDATORY field from Model component process CV.
       options:
         - "aerosol"
         - "atmos"
@@ -73,10 +109,8 @@ body:
       description: |
         A brief, free-text scientific overview of the model.
         
-        Include mention of dynamically simulated processes but avoid duplicating component-level information.
-        
-        Should provide high-level model purpose and capabilities.
-      placeholder: "Brief scientific overview of the model, its purpose, and key capabilities. Mention the dynamically simulated processes selected above."
+        MANDATORY field.
+      placeholder: "Brief scientific overview of the model, its purpose, and key capabilities."
     validations:
       required: true
 
@@ -89,11 +123,7 @@ body:
         
         Select all that apply.
         
-        Multiple calendars may be selected for different simulations.
-        
-        For CMIP7, note that simulation calendar is defined in output datasets.
-        
-        From Model Calendar CV.
+        MANDATORY field from Model Calendar CV.
       options:
         - "no-calendar"
         - "360-day"
@@ -103,15 +133,17 @@ body:
         - "none"
         - "proleptic-gregorian"
         - "standard"
+    validations:
+      required: true
 
   - type: input
     id: release_year
     attributes:
       label: Release Year
       description: |
-        The year in which this model configuration was released, or first used for published simulations.
+        The year in which this model configuration was released.
         
-        E.g. 2016, 2019, 2023
+        MANDATORY integer field.
       placeholder: "e.g., 2016, 2019, 2023"
     validations:
       required: true
@@ -121,8 +153,7 @@ body:
       value: |
         ## References
         
-        **Instructions for References:** Each reference must include both Citation and DOI properties.
-        A DOI is required for all references - if one doesn't exist, you must create one (e.g., with Zenodo).
+        MANDATORY: Each reference must include both Citation and DOI properties.
 
   - type: textarea
     id: reference_1_citation
@@ -131,8 +162,8 @@ body:
       description: |
         Human-readable citation for the primary model reference.
         
-        Must include complete bibliographic information.
-      placeholder: "Smith, R. S., et al. (2021). Model Name: Description of the model. Journal Name, Volume, Pages. https://doi.org/..."
+        MANDATORY field.
+      placeholder: "Smith, R. S., et al. (2021). Model Name: Description. Journal, Volume, Pages."
     validations:
       required: true
 
@@ -140,7 +171,10 @@ body:
     id: reference_1_doi
     attributes:
       label: Reference 1 - DOI
-      description: The persistent identifier (DOI) for the primary model reference.
+      description: |
+        The persistent identifier (DOI) for the primary model reference.
+        
+        MANDATORY field.
       placeholder: "https://doi.org/10.1029/2021MS002520"
     validations:
       required: true
@@ -156,20 +190,6 @@ body:
     id: reference_2_doi
     attributes:
       label: Reference 2 - DOI (Optional)
-      description: DOI for additional model reference.
-      placeholder: "https://doi.org/..."
-
-  - type: textarea
-    id: reference_3_citation
-    attributes:
-      label: Reference 3 - Citation (Optional)
-      description: Human-readable citation for additional model reference.
-      placeholder: "Additional reference citation (optional)"
-
-  - type: input
-    id: reference_3_doi
-    attributes:
-      label: Reference 3 - DOI (Optional)
       description: DOI for additional model reference.
       placeholder: "https://doi.org/..."
 

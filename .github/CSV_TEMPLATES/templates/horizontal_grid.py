@@ -1,24 +1,20 @@
-# Component Submission Template Configuration
+# Horizontal Grid Properties Template Configuration
 
 TEMPLATE_CONFIG = {
-    'name': 'Model Component Submission',
-    'description': 'Submit metadata for a model component as specified in the EMD specification.',
-    'title': '[EMD] Model Component Submission',
-    'labels': ['emd-submission', 'component'],
-    'issue_category': 'component'
+    'name': 'Horizontal Grid Properties Documentation',
+    'description': 'Document horizontal grid specifications as compound objects for EMD compliance.',
+    'title': '[EMD] Horizontal Grid Properties',
+    'labels': ['emd-submission', 'horizontal-grid'],
+    'issue_category': 'horizontal-grid'
 }
 
 import cmipld
 from cmipld.utils.ldparse import *
 
-# Data for this template - updated to match EMD property requirements
+# Data for this template
 DATA = {
-    'realms': name_multikey_extract(
-        cmipld.get('universal:realm/graph.jsonld')['@graph'],
-        ['id','validation-key','ui-label'],'validation-key'
-    ),
     'horizontal_grid_types': {
-        'no-horizontal-grid': {'id': 'no-horizontal-grid', 'validation-key': 'no-horizontal-grid'},
+        'no-horizontal-grid': {'id': 'no-horizontal-grid'},
         ** name_multikey_extract(
             cmipld.get('universal:native-horizontal-grid-type/graph.jsonld')['@graph'],
             ['id','validation-key','ui-label'],'validation-key'
@@ -45,23 +41,12 @@ DATA = {
         cmipld.get('universal:resolution/graph.jsonld')['@graph'],
         ['id','validation-key','ui-label'],'validation-key'
     ),
-    'vertical_coordinates': {
-        'no-vertical-grid': {'id': 'no-vertical-grid', 'validation-key': 'no-vertical-grid'},
-        ** name_multikey_extract(
-            cmipld.get('universal:native-vertical-grid-coordinate/graph.jsonld')['@graph'],
-            ['id','validation-key','ui-label'],'validation-key'
-        )
-    },
-    'vertical_units': name_multikey_extract(
-        cmipld.get('universal:native-vertical-grid-units/graph.jsonld')['@graph'],
-        ['id','validation-key','ui-label'],'validation-key'
-    ),
     'resolution_units': {
         'degrees': {'id': 'degrees', 'validation-key': 'degrees'},
         'km': {'id': 'km', 'validation-key': 'km'},
         'm': {'id': 'm', 'validation-key': 'm'}
     },
     # Issue tracking fields
-    'issue_category_options': ['component'],
+    'issue_category_options': ['horizontal-grid'],
     'issue_kind_options': ['new', 'modify']
 }
