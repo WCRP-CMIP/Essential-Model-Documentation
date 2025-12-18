@@ -1,0 +1,39 @@
+{
+  "component": "ocean",
+  "name": "NEMO : Nucleus for European Modelling of the Ocean version 3.6 (OPA)",
+  "family": "NEMO",
+  "description": "The ocean component of CNRM-ESM2-1 (Séférian et al. 2019) is based on the version 3.6 of NEMO (Nucleus for European Models of the Ocean ; Madec, 2016). At the surface, the model uses the split-explicit non-linear free surface formulation proposed by Shchepetkin and McWilliams (2005), with a variable volume. Seawater thermodynamics uses the equation of state defined in the Thermodynamic Equation of State 2010 (TEOS-10, IOC et al., 2010), with conservative temperature and absolute salinity being then the prognostic variables. Radiative transfer in the water column is resolved using a chlorophyll-dependent three-waveband scheme as described in Lengaigne et al. (2007) and Séférian et al. (2019). Lateral diffusivity and viscosity are parameterized as in NOCS-ORCA1 (Danabasoglu et al., 2014). Parameterization of vertical mixing is also similar, with two notable exceptions in CNRM-CM6-1: mixing induced by breaking internal waves is parameterized following de Lavergne et al. (2016) and the Fox-Kemper et al. (2011) submesoscale mixed layer restratification scheme is activated.",
+  "code_base": "private",
+  "references": [
+    {
+      "citation": "Séférian et al., 2019. Evaluation of CNRM Earth-System model, CNRM-ESM2-1 : role of Earth system processes in present-day and future climate, Journal of Advances in Modeling Earth Systems",
+      "doi": "https://doi.org/10.1029/2019MS001791"
+    }
+  ],
+  "embedded_in": null,
+  "coupled_with": [
+    "atmosphere",
+    "land-surface"
+  ],
+  "horizontal_computational_grid": {
+    "arrangement": "arakawa_c",
+    "horizontal_subgrids": [
+      {
+        "cell_variable_type": "mass",
+        "horizontal_grid_cells": {
+          "grid_type": "tripolar",
+          "region": "global",
+          "temporal_refinement": "static",
+          "description": "eORCA1L75",
+          "n_cells": 105704
+        }
+      }
+    ]
+  },
+  "vertical_computational_grid": {
+    "vertical_coordinate": "ocean_sigma_z_coordinate",
+    "n_z": 75,
+    "bottom_layer_thickness": 200.0,
+    "top_layer_thickness": 1.0
+  }
+}

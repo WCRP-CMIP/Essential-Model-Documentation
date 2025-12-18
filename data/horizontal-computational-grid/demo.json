@@ -1,0 +1,36 @@
+{
+  "_comment": "Section 4.1.1: Horizontal Computational Grid - Contains arrangement and list of subgrids",
+  "arrangement": "arakawa_c",
+  "horizontal_subgrids": [
+    {
+      "cell_variable_type": "mass",
+      "horizontal_grid_cells": {
+        "grid_type": "regular_latitude_longitude",
+        "region": "global",
+        "temporal_refinement": "static",
+        "grid_mapping": "latitude_longitude",
+        "x_resolution": 1.0,
+        "y_resolution": 2.0,
+        "horizontal_units": "degree",
+        "southernmost_latitude": -89.5,
+        "westernmost_longitude": 1.0,
+        "n_cells": 32400
+      }
+    },
+    {
+      "cell_variable_type": "x_velocity",
+      "horizontal_grid_cells": {
+        "grid_type": "regular_latitude_longitude",
+        "region": "global",
+        "temporal_refinement": "static",
+        "grid_mapping": "latitude_longitude",
+        "x_resolution": 1.0,
+        "y_resolution": 2.0,
+        "horizontal_units": "degree",
+        "southernmost_latitude": -89.5,
+        "westernmost_longitude": 0.0,
+        "n_cells": 32400
+      }
+    }
+  ]
+}

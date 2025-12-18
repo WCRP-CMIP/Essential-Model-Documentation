@@ -1,0 +1,38 @@
+{
+  "arrangement": "arakawa_c",
+  "horizontal_subgrids": [
+    {
+      "cell_variable_type": "mass",
+      "horizontal_grid_cells": {
+        "grid_type": "regular_latitude_longitude",
+        "region": "global",
+        "temporal_refinement": "static",
+        "grid_mapping": "latitude_longitude",
+        "x_resolution": 1.25,
+        "y_resolution": 0.9,
+        "horizontal_units": "degree",
+        "southernmost_latitude": -89.5,
+        "westernmost_longitude": 0.5,
+        "n_cells": 55296
+      }
+    },
+    {
+      "cell_variable_type": "mass",
+      "horizontal_grid_cells": {
+        "grid_type": "linear_spectral_gaussian",
+        "region": "global",
+        "temporal_refinement": "static",
+        "grid_mapping": "latitude_longitude",
+        "description": "TL127",
+        "x_resolution": 1.4,
+        "y_resolution": 1.4,
+        "horizontal_units": "degree",
+        "southernmost_latitude": -88.9277353522076,
+        "westernmost_longitude": 0.0,
+        "n_cells": 24572,
+        "truncation_method": "triangular",
+        "truncation_number": 127
+      }
+    }
+  ]
+}
