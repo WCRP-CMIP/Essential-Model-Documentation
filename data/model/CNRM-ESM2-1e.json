@@ -1,4 +1,10 @@
 {
+  "@context": "_context",
+  "@type": [
+    "esgvoc:Model",
+    "emd:Model"
+  ],
+  "@id": "cnrm-esm2-1e",
   "name": "CNRM-ESM2-1e",
   "family": "CNRM-CM, CNRM-ESM",
   "dynamic_components": [
@@ -20,13 +26,7 @@
   ],
   "release_year": 2018,
   "references": [
-    {
-      "citation": "Séférian et al., 2019. Evaluation of CNRM Earth-System model, CNRM-ESM2-1 : role of Earth system processes in present-day and future climate, Journal of Advances in Modeling Earth Systems",
-      "doi": "https://doi.org/10.1029/2019MS001791"
-    },
-    {
-      "citation": "Voldoire, A. et al., 2019. Evaluation of CMIP6 DECK Experiments With CNRM-CM6-1, Journal of Advances in Modeling Earth Systems, 11, 2177–2213",
-      "doi": "https://doi.org/10.1029/2019MS001683"
-    }
+    "reference/REF001.json",
+    "reference/REF002.json"
   ]
 }

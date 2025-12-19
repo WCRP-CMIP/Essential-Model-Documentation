@@ -1,0 +1,18 @@
+{
+  "@context": "_context",
+  "@type": "emd:HorizontalGridCells",
+  "@id": "hgrid001_cells_1",
+  "grid_type": "linear_spectral_gaussian",
+  "region": "global",
+  "temporal_refinement": "static",
+  "grid_mapping": "latitude_longitude",
+  "description": "TL127",
+  "x_resolution": 1.4,
+  "y_resolution": 1.4,
+  "horizontal_units": "degree",
+  "southernmost_latitude": -88.9277353522076,
+  "westernmost_longitude": 0.0,
+  "n_cells": 24572,
+  "truncation_method": "triangular",
+  "truncation_number": 127
+}

@@ -1,6 +1,32 @@
-{
-    "@context": {
-        "@base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_component/",
-        "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.ModelComponent."
+ {
+  "@context": {
+    "@base": "https://esgf.github.io/esgf-vocab/emd/model-component/",
+    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.EMDModelComponent.",
+    "component": {
+      "@context": "../cv-component/_context",
+      "@type": "@id"
+    },
+    "embedded_in": {
+      "@context": "../cv-component/_context",
+      "@type": "@id"
+    },
+    "coupled_with": {
+      "@context": "../cv-component/_context",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "references": {
+      "@context": "../reference/_context",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "horizontal_computational_grid": {
+      "@context": "../horizontal-computational-grid/_context",
+      "@type": "@id"
+    },
+    "vertical_computational_grid": {
+      "@context": "../vertical-computational-grid/_context",
+      "@type": "@id"
     }
+  }
 }

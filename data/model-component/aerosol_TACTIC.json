@@ -1,60 +1,20 @@
 {
+  "@context": "_context",
+  "@type": [
+    "esgvoc:EMDModelComponent",
+    "emd:ModelComponent"
+  ],
+  "@id": "aerosol_tactic",
   "component": "aerosol",
   "name": "TACTIC",
   "family": "none",
   "description": "TACTIC (Tropospheric Aerosols for ClimaTe In CNRM) is an interactive tropospheric aerosol scheme, able to represent the main anthropogenic and natural aerosol types in the troposphere. Originally developed in the GEMS/MACC project (Morcrette et al., 2009), this scheme has been adapted to the ARPEGE/ALADIN-Climat models (Michou et al., 2015 and Nabat et al., 2015). Aerosols are included through sectional bins, separating desert dust (3 size bins), sea-salt (3 size bins), sulphate (1 bin, as well as 1 additional variable for sulfate precursors considered as SO2), organic matter (2 bins: hydrophobic and hydrophilic particles) and black carbon (2 bins: hydrophobic and hydrophilic particles) particles. All these 12 species are prognostic variables in the model, submitted to transport (semi-lagrangian advection, and convective transport), dry deposition, in-cloud and below-cloud scavenging. The interaction with shortwave and longwave radiation, is also taken into account through optical properties (extinction coefficient, single scattering albedo and asymmetry parameter) calculated using the Mie theory. Sulfate, organic matter and sea salt concentrations are used to determine the cloud droplet number concentration following Menon et al. (2002), thus representing the cloud-albedo effect (1st indirect aerosol effect).",
   "code_base": "private",
   "references": [
-    {
-      "citation": "TACTIC aerosol scheme and REPROBUS chemistry scheme : Michou et al, 2020. Present‐Day and Historical Aerosol and Ozone Characteristics in CNRM CMIP6 Simulations, Journal of Advances in Modeling Earth Systems, https://doi.org/10.1029/2019MS001816",
-      "doi": "https://doi.org/10.1029/2019MS001816"
-    }
+    "reference/REF004.json"
   ],
   "embedded_in": "atmosphere",
   "coupled_with": null,
-  "horizontal_computational_grid": {
-    "arrangement": "arakawa_c",
-    "horizontal_subgrids": [
-      {
-        "cell_variable_type": "mass",
-        "horizontal_grid_cells": {
-          "grid_type": "regular_latitude_longitude",
-          "region": "global",
-          "temporal_refinement": "static",
-          "grid_mapping": "latitude_longitude",
-          "x_resolution": 1.25,
-          "y_resolution": 0.9,
-          "horizontal_units": "degree",
-          "southernmost_latitude": -89.5,
-          "westernmost_longitude": 0.5,
-          "n_cells": 55296
-        }
-      },
-      {
-        "cell_variable_type": "mass",
-        "horizontal_grid_cells": {
-          "grid_type": "linear_spectral_gaussian",
-          "region": "global",
-          "temporal_refinement": "static",
-          "grid_mapping": "latitude_longitude",
-          "description": "TL127",
-          "x_resolution": 1.4,
-          "y_resolution": 1.4,
-          "horizontal_units": "degree",
-          "southernmost_latitude": -88.9277353522076,
-          "westernmost_longitude": 0.0,
-          "n_cells": 24572,
-          "truncation_method": "triangular",
-          "truncation_number": 127
-        }
-      }
-    ]
-  },
-  "vertical_computational_grid": {
-    "vertical_coordinate": "atmosphere_hybrid_height_coordinate",
-    "n_z": 85,
-    "bottom_layer_thickness": 100.0,
-    "top_layer_thickness": 10.0,
-    "total_thickness": 84763.34
-  }
+  "horizontal_computational_grid": "horizontal-computational-grid/HGRID001.json",
+  "vertical_computational_grid": "vertical-computational-grid/VGRID001_0.json"
 }

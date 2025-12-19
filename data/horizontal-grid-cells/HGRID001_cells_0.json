@@ -1,0 +1,15 @@
+{
+  "@context": "_context",
+  "@type": "emd:HorizontalGridCells",
+  "@id": "hgrid001_cells_0",
+  "grid_type": "regular_latitude_longitude",
+  "region": "global",
+  "temporal_refinement": "static",
+  "grid_mapping": "latitude_longitude",
+  "x_resolution": 1.25,
+  "y_resolution": 0.9,
+  "horizontal_units": "degree",
+  "southernmost_latitude": -89.5,
+  "westernmost_longitude": 0.5,
+  "n_cells": 55296
+}

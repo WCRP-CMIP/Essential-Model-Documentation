@@ -1,6 +1,31 @@
 {
-    "@context": {
-        "@base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model/",
-        "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.Model."
+  "@context": {
+    "@base": "https://esgf.github.io/esgf-vocab/emd/model/",
+    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.Model.",
+    "calendar": {
+      "@context": "../cv-calendar/_context",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "dynamic_components": {
+      "@context": "../cv-component/_context",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "prescribed_components": {
+      "@context": "../cv-component/_context",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "omitted_components": {
+      "@context": "../cv-component/_context",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "references": {
+      "@context": "../reference/_context",
+      "@container": "@set",
+      "@type": "@id"
     }
+  }
 }

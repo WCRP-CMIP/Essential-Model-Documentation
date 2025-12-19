@@ -1,6 +1,30 @@
 {
-    "@context": {
-        "@base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cells/",
-        "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalGridCells."
+  "@context": {
+    "@base": "https://esgf.github.io/esgf-vocab/emd/horizontal-grid-cells/",
+    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalGridCells.",
+    "grid_type": {
+      "@context": "../cv-grid/_context",
+      "@type": "@id"
+    },
+    "region": {
+      "@context": "../cv-region/_context",
+      "@type": "@id"
+    },
+    "temporal_refinement": {
+      "@context": "../cv-temporal-refinement/_context",
+      "@type": "@id"
+    },
+    "grid_mapping": {
+      "@context": "../cv-grid-mapping/_context",
+      "@type": "@id"
+    },
+    "horizontal_units": {
+      "@context": "../cv-horizontal-units/_context",
+      "@type": "@id"
+    },
+    "truncation_method": {
+      "@context": "../cv-truncation-method/_context",
+      "@type": "@id"
     }
+  }
 }

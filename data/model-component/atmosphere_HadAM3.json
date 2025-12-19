@@ -1,18 +1,18 @@
 {
+  "@context": "_context",
+  "@type": [
+    "esgvoc:EMDModelComponent",
+    "emd:ModelComponent"
+  ],
+  "@id": "atmosphere_hadam3",
   "component": "atmosphere",
   "name": "HadAM3",
   "family": "HadAM",
   "description": "Dynamical, thermodynamical, and physical processes in the atmosphere...",
   "code_base": "https://doi.org/10.5281/zenodo.xxx",
   "references": [
-    {
-      "citation": "Séférian et al., 2019. Evaluation of CNRM Earth-System model, CNRM-ESM2-1 : role of Earth system processes in present-day and future climate, Journal of Advances in Modeling Earth Systems",
-      "doi": "https://doi.org/10.1029/2019MS001791"
-    },
-    {
-      "citation": "Voldoire, A. et al., 2019. Evaluation of CMIP6 DECK Experiments With CNRM-CM6-1, Journal of Advances in Modeling Earth Systems, 11, 2177–2213",
-      "doi": "https://doi.org/10.1029/2019MS001683"
-    }
+    "reference/REF001.json",
+    "reference/REF002.json"
   ],
   "embedded_in": null,
   "coupled_with": [
@@ -20,49 +20,6 @@
     "sea-ice",
     "land-surface"
   ],
-  "horizontal_computational_grid": {
-    "arrangement": "arakawa_c",
-    "horizontal_subgrids": [
-      {
-        "cell_variable_type": "mass",
-        "horizontal_grid_cells": {
-          "grid_type": "regular_latitude_longitude",
-          "region": "global",
-          "temporal_refinement": "static",
-          "grid_mapping": "latitude_longitude",
-          "x_resolution": 1.25,
-          "y_resolution": 0.9,
-          "horizontal_units": "degree",
-          "southernmost_latitude": -89.5,
-          "westernmost_longitude": 0.5,
-          "n_cells": 55296
-        }
-      },
-      {
-        "cell_variable_type": "mass",
-        "horizontal_grid_cells": {
-          "grid_type": "linear_spectral_gaussian",
-          "region": "global",
-          "temporal_refinement": "static",
-          "grid_mapping": "latitude_longitude",
-          "description": "TL127",
-          "x_resolution": 1.4,
-          "y_resolution": 1.4,
-          "horizontal_units": "degree",
-          "southernmost_latitude": -88.9277353522076,
-          "westernmost_longitude": 0.0,
-          "n_cells": 24572,
-          "truncation_method": "triangular",
-          "truncation_number": 127
-        }
-      }
-    ]
-  },
-  "vertical_computational_grid": {
-    "vertical_coordinate": "atmosphere_hybrid_height_coordinate",
-    "n_z": 85,
-    "bottom_layer_thickness": 100.0,
-    "top_layer_thickness": 10.0,
-    "total_thickness": 84763.34
-  }
+  "horizontal_computational_grid": "horizontal-computational-grid/HGRID001.json",
+  "vertical_computational_grid": "vertical-computational-grid/VGRID001_0.json"
 }

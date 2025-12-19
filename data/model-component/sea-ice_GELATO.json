@@ -1,34 +1,20 @@
 {
+  "@context": "_context",
+  "@type": [
+    "esgvoc:EMDModelComponent",
+    "emd:ModelComponent"
+  ],
+  "@id": "sea-ice_gelato",
   "component": "sea-ice",
   "name": "GELATO",
   "family": "GELATO",
   "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean",
   "code_base": "private",
   "references": [
-    {
-      "citation": "Voldoire, A. et al., 2019. Evaluation of CMIP6 DECK Experiments With CNRM-CM6-1, Journal of Advances in Modeling Earth Systems, 11, 2177–2213",
-      "doi": "https://doi.org/10.1029/2019MS001683"
-    }
+    "reference/REF002.json"
   ],
   "embedded_in": "ocean",
   "coupled_with": null,
-  "horizontal_computational_grid": {
-    "arrangement": "arakawa_c",
-    "horizontal_subgrids": [
-      {
-        "cell_variable_type": "mass",
-        "horizontal_grid_cells": {
-          "grid_type": "tripolar",
-          "region": "global",
-          "temporal_refinement": "static",
-          "description": "eORCA1L75",
-          "n_cells": 105704
-        }
-      }
-    ]
-  },
-  "vertical_computational_grid": {
-    "vertical_coordinate": "height",
-    "n_z": 10
-  }
+  "horizontal_computational_grid": "horizontal-computational-grid/HGRID002.json",
+  "vertical_computational_grid": "vertical-computational-grid/VGRID004_0.json"
 }

@@ -1,6 +1,15 @@
 {
-    "@context": {
-        "@base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_computational_grid/",
-        "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalComputationalGrid."
+  "@context": {
+    "@base": "https://esgf.github.io/esgf-vocab/emd/horizontal-computational-grid/",
+    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalComputationalGrid.",
+    "arrangement": {
+      "@context": "../cv-arrangement/_context",
+      "@type": "@id"
+    },
+    "horizontal_subgrids": {
+      "@context": "../horizontal-subgrid/_context",
+      "@container": "@set",
+      "@type": "@id"
     }
+  }
 }
