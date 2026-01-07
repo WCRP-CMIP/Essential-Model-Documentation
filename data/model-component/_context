@@ -1,31 +1,31 @@
- {
+{
   "@context": {
-    "@base": "https://esgf.github.io/esgf-vocab/emd/model-component/",
-    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.EMDModelComponent.",
+    "@base": "https://emd.mipcvs.dev/model-component/",
+    "@vocab": "https://emd.mipcvs.dev/model-component/",
     "component": {
-      "@context": "../cv-component/_context",
+      "@context": "https://emd.mipcvs.dev/cv-component/_context",
       "@type": "@id"
     },
     "embedded_in": {
-      "@context": "../cv-component/_context",
+      "@context": "https://emd.mipcvs.dev/cv-component/_context",
       "@type": "@id"
     },
     "coupled_with": {
-      "@context": "../cv-component/_context",
+      "@context": "https://emd.mipcvs.dev/cv-component/_context",
       "@container": "@set",
       "@type": "@id"
     },
     "references": {
-      "@context": "../reference/_context",
+      "@context": "https://emd.mipcvs.dev/reference/_context",
       "@container": "@set",
       "@type": "@id"
     },
     "horizontal_computational_grid": {
-      "@context": "../horizontal-computational-grid/_context",
+      "@context": "https://emd.mipcvs.dev/horizontal-computational-grid/_context",
       "@type": "@id"
     },
     "vertical_computational_grid": {
-      "@context": "../vertical-computational-grid/_context",
+      "@context": "https://emd.mipcvs.dev/vertical-computational-grid/_context",
       "@type": "@id"
     }
   }

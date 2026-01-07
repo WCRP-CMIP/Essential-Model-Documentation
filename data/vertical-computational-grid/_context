@@ -1,14 +1,26 @@
 {
   "@context": {
-    "@base": "https://esgf.github.io/esgf-vocab/emd/vertical-computational-grid/",
-    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.VerticalComputationalGrid.",
+    "@base": "https://emd.mipcvs.dev/vertical-computational-grid/",
+    "@vocab": "https://emd.mipcvs.dev/vertical-computational-grid/",
     "vertical_coordinate": {
-      "@context": "../cv-coordinate/_context",
+      "@context": "https://emd.mipcvs.dev/cv-vertical-coordinate/_context",
       "@type": "@id"
     },
-    "vertical_units": {
-      "@context": "../cv-vertical-units/_context",
-      "@type": "@id"
+    "n_z": {
+      "@type": "xsd:integer"
+    },
+    "n_z_range": {
+      "@container": "@list",
+      "@type": "xsd:integer"
+    },
+    "top_layer_thickness": {
+      "@type": "xsd:decimal"
+    },
+    "bottom_layer_thickness": {
+      "@type": "xsd:decimal"
+    },
+    "total_thickness": {
+      "@type": "xsd:decimal"
     }
   }
 }

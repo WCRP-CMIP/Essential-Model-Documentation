@@ -1,13 +1,14 @@
 {
   "@context": {
-    "@base": "https://esgf.github.io/esgf-vocab/emd/horizontal-subgrid/",
-    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalSubgrid.",
+    "@base": "https://emd.mipcvs.dev/horizontal-subgrid/",
+    "@vocab": "https://emd.mipcvs.dev/horizontal-subgrid/",
     "cell_variable_type": {
-      "@context": "../cv-cell-variable-type/_context",
+      "@context": "https://emd.mipcvs.dev/cv-cell-variable-type/_context",
+      "@container": "@set",
       "@type": "@id"
     },
     "horizontal_grid_cells": {
-      "@context": "../horizontal-grid-cells/_context",
+      "@context": "https://emd.mipcvs.dev/horizontal-grid-cells/_context",
       "@type": "@id"
     }
   }

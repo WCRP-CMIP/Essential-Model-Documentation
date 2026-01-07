@@ -1,30 +1,34 @@
 {
   "@context": {
-    "@base": "https://esgf.github.io/esgf-vocab/emd/horizontal-grid-cells/",
-    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalGridCells.",
+    "@base": "https://emd.mipcvs.dev/horizontal-grid-cells/",
+    "@vocab": "https://emd.mipcvs.dev/horizontal-grid-cells/",
     "grid_type": {
-      "@context": "../cv-grid/_context",
+      "@context": "https://emd.mipcvs.dev/cv-grid-type/_context",
       "@type": "@id"
     },
     "region": {
-      "@context": "../cv-region/_context",
+      "@context": "https://emd.mipcvs.dev/cv-region/_context",
+      "@container": "@set",
       "@type": "@id"
     },
     "temporal_refinement": {
-      "@context": "../cv-temporal-refinement/_context",
+      "@context": "https://emd.mipcvs.dev/cv-temporal-refinement/_context",
       "@type": "@id"
     },
     "grid_mapping": {
-      "@context": "../cv-grid-mapping/_context",
+      "@context": "https://emd.mipcvs.dev/cv-grid-mapping/_context",
       "@type": "@id"
     },
     "horizontal_units": {
-      "@context": "../cv-horizontal-units/_context",
+      "@context": "https://emd.mipcvs.dev/cv-horizontal-units/_context",
       "@type": "@id"
     },
     "truncation_method": {
-      "@context": "../cv-truncation-method/_context",
+      "@context": "https://emd.mipcvs.dev/cv-truncation-method/_context",
       "@type": "@id"
+    },
+    "truncation_number": {
+      "@type": "xsd:integer"
     }
   }
 }

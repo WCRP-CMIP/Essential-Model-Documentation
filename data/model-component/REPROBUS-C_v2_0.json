@@ -1,0 +1,17 @@
+{
+  "@context": "_context",
+  "@type": "emd:ModelComponent",
+  "@id": "reprobus-c_v2_0",
+  "component": "atmospheric_chemistry",
+  "name": "REPROBUS-C (v2.0)",
+  "family": "REPROBUS",
+  "description": "The chemistry scheme of CNRM-ESM2 was first implemented and evaluated in Michou et al. (2011), and more recently during the course of the Chemistry Climate Model Initiative (CCMI) research (e.g., Morgenstern et al. (2017); Wales et al. (2018); Maycock et al. (2018a,b); Zhang et al. (2018)). It is an \"on-line\" scheme whereby the chemistry routines are part of the physics of the atmospheric climate model and called at each time-step of the physics. The scheme does not represent the low troposphere ozone non-methane hydrocarbon chemistry and considers 63 chemistry species that are prognostic variables of the climate model. Chemical evolution is computed down to the 560 hPa level (for details see Michou et al. (2011) and Morgenstern et al. (2017)). Below this level, the concentration of a number of species are relaxed towards the yearly evolving global mean abundances of CMIP6 (Meinshausen et al. (2017)); for the other species concentrations below 560 hPa level are relaxed towards the 560 hPa value. Coherently with the relaxation, explicit emissions, dry deposition, wash-out and parameterised transport (diffusion and convection) of the chemical fields are not considered. The 3-D concentrations of H2O, CO2 , O3 , CH4 , N2O, CFC11, and CFC12 are transferred to the radiative code.",
+  "code_base": "private",
+  "references": [
+    "reference/REF004.json"
+  ],
+  "embedded_in": "atmosphere",
+  "coupled_with": null,
+  "horizontal_computational_grid": "horizontal-computational-grid/HG100.json",
+  "vertical_computational_grid": "vertical-computational-grid/VG100.json"
+}

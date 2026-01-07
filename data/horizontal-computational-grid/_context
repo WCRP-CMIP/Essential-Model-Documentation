@@ -1,13 +1,13 @@
 {
   "@context": {
-    "@base": "https://esgf.github.io/esgf-vocab/emd/horizontal-computational-grid/",
-    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.HorizontalComputationalGrid.",
+    "@base": "https://emd.mipcvs.dev/horizontal-computational-grid/",
+    "@vocab": "https://emd.mipcvs.dev/horizontal-computational-grid/",
     "arrangement": {
-      "@context": "../cv-arrangement/_context",
+      "@context": "https://emd.mipcvs.dev/cv-arrangement/_context",
       "@type": "@id"
     },
     "horizontal_subgrids": {
-      "@context": "../horizontal-subgrid/_context",
+      "@context": "https://emd.mipcvs.dev/horizontal-subgrid/_context",
       "@container": "@set",
       "@type": "@id"
     }

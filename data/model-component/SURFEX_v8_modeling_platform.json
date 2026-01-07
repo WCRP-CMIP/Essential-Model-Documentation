@@ -1,0 +1,23 @@
+{
+  "@context": "_context",
+  "@type": "emd:ModelComponent",
+  "@id": "surfex_v8_modeling_platform",
+  "component": "land_surface",
+  "name": "SURFEX v8 modeling platform",
+  "family": "SURFEX",
+  "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface. The land surface is represented using the new ISBA-CTRIP coupled system (Decharme et al., 2019; Delire et al. 2019). ISBA calculates the time evolution of the energy, carbon and water budgets at the land surface while CTRIP simulates river discharges (including carbon transport) up to the ocean from the total runoff (and total soil carbon leaching) computed by ISBA. The FLAKE model simulate surface fluxes over lakes, including both the Caspian and the Aral seas, and computes the temporal evolution of the vertical lake temperature profile from the surface mixing layer to the bottom (Le Moigne et al. 2016).",
+  "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
+  "references": [
+    "reference/REF006.json",
+    "reference/REF007.json",
+    "reference/REF008.json",
+    "reference/REF009.json"
+  ],
+  "embedded_in": null,
+  "coupled_with": [
+    "atmosphere",
+    "ocean"
+  ],
+  "horizontal_computational_grid": "horizontal-computational-grid/HG100.json",
+  "vertical_computational_grid": "vertical-computational-grid/VG102.json"
+}

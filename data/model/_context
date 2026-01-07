@@ -1,29 +1,29 @@
 {
   "@context": {
-    "@base": "https://esgf.github.io/esgf-vocab/emd/model/",
-    "@vocab": "https://esgf.github.io/esgf-vocab/api_documentation/data_descriptors.html#esgvoc.api.data_descriptors.Model.",
+    "@base": "https://emd.mipcvs.dev/model/",
+    "@vocab": "https://emd.mipcvs.dev/model/",
     "calendar": {
-      "@context": "../cv-calendar/_context",
+      "@context": "https://emd.mipcvs.dev/cv-calendar/_context",
       "@container": "@set",
       "@type": "@id"
     },
     "dynamic_components": {
-      "@context": "../cv-component/_context",
+      "@context": "https://emd.mipcvs.dev/cv-component/_context",
       "@container": "@set",
       "@type": "@id"
     },
     "prescribed_components": {
-      "@context": "../cv-component/_context",
+      "@context": "https://emd.mipcvs.dev/cv-component/_context",
       "@container": "@set",
       "@type": "@id"
     },
     "omitted_components": {
-      "@context": "../cv-component/_context",
+      "@context": "https://emd.mipcvs.dev/cv-component/_context",
       "@container": "@set",
       "@type": "@id"
     },
     "references": {
-      "@context": "../reference/_context",
+      "@context": "https://emd.mipcvs.dev/reference/_context",
       "@container": "@set",
       "@type": "@id"
     }
