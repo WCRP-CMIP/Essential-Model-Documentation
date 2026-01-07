@@ -1,0 +1,139 @@
+{
+  "@context": {
+  "@base": "https://emd.mipcvs.dev/horizontal_grid_cells/",
+  "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalGridCells/",
+  "grid_mapping": {
+    "@context": "https://emd.mipcvs.dev/cv_grid_mapping/_context",
+    "@type": "@id"
+  },
+  "grid_type": {
+    "@context": "https://emd.mipcvs.dev/cv_grid_type/_context",
+    "@type": "@id"
+  },
+  "horizontal_units": {
+    "@context": "https://emd.mipcvs.dev/cv_horizontal_units/_context",
+    "@type": "@id"
+  },
+  "region": {
+    "@context": "https://emd.mipcvs.dev/cv_region/_context",
+    "@type": "@id"
+  },
+  "temporal_refinement": {
+    "@context": "https://emd.mipcvs.dev/cv_temporal_refinement/_context",
+    "@type": "@id"
+  },
+  "truncation_method": {
+    "@context": "https://emd.mipcvs.dev/cv_truncation_method/_context",
+    "@type": "@id"
+  }
+},
+  "@graph": [
+    {
+  "validation_key": "hgc100",
+  "ui_label": "",
+  "description": "",
+  "grid_mapping": "latitude_longitude",
+  "grid_type": "regular_latitude_longitude",
+  "horizontal_units": "degree",
+  "n_cells": 55296,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.5,
+  "temporal_refinement": "static",
+  "westernmost_longitude": 0.5,
+  "x_resolution": 1.25,
+  "y_resolution": 0.9,
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "hgc100"
+}
+    ,{
+  "validation_key": "hgc101",
+  "ui_label": "",
+  "description": "TL127",
+  "grid_mapping": "latitude_longitude",
+  "grid_type": "linear_spectral_gaussian",
+  "horizontal_units": "degree",
+  "n_cells": 24572,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -88.9277353522076,
+  "temporal_refinement": "static",
+  "truncation_method": "triangular",
+  "truncation_number": 127,
+  "westernmost_longitude": 0.0,
+  "x_resolution": 1.4,
+  "y_resolution": 1.4,
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "hgc101"
+}
+    ,{
+  "validation_key": "hgc102",
+  "ui_label": "",
+  "description": "eORCA1L75",
+  "grid_mapping": "latitude_longitude",
+  "grid_type": "tripolar",
+  "n_cells": 105704,
+  "region": [
+    "global"
+  ],
+  "temporal_refinement": "static",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "hgc102"
+}
+    ,{
+  "validation_key": "hgc103",
+  "ui_label": "",
+  "description": "Greenland ice sheet (GrIS) is modelled with 9.6 km square base cells that may subdivide to 1.2 km, and Antarctic ice sheet (AIS) with 8 km that may subdivide to 2 km. The meshes are updated every 8 timesteps for GrIS and 4 for AIS, allowing the resolution to evolve with the ice dynamics.",
+  "grid_mapping": "polar_stereographic",
+  "grid_type": "plane_projection",
+  "region": [
+    "greenland",
+    "antarctica"
+  ],
+  "temporal_refinement": "adaptive",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "hgc103"
+}
+    ,{
+  "validation_key": "hgc104",
+  "ui_label": "",
+  "description": "",
+  "grid_mapping": "latitude_longitude",
+  "grid_type": "regular_latitude_longitude",
+  "horizontal_units": "degree",
+  "n_cells": 55296,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.65,
+  "temporal_refinement": "static",
+  "westernmost_longitude": 0.0,
+  "x_resolution": 1.25,
+  "y_resolution": 0.9,
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "hgc104"
+}
+  ]
+}
