@@ -1,18 +1,16 @@
 {
-    "validation_key": "hsg105",
+    "validation_key": "s101",
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "mass",
-        "x_velocity",
-        "y_velocity"
+        "mass"
     ],
-    "horizontal_grid_cells": "HGC103",
+    "horizontal_grid_cells": "c101",
     "@context": "_context",
     "@type": [
         "emd",
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid"
     ],
-    "@id": "hsg105"
+    "@id": "s101"
 }

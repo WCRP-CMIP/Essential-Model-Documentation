@@ -1,10 +1,11 @@
 {
-    "validation_key": "hg104",
+    "validation_key": "g100",
     "ui_label": "",
     "description": "",
     "arrangement": "arakawa_c",
     "horizontal_subgrids": [
-        "HSG105"
+        "s100",
+        "s101"
     ],
     "@context": "_context",
     "@type": [
@@ -12,5 +13,5 @@
         "wcrp:horizontal_computational_grid",
         "esgvoc:HorizontalComputationalGrid"
     ],
-    "@id": "hg104"
+    "@id": "g100"
 }

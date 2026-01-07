@@ -1,5 +1,5 @@
 {
-    "validation_key": "hgc104",
+    "validation_key": "c100",
     "ui_label": "",
     "description": "",
     "grid_mapping": "latitude_longitude",
@@ -9,9 +9,9 @@
     "region": [
         "global"
     ],
-    "southernmost_latitude": -89.65,
+    "southernmost_latitude": -89.5,
     "temporal_refinement": "static",
-    "westernmost_longitude": 0.0,
+    "westernmost_longitude": 0.5,
     "x_resolution": 1.25,
     "y_resolution": 0.9,
     "@context": "_context",
@@ -20,5 +20,5 @@
         "wcrp:horizontal_grid_cells",
         "esgvoc:HorizontalGridCells"
     ],
-    "@id": "hgc104"
+    "@id": "c100"
 }
