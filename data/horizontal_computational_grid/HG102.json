@@ -1,10 +1,16 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
-  "@id": "hg102",
-  "validation_key": "hg102",
-  "ui_label": "",
-  "description": "",
-  "arrangement": "arakawa_c",
-  "horizontal_subgrids": ["HSG103"]
+    "validation_key": "hg102",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa_c",
+    "horizontal_subgrids": [
+        "HSG103"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "hg102"
 }
