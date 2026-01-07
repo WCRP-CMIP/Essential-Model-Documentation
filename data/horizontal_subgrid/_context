@@ -1,15 +1,14 @@
 {
-    "@context": {
-        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_subgrid/",
-        "@base": "emd.mipcvs.dev/horizontal_subgrid/",
-        "@vocab": "emd.mipcvs.dev/docs/contents/HorizontalSubgrid/",
-        "cell_variable_type": {
-            "@context": "https://emd.mipcvs.dev/cv-cell-variable-type/_context",
-            "@type": "@id"
-        },
-        "horizontal_grid_cells": {
-            "@context": "https://emd.mipcvs.dev/horizontal-grid-cells/_context",
-            "@type": "@id"
-        }
+  "@context": {
+    "@base": "https://emd.mipcvs.dev/horizontal_subgrid/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalSubgrid/",
+    "cell_variable_type": {
+      "@context": "https://emd.mipcvs.dev/cv_cell_variable_type/_context",
+      "@type": "@id"
+    },
+    "horizontal_grid_cells": {
+      "@context": "https://emd.mipcvs.dev/horizontal_grid_cells/_context",
+      "@type": "@id"
     }
+  }
 }

@@ -1,39 +1,25 @@
 {
-    "validation_key": "BISICLES",
-    "ui_label": "",
-    "description": "BISICLES (Berkeley Ice Sheet Initiative for CLimate ExtremeS) family uses the adaptive-mesh Chombo libraries for ice sheet modeling. All cells in the mesh are rectangles that may be recursively refined by subdivision into four smaller cells with the same aspect ratio. The configuration approximates the momentum equations using the shelfy-stream approximation with simplified vertical shear strains included in the effective viscosity.",
-    "collaborative_institutions": [
-        "uob",
-        "bas"
-    ],
-    "common_scientific_basis": "Shared scientific approach includes SSA- approximation for momentum equations, adaptive mesh refinement targeting dynamically active ice regions, basal traction set to zero beneath floating ice with power law treatments beneath grounded ice.",
-    "computational_requirements": "Adaptive mesh allows efficient computational resource usage. Greenland modeled with 9.6 km base cells subdividing to 1.2 km, Antarctic with 8 km base cells subdividing to 2 km.",
-    "documentation": "https://bisicles.lbl.gov/documentation/",
-    "established": "2008",
-    "evolution": "BISICLES developed from early adaptive mesh ice sheet modeling efforts, enhanced through ISMIP6 participation for standardized ice sheet projections, extended with UniCiCles coupling interface for Earth system model integration.",
-    "license": "Open Source",
-    "primary_institution": "lbl",
-    "programming_languages": [
-        "C++",
-        "Fortran"
-    ],
-    "references": [
-        "reference/REF012.json"
-    ],
-    "representative_member": "BISICLES-UKESM-ISMIP6-1.0",
-    "scientific_domains": [
-        "land_ice"
-    ],
-    "shared_code_base": "All BISICLES family members use the Chombo adaptive mesh refinement framework with rectangular cells and 4:1 recursive refinement. Common SSA- momentum approximation, shared basal traction treatments, and adaptive mesh update algorithms. Written in C++ using Chombo libraries.",
-    "software_dependencies": "Chombo adaptive mesh refinement library, PETSc linear algebra solvers, HDF5/NetCDF for I/O, MPI for parallelization",
-    "source_code_repository": "https://github.com/ggslc/bisicles-uob",
-    "variation_dimensions": "BISICLES family members differ in: Coupling interfaces (standalone vs coupled), Domain applications (Greenland vs Antarctic), Base mesh resolution (1-10 km), Refinement strategies, Basal friction law specifics.",
-    "website": "https://bisicles.lbl.gov/",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_family",
-        "esgvoc:ModelFamily"
-    ],
-    "@id": "bisicles"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model_family", "esgvoc:ModelFamily"],
+  "@id": "bisicles",
+  "validation_key": "BISICLES",
+  "ui_label": "",
+  "description": "BISICLES uses adaptive-mesh Chombo libraries for ice sheet modeling with SSA- momentum approximation.",
+  "shared_code_base": "Chombo adaptive mesh refinement framework with 4:1 recursive refinement, SSA- momentum approximation.",
+  "common_scientific_basis": "SSA- approximation, adaptive mesh refinement, basal traction treatments.",
+  "variation_dimensions": "Coupling interfaces, domain applications, base mesh resolution, refinement strategies.",
+  "representative_member": "BISICLES-UKESM-ISMIP6-1.0",
+  "primary_institution": "lbl",
+  "collaborative_institutions": ["uob", "bas"],
+  "established": "2008",
+  "evolution": "Enhanced through ISMIP6, extended with UniCiCles coupling interface.",
+  "programming_languages": ["C++", "Fortran"],
+  "software_dependencies": "Chombo, PETSc, HDF5/NetCDF, MPI",
+  "computational_requirements": "Adaptive mesh allows efficient resource usage",
+  "scientific_domains": ["land_ice"],
+  "website": "https://bisicles.lbl.gov/",
+  "documentation": "https://bisicles.lbl.gov/documentation/",
+  "source_code_repository": "https://github.com/ggslc/bisicles-uob",
+  "license": "Open Source",
+  "references": ["REF012"]
 }

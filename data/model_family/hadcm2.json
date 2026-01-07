@@ -1,37 +1,25 @@
 {
-    "validation_key": "HadCM2",
-    "ui_label": "",
-    "description": "HadCM2 is an early family of Met Office Hadley Centre coupled climate models that established foundational approaches for UK climate modeling. The family represents atmosphere-ocean coupled models used for climate research and early climate projection studies, serving as predecessors to the more comprehensive HadGEM family of models.",
-    "collaborative_institutions": [],
-    "common_scientific_basis": "Common scientific approach based on primitive equation atmospheric and oceanic dynamics, consistent flux coupling between atmosphere and ocean components, and shared approaches to representing key climate processes within the computational constraints of early climate modeling.",
-    "computational_requirements": "Designed for computing capabilities of the 1990s, typically requiring 10s to 100s of processors for climate simulations, with memory and storage requirements modest by current standards but significant for the era.",
-    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",
-    "established": "1995",
-    "evolution": "HadCM2 developed in the mid-1990s as part of early coupled climate modeling efforts, evolved through various configurations and improvements, and served as foundation for subsequent HadCM3 and eventually HadGEM model family development.",
-    "license": "Proprietary",
-    "primary_institution": "mohc",
-    "programming_languages": [
-        "Fortran 77",
-        "Fortran 90"
-    ],
-    "references": [
-        "reference/REF014.json"
-    ],
-    "representative_member": "HadCM2",
-    "scientific_domains": [
-        "atmosphere",
-        "ocean"
-    ],
-    "shared_code_base": "HadCM2 family members share common atmospheric and oceanic model components developed at the Met Office, with consistent coupling methodologies and shared physics parameterizations appropriate for the computational capabilities of the era.",
-    "software_dependencies": "Standard numerical libraries appropriate for 1990s computing environments, basic I/O libraries, message passing libraries for parallel implementations",
-    "source_code_repository": null,
-    "variation_dimensions": "HadCM2 family members differ in: Resolution configurations, Parameter tuning for different applications, Specific physics parameterization choices, Domain configurations (global vs regional), Experimental design optimizations for different research questions.",
-    "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_family",
-        "esgvoc:ModelFamily"
-    ],
-    "@id": "hadcm2"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model_family", "esgvoc:ModelFamily"],
+  "@id": "hadcm2",
+  "validation_key": "HadCM2",
+  "ui_label": "",
+  "description": "HadCM2 is an early family of Met Office Hadley Centre coupled climate models that established foundational approaches for UK climate modeling.",
+  "shared_code_base": "HadCM2 family members share common atmospheric and oceanic model components developed at the Met Office.",
+  "common_scientific_basis": "Common scientific approach based on primitive equation atmospheric and oceanic dynamics.",
+  "variation_dimensions": "Resolution configurations, parameter tuning, physics parameterization choices, domain configurations.",
+  "representative_member": "HadCM2",
+  "primary_institution": "mohc",
+  "collaborative_institutions": [],
+  "established": "1995",
+  "evolution": "HadCM2 developed in the mid-1990s, served as foundation for HadCM3 and HadGEM families.",
+  "programming_languages": ["Fortran 77", "Fortran 90"],
+  "software_dependencies": "Standard numerical libraries, basic I/O libraries, message passing libraries",
+  "computational_requirements": "10s to 100s of processors for climate simulations",
+  "scientific_domains": ["atmosphere", "ocean"],
+  "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+  "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",
+  "source_code_repository": null,
+  "license": "Proprietary",
+  "references": ["REF014"]
 }

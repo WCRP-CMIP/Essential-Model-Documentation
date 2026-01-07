@@ -1,17 +1,23 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "clm4",
-  "validation_key": "clm4",
-  "ui_label": "",
-  "name": "CLM4",
-  "description": "The model represents several aspects of the land surface including surface heterogeneity and consists of components or submodels related to land biogeophysics, the hydrological cycle, biogeochemistry, human dimensions, and ecosystem dynamics. Spatial land surface heterogeneity in CLM is represented as a nested subgrid hierarchy in which grid cells are composed of multiple landunits, snow/soil columns, and PFTs. Each grid cell can have a different number of landunits, each landunit can have a different number of columns, and each column can have multiple PFTs. Biogeophysical processes are simulated for each subgrid landunit, column, and PFT independently and each subgrid unit maintains its own prognostic variables. The same atmospheric forcing is used to force all subgrid units within a grid cell. The surface variables and fluxes required by the atmosphere are obtained by averaging the subgrid quantities weighted by their fractional areas.",
-  "component": "land_surface",
-  "family": "model_family/clm.json",
-  "code_base": null,
-  "references": ["reference/REF013.json"],
-  "embedded_in": "atmosphere",
-  "coupled_with": null,
-  "horizontal_computational_grid": "horizontal_computational_grid/HG105.json",
-  "vertical_computational_grid": "vertical_computational_grid/VG106.json"
+    "validation_key": "clm4",
+    "ui_label": "",
+    "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
+    "code_base": null,
+    "component": "land_surface",
+    "coupled_with": null,
+    "embedded_in": "atmosphere",
+    "family": "clm",
+    "horizontal_computational_grid": "HG105",
+    "name": "CLM4",
+    "references": [
+        "REF013"
+    ],
+    "vertical_computational_grid": "VG106",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "clm4"
 }
