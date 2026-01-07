@@ -1,7 +1,14 @@
 {
-  "@context": "_context",
-  "@type": "emd:Reference",
-  "@id": "ref002",
-  "citation": "Voldoire, A. et al., 2019. Evaluation of CMIP6 DECK Experiments With CNRM-CM6-1, Journal of Advances in Modeling Earth Systems, 11, 2177–2213",
-  "doi": "https://doi.org/10.1029/2019MS001683"
+    "validation_key": "ref002",
+    "ui_label": "",
+    "description": "",
+    "citation": "Voldoire, A. et al., 2019. Evaluation of CMIP6 DECK Experiments With CNRM-CM6-1, Journal of Advances in Modeling Earth Systems, 11, 2177–2213",
+    "doi": "https://doi.org/10.1029/2019MS001683",
+    "@context": "_context",
+    "@type": [
+        "wcrp:reference",
+        "esgvoc:Reference",
+        "emd"
+    ],
+    "@id": "ref002"
 }

@@ -1,7 +1,14 @@
 {
-  "@context": "_context",
-  "@type": "emd:Reference",
-  "@id": "ref006",
-  "citation": "ISBA-CTRIP Land Surface Physical Processes : Decharme B., Delire C., Minvielle M., Colin J., Vergnes J.-P., Alias A., Saint-Martin D., Séférian R., Sénési S., Voldoire A., (2019). Recent changes in the ISBA-CTRIP land surface system for use in the CNRM-CM6 climate model and in global offline hydrological applications. Journal of Advances in Modeling Earth Systems, 11. https://doi.org/10.1029/2018MS001545",
-  "doi": "https://doi.org/10.1029/2018MS001545"
+    "validation_key": "ref006",
+    "ui_label": "",
+    "description": "",
+    "citation": "ISBA-CTRIP Land Surface Physical Processes : Decharme B., Delire C., Minvielle M., Colin J., Vergnes J.-P., Alias A., Saint-Martin D., Séférian R., Sénési S., Voldoire A., (2019). Recent changes in the ISBA-CTRIP land surface system for use in the CNRM-CM6 climate model and in global offline hydrological applications. Journal of Advances in Modeling Earth Systems, 11. https://doi.org/10.1029/2018MS001545",
+    "doi": "https://doi.org/10.1029/2018MS001545",
+    "@context": "_context",
+    "@type": [
+        "wcrp:reference",
+        "esgvoc:Reference",
+        "emd"
+    ],
+    "@id": "ref006"
 }

@@ -1,0 +1,17 @@
+{
+    "validation_key": "hg100",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa_c",
+    "horizontal_subgrids": [
+        "horizontal-subgrid/HSG100.json",
+        "horizontal-subgrid/HSG101.json"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "hg100"
+}

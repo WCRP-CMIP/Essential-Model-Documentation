@@ -1,0 +1,19 @@
+{
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_family/",
+        "@base": "emd.mipcvs.dev/model_family/",
+        "@vocab": "emd.mipcvs.dev/docs/contents/ModelFamily/",
+        "collaborative_institutions": {
+            "@context": "https://universal.mipcvs.dev/organisation/_context",
+            "@type": "@id"
+        },
+        "primary_institution": {
+            "@context": "https://universal.mipcvs.dev/organisation/_context",
+            "@type": "@id"
+        },
+        "references": {
+            "@context": "../reference/_context",
+            "@type": "@id"
+        }
+    }
+}

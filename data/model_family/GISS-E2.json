@@ -1,0 +1,33 @@
+{
+    "validation_key": "GISS-E2",
+    "ui_label": "",
+    "description": "NASA Goddard Institute for Space Studies Earth system model family.",
+    "collaborative_institutions": [],
+    "common_scientific_basis": null,
+    "computational_requirements": null,
+    "documentation": null,
+    "established": null,
+    "evolution": null,
+    "license": null,
+    "primary_institution": "nasa-giss",
+    "programming_languages": null,
+    "references": [],
+    "representative_member": null,
+    "scientific_domains": [
+        "atmosphere",
+        "land_surface",
+        "ocean"
+    ],
+    "shared_code_base": null,
+    "software_dependencies": null,
+    "source_code_repository": null,
+    "variation_dimensions": null,
+    "website": null,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "giss-e2"
+}

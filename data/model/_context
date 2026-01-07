@@ -1,31 +1,31 @@
 {
-  "@context": {
-    "@base": "https://emd.mipcvs.dev/model/",
-    "@vocab": "https://emd.mipcvs.dev/model/",
-    "calendar": {
-      "@context": "https://emd.mipcvs.dev/cv-calendar/_context",
-      "@container": "@set",
-      "@type": "@id"
-    },
-    "dynamic_components": {
-      "@context": "https://emd.mipcvs.dev/cv-component/_context",
-      "@container": "@set",
-      "@type": "@id"
-    },
-    "prescribed_components": {
-      "@context": "https://emd.mipcvs.dev/cv-component/_context",
-      "@container": "@set",
-      "@type": "@id"
-    },
-    "omitted_components": {
-      "@context": "https://emd.mipcvs.dev/cv-component/_context",
-      "@container": "@set",
-      "@type": "@id"
-    },
-    "references": {
-      "@context": "https://emd.mipcvs.dev/reference/_context",
-      "@container": "@set",
-      "@type": "@id"
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model/",
+        "@base": "emd.mipcvs.dev/model/",
+        "@vocab": "emd.mipcvs.dev/docs/contents/Model/",
+        "calendar": {
+            "@context": "../cv-calendar/_context",
+            "@type": "@id"
+        },
+        "dynamic_components": {
+            "@context": "../cv-component/_context",
+            "@type": "@id"
+        },
+        "family": {
+            "@context": "../model_family/_context",
+            "@type": "@id"
+        },
+        "omitted_components": {
+            "@context": "../cv-component/_context",
+            "@type": "@id"
+        },
+        "prescribed_components": {
+            "@context": "../cv-component/_context",
+            "@type": "@id"
+        },
+        "references": {
+            "@context": "../reference/_context",
+            "@type": "@id"
+        }
     }
-  }
 }

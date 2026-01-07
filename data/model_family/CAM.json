@@ -1,0 +1,31 @@
+{
+    "validation_key": "CAM",
+    "ui_label": "",
+    "description": "Community Atmosphere Model - the atmospheric component of CESM, also used standalone for atmospheric research.",
+    "collaborative_institutions": [],
+    "common_scientific_basis": null,
+    "computational_requirements": null,
+    "documentation": null,
+    "established": null,
+    "evolution": null,
+    "license": null,
+    "primary_institution": "ncar",
+    "programming_languages": null,
+    "references": [],
+    "representative_member": null,
+    "scientific_domains": [
+        "atmosphere"
+    ],
+    "shared_code_base": null,
+    "software_dependencies": null,
+    "source_code_repository": null,
+    "variation_dimensions": null,
+    "website": null,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "cam"
+}

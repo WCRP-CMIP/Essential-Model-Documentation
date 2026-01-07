@@ -1,0 +1,23 @@
+{
+    "validation_key": "clm4",
+    "ui_label": "",
+    "description": "The model represents several aspects of the land surface including surface heterogeneity and consists of components or submodels related to land biogeophysics, the hydrological cycle, biogeochemistry, human dimensions, and ecosystem dynamics. Spatial land surface heterogeneity in CLM is represented as a nested subgrid hierarchy in which grid cells are composed of multiple landunits, snow/soil columns, and PFTs. Each grid cell can have a different number of landunits, each landunit can have a different number of columns, and each column can have multiple PFTs. Biogeophysical processes are simulated for each subgrid landunit, column, and PFT independently and each subgrid unit maintains its own prognostic variables. The same atmospheric forcing is used to force all subgrid units within a grid cell. The surface variables and fluxes required by the atmosphere are obtained by averaging the subgrid quantities weighted by their fractional areas.",
+    "code_base": null,
+    "component": "land_surface",
+    "coupled_with": null,
+    "embedded_in": "atmosphere",
+    "family": "family/clm.json",
+    "horizontal_computational_grid": "horizontal-computational-grid/HG105.json",
+    "name": "CLM4",
+    "references": [
+        "reference/REF013.json"
+    ],
+    "vertical_computational_grid": "vertical-computational-grid/VG106.json",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "clm4"
+}
