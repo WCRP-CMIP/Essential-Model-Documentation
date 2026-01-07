@@ -1,0 +1,10 @@
+{
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
+  "@id": "c100",
+  "validation_key": "c100",
+  "ui_label": "",
+  "description": "",
+  "arrangement": "arakawa_c",
+  "horizontal_subgrids": ["s100", "s101"]
+}

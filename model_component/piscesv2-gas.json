@@ -1,25 +1,17 @@
 {
-    "validation_key": "piscesv2-gas",
-    "ui_label": "",
-    "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies model volume 2 version trace gases.",
-    "code_base": "https://gitlab.in2p3.fr/pisco/pisces-gas/pisces-gas",
-    "component": "ocean_biogeochemistry",
-    "coupled_with": null,
-    "embedded_in": "ocean",
-    "family": "PISCES",
-    "horizontal_computational_grid": "g101",
-    "name": "PISCESv2-gas",
-    "references": [
-        "REF001",
-        "REF010",
-        "REF011"
-    ],
-    "vertical_computational_grid": "v103",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "piscesv2-gas"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
+  "@id": "piscesv2-gas",
+  "validation_key": "piscesv2-gas",
+  "ui_label": "",
+  "name": "PISCESv2-gas",
+  "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies model volume 2 version trace gases.",
+  "component": "ocean_biogeochemistry",
+  "family": "PISCES",
+  "code_base": "https://gitlab.in2p3.fr/pisco/pisces-gas/pisces-gas",
+  "references": ["REF001", "REF010", "REF011"],
+  "embedded_in": "ocean",
+  "coupled_with": null,
+  "horizontal_computational_grid": "c101",
+  "vertical_computational_grid": "v103"
 }

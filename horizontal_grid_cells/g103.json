@@ -1,0 +1,12 @@
+{
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
+  "@id": "g103",
+  "validation_key": "g103",
+  "ui_label": "",
+  "description": "Greenland ice sheet (GrIS) is modelled with 9.6 km square base cells that may subdivide to 1.2 km, and Antarctic ice sheet (AIS) with 8 km that may subdivide to 2 km. The meshes are updated every 8 timesteps for GrIS and 4 for AIS, allowing the resolution to evolve with the ice dynamics.",
+  "grid_type": "plane_projection",
+  "grid_mapping": "polar_stereographic",
+  "region": ["greenland", "antarctica"],
+  "temporal_refinement": "adaptive"
+}

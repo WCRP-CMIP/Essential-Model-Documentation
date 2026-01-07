@@ -1,18 +1,10 @@
 {
-    "validation_key": "s105",
-    "ui_label": "",
-    "description": "",
-    "cell_variable_type": [
-        "mass",
-        "x_velocity",
-        "y_velocity"
-    ],
-    "horizontal_grid_cells": "c103",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:horizontal_subgrid",
-        "esgvoc:HorizontalSubgrid"
-    ],
-    "@id": "s105"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid"],
+  "@id": "s105",
+  "validation_key": "s105",
+  "ui_label": "",
+  "description": "",
+  "cell_variable_type": ["mass", "x_velocity", "y_velocity"],
+  "horizontal_grid_cells": "g103"
 }
