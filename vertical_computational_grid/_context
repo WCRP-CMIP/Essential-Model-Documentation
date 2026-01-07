@@ -1,0 +1,10 @@
+{
+  "@context": {
+    "@base": "https://emd.mipcvs.dev/vertical_computational_grid/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/VerticalComputationalGrid/",
+    "vertical_coordinate": {
+      "@context": "https://emd.mipcvs.dev/cv_vertical_coordinate/_context",
+      "@type": "@id"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "@base": "https://emd.mipcvs.dev/horizontal_computational_grid/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalComputationalGrid/",
+    "arrangement": {
+      "@context": "https://emd.mipcvs.dev/cv_arrangement/_context",
+      "@type": "@id"
+    },
+    "horizontal_subgrids": {
+      "@context": "https://emd.mipcvs.dev/horizontal_subgrid/_context",
+      "@type": "@id"
+    }
+  }
+}

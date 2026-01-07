@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@base": "https://emd.mipcvs.dev/model_family/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
+    "primary_institution": {
+      "@context": "https://universal.mipcvs.dev/organisation/_context",
+      "@type": "@id"
+    },
+    "collaborative_institutions": {
+      "@context": "https://universal.mipcvs.dev/organisation/_context",
+      "@type": "@id"
+    },
+    "scientific_domains": {
+      "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+      "@type": "@id"
+    },
+    "references": {
+      "@context": "https://emd.mipcvs.dev/reference/_context",
+      "@type": "@id"
+    }
+  }
+}
