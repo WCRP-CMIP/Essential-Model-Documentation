@@ -1,16 +1,10 @@
 {
-    "validation_key": "hg103",
-    "ui_label": "",
-    "description": "",
-    "arrangement": "arakawa_a",
-    "horizontal_subgrids": [
-        "horizontal-subgrid/HSG104.json"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:horizontal_computational_grid",
-        "esgvoc:HorizontalComputationalGrid"
-    ],
-    "@id": "hg103"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
+  "@id": "hg103",
+  "validation_key": "hg103",
+  "ui_label": "",
+  "description": "",
+  "arrangement": "arakawa_a",
+  "horizontal_subgrids": ["horizontal_subgrid/HSG104.json"]
 }

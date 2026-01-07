@@ -1,35 +1,16 @@
 {
-    "validation_key": "cnrm-esm2-1e",
-    "ui_label": "",
-    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better consevration of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations. The atmospheric is represented based on ARPEGE-Climat V6.3 online coupled to the land, terrestrial biophere and lakes components included in the SURFEX v8.0 platform. The pronostic aerosols scheme TACTIC v2 is embedded in the atmospheric component as well as the stratospheric chemistry scheme REPROBUS v2. The water budget is closed by the river routing scheme CTRIP v2. NEMO3.6 is implemented to represent the ocean along with GELATO v6 for the seaice. The ocean biogeochemistry is simulated using the PISCES v2-gas model. Land ice-sheet are not represented, the snow mass budget over these icesheet and land glaciers is directly fed to the ocean.",
-    "calendar": [
-        "standard"
-    ],
-    "dynamic_components": [
-        "aerosol",
-        "atmosphere",
-        "atmospheric_chemistry",
-        "land_surface",
-        "ocean",
-        "ocean_biogeochemistry",
-        "sea_ice"
-    ],
-    "family": "family/cnrm-cm.json",
-    "name": "CNRM-ESM2-1e",
-    "omitted_components": [
-        "land_ice"
-    ],
-    "prescribed_components": [],
-    "references": [
-        "reference/REF001.json",
-        "reference/REF002.json"
-    ],
-    "release_year": 2018,
-    "@context": "_context",
-    "@type": [
-        "wcrp:model",
-        "esgvoc:Model",
-        "emd"
-    ],
-    "@id": "cnrm-esm2-1e"
+  "@context": "_context",
+  "@type": ["wcrp:model", "esgvoc:Model", "emd"],
+  "@id": "cnrm-esm2-1e",
+  "validation_key": "cnrm-esm2-1e",
+  "ui_label": "",
+  "name": "CNRM-ESM2-1e",
+  "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better consevration of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations. The atmospheric is represented based on ARPEGE-Climat V6.3 online coupled to the land, terrestrial biophere and lakes components included in the SURFEX v8.0 platform. The pronostic aerosols scheme TACTIC v2 is embedded in the atmospheric component as well as the stratospheric chemistry scheme REPROBUS v2. The water budget is closed by the river routing scheme CTRIP v2. NEMO3.6 is implemented to represent the ocean along with GELATO v6 for the seaice. The ocean biogeochemistry is simulated using the PISCES v2-gas model. Land ice-sheet are not represented, the snow mass budget over these icesheet and land glaciers is directly fed to the ocean.",
+  "family": "model_family/cnrm-cm.json",
+  "dynamic_components": ["aerosol", "atmosphere", "atmospheric_chemistry", "land_surface", "ocean", "ocean_biogeochemistry", "sea_ice"],
+  "prescribed_components": [],
+  "omitted_components": ["land_ice"],
+  "calendar": ["standard"],
+  "release_year": 2018,
+  "references": ["reference/REF001.json", "reference/REF002.json"]
 }

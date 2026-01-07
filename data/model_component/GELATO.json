@@ -1,23 +1,17 @@
 {
-    "validation_key": "gelato",
-    "ui_label": "",
-    "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean",
-    "code_base": "private",
-    "component": "sea_ice",
-    "coupled_with": null,
-    "embedded_in": "ocean",
-    "family": "GELATO",
-    "horizontal_computational_grid": "horizontal-computational-grid/HG101.json",
-    "name": "GELATO",
-    "references": [
-        "reference/REF002.json"
-    ],
-    "vertical_computational_grid": "vertical-computational-grid/VG104.json",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "gelato"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
+  "@id": "gelato",
+  "validation_key": "gelato",
+  "ui_label": "",
+  "name": "GELATO",
+  "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean",
+  "component": "sea_ice",
+  "family": "GELATO",
+  "code_base": "private",
+  "references": ["reference/REF002.json"],
+  "embedded_in": "ocean",
+  "coupled_with": null,
+  "horizontal_computational_grid": "horizontal_computational_grid/HG101.json",
+  "vertical_computational_grid": "vertical_computational_grid/VG104.json"
 }

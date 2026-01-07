@@ -1,35 +1,35 @@
 {
-    "@context": {
-        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_component/",
-        "@base": "emd.mipcvs.dev/model_component/",
-        "@vocab": "emd.mipcvs.dev/docs/contents/ModelComponent/",
-        "component": {
-            "@context": "../cv-component/_context",
-            "@type": "@id"
-        },
-        "coupled_with": {
-            "@context": "../cv-component/_context",
-            "@type": "@id"
-        },
-        "embedded_in": {
-            "@context": "../cv-component/_context",
-            "@type": "@id"
-        },
-        "family": {
-            "@context": "../family/_context",
-            "@type": "@id"
-        },
-        "horizontal_computational_grid": {
-            "@context": "../horizontal-computational-grid/_context",
-            "@type": "@id"
-        },
-        "references": {
-            "@context": "../reference/_context",
-            "@type": "@id"
-        },
-        "vertical_computational_grid": {
-            "@context": "../vertical-computational-grid/_context",
-            "@type": "@id"
-        }
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_component/",
+    "@base": "emd.mipcvs.dev/model_component/",
+    "@vocab": "emd.mipcvs.dev/docs/contents/ModelComponent/",
+    "component": {
+      "@context": "../cv_component/_context",
+      "@type": "@id"
+    },
+    "coupled_with": {
+      "@context": "../cv_component/_context",
+      "@type": "@id"
+    },
+    "embedded_in": {
+      "@context": "../cv_component/_context",
+      "@type": "@id"
+    },
+    "family": {
+      "@context": "../model_family/_context",
+      "@type": "@id"
+    },
+    "horizontal_computational_grid": {
+      "@context": "../horizontal_computational_grid/_context",
+      "@type": "@id"
+    },
+    "references": {
+      "@context": "../reference/_context",
+      "@type": "@id"
+    },
+    "vertical_computational_grid": {
+      "@context": "../vertical_computational_grid/_context",
+      "@type": "@id"
     }
+  }
 }
