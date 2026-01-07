@@ -1,0 +1,34 @@
+{
+    "validation_key": "BCC-CSM",
+    "ui_label": "",
+    "description": "Beijing Climate Center Climate System Model.",
+    "family_type": "model",
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "license": "none",
+    "primary_institution": "bcc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+        "atmosphere",
+        "land_surface",
+        "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "variation_dimensions": "none",
+    "website": "none",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "bcc-csm"
+}

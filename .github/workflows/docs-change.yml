@@ -1,0 +1,144 @@
+name: docs-change
+description: Build and deploy documentation when docs branch changes
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+on:
+  push:
+    branches:
+      - "docs"
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check_changes.outputs.has_changes }}
+    
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: production
+          fetch-depth: 0
+          
+      - name: Fetch docs branch
+        run: git fetch origin docs:docs
+
+      - name: Configure Git
+        run: |
+          git config user.name "cmip-ipo"
+          git config user.email "actions@wcrp-cmip.org"
+
+      - name: Copy docs source from docs branch
+        run: |
+          echo "Copying documentation source from docs branch..."
+          
+          # Copy entire src folder (contains mkdocs config and docs source)
+          git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
+          
+          # Also check for standalone mkdocs.yml or docs folder
+          git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "Copied mkdocs.yml" || true
+          git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
+          
+          echo ""
+          echo "Documentation structure:"
+          find . -name "mkdocs.yml" 2>/dev/null
+          ls -la src/ 2>/dev/null || true
+
+      - name: Build MkDocs site
+        continue-on-error: true
+        run: |
+          MKDOCS_CONFIG=""
+          for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
+            if [ -f "$config" ]; then
+              MKDOCS_CONFIG="$config"
+              break
+            fi
+          done
+          
+          if [ -z "$MKDOCS_CONFIG" ]; then
+            echo "No mkdocs.yml found, skipping MkDocs build"
+            exit 0
+          fi
+          
+          echo "Building MkDocs site from $MKDOCS_CONFIG..."
+          python -m pip install --upgrade pip
+          MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
+          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+            pip install -r "$MKDOCS_DIR/requirements.txt"
+          else
+            pip install mkdocs mkdocs-material
+          fi
+          
+          rm -rf build
+          mkdocs build -f "$MKDOCS_CONFIG" -d build
+          rm -rf src mkdocs
+          [ -d docs ] && rm -rf docs
+          mv build docs
+          echo "Built MkDocs site to docs/"
+
+      - name: Create root redirect to docs
+        run: |
+          if [ ! -f "index.html" ]; then
+            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=docs/"><link rel="canonical" href="docs/"><title>Redirecting...</title></head><body><p>Redirecting to <a href="docs/">documentation</a>...</p></body></html>' > index.html
+            echo "Created root redirect to docs/"
+          else
+            echo "index.html already exists, skipping redirect"
+          fi
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No documentation changes"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Documentation changes detected"
+            echo "## Documentation Changes" >> $GITHUB_STEP_SUMMARY
+            ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
+            MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
+            DELETED=$(git diff --cached --name-only --diff-filter=D | wc -l)
+            echo "| Type | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Added | $ADDED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Modified | $MODIFIED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Deleted | $DELETED |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Commit changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git commit -m "Update documentation from docs branch"
+          git push origin production
+
+
+  deploy:
+    needs: build_and_deploy
+    if: needs.build_and_deploy.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Display URL
+        run: |
+          echo "## Documentation Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+

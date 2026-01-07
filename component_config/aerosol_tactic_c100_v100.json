@@ -1,0 +1,15 @@
+{
+    "validation_key": "aerosol_tactic_c100_v100",
+    "ui_label": "TACTIC with c100 and v100",
+    "description": "Configuration for TACTIC with horizontal grid c100 and vertical grid v100.",
+    "horizontal_computational_grid": "c100",
+    "model_component": "tactic",
+    "vertical_computational_grid": "v100",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "aerosol-tactic-c100-v100"
+}

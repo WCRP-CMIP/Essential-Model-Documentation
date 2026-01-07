@@ -1,0 +1,23 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Grid Cell and Subgrid Registration\n\nRegister horizontal grid cells and subgrid together.\n\n**This issue creates TWO entities:**\n1. Horizontal grid cells (cell properties: resolution, region, grid type)\n2. Horizontal subgrid (variable types using these cells)\n\n**Result:** Subgrid ID (e.g., s100) to use in Horizontal Computational Grid registration.\n\n**If you need multiple subgrids** (e.g., staggered grids), submit this form multiple times - once per subgrid.",none,false,,,
+2,markdown,grid_cells_header,,"## Part 1: Horizontal Grid Cells\n\nDefine the physical grid cell characteristics.",none,false,,,
+3,textarea,grid_cells_description,Grid Cells Description,"Description of these grid cells.\n\nInclude resolution and purpose.\n\nExample: 'Regular latitude-longitude grid at 1.25° × 0.9° resolution for atmospheric mass variables'",none,true,"e.g., ORCA1 tripolar ocean grid cells",,
+4,dropdown,grid_type,Grid Type,"How cells are distributed over the region.",grid_type,true,,list_with_na,0
+5,dropdown,grid_mapping,Coordinate System,"Coordinate reference system.",grid_mapping,true,,list_with_na,0
+6,multi-select,region,Region,"Geographic region(s) covered by the grid.",region,true,,list,
+7,dropdown,temporal_refinement,Temporal Refinement,"How the grid varies with time.",temporal_refinement,true,,list_with_na,0
+8,input,x_resolution,X Resolution,"Cell size in X direction (longitude for spherical).\n\nOmit if varies >25%.",none,false,"e.g., 1.25",,
+9,input,y_resolution,Y Resolution,"Cell size in Y direction (latitude for spherical).\n\nOmit if varies >25%.",none,false,"e.g., 0.9",,
+10,dropdown,units,Resolution Units,"Units for resolution values.\n\nRequired if resolution provided.",units,false,,list_with_na,0
+11,input,n_cells,Number of Cells,"Total number of horizontal cells.\n\nLeave blank if variable (adaptive grids).",none,false,"e.g., 55296",,
+12,input,southernmost_latitude,Southernmost Latitude,"Southernmost latitude in degrees north.\n\n-90 to 90. Leave blank if not lat-lon.",none,false,"e.g., -89.5",,
+13,input,westernmost_longitude,Westernmost Longitude,"Westernmost longitude in degrees east.\n\n0 to <360. Leave blank if not lat-lon.",none,false,"e.g., 0.5",,
+14,markdown,spectral_header,,"### Spectral Grid Options (if applicable)",none,false,,,
+15,dropdown,truncation_method,Truncation Method,"Spherical harmonic truncation method.\n\nOnly for spectral grids.",truncation_method,false,,list_with_na,0
+16,input,truncation_number,Truncation Number,"Zonal wave number for spectral truncation.\n\nOnly for spectral grids.",none,false,"e.g., 127",,
+17,markdown,subgrid_header,,"## Part 2: Horizontal Subgrid\n\nDefine what variables are calculated at these grid cell locations.\n\nThis creates the subgrid entity that references the grid cells from Part 1.",none,false,,,
+18,textarea,subgrid_description,Subgrid Description,"Description of this subgrid.\n\nExample: 'Mass variables on regular latitude-longitude grid'",none,true,"e.g., Velocity components on staggered grid positions",,
+19,multi-select,cell_variable_type,Cell Variable Types,"Types of variables at this subgrid location.",cell_variable_type,true,,list,
+20,markdown,generated_header,,"## What Will Be Generated\n\nThis issue creates:\n\n1. **horizontal_grid_cells** (ID: g###)\n   - Contains: Grid type, resolution, cell count, region (from Part 1)\n\n2. **horizontal_subgrid** (ID: s###)\n   - Contains: Variable types (from Part 2)\n   - Auto-linked to: Grid cells entity (g###)\n\n**You'll receive:** Subgrid ID (s###)\n\n**Next:** Use subgrid ID in Horizontal Computational Grid issue.",none,false,,,
+21,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+22,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification.,issue_kind,true,,list_with_na,0

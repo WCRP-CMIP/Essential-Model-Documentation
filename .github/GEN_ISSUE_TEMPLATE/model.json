@@ -1,0 +1,42 @@
+{
+  "name": "Stage 4: Model (source_id)",
+  "description": "Register complete model configuration (Stage 4 of 4)",
+  "title": "[EMD] Model:",
+  "labels": ["emd-submission", "model", "Review"],
+  "issue_category": "model",
+  "dropdown_title": "Detailed Guidance",
+  "prefill_sources": {
+    "model": {
+      "display_name": "name",
+      "subtitle": "release_year",
+      "section_title": "Existing Models",
+      "fields": "all"
+    },
+    "model_family": {
+      "display_name": "name",
+      "section_title": "Available Model Families",
+      "link_type": "reference",
+      "fields": ["name", "family_type"]
+    },
+    "component_config": {
+      "display_name": "@id",
+      "section_title": "Available Component Configs",
+      "link_type": "reference",
+      "fields": ["@id", "component"]
+    }
+  },
+  "field_guidance": {
+    "name": "**Model name (source_id)**\n\nFull identifier including family and version.\n\nFor CMIP, this becomes the official **source_id**.\n\n**Examples:** CNRM-ESM2-1, HadGEM3-GC31-LL, CESM2, ACCESS-ESM1-5",
+    "family": "**Model family**\n\nEarth System family this model belongs to.\n\n**Leave as 'Not applicable' if:**\n- Standalone model\n- Family not yet registered",
+    "description": "**Scientific overview**\n\nMust mention ALL component types.\n\n**What to include:**\n1. Dynamic components (briefly describe each)\n2. Prescribed components (explain treatment)\n3. Omitted components (note absence)\n\n**Example:** 'CNRM-ESM2-1 includes atmosphere (ARPEGE-Climat), ocean (NEMO), land surface (SURFEX), with embedded aerosols, atmospheric chemistry, sea ice, and ocean biogeochemistry. Land ice is omitted.'",
+    "dynamic_components": "**Active components**\n\nComponents that are dynamically simulated (prognostic).\n\nAt least one required. Each must have a component_config from Stage 3.",
+    "prescribed_components": "**Prescribed components**\n\nComponents where values are provided as boundary conditions.\n\n**Example:** Sea ice extent prescribed from observations.",
+    "omitted_components": "**Omitted components**\n\nComponents not represented at all.\n\n**Example:** Land-ice often omitted from atmosphere-ocean climate models.",
+    "component_configs": "**Component configuration IDs**\n\nIDs from Stage 3 for each dynamic component.\n\n**Format:** `{domain}_{component}_{c###}_{v###}` (one per line)\n\nMust have one config per dynamic component.",
+    "embedded_components": "**Embedded relationships**\n\nComponents tightly integrated within a host (share integration loop, often share grid).\n\n**Format:** `embedded,host` (one pair per line)\n\n**Example:**\n```\naerosol,atmosphere\natmospheric-chemistry,atmosphere\nsea-ice,ocean\nocean-biogeochemistry,ocean\n```",
+    "coupling_groups": "**Coupling relationships**\n\nGroups of mutually coupled superior hosts (non-embedded components).\n\n**Format:** `comp1,comp2,comp3` (one group per line)\n\nComponents in a group all exchange information directly.\n\n**Example:** `atmosphere,land-surface,ocean`",
+    "calendar": "**Calendar types**\n\nPermitted calendar systems for this model.\n\n- **standard**: Gregorian with leap years\n- **proleptic-gregorian**: Gregorian extended to past\n- **365-day**: No leap years (noleap)\n- **360-day**: 12 months × 30 days\n\nList most commonly used first.",
+    "release_year": "**Release year**\n\nYear model was first released or used for published simulations.",
+    "reference_dois": "**Model publications**\n\nDOIs for papers describing the complete model.\n\n**Format:** `https://doi.org/...` (one per line)\n\n**Do NOT include:** Component-specific papers (those belong in Stage 3)."
+  }
+}

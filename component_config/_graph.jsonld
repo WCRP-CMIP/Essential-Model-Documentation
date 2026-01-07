@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/component_config/",
+    "@base": "https://emd.mipcvs.dev/component_config/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/ComponentConfig/",
+    "model_component": {
+      "@context": "https://emd.mipcvs.dev/model_component/_context",
+      "@type": "@id"
+    },
+    "horizontal_computational_grid": {
+      "@context": "https://emd.mipcvs.dev/horizontal_computational_grid/_context",
+      "@type": "@id"
+    },
+    "vertical_computational_grid": {
+      "@context": "https://emd.mipcvs.dev/vertical_computational_grid/_context",
+      "@type": "@id"
+    }
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "ocean-biogeochemistry_piscesv2-gas_c101_v103"},
+    {"@id": "sea-ice_gelato_c101_v104"},
+    {"@id": "atmosphere_arpege-climat-version-6-3_c100_v100"},
+    {"@id": "atmospheric-chemistry_reprobus-c-v2-0_c100_v100"},
+    {"@id": "aerosol_tactic_c100_v100"},
+    {"@id": "land-surface_surfex-v8-modeling-platform_c100_v102"},
+    {"@id": "ocean_nemo-v3-6_c101_v103"}
+  ]
+}
