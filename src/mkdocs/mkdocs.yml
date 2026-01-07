@@ -1,0 +1,151 @@
+site_name: Essential Model Documentation
+site_url: https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/
+repo_url: https://github.com/WCRP-CMIP/Essential-Model-Documentation
+repo_name: WCRP-CMIP/Essential-Model-Documentation
+site_description: Development repository for the EMD. This will link into the CVs and Constants Repos.
+site_author: WCRP-CMIP
+
+docs_dir: ../../docs
+site_dir: ../../build
+use_directory_urls: true
+clean_site_directory: true
+
+theme:
+  name: shadcn
+  custom_dir: overrides
+  palette:
+    primary: blue
+    accent: blue
+  show_stargazers: false
+  favicon: assets/favicon.svg
+  icon: assets/cmip-logo.svg
+
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-\.]+'
+
+  - gen-files:
+      scripts:
+        - hooks/run_scripts.py
+
+hooks:
+  - hooks/generate_nav.py
+  - hooks/pre_build.py
+  - hooks/post_build.py
+
+nav:
+  - Home: index.md
+  - Submission Guide: 01_Submission-Guide.md
+  - Emd Repository:
+    - Models: 10_EMD_Repository/01_Models/index.md
+    - Model Components:
+      - Arpege Climat Version 6 3: 10_EMD_Repository/02_Model_Components/arpege-climat_version_6_3.html
+      - Bisicles Ukesm Ismip6 1 0: 10_EMD_Repository/02_Model_Components/bisicles-ukesm-ismip6-1_0.html
+      - Clm4: 10_EMD_Repository/02_Model_Components/clm4.html
+      - Gelato: 10_EMD_Repository/02_Model_Components/gelato.html
+      - Hadam3: 10_EMD_Repository/02_Model_Components/hadam3.html
+      - Index: 10_EMD_Repository/02_Model_Components/index.md
+      - Nemo V3 6: 10_EMD_Repository/02_Model_Components/nemo_v3_6.html
+      - Piscesv2 Gas: 10_EMD_Repository/02_Model_Components/piscesv2-gas.html
+      - Reprobus C V2 0: 10_EMD_Repository/02_Model_Components/reprobus-c_v2_0.html
+      - Surfex V8 Modeling Platform: 10_EMD_Repository/02_Model_Components/surfex_v8_modeling_platform.html
+      - Tactic: 10_EMD_Repository/02_Model_Components/tactic.html
+    - Component Families:
+      - Arpege Climat: 10_EMD_Repository/03_Component_Families/arpege-climat.html
+      - Bisicles: 10_EMD_Repository/03_Component_Families/bisicles.html
+      - Cam: 10_EMD_Repository/03_Component_Families/cam.html
+      - Clm: 10_EMD_Repository/03_Component_Families/clm.html
+      - Gelato: 10_EMD_Repository/03_Component_Families/gelato.html
+      - Geos: 10_EMD_Repository/03_Component_Families/geos.html
+      - Hadam: 10_EMD_Repository/03_Component_Families/hadam.html
+      - Ifs: 10_EMD_Repository/03_Component_Families/ifs.html
+      - Index: 10_EMD_Repository/03_Component_Families/index.md
+      - Nemo: 10_EMD_Repository/03_Component_Families/nemo.html
+      - Nicam: 10_EMD_Repository/03_Component_Families/nicam.html
+      - Pisces: 10_EMD_Repository/03_Component_Families/pisces.html
+      - Reprobus: 10_EMD_Repository/03_Component_Families/reprobus.html
+      - Surfex: 10_EMD_Repository/03_Component_Families/surfex.html
+      - Tactic: 10_EMD_Repository/03_Component_Families/tactic.html
+    - Earth System Model Families:
+      - Access: 10_EMD_Repository/04_Earth_System_Model_Families/access.html
+      - Bcc Csm: 10_EMD_Repository/04_Earth_System_Model_Families/bcc-csm.html
+      - Canesm: 10_EMD_Repository/04_Earth_System_Model_Families/canesm.html
+      - Cesm: 10_EMD_Repository/04_Earth_System_Model_Families/cesm.html
+      - Cnrm Cm: 10_EMD_Repository/04_Earth_System_Model_Families/cnrm-cm.html
+      - Ec Earth: 10_EMD_Repository/04_Earth_System_Model_Families/ec-earth.html
+      - Fgoals: 10_EMD_Repository/04_Earth_System_Model_Families/fgoals.html
+      - Gfdl Cm4: 10_EMD_Repository/04_Earth_System_Model_Families/gfdl-cm4.html
+      - Giss E2: 10_EMD_Repository/04_Earth_System_Model_Families/giss-e2.html
+      - Hadcm2: 10_EMD_Repository/04_Earth_System_Model_Families/hadcm2.html
+      - Hadgem3: 10_EMD_Repository/04_Earth_System_Model_Families/hadgem3.html
+      - Icon: 10_EMD_Repository/04_Earth_System_Model_Families/icon.html
+      - Index: 10_EMD_Repository/04_Earth_System_Model_Families/index.md
+      - Ipsl Cm: 10_EMD_Repository/04_Earth_System_Model_Families/ipsl-cm.html
+      - Miroc: 10_EMD_Repository/04_Earth_System_Model_Families/miroc.html
+      - Mpi Esm: 10_EMD_Repository/04_Earth_System_Model_Families/mpi-esm.html
+      - Ukesm1: 10_EMD_Repository/04_Earth_System_Model_Families/ukesm1.html
+    - Horizontal Computational Grids:
+      - H100: 10_EMD_Repository/05_Horizontal_Computational_Grids/h100.html
+      - H101: 10_EMD_Repository/05_Horizontal_Computational_Grids/h101.html
+      - H102: 10_EMD_Repository/05_Horizontal_Computational_Grids/h102.html
+      - H103: 10_EMD_Repository/05_Horizontal_Computational_Grids/h103.html
+      - Index: 10_EMD_Repository/05_Horizontal_Computational_Grids/index.md
+    - Vertical Computational Grids:
+      - Index: 10_EMD_Repository/06_Vertical_Computational_Grids/index.md
+      - V100: 10_EMD_Repository/06_Vertical_Computational_Grids/v100.html
+      - V101: 10_EMD_Repository/06_Vertical_Computational_Grids/v101.html
+      - V102: 10_EMD_Repository/06_Vertical_Computational_Grids/v102.html
+      - V103: 10_EMD_Repository/06_Vertical_Computational_Grids/v103.html
+      - V104: 10_EMD_Repository/06_Vertical_Computational_Grids/v104.html
+      - V105: 10_EMD_Repository/06_Vertical_Computational_Grids/v105.html
+      - V106: 10_EMD_Repository/06_Vertical_Computational_Grids/v106.html
+  - Data Summaries:
+    - Component Config: 110_Data_Summaries/component_config.md
+    - Component Family: 110_Data_Summaries/component_family.md
+    - Horizontal Computational Grid: 110_Data_Summaries/horizontal_computational_grid.md
+    - Horizontal Grid Cells: 110_Data_Summaries/horizontal_grid_cells.md
+    - Horizontal Subgrid: 110_Data_Summaries/horizontal_subgrid.md
+    - Index: 110_Data_Summaries/index.md
+    - Model: 110_Data_Summaries/model.md
+    - Model Component: 110_Data_Summaries/model_component.md
+    - Source Family: 110_Data_Summaries/source_family.md
+    - Vertical Computational Grid: 110_Data_Summaries/vertical_computational_grid.md
+  - Reviewer Information: 998_Reviewer_Information.md
+  - Contributors: 999_Contributors.md
+
+extra:
+  generator: false
+
+extra_css:
+  - stylesheets/custom.css
+  - stylesheets/footer-override.css
+
+extra_javascript:
+  - stylesheets/custom.js
+  - stylesheets/embed.js
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true

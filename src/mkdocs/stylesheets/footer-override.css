@@ -1,0 +1,13 @@
+/* Hide shadcn theme credit and @asiffer link */
+footer .text-muted-foreground a[href*="github.com/asiffer"] {
+    display: none !important;
+}
+
+footer .text-muted-foreground a[href*="github.com/asiffer/mkdocs-shadcn"] {
+    display: none !important;
+}
+
+/* Set footer opacity to 10% */
+footer .text-muted-foreground {
+    opacity: 0.1 !important;
+}

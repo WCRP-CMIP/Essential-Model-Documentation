@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name | e }} | {{ page_type }}</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <style>
+        /* ── grid-specific extras ── */
+        .gc-info {
+            background: var(--emd-surface);
+            border: 1px solid var(--emd-border);
+            border-radius: var(--emd-radius);
+            padding: 0.85rem 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+        }
+        .gc-info-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--emd-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .gc-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.25rem;
+        }
+        .gc-stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .gc-stat-label {
+            font-size: 0.7rem;
+            color: var(--emd-text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .gc-stat-value {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--emd-text);
+        }
+        .gc-stat-value.highlight { color: var(--emd-primary); }
+        .vg-bar-wrap {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 60px;
+            margin: 0.75rem 0 0.25rem;
+        }
+        .vg-bar {
+            flex: 1;
+            background: var(--emd-primary);
+            opacity: 0.25;
+            border-radius: 3px 3px 0 0;
+            min-width: 4px;
+        }
+        .vg-bar-label { font-size: 0.7rem; color: var(--emd-text-muted); text-align: center; margin-top: 2px; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.5rem 0 0; }
+        .cv-tag {
+            font-size: 0.72rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            border: 1px solid var(--emd-border);
+            color: var(--emd-text-muted);
+            cursor: default;
+        }
+        .cv-tag[title] { cursor: help; }
+        .cv-tag.primary { border-color: var(--emd-primary); color: var(--emd-primary); background: rgba(37,99,235,0.07); }
+        .arr-card {
+            background: var(--emd-bg);
+            border: 1px solid var(--emd-border);
+            border-radius: var(--emd-radius);
+            padding: 1rem 1.25rem;
+        }
+        .arr-name { font-size: 1rem; font-weight: 600; color: var(--emd-text); margin-bottom: 0.4rem; }
+        .arr-desc { font-size: 0.875rem; color: var(--emd-secondary); line-height: 1.6; }
+        .level-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .level-stat {
+            background: var(--emd-bg);
+            border: 1px solid var(--emd-border);
+            border-radius: var(--emd-radius);
+            padding: 1rem;
+            text-align: center;
+        }
+        .level-stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--emd-primary);
+            font-family: 'SF Mono', Monaco, monospace;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .level-stat-label {
+            font-size: 0.75rem;
+            color: var(--emd-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bc = document.querySelector('.emd-breadcrumb a[href*="index.html"]');
+        if (bc) {
+            const parts = window.location.pathname.split('/').filter(p => p && !p.includes('.html'));
+            bc.href = '../'.repeat(Math.max(parts.length - 1, 2)) + 'index.html';
+        }
+    });
+    </script>
+</head>
+<body class="emd-page">
+<div class="emd-container">
+
+    <header class="emd-header">
+        <nav class="emd-breadcrumb">
+            <a href="../../index.html">← Back to Documentation</a>
+            <span>|</span>
+            <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
+            <span>→</span>
+            <span>{{ page_type }}</span>
+            <span>→</span>
+            <span>{{ name | e }}</span>
+        </nav>
+
+        <div class="emd-badge">{{ page_type }}</div>
+        <h1 class="emd-title">{{ name | e }}</h1>
+        {% if validation_key and validation_key != name %}
+        <p class="emd-long-name">{{ validation_key | e }}</p>
+        {% endif %}
+        <p class="emd-subtitle">{{ description | e }}</p>
+
+        <div class="emd-header-meta">
+            {% if arrangement %}
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Arrangement</span>
+                <span class="emd-meta-value" title="{{ arrangement.description | e }}">{{ arrangement.name | e }}</span>
+            </div>
+            {% endif %}
+            {% if vertical_coordinate %}
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Vertical Coordinate</span>
+                <span class="emd-meta-value" title="{{ vertical_coordinate.description | e }}">{{ vertical_coordinate.name | e }}</span>
+            </div>
+            {% endif %}
+            {% if n_z %}
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Levels (n_z)</span>
+                <span class="emd-meta-value">{{ n_z }}</span>
+            </div>
+            {% endif %}
+            {% if subgrids %}
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Subgrids</span>
+                <span class="emd-meta-value">{{ subgrids | length }}</span>
+            </div>
+            {% endif %}
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Context</span>
+                <span class="emd-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+    {# ════════════════════════════════════════════════════════════════════════
+       HORIZONTAL COMPUTATIONAL GRID
+    ═══════════════════════════════════════════════════════════════════════════ #}
+    {% if arrangement %}
+
+        {# ── Arrangement ─────────────────────────────────────────────────── #}
+        <section class="emd-section expanded">
+            <div class="emd-section-header" onclick="toggleSection(this)">
+                <div class="emd-section-title-wrapper">
+                    <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+                    <h2 class="emd-section-title">Staggering Arrangement</h2>
+                </div>
+                <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+            </div>
+            <div class="emd-section-content">
+                <div class="emd-section-body">
+                    <div class="emd-section-divider"></div>
+                    <div class="arr-card">
+                        <div class="arr-name">{{ arrangement.name | e }}</div>
+                        {% if arrangement.description %}
+                        <div class="arr-desc">{{ arrangement.description | e }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {# ── Subgrids ─────────────────────────────────────────────────────── #}
+        {% if subgrids %}
+        <section class="emd-section expanded">
+            <div class="emd-section-header" onclick="toggleSection(this)">
+                <div class="emd-section-title-wrapper">
+                    <div class="emd-section-icon">{{ icons.coupling | safe }}</div>
+                    <h2 class="emd-section-title">
+                        Subgrids <span class="emd-section-count">({{ subgrids | length }})</span>
+                    </h2>
+                </div>
+                <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+            </div>
+            <div class="emd-section-content">
+                <div class="emd-section-body">
+                    <div class="emd-section-divider"></div>
+                    <div class="emd-domains-grid">
+                    {% for sg in subgrids %}
+                    <div class="emd-domain-card">
+                        <div class="emd-domain-card-header">
+                            <span class="emd-domain-card-title">{{ sg.name | e }}</span>
+                            <span class="emd-domain-card-type">Subgrid</span>
+                        </div>
+                        {% if sg.description %}
+                        <p class="emd-domain-card-description">{{ sg.description | e }}</p>
+                        {% endif %}
+
+                        {# Variable types #}
+                        {% if sg.variable_types %}
+                        <div class="tag-row">
+                            {% for vt in sg.variable_types %}
+                            <span class="cv-tag primary" {% if vt.description %}title="{{ vt.description | e }}"{% endif %}>{{ vt.name | e }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {# Grid cells info box #}
+                        {% if sg.grid_cells %}
+                        {% set gc = sg.grid_cells %}
+                        <div class="gc-info">
+                            <div class="gc-info-title">Grid Cells — {{ gc.name | e }}</div>
+                            {% if gc.description %}
+                            <p style="font-size:0.8rem;color:var(--emd-secondary);margin-bottom:0.5rem;line-height:1.5;">{{ gc.description | e }}</p>
+                            {% endif %}
+                            <div class="gc-stats">
+                                {% if gc.n_cells %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Cells</span>
+                                    <span class="gc-stat-value highlight">{{ "{:,}".format(gc.n_cells) }}</span>
+                                </div>
+                                {% endif %}
+                                {% if gc.x_resolution and gc.y_resolution %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Resolution</span>
+                                    <span class="gc-stat-value">{{ gc.x_resolution }}° × {{ gc.y_resolution }}°{% if gc.units %} ({{ gc.units }}){% endif %}</span>
+                                </div>
+                                {% endif %}
+                                {% if gc.grid_type %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Grid Type</span>
+                                    <span class="gc-stat-value" {% if gc.grid_type.description %}title="{{ gc.grid_type.description | e }}"{% endif %}>{{ gc.grid_type.name | e }}</span>
+                                </div>
+                                {% endif %}
+                                {% if gc.grid_mapping %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Projection</span>
+                                    <span class="gc-stat-value" {% if gc.grid_mapping.description %}title="{{ gc.grid_mapping.description | e }}"{% endif %}>{{ gc.grid_mapping.name | e }}</span>
+                                </div>
+                                {% endif %}
+                                {% if gc.temporal_refinement %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Temporal</span>
+                                    <span class="gc-stat-value" {% if gc.temporal_refinement.description %}title="{{ gc.temporal_refinement.description | e }}"{% endif %}>{{ gc.temporal_refinement.name | e }}</span>
+                                </div>
+                                {% endif %}
+                                {% if gc.southernmost_latitude is not none %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">S. Extent</span>
+                                    <span class="gc-stat-value">{{ gc.southernmost_latitude }}°</span>
+                                </div>
+                                {% endif %}
+                                {% if gc.westernmost_longitude is not none %}
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">W. Extent</span>
+                                    <span class="gc-stat-value">{{ gc.westernmost_longitude }}°</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% if gc.regions %}
+                            <div class="tag-row">
+                                {% for r in gc.regions %}<span class="cv-tag" {% if r.description %}title="{{ r.description | e }}"{% endif %}>{{ r.name | e }}</span>{% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    {% endif %}
+
+    {# ════════════════════════════════════════════════════════════════════════
+       VERTICAL COMPUTATIONAL GRID
+    ═══════════════════════════════════════════════════════════════════════════ #}
+    {% if vertical_coordinate or n_z %}
+
+        {# ── Coordinate ───────────────────────────────────────────────────── #}
+        {% if vertical_coordinate %}
+        <section class="emd-section expanded">
+            <div class="emd-section-header" onclick="toggleSection(this)">
+                <div class="emd-section-title-wrapper">
+                    <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+                    <h2 class="emd-section-title">Vertical Coordinate</h2>
+                </div>
+                <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+            </div>
+            <div class="emd-section-content">
+                <div class="emd-section-body">
+                    <div class="emd-section-divider"></div>
+                    <div class="arr-card">
+                        <div class="arr-name">{{ vertical_coordinate.name | e }}</div>
+                        {% if vertical_coordinate.description %}
+                        <div class="arr-desc">{{ vertical_coordinate.description | e }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        {# ── Level structure ──────────────────────────────────────────────── #}
+        <section class="emd-section expanded">
+            <div class="emd-section-header" onclick="toggleSection(this)">
+                <div class="emd-section-title-wrapper">
+                    <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+                    <h2 class="emd-section-title">Level Structure</h2>
+                </div>
+                <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+            </div>
+            <div class="emd-section-content">
+                <div class="emd-section-body">
+                    <div class="emd-section-divider"></div>
+
+                    {# Visual representation: n_z bars #}
+                    {% if n_z and n_z <= 60 %}
+                    <div class="vg-bar-wrap" title="{{ n_z }} vertical levels">
+                        {% for i in range(n_z) %}
+                        <div class="vg-bar" style="height:{{ (20 + loop.index0 * (40 / n_z)) | int }}px; opacity:{{ (0.2 + loop.index0 * 0.6 / n_z) | round(2) }}"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="vg-bar-label">← surface &nbsp;&nbsp;&nbsp; depth →</div>
+                    {% endif %}
+
+                    <div class="level-stat-grid" style="margin-top:1.25rem;">
+                        {% if n_z %}
+                        <div class="level-stat">
+                            <div class="level-stat-value">{{ n_z }}</div>
+                            <div class="level-stat-label">Vertical Levels</div>
+                        </div>
+                        {% endif %}
+                        {% if top_layer_thickness is not none %}
+                        <div class="level-stat">
+                            <div class="level-stat-value">{{ top_layer_thickness }} m</div>
+                            <div class="level-stat-label">Top Layer Thickness</div>
+                        </div>
+                        {% endif %}
+                        {% if bottom_layer_thickness is not none %}
+                        <div class="level-stat">
+                            <div class="level-stat-value">{{ bottom_layer_thickness }} m</div>
+                            <div class="level-stat-label">Bottom Layer Thickness</div>
+                        </div>
+                        {% endif %}
+                        {% if total_thickness is not none %}
+                        <div class="level-stat">
+                            <div class="level-stat-value">{{ total_thickness }} m</div>
+                            <div class="level-stat-label">Total Depth / Thickness</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {% endif %}
+
+    {# ── Technical Details ────────────────────────────────────────────────── #}
+    <section class="emd-section">
+        <div class="emd-section-header" onclick="toggleSection(this)">
+            <div class="emd-section-title-wrapper">
+                <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+                <h2 class="emd-section-title">Technical Details</h2>
+            </div>
+            <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+        </div>
+        <div class="emd-section-content">
+            <div class="emd-section-body">
+                <div class="emd-section-divider"></div>
+                <div class="emd-tech-grid">
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">Resource Identifier (@id)</div>
+                        <div class="emd-tech-value">{{ id | e }}</div>
+                    </div>
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">Validation Key</div>
+                        <div class="emd-tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
+                    </div>
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">JSON-LD Context</div>
+                        <div class="emd-tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
+                    </div>
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">Resource Types (@type)</div>
+                        <div class="emd-type-badges">
+                            {% for t in types %}<span class="emd-type-badge">{{ t | e }}</span>{% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="emd-footer">
+        <p class="emd-footer-text">
+            Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a>
+            · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative
+            · Generated {{ generated_date }}
+        </p>
+    </footer>
+</div>
+<script>
+function toggleSection(h) { h.parentElement.classList.toggle('expanded'); }
+const sourceData = {{ raw_json | safe }};
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+    e.clipboardData.setData("text/plain",
+        "// JSON-LD: {{ name | e }}\n// Generated: {{ generated_date }}\n\n" +
+        JSON.stringify(sourceData, null, 2));
+});
+</script>
+</body>
+</html>
