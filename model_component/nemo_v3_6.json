@@ -1,17 +1,26 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "nemo-v3-6",
-  "validation_key": "nemo_v3_6",
-  "ui_label": "",
-  "name": "NEMO : Nucleus for European Modelling of the Ocean version 3.6 (OPA)",
-  "description": "The ocean component of CNRM-ESM2-1 is based on the version 3.6 of NEMO (Nucleus for European Models of the Ocean).",
-  "component": "ocean",
-  "family": "NEMO",
-  "code_base": "private",
-  "references": ["REF001"],
-  "embedded_in": null,
-  "coupled_with": ["atmosphere", "land_surface"],
-  "horizontal_computational_grid": "c101",
-  "vertical_computational_grid": "v103"
+    "validation_key": "nemo_v3_6",
+    "ui_label": "",
+    "description": "The ocean component of CNRM-ESM2-1 is based on the version 3.6 of NEMO (Nucleus for European Models of the Ocean).",
+    "code_base": "private",
+    "component": "ocean",
+    "coupled_with": [
+        "atmosphere",
+        "land_surface"
+    ],
+    "embedded_in": null,
+    "family": "NEMO",
+    "horizontal_computational_grid": "c101",
+    "name": "NEMO : Nucleus for European Modelling of the Ocean version 3.6 (OPA)",
+    "references": [
+        "REF001"
+    ],
+    "vertical_computational_grid": "v103",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "nemo-v3-6"
 }

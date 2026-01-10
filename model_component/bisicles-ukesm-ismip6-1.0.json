@@ -1,17 +1,27 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "bisicles-ukesm-ismip6-1.0",
-  "validation_key": "bisicles-ukesm-ismip6-1_0",
-  "ui_label": "",
-  "name": "BISICLES-UKESM-ISMIP6-1.0",
-  "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
-  "component": "land_ice",
-  "family": "bisicles",
-  "code_base": null,
-  "references": ["REF012"],
-  "embedded_in": null,
-  "coupled_with": ["atmosphere", "land_surface", "ocean"],
-  "horizontal_computational_grid": "c104",
-  "vertical_computational_grid": "v105"
+    "validation_key": "bisicles-ukesm-ismip6-1_0",
+    "ui_label": "",
+    "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
+    "code_base": null,
+    "component": "land_ice",
+    "coupled_with": [
+        "atmosphere",
+        "land_surface",
+        "ocean"
+    ],
+    "embedded_in": null,
+    "family": "bisicles",
+    "horizontal_computational_grid": "c104",
+    "name": "BISICLES-UKESM-ISMIP6-1.0",
+    "references": [
+        "REF012"
+    ],
+    "vertical_computational_grid": "v105",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "bisicles-ukesm-ismip6-1.0"
 }

@@ -1,10 +1,16 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid"],
-  "@id": "s102",
-  "validation_key": "s102",
-  "ui_label": "",
-  "description": "",
-  "cell_variable_type": ["mass"],
-  "horizontal_grid_cells": "g102"
+    "validation_key": "s102",
+    "ui_label": "",
+    "description": "",
+    "cell_variable_type": [
+        "mass"
+    ],
+    "horizontal_grid_cells": "g102",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+    ],
+    "@id": "s102"
 }

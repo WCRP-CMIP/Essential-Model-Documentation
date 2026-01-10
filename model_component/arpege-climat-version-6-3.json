@@ -1,0 +1,17 @@
+{
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
+  "@id": "arpege-climat-version-6-3",
+  "validation_key": "arpege-climat_version_6_3",
+  "ui_label": "",
+  "name": "Arpege-Climat Version 6.3",
+  "description": "ARPEGE-Climat Version 6.3 is the atmospheric component of the CNRM climate and Earth System models (CNRM-CM6-1 and CNRM-ESM2-1).",
+  "component": "atmosphere",
+  "family": "Arpege-Climat",
+  "code_base": "private",
+  "references": ["REF005"],
+  "embedded_in": null,
+  "coupled_with": ["land_surface", "ocean"],
+  "horizontal_computational_grid": "c100",
+  "vertical_computational_grid": "v100"
+}

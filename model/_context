@@ -1,30 +1,31 @@
 {
-  "@context": {
-    "@base": "https://emd.mipcvs.dev/model/",
-    "@vocab": "https://emd.mipcvs.dev/docs/contents/Model/",
-    "calendar": {
-      "@context": "https://universal.mipcvs.dev/calendar/_context",
-      "@type": "@id"
-    },
-    "dynamic_components": {
-      "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
-      "@type": "@id"
-    },
-    "prescribed_components": {
-      "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
-      "@type": "@id"
-    },
-    "omitted_components": {
-      "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
-      "@type": "@id"
-    },
-    "family": {
-      "@context": "https://emd.mipcvs.dev/model_family/_context",
-      "@type": "@id"
-    },
-    "references": {
-      "@context": "https://emd.mipcvs.dev/reference/_context",
-      "@type": "@id"
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model/",
+        "@base": "emd.mipcvs.dev/model/",
+        "@vocab": "emd.mipcvs.dev/docs/contents/Model/",
+        "calendar": {
+            "@context": "https://universal.mipcvs.dev/calendar/_context",
+            "@type": "@id"
+        },
+        "dynamic_components": {
+            "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+            "@type": "@id"
+        },
+        "family": {
+            "@context": "https://emd.mipcvs.dev/model_family/_context",
+            "@type": "@id"
+        },
+        "omitted_components": {
+            "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+            "@type": "@id"
+        },
+        "prescribed_components": {
+            "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+            "@type": "@id"
+        },
+        "references": {
+            "@context": "https://emd.mipcvs.dev/reference/_context",
+            "@type": "@id"
+        }
     }
-  }
 }

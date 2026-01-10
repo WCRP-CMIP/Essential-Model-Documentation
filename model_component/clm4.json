@@ -1,17 +1,23 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "clm4",
-  "validation_key": "clm4",
-  "ui_label": "",
-  "name": "CLM4",
-  "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
-  "component": "land_surface",
-  "family": "clm",
-  "code_base": null,
-  "references": ["REF013"],
-  "embedded_in": "atmosphere",
-  "coupled_with": null,
-  "horizontal_computational_grid": "c105",
-  "vertical_computational_grid": "v106"
+    "validation_key": "clm4",
+    "ui_label": "",
+    "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
+    "code_base": null,
+    "component": "land_surface",
+    "coupled_with": null,
+    "embedded_in": "atmosphere",
+    "family": "clm",
+    "horizontal_computational_grid": "c105",
+    "name": "CLM4",
+    "references": [
+        "REF013"
+    ],
+    "vertical_computational_grid": "v106",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "clm4"
 }

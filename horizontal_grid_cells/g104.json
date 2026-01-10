@@ -1,18 +1,24 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
-  "@id": "g104",
-  "validation_key": "g104",
-  "ui_label": "",
-  "description": "",
-  "grid_type": "regular_latitude_longitude",
-  "grid_mapping": "latitude_longitude",
-  "region": ["global"],
-  "temporal_refinement": "static",
-  "x_resolution": 1.25,
-  "y_resolution": 0.9,
-  "horizontal_units": "degree",
-  "southernmost_latitude": -89.65,
-  "westernmost_longitude": 0.0,
-  "n_cells": 55296
+    "validation_key": "g104",
+    "ui_label": "",
+    "description": "",
+    "grid_mapping": "latitude_longitude",
+    "grid_type": "regular_latitude_longitude",
+    "horizontal_units": "degree",
+    "n_cells": 55296,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.65,
+    "temporal_refinement": "static",
+    "westernmost_longitude": 0.0,
+    "x_resolution": 1.25,
+    "y_resolution": 0.9,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cells",
+        "esgvoc:HorizontalGridCells"
+    ],
+    "@id": "g104"
 }
