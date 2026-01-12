@@ -742,16 +742,14 @@ body:
       placeholder: "e.g., https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model"
 
   - type: textarea
-    id: references
+    id: reference_dois
     attributes:
-      label: References
+      label: Reference DOIs
       description: |
-        Key publications describing the model family.
+        Enter DOI URLs for key publications, one per line.
         
-        Format:
-        citation: [Full citation text]
-        doi: https://doi.org/[DOI]
-      placeholder: "citation: Smith, A. et al. (2024). Family overview.\ndoi: https://doi.org/10.1234/example"
+        Leave blank if none.
+      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
 
   - type: markdown
     attributes:

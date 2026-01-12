@@ -8,59 +8,23 @@ body:
       value: |
         ## Reference Registration
         
-        Register a published work that describes a model or model component.
+        Register references (publications) that describe models or model components.
         
-        References provide detailed documentation beyond what the EMD overview contains.
+        **All references MUST have a DOI.**
         
-        **All references MUST have a DOI.** If no DOI exists, obtain one via [Zenodo](https://zenodo.org) first.
-
-  - type: input
-    id: id
-    attributes:
-      label: Reference ID
-      description: |
-        Short identifier for this reference.
-        
-        Format: ref-[authorYear] or ref-[descriptive-name]
-      placeholder: "e.g., ref-smith2024, ref-hadgem3-description"
-    validations:
-      required: true
+        If a reference has no DOI, obtain one via [Zenodo](https://zenodo.org) first.
 
   - type: textarea
-    id: citation
+    id: dois
     attributes:
-      label: Citation
+      label: DOI URLs
       description: |
-        Full bibliographic citation for the work.
-        
-        Use any standard bibliographic style.
-      placeholder: "e.g., Smith, A. B., Jones, C. D., & Williams, E. F. (2024). Model description paper. Journal of Climate Modelling, 15, 123-145. https://doi.org/10.1234/example"
-    validations:
-      required: true
-
-  - type: input
-    id: doi
-    attributes:
-      label: DOI
-      description: |
-        The DOI as a full URL.
+        Enter DOI URLs, one per line.
         
         **Must start with https://doi.org/**
-        
-        If the reference has no DOI, obtain one via Zenodo before registering.
-      placeholder: "https://doi.org/10.1234/example.2024"
+      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
     validations:
       required: true
-
-  - type: input
-    id: applies_to
-    attributes:
-      label: Applies To
-      description: |
-        What this reference describes (for tracking).
-        
-        Examples: CNRM-ESM2-1, NEMO v3.6, HadGEM3 family
-      placeholder: "e.g., CNRM-ESM2-1 (model), NEMO v3.6 (ocean component)"
 
   - type: markdown
     attributes:

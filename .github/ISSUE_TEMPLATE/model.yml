@@ -179,22 +179,16 @@ body:
       value: |
         ## References
         
-        Provide one or more references describing the model.
+        Provide DOI URLs for publications describing the model.
         
         All DOIs must be full URLs starting with https://doi.org/
 
   - type: textarea
-    id: references
+    id: reference_dois
     attributes:
-      label: References
-      description: |
-        Enter references in the format:
-        
-        citation: [Full citation text]
-        doi: https://doi.org/[DOI]
-        
-        Separate multiple references with a blank line.
-      placeholder: "citation: Smith, A. et al. (2024). Model description. J. Climate, 15, 123-145.\ndoi: https://doi.org/10.1234/example"
+      label: Reference DOIs
+      description: Enter DOI URLs, one per line.
+      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
     validations:
       required: true
 

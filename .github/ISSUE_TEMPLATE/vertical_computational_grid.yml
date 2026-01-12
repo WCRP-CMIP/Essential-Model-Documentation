@@ -12,19 +12,7 @@ body:
         
         Defines the vertical layer structure for a model component.
         
-        Vertical grid IDs follow format: v[NNN] (e.g., v100, v101)
-
-  - type: input
-    id: id
-    attributes:
-      label: Grid ID
-      description: |
-        Unique identifier for this vertical grid.
-        
-        Format: v[NNN] where NNN is a number.
-      placeholder: "e.g., v100, v101, v102"
-    validations:
-      required: true
+        Vertical grid IDs are automatically generated.
 
   - type: textarea
     id: description

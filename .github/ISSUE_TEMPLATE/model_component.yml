@@ -161,48 +161,13 @@ body:
       placeholder: "e.g., https://github.com/org/repo/tree/v1.0 or private"
 
   - type: textarea
-    id: references
+    id: reference_dois
     attributes:
-      label: References
-      description: |
-        Enter references in the format:
-        
-        citation: [Full citation text]
-        doi: https://doi.org/[DOI]
-        
-        Separate multiple references with a blank line.
-      placeholder: "citation: Smith, A. et al. (2024). Component description.\ndoi: https://doi.org/10.1234/example"
+      label: Reference DOIs
+      description: Enter DOI URLs, one per line.
+      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
     validations:
       required: true
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Computational Grids
-        
-        Reference existing grid definitions or leave blank to register new grids separately.
-        
-        Grid IDs follow format: c[NNN] for computational, v[NNN] for vertical
-
-  - type: input
-    id: horizontal_computational_grid
-    attributes:
-      label: Horizontal Computational Grid
-      description: |
-        ID of the horizontal computational grid (e.g., c100).
-        
-        Leave blank if component has no horizontal grid.
-      placeholder: "e.g., c100"
-
-  - type: input
-    id: vertical_computational_grid
-    attributes:
-      label: Vertical Computational Grid
-      description: |
-        ID of the vertical computational grid (e.g., v100).
-        
-        Leave blank if component has no vertical grid.
-      placeholder: "e.g., v100"
 
   - type: markdown
     attributes:

@@ -12,19 +12,7 @@ body:
         
         Defines the physical characteristics and location of grid cells.
         
-        Grid cell IDs follow format: g[NNN] (e.g., g100, g101)
-
-  - type: input
-    id: id
-    attributes:
-      label: Grid Cells ID
-      description: |
-        Unique identifier for this grid cells definition.
-        
-        Format: g[NNN] where NNN is a number.
-      placeholder: "e.g., g100, g101, g102"
-    validations:
-      required: true
+        Grid cell IDs are automatically generated.
 
   - type: textarea
     id: description

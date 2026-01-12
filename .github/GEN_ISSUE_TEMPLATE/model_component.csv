@@ -9,9 +9,6 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 8,multi-select,coupled_with,Coupled With,"Components this one is coupled with.\n\n**Only if NOT embedded.**\n\nLeave empty if embedded or not coupled.",component,false,,list,
 9,markdown,code_header,,"## Code and References",none,false,,,
 10,input,code_base,Code Base URL,"URL to source code (preferably pointing to a specific version/commit).\n\nEnter 'private' if not publicly available.\n\nLeave blank if not available.",none,false,"e.g., https://github.com/org/repo/tree/v1.0 or private",,
-11,textarea,references,References,"Enter references in the format:\n\ncitation: [Full citation text]\ndoi: https://doi.org/[DOI]\n\nSeparate multiple references with a blank line.",none,true,"citation: Smith, A. et al. (2024). Component description.\ndoi: https://doi.org/10.1234/example",,
-12,markdown,grid_header,,"## Computational Grids\n\nReference existing grid definitions or leave blank to register new grids separately.\n\nGrid IDs follow format: c[NNN] for computational, v[NNN] for vertical",none,false,,,
-13,input,horizontal_computational_grid,Horizontal Computational Grid,"ID of the horizontal computational grid (e.g., c100).\n\nLeave blank if component has no horizontal grid.",none,false,"e.g., c100",,
-14,input,vertical_computational_grid,Vertical Computational Grid,"ID of the vertical computational grid (e.g., v100).\n\nLeave blank if component has no vertical grid.",none,false,"e.g., v100",,
-15,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
-16,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list,0
+11,textarea,reference_dois,Reference DOIs,"Enter DOI URLs, one per line.",none,true,"https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2",,
+12,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+13,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list,0

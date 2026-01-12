@@ -12,19 +12,7 @@ body:
         
         Subgrids define which variables are calculated at specific grid locations.
         
-        Subgrid IDs follow format: s[NNN] (e.g., s100, s101)
-
-  - type: input
-    id: id
-    attributes:
-      label: Subgrid ID
-      description: |
-        Unique identifier for this subgrid.
-        
-        Format: s[NNN] where NNN is a number.
-      placeholder: "e.g., s100, s101, s102"
-    validations:
-      required: true
+        Subgrid IDs are automatically generated.
 
   - type: textarea
     id: description
@@ -53,18 +41,6 @@ body:
         - "vorticity"
         - "x-velocity"
         - "y-velocity"
-    validations:
-      required: true
-
-  - type: input
-    id: horizontal_grid_cells
-    attributes:
-      label: Horizontal Grid Cells
-      description: |
-        ID of the grid cells definition used by this subgrid.
-        
-        Format: g[NNN] (e.g., g100)
-      placeholder: "e.g., g100"
     validations:
       required: true
 

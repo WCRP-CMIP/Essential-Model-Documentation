@@ -12,19 +12,7 @@ body:
         
         A computational grid is composed of one or more horizontal subgrids on which different variables are calculated.
         
-        Grid IDs follow format: c[NNN] (e.g., c100, c101)
-
-  - type: input
-    id: id
-    attributes:
-      label: Grid ID
-      description: |
-        Unique identifier for this grid.
-        
-        Format: c[NNN] where NNN is a number.
-      placeholder: "e.g., c100, c101, c102"
-    validations:
-      required: true
+        Grid IDs are automatically generated.
 
   - type: textarea
     id: description
@@ -58,18 +46,6 @@ body:
         - "arakawa-c"
         - "arakawa-d"
         - "arakawa-e"
-    validations:
-      required: true
-
-  - type: input
-    id: horizontal_subgrids
-    attributes:
-      label: Horizontal Subgrids
-      description: |
-        Semicolon-separated list of subgrid IDs that comprise this computational grid.
-        
-        Subgrids must be registered via the Horizontal Subgrid template.
-      placeholder: "e.g., s100;s101 or s100"
     validations:
       required: true
 
