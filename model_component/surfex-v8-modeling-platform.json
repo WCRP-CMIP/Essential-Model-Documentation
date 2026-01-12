@@ -1,17 +1,29 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "surfex-v8-modeling-platform",
-  "validation_key": "surfex_v8_modeling_platform",
-  "ui_label": "",
-  "name": "SURFEX v8 modeling platform",
-  "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
-  "component": "land-surface",
-  "family": "surfex",
-  "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
-  "references": ["REF006", "REF007", "REF008", "REF009"],
-  "embedded_in": null,
-  "coupled_with": ["atmosphere", "ocean"],
-  "horizontal_computational_grid": "c100",
-  "vertical_computational_grid": "v102"
+    "validation_key": "surfex_v8_modeling_platform",
+    "ui_label": "",
+    "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
+    "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
+    "component": "land-surface",
+    "coupled_with": [
+        "atmosphere",
+        "ocean"
+    ],
+    "embedded_in": null,
+    "family": "surfex",
+    "horizontal_computational_grid": "c100",
+    "name": "SURFEX v8 modeling platform",
+    "references": [
+        "REF006",
+        "REF007",
+        "REF008",
+        "REF009"
+    ],
+    "vertical_computational_grid": "v102",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "surfex-v8-modeling-platform"
 }

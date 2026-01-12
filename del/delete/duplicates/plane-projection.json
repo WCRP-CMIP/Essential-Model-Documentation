@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": ["universal", "wcrp:grid_type", "esgvoc:GridType"],
-  "@id": "plane_projection",
-  "validation_key": "plane_projection",
-  "ui_label": "Plane Projection",
-  "description": "Grid defined on a projected plane, commonly used for regional or ice sheet models."
+    "validation_key": "plane_projection",
+    "ui_label": "Plane Projection",
+    "description": "Grid defined on a projected plane, commonly used for regional or ice sheet models.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:duplicates",
+        "esgvoc:Duplicates",
+        "emd"
+    ],
+    "@id": "plane-projection"
 }

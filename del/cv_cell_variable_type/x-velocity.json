@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "CellVariableType",
-  "@id": "x_velocity",
-  "validation_key": "x_velocity",
-  "ui_label": "X Velocity",
-  "description": "Velocity component in the x-direction (zonal/eastward)."
+    "validation_key": "x_velocity",
+    "ui_label": "X Velocity",
+    "description": "Velocity component in the x-direction (zonal/eastward).",
+    "@context": "_context",
+    "@type": [
+        "CellVariableType",
+        "wcrp:cv_cell_variable_type",
+        "esgvoc:CvCellVariableType",
+        "emd"
+    ],
+    "@id": "x-velocity"
 }

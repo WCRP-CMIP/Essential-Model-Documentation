@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "Arrangement",
-  "@id": "arakawa_a",
-  "validation_key": "arakawa_a",
-  "ui_label": "Arakawa A-grid",
-  "description": "All variables (velocity, mass, thermodynamic) are defined at the same grid point location."
+    "validation_key": "arakawa_a",
+    "ui_label": "Arakawa A-grid",
+    "description": "All variables (velocity, mass, thermodynamic) are defined at the same grid point location.",
+    "@context": "_context",
+    "@type": [
+        "Arrangement",
+        "wcrp:cv_arrangement",
+        "esgvoc:CvArrangement",
+        "emd"
+    ],
+    "@id": "arakawa-a"
 }

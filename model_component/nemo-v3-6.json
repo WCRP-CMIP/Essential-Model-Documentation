@@ -1,17 +1,26 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "nemo-v3-6",
-  "validation_key": "nemo_v3_6",
-  "ui_label": "",
-  "name": "NEMO v3.6",
-  "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
-  "component": "ocean",
-  "family": "nemo",
-  "code_base": "private",
-  "references": ["REF001"],
-  "embedded_in": null,
-  "coupled_with": ["atmosphere", "land-surface"],
-  "horizontal_computational_grid": "c101",
-  "vertical_computational_grid": "v103"
+    "validation_key": "nemo_v3_6",
+    "ui_label": "",
+    "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
+    "code_base": "private",
+    "component": "ocean",
+    "coupled_with": [
+        "atmosphere",
+        "land-surface"
+    ],
+    "embedded_in": null,
+    "family": "nemo",
+    "horizontal_computational_grid": "c101",
+    "name": "NEMO v3.6",
+    "references": [
+        "REF001"
+    ],
+    "vertical_computational_grid": "v103",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "nemo-v3-6"
 }

@@ -1,17 +1,23 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
-  "@id": "tactic",
-  "validation_key": "tactic",
-  "ui_label": "",
-  "name": "TACTIC",
-  "description": "TACTIC (Tropospheric Aerosols for ClimaTe In CNRM) is an interactive tropospheric aerosol scheme, able to represent the main anthropogenic and natural aerosol types in the troposphere.",
-  "component": "aerosol",
-  "family": "tactic",
-  "code_base": "private",
-  "references": ["REF004"],
-  "embedded_in": "atmosphere",
-  "coupled_with": [],
-  "horizontal_computational_grid": "c100",
-  "vertical_computational_grid": "v100"
+    "validation_key": "tactic",
+    "ui_label": "",
+    "description": "TACTIC (Tropospheric Aerosols for ClimaTe In CNRM) is an interactive tropospheric aerosol scheme, able to represent the main anthropogenic and natural aerosol types in the troposphere.",
+    "code_base": "private",
+    "component": "aerosol",
+    "coupled_with": [],
+    "embedded_in": "atmosphere",
+    "family": "tactic",
+    "horizontal_computational_grid": "c100",
+    "name": "TACTIC",
+    "references": [
+        "REF004"
+    ],
+    "vertical_computational_grid": "v100",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "tactic"
 }
