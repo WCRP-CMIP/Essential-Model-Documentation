@@ -1,0 +1,218 @@
+name: "Add/Modify: Model"
+description: Register a top-level Earth system model for EMD/CMIP7
+title: "Add/Modify: Model: <Type model name here>"
+labels: ['emd-submission', 'model', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Top-Level Model Registration
+        
+        Register a top-level Earth system model for CMIP7.
+        
+        For CMIP7, this name will become the model's **source_id**.
+        
+        See the [EMD Specification](https://wcrp-cmip.github.io/Essential-Model-Documentation/) for detailed guidance.
+
+  - type: input
+    id: name
+    attributes:
+      label: Model Name
+      description: |
+        The name of the top-level model.
+        
+        Should include an indication of the model family and version.
+        
+        **Note for CMIP7**: This will be registered as the model's source_id.
+      placeholder: "e.g., HadGEM3-GC31-HH, CNRM-ESM2-1, CESM2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family
+    attributes:
+      label: Model Family
+      description: |
+        The model's family name.
+        
+        Models in a family share code bases but may differ in resolution, parameters, or components.
+        
+        Select 'None' if no family applies.
+      options:
+        - "Not applicable"
+        - "ACCESS"
+        - "BCC-CSM"
+        - "BISICLES"
+        - "CAM"
+        - "CESM"
+        - "CLM"
+        - "CNRM-CM"
+        - "CanESM"
+        - "EC-Earth"
+        - "FGOALS"
+        - "GEOS"
+        - "GFDL-CM4"
+        - "GISS-E2"
+        - "HadCM2"
+        - "HadGEM3"
+        - "ICON"
+        - "IFS"
+        - "IPSL-CM"
+        - "MIROC"
+        - "MPI-ESM"
+        - "NICAM"
+        - "UKESM1"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Scientific Description
+      description: |
+        A scientific overview of the model.
+        
+        **Must mention ALL component types:**
+        - Dynamic components: Brief high-level overview
+        - Prescribed components: Explain how they are treated
+        - Omitted components: Note they are absent
+        
+        Example: 'CNRM-ESM2-1 includes dynamically simulated atmosphere, ocean, and land surface. Sea ice is prescribed from observations. Atmospheric chemistry is omitted.'
+      placeholder: "Describe the model covering all component types (dynamic, prescribed, omitted)..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dynamic_components
+    attributes:
+      multiple: true
+      label: Dynamic Components
+      description: |
+        Components that are dynamically simulated.
+        
+        **At least one required.**
+        
+        These must be registered separately via Model Component template.
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric_chemistry"
+        - "land_ice"
+        - "land_surface"
+        - "ocean"
+        - "ocean_biogeochemistry"
+        - "sea_ice"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prescribed_components
+    attributes:
+      multiple: true
+      label: Prescribed Components
+      description: |
+        Components represented with prescribed values (constant or time-varying inputs).
+        
+        Leave empty if none.
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric_chemistry"
+        - "land_ice"
+        - "land_surface"
+        - "ocean"
+        - "ocean_biogeochemistry"
+        - "sea_ice"
+
+  - type: dropdown
+    id: omitted_components
+    attributes:
+      multiple: true
+      label: Omitted Components
+      description: |
+        Components wholly omitted from the model.
+        
+        Leave empty if none.
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric_chemistry"
+        - "land_ice"
+        - "land_surface"
+        - "ocean"
+        - "ocean_biogeochemistry"
+        - "sea_ice"
+
+  - type: dropdown
+    id: calendar
+    attributes:
+      multiple: true
+      label: Calendar
+      description: |
+        Calendar(s) used by the model.
+        
+        **List most commonly used first.**
+        
+        For CMIP7: Only calendars adopted in CMIP7 simulations should be provided.
+      options:
+        - "360_day"
+        - "365_day"
+        - "366_day"
+        - "julian"
+        - "none"
+        - "proleptic_gregorian"
+        - "standard"
+        - "tai"
+        - "utc"
+    validations:
+      required: true
+
+  - type: input
+    id: release_year
+    attributes:
+      label: Release Year
+      description: Year the model was released or first used for published simulations.
+      placeholder: "e.g., 2018"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## References
+        
+        Provide one or more references describing the model.
+        
+        All DOIs must be full URLs starting with https://doi.org/
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: |
+        Enter references in the format:
+        
+        citation: [Full citation text]
+        doi: https://doi.org/[DOI]
+        
+        Separate multiple references with a blank line.
+      placeholder: "citation: Smith, A. et al. (2024). Model description. J. Climate, 15, 123-145.\ndoi: https://doi.org/10.1234/example"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Handling Metadata
+        
+        These options control how the submission is processed.
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true
