@@ -16,7 +16,7 @@ body:
       label: Issue Type
       description: What kind of issue are you reporting?
       options:
-        - "Not specified"
+        - "Not applicable"
         - "Bug Report"
         - "Feature Request"
         - "Documentation Issue"
@@ -90,7 +90,7 @@ body:
       label: Priority
       description: How urgent is this issue?
       options:
-        - "Not specified"
+        - "Not applicable"
         - "Critical - Blocking work"
         - "High - Important issue"
         - "Medium - Should be addressed"

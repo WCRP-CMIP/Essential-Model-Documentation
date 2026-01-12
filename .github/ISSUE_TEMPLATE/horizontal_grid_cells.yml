@@ -41,7 +41,7 @@ body:
         - unstructured-polygon: Irregular mesh
         - plane-projection: Projected coordinate grid
       options:
-        - "Not specified"
+        - "Not applicable"
         - "cubed_sphere"
         - "cubic_octahedral_spectral_reduced_gaussian"
         - "displaced_pole"
@@ -81,7 +81,7 @@ body:
         - polar-stereographic: Polar projection
         - lambert-conformal-conic: Lambert projection
       options:
-        - "Not specified"
+        - "Not applicable"
         - "albers_conical_equal_area"
         - "azimuthal_equidistant"
         - "geostationary"
@@ -139,7 +139,7 @@ body:
         - adaptive: Mesh refinement
         - dynamically-stretched: Moving mesh
       options:
-        - "Not specified"
+        - "Not applicable"
         - "adaptive"
         - "dynamically_stretched"
         - "static"
@@ -176,7 +176,7 @@ body:
         
         Required if x_resolution or y_resolution is provided.
       options:
-        - "Not specified"
+        - "Not applicable"
         - "degree"
         - "k"
         - "km"
@@ -230,7 +230,7 @@ body:
         
         Only applicable for spectral models.
       options:
-        - "Not specified"
+        - "Not applicable"
         - "rhomboidal"
         - "triangular"
       default: 0
@@ -256,7 +256,7 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-        - "Not specified"
+        - "Not applicable"
         - "New"
         - "Modify"
       default: 0
