@@ -1,17 +1,13 @@
 {
-    "validation_key": "v101",
-    "ui_label": "",
-    "description": "",
-    "bottom_layer_thickness": 240.0,
-    "n_z": 91,
-    "top_layer_thickness": 2.0,
-    "total_thickness": 61000.0,
-    "vertical_coordinate": "atmosphere_hybrid_sigma_pressure_coordinate",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:vertical_computational_grid",
-        "esgvoc:VerticalComputationalGrid"
-    ],
-    "@id": "v101"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:vertical_computational_grid", "esgvoc:VerticalComputationalGrid"],
+  "@id": "v101",
+  "validation_key": "v101",
+  "ui_label": "",
+  "description": "91-level atmospheric hybrid sigma-pressure coordinate extending to 61 km.",
+  "bottom_layer_thickness": 240.0,
+  "n_z": 91,
+  "top_layer_thickness": 2.0,
+  "total_thickness": 61000.0,
+  "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
 }

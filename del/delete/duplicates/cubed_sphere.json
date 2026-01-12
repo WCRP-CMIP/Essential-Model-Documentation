@@ -1,0 +1,8 @@
+{
+  "@context": "_context",
+  "@type": ["universal", "wcrp:grid_type", "esgvoc:GridType"],
+  "@id": "cubed_sphere",
+  "validation_key": "cubed_sphere",
+  "ui_label": "Cubed Sphere",
+  "description": "Grid based on projecting a cube onto a sphere, providing quasi-uniform resolution without polar singularities."
+}

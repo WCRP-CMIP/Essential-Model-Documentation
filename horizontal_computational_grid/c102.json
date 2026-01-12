@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "validation_key": "c102",
     "ui_label": "",
     "description": "",
@@ -13,4 +14,14 @@
         "esgvoc:HorizontalComputationalGrid"
     ],
     "@id": "c102"
+=======
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
+  "@id": "c102",
+  "validation_key": "c102",
+  "ui_label": "",
+  "description": "Arakawa-C grid with adaptive mesh refinement for ice sheet modelling.",
+  "arrangement": "arakawa-c",
+  "horizontal_subgrids": ["s103"]
+>>>>>>> c0acfb4 (emd version tidied)
 }

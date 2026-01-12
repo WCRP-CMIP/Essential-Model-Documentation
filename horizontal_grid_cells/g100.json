@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "validation_key": "g100",
     "ui_label": "",
     "description": "",
@@ -21,4 +22,22 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g100"
+=======
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
+  "@id": "g100",
+  "validation_key": "g100",
+  "ui_label": "",
+  "description": "Global regular latitude-longitude grid with 1.25° x 0.9° resolution and 55296 cells.",
+  "grid_type": "regular-latitude-longitude",
+  "grid_mapping": "latitude-longitude",
+  "region": ["global"],
+  "temporal_refinement": "static",
+  "x_resolution": 1.25,
+  "y_resolution": 0.9,
+  "units": "degree",
+  "southernmost_latitude": -89.5,
+  "westernmost_longitude": 0.5,
+  "n_cells": 55296
+>>>>>>> c0acfb4 (emd version tidied)
 }

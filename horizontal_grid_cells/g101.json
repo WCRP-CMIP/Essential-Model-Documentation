@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "validation_key": "g101",
     "ui_label": "",
     "description": "TL127",
@@ -23,4 +24,24 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g101"
+=======
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
+  "@id": "g101",
+  "validation_key": "g101",
+  "ui_label": "",
+  "description": "TL127",
+  "grid_type": "linear-spectral-gaussian",
+  "grid_mapping": "latitude-longitude",
+  "region": ["global"],
+  "temporal_refinement": "static",
+  "x_resolution": 1.4,
+  "y_resolution": 1.4,
+  "units": "degree",
+  "southernmost_latitude": -88.9277353522076,
+  "westernmost_longitude": 0.0,
+  "n_cells": 24572,
+  "truncation_method": "triangular",
+  "truncation_number": 127
+>>>>>>> c0acfb4 (emd version tidied)
 }

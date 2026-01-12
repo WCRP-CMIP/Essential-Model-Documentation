@@ -1,0 +1,27 @@
+{
+<<<<<<< HEAD:horizontal_computational_grid/c105.json
+    "validation_key": "c105",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa_a",
+    "horizontal_subgrids": [
+        "s106"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "c105"
+=======
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
+  "@id": "c105",
+  "validation_key": "c105",
+  "ui_label": "",
+  "description": "",
+  "arrangement": "arakawa-a",
+  "horizontal_subgrids": ["s104"]
+>>>>>>> c0acfb4 (emd version tidied):del/duplicates/c105.json
+}

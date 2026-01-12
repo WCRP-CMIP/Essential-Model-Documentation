@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "validation_key": "g102",
     "ui_label": "",
     "description": "eORCA1L75",
@@ -16,4 +17,17 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g102"
+=======
+  "@context": "_context",
+  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
+  "@id": "g102",
+  "validation_key": "g102",
+  "ui_label": "",
+  "description": "eORCA1L75",
+  "grid_type": "tripolar",
+  "grid_mapping": "latitude-longitude",
+  "region": ["global"],
+  "temporal_refinement": "static",
+  "n_cells": 105704
+>>>>>>> c0acfb4 (emd version tidied)
 }
