@@ -1,0 +1,45 @@
+name: "Add/Modify: Reference"
+description: Register a reference/citation for models or components
+title: "Add/Modify: Reference: <Type reference ID here>"
+labels: ['emd-submission', 'reference', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Reference Registration
+        
+        Register references (publications) that describe models or model components.
+        
+        **All references MUST have a DOI.**
+        
+        If a reference has no DOI, obtain one via [Zenodo](https://zenodo.org) first.
+
+  - type: textarea
+    id: dois
+    attributes:
+      label: DOI URLs
+      description: |
+        Enter DOI URLs, one per line.
+        
+        **Must start with https://doi.org/**
+      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Handling Metadata
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "Not applicable"
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

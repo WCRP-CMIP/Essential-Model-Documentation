@@ -1,0 +1,63 @@
+name: "Add/Modify: Horizontal Subgrid"
+description: Register a horizontal subgrid
+title: "Add/Modify: Horizontal Subgrid: <Type subgrid ID here>"
+labels: ['emd-submission', 'horizontal-grid', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Horizontal Subgrid Registration
+        
+        Register a horizontal subgrid - one stagger position of a computational grid.
+        
+        Subgrids define which variables are calculated at specific grid locations.
+        
+        Subgrid IDs are automatically generated.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Description to distinguish this subgrid from similar ones.
+      placeholder: "e.g., Mass variables on a regular latitude-longitude grid"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: cell_variable_type
+    attributes:
+      multiple: true
+      label: Cell Variable Type
+      description: |
+        Types of physical variables at this subgrid location.
+        
+        - mass: Mass-related, thermodynamic, hydrodynamic quantities
+        - x-velocity: X component of velocity (longitude direction)
+        - y-velocity: Y component of velocity (latitude direction)
+        - velocity: Full velocity vector (for unstructured grids)
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Handling Metadata
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "Not applicable"
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true
