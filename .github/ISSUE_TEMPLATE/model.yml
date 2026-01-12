@@ -36,8 +36,6 @@ body:
         The model's family name.
         
         Models in a family share code bases but may differ in resolution, parameters, or components.
-        
-        Select 'None' if no family applies.
       options:
         - "Not applicable"
         - "ACCESS"
@@ -62,6 +60,7 @@ body:
         - "MPI-ESM"
         - "NICAM"
         - "UKESM1"
+      default: 0
 
   - type: textarea
     id: description

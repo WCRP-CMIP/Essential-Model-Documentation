@@ -176,6 +176,7 @@ body:
         - "km"
         - "meter"
         - "pa"
+      default: 0
 
   - type: input
     id: n_cells
@@ -226,6 +227,7 @@ body:
         - "Not applicable"
         - "rhomboidal"
         - "triangular"
+      default: 0
 
   - type: input
     id: truncation_number
