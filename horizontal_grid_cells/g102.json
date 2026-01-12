@@ -1,9 +1,16 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "validation_key": "g102",
     "ui_label": "",
     "description": "eORCA1L75",
     "grid_mapping": "latitude_longitude",
+=======
+    "validation_key": "g102",
+    "ui_label": "",
+    "description": "eORCA1L75",
+    "grid_mapping": "latitude-longitude",
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
     "grid_type": "tripolar",
     "n_cells": 105704,
     "region": [
@@ -17,6 +24,7 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g102"
+<<<<<<< HEAD
 =======
   "@context": "_context",
   "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
@@ -30,4 +38,6 @@
   "temporal_refinement": "static",
   "n_cells": 105704
 >>>>>>> c0acfb4 (emd version tidied)
+=======
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

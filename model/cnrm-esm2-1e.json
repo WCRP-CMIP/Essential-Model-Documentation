@@ -1,35 +1,24 @@
 {
-    "validation_key": "cnrm-esm2-1e",
-    "ui_label": "",
-    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better consevration of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
-    "calendar": [
-        "standard"
-    ],
-    "dynamic_components": [
-        "aerosol",
-        "atmosphere",
-        "atmospheric_chemistry",
-        "land_surface",
-        "ocean",
-        "ocean_biogeochemistry",
-        "sea_ice"
-    ],
-    "family": "cnrm-cm",
-    "name": "CNRM-ESM2-1e",
-    "omitted_components": [
-        "land_ice"
-    ],
-    "prescribed_components": [],
-    "references": [
-        "REF001",
-        "REF002"
-    ],
-    "release_year": 2018,
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model",
-        "esgvoc:Model"
-    ],
-    "@id": "cnrm-esm2-1e"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model", "esgvoc:Model"],
+  "@id": "cnrm-esm2-1e",
+  "validation_key": "cnrm-esm2-1e",
+  "ui_label": "",
+  "name": "CNRM-ESM2-1e",
+  "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
+  "calendar": ["standard"],
+  "dynamic_components": [
+    "aerosol",
+    "atmosphere",
+    "atmospheric-chemistry",
+    "land-surface",
+    "ocean",
+    "ocean-biogeochemistry",
+    "sea-ice"
+  ],
+  "family": "cnrm-cm",
+  "omitted_components": ["land-ice"],
+  "prescribed_components": [],
+  "references": ["REF001", "REF002"],
+  "release_year": 2018
 }

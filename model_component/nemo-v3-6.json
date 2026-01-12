@@ -4,14 +4,14 @@
   "@id": "nemo-v3-6",
   "validation_key": "nemo_v3_6",
   "ui_label": "",
-  "name": "NEMO : Nucleus for European Modelling of the Ocean version 3.6 (OPA)",
-  "description": "The ocean component of CNRM-ESM2-1 is based on the version 3.6 of NEMO (Nucleus for European Models of the Ocean).",
+  "name": "NEMO v3.6",
+  "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
   "component": "ocean",
-  "family": "NEMO",
+  "family": "nemo",
   "code_base": "private",
   "references": ["REF001"],
   "embedded_in": null,
-  "coupled_with": ["atmosphere", "land_surface"],
+  "coupled_with": ["atmosphere", "land-surface"],
   "horizontal_computational_grid": "c101",
   "vertical_computational_grid": "v103"
 }

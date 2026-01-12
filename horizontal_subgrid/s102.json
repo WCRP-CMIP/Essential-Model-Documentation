@@ -1,8 +1,14 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "validation_key": "s102",
     "ui_label": "",
     "description": "",
+=======
+    "validation_key": "s102",
+    "ui_label": "",
+    "description": "Mass variables on an ocean tripolar grid (eORCA1).",
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
     "cell_variable_type": [
         "mass"
     ],
@@ -14,6 +20,7 @@
         "esgvoc:HorizontalSubgrid"
     ],
     "@id": "s102"
+<<<<<<< HEAD
 =======
   "@context": "_context",
   "@type": ["emd", "wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid"],
@@ -24,4 +31,6 @@
   "cell_variable_type": ["mass"],
   "horizontal_grid_cells": "g102"
 >>>>>>> c0acfb4 (emd version tidied)
+=======
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

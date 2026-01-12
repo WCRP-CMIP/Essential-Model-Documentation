@@ -1,8 +1,7 @@
 {
-<<<<<<< HEAD
     "validation_key": "s104",
     "ui_label": "",
-    "description": "",
+    "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
     "cell_variable_type": [
         "mass"
     ],
@@ -14,14 +13,4 @@
         "esgvoc:HorizontalSubgrid"
     ],
     "@id": "s104"
-=======
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid"],
-  "@id": "s104",
-  "validation_key": "s104",
-  "ui_label": "",
-  "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
-  "cell_variable_type": ["mass"],
-  "horizontal_grid_cells": "g104"
->>>>>>> c0acfb4 (emd version tidied)
 }

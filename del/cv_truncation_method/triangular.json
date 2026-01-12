@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "TruncationMethod",
-  "@id": "triangular",
-  "validation_key": "triangular",
-  "ui_label": "Triangular",
-  "description": "Triangular truncation in spectral space where total wavenumber m+n ≤ N."
+    "validation_key": "triangular",
+    "ui_label": "Triangular",
+    "description": "Triangular truncation in spectral space where total wavenumber m+n ≤ N.",
+    "@context": "_context",
+    "@type": [
+        "TruncationMethod",
+        "wcrp:cv_truncation_method",
+        "esgvoc:CvTruncationMethod",
+        "emd"
+    ],
+    "@id": "triangular"
 }

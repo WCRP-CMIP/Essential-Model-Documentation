@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "Region",
-  "@id": "antarctica",
-  "validation_key": "antarctica",
-  "ui_label": "Antarctica",
-  "description": "Antarctic ice sheet region."
+    "validation_key": "antarctica",
+    "ui_label": "Antarctica",
+    "description": "Antarctic ice sheet region.",
+    "@context": "_context",
+    "@type": [
+        "Region",
+        "wcrp:cv_region",
+        "esgvoc:CvRegion",
+        "emd"
+    ],
+    "@id": "antarctica"
 }

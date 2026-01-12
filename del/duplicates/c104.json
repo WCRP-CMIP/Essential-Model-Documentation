@@ -1,27 +1,16 @@
 {
-<<<<<<< HEAD:horizontal_computational_grid/c104.json
     "validation_key": "c104",
     "ui_label": "",
     "description": "",
-    "arrangement": "arakawa_c",
+    "arrangement": "arakawa-c",
     "horizontal_subgrids": [
-        "s105"
+        "s103"
     ],
     "@context": "_context",
     "@type": [
         "emd",
-        "wcrp:horizontal_computational_grid",
-        "esgvoc:HorizontalComputationalGrid"
+        "wcrp:duplicates",
+        "esgvoc:Duplicates"
     ],
     "@id": "c104"
-=======
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
-  "@id": "c104",
-  "validation_key": "c104",
-  "ui_label": "",
-  "description": "",
-  "arrangement": "arakawa-c",
-  "horizontal_subgrids": ["s103"]
->>>>>>> c0acfb4 (emd version tidied):del/duplicates/c104.json
 }

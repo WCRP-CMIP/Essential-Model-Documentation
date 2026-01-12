@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "CellVariableType",
-  "@id": "mass",
-  "validation_key": "mass",
-  "ui_label": "Mass",
-  "description": "Scalar/thermodynamic variables such as temperature, pressure, density, tracers."
+    "validation_key": "mass",
+    "ui_label": "Mass",
+    "description": "Scalar/thermodynamic variables such as temperature, pressure, density, tracers.",
+    "@context": "_context",
+    "@type": [
+        "CellVariableType",
+        "wcrp:cv_cell_variable_type",
+        "esgvoc:CvCellVariableType",
+        "emd"
+    ],
+    "@id": "mass"
 }

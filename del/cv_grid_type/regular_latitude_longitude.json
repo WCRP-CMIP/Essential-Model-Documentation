@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "GridType",
-  "@id": "regular_latitude_longitude",
-  "validation_key": "regular_latitude_longitude",
-  "ui_label": "Regular Latitude-Longitude",
-  "description": "Uniform spacing in both latitude and longitude directions."
+    "validation_key": "regular_latitude_longitude",
+    "ui_label": "Regular Latitude-Longitude",
+    "description": "Uniform spacing in both latitude and longitude directions.",
+    "@context": "_context",
+    "@type": [
+        "GridType",
+        "wcrp:cv_grid_type",
+        "esgvoc:CvGridType",
+        "emd"
+    ],
+    "@id": "regular-latitude-longitude"
 }

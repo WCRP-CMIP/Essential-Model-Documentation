@@ -1,8 +1,12 @@
 {
-  "@context": "_context",
-  "@type": ["emd", "esgvoc:Arrangement"],
-  "@id": "arakawa_b",
-  "validation_key": "arakawa_b",
-  "ui_label": "Arakawa B-grid",
-  "description": "Mass variables at cell centers, velocity components collocated at cell corners."
+    "validation_key": "arakawa_b",
+    "ui_label": "Arakawa B-grid",
+    "description": "Mass variables at cell centers, velocity components collocated at cell corners.",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:cv_arrangement",
+        "esgvoc:CvArrangement"
+    ],
+    "@id": "arakawa-b"
 }

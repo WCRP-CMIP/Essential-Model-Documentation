@@ -1,34 +1,4 @@
 {
-<<<<<<< HEAD
-    "@context": {
-        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cells/",
-        "@base": "emd.mipcvs.dev/horizontal_grid_cells/",
-        "@vocab": "emd.mipcvs.dev/docs/contents/HorizontalGridCells/",
-        "grid_mapping": {
-            "@context": "https://emd.mipcvs.dev/cv_grid_mapping/_context",
-            "@type": "@id"
-        },
-        "grid_type": {
-            "@context": "https://emd.mipcvs.dev/cv_grid_type/_context",
-            "@type": "@id"
-        },
-        "horizontal_units": {
-            "@context": "https://emd.mipcvs.dev/cv_horizontal_units/_context",
-            "@type": "@id"
-        },
-        "region": {
-            "@context": "https://emd.mipcvs.dev/cv_region/_context",
-            "@type": "@id"
-        },
-        "temporal_refinement": {
-            "@context": "https://emd.mipcvs.dev/cv_temporal_refinement/_context",
-            "@type": "@id"
-        },
-        "truncation_method": {
-            "@context": "https://emd.mipcvs.dev/cv_truncation_method/_context",
-            "@type": "@id"
-        }
-=======
   "@context": {
     "@version": 1.1,
     "@base": "https://emd.mipcvs.dev/horizontal_grid_cells/",
@@ -56,6 +26,6 @@
     "truncation_method": {
       "@context": "https://universal.mipcvs.dev/truncation_method/_context",
       "@type": "@id"
->>>>>>> c0acfb4 (emd version tidied)
     }
+  }
 }

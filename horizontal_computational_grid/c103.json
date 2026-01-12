@@ -1,9 +1,16 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "validation_key": "c103",
     "ui_label": "",
     "description": "",
     "arrangement": "arakawa_a",
+=======
+    "validation_key": "c103",
+    "ui_label": "",
+    "description": "Arakawa-A grid on a regular latitude-longitude configuration for land surface modelling.",
+    "arrangement": "arakawa-a",
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
     "horizontal_subgrids": [
         "s104"
     ],
@@ -14,6 +21,7 @@
         "esgvoc:HorizontalComputationalGrid"
     ],
     "@id": "c103"
+<<<<<<< HEAD
 =======
   "@context": "_context",
   "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
@@ -24,4 +32,6 @@
   "arrangement": "arakawa-a",
   "horizontal_subgrids": ["s104"]
 >>>>>>> c0acfb4 (emd version tidied)
+=======
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

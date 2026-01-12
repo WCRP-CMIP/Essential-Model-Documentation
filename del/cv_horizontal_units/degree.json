@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "HorizontalUnits",
-  "@id": "degree",
-  "validation_key": "degree",
-  "ui_label": "Degrees",
-  "description": "Angular measurement in degrees for latitude/longitude coordinates."
+    "validation_key": "degree",
+    "ui_label": "Degrees",
+    "description": "Angular measurement in degrees for latitude/longitude coordinates.",
+    "@context": "_context",
+    "@type": [
+        "HorizontalUnits",
+        "wcrp:cv_horizontal_units",
+        "esgvoc:CvHorizontalUnits",
+        "emd"
+    ],
+    "@id": "degree"
 }

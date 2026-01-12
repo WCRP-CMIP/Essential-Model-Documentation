@@ -1,41 +1,25 @@
 {
-    "validation_key": "CLM",
-    "ui_label": "",
-    "description": "Community Land Model family representing land surface heterogeneity through nested subgrid hierarchy.",
-    "collaborative_institutions": [
-        "lbl",
-        "pnnl"
-    ],
-    "common_scientific_basis": "Nested subgrid representation, area-weighted averaging for atmosphere-land coupling.",
-    "computational_requirements": "10-25% of total coupled model cost",
-    "documentation": "https://escomp.github.io/ctsm-docs/",
-    "established": "1996",
-    "evolution": "Evolution from simple land surface to comprehensive terrestrial system models through CLM1-CLM5.",
-    "license": "Open Source",
-    "primary_institution": "ncar",
-    "programming_languages": [
-        "Fortran 90",
-        "Fortran 95",
-        "Python"
-    ],
-    "references": [
-        "REF013"
-    ],
-    "representative_member": "CLM4",
-    "scientific_domains": [
-        "land_surface",
-        "ocean_biogeochemistry"
-    ],
-    "shared_code_base": "Nested subgrid hierarchy architecture with independent biogeophysical processes per landunit/column/PFT.",
-    "software_dependencies": "NetCDF, MPI, ESMF/MCT",
-    "source_code_repository": "https://github.com/ESCOMP/CTSM",
-    "variation_dimensions": "Version complexity, soil layers, vegetation representation, biogeochemical complexity.",
-    "website": "https://www.cesm.ucar.edu/models/cesm2/land",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_family",
-        "esgvoc:ModelFamily"
-    ],
-    "@id": "clm"
+  "@context": "_context",
+  "@type": ["emd", "wcrp:model_family", "esgvoc:ModelFamily"],
+  "@id": "clm",
+  "validation_key": "CLM",
+  "ui_label": "",
+  "description": "Community Land Model family representing land surface heterogeneity through nested subgrid hierarchy.",
+  "primary_institution": "ncar",
+  "collaborative_institutions": ["lbnl", "pnnl"],
+  "scientific_domains": ["land-surface", "ocean-biogeochemistry"],
+  "references": ["REF013"],
+  "common_scientific_basis": "Nested subgrid representation, area-weighted averaging for atmosphere-land coupling.",
+  "computational_requirements": "10-25% of total coupled model cost",
+  "documentation": "https://escomp.github.io/ctsm-docs/",
+  "established": "1996",
+  "evolution": "Evolution from simple land surface to comprehensive terrestrial system models through CLM1-CLM5.",
+  "license": "Open Source",
+  "programming_languages": ["Fortran 90", "Fortran 95", "Python"],
+  "representative_member": "CLM4",
+  "shared_code_base": "Nested subgrid hierarchy architecture with independent biogeophysical processes per landunit/column/PFT.",
+  "software_dependencies": "NetCDF, MPI, ESMF/MCT",
+  "source_code_repository": "https://github.com/ESCOMP/CTSM",
+  "variation_dimensions": "Version complexity, soil layers, vegetation representation, biogeochemical complexity.",
+  "website": "https://www.cesm.ucar.edu/models/cesm2/land"
 }

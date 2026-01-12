@@ -1,0 +1,8 @@
+{
+  "@context": "_context",
+  "@type": ["universal", "wcrp:grid_type", "esgvoc:GridType"],
+  "@id": "reduced_gaussian",
+  "validation_key": "reduced_gaussian",
+  "ui_label": "Reduced Gaussian",
+  "description": "Gaussian grid with reduced number of points near the poles to maintain quasi-uniform spacing."
+}

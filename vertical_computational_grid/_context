@@ -1,14 +1,4 @@
 {
-<<<<<<< HEAD
-    "@context": {
-        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/vertical_computational_grid/",
-        "@base": "emd.mipcvs.dev/vertical_computational_grid/",
-        "@vocab": "emd.mipcvs.dev/docs/contents/VerticalComputationalGrid/",
-        "vertical_coordinate": {
-            "@context": "https://emd.mipcvs.dev/cv_vertical_coordinate/_context",
-            "@type": "@id"
-        }
-=======
   "@context": {
     "@version": 1.1,
     "@base": "https://emd.mipcvs.dev/vertical_computational_grid/",
@@ -16,6 +6,6 @@
     "vertical_coordinate": {
       "@context": "https://universal.mipcvs.dev/vertical_coordinate/_context",
       "@type": "@id"
->>>>>>> c0acfb4 (emd version tidied)
     }
+  }
 }

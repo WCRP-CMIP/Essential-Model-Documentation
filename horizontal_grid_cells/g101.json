@@ -1,11 +1,19 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "validation_key": "g101",
     "ui_label": "",
     "description": "TL127",
     "grid_mapping": "latitude_longitude",
     "grid_type": "linear_spectral_gaussian",
     "horizontal_units": "degree",
+=======
+    "validation_key": "g101",
+    "ui_label": "",
+    "description": "TL127",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "linear-spectral-gaussian",
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
     "n_cells": 24572,
     "region": [
         "global"
@@ -14,6 +22,10 @@
     "temporal_refinement": "static",
     "truncation_method": "triangular",
     "truncation_number": 127,
+<<<<<<< HEAD
+=======
+    "units": "degree",
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
     "westernmost_longitude": 0.0,
     "x_resolution": 1.4,
     "y_resolution": 1.4,
@@ -24,6 +36,7 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g101"
+<<<<<<< HEAD
 =======
   "@context": "_context",
   "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
@@ -44,4 +57,6 @@
   "truncation_method": "triangular",
   "truncation_number": 127
 >>>>>>> c0acfb4 (emd version tidied)
+=======
+>>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

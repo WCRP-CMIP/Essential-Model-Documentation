@@ -1,8 +1,13 @@
 {
-  "@context": "_context",
-  "@type": "Region",
-  "@id": "greenland",
-  "validation_key": "greenland",
-  "ui_label": "Greenland",
-  "description": "Greenland ice sheet region."
+    "validation_key": "greenland",
+    "ui_label": "Greenland",
+    "description": "Greenland ice sheet region.",
+    "@context": "_context",
+    "@type": [
+        "Region",
+        "wcrp:cv_region",
+        "esgvoc:CvRegion",
+        "emd"
+    ],
+    "@id": "greenland"
 }
