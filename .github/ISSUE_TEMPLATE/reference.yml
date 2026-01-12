@@ -1,0 +1,80 @@
+name: "Add/Modify: Reference"
+description: Register a reference/citation for models or components
+title: "Add/Modify: Reference: <Type reference ID here>"
+labels: ['emd-submission', 'reference', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Reference Registration
+        
+        Register a published work that describes a model or model component.
+        
+        References provide detailed documentation beyond what the EMD overview contains.
+        
+        **All references MUST have a DOI.** If no DOI exists, obtain one via [Zenodo](https://zenodo.org) first.
+
+  - type: input
+    id: id
+    attributes:
+      label: Reference ID
+      description: |
+        Short identifier for this reference.
+        
+        Format: ref-[authorYear] or ref-[descriptive-name]
+      placeholder: "e.g., ref-smith2024, ref-hadgem3-description"
+    validations:
+      required: true
+
+  - type: textarea
+    id: citation
+    attributes:
+      label: Citation
+      description: |
+        Full bibliographic citation for the work.
+        
+        Use any standard bibliographic style.
+      placeholder: "e.g., Smith, A. B., Jones, C. D., & Williams, E. F. (2024). Model description paper. Journal of Climate Modelling, 15, 123-145. https://doi.org/10.1234/example"
+    validations:
+      required: true
+
+  - type: input
+    id: doi
+    attributes:
+      label: DOI
+      description: |
+        The DOI as a full URL.
+        
+        **Must start with https://doi.org/**
+        
+        If the reference has no DOI, obtain one via Zenodo before registering.
+      placeholder: "https://doi.org/10.1234/example.2024"
+    validations:
+      required: true
+
+  - type: input
+    id: applies_to
+    attributes:
+      label: Applies To
+      description: |
+        What this reference describes (for tracking).
+        
+        Examples: CNRM-ESM2-1, NEMO v3.6, HadGEM3 family
+      placeholder: "e.g., CNRM-ESM2-1 (model), NEMO v3.6 (ocean component)"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Handling Metadata
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

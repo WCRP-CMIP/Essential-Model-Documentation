@@ -1,0 +1,8 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Reference Registration\n\nRegister a published work that describes a model or model component.\n\nReferences provide detailed documentation beyond what the EMD overview contains.\n\n**All references MUST have a DOI.** If no DOI exists, obtain one via [Zenodo](https://zenodo.org) first.",none,false,,,
+2,input,id,Reference ID,"Short identifier for this reference.\n\nFormat: ref-[authorYear] or ref-[descriptive-name]",none,true,"e.g., ref-smith2024, ref-hadgem3-description",,
+3,textarea,citation,Citation,"Full bibliographic citation for the work.\n\nUse any standard bibliographic style.",none,true,"e.g., Smith, A. B., Jones, C. D., & Williams, E. F. (2024). Model description paper. Journal of Climate Modelling, 15, 123-145. https://doi.org/10.1234/example",,
+4,input,doi,DOI,"The DOI as a full URL.\n\n**Must start with https://doi.org/**\n\nIf the reference has no DOI, obtain one via Zenodo before registering.",none,true,"https://doi.org/10.1234/example.2024",,
+5,input,applies_to,Applies To,"What this reference describes (for tracking).\n\nExamples: CNRM-ESM2-1, NEMO v3.6, HadGEM3 family",none,false,"e.g., CNRM-ESM2-1 (model), NEMO v3.6 (ocean component)",,
+6,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+7,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list,0

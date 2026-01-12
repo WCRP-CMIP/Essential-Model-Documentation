@@ -1,0 +1,8 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Horizontal Subgrid Registration\n\nRegister a horizontal subgrid - one stagger position of a computational grid.\n\nSubgrids define which variables are calculated at specific grid locations.\n\nSubgrid IDs follow format: s[NNN] (e.g., s100, s101)",none,false,,,
+2,input,id,Subgrid ID,"Unique identifier for this subgrid.\n\nFormat: s[NNN] where NNN is a number.",none,true,"e.g., s100, s101, s102",,
+3,textarea,description,Description,"Description to distinguish this subgrid from similar ones.",none,true,"e.g., Mass variables on a regular latitude-longitude grid",,
+4,multi-select,cell_variable_type,Cell Variable Type,"Types of physical variables at this subgrid location.\n\n- mass: Mass-related, thermodynamic, hydrodynamic quantities\n- x-velocity: X component of velocity (longitude direction)\n- y-velocity: Y component of velocity (latitude direction)\n- velocity: Full velocity vector (for unstructured grids)",cell_variable_type,true,,list,
+5,input,horizontal_grid_cells,Horizontal Grid Cells,"ID of the grid cells definition used by this subgrid.\n\nFormat: g[NNN] (e.g., g100)",none,true,"e.g., g100",,
+6,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+7,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list,0
