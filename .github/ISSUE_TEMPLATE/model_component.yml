@@ -181,7 +181,6 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-        - "Not specified"
         - "New"
         - "Modify"
       default: 0
