@@ -1,29 +1,16 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "validation_key": "g104",
     "ui_label": "",
-    "description": "",
-    "grid_mapping": "latitude_longitude",
-    "grid_type": "regular_latitude_longitude",
-    "horizontal_units": "degree",
-=======
-    "validation_key": "g104",
-    "ui_label": "",
-    "description": "Global regular latitude-longitude grid with 1.25° x 0.9° resolution and 55296 cells, offset from g100.",
+    "description": "Global regular latitude-longitude grid with 1.25° x 0.9° resolution and 55296 cells, offset origin from g100.",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
->>>>>>> 9fad3ff (Matching outlines from v1.1)
     "n_cells": 55296,
     "region": [
         "global"
     ],
     "southernmost_latitude": -89.65,
     "temporal_refinement": "static",
-<<<<<<< HEAD
-=======
     "units": "degree",
->>>>>>> 9fad3ff (Matching outlines from v1.1)
     "westernmost_longitude": 0.0,
     "x_resolution": 1.25,
     "y_resolution": 0.9,
@@ -34,25 +21,4 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g104"
-<<<<<<< HEAD
-=======
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
-  "@id": "g104",
-  "validation_key": "g104",
-  "ui_label": "",
-  "description": "Global regular latitude-longitude grid with 1.25° x 0.9° resolution and 55296 cells, offset from g100.",
-  "grid_type": "regular-latitude-longitude",
-  "grid_mapping": "latitude-longitude",
-  "region": ["global"],
-  "temporal_refinement": "static",
-  "x_resolution": 1.25,
-  "y_resolution": 0.9,
-  "units": "degree",
-  "southernmost_latitude": -89.65,
-  "westernmost_longitude": 0.0,
-  "n_cells": 55296
->>>>>>> c0acfb4 (emd version tidied)
-=======
->>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

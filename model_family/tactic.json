@@ -1,12 +1,12 @@
 {
-    "validation_key": "surfex",
+    "validation_key": "tactic",
     "ui_label": "",
-    "description": "SURFEX land surface modelling platform developed by CNRM/Météo-France.",
+    "description": "TACTIC tropospheric aerosol scheme developed by CNRM.",
     "collaborative_institutions": [],
     "primary_institution": "cnrm",
     "references": [],
     "scientific_domains": [
-        "land-surface"
+        "aerosol"
     ],
     "@context": "_context",
     "@type": [
@@ -14,5 +14,5 @@
         "wcrp:model_family",
         "esgvoc:ModelFamily"
     ],
-    "@id": "surfex"
+    "@id": "tactic"
 }

@@ -1,16 +1,8 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "validation_key": "g102",
     "ui_label": "",
-    "description": "eORCA1L75",
-    "grid_mapping": "latitude_longitude",
-=======
-    "validation_key": "g102",
-    "ui_label": "",
-    "description": "eORCA1L75",
+    "description": "Ocean tripolar grid (eORCA1) with 105704 cells.",
     "grid_mapping": "latitude-longitude",
->>>>>>> 9fad3ff (Matching outlines from v1.1)
     "grid_type": "tripolar",
     "n_cells": 105704,
     "region": [
@@ -24,20 +16,4 @@
         "esgvoc:HorizontalGridCells"
     ],
     "@id": "g102"
-<<<<<<< HEAD
-=======
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_grid_cells", "esgvoc:HorizontalGridCells"],
-  "@id": "g102",
-  "validation_key": "g102",
-  "ui_label": "",
-  "description": "eORCA1L75",
-  "grid_type": "tripolar",
-  "grid_mapping": "latitude-longitude",
-  "region": ["global"],
-  "temporal_refinement": "static",
-  "n_cells": 105704
->>>>>>> c0acfb4 (emd version tidied)
-=======
->>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

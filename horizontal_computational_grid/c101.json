@@ -1,16 +1,8 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "validation_key": "c101",
-    "ui_label": "",
-    "description": "",
-    "arrangement": "arakawa_c",
-=======
     "validation_key": "c101",
     "ui_label": "",
     "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
     "arrangement": "arakawa-c",
->>>>>>> 9fad3ff (Matching outlines from v1.1)
     "horizontal_subgrids": [
         "s102"
     ],
@@ -21,17 +13,4 @@
         "esgvoc:HorizontalComputationalGrid"
     ],
     "@id": "c101"
-<<<<<<< HEAD
-=======
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_computational_grid", "esgvoc:HorizontalComputationalGrid"],
-  "@id": "c101",
-  "validation_key": "c101",
-  "ui_label": "",
-  "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
-  "arrangement": "arakawa-c",
-  "horizontal_subgrids": ["s102"]
->>>>>>> c0acfb4 (emd version tidied)
-=======
->>>>>>> 9fad3ff (Matching outlines from v1.1)
 }

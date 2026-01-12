@@ -1,14 +1,7 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "validation_key": "s100",
-    "ui_label": "",
-    "description": "",
-=======
     "validation_key": "s100",
     "ui_label": "",
     "description": "Mass variables on a regular latitude-longitude grid.",
->>>>>>> 9fad3ff (Matching outlines from v1.1)
     "cell_variable_type": [
         "mass"
     ],
@@ -20,17 +13,4 @@
         "esgvoc:HorizontalSubgrid"
     ],
     "@id": "s100"
-<<<<<<< HEAD
-=======
-  "@context": "_context",
-  "@type": ["emd", "wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid"],
-  "@id": "s100",
-  "validation_key": "s100",
-  "ui_label": "",
-  "description": "Mass variables on a regular latitude-longitude grid.",
-  "cell_variable_type": ["mass"],
-  "horizontal_grid_cells": "g100"
->>>>>>> c0acfb4 (emd version tidied)
-=======
->>>>>>> 9fad3ff (Matching outlines from v1.1)
 }
