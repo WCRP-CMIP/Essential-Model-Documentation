@@ -23,7 +23,7 @@ body:
         
         Must match one of the dynamic_components in the parent model.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "aerosol"
         - "atmosphere"
         - "atmospheric_chemistry"
@@ -56,7 +56,7 @@ body:
       label: Component Family
       description: The component's family name (if applicable).
       options:
-        - "Not applicable"
+        - "Not specified"
         - "ACCESS"
         - "BCC-CSM"
         - "BISICLES"
@@ -112,7 +112,7 @@ body:
         
         Leave as 'Not applicable' if this component is coupled rather than embedded.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "aerosol"
         - "atmosphere"
         - "atmospheric_chemistry"
@@ -181,7 +181,7 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "New"
         - "Modify"
       default: 0

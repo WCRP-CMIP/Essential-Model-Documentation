@@ -37,7 +37,7 @@ body:
         
         Models in a family share code bases but may differ in resolution, parameters, or components.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "ACCESS"
         - "BCC-CSM"
         - "BISICLES"
@@ -156,7 +156,7 @@ body:
         - "365_day"
         - "366_day"
         - "julian"
-        - "none"
+        - "no-calendar"
         - "proleptic_gregorian"
         - "standard"
         - "tai"
@@ -204,7 +204,7 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "New"
         - "Modify"
       default: 0

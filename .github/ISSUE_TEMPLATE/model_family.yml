@@ -44,7 +44,7 @@ body:
       label: Primary Institution
       description: The primary institution responsible for the model family.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "ACCESS-NRI"
         - "ACMAD"
         - "AEMET"
@@ -764,7 +764,7 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-        - "Not applicable"
+        - "Not specified"
         - "New"
         - "Modify"
       default: 0
