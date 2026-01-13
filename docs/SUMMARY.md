@@ -1,0 +1,16 @@
+- [Home](index.md)
+- Bidk:
+  - [Ds Copy](bidk/ds copy.md)
+  - [Ds](bidk/ds.md)
+  - [Info](bidk/info.html)
+  - [Infobackup](bidk/infobackup.html)
+  - [Infomd](bidk/infomd.md)
+- [CMIP Website](https://wcrp-cmip.org/)
+- [WCRP](https://www.wcrp-climate.org/)
+- Development:
+  - [GitHub Repository](https://github.com/WCRP-CMIP/cmip-template-documentation)
+  - [Issue Tracker](https://github.com/WCRP-CMIP/cmip-template-documentation/issues)
+- Documentation:
+  - [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- Standards:
+  - [JSON-LD Spec](https://json-ld.org/)
