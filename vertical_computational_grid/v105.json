@@ -1,15 +1,15 @@
 {
-    "validation_key": "v105",
-    "ui_label": "",
-    "description": "The bottom level of the snowpack, which starts 6 metres below the snow surface, expands in thickness to hold as much mass as the column accumulates.",
-    "n_z": 20,
-    "top_layer_thickness": 0.04,
-    "vertical_coordinate": "land-ice-sigma-coordinate",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:vertical_computational_grid",
-        "esgvoc:VerticalComputationalGrid"
-    ],
-    "@id": "v105"
+  "validation_key": "v105",
+  "ui_label": "",
+  "description": "The bottom level of the snowpack, which starts 6 metres below the snow surface, expands in thickness to hold as much mass as the column accumulates.",
+  "n_z": 20,
+  "top_layer_thickness": 0.04,
+  "vertical_coordinate": "land-ice-sigma-coordinate",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v105"
 }

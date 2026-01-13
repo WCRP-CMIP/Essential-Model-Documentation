@@ -1,17 +1,17 @@
 {
-    "validation_key": "v100",
-    "ui_label": "",
-    "description": "85-level atmospheric hybrid height coordinate extending to approximately 85 km.",
-    "bottom_layer_thickness": 100.0,
-    "n_z": 85,
-    "top_layer_thickness": 10.0,
-    "total_thickness": 84763.34,
-    "vertical_coordinate": "atmosphere-hybrid-height-coordinate",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:vertical_computational_grid",
-        "esgvoc:VerticalComputationalGrid"
-    ],
-    "@id": "v100"
+  "validation_key": "v100",
+  "ui_label": "",
+  "description": "85-level atmospheric hybrid height coordinate extending to approximately 85 km.",
+  "bottom_layer_thickness": 100.0,
+  "n_z": 85,
+  "top_layer_thickness": 10.0,
+  "total_thickness": 84763.34,
+  "vertical_coordinate": "atmosphere-hybrid-height-coordinate",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v100"
 }
