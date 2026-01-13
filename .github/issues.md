@@ -1,6 +1,7 @@
 
-# Contribution Guidelines
-Possible links to contribute are provided here. 
+
+## Contribution Guidelines
+Links to the issues used in submitting new files can be found below
 
 ### Model Registration
 

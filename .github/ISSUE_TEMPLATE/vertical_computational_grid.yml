@@ -42,7 +42,7 @@ body:
         - ocean-s-coordinate: Ocean stretched coordinate
         - ocean-sigma-z-coordinate: Ocean sigma-z hybrid
       options:
-        - "Not applicable"
+        - "Not specified"
         - "air_potential_temperature"
         - "air_pressure"
         - "atmosphere_hybrid_height_coordinate"
@@ -132,10 +132,6 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-<<<<<<< HEAD
-        - "Not applicable"
-=======
->>>>>>> 9dfcd28 (generating templates)
         - "New"
         - "Modify"
       default: 0

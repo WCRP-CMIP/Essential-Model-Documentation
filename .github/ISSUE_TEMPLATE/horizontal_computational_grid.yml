@@ -41,7 +41,7 @@ body:
         - arakawa-d: Velocity at edge centers, tangential to edge
         - arakawa-e: Mass at velocity cell edge centers
       options:
-        - "Not applicable"
+        - "Not specified"
         - "arakawa-a"
         - "arakawa-b"
         - "arakawa-c"
@@ -62,10 +62,6 @@ body:
       label: Issue Kind
       description: Select whether this is a new submission or modification of existing entry.
       options:
-<<<<<<< HEAD
-        - "Not applicable"
-=======
->>>>>>> 9dfcd28 (generating templates)
         - "New"
         - "Modify"
       default: 0
