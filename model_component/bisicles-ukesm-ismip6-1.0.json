@@ -3,20 +3,20 @@
     "ui_label": "",
     "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
     "code_base": null,
-    "component": "land_ice",
+    "component": "land-ice",
     "coupled_with": [
         "atmosphere",
-        "land_surface",
+        "land-surface",
         "ocean"
     ],
     "embedded_in": null,
     "family": "bisicles",
-    "horizontal_computational_grid": "HG104",
+    "horizontal_computational_grid": "c102",
     "name": "BISICLES-UKESM-ISMIP6-1.0",
     "references": [
         "REF012"
     ],
-    "vertical_computational_grid": "VG105",
+    "vertical_computational_grid": "v105",
     "@context": "_context",
     "@type": [
         "emd",

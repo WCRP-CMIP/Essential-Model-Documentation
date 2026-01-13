@@ -1,0 +1,17 @@
+{
+    "validation_key": "c100",
+    "ui_label": "",
+    "description": "Arakawa-C grid combining regular latitude-longitude and spectral Gaussian subgrids for atmospheric modelling.",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "s100",
+        "s101"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "c100"
+}

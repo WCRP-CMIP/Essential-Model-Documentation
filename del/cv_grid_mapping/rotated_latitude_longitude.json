@@ -1,0 +1,12 @@
+{
+    "validation_key": "rotated_latitude_longitude",
+    "ui_label": "Rotated Latitude-Longitude",
+    "description": "Rotated latitude-longitude coordinate system with rotated pole.",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:cv_grid_mapping",
+        "esgvoc:CvGridMapping"
+    ],
+    "@id": "rotated-latitude-longitude"
+}

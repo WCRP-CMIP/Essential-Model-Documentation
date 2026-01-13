@@ -1,0 +1,13 @@
+{
+    "validation_key": "y_velocity",
+    "ui_label": "Y Velocity",
+    "description": "Velocity component in the y-direction (meridional/northward).",
+    "@context": "_context",
+    "@type": [
+        "CellVariableType",
+        "wcrp:cv_cell_variable_type",
+        "esgvoc:CvCellVariableType",
+        "emd"
+    ],
+    "@id": "y-velocity"
+}

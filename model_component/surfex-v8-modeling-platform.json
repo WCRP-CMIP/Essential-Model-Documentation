@@ -1,29 +1,29 @@
 {
     "validation_key": "surfex_v8_modeling_platform",
     "ui_label": "",
-    "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface. The land surface is represented using the new ISBA-CTRIP coupled system (Decharme et al., 2019; Delire et al. 2019). ISBA calculates the time evolution of the energy, carbon and water budgets at the land surface while CTRIP simulates river discharges (including carbon transport) up to the ocean from the total runoff (and total soil carbon leaching) computed by ISBA. The FLAKE model simulate surface fluxes over lakes, including both the Caspian and the Aral seas, and computes the temporal evolution of the vertical lake temperature profile from the surface mixing layer to the bottom (Le Moigne et al. 2016).",
+    "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
     "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
-    "component": "land_surface",
+    "component": "land-surface",
     "coupled_with": [
         "atmosphere",
         "ocean"
     ],
     "embedded_in": null,
-    "family": "SURFEX",
-    "horizontal_computational_grid": "horizontal-computational-grid/HG100.json",
+    "family": "surfex",
+    "horizontal_computational_grid": "c100",
     "name": "SURFEX v8 modeling platform",
     "references": [
-        "reference/REF006.json",
-        "reference/REF007.json",
-        "reference/REF008.json",
-        "reference/REF009.json"
+        "REF006",
+        "REF007",
+        "REF008",
+        "REF009"
     ],
-    "vertical_computational_grid": "vertical-computational-grid/VG102.json",
+    "vertical_computational_grid": "v102",
     "@context": "_context",
     "@type": [
+        "emd",
         "wcrp:model_component",
-        "esgvoc:ModelComponent",
-        "emd"
+        "esgvoc:ModelComponent"
     ],
     "@id": "surfex-v8-modeling-platform"
 }

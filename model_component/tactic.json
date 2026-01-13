@@ -6,13 +6,13 @@
     "component": "aerosol",
     "coupled_with": [],
     "embedded_in": "atmosphere",
-    "family": "TACTIC",
-    "horizontal_computational_grid": "HG100",
+    "family": "tactic",
+    "horizontal_computational_grid": "c100",
     "name": "TACTIC",
     "references": [
         "REF004"
     ],
-    "vertical_computational_grid": "VG100",
+    "vertical_computational_grid": "v100",
     "@context": "_context",
     "@type": [
         "emd",

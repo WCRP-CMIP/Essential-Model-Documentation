@@ -1,0 +1,16 @@
+{
+    "validation_key": "s101",
+    "ui_label": "",
+    "description": "Mass variables on a linear spectral Gaussian grid (TL127).",
+    "cell_variable_type": [
+        "mass"
+    ],
+    "horizontal_grid_cells": "g101",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+    ],
+    "@id": "s101"
+}

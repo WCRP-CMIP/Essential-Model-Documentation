@@ -1,0 +1,23 @@
+{
+    "validation_key": "reprobus-c_v2_0",
+    "ui_label": "",
+    "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
+    "code_base": "private",
+    "component": "atmospheric_chemistry",
+    "coupled_with": null,
+    "embedded_in": "atmosphere",
+    "family": "REPROBUS",
+    "horizontal_computational_grid": "c100",
+    "name": "REPROBUS-C (v2.0)",
+    "references": [
+        "REF004"
+    ],
+    "vertical_computational_grid": "v100",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:duplicates",
+        "esgvoc:Duplicates"
+    ],
+    "@id": "reprobus-c-v2-0"
+}

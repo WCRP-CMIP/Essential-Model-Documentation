@@ -12,7 +12,7 @@
     "established": "2008",
     "evolution": "Enhanced through ISMIP6, extended with UniCiCles coupling interface.",
     "license": "Open Source",
-    "primary_institution": "lbl",
+    "primary_institution": "lbnl",
     "programming_languages": [
         "C++",
         "Fortran"
@@ -22,7 +22,7 @@
     ],
     "representative_member": "BISICLES-UKESM-ISMIP6-1.0",
     "scientific_domains": [
-        "land_ice"
+        "land-ice"
     ],
     "shared_code_base": "Chombo adaptive mesh refinement framework with 4:1 recursive refinement, SSA- momentum approximation.",
     "software_dependencies": "Chombo, PETSc, HDF5/NetCDF, MPI",

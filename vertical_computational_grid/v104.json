@@ -1,0 +1,14 @@
+{
+    "validation_key": "v104",
+    "ui_label": "",
+    "description": "10-level height coordinate for sea ice thermodynamics.",
+    "n_z": 10,
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "v104"
+}

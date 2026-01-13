@@ -1,0 +1,13 @@
+{
+    "validation_key": "atmosphere_hybrid_sigma_pressure_coordinate",
+    "ui_label": "Atmosphere Hybrid Sigma-Pressure",
+    "description": "Hybrid coordinate combining terrain-following sigma levels near surface with pressure levels aloft.",
+    "@context": "_context",
+    "@type": [
+        "VerticalCoordinate",
+        "wcrp:cv_vertical_coordinate",
+        "esgvoc:CvVerticalCoordinate",
+        "emd"
+    ],
+    "@id": "atmosphere-hybrid-sigma-pressure-coordinate"
+}

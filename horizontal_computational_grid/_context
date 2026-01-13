@@ -1,14 +1,15 @@
 {
-  "@context": {
-    "@base": "https://emd.mipcvs.dev/horizontal_computational_grid/",
-    "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalComputationalGrid/",
-    "arrangement": {
-      "@context": "https://emd.mipcvs.dev/cv_arrangement/_context",
-      "@type": "@id"
-    },
-    "horizontal_subgrids": {
-      "@context": "https://emd.mipcvs.dev/horizontal_subgrid/_context",
-      "@type": "@id"
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_computational_grid/",
+        "@base": "https://emd.mipcvs.dev/horizontal_computational_grid/",
+        "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalComputationalGrid/",
+        "arrangement": {
+            "@context": "https://universal.mipcvs.dev/arrangement/_context",
+            "@type": "@id"
+        },
+        "horizontal_subgrids": {
+            "@context": "https://emd.mipcvs.dev/horizontal_subgrid/_context",
+            "@type": "@id"
+        }
     }
-  }
 }

@@ -1,0 +1,13 @@
+{
+    "validation_key": "arakawa_c",
+    "ui_label": "Arakawa C-grid",
+    "description": "Velocity components are staggered from mass/thermodynamic variables. U-velocity on east/west cell faces, V-velocity on north/south cell faces.",
+    "@context": "_context",
+    "@type": [
+        "Arrangement",
+        "wcrp:cv_arrangement",
+        "esgvoc:CvArrangement",
+        "emd"
+    ],
+    "@id": "arakawa-c"
+}

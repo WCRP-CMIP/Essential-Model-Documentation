@@ -3,7 +3,7 @@
     "ui_label": "",
     "description": "Community Land Model family representing land surface heterogeneity through nested subgrid hierarchy.",
     "collaborative_institutions": [
-        "lbl",
+        "lbnl",
         "pnnl"
     ],
     "common_scientific_basis": "Nested subgrid representation, area-weighted averaging for atmosphere-land coupling.",
@@ -23,8 +23,8 @@
     ],
     "representative_member": "CLM4",
     "scientific_domains": [
-        "land_surface",
-        "ocean_biogeochemistry"
+        "land-surface",
+        "ocean-biogeochemistry"
     ],
     "shared_code_base": "Nested subgrid hierarchy architecture with independent biogeophysical processes per landunit/column/PFT.",
     "software_dependencies": "NetCDF, MPI, ESMF/MCT",
