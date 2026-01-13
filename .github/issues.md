@@ -1,7 +1,10 @@
 
 
-## Contribution Guidelines
-Links to the issues used in submitting new files can be found below
+
+## Submitting or Modifying Controlled Vocabularies
+
+The following forms are available for this repository, and can be used to add or modify entries. The complete submission pipeline (if applicable) will be outlined in the section above.
+
 
 ### Model Registration
 
