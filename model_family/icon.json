@@ -1,34 +1,34 @@
 {
-    "validation_key": "ICON",
-    "ui_label": "",
-    "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
-    "collaborative_institutions": [
-        "mpi-m"
-    ],
-    "common_scientific_basis": null,
-    "computational_requirements": null,
-    "documentation": null,
-    "established": null,
-    "evolution": null,
-    "license": null,
-    "primary_institution": "dwd",
-    "programming_languages": null,
-    "references": [],
-    "representative_member": null,
-    "scientific_domains": [
-        "atmosphere",
-        "ocean"
-    ],
-    "shared_code_base": null,
-    "software_dependencies": null,
-    "source_code_repository": null,
-    "variation_dimensions": null,
-    "website": null,
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_family",
-        "esgvoc:ModelFamily"
-    ],
-    "@id": "icon"
+  "validation_key": "ICON",
+  "ui_label": "",
+  "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
+  "collaborative_institutions": [
+    "mpi-m"
+  ],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
+  "primary_institution": "dwd",
+  "programming_languages": "none",
+  "references": [],
+  "representative_member": "none",
+  "scientific_domains": [
+    "atmosphere",
+    "ocean"
+  ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_family",
+    "esgvoc:ModelFamily"
+  ],
+  "@id": "icon"
 }

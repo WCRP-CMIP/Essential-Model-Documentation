@@ -1,0 +1,93 @@
+{
+  "config": {
+    "lang": [
+      "en"
+    ],
+    "separator": "[\\s\\-]+",
+    "pipeline": [
+      "stopWordFilter"
+    ]
+  },
+  "docs": [
+    {
+      "location": "",
+      "title": "CMIP-Template Documentation",
+      "text": "<p>Documentation for CMIP-Template Documentation</p> <p>Documentation</p> <p>This documentation is auto-generated using MkDocs Material.</p>"
+    },
+    {
+      "location": "#quick-start",
+      "title": "Quick Start",
+      "text": "<p>Browse the navigation on the left to explore the documentation.</p>"
+    },
+    {
+      "location": "#repository",
+      "title": "Repository",
+      "text": "<ul> <li>Source: https://github.com/WCRP-CMIP/cmip-template-documentation</li> <li>Pages: https://WCRP-CMIP.github.io/cmip-template-documentation/</li> </ul> <p>Maintained by wolfiex</p>"
+    },
+    {
+      "location": "SUMMARY/",
+      "title": "SUMMARY",
+      "text": "<ul> <li>Home</li> <li>Bidk:</li> <li>Ds Copy</li> <li>Ds</li> <li>Info</li> <li>Infobackup</li> <li>Infomd</li> <li>CMIP Website</li> <li>WCRP</li> <li>Development:</li> <li>GitHub Repository</li> <li>Issue Tracker</li> <li>Documentation:</li> <li>MkDocs Material</li> <li>Standards:</li> <li>JSON-LD Spec</li> </ul>"
+    },
+    {
+      "location": "bidk/ds%20copy/",
+      "title": "CMIP-Template Documentation",
+      "text": "<p>Documentation for CMIP-Template Documentation</p> <p>!!! tip \"Documentation\"fdsaf sdaf sa     This documentation is auto-generated using MkDocs Material.</p>"
+    },
+    {
+      "location": "bidk/ds%20copy/#quick-start",
+      "title": "Quick Start",
+      "text": "<p>Browse the navigation on the left to explore the documentation.</p>"
+    },
+    {
+      "location": "bidk/ds%20copy/#repository",
+      "title": "Repository",
+      "text": "<ul> <li>Source: https://github.com/WCRP-CMIP/cmip-template-documentation</li> <li>Pages: https://WCRP-CMIP.github.io/cmip-template-documentation/</li> </ul> <p>Maintained by wolfiexfdsafsa fds fdsa fsd</p>"
+    },
+    {
+      "location": "bidk/ds/",
+      "title": "CMIP-Template Documentation",
+      "text": "<p>Documentation for CMIP-Template Documentation</p> <p>!!! tip \"Documentation\"fdsaf sdaf sa     This documentation is auto-generated using MkDocs Material.</p> <p>Browse the navigation on the left to explore the documentation.</p>"
+    },
+    {
+      "location": "bidk/ds/#repository",
+      "title": "Repository",
+      "text": "<ul> <li>Source: https://github.com/WCRP-CMIP/cmip-template-documentation</li> <li>Pages: https://WCRP-CMIP.github.io/cmip-template-documentation/</li> </ul> <p>Maintained by wolfiexfdsafsa fds fdsa fsd</p>"
+    },
+    {
+      "location": "bidk/infomd/",
+      "title": "CNRM-ESM2-1e",
+      "text": "Earth System Model CNRM-ESM2-1e <p>CNRM Earth System Model Version 2 — Emission-driven Configuration</p> Release Year 2018 Model Family cnrm-cm Validation Key cnrm-esm2-1e Context JSON-LD ↗"
+    },
+    {
+      "location": "bidk/infomd/#description",
+      "title": "Description",
+      "text": "<p>CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). </p> <p>The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.</p>"
+    },
+    {
+      "location": "bidk/infomd/#model-components",
+      "title": "Model Components",
+      "text": "Aerosol Dynamic alias: aerosol <p>Aerosol processes and atmospheric particulate matter dynamics</p> Atmosphere Dynamic alias: atmos <p>Atmospheric circulation and thermodynamics</p> Atmospheric Chemistry Dynamic key: atmospheric_chemistry <p>Chemical processes and reactions in the atmosphere</p> Land Surface Dynamic key: land_surface <p>Terrestrial surface processes and land-atmosphere interactions</p> Ocean Dynamic alias: ocean <p>Ocean circulation and physical oceanography</p> Ocean Biogeochemistry Dynamic key: ocean_biogeochemistry <p>Marine biogeochemical cycles and carbon dynamics</p> Sea Ice Dynamic key: sea_ice <p>Sea ice formation, extent, and dynamics</p> Land Ice Omitted key: land_ice <p>Ice sheets and glaciers (not included in this configuration)</p>"
+    },
+    {
+      "location": "bidk/infomd/#calendar-system",
+      "title": "Calendar System",
+      "text": "Standard (Gregorian) gregorian <p>             Mixed Gregorian/Julian calendar as defined by UDUNITS. This is the default calendar assumed if no calendar attribute is specified. A deprecated alternative name for this calendar is 'gregorian'.         </p> Identifier standard Validation Key standard Types wcrp:calendar, universal"
+    },
+    {
+      "location": "bidk/infomd/#technical-details",
+      "title": "Technical Details",
+      "text": "Resource Identifier (@id) cnrm-esm2-1e JSON-LD Context emd.mipcvs.dev/model/cnrm-esm2-1e.json Resource Types (@type) emd wcrp:model esgvoc:Model"
+    },
+    {
+      "location": "bidk/infomd/#references",
+      "title": "References",
+      "text": "ID Description REF001 Primary model reference REF002 Additional documentation"
+    },
+    {
+      "location": "bidk/infomd/#related-links",
+      "title": "Related Links",
+      "text": "<ul> <li>EMD Registry — Model metadata registry</li> <li>WCRP CMIP — Climate Model Intercomparison Project</li> <li>JSON-LD Specification — Linked data format</li> </ul> View Raw JSON-LD <pre><code>{\n  \"@context\": \"https://emd.mipcvs.dev/model/cnrm-esm2-1e.json\",\n  \"@id\": \"cnrm-esm2-1e\",\n  \"@type\": [\"emd\", \"wcrp:model\", \"esgvoc:Model\"],\n  \"calendar\": {\n    \"@id\": \"standard\",\n    \"@type\": [\"wcrp:calendar\", \"esgvoc:Calendar\", \"universal\"],\n    \"alias\": \"gregorian\",\n    \"description\": \"Mixed Gregorian/Julian calendar as defined by UDUNITS...\",\n    \"ui_label\": \"Standard (Gregorian)\",\n    \"validation_key\": \"standard\"\n  },\n  \"description\": \"CNRM-ESM2-1e is the CNRM Earth System model version 2...\",\n  \"dynamic_components\": [\"aerosol\", \"atmosphere\", \"atmospheric_chemistry\", \n                         \"land_surface\", \"ocean\", \"ocean_biogeochemistry\", \"sea_ice\"],\n  \"family\": \"cnrm-cm\",\n  \"name\": \"CNRM-ESM2-1e\",\n  \"omitted_components\": \"land_ice\",\n  \"release_year\": 2018,\n  \"validation_key\": \"cnrm-esm2-1e\"\n}\n</code></pre>"
+    }
+  ]
+}

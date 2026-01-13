@@ -1,26 +1,26 @@
 {
-    "validation_key": "g101",
-    "ui_label": "",
-    "description": "Linear spectral Gaussian grid (TL127) with 24572 cells.",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "linear-spectral-gaussian",
-    "n_cells": 24572,
-    "region": [
-        "global"
-    ],
-    "southernmost_latitude": -88.9277353522076,
-    "temporal_refinement": "static",
-    "truncation_method": "triangular",
-    "truncation_number": 127,
-    "units": "degree",
-    "westernmost_longitude": 0.0,
-    "x_resolution": 1.4,
-    "y_resolution": 1.4,
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:horizontal_grid_cells",
-        "esgvoc:HorizontalGridCells"
-    ],
-    "@id": "g101"
+  "validation_key": "g101",
+  "ui_label": "",
+  "description": "Linear spectral Gaussian grid (TL127) with 24572 cells.",
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "linear-spectral-gaussian",
+  "n_cells": 24572,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -88.9277353522076,
+  "temporal_refinement": "static",
+  "truncation_method": "triangular",
+  "truncation_number": 127,
+  "units": "degree",
+  "westernmost_longitude": 0.0,
+  "x_resolution": 1.4,
+  "y_resolution": 1.4,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "g101"
 }

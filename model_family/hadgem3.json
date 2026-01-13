@@ -1,46 +1,46 @@
 {
-    "validation_key": "HadGEM3",
-    "ui_label": "",
-    "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
-    "collaborative_institutions": [
-        "ncas",
-        "noc",
-        "bas"
-    ],
-    "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
-    "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
-    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
-    "established": "2009",
-    "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
-    "license": "Registration Required",
-    "primary_institution": "mohc",
-    "programming_languages": [
-        "Fortran 90",
-        "Fortran 95",
-        "C"
-    ],
-    "references": [
-        "REF015"
-    ],
-    "representative_member": "HadGEM3-GC31-LL",
-    "scientific_domains": [
-        "atmosphere",
-        "ocean",
-        "land_surface",
-        "sea_ice",
-        "ocean_biogeochemistry",
-        "atmospheric_chemistry"
-    ],
-    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
-    "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
-    "source_code_repository": "https://code.metoffice.gov.uk/",
-    "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
-    "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_family",
-        "esgvoc:ModelFamily"
-    ],
-    "@id": "hadgem3"
+  "validation_key": "HadGEM3",
+  "ui_label": "",
+  "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
+  "collaborative_institutions": [
+    "ncas",
+    "noc",
+    "bas"
+  ],
+  "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
+  "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
+  "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+  "established": "2009",
+  "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
+  "license": "Registration Required",
+  "primary_institution": "mohc",
+  "programming_languages": [
+    "Fortran 90",
+    "Fortran 95",
+    "C"
+  ],
+  "references": [
+    "REF015"
+  ],
+  "representative_member": "HadGEM3-GC31-LL",
+  "scientific_domains": [
+    "atmosphere",
+    "ocean",
+    "land_surface",
+    "sea_ice",
+    "ocean_biogeochemistry",
+    "atmospheric_chemistry"
+  ],
+  "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
+  "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
+  "source_code_repository": "https://code.metoffice.gov.uk/",
+  "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
+  "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_family",
+    "esgvoc:ModelFamily"
+  ],
+  "@id": "hadgem3"
 }

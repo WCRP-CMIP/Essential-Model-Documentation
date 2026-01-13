@@ -1,17 +1,17 @@
 {
-    "validation_key": "v102",
-    "ui_label": "",
-    "description": "14 soil layers (0.01, 0.04, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0, 3.0, 5.0, 8.0, and 12.0 m) but the soil moisture profile is computed only over the rooting depth, from 0.2 (rocks) to 8 m (tropical forest) according to the land cover type, while the soil temperature is computed down to a depth of 12 m.",
-    "bottom_layer_thickness": 4.0,
-    "n_z": 14,
-    "top_layer_thickness": 0.01,
-    "total_thickness": 12.0,
-    "vertical_coordinate": "depth",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:vertical_computational_grid",
-        "esgvoc:VerticalComputationalGrid"
-    ],
-    "@id": "v102"
+  "validation_key": "v102",
+  "ui_label": "",
+  "description": "14 soil layers (0.01, 0.04, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0, 3.0, 5.0, 8.0, and 12.0 m) but the soil moisture profile is computed only over the rooting depth, from 0.2 (rocks) to 8 m (tropical forest) according to the land cover type, while the soil temperature is computed down to a depth of 12 m.",
+  "bottom_layer_thickness": 4.0,
+  "n_z": 14,
+  "top_layer_thickness": 0.01,
+  "total_thickness": 12.0,
+  "vertical_coordinate": "depth",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v102"
 }

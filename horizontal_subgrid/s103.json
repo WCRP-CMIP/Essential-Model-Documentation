@@ -1,18 +1,18 @@
 {
-    "validation_key": "s103",
-    "ui_label": "",
-    "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
-    "cell_variable_type": [
-        "mass",
-        "x-velocity",
-        "y-velocity"
-    ],
-    "horizontal_grid_cells": "g103",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:horizontal_subgrid",
-        "esgvoc:HorizontalSubgrid"
-    ],
-    "@id": "s103"
+  "validation_key": "s103",
+  "ui_label": "",
+  "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
+  "cell_variable_type": [
+    "mass",
+    "x-velocity",
+    "y-velocity"
+  ],
+  "horizontal_grid_cells": "g103",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_subgrid",
+    "esgvoc:HorizontalSubgrid"
+  ],
+  "@id": "s103"
 }
