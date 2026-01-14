@@ -109,7 +109,7 @@ jobs:
           ref: src-data
   
       - name: generate modifications
-        run: template_prefill
+        run: template_update
   
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
