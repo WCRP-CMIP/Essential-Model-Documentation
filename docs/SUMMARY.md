@@ -1,10 +1,13 @@
 - [Home](index.md)
+- [Warnings](Warnings.md)
 - Bidk:
   - [Ds Copy](bidk/ds copy.md)
   - [Ds](bidk/ds.md)
   - [Info](bidk/info.html)
   - [Infobackup](bidk/infobackup.html)
   - [Infomd](bidk/infomd.md)
+- Model Component:
+  - [Gelato](model_component/gelato.html)
 - [CMIP Website](https://wcrp-cmip.org/)
 - [WCRP](https://www.wcrp-climate.org/)
 - Development:
