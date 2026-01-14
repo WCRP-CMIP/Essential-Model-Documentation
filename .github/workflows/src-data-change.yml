@@ -41,6 +41,17 @@ jobs:
           path: .
           remove: false
 
+      - name: Run prepublish scripts
+        run: |
+          # Run all prepublish scripts in order
+          for script in .github/prepublish/*.sh; do
+            if [ -f "$script" ]; then
+              echo "Running: $script"
+              chmod +x "$script"
+              bash "$script"
+            fi
+          done
+
       - name: Verify restore and prepare changes
         run: |
           git fetch origin src-data
