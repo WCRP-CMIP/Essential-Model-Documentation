@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name | e }} | Model</title>
+    <link rel="stylesheet" href="../assets/model-page.css">
+</head>
+<body class="model-page">
+    <div class="model-container">
+        <header class="model-header">
+            <nav class="model-breadcrumb">
+                <a href="../">← Back to Documentation</a>
+                <span>|</span>
+                <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
+                <span>→</span>
+                <a href="https://emd.mipcvs.dev/model/" target="_blank">Models</a>
+                <span>→</span>
+                <span>{{ name | e }}</span>
+            </nav>
+            <div class="model-badge">
+                {% if model_type %}{{ model_type | e }}{% else %}Climate Model{% endif %}
+            </div>
+            <h1 class="model-title">{{ name | e }}</h1>
+            {% if long_name and long_name != name %}
+            <p class="model-long-name">{{ long_name | e }}</p>
+            {% endif %}
+            <p class="model-subtitle">{{ description }}</p>
+            <div class="model-header-meta">
+                {% if model_type %}
+                <div class="model-meta-item">
+                    <span class="model-meta-label">Model Type</span>
+                    <span class="model-meta-value">{{ model_type | e }}</span>
+                </div>
+                {% endif %}
+                {% if release_year %}
+                <div class="model-meta-item">
+                    <span class="model-meta-label">Release Year</span>
+                    <span class="model-meta-value">{{ release_year | e }}</span>
+                </div>
+                {% endif %}
+                {% if activity %}
+                <div class="model-meta-item">
+                    <span class="model-meta-label">Activity</span>
+                    <span class="model-meta-value">{{ activity | join(', ') }}</span>
+                </div>
+                {% endif %}
+                <div class="model-meta-item">
+                    <span class="model-meta-label">Context</span>
+                    <span class="model-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            {# Description Section #}
+            {% call section("Description", icons.description, expanded=true) %}
+                <p class="model-description-text"><strong>{{ name | e }}</strong> — {{ description_highlighted | safe }}</p>
+            {% endcall %}
+
+            {# Components Section #}
+            {% call section("Model Components", icons.components, expanded=true) %}
+                {% if components %}
+                <p class="model-info-text">This model consists of the following components:</p>
+                <div class="model-components-grid">
+                    {% for comp in components %}
+                    {{ component_card(comp.name, comp.type, comp.id, comp.description) }}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="model-description-text" style="color: var(--md-default-fg-color--lighter);">No component information available.</p>
+                {% endif %}
+            {% endcall %}
+
+            {# Institutions Section #}
+            {% call section("Institutions", icons.institutions) %}
+                {% if institutions %}
+                <p class="model-info-text">Responsible institutions and organizations:</p>
+                <div class="model-institutions-grid">
+                    {% for inst in institutions %}
+                    {{ institution_card(inst.name, inst.id, inst.url) }}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="model-description-text" style="color: var(--md-default-fg-color--lighter);">No institution information available.</p>
+                {% endif %}
+            {% endcall %}
+
+            {# Activity Participation Section #}
+            {% if activity %}
+            {% call section("Activity Participation", icons.activity) %}
+                <div class="model-activity-list">
+                    {% for act in activity %}
+                    <span class="model-activity-badge">{{ act | e }}</span>
+                    {% endfor %}
+                </div>
+            {% endcall %}
+            {% endif %}
+
+            {# License Section #}
+            {% if license %}
+            {% call section("License", icons.license) %}
+                <p class="model-description-text">{{ license | e }}</p>
+            {% endcall %}
+            {% endif %}
+
+            {# Technical Details Section #}
+            {% call section("Technical Details", icons.technical) %}
+                <div class="model-tech-grid">
+                    <div class="model-tech-item">
+                        <div class="model-tech-label">Resource Identifier (@id)</div>
+                        <div class="model-tech-value">{{ id | e }}</div>
+                    </div>
+                    <div class="model-tech-item">
+                        <div class="model-tech-label">Validation Key</div>
+                        <div class="model-tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
+                    </div>
+                    <div class="model-tech-item">
+                        <div class="model-tech-label">JSON-LD Data</div>
+                        <div class="model-tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
+                    </div>
+                    <div class="model-tech-item">
+                        <div class="model-tech-label">Resource Types (@type)</div>
+                        <div class="model-type-badges">
+                            {% for t in types %}
+                            <span class="model-type-badge">{{ t | e }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endcall %}
+
+            {# References Section #}
+            {% call section("References", icons.references) %}
+                {% if references %}
+                {% for ref in references %}
+                <a href="#" class="model-reference-item">
+                    <div class="model-reference-icon">{{ icons.document | safe }}</div>
+                    <span class="model-reference-text">{{ ref | e }}</span>
+                    <span class="model-reference-arrow">→</span>
+                </a>
+                {% endfor %}
+                {% else %}
+                <p class="model-description-text" style="color: var(--md-default-fg-color--lighter);">No references available.</p>
+                {% endif %}
+            {% endcall %}
+        </main>
+
+        <footer class="model-footer">
+            <p class="model-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="model-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="model-footer-link" target="_blank">WCRP CMIP</a> initiative</p>
+        </footer>
+    </div>
+    
+    <script>
+    // Toggle section expand/collapse
+    function toggleSection(header) { 
+        header.parentElement.classList.toggle('expanded'); 
+    }
+    
+    // JSON-LD source data for this model
+    const sourceData = {{ raw_json | safe }};
+    
+    // Copy protection - provide JSON-LD data instead of page content
+    const handleCopy = function(e) {
+        e.preventDefault();
+        const jsonString = JSON.stringify(sourceData, null, 2);
+        const copyText = `// JSON-LD Source Data for {{ name | e }}
+// From: https://emd.mipcvs.dev/model/{{ id | e }}.json
+// EMD Registry: https://emd.mipcvs.dev/
+
+${jsonString}`;
+        e.clipboardData.setData("text/plain", copyText);
+    };
+    
+    document.addEventListener("copy", handleCopy);
+    </script>
+</body>
+</html>

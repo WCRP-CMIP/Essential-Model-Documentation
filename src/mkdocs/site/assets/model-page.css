@@ -1,0 +1,546 @@
+/* ============================================
+   MODEL PAGES - Standalone Styles
+   Extends MkDocs Material theme variables
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@400;500;600&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+/* ============================================
+   CSS VARIABLES (MkDocs Material compatible)
+   ============================================ */
+:root {
+    --md-text-font: "Roboto", sans-serif;
+    --md-code-font: "Roboto Mono", monospace;
+    --md-title-font: "Akshar", sans-serif;
+    --md-default-fg-color: rgba(0, 0, 0, 0.87);
+    --md-default-fg-color--light: rgba(0, 0, 0, 0.54);
+    --md-default-fg-color--lighter: rgba(0, 0, 0, 0.32);
+    --md-default-fg-color--lightest: rgba(0, 0, 0, 0.07);
+    --md-default-bg-color: #fff;
+    --md-default-bg-color--light: #f5f5f5;
+    --md-primary-fg-color: #2196f3;
+    --md-accent-fg-color: #ff9800;
+    --model-accent: #2196f3;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --md-default-fg-color: rgba(255, 255, 255, 0.87);
+        --md-default-fg-color--light: rgba(255, 255, 255, 0.54);
+        --md-default-fg-color--lighter: rgba(255, 255, 255, 0.32);
+        --md-default-fg-color--lightest: rgba(255, 255, 255, 0.07);
+        --md-default-bg-color: #1e1e1e;
+        --md-default-bg-color--light: #2d2d2d;
+    }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+.model-page {
+    font-family: var(--md-text-font);
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    line-height: 1.6;
+    font-size: 0.8rem;
+    min-height: 100vh;
+}
+
+.model-page * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.model-container {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.model-header {
+    margin-bottom: 3rem;
+}
+
+.model-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--light);
+    flex-wrap: wrap;
+}
+
+.model-breadcrumb a {
+    color: var(--md-default-fg-color--light);
+    text-decoration: none;
+}
+
+.model-breadcrumb a:hover {
+    color: var(--md-primary-fg-color);
+}
+
+.model-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid rgba(33, 150, 243, 0.25);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--model-accent);
+    margin-bottom: 1rem;
+}
+
+.model-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--model-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.model-title {
+    font-family: var(--md-title-font);
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+}
+
+.model-long-name {
+    font-size: 1.1rem;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.model-subtitle {
+    font-size: 1rem;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.model-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.model-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.model-meta-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    font-weight: 500;
+}
+
+.model-meta-value {
+    font-family: var(--md-code-font);
+    font-size: 0.8rem;
+}
+
+.model-meta-value a {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+.model-meta-value a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   SECTIONS (Collapsible)
+   ============================================ */
+.model-section {
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.model-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.model-section-header:hover {
+    background: var(--md-default-bg-color--light);
+}
+
+.model-section-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.model-section-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-default-bg-color--light);
+    border-radius: 8px;
+    color: var(--model-accent);
+}
+
+.model-section-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.model-section-title {
+    font-family: var(--md-title-font);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.model-section-toggle {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-default-bg-color--light);
+    border-radius: 6px;
+}
+
+.model-section-toggle svg {
+    width: 14px;
+    height: 14px;
+    color: var(--md-default-fg-color--light);
+    transition: transform 0.3s;
+}
+
+.model-section.expanded .model-section-toggle svg {
+    transform: rotate(180deg);
+}
+
+.model-section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s;
+}
+
+.model-section.expanded .model-section-content {
+    max-height: 3000px;
+}
+
+.model-section-body {
+    padding: 0 1.25rem 1.25rem;
+}
+
+.model-section-divider {
+    height: 1px;
+    background: var(--md-default-fg-color--lightest);
+    margin-bottom: 1.25rem;
+}
+
+/* ============================================
+   CONTENT ELEMENTS
+   ============================================ */
+.model-description-text {
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.8;
+}
+
+.model-description-text strong {
+    color: var(--md-default-fg-color);
+    font-weight: 500;
+}
+
+.model-info-text {
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+}
+
+/* Component Cards */
+.model-components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.model-component-card {
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    padding: 1.25rem;
+    border-left: 3px solid var(--model-accent);
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.model-component-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-left-color: var(--md-primary-fg-color);
+}
+
+.model-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.model-card-title {
+    font-family: var(--md-title-font);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.model-card-type {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(33, 150, 243, 0.15);
+    color: var(--model-accent);
+}
+
+.model-card-id {
+    font-family: var(--md-code-font);
+    font-size: 0.7rem;
+    color: var(--md-primary-fg-color);
+    margin-bottom: 0.5rem;
+}
+
+.model-card-description {
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+.model-card-link {
+    font-size: 0.75rem;
+    color: var(--md-primary-fg-color);
+    font-weight: 500;
+}
+
+.model-card-url {
+    font-size: 0.75rem;
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+.model-card-url:hover {
+    text-decoration: underline;
+}
+
+/* Institution Cards */
+.model-institutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.model-institution-card {
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    padding: 1.25rem;
+    border-left: 3px solid var(--md-accent-fg-color);
+}
+
+/* Activity Badges */
+.model-activity-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.model-activity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid rgba(33, 150, 243, 0.25);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--model-accent);
+}
+
+/* Tech Grid */
+.model-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.model-tech-item {
+    padding: 1rem;
+    background: var(--md-default-bg-color--light);
+    border-radius: 8px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.model-tech-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: 0.35rem;
+}
+
+.model-tech-value {
+    font-family: var(--md-code-font);
+    font-size: 0.8rem;
+    word-break: break-all;
+}
+
+.model-tech-value a {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+.model-type-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.model-type-badge {
+    font-family: var(--md-code-font);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 4px;
+    color: var(--md-default-fg-color--light);
+}
+
+.model-type-badge:hover {
+    border-color: var(--model-accent);
+    color: var(--model-accent);
+}
+
+/* References */
+.model-reference-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--md-default-bg-color--light);
+    border-radius: 8px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    margin-bottom: 0.5rem;
+}
+
+.model-reference-item:last-child {
+    margin-bottom: 0;
+}
+
+.model-reference-item:hover {
+    border-color: var(--md-primary-fg-color);
+    transform: translateX(4px);
+}
+
+.model-reference-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-default-bg-color);
+    border-radius: 6px;
+    color: var(--md-primary-fg-color);
+}
+
+.model-reference-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.model-reference-text {
+    font-family: var(--md-code-font);
+    font-size: 0.8rem;
+}
+
+.model-reference-arrow {
+    margin-left: auto;
+    color: var(--md-default-fg-color--light);
+}
+
+.model-reference-item:hover .model-reference-arrow {
+    color: var(--md-primary-fg-color);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.model-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+    text-align: center;
+}
+
+.model-footer-text {
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.model-footer-link {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .model-container {
+        padding: 1.5rem 1rem 3rem;
+    }
+    
+    .model-title {
+        font-size: 2rem;
+    }
+    
+    .model-components-grid,
+    .model-institutions-grid {
+        grid-template-columns: 1fr;
+    }
+}
