@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GELATO | Model Component</title>
+    <title>BISICLES-UKESM-ISMIP6-1.0 | Model Component</title>
     <link rel="stylesheet" href="../assets/component-page.css">
 </head>
 <body class="component-page">
@@ -16,27 +16,27 @@
                 <span>→</span>
                 <a href="https://emd.mipcvs.dev/model_component/" target="_blank">Model Components</a>
                 <span>→</span>
-                <span>GELATO</span>
+                <span>BISICLES-UKESM-ISMIP6-1.0</span>
             </nav>
             <div class="component-badge">Model Component</div>
-            <h1 class="component-title">GELATO</h1>
-            <p class="component-subtitle">Global Experimental Leads and sea ice for ATmosphere and Ocean.</p>
+            <h1 class="component-title">BISICLES-UKESM-ISMIP6-1.0</h1>
+            <p class="component-subtitle">UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.</p>
             <div class="component-header-meta">
                 <div class="component-meta-item">
                     <span class="component-meta-label">Family</span>
-                    <span class="component-meta-value">gelato</span>
+                    <span class="component-meta-value">bisicles</span>
                 </div>
                 <div class="component-meta-item">
                     <span class="component-meta-label">Scientific Domain</span>
-                    <span class="component-meta-value">Sea Ice</span>
+                    <span class="component-meta-value">Land Ice</span>
                 </div>
                 <div class="component-meta-item">
                     <span class="component-meta-label">Code Base</span>
-                    <span class="component-meta-value">Private</span>
+                    <span class="component-meta-value">Not specified</span>
                 </div>
                 <div class="component-meta-item">
                     <span class="component-meta-label">Context</span>
-                    <span class="component-meta-value"><a href="https://emd.mipcvs.dev/model_component/gelato.json" target="_blank">JSON-LD →</a></span>
+                    <span class="component-meta-value"><a href="https://emd.mipcvs.dev/model_component/bisicles-ukesm-ismip6-1.0.json" target="_blank">JSON-LD →</a></span>
                 </div>
             </div>
         </header>
@@ -53,7 +53,7 @@
                 <div class="component-section-content">
                     <div class="component-section-body">
                         <div class="component-section-divider"></div>
-                                        <p class="component-description-text"><strong>GELATO</strong> — Global Experimental Leads and <strong>sea ice</strong> for <strong>ATmosphere</strong> and <strong>Ocean</strong>.</p>
+                                        <p class="component-description-text"><strong>BISICLES-UKESM-ISMIP6-1.0</strong> — UniCiCles (Unified Model-CISM-<strong>BISICLES</strong>) is a package combining <strong>BISICLES</strong> with an interface that obtains boundary conditions from Unified Model or JULES data.</p>
 
                     </div>
                 </div>
@@ -72,29 +72,18 @@
                                         <div class="component-domain-grid">
                     <div class="component-domain-card">
                         <div class="component-domain-card-header">
-                            <span class="component-domain-card-title">Sea Ice</span>
+                            <span class="component-domain-card-title">Land Ice</span>
                             <span class="component-domain-card-type">Component</span>
                         </div>
-                        <div class="component-domain-card-id">@id: sea-ice</div>
+                        <div class="component-domain-card-id">@id: land-ice</div>
                         <p class="component-domain-card-description">Primary scientific domain for this model component.</p>
                         <div class="component-domain-card-meta">
-                            <span class="component-meta-tag">seaice</span>
-<span class="component-meta-tag">seaIce</span>
-<span class="component-meta-tag">sea_ice</span>
+                            <span class="component-meta-tag">landice</span>
+<span class="component-meta-tag">landIce</span>
+<span class="component-meta-tag">land_ice</span>
                         </div>
                     </div>
                     
-                    <div class="component-domain-card">
-                        <div class="component-domain-card-header">
-                            <span class="component-domain-card-title">Ocean</span>
-                            <span class="component-domain-card-type">Embedded In</span>
-                        </div>
-                        <div class="component-domain-card-id">@id: ocean</div>
-                        <p class="component-domain-card-description">GELATO operates embedded within this component.</p>
-                        <div class="component-domain-card-meta">
-                            <span class="component-meta-tag">ocean</span>
-                        </div>
-                    </div>
                 </div>
 
                     </div>
@@ -116,14 +105,14 @@
                     <div class="component-grid-spec-card">
                         <div class="component-grid-spec-header">
                             <div class="component-grid-spec-label">Horizontal Grid</div>
-                            <div class="component-grid-spec-value">c101</div>
+                            <div class="component-grid-spec-value">c102</div>
                         </div>
                         <p class="component-grid-spec-desc">Horizontal spatial discretization identifier.</p>
                     </div>
                     <div class="component-grid-spec-card">
                         <div class="component-grid-spec-header">
                             <div class="component-grid-spec-label">Vertical Grid</div>
-                            <div class="component-grid-spec-value">v104</div>
+                            <div class="component-grid-spec-value">v105</div>
                         </div>
                         <p class="component-grid-spec-desc">Vertical level structure identifier.</p>
                     </div>
@@ -143,9 +132,41 @@
                 <div class="component-section-content">
                     <div class="component-section-body">
                         <div class="component-section-divider"></div>
-                                        <div class="component-coupling-status">
-                    <span>○</span>
-                    <span>No external coupling</span>
+                                        <p class="component-description-text" style="margin-bottom: 1rem;"><strong>BISICLES-UKESM-ISMIP6-1.0</strong> is coupled with the following domains:</p>
+                <div class="component-domain-grid">
+                    <div class="component-domain-card">
+                        <div class="component-domain-card-header">
+                            <span class="component-domain-card-title">Atmosphere</span>
+                            <span class="component-domain-card-type">Coupled</span>
+                        </div>
+                        <div class="component-domain-card-id">@id: atmosphere</div>
+                        <p class="component-domain-card-description">BISICLES-UKESM-ISMIP6-1.0 is coupled with this domain.</p>
+                        <div class="component-domain-card-meta">
+                            <span class="component-meta-tag">atmos</span>
+                        </div>
+                    </div>
+                    <div class="component-domain-card">
+                        <div class="component-domain-card-header">
+                            <span class="component-domain-card-title">Land Surface and Subsurface</span>
+                            <span class="component-domain-card-type">Coupled</span>
+                        </div>
+                        <div class="component-domain-card-id">@id: land-surface</div>
+                        <p class="component-domain-card-description">BISICLES-UKESM-ISMIP6-1.0 is coupled with this domain.</p>
+                        <div class="component-domain-card-meta">
+                            <span class="component-meta-tag">land</span>
+                        </div>
+                    </div>
+                    <div class="component-domain-card">
+                        <div class="component-domain-card-header">
+                            <span class="component-domain-card-title">Ocean</span>
+                            <span class="component-domain-card-type">Coupled</span>
+                        </div>
+                        <div class="component-domain-card-id">@id: ocean</div>
+                        <p class="component-domain-card-description">BISICLES-UKESM-ISMIP6-1.0 is coupled with this domain.</p>
+                        <div class="component-domain-card-meta">
+                            <span class="component-meta-tag">ocean</span>
+                        </div>
+                    </div>
                 </div>
 
                     </div>
@@ -165,15 +186,15 @@
                                         <div class="component-tech-grid">
                     <div class="component-tech-item">
                         <div class="component-tech-label">Resource Identifier (@id)</div>
-                        <div class="component-tech-value">gelato</div>
+                        <div class="component-tech-value">bisicles-ukesm-ismip6-1.0</div>
                     </div>
                     <div class="component-tech-item">
                         <div class="component-tech-label">Validation Key</div>
-                        <div class="component-tech-value">gelato</div>
+                        <div class="component-tech-value">bisicles-ukesm-ismip6-1_0</div>
                     </div>
                     <div class="component-tech-item">
                         <div class="component-tech-label">JSON-LD Data</div>
-                        <div class="component-tech-value"><a href="https://emd.mipcvs.dev/model_component/gelato.json" target="_blank">emd.mipcvs.dev/model_component/gelato.json</a></div>
+                        <div class="component-tech-value"><a href="https://emd.mipcvs.dev/model_component/bisicles-ukesm-ismip6-1.0.json" target="_blank">emd.mipcvs.dev/model_component/bisicles-ukesm-ismip6-1.0.json</a></div>
                     </div>
                     <div class="component-tech-item">
                         <div class="component-tech-label">Resource Types (@type)</div>
@@ -201,7 +222,7 @@
                         <div class="component-section-divider"></div>
                                         <a href="#" class="component-reference-item">
                     <div class="component-reference-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
-                    <span class="component-reference-text">REF002</span>
+                    <span class="component-reference-text">REF012</span>
                     <span class="component-reference-arrow">→</span>
                 </a>
 
@@ -221,14 +242,14 @@
     }
     
     // JSON-LD source data for this component
-    const sourceData = {"@context": "https://emd.mipcvs.dev/model_component/gelato.json", "@id": "gelato", "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"], "code_base": "private", "component": {"@id": "sea-ice", "@type": ["wcrp:scientific_domain", "esgvoc:ScientificDomain", "universal"], "alias": ["seaice", "seaIce"], "description": "Sea Ice", "ui_label": "Sea Ice", "validation_key": "sea_ice"}, "coupled_with": "none", "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean.", "embedded_in": {"@id": "ocean", "@type": ["wcrp:scientific_domain", "esgvoc:ScientificDomain", "universal"], "alias": "ocean", "description": "Ocean", "ui_label": "Ocean", "validation_key": "ocean"}, "family": "gelato", "horizontal_computational_grid": "c101", "name": "GELATO", "references": "REF002", "ui_label": "", "validation_key": "gelato", "vertical_computational_grid": "v104"};
+    const sourceData = {"@context": "https://emd.mipcvs.dev/model_component/bisicles-ukesm-ismip6-1.0.json", "@id": "bisicles-ukesm-ismip6-1.0", "@type": ["emd", "wcrp:model_component", "esgvoc:ModelComponent"], "code_base": "none", "component": {"@id": "land-ice", "@type": ["wcrp:scientific_domain", "esgvoc:ScientificDomain", "universal"], "alias": ["landice", "landIce"], "description": "Land Ice", "ui_label": "Land Ice", "validation_key": "land_ice"}, "coupled_with": [{"@id": "atmosphere", "@type": ["wcrp:scientific_domain", "esgvoc:ScientificDomain", "universal"], "alias": "atmos", "description": "Atmosphere", "ui_label": "Atmosphere", "validation_key": "atmosphere"}, {"@id": "land-surface", "@type": ["wcrp:scientific_domain", "esgvoc:ScientificDomain", "universal"], "alias": "land", "description": "Land Surface and Subsurface", "ui_label": "Land Surface and Subsurface", "validation_key": "land_surface"}, {"@id": "ocean", "@type": ["wcrp:scientific_domain", "esgvoc:ScientificDomain", "universal"], "alias": "ocean", "description": "Ocean", "ui_label": "Ocean", "validation_key": "ocean"}], "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.", "embedded_in": "none", "family": "bisicles", "horizontal_computational_grid": "c102", "name": "BISICLES-UKESM-ISMIP6-1.0", "references": "REF012", "ui_label": "", "validation_key": "bisicles-ukesm-ismip6-1_0", "vertical_computational_grid": "v105"};
     
     // Copy protection - provide JSON-LD data instead of page content
     const handleCopy = function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = `// JSON-LD Source Data for GELATO
-// From: https://emd.mipcvs.dev/model_component/gelato.json
+        const copyText = `// JSON-LD Source Data for BISICLES-UKESM-ISMIP6-1.0
+// From: https://emd.mipcvs.dev/model_component/bisicles-ukesm-ismip6-1.0.json
 // EMD Registry: https://emd.mipcvs.dev/
 
 ${jsonString}`;

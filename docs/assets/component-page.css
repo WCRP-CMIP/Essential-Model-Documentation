@@ -1,0 +1,583 @@
+/* ============================================
+   MODEL COMPONENT PAGES - Standalone Styles
+   Extends MkDocs Material theme variables
+   ============================================ */
+
+/* Import Akshar font to match MkDocs theme */
+@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@400;500;600&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+/* ============================================
+   CSS VARIABLES (MkDocs Material compatible)
+   ============================================ */
+:root {
+    --md-text-font: "Roboto", sans-serif;
+    --md-code-font: "Roboto Mono", monospace;
+    --md-title-font: "Akshar", sans-serif;
+    --md-default-fg-color: rgba(0, 0, 0, 0.87);
+    --md-default-fg-color--light: rgba(0, 0, 0, 0.54);
+    --md-default-fg-color--lighter: rgba(0, 0, 0, 0.32);
+    --md-default-fg-color--lightest: rgba(0, 0, 0, 0.07);
+    --md-default-bg-color: #fff;
+    --md-default-bg-color--light: #f5f5f5;
+    --md-primary-fg-color: #2196f3;
+    --md-accent-fg-color: #ff9800;
+    --component-accent: #00bcd4;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --md-default-fg-color: rgba(255, 255, 255, 0.87);
+        --md-default-fg-color--light: rgba(255, 255, 255, 0.54);
+        --md-default-fg-color--lighter: rgba(255, 255, 255, 0.32);
+        --md-default-fg-color--lightest: rgba(255, 255, 255, 0.07);
+        --md-default-bg-color: #1e1e1e;
+        --md-default-bg-color--light: #2d2d2d;
+    }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+.component-page {
+    font-family: var(--md-text-font);
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    line-height: 1.6;
+    font-size: 0.8rem;
+    min-height: 100vh;
+}
+
+.component-page * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.component-container {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.component-header {
+    margin-bottom: 3rem;
+}
+
+.component-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--light);
+    flex-wrap: wrap;
+}
+
+.component-breadcrumb a {
+    color: var(--md-default-fg-color--light);
+    text-decoration: none;
+}
+
+.component-breadcrumb a:hover {
+    color: var(--md-primary-fg-color);
+}
+
+.component-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 188, 212, 0.1);
+    border: 1px solid rgba(0, 188, 212, 0.25);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--component-accent);
+    margin-bottom: 1rem;
+}
+
+.component-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--component-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.component-title {
+    font-family: var(--md-title-font);
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.component-subtitle {
+    font-size: 1rem;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.component-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.component-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.component-meta-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    font-weight: 500;
+}
+
+.component-meta-value {
+    font-family: var(--md-code-font);
+    font-size: 0.8rem;
+}
+
+.component-meta-value a {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+.component-meta-value a:hover {
+    text-decoration: underline;
+}
+
+.component-meta-value.private {
+    color: var(--md-accent-fg-color);
+}
+
+.component-meta-value.private::before {
+    content: '🔒 ';
+}
+
+/* ============================================
+   SECTIONS (Collapsible)
+   ============================================ */
+.component-section {
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.component-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.component-section-header:hover {
+    background: var(--md-default-bg-color--light);
+}
+
+.component-section-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.component-section-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-default-bg-color--light);
+    border-radius: 8px;
+    color: var(--component-accent);
+}
+
+.component-section-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.component-section-title {
+    font-family: var(--md-title-font);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.component-section-toggle {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-default-bg-color--light);
+    border-radius: 6px;
+}
+
+.component-section-toggle svg {
+    width: 14px;
+    height: 14px;
+    color: var(--md-default-fg-color--light);
+    transition: transform 0.3s;
+}
+
+.component-section.expanded .component-section-toggle svg {
+    transform: rotate(180deg);
+}
+
+.component-section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s;
+}
+
+.component-section.expanded .component-section-content {
+    max-height: 2000px;
+}
+
+.component-section-body {
+    padding: 0 1.25rem 1.25rem;
+}
+
+.component-section-divider {
+    height: 1px;
+    background: var(--md-default-fg-color--lightest);
+    margin-bottom: 1.25rem;
+}
+
+/* ============================================
+   CONTENT ELEMENTS
+   ============================================ */
+.component-description-text {
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.8;
+}
+
+.component-description-text strong {
+    color: var(--md-default-fg-color);
+    font-weight: 500;
+}
+
+/* Domain Cards */
+.component-domain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.component-domain-card {
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    padding: 1.25rem;
+    border-left: 3px solid var(--component-accent);
+    transition: all 0.25s;
+}
+
+.component-domain-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.component-domain-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.component-domain-card-title {
+    font-family: var(--md-title-font);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.component-domain-card-type {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(0, 188, 212, 0.15);
+    color: var(--component-accent);
+}
+
+.component-domain-card-id {
+    font-family: var(--md-code-font);
+    font-size: 0.7rem;
+    color: var(--md-primary-fg-color);
+    margin-bottom: 0.5rem;
+}
+
+.component-domain-card-description {
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.component-domain-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.component-meta-tag {
+    font-family: var(--md-code-font);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 4px;
+    color: var(--md-default-fg-color--light);
+}
+
+/* Grid Specs */
+.component-grid-info-text {
+    font-size: 0.85rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+}
+
+.component-grid-info-text a {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+.component-grid-info-text a:hover {
+    text-decoration: underline;
+}
+
+.component-grid-info-text strong {
+    color: var(--md-default-fg-color);
+    font-weight: 500;
+}
+
+.component-grid-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.component-grid-spec-card {
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 8px;
+    padding: 1.25rem;
+    border-left: 3px solid var(--component-accent);
+    transition: all 0.25s;
+}
+
+.component-grid-spec-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.component-grid-spec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.component-grid-spec-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+}
+
+.component-grid-spec-value {
+    font-family: var(--md-code-font);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--component-accent);
+}
+
+.component-grid-spec-desc {
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.6;
+}
+
+/* Tech Grid */
+.component-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.component-tech-item {
+    padding: 1rem;
+    background: var(--md-default-bg-color--light);
+    border-radius: 8px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.component-tech-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: 0.35rem;
+}
+
+.component-tech-value {
+    font-family: var(--md-code-font);
+    font-size: 0.8rem;
+    word-break: break-all;
+}
+
+.component-tech-value a {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+.component-type-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.component-type-badge {
+    font-family: var(--md-code-font);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 4px;
+    color: var(--md-default-fg-color--light);
+}
+
+.component-type-badge:hover {
+    border-color: var(--component-accent);
+    color: var(--component-accent);
+}
+
+/* Coupling Status */
+.component-coupling-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--md-default-bg-color--light);
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--md-default-fg-color--light);
+}
+
+/* References */
+.component-reference-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--md-default-bg-color--light);
+    border-radius: 8px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 0.5rem;
+}
+
+.component-reference-item:last-child {
+    margin-bottom: 0;
+}
+
+.component-reference-item:hover {
+    border-color: var(--md-primary-fg-color);
+    transform: translateX(4px);
+}
+
+.component-reference-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--md-default-bg-color);
+    border-radius: 6px;
+    color: var(--md-primary-fg-color);
+}
+
+.component-reference-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.component-reference-text {
+    font-family: var(--md-code-font);
+    font-size: 0.8rem;
+}
+
+.component-reference-arrow {
+    margin-left: auto;
+    color: var(--md-default-fg-color--light);
+}
+
+.component-reference-item:hover .component-reference-arrow {
+    color: var(--md-primary-fg-color);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.component-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+    text-align: center;
+}
+
+.component-footer-text {
+    font-size: 0.75rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.component-footer-link {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .component-container {
+        padding: 1.5rem 1rem 3rem;
+    }
+    
+    .component-title {
+        font-size: 2rem;
+    }
+    
+    .component-domain-grid,
+    .component-grid-specs {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,19 +1,18 @@
 - [Home](index.md)
-- [Warnings](Warnings.md)
 - Bidk:
-  - [Ds Copy](bidk/ds copy.md)
-  - [Ds](bidk/ds.md)
+  - [Warnings](bidk/Warnings.md)
+  - [Gelato](bidk/gelato.html)
   - [Info](bidk/info.html)
   - [Infobackup](bidk/infobackup.html)
-  - [Infomd](bidk/infomd.md)
 - Model Component:
+  - [Arpege Climat Version 6 3](model_component/arpege-climat-version-6-3.html)
+  - [Bisicles Ukesm Ismip6 1.0](model_component/bisicles-ukesm-ismip6-1.0.html)
+  - [Clm4](model_component/clm4.html)
   - [Gelato](model_component/gelato.html)
+  - [Hadam3](model_component/hadam3.html)
+  - [Piscesv2 Gas](model_component/piscesv2-gas.html)
+  - [Reprobus C V2 0](model_component/reprobus-c-v2-0.html)
+  - [Surfex V8 Modeling Platform](model_component/surfex-v8-modeling-platform.html)
+  - [Tactic](model_component/tactic.html)
 - [CMIP Website](https://wcrp-cmip.org/)
 - [WCRP](https://www.wcrp-climate.org/)
-- Development:
-  - [GitHub Repository](https://github.com/WCRP-CMIP/cmip-template-documentation)
-  - [Issue Tracker](https://github.com/WCRP-CMIP/cmip-template-documentation/issues)
-- Documentation:
-  - [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
-- Standards:
-  - [JSON-LD Spec](https://json-ld.org/)
