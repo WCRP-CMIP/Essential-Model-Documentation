@@ -1,0 +1,19 @@
+{
+  "validation_key": "g102",
+  "ui_label": "",
+  "description": "Ocean tripolar grid (eORCA1) with 105704 cells.",
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "tripolar",
+  "n_cells": 105704,
+  "region": [
+    "global"
+  ],
+  "temporal_refinement": "static",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "g102"
+}
