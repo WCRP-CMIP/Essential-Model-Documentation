@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ name | e }} | Model</title>
-    <link rel="stylesheet" href="../assets/model-page.css">
+    <link rel="stylesheet" href="../stylesheets/model-page.css">
 </head>
 <body class="model-page">
     <div class="model-container">
@@ -18,19 +18,14 @@
                 <span>→</span>
                 <span>{{ name | e }}</span>
             </nav>
-            <div class="model-badge">
-                {% if model_type %}{{ model_type | e }}{% else %}Climate Model{% endif %}
-            </div>
+            <div class="model-badge">Climate Model</div>
             <h1 class="model-title">{{ name | e }}</h1>
-            {% if long_name and long_name != name %}
-            <p class="model-long-name">{{ long_name | e }}</p>
-            {% endif %}
             <p class="model-subtitle">{{ description }}</p>
             <div class="model-header-meta">
-                {% if model_type %}
+                {% if family %}
                 <div class="model-meta-item">
-                    <span class="model-meta-label">Model Type</span>
-                    <span class="model-meta-value">{{ model_type | e }}</span>
+                    <span class="model-meta-label">Family</span>
+                    <span class="model-meta-value">{{ family | e }}</span>
                 </div>
                 {% endif %}
                 {% if release_year %}
@@ -39,10 +34,10 @@
                     <span class="model-meta-value">{{ release_year | e }}</span>
                 </div>
                 {% endif %}
-                {% if activity %}
+                {% if calendar %}
                 <div class="model-meta-item">
-                    <span class="model-meta-label">Activity</span>
-                    <span class="model-meta-value">{{ activity | join(', ') }}</span>
+                    <span class="model-meta-label">Calendar</span>
+                    <span class="model-meta-value">{{ calendar.name | e }}</span>
                 </div>
                 {% endif %}
                 <div class="model-meta-item">
@@ -58,49 +53,59 @@
                 <p class="model-description-text"><strong>{{ name | e }}</strong> — {{ description_highlighted | safe }}</p>
             {% endcall %}
 
-            {# Components Section #}
-            {% call section("Model Components", icons.components, expanded=true) %}
-                {% if components %}
-                <p class="model-info-text">This model consists of the following components:</p>
+            {# Dynamic Components Section #}
+            {% call section("Dynamic Components", icons.components, expanded=true) %}
+                {% if dynamic_components %}
+                <p class="model-info-text">Scientific domains that are dynamically simulated:</p>
                 <div class="model-components-grid">
-                    {% for comp in components %}
-                    {{ component_card(comp.name, comp.type, comp.id, comp.description) }}
+                    {% for comp in dynamic_components %}
+                    {{ domain_card(comp.name, "Dynamic", comp.id, comp.description) }}
                     {% endfor %}
                 </div>
                 {% else %}
-                <p class="model-description-text" style="color: var(--md-default-fg-color--lighter);">No component information available.</p>
+                <p class="model-description-text" style="color: var(--md-default-fg-color--lighter);">No dynamic components specified.</p>
                 {% endif %}
             {% endcall %}
 
-            {# Institutions Section #}
-            {% call section("Institutions", icons.institutions) %}
-                {% if institutions %}
-                <p class="model-info-text">Responsible institutions and organizations:</p>
-                <div class="model-institutions-grid">
-                    {% for inst in institutions %}
-                    {{ institution_card(inst.name, inst.id, inst.url) }}
-                    {% endfor %}
-                </div>
-                {% else %}
-                <p class="model-description-text" style="color: var(--md-default-fg-color--lighter);">No institution information available.</p>
-                {% endif %}
-            {% endcall %}
-
-            {# Activity Participation Section #}
-            {% if activity %}
-            {% call section("Activity Participation", icons.activity) %}
-                <div class="model-activity-list">
-                    {% for act in activity %}
-                    <span class="model-activity-badge">{{ act | e }}</span>
+            {# Omitted Components Section #}
+            {% if omitted_components %}
+            {% call section("Omitted Components", icons.warning) %}
+                <p class="model-info-text">Scientific domains that are not included in this model:</p>
+                <div class="model-components-grid">
+                    {% for comp in omitted_components %}
+                    {{ domain_card(comp.name, "Omitted", comp.id, comp.description) }}
                     {% endfor %}
                 </div>
             {% endcall %}
             {% endif %}
 
-            {# License Section #}
-            {% if license %}
-            {% call section("License", icons.license) %}
-                <p class="model-description-text">{{ license | e }}</p>
+            {# Prescribed Components Section #}
+            {% if prescribed_components %}
+            {% call section("Prescribed Components", icons.database) %}
+                <p class="model-info-text">Scientific domains with prescribed/fixed values:</p>
+                <div class="model-components-grid">
+                    {% for comp in prescribed_components %}
+                    {{ domain_card(comp.name, "Prescribed", comp.id, comp.description) }}
+                    {% endfor %}
+                </div>
+            {% endcall %}
+            {% endif %}
+
+            {# Calendar Section #}
+            {% if calendar %}
+            {% call section("Calendar", icons.clock) %}
+                <div class="model-tech-grid">
+                    <div class="model-tech-item">
+                        <div class="model-tech-label">Calendar Type</div>
+                        <div class="model-tech-value">{{ calendar.name | e }}</div>
+                    </div>
+                    {% if calendar.description %}
+                    <div class="model-tech-item" style="grid-column: 1 / -1;">
+                        <div class="model-tech-label">Description</div>
+                        <div class="model-tech-value">{{ calendar.description | e }}</div>
+                    </div>
+                    {% endif %}
+                </div>
             {% endcall %}
             {% endif %}
 

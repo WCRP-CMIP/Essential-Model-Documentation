@@ -1,0 +1,715 @@
+/* ============================================
+   MODEL COMPONENT PAGE STYLES
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f8fafc;
+    --color-bg-tertiary: #f1f5f9;
+    --color-text: #1e293b;
+    --color-text-secondary: #64748b;
+    --color-text-tertiary: #94a3b8;
+    --color-border: #e2e8f0;
+    --color-border-light: #f1f5f9;
+    --color-primary: #3b82f6;
+    --color-primary-light: #dbeafe;
+    --color-accent: #0ea5e9;
+    --color-accent-light: #e0f2fe;
+    --color-success: #10b981;
+    --color-success-light: #d1fae5;
+    --color-purple: #8b5cf6;
+    --color-purple-light: #ede9fe;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #0f172a;
+        --color-bg-secondary: #1e293b;
+        --color-bg-tertiary: #334155;
+        --color-text: #f1f5f9;
+        --color-text-secondary: #94a3b8;
+        --color-text-tertiary: #64748b;
+        --color-border: #334155;
+        --color-border-light: #1e293b;
+        --color-primary-light: #1e3a5f;
+        --color-accent-light: #0c4a6e;
+        --color-success-light: #064e3b;
+        --color-purple-light: #2e1065;
+    }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body.component-page {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.component-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* HEADER */
+.component-header { margin-bottom: 2.5rem; }
+
+.component-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.component-breadcrumb a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+}
+
+.component-breadcrumb a:hover { color: var(--color-primary); }
+
+.component-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
+
+.component-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+    border-radius: 50%;
+}
+
+.component-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.component-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.component-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.component-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.component-meta-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    font-weight: 500;
+}
+
+.component-meta-value {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text);
+}
+
+.component-meta-value a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.component-meta-value a:hover { text-decoration: underline; }
+
+/* SECTIONS */
+.component-section {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.component-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.component-section-header:hover { background: var(--color-bg-secondary); }
+
+.component-section-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.component-section-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    color: var(--color-accent);
+}
+
+.component-section-icon svg { width: 18px; height: 18px; }
+
+.component-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.component-section-toggle {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.component-section-toggle svg {
+    width: 14px;
+    height: 14px;
+    color: var(--color-text-secondary);
+    transition: transform 0.3s;
+}
+
+.component-section.expanded .component-section-toggle svg {
+    transform: rotate(180deg);
+}
+
+.component-section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.component-section.expanded .component-section-content {
+    max-height: 5000px;
+}
+
+.component-section-body {
+    padding: 0 1.25rem 1.25rem;
+}
+
+.component-section-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin-bottom: 1.25rem;
+}
+
+/* DESCRIPTION */
+.component-description-text {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+}
+
+.component-description-text strong {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* DOMAIN CARDS */
+.component-domain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.component-domain-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    border-left: 3px solid var(--color-accent);
+}
+
+.component-domain-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.component-domain-card-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.component-domain-card-type {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+}
+
+.component-domain-card-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.component-domain-card-description {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.component-domain-card-meta {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.component-meta-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   GRID CARDS - SIDE BY SIDE SQUARE LAYOUT
+   ============================================ */
+.component-grids-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.component-grid-card {
+    flex: 1;
+    min-width: 0;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.component-grid-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.component-grid-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    color: var(--color-accent);
+    flex-shrink: 0;
+}
+
+.component-grid-card-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.component-grid-card-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.component-grid-card-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    font-weight: 500;
+}
+
+.component-grid-card-id {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.component-grid-card-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.component-grid-card-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.component-grid-card-stat {
+    flex: 1 1 calc(50% - 0.25rem);
+    min-width: 100px;
+    padding: 0.6rem 0.75rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+}
+
+.component-grid-card-stat-label {
+    display: block;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.2rem;
+}
+
+.component-grid-card-stat-value {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text);
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.component-grid-card-stat-value.accent {
+    color: var(--color-accent);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* ============================================
+   SUBGRIDS - CLEAN CARD LAYOUT
+   ============================================ */
+.component-subgrids-section {
+    padding-top: 1rem;
+    border-top: 1px dashed var(--color-border);
+}
+
+.component-subgrids-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.component-subgrids-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.component-subgrids-title svg {
+    color: var(--color-purple);
+}
+
+.component-subgrids-count {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    background: var(--color-purple-light);
+    color: var(--color-purple);
+    border-radius: 100px;
+}
+
+.component-subgrids-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+/* Subgrid Card */
+.component-subgrid-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    border-left: 3px solid var(--color-purple);
+    transition: all 0.2s;
+}
+
+.component-subgrid-card:hover {
+    border-color: var(--color-purple);
+    box-shadow: var(--shadow-md);
+}
+
+.component-subgrid-card-header {
+    margin-bottom: 0.5rem;
+}
+
+.component-subgrid-card-id-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.component-subgrid-card-id {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.component-subgrid-type-badge {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.component-subgrid-card-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+/* Subgrid Details - Key-Value Pairs */
+.component-subgrid-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.component-subgrid-detail {
+    padding: 0.4rem 0.6rem;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.component-subgrid-detail-label {
+    display: block;
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.1rem;
+}
+
+.component-subgrid-detail-value {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.component-subgrid-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.component-subgrid-link:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   TECH GRID & OTHER COMPONENTS
+   ============================================ */
+.component-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.component-tech-item {
+    padding: 1rem;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.component-tech-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.35rem;
+}
+
+.component-tech-value {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    word-break: break-all;
+    color: var(--color-text);
+}
+
+.component-tech-value a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.component-tech-value a:hover { text-decoration: underline; }
+
+.component-type-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.component-type-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+}
+
+/* REFERENCES */
+.component-reference-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+}
+
+.component-reference-item:last-child { margin-bottom: 0; }
+
+.component-reference-item:hover {
+    border-color: var(--color-primary);
+}
+
+.component-reference-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+}
+
+.component-reference-icon svg { width: 16px; height: 16px; }
+
+.component-reference-text {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text);
+}
+
+.component-reference-arrow {
+    margin-left: auto;
+    color: var(--color-text-tertiary);
+}
+
+/* COUPLING STATUS */
+.component-coupling-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+/* FOOTER */
+.component-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.component-footer-text {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.component-footer-link {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.component-footer-link:hover { text-decoration: underline; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .component-container { padding: 1.5rem 1rem 3rem; }
+    .component-title { font-size: 1.75rem; }
+    .component-header-meta { gap: 1rem; }
+    
+    .component-grids-row {
+        flex-direction: column;
+    }
+    
+    .component-subgrids-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .component-subgrid-details {
+        grid-template-columns: 1fr;
+    }
+}

@@ -10,6 +10,7 @@
   - [Clm4](model_component/clm4.html)
   - [Gelato](model_component/gelato.html)
   - [Hadam3](model_component/hadam3.html)
+  - [Nemo V3 6](model_component/nemo-v3-6.html)
   - [Piscesv2 Gas](model_component/piscesv2-gas.html)
   - [Reprobus C V2 0](model_component/reprobus-c-v2-0.html)
   - [Surfex V8 Modeling Platform](model_component/surfex-v8-modeling-platform.html)
