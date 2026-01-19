@@ -221,7 +221,5 @@ def main():
     return 0 if success == len(MODELS) else 1
 
 
-# if __name__ == "__main__":
-#     sys.exit(main())
- 
+# Run on import for mkdocs
 main()

@@ -6,10 +6,10 @@
     <title>{{ name | e }} | Model Component</title>
     <link rel="stylesheet" href="../stylesheets/component-page.css">
 </head>
-<body class="component-page">
-    <div class="component-container">
-        <header class="component-header">
-            <nav class="component-breadcrumb">
+<body class="emd-page">
+    <div class="emd-container">
+        <header class="emd-header">
+            <nav class="emd-breadcrumb">
                 <a href="../">← Back to Documentation</a>
                 <span>|</span>
                 <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
@@ -18,54 +18,54 @@
                 <span>→</span>
                 <span>{{ name | e }}</span>
             </nav>
-            <div class="component-badge">Model Component</div>
-            <h1 class="component-title">{{ name | e }}</h1>
-            <p class="component-subtitle">{{ description | e }}</p>
-            <div class="component-header-meta">
+            <div class="emd-badge">Model Component</div>
+            <h1 class="emd-title">{{ name | e }}</h1>
+            <p class="emd-subtitle">{{ description | e }}</p>
+            <div class="emd-header-meta">
                 {% if family %}
-                <div class="component-meta-item">
-                    <span class="component-meta-label">Family</span>
-                    <span class="component-meta-value">{{ family.name | e if family.name else family.id | e }}</span>
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Family</span>
+                    <span class="emd-meta-value">{{ family.name | e if family.name else family.id | e }}</span>
                 </div>
                 {% endif %}
                 {% if component_domain %}
-                <div class="component-meta-item">
-                    <span class="component-meta-label">Scientific Domain</span>
-                    <span class="component-meta-value">{{ component_domain.name | e }}</span>
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Scientific Domain</span>
+                    <span class="emd-meta-value">{{ component_domain.name | e }}</span>
                 </div>
                 {% endif %}
-                <div class="component-meta-item">
-                    <span class="component-meta-label">Code Base</span>
-                    <span class="component-meta-value">
-                        {%- if code_base.is_private -%}🔒 Private
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Code Base</span>
+                    <span class="emd-meta-value{% if code_base.is_private %} private{% endif %}">
+                        {%- if code_base.is_private -%}Private
                         {%- elif code_base.is_url -%}<a href="{{ code_base.value | e }}" target="_blank">{{ code_base.value | e }}</a>
                         {%- elif code_base.value -%}{{ code_base.value | e }}
                         {%- else -%}Not specified{%- endif -%}
                     </span>
                 </div>
-                <div class="component-meta-item">
-                    <span class="component-meta-label">Context</span>
-                    <span class="component-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Context</span>
+                    <span class="emd-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
                 </div>
             </div>
         </header>
 
         <main>
             <!-- Description -->
-            <section class="component-section expanded">
-                <div class="component-section-header" onclick="toggleSection(this)">
-                    <div class="component-section-title-wrapper">
-                        <div class="component-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
-                        <h2 class="component-section-title">Description</h2>
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.description | safe }}</div>
+                        <h2 class="emd-section-title">Description</h2>
                     </div>
-                    <div class="component-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
-                <div class="component-section-content">
-                    <div class="component-section-body">
-                        <div class="component-section-divider"></div>
-                        <p class="component-description-text"><strong>{{ name | e }}</strong> — {{ description_highlighted | safe }}</p>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <p class="emd-description-text"><strong>{{ name | e }}</strong> — {{ description_highlighted | safe }}</p>
                         {% if family and family.description %}
-                        <p class="component-description-text" style="margin-top: 1rem; color: var(--color-text-secondary);">
+                        <p class="emd-description-text" style="margin-top: 1rem;">
                             <strong>Family:</strong> {{ family.description | e }}
                         </p>
                         {% endif %}
@@ -75,44 +75,194 @@
 
             <!-- Scientific Domains -->
             {% if component_domain %}
-            <section class="component-section expanded">
-                <div class="component-section-header" onclick="toggleSection(this)">
-                    <div class="component-section-title-wrapper">
-                        <div class="component-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-                        <h2 class="component-section-title">Scientific Domain</h2>
+            {% set domain_count = 1 + (1 if embedded_in else 0) %}
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.domain | safe }}</div>
+                        <h2 class="emd-section-title">Scientific Domains <span class="emd-section-count">({{ domain_count }})</span></h2>
                     </div>
-                    <div class="component-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
-                <div class="component-section-content">
-                    <div class="component-section-body">
-                        <div class="component-section-divider"></div>
-                        <div class="component-domain-grid">
-                            <div class="component-domain-card">
-                                <div class="component-domain-card-header">
-                                    <span class="component-domain-card-title">{{ component_domain.name | e }}</span>
-                                    <span class="component-domain-card-type">Primary Domain</span>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-domain-grid">
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">{{ component_domain.name | e }}</span>
+                                    <span class="emd-domain-card-type">Component</span>
                                 </div>
-                                <div class="component-domain-card-id">@id: {{ component_domain.id | e }}</div>
-                                <p class="component-domain-card-description">{{ component_domain.description | e if component_domain.description else component_domain.name | e }}</p>
+                                <div class="emd-domain-card-id">@id: {{ component_domain.id | e }}</div>
+                                <p class="emd-domain-card-description">{{ component_domain.description | e if component_domain.description else component_domain.name | e }}</p>
                                 {% if component_domain.aliases %}
-                                <div class="component-domain-card-meta">
-                                    {% for alias in component_domain.aliases %}<span class="component-meta-tag">{{ alias | e }}</span>{% endfor %}
+                                <div class="emd-domain-card-meta">
+                                    {% for alias in component_domain.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
                                 </div>
                                 {% endif %}
                             </div>
                             {% if embedded_in %}
-                            <div class="component-domain-card">
-                                <div class="component-domain-card-header">
-                                    <span class="component-domain-card-title">{{ embedded_in.name | e }}</span>
-                                    <span class="component-domain-card-type">Embedded In</span>
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">{{ embedded_in.name | e }}</span>
+                                    <span class="emd-domain-card-type">Embedded In</span>
                                 </div>
-                                <div class="component-domain-card-id">@id: {{ embedded_in.id | e }}</div>
-                                <p class="component-domain-card-description">{{ embedded_in.description | e if embedded_in.description else 'Parent domain.' }}</p>
+                                <div class="emd-domain-card-id">@id: {{ embedded_in.id | e }}</div>
+                                <p class="emd-domain-card-description">{{ embedded_in.description | e if embedded_in.description else 'Parent domain' }}</p>
                                 {% if embedded_in.aliases %}
-                                <div class="component-domain-card-meta">
-                                    {% for alias in embedded_in.aliases %}<span class="component-meta-tag">{{ alias | e }}</span>{% endfor %}
+                                <div class="emd-domain-card-meta">
+                                    {% for alias in embedded_in.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
                                 </div>
                                 {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Computational Grids -->
+            {% if horizontal_grid or vertical_grid %}
+            {% set h_subgrid_count = horizontal_grid.subgrids | length if horizontal_grid and horizontal_grid.subgrids else 0 %}
+            {% set grid_count = (1 if horizontal_grid else 0) + (1 if vertical_grid else 0) %}
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+                        <h2 class="emd-section-title">Computational Grids <span class="emd-section-count">({{ grid_count }}{% if h_subgrid_count %} + {{ h_subgrid_count }} subgrids{% endif %})</span></h2>
+                    </div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        
+                        <div class="emd-grids-row">
+                            {% if horizontal_grid %}
+                            <div class="emd-grid-card">
+                                <div class="emd-grid-card-header">
+                                    <div class="emd-grid-card-icon">{{ icons.grid | safe }}</div>
+                                    <div class="emd-grid-card-title">
+                                        <span class="emd-grid-card-label">Horizontal Grid</span>
+                                        <span class="emd-grid-card-id">{{ horizontal_grid.id | e }}</span>
+                                    </div>
+                                </div>
+                                <p class="emd-grid-card-desc">{{ horizontal_grid.description | e if horizontal_grid.description else 'Horizontal computational grid' }}</p>
+                                <div class="emd-grid-card-stats">
+                                    {% if horizontal_grid.arrangement %}
+                                    <div class="emd-grid-card-stat">
+                                        <span class="emd-grid-card-stat-label">Arrangement</span>
+                                        <span class="emd-grid-card-stat-value">{{ horizontal_grid.arrangement | e }}</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if h_subgrid_count %}
+                                    <div class="emd-grid-card-stat">
+                                        <span class="emd-grid-card-stat-label">Subgrids</span>
+                                        <span class="emd-grid-card-stat-value accent">{{ h_subgrid_count }}</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Nested Subgrids -->
+                                {% if horizontal_grid.subgrids %}
+                                <div class="emd-subgrids-section">
+                                    <div class="emd-subgrids-header">
+                                        <div class="emd-subgrids-title">{{ icons.grid | safe }} Horizontal Subgrids</div>
+                                        <span class="emd-subgrids-count">{{ horizontal_grid.subgrids | length }}</span>
+                                    </div>
+                                    <div class="emd-subgrids-list">
+                                        {% for subgrid in horizontal_grid.subgrids %}
+                                        <div class="emd-subgrid-card">
+                                            <div class="emd-subgrid-card-header">
+                                                <div class="emd-subgrid-card-id-row">
+                                                    <span class="emd-subgrid-card-id">{{ subgrid.id | e }}</span>
+                                                    {% if subgrid.cell_variable_type and subgrid.cell_variable_type.name %}
+                                                    <span class="emd-subgrid-type-badge">{{ subgrid.cell_variable_type.name | e }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% if subgrid.description %}
+                                            <p class="emd-subgrid-card-desc">{{ subgrid.description | e }}</p>
+                                            {% endif %}
+                                            {% if subgrid.grid_cells %}
+                                            <div class="emd-subgrid-details">
+                                                {% if subgrid.grid_cells.grid_type %}
+                                                <div class="emd-subgrid-detail">
+                                                    <span class="emd-subgrid-detail-label">Type</span>
+                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.grid_type | replace('-', ' ') | e }}</span>
+                                                </div>
+                                                {% endif %}
+                                                {% if subgrid.grid_cells.n_cells %}
+                                                <div class="emd-subgrid-detail">
+                                                    <span class="emd-subgrid-detail-label">Cells</span>
+                                                    <span class="emd-subgrid-detail-value">{{ "{:,}".format(subgrid.grid_cells.n_cells) }}</span>
+                                                </div>
+                                                {% endif %}
+                                                {% if subgrid.grid_cells.x_resolution and subgrid.grid_cells.y_resolution %}
+                                                <div class="emd-subgrid-detail">
+                                                    <span class="emd-subgrid-detail-label">Resolution</span>
+                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.x_resolution }}° × {{ subgrid.grid_cells.y_resolution }}°</span>
+                                                </div>
+                                                {% endif %}
+                                                {% if subgrid.grid_cells.region %}
+                                                <div class="emd-subgrid-detail">
+                                                    <span class="emd-subgrid-detail-label">Region</span>
+                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.region | e }}</span>
+                                                </div>
+                                                {% endif %}
+                                                {% if subgrid.grid_cells.truncation_number %}
+                                                <div class="emd-subgrid-detail">
+                                                    <span class="emd-subgrid-detail-label">Truncation</span>
+                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.truncation_method | default('T', true) | upper }}{{ subgrid.grid_cells.truncation_number }}</span>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            
+                            {% if vertical_grid %}
+                            <div class="emd-grid-card">
+                                <div class="emd-grid-card-header">
+                                    <div class="emd-grid-card-icon">{{ icons.grid | safe }}</div>
+                                    <div class="emd-grid-card-title">
+                                        <span class="emd-grid-card-label">Vertical Grid</span>
+                                        <span class="emd-grid-card-id">{{ vertical_grid.id | e }}</span>
+                                    </div>
+                                </div>
+                                <p class="emd-grid-card-desc">{{ vertical_grid.description | e if vertical_grid.description else 'Vertical computational grid' }}</p>
+                                <div class="emd-grid-card-stats">
+                                    {% if vertical_grid.n_z %}
+                                    <div class="emd-grid-card-stat">
+                                        <span class="emd-grid-card-stat-label">Levels</span>
+                                        <span class="emd-grid-card-stat-value accent">{{ vertical_grid.n_z }}</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if vertical_grid.coordinate %}
+                                    <div class="emd-grid-card-stat">
+                                        <span class="emd-grid-card-stat-label">Coordinate</span>
+                                        <span class="emd-grid-card-stat-value">{{ vertical_grid.coordinate | e }}</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if vertical_grid.top_thickness %}
+                                    <div class="emd-grid-card-stat">
+                                        <span class="emd-grid-card-stat-label">Top Layer</span>
+                                        <span class="emd-grid-card-stat-value">{{ vertical_grid.top_thickness }}m</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if vertical_grid.total_thickness %}
+                                    <div class="emd-grid-card-stat">
+                                        <span class="emd-grid-card-stat-label">Total Depth</span>
+                                        <span class="emd-grid-card-stat-value">{{ "{:,.0f}".format(vertical_grid.total_thickness) }}m</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             </div>
                             {% endif %}
                         </div>
@@ -123,233 +273,71 @@
 
             <!-- Coupling -->
             {% set coupling_count = coupled_with | length if coupled_with else 0 %}
-            <section class="component-section{% if coupling_count > 0 %} expanded{% endif %}">
-                <div class="component-section-header" onclick="toggleSection(this)">
-                    <div class="component-section-title-wrapper">
-                        <div class="component-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg></div>
-                        <h2 class="component-section-title">Coupling</h2>
+            <section class="emd-section{% if coupling_count > 0 %} expanded{% endif %}">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.coupling | safe }}</div>
+                        <h2 class="emd-section-title">Coupling <span class="emd-section-count">({{ coupling_count }})</span></h2>
                     </div>
-                    <div class="component-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
-                <div class="component-section-content">
-                    <div class="component-section-body">
-                        <div class="component-section-divider"></div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
                         {% if coupled_with %}
-                        <p class="component-description-text" style="margin-bottom: 1rem;"><strong>{{ name | e }}</strong> is coupled with the following domains:</p>
-                        <div class="component-domain-grid">
+                        <div class="emd-domain-grid">
                             {% for item in coupled_with %}
-                            <div class="component-domain-card">
-                                <div class="component-domain-card-header">
-                                    <span class="component-domain-card-title">{{ item.name | e }}</span>
-                                    <span class="component-domain-card-type">Coupled</span>
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">{{ item.name | e }}</span>
+                                    <span class="emd-domain-card-type">Coupled</span>
                                 </div>
-                                <div class="component-domain-card-id">@id: {{ item.id | e }}</div>
-                                <p class="component-domain-card-description">{{ item.description | e if item.description else item.name | e }}</p>
+                                <div class="emd-domain-card-id">@id: {{ item.id | e }}</div>
+                                <p class="emd-domain-card-description">{{ item.description | e if item.description else item.name | e }}</p>
                                 {% if item.aliases %}
-                                <div class="component-domain-card-meta">
-                                    {% for alias in item.aliases %}<span class="component-meta-tag">{{ alias | e }}</span>{% endfor %}
+                                <div class="emd-domain-card-meta">
+                                    {% for alias in item.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
                                 </div>
                                 {% endif %}
                             </div>
                             {% endfor %}
                         </div>
                         {% else %}
-                        <div class="component-coupling-status">
-                            <span>○</span>
-                            <span>No external coupling{% if embedded_in %} — component operates embedded within {{ embedded_in.name | e }}{% endif %}</span>
-                        </div>
+                        <p class="emd-description-text">No external coupling{% if embedded_in %} — component operates embedded within {{ embedded_in.name | e }}{% endif %}</p>
                         {% endif %}
                     </div>
                 </div>
             </section>
-
-            <!-- Computational Grids -->
-            {% if horizontal_grid or vertical_grid %}
-            {% set subgrid_count = horizontal_grid.subgrids | length if horizontal_grid and horizontal_grid.subgrids else 0 %}
-            <section class="component-section expanded">
-                <div class="component-section-header" onclick="toggleSection(this)">
-                    <div class="component-section-title-wrapper">
-                        <div class="component-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
-                        <h2 class="component-section-title">Computational Grids</h2>
-                    </div>
-                    <div class="component-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
-                </div>
-                <div class="component-section-content">
-                    <div class="component-section-body">
-                        <div class="component-section-divider"></div>
-                        
-                        <!-- Main Grids - Side by Side -->
-                        <div class="component-grids-row">
-                            {% if horizontal_grid %}
-                            <div class="component-grid-card">
-                                <div class="component-grid-card-header">
-                                    <div class="component-grid-card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
-                                    <div class="component-grid-card-title">
-                                        <span class="component-grid-card-label">Horizontal Grid</span>
-                                        <span class="component-grid-card-id">{{ horizontal_grid.id | e }}</span>
-                                    </div>
-                                </div>
-                                <p class="component-grid-card-desc">{{ horizontal_grid.description | e if horizontal_grid.description else 'Horizontal spatial discretization.' }}</p>
-                                <div class="component-grid-card-stats">
-                                    {% if horizontal_grid.arrangement %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Arrangement</span>
-                                        <span class="component-grid-card-stat-value">{{ horizontal_grid.arrangement | e }}</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if subgrid_count %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Subgrids</span>
-                                        <span class="component-grid-card-stat-value accent">{{ subgrid_count }}</span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% endif %}
-                            
-                            {% if vertical_grid %}
-                            <div class="component-grid-card">
-                                <div class="component-grid-card-header">
-                                    <div class="component-grid-card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
-                                    <div class="component-grid-card-title">
-                                        <span class="component-grid-card-label">Vertical Grid</span>
-                                        <span class="component-grid-card-id">{{ vertical_grid.id | e }}</span>
-                                    </div>
-                                </div>
-                                <p class="component-grid-card-desc">{{ vertical_grid.description | e if vertical_grid.description else 'Vertical layer structure.' }}</p>
-                                <div class="component-grid-card-stats">
-                                    {% if vertical_grid.n_z %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Vertical Levels</span>
-                                        <span class="component-grid-card-stat-value accent">{{ vertical_grid.n_z }}</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.coordinate %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Coordinate</span>
-                                        <span class="component-grid-card-stat-value">{{ vertical_grid.coordinate | e }}</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.top_thickness %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Top Layer</span>
-                                        <span class="component-grid-card-stat-value">{{ vertical_grid.top_thickness }}m</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.bottom_thickness %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Bottom Layer</span>
-                                        <span class="component-grid-card-stat-value">{{ vertical_grid.bottom_thickness }}m</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.total_thickness %}
-                                    <div class="component-grid-card-stat">
-                                        <span class="component-grid-card-stat-label">Total Depth</span>
-                                        <span class="component-grid-card-stat-value">{{ "{:,.0f}".format(vertical_grid.total_thickness) }}m</span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
-                        
-                        <!-- Subgrids Section -->
-                        {% if horizontal_grid and horizontal_grid.subgrids %}
-                        <div class="component-subgrids-section">
-                            <div class="component-subgrids-header">
-                                <div class="component-subgrids-title">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                                    Horizontal Subgrids
-                                </div>
-                                <span class="component-subgrids-count">{{ subgrid_count }}</span>
-                            </div>
-                            <div class="component-subgrids-grid">
-                                {% for subgrid in horizontal_grid.subgrids %}
-                                <div class="component-subgrid-card">
-                                    <div class="component-subgrid-card-header">
-                                        <div class="component-subgrid-card-id-row">
-                                            <span class="component-subgrid-card-id">{{ subgrid.id | e }}</span>
-                                            {% if subgrid.cell_variable_type and subgrid.cell_variable_type.name %}
-                                            <span class="component-subgrid-type-badge">{{ subgrid.cell_variable_type.name | e }}</span>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    {% if subgrid.description %}
-                                    <p class="component-subgrid-card-desc">{{ subgrid.description | e }}</p>
-                                    {% endif %}
-                                    {% if subgrid.grid_cells %}
-                                    <div class="component-subgrid-details">
-                                        {% if subgrid.grid_cells.grid_type %}
-                                        <div class="component-subgrid-detail">
-                                            <span class="component-subgrid-detail-label">Grid Type</span>
-                                            <span class="component-subgrid-detail-value">{{ subgrid.grid_cells.grid_type | replace('-', ' ') | e }}</span>
-                                        </div>
-                                        {% endif %}
-                                        {% if subgrid.grid_cells.n_cells %}
-                                        <div class="component-subgrid-detail">
-                                            <span class="component-subgrid-detail-label">Cells</span>
-                                            <span class="component-subgrid-detail-value">{{ "{:,}".format(subgrid.grid_cells.n_cells) }}</span>
-                                        </div>
-                                        {% endif %}
-                                        {% if subgrid.grid_cells.x_resolution and subgrid.grid_cells.y_resolution %}
-                                        <div class="component-subgrid-detail">
-                                            <span class="component-subgrid-detail-label">Resolution</span>
-                                            <span class="component-subgrid-detail-value">{{ subgrid.grid_cells.x_resolution }}° × {{ subgrid.grid_cells.y_resolution }}°</span>
-                                        </div>
-                                        {% endif %}
-                                        {% if subgrid.grid_cells.region %}
-                                        <div class="component-subgrid-detail">
-                                            <span class="component-subgrid-detail-label">Region</span>
-                                            <span class="component-subgrid-detail-value">{{ subgrid.grid_cells.region | e }}</span>
-                                        </div>
-                                        {% endif %}
-                                        {% if subgrid.grid_cells.truncation_number %}
-                                        <div class="component-subgrid-detail">
-                                            <span class="component-subgrid-detail-label">Truncation</span>
-                                            <span class="component-subgrid-detail-value">{{ subgrid.grid_cells.truncation_method | default('T', true) | upper }}{{ subgrid.grid_cells.truncation_number }}</span>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </section>
-            {% endif %}
 
             <!-- Technical Details -->
-            <section class="component-section">
-                <div class="component-section-header" onclick="toggleSection(this)">
-                    <div class="component-section-title-wrapper">
-                        <div class="component-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
-                        <h2 class="component-section-title">Technical Details</h2>
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+                        <h2 class="emd-section-title">Technical Details <span class="emd-section-count">({{ types | length }})</span></h2>
                     </div>
-                    <div class="component-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
-                <div class="component-section-content">
-                    <div class="component-section-body">
-                        <div class="component-section-divider"></div>
-                        <div class="component-tech-grid">
-                            <div class="component-tech-item">
-                                <div class="component-tech-label">Resource Identifier (@id)</div>
-                                <div class="component-tech-value">{{ id | e }}</div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-tech-grid">
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Resource Identifier (@id)</div>
+                                <div class="emd-tech-value">{{ id | e }}</div>
                             </div>
-                            <div class="component-tech-item">
-                                <div class="component-tech-label">Validation Key</div>
-                                <div class="component-tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Validation Key</div>
+                                <div class="emd-tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
                             </div>
-                            <div class="component-tech-item">
-                                <div class="component-tech-label">JSON-LD Data</div>
-                                <div class="component-tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">JSON-LD Context</div>
+                                <div class="emd-tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
                             </div>
-                            <div class="component-tech-item">
-                                <div class="component-tech-label">Resource Types (@type)</div>
-                                <div class="component-type-badges">
-                                    {% for t in types %}<span class="component-type-badge">{{ t | e }}</span>{% endfor %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Resource Types (@type)</div>
+                                <div class="emd-type-badges">
+                                    {% for t in types %}<span class="emd-type-badge">{{ t | e }}</span>{% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -359,49 +347,45 @@
 
             <!-- References -->
             {% set ref_count = references | length if references else 0 %}
-            <section class="component-section{% if ref_count > 0 %} expanded{% endif %}">
-                <div class="component-section-header" onclick="toggleSection(this)">
-                    <div class="component-section-title-wrapper">
-                        <div class="component-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
-                        <h2 class="component-section-title">References</h2>
+            <section class="emd-section{% if ref_count > 0 %} expanded{% endif %}">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.reference | safe }}</div>
+                        <h2 class="emd-section-title">References <span class="emd-section-count">({{ ref_count }})</span></h2>
                     </div>
-                    <div class="component-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
-                <div class="component-section-content">
-                    <div class="component-section-body">
-                        <div class="component-section-divider"></div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
                         {% if references %}
                         {% for ref in references %}
-                        <a href="#" class="component-reference-item">
-                            <div class="component-reference-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
-                            <span class="component-reference-text">{{ ref | e }}</span>
-                            <span class="component-reference-arrow">→</span>
+                        <a href="#" class="emd-reference-item">
+                            <div class="emd-reference-icon">{{ icons.description | safe }}</div>
+                            <span class="emd-reference-text">{{ ref | e }}</span>
+                            <span class="emd-reference-arrow">→</span>
                         </a>
                         {% endfor %}
                         {% else %}
-                        <p class="component-description-text" style="color: var(--color-text-tertiary);">No references available.</p>
+                        <p class="emd-description-text">No references available.</p>
                         {% endif %}
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="component-footer">
-            <p class="component-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="component-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="component-footer-link" target="_blank">WCRP CMIP</a> initiative</p>
+        <footer class="emd-footer">
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated {{ generated_date }}</p>
         </footer>
     </div>
-    
     <script>
-    function toggleSection(header) { 
-        header.parentElement.classList.toggle('expanded'); 
-    }
+    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
     
     const sourceData = {{ raw_json | safe }};
-    
     document.addEventListener("copy", function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for {{ name | e }}\n// From: {{ context_url | e }}\n// EMD Registry: https://emd.mipcvs.dev/\n\n" + jsonString;
+        const copyText = "// JSON-LD Source Data for {{ name | e }}\n// From: {{ context_url | e }}\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: {{ generated_date }}\n\n" + jsonString;
         e.clipboardData.setData("text/plain", copyText);
     });
     </script>

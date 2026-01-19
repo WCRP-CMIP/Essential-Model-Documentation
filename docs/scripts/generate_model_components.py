@@ -14,366 +14,336 @@ Requirements:
 
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 
 # Resolve script directory (works regardless of working directory)
 SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent
 
-# Add scripts dir to path for imports
+# Add script directory to path for helpers import
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 try:
     import cmipld
 except ImportError:
-    print("Error: cmipld package not installed. Run: pip install cmipld")
+    print("Error: cmipld package not found. Install with: pip install cmipld")
     sys.exit(1)
 
 try:
     from jinja2 import Environment
 except ImportError:
-    print("Error: jinja2 package not installed. Run: pip install jinja2")
+    print("Error: jinja2 package not found. Install with: pip install jinja2")
     sys.exit(1)
 
-from helpers import (
-    ICONS,
-    HIGHLIGHT_KEYWORDS,
-    is_none_value,
-    escape_html,
-    create_jinja_env,
-    create_section_macro,
-    create_domain_card_macro,
-)
-from helpers.utils import parse_references, highlight_keywords
-
+from helpers import create_jinja_env, create_section_macro, create_domain_card_macro
 
 # Configuration
 BASE_URL = "https://emd.mipcvs.dev/model_component"
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR = SCRIPT_DIR.parent / "model_component"
+OUTPUT_DIR = PROJECT_ROOT / "model_component"
 
-# List of model component JSON files to process
+# Model components to generate
 MODEL_COMPONENTS = [
     "arpege-climat-version-6-3.json",
-    "bisicles-ukesm-ismip6-1.0.json",
-    "clm4.json",
-    "gelato.json",
-    "hadam3.json",
-    "nemo-v3-6.json",
-    "piscesv2-gas.json",
-    "reprobus-c-v2-0.json",
-    "surfex-v8-modeling-platform.json",
-    "tactic.json",
 ]
 
-# Dynamic keywords collected from processed components
-collected_keywords: set = set()
+# Icons (SVG paths)
+ICONS = {
+    "description": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>',
+    "domain": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+    "grid": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>',
+    "coupling": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>',
+    "tech": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>',
+    "reference": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>',
+    "chevron": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>',
+}
+
+# Keywords to highlight (collected from data)
+collected_keywords = set()
+
+# Base keywords that are always highlighted
+BASE_KEYWORDS = {
+    "atmosphere", "ocean", "land", "ice", "aerosol", "chemistry",
+    "carbon", "biogeochemistry", "climate", "earth system",
+    "coupled", "model", "component", "grid", "spectral", "gaussian",
+    "hybrid", "coordinate", "arakawa", "latitude", "longitude"
+}
 
 
-def safe_get_label(obj: Any, default: str = "") -> str:
-    """Safely extract ui_label or @id from an object that may be dict or string.
-    
-    This is critical for handling JSON-LD nested objects like arrangement and
-    vertical_coordinate which come as full dict objects but we only want the label.
-    """
-    if obj is None:
-        return default
-    if isinstance(obj, str):
-        return obj
-    if isinstance(obj, dict):
-        # Try ui_label first, then @id, then default
-        return obj.get("ui_label", "") or obj.get("@id", "") or default
-    return default
+def escape_html(text: str) -> str:
+    """Escape HTML special characters."""
+    if not text:
+        return ""
+    return (text
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;"))
 
 
 def parse_domain(domain_data: Any) -> Optional[dict]:
-    """Parse a scientific domain into a standardized dict."""
-    if is_none_value(domain_data):
+    """Parse a scientific domain from various input formats."""
+    if not domain_data:
         return None
     
-    # Handle string "none" case
+    if domain_data == "none":
+        return None
+        
     if isinstance(domain_data, str):
-        if domain_data.lower() == "none":
-            return None
         return {
             "id": domain_data,
-            "name": domain_data,
+            "name": domain_data.replace("-", " ").title(),
             "description": "",
-            "validation_key": "",
-            "aliases": [],
+            "aliases": []
         }
     
     if isinstance(domain_data, dict):
-        # Handle aliases - can be string or list
-        aliases = domain_data.get("alias", [])
-        if isinstance(aliases, str):
-            aliases = [aliases]
-        
         return {
             "id": domain_data.get("@id", ""),
-            "name": domain_data.get("ui_label") or domain_data.get("description") or domain_data.get("@id", "Unknown"),
+            "name": domain_data.get("ui_label") or domain_data.get("description") or domain_data.get("@id", "").replace("-", " ").title(),
             "description": domain_data.get("description", ""),
-            "validation_key": domain_data.get("validation_key", ""),
-            "aliases": aliases,
+            "aliases": [domain_data.get("alias")] if domain_data.get("alias") else []
         }
     
     return None
 
 
-def parse_domains(domains_data: Any) -> list:
-    """Parse multiple domains into a list."""
-    if is_none_value(domains_data):
-        return []
-    
-    if isinstance(domains_data, dict):
-        parsed = parse_domain(domains_data)
-        return [parsed] if parsed else []
-    
-    if isinstance(domains_data, list):
-        result = []
-        for item in domains_data:
-            parsed = parse_domain(item)
-            if parsed:
-                result.append(parsed)
-        return result
-    
-    return []
-
-
 def parse_family(family_data: Any) -> Optional[dict]:
-    """Parse family data into a standardized dict."""
-    if is_none_value(family_data):
+    """Parse family information."""
+    if not family_data:
         return None
     
     if isinstance(family_data, str):
         return {
             "id": family_data,
-            "name": family_data,
-            "description": "",
+            "name": family_data.replace("-", " ").title(),
+            "description": ""
         }
     
     if isinstance(family_data, dict):
         return {
             "id": family_data.get("@id", ""),
-            "name": family_data.get("ui_label") or family_data.get("@id", "Unknown"),
-            "description": family_data.get("description", ""),
-            "validation_key": family_data.get("validation_key", ""),
-            "primary_institution": family_data.get("primary_institution", ""),
+            "name": family_data.get("ui_label") or family_data.get("@id", "").replace("-", " ").title(),
+            "description": family_data.get("description", "")
         }
     
     return None
 
 
-def parse_cell_variable_type(cvt: Any) -> Optional[dict]:
-    """Parse cell_variable_type which can be string, dict, or list."""
-    if cvt is None:
+def parse_coupled_with(coupled_data: Any) -> list:
+    """Parse coupled_with field which can be a list or single item."""
+    if not coupled_data:
+        return []
+    
+    if isinstance(coupled_data, list):
+        return [parse_domain(item) for item in coupled_data if parse_domain(item)]
+    
+    domain = parse_domain(coupled_data)
+    return [domain] if domain else []
+
+
+def parse_horizontal_grid(grid_data: Any) -> Optional[dict]:
+    """Parse horizontal computational grid data."""
+    if not grid_data:
         return None
     
-    # Handle list of variable types (e.g., ["mass", "x-velocity", "y-velocity"])
-    if isinstance(cvt, list):
-        names = []
-        for item in cvt:
-            if isinstance(item, str):
-                # Convert kebab-case to Title Case
-                names.append(item.replace("-", " ").title())
-            elif isinstance(item, dict):
-                names.append(item.get("ui_label", "") or item.get("@id", ""))
-        return {
-            "id": cvt[0] if isinstance(cvt[0], str) else cvt[0].get("@id", ""),
-            "name": ", ".join(names),
-            "description": "",
-        }
-    
-    # Handle dict
-    if isinstance(cvt, dict):
-        return {
-            "id": cvt.get("@id", ""),
-            "name": cvt.get("ui_label", "") or cvt.get("@id", ""),
-            "description": cvt.get("description", ""),
-        }
-    
-    # Handle string
-    if isinstance(cvt, str):
-        return {
-            "id": cvt,
-            "name": cvt.replace("-", " ").title(),
-            "description": "",
-        }
-    
-    return None
-
-
-def parse_subgrid(subgrid_data: Any) -> Optional[dict]:
-    """Parse a single subgrid entry."""
-    if is_none_value(subgrid_data):
-        return None
-    
-    if isinstance(subgrid_data, str):
-        return {
-            "id": subgrid_data,
-            "description": "",
-            "cell_variable_type": None,
-            "grid_cells": None,
-        }
-    
-    if isinstance(subgrid_data, dict):
-        # Parse cell_variable_type (can be string, dict, or list)
-        cell_variable_type = parse_cell_variable_type(subgrid_data.get("cell_variable_type"))
-        
-        # Parse grid_cells reference
-        hgc = subgrid_data.get("horizontal_grid_cells")
-        grid_cells = None
-        if isinstance(hgc, dict):
-            grid_cells = {
-                "id": hgc.get("@id", ""),
-                "grid_type": hgc.get("grid_type", ""),
-                "n_cells": hgc.get("n_cells"),
-                "region": hgc.get("region", ""),
-                "x_resolution": hgc.get("x_resolution"),
-                "y_resolution": hgc.get("y_resolution"),
-                "truncation_number": hgc.get("truncation_number"),
-                "truncation_method": hgc.get("truncation_method"),
-            }
-        elif isinstance(hgc, str):
-            grid_cells = {
-                "id": hgc,
-                "grid_type": "",
-                "n_cells": None,
-                "region": "",
-                "x_resolution": None,
-                "y_resolution": None,
-            }
-        
-        return {
-            "id": subgrid_data.get("@id", ""),
-            "description": subgrid_data.get("description", ""),
-            "cell_variable_type": cell_variable_type,
-            "grid_cells": grid_cells,
-        }
-    
-    return None
-
-
-def parse_grid(grid_data: Any, grid_type: str) -> Optional[dict]:
-    """Parse horizontal or vertical grid data."""
-    if is_none_value(grid_data):
-        return None
-    
-    # Handle string "none" case
     if isinstance(grid_data, str):
-        if grid_data.lower() == "none":
-            return None
-        return {
-            "id": grid_data,
-            "description": "",
-            "validation_key": grid_data,
-        }
+        return {"id": grid_data, "description": "", "arrangement": None, "subgrids": []}
     
-    if isinstance(grid_data, dict):
-        result = {
-            "id": grid_data.get("@id", ""),
-            "description": grid_data.get("description", ""),
-            "validation_key": grid_data.get("validation_key", ""),
-        }
-        
-        if grid_type == "horizontal":
-            # CRITICAL: Extract ui_label from arrangement dict using safe_get_label
-            result["arrangement"] = safe_get_label(grid_data.get("arrangement", ""))
-            
-            # Handle subgrids - can be single dict OR list
-            subgrids_raw = grid_data.get("horizontal_subgrids", [])
-            subgrids = []
-            
-            if isinstance(subgrids_raw, dict):
-                # Single subgrid as dict
-                parsed = parse_subgrid(subgrids_raw)
-                if parsed:
-                    subgrids.append(parsed)
-            elif isinstance(subgrids_raw, list):
-                # List of subgrids
-                for sg in subgrids_raw:
-                    parsed = parse_subgrid(sg)
-                    if parsed:
-                        subgrids.append(parsed)
-            
-            result["subgrids"] = subgrids
-            
-        elif grid_type == "vertical":
-            result["n_z"] = grid_data.get("n_z", "")
-            # CRITICAL: Extract ui_label from vertical_coordinate dict using safe_get_label
-            result["coordinate"] = safe_get_label(grid_data.get("vertical_coordinate", ""))
-            result["top_thickness"] = grid_data.get("top_layer_thickness", "")
-            result["bottom_thickness"] = grid_data.get("bottom_layer_thickness", "")
-            result["total_thickness"] = grid_data.get("total_thickness", "")
-        
-        return result
+    if not isinstance(grid_data, dict):
+        return None
     
-    return None
-
-
-def parse_code_base(code_base: Any) -> dict:
-    """Parse code_base into a structured dict."""
-    if is_none_value(code_base):
-        return {"value": None, "is_private": False, "is_url": False}
+    # Parse arrangement
+    arrangement = None
+    arr_data = grid_data.get("arrangement")
+    if arr_data:
+        if isinstance(arr_data, str):
+            arrangement = arr_data.replace("-", " ").title()
+        elif isinstance(arr_data, dict):
+            arrangement = arr_data.get("ui_label") or arr_data.get("description", "")
     
-    if not isinstance(code_base, str):
-        return {"value": str(code_base), "is_private": False, "is_url": False}
-    
-    is_private = code_base.lower() == "private"
-    is_url = code_base.startswith("http://") or code_base.startswith("https://")
+    # Parse subgrids
+    subgrids = []
+    subgrid_data = grid_data.get("horizontal_subgrids", [])
+    if isinstance(subgrid_data, list):
+        for sg in subgrid_data:
+            if isinstance(sg, dict):
+                # Parse cell variable type
+                cell_var_type = sg.get("cell_variable_type")
+                cell_type_info = None
+                if cell_var_type:
+                    if isinstance(cell_var_type, str):
+                        cell_type_info = {"id": cell_var_type, "name": cell_var_type.title()}
+                    elif isinstance(cell_var_type, dict):
+                        cell_type_info = {
+                            "id": cell_var_type.get("@id", ""),
+                            "name": cell_var_type.get("ui_label") or cell_var_type.get("@id", "").title()
+                        }
+                
+                # Parse grid cells reference
+                grid_cells_ref = sg.get("horizontal_grid_cells")
+                grid_cells_info = None
+                if grid_cells_ref:
+                    if isinstance(grid_cells_ref, str):
+                        grid_cells_info = {"id": grid_cells_ref}
+                    elif isinstance(grid_cells_ref, dict):
+                        grid_cells_info = {
+                            "id": grid_cells_ref.get("@id", ""),
+                            "grid_type": grid_cells_ref.get("grid_type", ""),
+                            "n_cells": grid_cells_ref.get("n_cells"),
+                            "x_resolution": grid_cells_ref.get("x_resolution"),
+                            "y_resolution": grid_cells_ref.get("y_resolution"),
+                            "region": grid_cells_ref.get("region", {}).get("ui_label") if isinstance(grid_cells_ref.get("region"), dict) else None,
+                            "truncation_number": grid_cells_ref.get("truncation_number"),
+                            "truncation_method": grid_cells_ref.get("truncation_method"),
+                        }
+                
+                subgrids.append({
+                    "id": sg.get("@id", ""),
+                    "description": sg.get("description", ""),
+                    "cell_variable_type": cell_type_info,
+                    "grid_cells": grid_cells_info
+                })
     
     return {
-        "value": code_base,
-        "is_private": is_private,
-        "is_url": is_url,
+        "id": grid_data.get("@id", ""),
+        "description": grid_data.get("description", ""),
+        "arrangement": arrangement,
+        "subgrids": subgrids
     }
 
 
-def collect_keywords_from_data(data: dict) -> list:
-    """Extract potential keywords from component data."""
-    keywords = []
+def parse_vertical_grid(grid_data: Any) -> Optional[dict]:
+    """Parse vertical computational grid data."""
+    if not grid_data:
+        return None
     
-    # Component name
-    name = data.get("name")
+    if isinstance(grid_data, str):
+        return {"id": grid_data, "description": "", "n_z": None, "coordinate": None}
+    
+    if not isinstance(grid_data, dict):
+        return None
+    
+    # Parse vertical coordinate
+    coordinate = None
+    coord_data = grid_data.get("vertical_coordinate")
+    if coord_data:
+        if isinstance(coord_data, str):
+            coordinate = coord_data.replace("-", " ").title()
+        elif isinstance(coord_data, dict):
+            coordinate = coord_data.get("ui_label") or coord_data.get("description", "")
+    
+    return {
+        "id": grid_data.get("@id", ""),
+        "description": grid_data.get("description", ""),
+        "n_z": grid_data.get("n_z"),
+        "coordinate": coordinate,
+        "top_thickness": grid_data.get("top_layer_thickness"),
+        "bottom_thickness": grid_data.get("bottom_layer_thickness"),
+        "total_thickness": grid_data.get("total_thickness")
+    }
+
+
+def parse_code_base(code_base: Any) -> dict:
+    """Parse code_base field."""
+    if not code_base:
+        return {"value": None, "is_private": False, "is_url": False}
+    
+    if isinstance(code_base, str):
+        is_private = code_base.lower() == "private"
+        is_url = code_base.startswith("http://") or code_base.startswith("https://")
+        return {
+            "value": code_base,
+            "is_private": is_private,
+            "is_url": is_url
+        }
+    
+    return {"value": str(code_base), "is_private": False, "is_url": False}
+
+
+def parse_references(refs: Any) -> list:
+    """Parse references field."""
+    if not refs:
+        return []
+    
+    if isinstance(refs, str):
+        return [refs]
+    
+    if isinstance(refs, list):
+        return [str(r) for r in refs]
+    
+    return []
+
+
+def collect_keywords_from_data(data: dict) -> set:
+    """Extract keywords from component data for highlighting."""
+    keywords = set()
+    
+    # Add component name words
+    name = data.get("name", "")
     if name:
-        keywords.append(name)
+        keywords.update(word.lower() for word in name.split() if len(word) > 3)
     
-    # Family
+    # Add family name
     family = data.get("family")
     if isinstance(family, dict):
-        family_name = family.get("ui_label") or family.get("@id")
-        if family_name and not is_none_value(family_name):
-            keywords.append(family_name)
-    elif isinstance(family, str) and not is_none_value(family):
-        keywords.append(family)
+        family_name = family.get("ui_label") or family.get("@id", "")
+        if family_name:
+            keywords.update(word.lower() for word in family_name.replace("-", " ").split() if len(word) > 3)
     
-    # Component domain label
+    # Add domain names
     component = data.get("component")
     if isinstance(component, dict):
-        ui_label = component.get("ui_label")
-        if ui_label:
-            keywords.append(ui_label)
-    
-    # Coupled domain labels
-    coupled_with = data.get("coupled_with")
-    if isinstance(coupled_with, list):
-        for item in coupled_with:
-            if isinstance(item, dict):
-                label = item.get("ui_label")
-                if label:
-                    keywords.append(label)
-    elif isinstance(coupled_with, dict):
-        label = coupled_with.get("ui_label")
-        if label:
-            keywords.append(label)
+        domain_name = component.get("ui_label") or component.get("description", "")
+        if domain_name:
+            keywords.add(domain_name.lower())
     
     return keywords
 
 
 def get_all_keywords() -> list:
-    """Get combined list of default and collected keywords."""
-    return HIGHLIGHT_KEYWORDS + list(collected_keywords)
+    """Get combined list of all keywords for highlighting."""
+    all_kw = BASE_KEYWORDS | collected_keywords
+    # Sort by length (longest first) to avoid partial replacements
+    return sorted(all_kw, key=len, reverse=True)
+
+
+def highlight_keywords(text: str, extra_keywords: list = None) -> str:
+    """Highlight important keywords in text with bold tags."""
+    if not text:
+        return ""
+    
+    # Start with escaped text
+    result = escape_html(text)
+    
+    # Keywords to highlight
+    keywords = get_all_keywords()
+    if extra_keywords:
+        keywords = list(extra_keywords) + keywords
+    
+    # Track which positions have been replaced to avoid double-highlighting
+    import re
+    
+    for keyword in keywords:
+        if not keyword or len(keyword) < 3:
+            continue
+        # Case-insensitive word boundary match
+        pattern = re.compile(r'\b(' + re.escape(keyword) + r')\b', re.IGNORECASE)
+        # Only replace if not already inside a tag
+        def replace_if_not_tagged(match):
+            return f'<strong>{match.group(1)}</strong>'
+        
+        # Simple replacement (may double-highlight in edge cases, but acceptable)
+        result = pattern.sub(replace_if_not_tagged, result)
+    
+    # Clean up any double-strong tags
+    result = re.sub(r'<strong><strong>', '<strong>', result)
+    result = re.sub(r'</strong></strong>', '</strong>', result)
+    
+    return result
 
 
 def prepare_template_context(data: dict) -> dict:
@@ -412,11 +382,11 @@ def prepare_template_context(data: dict) -> dict:
     embedded_in = parse_domain(data.get("embedded_in"))
     
     # Coupled with
-    coupled_with = parse_domains(data.get("coupled_with"))
+    coupled_with = parse_coupled_with(data.get("coupled_with"))
     
     # Grids
-    horizontal_grid = parse_grid(data.get("horizontal_computational_grid"), "horizontal")
-    vertical_grid = parse_grid(data.get("vertical_computational_grid"), "vertical")
+    horizontal_grid = parse_horizontal_grid(data.get("horizontal_computational_grid"))
+    vertical_grid = parse_vertical_grid(data.get("vertical_computational_grid"))
     
     # Code base
     code_base = parse_code_base(data.get("code_base"))
@@ -442,6 +412,7 @@ def prepare_template_context(data: dict) -> dict:
         "references": references,
         "icons": ICONS,
         "raw_json": json.dumps(data),  # Raw JSON for copy protection
+        "generated_date": datetime.now().strftime("%Y-%m-%d %H:%M UTC"),
     }
 
 
@@ -476,8 +447,7 @@ def prefetch_all_keywords() -> None:
 def process_component(env: Environment, template, filename: str) -> bool:
     """Fetch and process a single model component."""
     url = f"{BASE_URL}/{filename}"
-    output_name = filename.replace(".json", ".html")
-    output_path = OUTPUT_DIR / output_name
+    output_path = OUTPUT_DIR / filename.replace(".json", ".html")
     
     print(f"  Processing: {filename}")
     
@@ -504,35 +474,23 @@ def process_component(env: Environment, template, filename: str) -> bool:
 
 def main():
     """Main entry point."""
-    print("=" * 60)
+    print("\n" + "=" * 60)
     print("Model Component Page Generator")
-    print("=" * 60)
+    print("=" * 60 + "\n")
     
-    # Create output directory
-    print(f"\nCreating output directory: {OUTPUT_DIR}")
+    # Ensure output directory exists
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"Output directory: {OUTPUT_DIR}\n")
     
-    if not TEMPLATE_DIR.exists():
-        print(f"Error: Template directory not found: {TEMPLATE_DIR}")
-        return 1
-    
-    print(f"Template directory: {TEMPLATE_DIR}")
-    print(f"Output directory: {OUTPUT_DIR}")
-    print(f"Processing {len(MODEL_COMPONENTS)} model components...\n")
-    
-    # Pre-fetch to collect all keywords first
+    # Pre-fetch keywords
     prefetch_all_keywords()
     
+    # Setup Jinja environment
     env = setup_jinja_env()
+    template = env.get_template("model_component.html.j2")
     
-    try:
-        template = env.get_template("model_component.html.j2")
-    except Exception as e:
-        print(f"Error loading template: {e}")
-        import traceback
-        traceback.print_exc()
-        return 1
-    
+    # Process all components
+    print("Generating pages...")
     success_count = 0
     fail_count = 0
     
@@ -542,14 +500,14 @@ def main():
         else:
             fail_count += 1
     
-    print("\n" + "=" * 60)
+    # Summary
+    print("\n" + "-" * 60)
     print(f"Complete: {success_count} succeeded, {fail_count} failed")
-    print("=" * 60)
+    print("-" * 60 + "\n")
     
+    cmipld.client.close()
     return 0 if fail_count == 0 else 1
 
 
-# if __name__ == "__main__":
-#     sys.exit(main())
-
+# Run on import for mkdocs
 main()
