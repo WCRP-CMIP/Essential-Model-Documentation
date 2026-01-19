@@ -7,6 +7,7 @@
    ============================================ */
 
 :root {
+  /* Default to light mode */
   --emd-bg: #ffffff;
   --emd-bg-secondary: #f8fafc;
   --emd-bg-tertiary: #f1f5f9;
@@ -49,15 +50,130 @@
 }
 
 /* ============================================
-   HEADER - HIDDEN (search stays functional)
+   HEADER
    ============================================ */
 
 .md-header {
+  background: var(--emd-bg);
+  border-bottom: 1px solid var(--emd-border);
+  box-shadow: var(--emd-shadow-sm);
+  position: relative;
+}
+
+/* Colored line across whole header */
+.md-header::after {
+  content: '';
   position: absolute;
-  left: -9999px;
-  visibility: hidden;
-  height: 0;
-  overflow: hidden;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--md-primary-fg-color);
+  opacity: 0.5;
+}
+
+/* GitHub and theme toggle in header */
+.md-header__inner {
+  display: flex;
+  align-items: center;
+}
+
+.md-header__button.md-logo {
+  padding: 0.4rem;
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  transform: scale(1.30);
+}
+
+/* Hide header title */
+.md-header__title {
+  display: none;
+}
+
+/* Place GitHub on right side of header - fixed to RHS within header */
+.md-header__source {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+/* Header repo link - primary color with icon */
+.header-repo {
+  color: var(--md-primary-fg-color);
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.header-repo svg {
+  height: 32px;
+  width: auto;
+}
+
+.header-repo span {
+  font-size: 0.55rem;
+}
+
+.header-repo:hover {
+  color: var(--md-primary-fg-color--dark);
+  opacity: 0.8;
+}
+
+/* Header dark mode toggle - visible and styled */
+.header-toggle {
+  opacity: 1;
+  transition: opacity 0.2s, transform 0.2s;
+  user-select: none;
+}
+
+.header-toggle:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+/* Search bar styling - white with colored elements */
+.md-search__form {
+  background: white;
+  border: 2px solid var(--md-primary-fg-color);
+  border-radius: 4px;
+}
+
+.md-search__input {
+  color: var(--md-primary-fg-color);
+}
+
+.md-search__input::placeholder {
+  color: var(--md-primary-fg-color);
+  opacity: 0.6;
+}
+
+.md-search__icon {
+  color: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-search__form {
+  background: white;
+  border-color: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  color: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: var(--md-primary-fg-color);
+  opacity: 0.6;
+}
+
+[data-md-color-scheme="slate"] .md-search__icon {
+  color: var(--md-primary-fg-color);
 }
 
 /* ============================================
@@ -78,18 +194,37 @@
 
 .md-main__inner {
   max-width: none;
+  margin-top: 0;
+}
+
+.md-main__inner.md-grid {
+  margin-top: 0;
 }
 
 /* Left sidebar - Navigation */
 .md-sidebar--primary {
   width: 13rem;
-  border-top: 3px solid var(--md-primary-fg-color);
+  padding-top: 0;
 }
 
-/* Right sidebar - TOC */
-.md-sidebar--secondary {
+.md-sidebar {
+  padding-top: 0;
+}
+
+/* Show repo source in header instead of sidebar */
+.md-nav__source {
+  display: none;
+}
+
+/* Right sidebar - TOC - ONLY the direct child of md-main__inner */
+.md-main__inner > .md-sidebar--secondary {
   width: 12rem;
-  border-top: 3px solid var(--md-primary-fg-color);
+}
+
+/* Hide any nested/duplicate sidebars */
+.md-nav__item .md-sidebar--secondary,
+.md-sidebar--primary .md-sidebar--secondary {
+  display: none !important;
 }
 
 /* Content area */
@@ -130,6 +265,7 @@
   box-shadow: none;
 }
 
+/* Hide icon in site title */
 .md-nav--primary > .md-nav__title .md-nav__icon {
   display: none;
 }
@@ -194,15 +330,29 @@
 }
 
 /* Nested items */
+.md-nav__item--nested > .md-nav__link {
+  position: relative;
+}
+
+/* Add unicode symbol for expandable items */
+.md-nav__item--nested > .md-nav__link::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  transition: transform 0.2s;
+}
+
 .md-nav__item--nested .md-nav {
   margin-left: 0.4rem;
   padding-left: 0.4rem;
   border-left: 1px solid var(--emd-border-light);
 }
 
+/* Hide all navigation icons */
 .md-nav__icon {
-  width: 0.8rem;
-  height: 0.8rem;
+  display: none;
 }
 
 /* ============================================
@@ -227,81 +377,6 @@
   font-size: 0.7rem;
   padding: 0.25rem 0.6rem;
   margin: 1px 0.3rem;
-}
-
-/* ============================================
-   SIDEBAR CONTROLS (GitHub + Toggle)
-   ============================================ */
-
-.sidebar-controls {
-  padding: 0.6rem;
-  border-bottom: 1px solid var(--emd-border-light);
-  margin-bottom: 0.5rem;
-}
-
-.sidebar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.sidebar-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* GitHub icon - adapts to color scheme */
-.sidebar-github {
-  padding: 0.25rem;
-  border-radius: 4px;
-  color: var(--emd-text);
-}
-
-.sidebar-github:hover {
-  color: var(--emd-primary);
-  background: var(--emd-primary-light);
-}
-
-.sidebar-github svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* Dark mode toggle */
-.sidebar-toggle {
-  margin-left: auto;
-}
-
-.toggle-track {
-  position: relative;
-  width: 32px;
-  height: 16px;
-  background: var(--emd-bg-tertiary);
-  border: 1px solid var(--emd-border);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.sidebar-toggle:hover .toggle-track {
-  border-color: var(--emd-primary);
-}
-
-.toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 10px;
-  height: 10px;
-  background: var(--emd-primary);
-  border-radius: 50%;
-  transition: all 0.2s ease;
-}
-
-[data-md-color-scheme="slate"] .toggle-thumb {
-  left: 18px;
-  background: var(--emd-accent);
 }
 
 /* ============================================
@@ -448,45 +523,6 @@
 }
 
 /* ============================================
-   ADMONITIONS
-   ============================================ */
-
-.md-typeset .admonition,
-.md-typeset details {
-  border: 1px solid var(--emd-border);
-  border-radius: var(--emd-radius-md);
-  box-shadow: var(--emd-shadow-sm);
-  overflow: hidden;
-  margin: 1.5rem 0;
-}
-
-.md-typeset .admonition-title,
-.md-typeset summary {
-  font-family: "Noto Sans", var(--md-text-font);
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.75rem 1rem;
-  background: var(--emd-bg-secondary);
-  border-bottom: 1px solid var(--emd-border-light);
-}
-
-.md-typeset .admonition > :last-child,
-.md-typeset details > :last-child {
-  margin-bottom: 0;
-}
-
-.md-typeset .admonition > .admonition-title + *,
-.md-typeset details > summary + * {
-  margin-top: 0;
-  padding: 1rem;
-}
-
-.md-typeset .admonition.note { border-left: 3px solid var(--emd-primary); }
-.md-typeset .admonition.tip { border-left: 3px solid #10b981; }
-.md-typeset .admonition.warning { border-left: 3px solid #f59e0b; }
-.md-typeset .admonition.danger { border-left: 3px solid #ef4444; }
-
-/* ============================================
    TABS
    ============================================ */
 
@@ -524,7 +560,7 @@
 .md-footer__inner {
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem 1rem;
+  padding: 0 1rem;
   border-top: 1px solid var(--emd-border-light);
 }
 
@@ -560,38 +596,36 @@
   color: var(--emd-primary);
 }
 
+/* Copyright overlay - fixed at bottom */
 .md-footer-meta {
-  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 1000;
+  background: transparent;
 }
 
 .md-footer__attribution {
-  padding: 1rem 0;
-  border-top: 1px solid var(--emd-border-light);
+  padding: 0.5rem 1rem;
+  border-top: none;
   text-align: center;
+  background: transparent;
+  pointer-events: none;
 }
 
 .md-footer__attribution p {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--emd-text-tertiary);
   margin: 0;
+  opacity: 0.7;
 }
 
 .md-footer__attribution a {
   color: var(--emd-primary);
   text-decoration: none;
-}
-
-/* ============================================
-   SEARCH - Hide from header (it's offscreen)
-   ============================================ */
-
-/* Search results modal still works */
-.md-search__output {
-  position: fixed;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
+  pointer-events: auto;
 }
 
 /* ============================================
@@ -600,7 +634,7 @@
 
 @media screen and (max-width: 76.25em) {
   .md-sidebar--primary { width: 11rem; }
-  .md-sidebar--secondary { width: 11rem; }
+  .md-main__inner > .md-sidebar--secondary { width: 11rem; }
 }
 
 @media screen and (max-width: 60em) {

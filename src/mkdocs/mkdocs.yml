@@ -24,20 +24,18 @@ theme:
     - search.suggest
     - search.highlight
     - content.code.copy
-  icon:
-    repo: fontawesome/brands/github
   palette:
     - scheme: default
       primary: blue
       accent: light blue
       toggle:
-        icon: material/weather-sunny
+        icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
       primary: blue
       accent: light blue
       toggle:
-        icon: material/weather-night
+        icon: material/weather-sunny
         name: Switch to light mode
 
 plugins:

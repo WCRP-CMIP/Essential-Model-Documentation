@@ -4,10 +4,6 @@
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ config.site_name }}</title>
 {% endblock %}
 
-{% block header %}
-  <!-- Header hidden via CSS, but we keep the search functional -->
-{% endblock %}
-
 {% block scripts %}
   {{ super() }}
   <script>
@@ -26,58 +22,101 @@
       });
     }
     
-    // Add controls to right sidebar (TOC)
-    function setupSidebarControls() {
-      const tocNav = document.querySelector('.md-sidebar--secondary .md-nav--secondary');
-      if (!tocNav) return;
+    // Add repo link and dark mode toggle to header source area
+    function setupHeaderControls() {
+      const headerSource = document.querySelector('.md-header__source');
+      if (!headerSource) return;
       
       // Check if controls already exist
-      if (document.querySelector('.sidebar-controls')) return;
+      if (headerSource.querySelector('.header-repo')) return;
       
-      // Create controls container
-      const controls = document.createElement('div');
-      controls.className = 'sidebar-controls';
+      // Get repo URL and name
+      const repoUrl = '{{ config.repo_url | default("", true) }}';
+      const repoName = '{{ config.repo_name | default("", true) }}';
       
-      // Get repo URL from config
-      const repoLink = document.querySelector('.md-header [href*="github.com"]');
-      const repoUrl = repoLink ? repoLink.href : '';
+      // Find the palette toggle input
+      const paletteInputs = document.querySelectorAll('input[name="__palette"]');
+      let toggleInput = null;
+      paletteInputs.forEach(function(input) {
+        if (!input.checked) {
+          toggleInput = input;
+        }
+      });
       
-      // Find the palette toggle
-      const paletteLabel = document.querySelector('.md-header__option [for^="__palette"]');
-      const toggleFor = paletteLabel ? paletteLabel.getAttribute('for') : '__palette_1';
+      // Create container
+      const container = document.createElement('div');
+      container.style.display = 'flex';
+      container.style.alignItems = 'center';
+      container.style.gap = '1rem';
       
-      controls.innerHTML = `
-        <div class="sidebar-actions">
-          ${repoUrl ? `
-          <a href="${repoUrl}" title="GitHub" class="sidebar-action-btn sidebar-github" target="_blank" rel="noopener">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-          </a>
-          ` : ''}
-          <label class="sidebar-action-btn sidebar-toggle" for="${toggleFor}">
-            <div class="toggle-track">
-              <div class="toggle-thumb"></div>
-            </div>
-          </label>
-        </div>
-      `;
+      // Create repo link with icon
+      if (repoUrl) {
+        const link = document.createElement('a');
+        link.href = repoUrl;
+        link.className = 'header-repo';
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.style.display = 'flex';
+        link.style.alignItems = 'center';
+        link.style.gap = '0.4rem';
+        
+        // GitHub icon SVG - 2/3 of 48px = 32px
+        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.setAttribute('viewBox', '0 0 16 16');
+        icon.setAttribute('height', '32');
+        icon.style.fill = 'currentColor';
+        icon.innerHTML = '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>';
+        
+        const text = document.createElement('span');
+        text.textContent = repoName;
+        text.style.fontSize = '0.55rem';
+        
+        link.appendChild(icon);
+        link.appendChild(text);
+        container.appendChild(link);
+      }
       
-      // Insert before the TOC nav
-      tocNav.parentNode.insertBefore(controls, tocNav);
+      // Create dark mode toggle
+      if (toggleInput) {
+        const toggleLabel = document.createElement('label');
+        toggleLabel.htmlFor = toggleInput.id;
+        toggleLabel.className = 'header-toggle';
+        toggleLabel.style.cursor = 'pointer';
+        toggleLabel.style.display = 'flex';
+        toggleLabel.style.alignItems = 'center';
+        
+        const scheme = document.body.getAttribute('data-md-color-scheme');
+        const icon = scheme === 'slate' ? '☀️' : '🌙';
+        toggleLabel.textContent = icon;
+        toggleLabel.style.fontSize = '1.2rem';
+        
+        container.appendChild(toggleLabel);
+      }
+      
+      headerSource.innerHTML = '';
+      headerSource.appendChild(container);
     }
     
-    // Run on load and navigation
+    // Update toggle icon when scheme changes
+    function updateToggleIcon() {
+      const toggle = document.querySelector('.header-toggle');
+      if (toggle) {
+        const scheme = document.body.getAttribute('data-md-color-scheme');
+        toggle.textContent = scheme === 'slate' ? '☀️' : '🌙';
+      }
+    }
+    
+    // Run on load
     document.addEventListener('DOMContentLoaded', function() {
       updateLogo();
-      setTimeout(setupSidebarControls, 100);
+      setTimeout(setupHeaderControls, 50);
     });
     
     // For instant navigation
     if (typeof document$ !== 'undefined') {
       document$.subscribe(function() {
         updateLogo();
-        setTimeout(setupSidebarControls, 100);
+        setTimeout(setupHeaderControls, 50);
       });
     }
     
@@ -86,6 +125,7 @@
       mutations.forEach(function(mutation) {
         if (mutation.attributeName === 'data-md-color-scheme') {
           updateLogo();
+          updateToggleIcon();
         }
       });
     }).observe(document.body, { attributes: true });
