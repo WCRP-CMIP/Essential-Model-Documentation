@@ -252,7 +252,7 @@ body.emd-page {
 /* ===== DOMAIN CARDS ===== */
 .emd-domain-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 }
 
@@ -303,6 +303,23 @@ body.emd-page {
     color: var(--page-text-secondary);
     line-height: 1.5;
     margin-bottom: 0.75rem;
+}
+
+.emd-domain-card-aliases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+
+.emd-alias-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--page-bg);
+    border: 1px solid var(--page-border);
+    border-radius: 4px;
+    color: var(--page-text-secondary);
 }
 
 .emd-domain-card-meta {
@@ -542,4 +559,12 @@ body.emd-page {
     .emd-domain-grid { grid-template-columns: 1fr; }
     .emd-grid-card-stats { flex-direction: column; }
     .emd-grid-card-stat { flex: 1 1 100%; }
+}
+
+@media (max-width: 1200px) {
+    .emd-domain-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    .emd-domain-grid { grid-template-columns: repeat(2, 1fr); }
 }

@@ -1,13 +1,12 @@
-/* CMIP Documentation - Polished Theme matching generated pages */
+/* CMIP Documentation - Polished Theme */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans:wght@400;500;600;700&display=swap');
 
 /* ============================================
-   CSS VARIABLES - Matching shared-page.css
+   CSS VARIABLES
    ============================================ */
 
 :root {
-  /* Colors matching generated pages */
   --emd-bg: #ffffff;
   --emd-bg-secondary: #f8fafc;
   --emd-bg-tertiary: #f1f5f9;
@@ -19,26 +18,18 @@
   --emd-primary: #3b82f6;
   --emd-primary-light: #dbeafe;
   --emd-accent: #0ea5e9;
-  --emd-accent-light: #e0f2fe;
-  --emd-purple: #8b5cf6;
-  --emd-purple-light: #ede9fe;
   
-  /* Override MkDocs primary colors */
   --md-primary-fg-color: #3b82f6;
   --md-primary-fg-color--light: #60a5fa;
   --md-primary-fg-color--dark: #2563eb;
   --md-accent-fg-color: #0ea5e9;
   
-  /* Typography */
   --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --md-code-font: "JetBrains Mono", "Fira Code", monospace;
+  --md-code-font: "JetBrains Mono", monospace;
   
-  /* Shadows & Radii */
   --emd-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --emd-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
   --emd-radius-sm: 6px;
   --emd-radius-md: 8px;
-  --emd-radius-lg: 12px;
 }
 
 [data-md-color-scheme="slate"] {
@@ -51,8 +42,6 @@
   --emd-border: #334155;
   --emd-border-light: #1e293b;
   --emd-primary-light: #1e3a5f;
-  --emd-accent-light: #0c4a6e;
-  --emd-purple-light: #2e1065;
   
   --md-default-bg-color: #0f172a;
   --md-default-fg-color: #f1f5f9;
@@ -60,8 +49,28 @@
 }
 
 /* ============================================
+   HEADER - HIDDEN (search stays functional)
+   ============================================ */
+
+.md-header {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ============================================
    LAYOUT
    ============================================ */
+
+.md-container {
+  padding-top: 0;
+}
+
+.md-main {
+  margin-top: 0;
+}
 
 .md-grid {
   max-width: 100%;
@@ -71,110 +80,86 @@
   max-width: none;
 }
 
+/* Left sidebar - Navigation */
 .md-sidebar--primary {
-  width: 14rem;
-}
-
-.md-sidebar--secondary {
   width: 13rem;
+  border-top: 3px solid var(--md-primary-fg-color);
 }
 
+/* Right sidebar - TOC */
+.md-sidebar--secondary {
+  width: 12rem;
+  border-top: 3px solid var(--md-primary-fg-color);
+}
+
+/* Content area */
 .md-content {
-  max-width: 56rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1.5rem;
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Remove mask/fade from sidebars */
+.md-sidebar__scrollwrap,
+.md-sidebar__inner {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
 }
 
 /* ============================================
-   HEADER - Clean & Modern
+   LEFT SIDEBAR - Navigation
    ============================================ */
 
-.md-header {
-  background: var(--emd-bg);
-  border-bottom: 1px solid var(--emd-border);
-  box-shadow: var(--emd-shadow-sm);
+.md-sidebar--primary .md-sidebar__inner {
+  padding: 0.75rem 0;
 }
 
-[data-md-color-scheme="slate"] .md-header {
-  background: var(--emd-bg-secondary);
-  border-bottom-color: var(--emd-border);
-}
-
-.md-header__inner {
-  padding: 0 1rem;
-}
-
-.md-header__title {
-  font-family: var(--md-text-font);
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--emd-text);
-}
-
-[data-md-color-scheme="slate"] .md-header__title {
-  color: var(--emd-text);
-}
-
-.md-header__button.md-logo img,
-.md-header__button.md-logo svg {
-  height: 1.75rem;
-}
-
-.md-header__topic {
-  font-weight: 500;
-}
-
-/* Search */
-.md-search__form {
-  background: var(--emd-bg-secondary);
-  border: 1px solid var(--emd-border);
-  border-radius: var(--emd-radius-md);
-}
-
-.md-search__form:hover {
-  border-color: var(--emd-primary);
-}
-
-.md-search__input {
-  font-family: var(--md-text-font);
-  font-size: 0.85rem;
-}
-
-.md-search__input::placeholder {
-  color: var(--emd-text-tertiary);
-}
-
-/* Header icons */
-.md-header__button {
-  color: var(--emd-text-secondary);
-}
-
-.md-header__button:hover {
-  color: var(--emd-primary);
-}
-
-/* ============================================
-   NAVIGATION - Refined Sidebar
-   ============================================ */
-
-.md-sidebar {
-  padding: 1.5rem 0;
-}
-
-.md-nav {
+/* Site title with logo */
+.md-nav--primary > .md-nav__title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.6rem 0.6rem;
+  font-family: "Noto Sans", var(--md-text-font);
   font-size: 0.8rem;
-  line-height: 1.5;
+  font-weight: 600;
+  color: var(--emd-text);
+  border-bottom: 1px solid var(--emd-border-light);
+  margin-bottom: 0.4rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.md-nav--primary > .md-nav__title .md-nav__icon {
+  display: none;
+}
+
+.md-nav--primary > .md-nav__title .md-logo {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.md-nav--primary > .md-nav__title .md-logo img,
+.md-nav--primary > .md-nav__title .md-logo svg {
+  height: 1.1rem;
+  width: auto;
+}
+
+/* Navigation items */
+.md-nav {
+  font-size: 0.75rem;
+  line-height: 1.4;
 }
 
 .md-nav__title {
-  font-family: var(--md-text-font);
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-family: "Noto Sans", var(--md-text-font);
+  font-size: 0.55rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--emd-text-tertiary);
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.6rem 0.3rem;
 }
 
 .md-nav__item {
@@ -182,12 +167,12 @@
 }
 
 .md-nav__link {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
   color: var(--emd-text-secondary);
-  border-radius: var(--emd-radius-sm);
-  margin: 0.1rem 0.5rem;
-  transition: all 0.15s ease;
+  border-radius: 4px;
+  margin: 1px 0.4rem;
+  display: block;
 }
 
 .md-nav__link:hover {
@@ -199,31 +184,128 @@
 .md-nav__item--active > .md-nav__link {
   color: var(--emd-primary);
   background: var(--emd-primary-light);
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* External link indicator */
 .md-nav__link[href^="http"]::after {
   content: " ↗";
-  font-size: 0.65em;
-  opacity: 0.6;
-  margin-left: 0.25rem;
+  font-size: 0.55em;
+  opacity: 0.4;
 }
 
-/* Nested nav */
-.md-nav--secondary .md-nav__link {
-  font-size: 0.75rem;
-  padding: 0.4rem 0.75rem;
+/* Nested items */
+.md-nav__item--nested .md-nav {
+  margin-left: 0.4rem;
+  padding-left: 0.4rem;
+  border-left: 1px solid var(--emd-border-light);
 }
 
-/* TOC */
-.md-nav--secondary .md-nav__title {
-  font-size: 0.65rem;
-  color: var(--emd-text-tertiary);
+.md-nav__icon {
+  width: 0.8rem;
+  height: 0.8rem;
 }
 
 /* ============================================
-   TYPOGRAPHY - Matching Generated Pages
+   RIGHT SIDEBAR - TOC
+   ============================================ */
+
+.md-sidebar--secondary .md-sidebar__inner {
+  padding: 0.5rem 0;
+}
+
+/* TOC nav */
+.md-nav--secondary .md-nav__title {
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--emd-text-tertiary);
+  padding: 0.5rem 0.6rem 0.25rem;
+}
+
+.md-nav--secondary .md-nav__link {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  margin: 1px 0.3rem;
+}
+
+/* ============================================
+   SIDEBAR CONTROLS (GitHub + Toggle)
+   ============================================ */
+
+.sidebar-controls {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--emd-border-light);
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* GitHub icon - adapts to color scheme */
+.sidebar-github {
+  padding: 0.25rem;
+  border-radius: 4px;
+  color: var(--emd-text);
+}
+
+.sidebar-github:hover {
+  color: var(--emd-primary);
+  background: var(--emd-primary-light);
+}
+
+.sidebar-github svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Dark mode toggle */
+.sidebar-toggle {
+  margin-left: auto;
+}
+
+.toggle-track {
+  position: relative;
+  width: 32px;
+  height: 16px;
+  background: var(--emd-bg-tertiary);
+  border: 1px solid var(--emd-border);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover .toggle-track {
+  border-color: var(--emd-primary);
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  background: var(--emd-primary);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+[data-md-color-scheme="slate"] .toggle-thumb {
+  left: 18px;
+  background: var(--emd-accent);
+}
+
+/* ============================================
+   TYPOGRAPHY
    ============================================ */
 
 .md-typeset {
@@ -233,7 +315,7 @@
 }
 
 .md-typeset h1 {
-  font-family: var(--md-text-font);
+  font-family: "Noto Sans", var(--md-text-font);
   font-size: 2rem;
   font-weight: 700;
   color: var(--emd-text);
@@ -242,7 +324,7 @@
 }
 
 .md-typeset h2 {
-  font-family: var(--md-text-font);
+  font-family: "Noto Sans", var(--md-text-font);
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--emd-text);
@@ -252,7 +334,7 @@
 }
 
 .md-typeset h3 {
-  font-family: var(--md-text-font);
+  font-family: "Noto Sans", var(--md-text-font);
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--emd-text);
@@ -262,7 +344,7 @@
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
-  font-family: var(--md-text-font);
+  font-family: "Noto Sans", var(--md-text-font);
   font-weight: 600;
   color: var(--emd-text);
 }
@@ -286,7 +368,7 @@
 }
 
 /* ============================================
-   CODE - Modern Styling
+   CODE
    ============================================ */
 
 .md-typeset code {
@@ -319,7 +401,6 @@
   border-color: #334155;
 }
 
-/* Code copy button */
 .md-clipboard {
   color: var(--emd-text-tertiary);
 }
@@ -329,7 +410,7 @@
 }
 
 /* ============================================
-   TABLES - Clean Design
+   TABLES
    ============================================ */
 
 .md-typeset table:not([class]) {
@@ -344,11 +425,11 @@
 .md-typeset table:not([class]) th {
   background: var(--emd-bg-secondary);
   color: var(--emd-text);
-  font-family: var(--md-text-font);
+  font-family: "Noto Sans", var(--md-text-font);
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--emd-border);
 }
@@ -367,7 +448,7 @@
 }
 
 /* ============================================
-   ADMONITIONS - Card Style
+   ADMONITIONS
    ============================================ */
 
 .md-typeset .admonition,
@@ -381,7 +462,7 @@
 
 .md-typeset .admonition-title,
 .md-typeset summary {
-  font-family: var(--md-text-font);
+  font-family: "Noto Sans", var(--md-text-font);
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.75rem 1rem;
@@ -400,32 +481,13 @@
   padding: 1rem;
 }
 
-/* Note */
-.md-typeset .admonition.note,
-.md-typeset details.note {
-  border-left: 3px solid var(--emd-primary);
-}
-
-/* Tip */
-.md-typeset .admonition.tip,
-.md-typeset details.tip {
-  border-left: 3px solid #10b981;
-}
-
-/* Warning */
-.md-typeset .admonition.warning,
-.md-typeset details.warning {
-  border-left: 3px solid #f59e0b;
-}
-
-/* Danger */
-.md-typeset .admonition.danger,
-.md-typeset details.danger {
-  border-left: 3px solid #ef4444;
-}
+.md-typeset .admonition.note { border-left: 3px solid var(--emd-primary); }
+.md-typeset .admonition.tip { border-left: 3px solid #10b981; }
+.md-typeset .admonition.warning { border-left: 3px solid #f59e0b; }
+.md-typeset .admonition.danger { border-left: 3px solid #ef4444; }
 
 /* ============================================
-   TABS - Modern Style
+   TABS
    ============================================ */
 
 .md-typeset .tabbed-set {
@@ -450,13 +512,8 @@
   color: var(--emd-primary);
 }
 
-.md-typeset .tabbed-labels > label[for]:checked {
-  color: var(--emd-primary);
-  border-bottom: 2px solid var(--emd-primary);
-}
-
 /* ============================================
-   FOOTER - Minimal & Clean
+   FOOTER
    ============================================ */
 
 .md-footer {
@@ -477,21 +534,14 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.15s ease;
 }
 
 .md-footer__link:hover {
   color: var(--md-primary-fg-color--dark);
 }
 
-.md-footer__link--prev {
-  margin-right: auto;
-}
-
-.md-footer__link--next {
-  margin-left: auto;
-  text-align: right;
-}
+.md-footer__link--prev { margin-right: auto; }
+.md-footer__link--next { margin-left: auto; text-align: right; }
 
 .md-footer__title {
   display: flex;
@@ -514,7 +564,6 @@
   display: none;
 }
 
-/* Attribution footer */
 .md-footer__attribution {
   padding: 1rem 0;
   border-top: 1px solid var(--emd-border-light);
@@ -532,44 +581,17 @@
   text-decoration: none;
 }
 
-.md-footer__attribution a:hover {
-  text-decoration: underline;
-}
-
 /* ============================================
-   BADGES & TAGS
+   SEARCH - Hide from header (it's offscreen)
    ============================================ */
 
-.md-typeset .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  border-radius: 100px;
-  background: var(--emd-accent-light);
-  color: var(--emd-accent);
-}
-
-/* ============================================
-   CONTENT CARDS
-   ============================================ */
-
-.md-typeset .card {
-  background: var(--emd-bg-secondary);
-  border: 1px solid var(--emd-border);
-  border-radius: var(--emd-radius-md);
-  padding: 1.25rem;
-  margin: 1rem 0;
-  transition: all 0.2s ease;
-}
-
-.md-typeset .card:hover {
-  box-shadow: var(--emd-shadow-md);
-  transform: translateY(-2px);
+/* Search results modal still works */
+.md-search__output {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 }
 
 /* ============================================
@@ -577,61 +599,29 @@
    ============================================ */
 
 @media screen and (max-width: 76.25em) {
-  .md-sidebar--primary {
-    width: 12rem;
-  }
-  .md-sidebar--secondary {
-    width: 12rem;
-  }
+  .md-sidebar--primary { width: 11rem; }
+  .md-sidebar--secondary { width: 11rem; }
 }
 
 @media screen and (max-width: 60em) {
-  .md-content {
-    padding: 0 1rem;
-  }
-  
-  .md-typeset h1 {
-    font-size: 1.75rem;
-  }
-  
-  .md-typeset h2 {
-    font-size: 1.25rem;
-  }
+  .md-content { padding: 0 1rem; }
+  .md-typeset h1 { font-size: 1.75rem; }
+  .md-typeset h2 { font-size: 1.25rem; }
 }
 
 @media print {
-  .md-header,
-  .md-footer,
-  .md-sidebar {
-    display: none !important;
-  }
-  
-  .md-content {
-    max-width: 100%;
-  }
+  .md-sidebar { display: none !important; }
+  .md-content { max-width: 100%; }
 }
 
 /* ============================================
-   SCROLLBAR - Subtle Design
+   SCROLLBAR
    ============================================ */
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--emd-bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--emd-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--emd-text-tertiary);
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--emd-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--emd-text-tertiary); }
 
 /* ============================================
    SELECTION
@@ -640,18 +630,4 @@
 ::selection {
   background: var(--emd-primary-light);
   color: var(--emd-primary);
-}
-
-/* ============================================
-   SMOOTH TRANSITIONS
-   ============================================ */
-
-* {
-  transition-property: background-color, border-color, color;
-  transition-duration: 0.15s;
-  transition-timing-function: ease;
-}
-
-a, button, .md-nav__link, .md-footer__link {
-  transition: all 0.15s ease;
 }

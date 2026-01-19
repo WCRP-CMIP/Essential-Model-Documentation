@@ -10,50 +10,38 @@ site_dir: site
 
 theme:
   name: material
-  logo: stylesheets/logo.svg
+  logo: stylesheets/logo-light.svg
   favicon: stylesheets/logo.svg
   custom_dir: overrides
-  font: false  # We load Inter via CSS
+  font: false
   features:
     - navigation.instant
-    - navigation.instant.progress
     - navigation.tracking
     - navigation.path
     - navigation.indexes
     - navigation.footer
-    - navigation.top
     - toc.follow
     - search.suggest
     - search.highlight
-    - search.share
     - content.code.copy
-    - content.code.annotate
   icon:
     repo: fontawesome/brands/github
-    admonition:
-      note: fontawesome/solid/circle-info
-      tip: fontawesome/solid/lightbulb
-      warning: fontawesome/solid/triangle-exclamation
-      danger: fontawesome/solid/circle-xmark
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    - scheme: default
       primary: blue
       accent: light blue
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-sunny
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    - scheme: slate
       primary: blue
       accent: light blue
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-night
         name: Switch to light mode
 
 plugins:
-  - search:
-      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])'
+  - search
   - literate-nav:
       nav_file: SUMMARY.md
       implicit_index: true
@@ -65,10 +53,6 @@ hooks:
 
 extra:
   generator: false
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/WCRP-CMIP
-      name: WCRP-CMIP on GitHub
 
 extra_css:
   - stylesheets/extra.css
@@ -82,24 +66,13 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
-      permalink_title: Link to this section
       toc_depth: 3
   - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
-      combine_header_slug: true
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.mark
-  - pymdownx.keys
-  - pymdownx.smartsymbols

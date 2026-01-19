@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ config.site_name }}</title>
+{% endblock %}
+
+{% block header %}
+  <!-- Header hidden via CSS, but we keep the search functional -->
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    // Logo switching based on color scheme
+    function updateLogo() {
+      const scheme = document.body.getAttribute('data-md-color-scheme');
+      const logos = document.querySelectorAll('.md-logo img');
+      logos.forEach(function(logoImg) {
+        if (logoImg) {
+          if (scheme === 'slate') {
+            logoImg.src = logoImg.src.replace('logo-light.svg', 'logo-dark.svg');
+          } else {
+            logoImg.src = logoImg.src.replace('logo-dark.svg', 'logo-light.svg');
+          }
+        }
+      });
+    }
+    
+    // Add controls to right sidebar (TOC)
+    function setupSidebarControls() {
+      const tocNav = document.querySelector('.md-sidebar--secondary .md-nav--secondary');
+      if (!tocNav) return;
+      
+      // Check if controls already exist
+      if (document.querySelector('.sidebar-controls')) return;
+      
+      // Create controls container
+      const controls = document.createElement('div');
+      controls.className = 'sidebar-controls';
+      
+      // Get repo URL from config
+      const repoLink = document.querySelector('.md-header [href*="github.com"]');
+      const repoUrl = repoLink ? repoLink.href : '';
+      
+      // Find the palette toggle
+      const paletteLabel = document.querySelector('.md-header__option [for^="__palette"]');
+      const toggleFor = paletteLabel ? paletteLabel.getAttribute('for') : '__palette_1';
+      
+      controls.innerHTML = `
+        <div class="sidebar-actions">
+          ${repoUrl ? `
+          <a href="${repoUrl}" title="GitHub" class="sidebar-action-btn sidebar-github" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </a>
+          ` : ''}
+          <label class="sidebar-action-btn sidebar-toggle" for="${toggleFor}">
+            <div class="toggle-track">
+              <div class="toggle-thumb"></div>
+            </div>
+          </label>
+        </div>
+      `;
+      
+      // Insert before the TOC nav
+      tocNav.parentNode.insertBefore(controls, tocNav);
+    }
+    
+    // Run on load and navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      updateLogo();
+      setTimeout(setupSidebarControls, 100);
+    });
+    
+    // For instant navigation
+    if (typeof document$ !== 'undefined') {
+      document$.subscribe(function() {
+        updateLogo();
+        setTimeout(setupSidebarControls, 100);
+      });
+    }
+    
+    // Watch for scheme changes
+    new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.attributeName === 'data-md-color-scheme') {
+          updateLogo();
+        }
+      });
+    }).observe(document.body, { attributes: true });
+  </script>
+{% endblock %}

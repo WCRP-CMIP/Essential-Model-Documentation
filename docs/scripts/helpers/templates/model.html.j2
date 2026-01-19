@@ -68,61 +68,88 @@
                 </div>
             </section>
 
-            <!-- Dynamic Components -->
-            {% if dynamic_components %}
+            <!-- Model Components - All grouped together -->
+            {% set total_components = (dynamic_components | length) + (prescribed_components | length) + (omitted_components | length) %}
+            {% if total_components > 0 %}
             <section class="emd-section expanded">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
                         <div class="emd-section-icon">{{ icons.domain | safe }}</div>
-                        <h2 class="emd-section-title">Dynamic Components <span class="emd-section-count">({{ dynamic_components | length }})</span></h2>
+                        <h2 class="emd-section-title">Model Components <span class="emd-section-count">({{ total_components }})</span></h2>
                     </div>
                     <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
                 <div class="emd-section-content">
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
+                        
+                        <!-- Component Legend -->
+                        <div class="emd-component-legend">
+                            {% if dynamic_components %}<span class="emd-legend-item emd-legend-dynamic"><span class="emd-legend-dot"></span> Dynamic ({{ dynamic_components | length }})</span>{% endif %}
+                            {% if prescribed_components %}<span class="emd-legend-item emd-legend-prescribed"><span class="emd-legend-dot"></span> Prescribed ({{ prescribed_components | length }})</span>{% endif %}
+                            {% if omitted_components %}<span class="emd-legend-item emd-legend-omitted"><span class="emd-legend-dot"></span> Omitted ({{ omitted_components | length }})</span>{% endif %}
+                        </div>
+                        
                         <div class="emd-domain-grid">
+                            <!-- Dynamic Components - Blue -->
                             {% for comp in dynamic_components %}
-                            <div class="emd-domain-card">
+                            <div class="emd-domain-card emd-component-dynamic">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">{{ comp.name | e }}</span>
-                                    <span class="emd-domain-card-type">Dynamic</span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
                                 </div>
                                 <div class="emd-domain-card-id">@id: {{ comp.id | e }}</div>
                                 {% if comp.description %}
                                 <p class="emd-domain-card-description">{{ comp.description | e }}</p>
                                 {% endif %}
+                                {% if comp.aliases %}
+                                <div class="emd-domain-card-aliases">
+                                    {% for alias in comp.aliases %}
+                                    <span class="emd-alias-tag">{{ alias | e }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                             {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- Omitted Components -->
-            {% if omitted_components %}
-            <section class="emd-section">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.coupling | safe }}</div>
-                        <h2 class="emd-section-title">Omitted Components <span class="emd-section-count">({{ omitted_components | length }})</span></h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        <div class="emd-domain-grid">
-                            {% for comp in omitted_components %}
-                            <div class="emd-domain-card" style="border-left-color: #ef4444;">
+                            
+                            <!-- Prescribed Components - Green -->
+                            {% for comp in prescribed_components %}
+                            <div class="emd-domain-card emd-component-prescribed">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">{{ comp.name | e }}</span>
-                                    <span class="emd-domain-card-type" style="background: rgba(239,68,68,0.15); color: #ef4444;">Omitted</span>
+                                    <span class="emd-domain-card-type emd-type-prescribed">Prescribed</span>
                                 </div>
                                 <div class="emd-domain-card-id">@id: {{ comp.id | e }}</div>
                                 {% if comp.description %}
                                 <p class="emd-domain-card-description">{{ comp.description | e }}</p>
+                                {% endif %}
+                                {% if comp.aliases %}
+                                <div class="emd-domain-card-aliases">
+                                    {% for alias in comp.aliases %}
+                                    <span class="emd-alias-tag">{{ alias | e }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            
+                            <!-- Omitted Components - Red -->
+                            {% for comp in omitted_components %}
+                            <div class="emd-domain-card emd-component-omitted">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">{{ comp.name | e }}</span>
+                                    <span class="emd-domain-card-type emd-type-omitted">Omitted</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: {{ comp.id | e }}</div>
+                                {% if comp.description %}
+                                <p class="emd-domain-card-description">{{ comp.description | e }}</p>
+                                {% endif %}
+                                {% if comp.aliases %}
+                                <div class="emd-domain-card-aliases">
+                                    {% for alias in comp.aliases %}
+                                    <span class="emd-alias-tag">{{ alias | e }}</span>
+                                    {% endfor %}
+                                </div>
                                 {% endif %}
                             </div>
                             {% endfor %}

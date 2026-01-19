@@ -67,8 +67,28 @@ def parse_license(lic):
 
 def parse_domain(d):
     if is_none_value(d): return None
-    if isinstance(d, str): return {"id": d, "name": d, "description": ""}
-    if isinstance(d, dict): return {"id": d.get("@id", ""), "name": d.get("ui_label", "") or d.get("@id", ""), "description": d.get("description", "")}
+    if isinstance(d, str): return {"id": d, "name": d, "description": "", "aliases": []}
+    if isinstance(d, dict):
+        # Extract aliases from various possible fields
+        aliases = []
+        if d.get("aliases"):
+            a = d.get("aliases")
+            if isinstance(a, list):
+                aliases = a
+            elif isinstance(a, str):
+                aliases = [a]
+        elif d.get("labels"):
+            a = d.get("labels")
+            if isinstance(a, list):
+                aliases = a
+            elif isinstance(a, str):
+                aliases = [a]
+        return {
+            "id": d.get("@id", ""),
+            "name": d.get("ui_label", "") or d.get("@id", ""),
+            "description": d.get("description", ""),
+            "aliases": aliases
+        }
     return None
 
 

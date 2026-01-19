@@ -1,6 +1,82 @@
 /* MODEL PAGE STYLES - Model-specific additions to shared-page.css */
 @import url('shared-page.css');
 
+/* ===== COMPONENT COLORS ===== */
+:root {
+    --component-dynamic: #3b82f6;      /* Blue */
+    --component-dynamic-light: #dbeafe;
+    --component-prescribed: #10b981;   /* Green */
+    --component-prescribed-light: #d1fae5;
+    --component-omitted: #ef4444;      /* Red */
+    --component-omitted-light: #fee2e2;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --component-dynamic-light: rgba(59, 130, 246, 0.2);
+        --component-prescribed-light: rgba(16, 185, 129, 0.2);
+        --component-omitted-light: rgba(239, 68, 68, 0.2);
+    }
+}
+
+/* ===== COMPONENT LEGEND ===== */
+.emd-component-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--page-bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+}
+
+.emd-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--page-text-secondary);
+}
+
+.emd-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.emd-legend-dynamic .emd-legend-dot { background: var(--component-dynamic); }
+.emd-legend-prescribed .emd-legend-dot { background: var(--component-prescribed); }
+.emd-legend-omitted .emd-legend-dot { background: var(--component-omitted); }
+
+/* ===== COMPONENT CARDS ===== */
+.emd-component-dynamic {
+    border-left-color: var(--component-dynamic) !important;
+}
+
+.emd-component-prescribed {
+    border-left-color: var(--component-prescribed) !important;
+}
+
+.emd-component-omitted {
+    border-left-color: var(--component-omitted) !important;
+}
+
+/* ===== COMPONENT TYPE BADGES ===== */
+.emd-type-dynamic {
+    background: var(--component-dynamic-light) !important;
+    color: var(--component-dynamic) !important;
+}
+
+.emd-type-prescribed {
+    background: var(--component-prescribed-light) !important;
+    color: var(--component-prescribed) !important;
+}
+
+.emd-type-omitted {
+    background: var(--component-omitted-light) !important;
+    color: var(--component-omitted) !important;
+}
+
 /* ===== MODEL-SPECIFIC: LONG NAME ===== */
 .emd-long-name {
     font-size: 1.1rem;
