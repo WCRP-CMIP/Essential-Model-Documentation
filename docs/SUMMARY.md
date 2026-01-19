@@ -4,6 +4,8 @@
   - [Gelato](bidk/gelato.html)
   - [Info](bidk/info.html)
   - [Infobackup](bidk/infobackup.html)
+- Model:
+  - [Cnrm Esm2 1E](model/cnrm-esm2-1e.html)
 - Model Component:
   - [Arpege Climat Version 6 3](model_component/arpege-climat-version-6-3.html)
   - [Bisicles Ukesm Ismip6 1.0](model_component/bisicles-ukesm-ismip6-1.0.html)

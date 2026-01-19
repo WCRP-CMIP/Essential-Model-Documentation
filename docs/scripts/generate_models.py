@@ -1,101 +1,108 @@
 #!/usr/bin/env python3
-"""
-Build script to generate model HTML pages from JSON-LD metadata.
-
-This script fetches JSON-LD data from the EMD registry and generates
-styled HTML pages for each model using Jinja2 templates.
-
-Usage:
-    python generate_models.py
-
-Requirements:
-    pip install cmipld jinja2
-"""
+"""Model page generator - FIXED VERSION"""
 
 import json
 import sys
 from pathlib import Path
 from typing import Any, Optional
 
-# Resolve script directory (works regardless of working directory)
 SCRIPT_DIR = Path(__file__).resolve().parent
-
-# Add scripts dir to path for imports
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 try:
     import cmipld
 except ImportError:
-    print("Error: cmipld package not installed. Run: pip install cmipld")
+    print("Error: cmipld not installed")
     sys.exit(1)
 
 try:
-    from jinja2 import Environment
+    from jinja2 import Environment, FileSystemLoader
 except ImportError:
-    print("Error: jinja2 package not installed. Run: pip install jinja2")
+    print("Error: jinja2 not installed")
     sys.exit(1)
 
-from helpers import (
-    ICONS,
-    HIGHLIGHT_KEYWORDS,
-    is_none_value,
-    escape_html,
-    create_jinja_env,
-    create_section_macro,
-)
+from helpers import ICONS, HIGHLIGHT_KEYWORDS, is_none_value, escape_html
 from helpers.utils import parse_references, highlight_keywords
 
-
-# Configuration
 BASE_URL = "https://emd.mipcvs.dev/model"
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
 OUTPUT_DIR = SCRIPT_DIR.parent / "model"
-
-# List of model JSON files to process
-MODELS = [
-    "cnrm-esm2-1e.json",
-    # Add more models here as needed
-]
-
-# Dynamic keywords collected from processed models
-collected_keywords: set = set()
+MODELS = ["cnrm-esm2-1e.json"]
 
 
-def parse_scientific_domain(domain_data: Any) -> Optional[dict]:
-    """Parse a scientific domain (dynamic/omitted/prescribed component)."""
-    if is_none_value(domain_data):
+def safe_get_label(obj, default=""):
+    if obj is None:
+        return default
+    if isinstance(obj, str):
+        return obj
+    if isinstance(obj, dict):
+        return obj.get("ui_label", "") or obj.get("name", "") or obj.get("@id", "") or default
+    return default
+
+
+def parse_institution(inst_data):
+    if is_none_value(inst_data):
         return None
-    
-    if isinstance(domain_data, str):
-        return {
-            "id": domain_data,
-            "name": domain_data,
-            "description": "",
-            "type": "Domain",
-        }
-    
-    if isinstance(domain_data, dict):
-        return {
-            "id": domain_data.get("@id", ""),
-            "name": domain_data.get("ui_label") or domain_data.get("name") or domain_data.get("@id", "Unknown"),
-            "description": domain_data.get("description", ""),
-            "type": "Dynamic",
-            "validation_key": domain_data.get("validation_key", ""),
-        }
-    
+    if isinstance(inst_data, str):
+        return {"id": inst_data, "name": inst_data, "acronym": "", "url": "", "location": None}
+    if isinstance(inst_data, dict):
+        loc = inst_data.get("location")
+        location = None
+        if isinstance(loc, dict):
+            location = {"name": loc.get("name", ""), "country": loc.get("country_name", ""), "continent": loc.get("continent_name", "")}
+        name = inst_data.get("ui_label", "")
+        if not name:
+            labels = inst_data.get("labels")
+            if isinstance(labels, list) and labels:
+                name = labels[0]
+            elif isinstance(labels, str):
+                name = labels
+            else:
+                name = inst_data.get("@id", "")
+        url = inst_data.get("url", "")
+        if isinstance(url, list) and url:
+            url = url[0]
+        return {"id": inst_data.get("@id", ""), "name": name, "acronym": inst_data.get("acronyms", ""), "url": url, "location": location}
     return None
 
 
-def parse_scientific_domains(domains_data: Any) -> list:
-    """Parse scientific domains into a list."""
+def parse_component(comp_data):
+    if is_none_value(comp_data):
+        return None
+    if isinstance(comp_data, str):
+        return {"id": comp_data, "name": comp_data, "description": "", "domain": ""}
+    if isinstance(comp_data, dict):
+        return {"id": comp_data.get("@id", ""), "name": comp_data.get("name", "") or comp_data.get("@id", ""), "description": comp_data.get("description", ""), "domain": safe_get_label(comp_data.get("component"), ""), "family": safe_get_label(comp_data.get("family"), "")}
+    return None
+
+
+def parse_license(license_data):
+    if is_none_value(license_data):
+        return None
+    if isinstance(license_data, str):
+        return {"id": license_data, "name": license_data, "url": ""}
+    if isinstance(license_data, dict):
+        return {"id": license_data.get("@id", ""), "name": license_data.get("ui_label", "") or license_data.get("@id", ""), "url": license_data.get("url", "")}
+    return None
+
+
+def parse_scientific_domain(domain_data):
+    if is_none_value(domain_data):
+        return None
+    if isinstance(domain_data, str):
+        return {"id": domain_data, "name": domain_data, "description": ""}
+    if isinstance(domain_data, dict):
+        return {"id": domain_data.get("@id", ""), "name": domain_data.get("ui_label", "") or domain_data.get("@id", ""), "description": domain_data.get("description", "")}
+    return None
+
+
+def parse_scientific_domains(domains_data):
     if is_none_value(domains_data):
         return []
-    
     if isinstance(domains_data, dict):
         parsed = parse_scientific_domain(domains_data)
         return [parsed] if parsed else []
-    
     if isinstance(domains_data, list):
         result = []
         for item in domains_data:
@@ -103,267 +110,118 @@ def parse_scientific_domains(domains_data: Any) -> list:
             if parsed:
                 result.append(parsed)
         return result
-    
-    if isinstance(domains_data, str):
-        return [{"id": domains_data, "name": domains_data, "description": "", "type": "Domain"}]
-    
     return []
 
 
-def parse_calendar(calendar_data: Any) -> Optional[dict]:
-    """Parse calendar data."""
-    if is_none_value(calendar_data):
-        return None
-    
-    if isinstance(calendar_data, str):
-        return {"id": calendar_data, "name": calendar_data, "description": ""}
-    
-    if isinstance(calendar_data, dict):
-        return {
-            "id": calendar_data.get("@id", ""),
-            "name": calendar_data.get("ui_label") or calendar_data.get("name") or calendar_data.get("@id", "Unknown"),
-            "description": calendar_data.get("description", ""),
-            "validation_key": calendar_data.get("validation_key", ""),
-        }
-    
-    return None
-
-
-def collect_keywords_from_data(data: dict) -> list:
-    """Extract potential keywords from model data."""
-    keywords = []
-    
-    # Model name
-    name = data.get("name")
-    if name:
-        keywords.append(name)
-    
-    # Family
-    family = data.get("family")
-    if family and not is_none_value(family):
-        keywords.append(family)
-    
-    # Dynamic components
-    dynamic_components = data.get("dynamic_components") or []
-    if isinstance(dynamic_components, dict):
-        dynamic_components = [dynamic_components]
-    
-    for comp in dynamic_components:
-        if isinstance(comp, dict):
-            comp_name = comp.get("ui_label") or comp.get("name")
-            if comp_name:
-                keywords.append(comp_name)
-        elif isinstance(comp, str) and not is_none_value(comp):
-            keywords.append(comp)
-    
-    # Omitted components
-    omitted = data.get("omitted_components")
-    if isinstance(omitted, dict):
-        label = omitted.get("ui_label") or omitted.get("name")
-        if label:
-            keywords.append(label)
-    elif isinstance(omitted, list):
-        for item in omitted:
-            if isinstance(item, dict):
-                label = item.get("ui_label") or item.get("name")
-                if label:
-                    keywords.append(label)
-    
-    # Calendar
-    calendar = data.get("calendar")
-    if isinstance(calendar, dict):
-        cal_name = calendar.get("ui_label") or calendar.get("name")
-        if cal_name:
-            keywords.append(cal_name)
-    
-    return keywords
-
-
-def get_all_keywords() -> list:
-    """Get combined list of default and collected keywords."""
-    return HIGHLIGHT_KEYWORDS + list(collected_keywords)
-
-
-def prepare_template_context(data: dict) -> dict:
-    """Prepare the template context from raw JSON-LD data."""
-    
-    # Collect keywords from this model
-    new_keywords = collect_keywords_from_data(data)
-    collected_keywords.update(new_keywords)
-    
-    # Basic info
+def prepare_template_context(data):
     model_id = data.get("@id", "unknown")
-    name = data.get("name") or model_id.upper()
+    name = data.get("name") or data.get("ui_label") or model_id.upper()
     description = data.get("description") or "No description available."
-    family = data.get("family") or ""
-    
-    # Extra keywords for this specific model
-    extra_keywords = [name]
-    if family:
-        extra_keywords.append(family)
-    
-    # Use combined keywords for highlighting
-    all_keywords = get_all_keywords()
-    description_highlighted = highlight_keywords(description, extra_keywords + all_keywords)
-    
-    # Types
     types = data.get("@type", [])
     if isinstance(types, str):
         types = [types]
     
-    # Release year
-    release_year = data.get("release_year") or data.get("year") or ""
+    institution = parse_institution(data.get("institution"))
+    license_info = parse_license(data.get("license"))
     
-    # Dynamic components (scientific domains)
+    components_raw = data.get("model_components", [])
+    if not isinstance(components_raw, list):
+        components_raw = [components_raw] if components_raw else []
+    components = [parse_component(c) for c in components_raw if parse_component(c)]
+    
+    components_by_domain = {}
+    for comp in components:
+        domain = comp.get("domain", "Other") or "Other"
+        if domain not in components_by_domain:
+            components_by_domain[domain] = []
+        components_by_domain[domain].append(comp)
+    
     dynamic_components = parse_scientific_domains(data.get("dynamic_components"))
-    
-    # Omitted components
     omitted_components = parse_scientific_domains(data.get("omitted_components"))
-    
-    # Prescribed components
     prescribed_components = parse_scientific_domains(data.get("prescribed_components"))
     
-    # Calendar
-    calendar = parse_calendar(data.get("calendar"))
+    calendar = None
+    cal_data = data.get("calendar")
+    if cal_data:
+        calendar = {"id": safe_get_label(cal_data, ""), "name": safe_get_label(cal_data, ""), "description": cal_data.get("description", "") if isinstance(cal_data, dict) else ""}
     
-    # References
+    family = safe_get_label(data.get("family"), "")
+    
+    activity_raw = data.get("activity_participation", [])
+    activity = []
+    if isinstance(activity_raw, str):
+        activity = [activity_raw]
+    elif isinstance(activity_raw, dict):
+        activity = [safe_get_label(activity_raw)]
+    elif isinstance(activity_raw, list):
+        for item in activity_raw:
+            label = safe_get_label(item)
+            if label:
+                activity.append(label)
+    
     references = parse_references(data.get("references"))
+    release_year = data.get("release_year", "")
+    
+    extra_keywords = [name]
+    if institution:
+        extra_keywords.append(institution.get("name", ""))
+    description_highlighted = highlight_keywords(description, extra_keywords + HIGHLIGHT_KEYWORDS)
     
     return {
-        "id": model_id,
-        "name": name,
-        "family": family,
-        "description": escape_html(description),
-        "description_highlighted": description_highlighted,
-        "release_year": str(release_year) if release_year else "",
-        "validation_key": data.get("validation_key", ""),
-        "context_url": data.get("@context", ""),
-        "types": types,
-        "dynamic_components": dynamic_components,
-        "omitted_components": omitted_components,
-        "prescribed_components": prescribed_components,
-        "calendar": calendar,
-        "references": references,
-        "icons": ICONS,
-        "raw_json": json.dumps(data),  # Raw JSON for copy protection
+        "id": model_id, "name": name, "family": family,
+        "description": escape_html(description), "description_highlighted": description_highlighted,
+        "validation_key": data.get("validation_key", ""), "context_url": data.get("@context", ""),
+        "types": types, "institution": institution, "license": license_info,
+        "components": components, "components_by_domain": components_by_domain,
+        "component_count": len(components), "domain_count": len(components_by_domain),
+        "dynamic_components": dynamic_components, "omitted_components": omitted_components,
+        "prescribed_components": prescribed_components, "calendar": calendar,
+        "activity": activity, "release_year": str(release_year) if release_year else "",
+        "references": references, "icons": ICONS, "raw_json": json.dumps(data),
     }
 
 
-def setup_jinja_env() -> Environment:
-    """Create and configure Jinja2 environment with model-specific macros."""
-    env = create_jinja_env(TEMPLATE_DIR)
-    
-    # Add model-specific macros
-    env.globals["section"] = create_section_macro("model")
-    
-    def domain_card_macro(name, domain_type, domain_id, description):
-        """Render a scientific domain card."""
-        desc_html = f'<p class="model-card-description">{escape_html(description)}</p>' if description else ''
-        return f'''<div class="model-domain-card">
-                        <div class="model-card-header">
-                            <span class="model-card-title">{escape_html(name)}</span>
-                            <span class="model-card-type">{escape_html(domain_type)}</span>
-                        </div>
-                        <div class="model-card-id">@id: {escape_html(domain_id)}</div>
-                        {desc_html}
-                    </div>'''
-    
-    env.globals["domain_card"] = domain_card_macro
-    
-    return env
+def setup_jinja_env():
+    return Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=False)
 
 
-def prefetch_all_keywords() -> None:
-    """Pre-fetch all models to collect keywords before generating pages."""
-    print("  Collecting keywords from all models...")
-    
-    for filename in MODELS:
-        url = f"{BASE_URL}/{filename}"
-        try:
-            data = cmipld.get(url)
-            if data:
-                new_keywords = collect_keywords_from_data(data)
-                collected_keywords.update(new_keywords)
-        except Exception:
-            pass  # Silently skip errors during prefetch
-    
-    print(f"  Collected {len(collected_keywords)} additional keywords\n")
-
-
-def process_model(env: Environment, template, filename: str) -> bool:
-    """Fetch and process a single model."""
+def process_model(env, template, filename):
     url = f"{BASE_URL}/{filename}"
-    output_name = filename.replace(".json", ".html")
-    output_path = OUTPUT_DIR / output_name
-    
+    output_path = OUTPUT_DIR / filename.replace(".json", ".html")
     print(f"  Processing: {filename}")
-    
     try:
         data = cmipld.get(url)
-        
         if not data:
-            print(f"    ⚠ Warning: No data returned for {filename}")
+            print(f"    Warning: No data")
             return False
-        
         context = prepare_template_context(data)
         html = template.render(**context)
-        
         output_path.write_text(html, encoding="utf-8")
-        print(f"    ✓ Generated: {output_path.name}")
+        print(f"    Generated: {output_path.name}")
         return True
-        
     except Exception as e:
-        print(f"    ✗ Error processing {filename}: {e}")
+        print(f"    Error: {e}")
         import traceback
         traceback.print_exc()
         return False
 
 
-def run():
-    """Main entry point."""
-    print("=" * 60)
+def main():
     print("Model Page Generator")
-    print("=" * 60)
-    
-    # Create output directory
-    print(f"\nCreating output directory: {OUTPUT_DIR}")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    
-    if not TEMPLATE_DIR.exists():
-        print(f"Error: Template directory not found: {TEMPLATE_DIR}")
-        return 1
-    
-    print(f"Template directory: {TEMPLATE_DIR}")
-    print(f"Output directory: {OUTPUT_DIR}")
-    print(f"Processing {len(MODELS)} models...\n")
-    
-    # Pre-fetch to collect all keywords first
-    prefetch_all_keywords()
-    
     env = setup_jinja_env()
-    
     try:
         template = env.get_template("model.html.j2")
     except Exception as e:
-        print(f"Error loading template: {e}")
-        import traceback
-        traceback.print_exc()
+        print(f"Template error: {e}")
         return 1
-    
-    success_count = 0
-    fail_count = 0
-    
-    for filename in MODELS:
-        if process_model(env, template, filename):
-            success_count += 1
-        else:
-            fail_count += 1
-    
-    print("\n" + "=" * 60)
-    print(f"Complete: {success_count} succeeded, {fail_count} failed")
-    print("=" * 60)
-    
-    return 0 if fail_count == 0 else 1
+    success = sum(1 for f in MODELS if process_model(env, template, f))
+    print(f"Done: {success}/{len(MODELS)}")
+    cmipld.client.close()
+    return 0 if success == len(MODELS) else 1
 
 
-run()
+# if __name__ == "__main__":
+#     sys.exit(main())
+ 
+main()

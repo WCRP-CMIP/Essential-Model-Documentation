@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name | e }} | Climate Model</title>
+    <title>CNRM-ESM2-1e | Climate Model</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@400;500;600&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -19,36 +19,31 @@
                 <span>→</span>
                 <a href="https://emd.mipcvs.dev/model/" target="_blank">Models</a>
                 <span>→</span>
-                <span>{{ name | e }}</span>
+                <span>CNRM-ESM2-1e</span>
             </nav>
             <div class="model-badge">Climate Model</div>
-            <h1 class="model-title">{{ name | e }}</h1>
-            {% if family %}
-            <p class="model-long-name">{{ family | e }} Family</p>
-            {% endif %}
-            <p class="model-subtitle">{{ description | e }}</p>
+            <h1 class="model-title">CNRM-ESM2-1e</h1>
+            
+            <p class="model-long-name">cnrm-cm Family</p>
+            
+            <p class="model-subtitle">CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.</p>
             <div class="header-meta">
-                {% if institution %}
-                <div class="meta-item">
-                    <span class="meta-label">Institution</span>
-                    <span class="meta-value">{{ institution.name | e }}</span>
-                </div>
-                {% endif %}
-                {% if release_year %}
+                
+                
                 <div class="meta-item">
                     <span class="meta-label">Release Year</span>
-                    <span class="meta-value">{{ release_year }}</span>
+                    <span class="meta-value">2018</span>
                 </div>
-                {% endif %}
-                {% if calendar %}
+                
+                
                 <div class="meta-item">
                     <span class="meta-label">Calendar</span>
-                    <span class="meta-value">{{ calendar.name | e }}</span>
+                    <span class="meta-value">Standard (Gregorian)</span>
                 </div>
-                {% endif %}
+                
                 <div class="meta-item">
                     <span class="meta-label">Context</span>
-                    <span class="meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
+                    <span class="meta-value"><a href="https://emd.mipcvs.dev/model/cnrm-esm2-1e.json" target="_blank">JSON-LD →</a></span>
                 </div>
             </div>
         </header>
@@ -66,18 +61,18 @@
                 <div class="section-content">
                     <div class="section-body">
                         <div class="section-divider"></div>
-                        <p class="description-text">{{ description_highlighted | safe }}</p>
+                        <p class="description-text"><strong>CNRM-ESM2-1e</strong> is the CNRM <strong>Earth System</strong> model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the <strong>carbon</strong> in all the components leading to a more consistent/realistic <strong>carbon</strong> flux evolution in historical simulations.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Dynamic Components -->
-            {% if dynamic_components %}
+            
             <section class="section expanded">
                 <div class="section-header" onclick="toggleSection(this)">
                     <div class="section-title-wrapper">
                         <div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div>
-                        <h2 class="section-title">Dynamic Components<span class="section-count">({{ dynamic_components | length }})</span></h2>
+                        <h2 class="section-title">Dynamic Components<span class="section-count">(7)</span></h2>
                     </div>
                     <div class="section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
                 </div>
@@ -85,31 +80,97 @@
                     <div class="section-body">
                         <div class="section-divider"></div>
                         <div class="domain-grid">
-                            {% for comp in dynamic_components %}
+                            
                             <div class="domain-card">
                                 <div class="domain-card-header">
-                                    <span class="domain-card-title">{{ comp.name | e }}</span>
+                                    <span class="domain-card-title">Aerosol</span>
                                     <span class="domain-card-type">Dynamic</span>
                                 </div>
-                                <div class="domain-card-id">@id: {{ comp.id | e }}</div>
-                                {% if comp.description %}
-                                <p class="domain-card-description">{{ comp.description | e }}</p>
-                                {% endif %}
+                                <div class="domain-card-id">@id: aerosol</div>
+                                
+                                <p class="domain-card-description">Aerosol</p>
+                                
                             </div>
-                            {% endfor %}
+                            
+                            <div class="domain-card">
+                                <div class="domain-card-header">
+                                    <span class="domain-card-title">Atmosphere</span>
+                                    <span class="domain-card-type">Dynamic</span>
+                                </div>
+                                <div class="domain-card-id">@id: atmosphere</div>
+                                
+                                <p class="domain-card-description">Atmosphere</p>
+                                
+                            </div>
+                            
+                            <div class="domain-card">
+                                <div class="domain-card-header">
+                                    <span class="domain-card-title">Atmospheric Chemistry</span>
+                                    <span class="domain-card-type">Dynamic</span>
+                                </div>
+                                <div class="domain-card-id">@id: atmospheric-chemistry</div>
+                                
+                                <p class="domain-card-description">Atmospheric Chemistry</p>
+                                
+                            </div>
+                            
+                            <div class="domain-card">
+                                <div class="domain-card-header">
+                                    <span class="domain-card-title">Land Surface and Subsurface</span>
+                                    <span class="domain-card-type">Dynamic</span>
+                                </div>
+                                <div class="domain-card-id">@id: land-surface</div>
+                                
+                                <p class="domain-card-description">Land Surface and Subsurface</p>
+                                
+                            </div>
+                            
+                            <div class="domain-card">
+                                <div class="domain-card-header">
+                                    <span class="domain-card-title">Ocean</span>
+                                    <span class="domain-card-type">Dynamic</span>
+                                </div>
+                                <div class="domain-card-id">@id: ocean</div>
+                                
+                                <p class="domain-card-description">Ocean</p>
+                                
+                            </div>
+                            
+                            <div class="domain-card">
+                                <div class="domain-card-header">
+                                    <span class="domain-card-title">Ocean Biogeochemistry</span>
+                                    <span class="domain-card-type">Dynamic</span>
+                                </div>
+                                <div class="domain-card-id">@id: ocean-biogeochemistry</div>
+                                
+                                <p class="domain-card-description">Ocean Biogeochemistry</p>
+                                
+                            </div>
+                            
+                            <div class="domain-card">
+                                <div class="domain-card-header">
+                                    <span class="domain-card-title">Sea Ice</span>
+                                    <span class="domain-card-type">Dynamic</span>
+                                </div>
+                                <div class="domain-card-id">@id: sea-ice</div>
+                                
+                                <p class="domain-card-description">Sea Ice</p>
+                                
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </section>
-            {% endif %}
+            
 
             <!-- Omitted Components -->
-            {% if omitted_components %}
+            
             <section class="section">
                 <div class="section-header" onclick="toggleSection(this)">
                     <div class="section-title-wrapper">
                         <div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg></div>
-                        <h2 class="section-title">Omitted Components<span class="section-count">({{ omitted_components | length }})</span></h2>
+                        <h2 class="section-title">Omitted Components<span class="section-count">(1)</span></h2>
                     </div>
                     <div class="section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
                 </div>
@@ -117,23 +178,23 @@
                     <div class="section-body">
                         <div class="section-divider"></div>
                         <div class="domain-grid">
-                            {% for comp in omitted_components %}
+                            
                             <div class="domain-card" style="border-left-color: #ef4444;">
                                 <div class="domain-card-header">
-                                    <span class="domain-card-title">{{ comp.name | e }}</span>
+                                    <span class="domain-card-title">Land Ice</span>
                                     <span class="domain-card-type" style="background: rgba(239,68,68,0.15); color: #ef4444;">Omitted</span>
                                 </div>
-                                <div class="domain-card-id">@id: {{ comp.id | e }}</div>
-                                {% if comp.description %}
-                                <p class="domain-card-description">{{ comp.description | e }}</p>
-                                {% endif %}
+                                <div class="domain-card-id">@id: land-ice</div>
+                                
+                                <p class="domain-card-description">Land Ice</p>
+                                
                             </div>
-                            {% endfor %}
+                            
                         </div>
                     </div>
                 </div>
             </section>
-            {% endif %}
+            
 
             <!-- Technical Details -->
             <section class="section">
@@ -150,20 +211,20 @@
                         <div class="tech-grid">
                             <div class="tech-item">
                                 <div class="tech-label">Resource Identifier (@id)</div>
-                                <div class="tech-value">{{ id | e }}</div>
+                                <div class="tech-value">cnrm-esm2-1e</div>
                             </div>
                             <div class="tech-item">
                                 <div class="tech-label">Validation Key</div>
-                                <div class="tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
+                                <div class="tech-value">cnrm-esm2-1e</div>
                             </div>
                             <div class="tech-item">
                                 <div class="tech-label">JSON-LD Context</div>
-                                <div class="tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
+                                <div class="tech-value"><a href="https://emd.mipcvs.dev/model/cnrm-esm2-1e.json" target="_blank">emd.mipcvs.dev/model/cnrm-esm2-1e.json</a></div>
                             </div>
                             <div class="tech-item">
                                 <div class="tech-label">Resource Types (@type)</div>
                                 <div class="type-badges">
-                                    {% for t in types %}<span class="type-badge">{{ t | e }}</span>{% endfor %}
+                                    <span class="type-badge">emd</span><span class="type-badge">wcrp:model</span><span class="type-badge">esgvoc:Model</span>
                                 </div>
                             </div>
                         </div>
@@ -172,29 +233,33 @@
             </section>
 
             <!-- References -->
-            {% set ref_count = references | length if references else 0 %}
-            <section class="section{% if ref_count > 0 %} expanded{% endif %}">
+            
+            <section class="section expanded">
                 <div class="section-header" onclick="toggleSection(this)">
                     <div class="section-title-wrapper">
                         <div class="section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
-                        <h2 class="section-title">References<span class="section-count">({{ ref_count }})</span></h2>
+                        <h2 class="section-title">References<span class="section-count">(2)</span></h2>
                     </div>
                     <div class="section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
                 </div>
                 <div class="section-content">
                     <div class="section-body">
                         <div class="section-divider"></div>
-                        {% if references %}
-                        {% for ref in references %}
+                        
+                        
                         <a href="#" class="reference-item">
                             <div class="reference-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
-                            <span class="reference-text">{{ ref | e }}</span>
+                            <span class="reference-text">REF001</span>
                             <span class="reference-arrow">→</span>
                         </a>
-                        {% endfor %}
-                        {% else %}
-                        <p class="description-text">No references available.</p>
-                        {% endif %}
+                        
+                        <a href="#" class="reference-item">
+                            <div class="reference-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                            <span class="reference-text">REF002</span>
+                            <span class="reference-arrow">→</span>
+                        </a>
+                        
+                        
                     </div>
                 </div>
             </section>
