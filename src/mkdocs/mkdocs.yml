@@ -1,9 +1,9 @@
-site_name: CMIP-Template Documentation
-site_url: https://WCRP-CMIP.github.io/cmip-template-documentation/
-repo_url: https://github.com/WCRP-CMIP/cmip-template-documentation
-repo_name: WCRP-CMIP/cmip-template-documentation
-site_description: Documentation for CMIP-Template Documentation
-site_author: wolfiex
+site_name: Essential Model Documentation
+site_url: https://WCRP-CMIP.github.io/Essential-Model-Documentation/
+repo_url: https://github.com/WCRP-CMIP/Essential-Model-Documentation
+repo_name: WCRP-CMIP/Essential-Model-Documentation
+site_description: Documentation for CMIP Climate Models and Components
+site_author: WCRP-CMIP
 
 docs_dir: ../../docs
 site_dir: site
@@ -13,38 +13,47 @@ theme:
   logo: stylesheets/logo.svg
   favicon: stylesheets/logo.svg
   custom_dir: overrides
-  font:
-    text: Roboto
-    code: Roboto Mono
+  font: false  # We load Inter via CSS
   features:
     - navigation.instant
+    - navigation.instant.progress
     - navigation.tracking
     - navigation.path
     - navigation.indexes
     - navigation.footer
+    - navigation.top
     - toc.follow
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
+    - content.code.annotate
   icon:
     repo: fontawesome/brands/github
+    admonition:
+      note: fontawesome/solid/circle-info
+      tip: fontawesome/solid/lightbulb
+      warning: fontawesome/solid/triangle-exclamation
+      danger: fontawesome/solid/circle-xmark
   palette:
-    - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: blue
-      accent: blue
+      accent: light blue
       toggle:
-        icon: material/toggle-switch-off-outline
-        name: Dark mode
-    - scheme: slate
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       primary: blue
-      accent: blue
+      accent: light blue
       toggle:
-        icon: material/toggle-switch
-        name: Light mode
+        icon: material/brightness-4
+        name: Switch to light mode
 
 plugins:
-  - search
-
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])'
   - literate-nav:
       nav_file: SUMMARY.md
       implicit_index: true
@@ -56,6 +65,10 @@ hooks:
 
 extra:
   generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/WCRP-CMIP
+      name: WCRP-CMIP on GitHub
 
 extra_css:
   - stylesheets/extra.css
@@ -69,12 +82,24 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+      permalink_title: Link to this section
+      toc_depth: 3
   - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+      combine_header_slug: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.mark
+  - pymdownx.keys
+  - pymdownx.smartsymbols
