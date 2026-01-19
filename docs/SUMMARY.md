@@ -1,9 +1,9 @@
 - [Home](index.md)
 - Bidk:
   - [Warnings](bidk/Warnings.md)
-  - [Gelato](bidk/gelato.html)
-  - [Info](bidk/info.html)
-  - [Infobackup](bidk/infobackup.html)
+  - [Gelato](bidk/gelato.md)
+  - [Info](bidk/info.md)
+  - [Infobackup](bidk/infobackup.md)
 - Model:
   - [Cnrm Esm2 1E](model/cnrm-esm2-1e.html)
 - Model Component:
