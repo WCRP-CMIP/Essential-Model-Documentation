@@ -45,16 +45,13 @@ theme:
 plugins:
   - search
 
-  - gen-files:
-      scripts:
-        - hooks/run_scripts.py
-
   - literate-nav:
       nav_file: SUMMARY.md
       implicit_index: true
       tab_length: 2
 
 hooks:
+  - hooks/pre_build.py
   - hooks/generate_nav.py
 
 extra:

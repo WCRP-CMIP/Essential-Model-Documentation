@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate model HTML pages from JSON-LD metadata."""
+"""Generate model family HTML pages from JSON-LD metadata."""
 
 import json
 import sys
@@ -32,21 +32,24 @@ except ImportError:
 from helpers import ICONS, HIGHLIGHT_KEYWORDS, is_none_value, escape_html
 from helpers.utils import parse_references, highlight_keywords
 
-BASE_URL = "https://emd.mipcvs.dev/model"
+BASE_URL = "https://emd.mipcvs.dev/model_family"
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR = SCRIPT_DIR.parent / "model"
-MODELS = ["cnrm-esm2-1e.json"]
+OUTPUT_DIR = SCRIPT_DIR.parent / "model_family"
 
-
-def safe_get_label(obj, default=""):
-    if obj is None: return default
-    if isinstance(obj, str): return obj
-    if isinstance(obj, dict): return obj.get("ui_label", "") or obj.get("name", "") or obj.get("@id", "") or default
-    return default
+# Model families to generate
+MODEL_FAMILIES = [
+    "arpege-climat.json",
+    "bcc-csm.json",
+    "bisicles.json",
+    "cam.json",
+    "canesm.json",
+    "cesm.json",
+    "clm.json",
+]
 
 
 def parse_institution(inst):
-    if is_none_value(inst): return None
+    if is_none_value(inst) or inst == "none": return None
     if isinstance(inst, str): return {"id": inst, "name": inst, "acronym": "", "url": "", "location": None}
     if isinstance(inst, dict):
         loc = inst.get("location")
@@ -58,73 +61,45 @@ def parse_institution(inst):
     return None
 
 
-def parse_license(lic):
-    if is_none_value(lic): return None
-    if isinstance(lic, str): return {"id": lic, "name": lic, "url": ""}
-    if isinstance(lic, dict): return {"id": lic.get("@id", ""), "name": lic.get("ui_label", "") or lic.get("@id", ""), "url": lic.get("url", "")}
-    return None
-
-
 def parse_domain(d):
-    if is_none_value(d): return None
-    if isinstance(d, str): return {"id": d, "name": d, "description": ""}
-    if isinstance(d, dict): return {"id": d.get("@id", ""), "name": d.get("ui_label", "") or d.get("@id", ""), "description": d.get("description", "")}
-    return None
-
-
-def parse_domains(domains):
-    if is_none_value(domains): return []
-    if isinstance(domains, dict):
-        p = parse_domain(domains)
-        return [p] if p else []
-    if isinstance(domains, list): return [p for d in domains if (p := parse_domain(d))]
-    return []
-
-
-def parse_family(f):
-    if is_none_value(f): return None
-    if isinstance(f, str): return {"id": f, "name": f, "description": ""}
-    if isinstance(f, dict): return {"id": f.get("@id", ""), "name": f.get("ui_label", "") or f.get("@id", ""), "description": f.get("description", "")}
-    return None
-
-
-def parse_calendar(c):
-    if is_none_value(c): return None
-    if isinstance(c, str): return {"id": c, "name": c, "description": ""}
-    if isinstance(c, dict): return {"id": c.get("@id", ""), "name": c.get("ui_label", "") or c.get("@id", ""), "description": c.get("description", "")}
+    if is_none_value(d) or d == "none": return None
+    if isinstance(d, str): return {"id": d, "name": d.replace("-", " ").title(), "description": "", "alias": ""}
+    if isinstance(d, dict): return {
+        "id": d.get("@id", ""),
+        "name": d.get("ui_label", "") or d.get("description", "") or d.get("@id", "").replace("-", " ").title(),
+        "description": d.get("description", ""),
+        "alias": d.get("alias", "")
+    }
     return None
 
 
 def prepare_template_context(data):
-    model_id = data.get("@id", "unknown")
-    name = data.get("name") or data.get("ui_label") or model_id.upper()
+    family_id = data.get("@id", "unknown")
+    name = data.get("ui_label") or data.get("validation_key") or family_id.upper()
+    if not name or name == "":
+        name = family_id.upper()
     description = data.get("description") or "No description available."
     types = data.get("@type", [])
     if isinstance(types, str): types = [types]
     
-    institution = parse_institution(data.get("institution"))
-    license_info = parse_license(data.get("license"))
-    family = parse_family(data.get("family"))
-    calendar = parse_calendar(data.get("calendar"))
-    dynamic_components = parse_domains(data.get("dynamic_components"))
-    omitted_components = parse_domains(data.get("omitted_components"))
-    prescribed_components = parse_domains(data.get("prescribed_components"))
+    primary_institution = parse_institution(data.get("primary_institution"))
+    scientific_domain = parse_domain(data.get("scientific_domains"))
     references = parse_references(data.get("references"))
-    release_year = data.get("release_year", "")
+    established = data.get("established", "")
+    if established == "none": established = ""
     
     extra_kw = [name]
-    if family: extra_kw.append(family.get("name", ""))
     description_highlighted = highlight_keywords(description, extra_kw + HIGHLIGHT_KEYWORDS)
     
     return {
-        "id": model_id, "name": name, "description": escape_html(description),
+        "id": family_id, "name": name, "description": escape_html(description),
         "description_highlighted": description_highlighted,
         "validation_key": data.get("validation_key", ""),
         "context_url": data.get("@context", ""), "types": types,
-        "institution": institution, "license": license_info, "family": family,
-        "calendar": calendar, "dynamic_components": dynamic_components,
-        "omitted_components": omitted_components, "prescribed_components": prescribed_components,
-        "release_year": release_year, "references": references,
+        "primary_institution": primary_institution,
+        "scientific_domain": scientific_domain,
+        "established": established,
+        "references": references,
         "icons": ICONS, "raw_json": json.dumps(data),
         "generated_date": datetime.now().strftime("%Y-%m-%d %H:%M UTC"),
     }
@@ -134,7 +109,7 @@ def setup_jinja_env():
     return Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=False)
 
 
-def process_model(env, template, filename, pbar=None):
+def process_family(env, template, filename, pbar=None):
     url = f"{BASE_URL}/{filename}"
     output_path = OUTPUT_DIR / filename.replace(".json", ".html")
     if pbar:
@@ -162,7 +137,7 @@ def clear_output_dir():
 
 
 def main():
-    print("Model Page Generator")
+    print("Model Family Page Generator")
     print("=" * 40)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
@@ -171,18 +146,18 @@ def main():
     
     env = setup_jinja_env()
     try:
-        template = env.get_template("model.html.j2")
+        template = env.get_template("model_family.html.j2")
     except Exception as e:
         print(f"Template error: {e}")
         return 1
     
     success = 0
-    with tqdm(MODELS, desc="Generating models", unit="file") as pbar:
+    with tqdm(MODEL_FAMILIES, desc="Generating families", unit="file") as pbar:
         for filename in pbar:
-            if process_model(env, template, filename, pbar):
+            if process_family(env, template, filename, pbar):
                 success += 1
     
-    print(f"Done: {success}/{len(MODELS)} models generated")
+    print(f"Done: {success}/{len(MODEL_FAMILIES)} families generated")
     # cmipld.client.close()
     return 0
 
