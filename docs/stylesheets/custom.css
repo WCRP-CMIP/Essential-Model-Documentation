@@ -1,0 +1,545 @@
+/* Essential Model Documentation - Custom Styles for shadcn theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+/* ============================================
+   CSS VARIABLES - BLUE THEME
+   ============================================ */
+
+:root {
+  --emd-primary: #3b82f6;
+  --emd-primary-rgb: 59, 130, 246;
+  --emd-primary-light: #dbeafe;
+  --emd-primary-dark: #2563eb;
+  --emd-accent: #0ea5e9;
+  --emd-text: #1e293b;
+  --emd-text-secondary: #475569;
+  --emd-text-tertiary: #94a3b8;
+  --emd-bg: #ffffff;
+  --emd-bg-secondary: #f8fafc;
+  --emd-bg-tertiary: #f1f5f9;
+  --emd-border: #e2e8f0;
+  --emd-border-light: #f1f5f9;
+  
+  --primary: 217 91% 60%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 199 89% 48%;
+  --sidebar-primary: 217 91% 60%;
+}
+
+.dark {
+  --emd-primary: #60a5fa;
+  --emd-primary-rgb: 96, 165, 250;
+  --emd-primary-light: rgba(59, 130, 246, 0.15);
+  --emd-primary-dark: #93c5fd;
+  --emd-text: #f1f5f9;
+  --emd-text-secondary: #cbd5e1;
+  --emd-text-tertiary: #64748b;
+  --emd-bg: #0f172a;
+  --emd-bg-secondary: #1e293b;
+  --emd-bg-tertiary: #334155;
+  --emd-border: #334155;
+  --emd-border-light: #1e293b;
+}
+
+/* ============================================
+   HIDE DEFAULT THEME ELEMENTS
+   ============================================ */
+
+/* Hide shadcn theme's default GitHub link */
+header a[target="_blank"]:not(.header-repo):has(svg[viewBox="0 0 438.549 438.549"]),
+header a[href*="github.com"][target="_blank"]:not(.header-repo) {
+  display: none !important;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+header {
+  background: var(--emd-bg) !important;
+  border-bottom: 1px solid var(--emd-border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+header h1,
+header [data-slot="title"] {
+  font-family: "Noto Sans", var(--font-sans), system-ui;
+  font-weight: 700 !important;
+  color: var(--emd-text) !important;
+  font-size: 1.1rem !important;
+}
+
+/* GitHub repo link in title */
+.header-repo {
+  color: var(--emd-text) !important;
+  text-decoration: none;
+  font-family: "Noto Sans", var(--font-sans), system-ui;
+  font-weight: 400;
+  font-size: 1.1rem;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.header-repo:hover {
+  color: var(--emd-text-secondary) !important;
+  opacity: 0.8;
+}
+
+/* Search styling */
+header input[type="search"],
+header [data-slot="input"] {
+  background: white !important;
+  border: 1px solid var(--emd-border) !important;
+  border-radius: 4px !important;
+}
+
+header input[type="search"]::placeholder {
+  opacity: 0.6;
+}
+
+/* ============================================
+   COLLAPSIBLE NAVIGATION
+   ============================================ */
+
+/* Collapsible triggers */
+.nav-collapsible,
+[data-slot="sidebar-group-label"].nav-collapsible {
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-collapsible::before,
+[data-slot="sidebar-group-label"].nav-collapsible::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.nav-collapsible.expanded::before,
+[data-slot="sidebar-group-label"].nav-collapsible.expanded::before {
+  transform: rotate(90deg);
+}
+
+/* Collapsible children */
+.nav-children,
+[data-slot="sidebar-group-content"].nav-children {
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease;
+  opacity: 1;
+}
+
+.nav-children.collapsed,
+[data-slot="sidebar-group-content"].nav-children.collapsed {
+  max-height: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   CUSTOM LINKS SECTION
+   ============================================ */
+
+.custom-links-section {
+  margin-top: 1rem !important;
+  padding-top: 0.5rem !important;
+  border-top: 1px solid var(--emd-border-light) !important;
+  display: block !important;
+}
+
+.custom-links-list {
+  display: block !important;
+}
+
+.custom-links-title {
+  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-size: 0.55rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--emd-text-tertiary) !important;
+  padding: 0.5rem 0.6rem 0.3rem !important;
+}
+
+.custom-link {
+  display: block !important;
+  font-size: 0.75rem !important;
+  color: var(--emd-text-secondary) !important;
+  padding: 0.3rem 0.6rem !important;
+  margin: 1px 0.4rem !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.custom-link:hover {
+  background: var(--emd-bg-secondary) !important;
+  color: var(--emd-text) !important;
+}
+
+/* ============================================
+   CONTENT AREA
+   ============================================ */
+
+main, article {
+  background: var(--emd-bg) !important;
+}
+
+/* Headers as full anchor links */
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  position: relative;
+}
+
+article h1 a.anchor,
+article h2 a.anchor,
+article h3 a.anchor,
+article h4 a.anchor,
+article h5 a.anchor,
+article h6 a.anchor,
+article h1 a[href^="#"],
+article h2 a[href^="#"],
+article h3 a[href^="#"],
+article h4 a[href^="#"],
+article h5 a[href^="#"],
+article h6 a[href^="#"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Hide the permalink symbol */
+article h1 a.anchor::after,
+article h2 a.anchor::after,
+article h3 a.anchor::after,
+article h4 a.anchor::after,
+article h5 a.anchor::after,
+article h6 a.anchor::after,
+article .headerlink,
+article .anchor-link,
+article [href^="#"]::after,
+a.headerlink {
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+}
+
+/* Permalink character hidden */
+article h1 a[href^="#"]:not(:only-child),
+article h2 a[href^="#"]:not(:only-child),
+article h3 a[href^="#"]:not(:only-child),
+article h4 a[href^="#"]:not(:only-child),
+article h5 a[href^="#"]:not(:only-child),
+article h6 a[href^="#"]:not(:only-child) {
+  font-size: 0;
+}
+
+/* But keep the header text visible */
+article h1 a[href^="#"]:not(:only-child)::before,
+article h2 a[href^="#"]:not(:only-child)::before,
+article h3 a[href^="#"]:not(:only-child)::before {
+  font-size: 1rem;
+}
+
+/* Header hover effect */
+article h1:hover,
+article h2:hover,
+article h3:hover,
+article h4:hover,
+article h5:hover,
+article h6:hover {
+  cursor: pointer;
+}
+
+article h1 {
+  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--emd-text) !important;
+  border-bottom: 1px solid var(--emd-border-light) !important;
+  padding-bottom: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+article h2 {
+  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  color: var(--emd-text) !important;
+  border-bottom: 1px solid var(--emd-border-light) !important;
+  padding-bottom: 0.4rem !important;
+  margin-top: 2rem !important;
+}
+
+article h3 {
+  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--emd-text) !important;
+}
+
+article p {
+  color: var(--emd-text-secondary) !important;
+  line-height: 1.7 !important;
+}
+
+article a {
+  color: var(--emd-primary) !important;
+  text-decoration: none !important;
+}
+
+article a:hover {
+  color: var(--emd-primary-dark) !important;
+  text-decoration: underline !important;
+}
+
+/* Code */
+article code {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.8rem !important;
+  background: var(--emd-bg-tertiary) !important;
+  border: 1px solid var(--emd-border) !important;
+  border-radius: 4px !important;
+  padding: 0.15em 0.4em !important;
+}
+
+article pre {
+  background: var(--emd-bg-secondary) !important;
+  border: 1px solid var(--emd-border) !important;
+  border-radius: 8px !important;
+}
+
+article pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Tables */
+article table {
+  border: 1px solid var(--emd-border) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+article th {
+  background: var(--emd-bg-secondary) !important;
+  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-weight: 600 !important;
+  font-size: 0.7rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+article tr:hover td {
+  background: var(--emd-bg-secondary) !important;
+}
+
+/* ============================================
+   FOOTER - MATERIAL STYLE PREV/NEXT NAVIGATION
+   ============================================ */
+
+/* Hide shadcn's default footer */
+body > div > footer {
+  display: none !important;
+}
+
+/* Our Material-style footer */
+.md-footer {
+  background: transparent;
+  margin-top: 3rem;
+  padding: 0 1rem;
+}
+
+.md-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--emd-border-light);
+  padding: 1rem 0;
+}
+
+.md-footer__link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--emd-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.md-footer__link:hover {
+  color: var(--emd-primary-dark);
+}
+
+.md-footer__link--prev {
+  margin-right: auto;
+}
+
+.md-footer__link--next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.md-footer__link--next .md-footer__title {
+  text-align: right;
+}
+
+.md-footer__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--emd-primary);
+}
+
+.md-footer__button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+.md-footer__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.md-footer__direction {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--emd-text-tertiary);
+}
+
+.md-ellipsis {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--emd-primary);
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================
+   COPYRIGHT FOOTER - FIXED AT BOTTOM
+   ============================================ */
+
+.footer-attribution {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  pointer-events: none !important;
+  z-index: 1000 !important;
+  background: transparent !important;
+  padding: 0.5rem 1rem !important;
+  text-align: center !important;
+  border-top: none !important;
+}
+
+.footer-attribution p {
+  font-size: 0.5rem !important;
+  color: var(--emd-text-tertiary) !important;
+  margin: 0 !important;
+  opacity: 0.7 !important;
+}
+
+.footer-attribution a {
+  color: var(--emd-primary) !important;
+  text-decoration: none !important;
+  pointer-events: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline !important;
+  font-size: inherit !important;
+}
+
+.footer-attribution a:hover {
+  text-decoration: underline !important;
+}
+
+/* Footer attribution handled in HIDE DEFAULT THEME ELEMENTS section */
+
+/* ============================================
+   VERSION SELECTOR
+   ============================================ */
+
+.version-selector {
+  display: flex;
+  align-items: center;
+}
+
+.version-selector select {
+  appearance: auto;
+  background: var(--emd-bg);
+  border: 1px solid var(--emd-border);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  color: var(--emd-text);
+}
+
+.version-selector select:hover {
+  background: var(--emd-bg-secondary);
+}
+
+/* ============================================
+   TOC - RIGHT SIDEBAR
+   ============================================ */
+
+[view-transition-name="toc"] a,
+.toc a {
+  font-size: 0.7rem !important;
+  color: var(--emd-text-tertiary) !important;
+  padding: 0.25rem 0.6rem !important;
+  margin: 1px 0.3rem !important;
+}
+
+[view-transition-name="toc"] a:hover,
+.toc a:hover {
+  color: var(--emd-primary) !important;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--emd-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--emd-text-tertiary); }
+
+/* ============================================
+   SELECTION
+   ============================================ */
+
+::selection {
+  background: var(--emd-primary-light);
+  color: var(--emd-primary);
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+
+@media print {
+  [data-slot="sidebar"], aside, .footer-attribution, .version-selector {
+    display: none !important;
+  }
+  main, article { max-width: 100% !important; }
+}

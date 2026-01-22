@@ -8,36 +8,15 @@ site_author: WCRP-CMIP
 docs_dir: ../../docs
 site_dir: site
 
+# Theme configuration
 theme:
-  name: material
-  logo: stylesheets/logo-light.svg
-  favicon: stylesheets/logo.svg
-  custom_dir: overrides
-  font: false
-  features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.path
-    - navigation.indexes
-    - navigation.footer
-    - toc.follow
-    - search.suggest
-    - search.highlight
-    - content.code.copy
+  name: shadcn
   palette:
-    - scheme: default
-      primary: blue
-      accent: light blue
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-    - scheme: slate
-      primary: blue
-      accent: light blue
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
+    primary: blue
+    accent: cyan
+  show_stargazers: false
 
+# Plugins
 plugins:
   - search:
       lang: en
@@ -61,7 +40,10 @@ extra:
     provider: mike
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/custom.css
+
+extra_javascript:
+  - stylesheets/custom.js
 
 markdown_extensions:
   - admonition
