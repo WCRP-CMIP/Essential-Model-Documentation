@@ -1,0 +1,17 @@
+- [Home](index.md)
+- Bidk:
+  - [Warnings](bidk/Warnings.md)
+  - [Gelato](bidk/gelato.md)
+  - [Info](bidk/info.md)
+  - [Infobackup](bidk/infobackup.md)
+- Data Summaries:
+  - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
+  - [Index](data-summaries/index.md)
+- Technical:
+  - Mkdocs:
+    - [Generators](technical/mkdocs/generators.md)
+    - [Index](technical/mkdocs/index.md)
+    - [Styling](technical/mkdocs/styling.md)
+    - [Templates](technical/mkdocs/templates.md)
+- [CMIP Website](https://wcrp-cmip.org/)
+- [WCRP](https://www.wcrp-climate.org/)
