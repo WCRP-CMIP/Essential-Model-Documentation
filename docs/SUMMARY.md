@@ -1,4 +1,5 @@
 - [Home](index.md)
+- [Contributors](contributors.md)
 - Bidk:
   - [Warnings](bidk/Warnings.md)
   - [Gelato](bidk/gelato.md)
@@ -8,6 +9,7 @@
   - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
   - [Index](data-summaries/index.md)
 - Technical:
+  - [Contributors](technical/contributors.md)
   - Mkdocs:
     - [Generators](technical/mkdocs/generators.md)
     - [Index](technical/mkdocs/index.md)

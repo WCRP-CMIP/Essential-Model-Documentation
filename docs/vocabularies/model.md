@@ -29,7 +29,7 @@ The JSON structure and validation for this vocabulary is defined using the [`Mod
 |-------|------|-------------|------------|
 | [name](#name) | `str` | min_length=1 | - |
 | [calendar](#calendar) | `List[str | Calendar]` | min_length=1 | [`calendar`](../calendar/) |
-| [dynamic_components](#dynamic_components) | `List[str | ComponentType]` | min_length=1 | [`ComponentType`](../componenttype/), [`component`](../component/) |
+| [dynamic_components](#dynamic_components) | `List[str | ComponentType]` | min_length=1 | [`component`](../component/), [`ComponentType`](../componenttype/) |
 | [family](#family) | `str` | min_length=1 | - |
 | [model_components](#model_components) | `List[str | EMDModelComponent]` | - | - |
 | [references](#references) | `List[str | Reference]` | min_length=1 | - |
@@ -40,8 +40,8 @@ The JSON structure and validation for this vocabulary is defined using the [`Mod
 | Field | Type | Constraints | References |
 |-------|------|-------------|------------|
 | [description](#description) | `str` | min_length=1 | - |
-| [omitted_components](#omitted_components) | `List[str | ComponentType]` | - | [`ComponentType`](../componenttype/), [`component`](../component/) |
-| [prescribed_components](#prescribed_components) | `List[str | ComponentType]` | - | [`ComponentType`](../componenttype/), [`component`](../component/) |
+| [omitted_components](#omitted_components) | `List[str | ComponentType]` | - | [`component`](../component/), [`ComponentType`](../componenttype/) |
+| [prescribed_components](#prescribed_components) | `List[str | ComponentType]` | - | [`component`](../component/), [`ComponentType`](../componenttype/) |
 
 ### Field Descriptions
 
