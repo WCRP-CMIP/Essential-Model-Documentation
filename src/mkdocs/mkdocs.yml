@@ -29,13 +29,13 @@ plugins:
       implicit_index: true
       tab_length: 2
 
-# Hooks - separated by purpose
+# Hooks - separated by purpose (ORDER MATTERS!)
 hooks:
-  - hooks/pre_build.py        # Run generator scripts
-  - hooks/process_summaries.py # Process ./summaries/*.json to docs
-  - hooks/generate_nav.py      # Generate SUMMARY.md navigation
-  - hooks/inject_readme.py     # Inject README.md into index.md
-  - hooks/post_build.py        # Index HTML files for search
+  - hooks/pre_build.py           # Run generator scripts
+  - hooks/process_summaries.py   # Process ./summaries/*.json to docs
+  - hooks/generate_nav.py        # Generate SUMMARY.md navigation
+  - hooks/inject_readme.py       # Inject README.md into index.md
+  - hooks/post_build.py          # Index HTML files for search
 
 extra:
   generator: false
