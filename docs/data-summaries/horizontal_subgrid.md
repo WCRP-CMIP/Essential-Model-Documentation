@@ -24,10 +24,17 @@
 
 | ID | Cell Variable Type | Description | Horizontal Grid Cells | Ui Label | Validation Key |
 |---|---|---|---|---|---|
-| **s100** | mass | Mass variables on a regular latitude-longitude gri | g100 | *—* | s100 |
-| **s101** | mass | Mass variables on a linear spectral Gaussian grid | g101 | *—* | s101 |
-| **s102** | mass | Mass variables on an ocean tripolar grid (eORCA1). | g102 | *—* | s102 |
-| **s103** | mass, x-velocity, y-velocity | Mass and velocity variables on an adaptive polar s | g103 | *—* | s103 |
-| **s104** | mass | Mass variables on a regular latitude-longitude gri | g104 | *—* | s104 |
+| **s100** | mass | Mass variables on a regular latitude-longitude gri | [g100](../../horizontal_grid_cells/g100.html) | *—* | s100 |
+| **s101** | mass | Mass variables on a linear spectral Gaussian grid | [g101](../../horizontal_grid_cells/g101.html) | *—* | s101 |
+| **s102** | mass | Mass variables on an ocean tripolar grid (eORCA1). | [g102](../../horizontal_grid_cells/g102.html) | *—* | s102 |
+| **s103** | mass, x-velocity, y-velocity | Mass and velocity variables on an adaptive polar s | [g103](../../horizontal_grid_cells/g103.html) | *—* | s103 |
+| **s104** | mass | Mass variables on a regular latitude-longitude gri | [g104](../../horizontal_grid_cells/g104.html) | *—* | s104 |
 
-<div class="table-footer"><span>*5 records*</span><a href="json/horizontal_subgrid.json" download class="download-btn" title="Download JSON">⬇</a></div>
+<div class="table-footer">
+<span>*5 records*</span>
+<div class="table-footer-controls">
+<input type="text" class="table-footer-search" placeholder="Search..." data-table-search>
+<button class="table-footer-expand" title="Expand table" data-table-expand>⤢</button>
+<a href="json/horizontal_subgrid.json" download class="download-btn" title="Download JSON">⬇</a>
+</div>
+</div>

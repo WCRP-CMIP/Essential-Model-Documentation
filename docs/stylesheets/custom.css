@@ -268,19 +268,19 @@ main, article {
 /* Override Tailwind typography/prose max-width (default is 65ch ≈ 672px) */
 .typography {
   max-width: 1200px !important;
-  padding-right: 2rem !important;
+  padding: 0 2rem !important;
 }
 
 /* Also target common prose classes */
 .prose {
   max-width: 1200px !important;
-  padding-right: 2rem !important;
+  padding: 0 2rem !important;
 }
 
 /* Ensure article itself can expand */
 article.w-full {
   max-width: 1200px !important;
-  padding-right: 1rem !important;
+  padding: 0 1rem !important;
 }
 
 /* Headers as full anchor links */
@@ -426,6 +426,13 @@ article table {
   border: 1px solid var(--emd-border) !important;
   border-radius: 8px !important;
   overflow: hidden !important;
+}
+
+article table a {
+  color: var(--emd-primary) !important;
+}
+
+article thead {
 }
 
 article th {
@@ -761,7 +768,40 @@ body.embed-mode .table-controls {
 th[data-sort="asc"] .sort-indicator,
 th[data-sort="desc"] .sort-indicator {
   opacity: 1 !important;
-  color: var(--emd-primary, #3b82f6);
+  color: var(--emd-primary) !important;
+}
+
+/* Embed mode overlay */
+.embed-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--emd-bg, white);
+  z-index: 10000;
+  overflow: auto;
+  padding: 0;
+}
+
+.embed-overlay article {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.embed-overlay .typography {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.embed-overlay .table-wrapper,
+.embed-overlay table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.dark .embed-overlay {
+  background: var(--emd-bg, #0f172a);
 }
 
 /* Table fullscreen overlay */
@@ -774,7 +814,43 @@ th[data-sort="desc"] .sort-indicator {
   background: var(--emd-bg, white);
   z-index: 10000;
   overflow: auto;
-  padding: 20px;
+  padding: 10px;
+}
+
+.table-fullscreen-overlay table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: auto !important;
+  border: 1px solid var(--emd-border) !important;
+  border-radius: 8px !important;
+  border-collapse: collapse !important;
+}
+
+.table-fullscreen-overlay th {
+  background: var(--emd-bg-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.75rem 1rem !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--emd-border) !important;
+  cursor: pointer;
+}
+
+.table-fullscreen-overlay td {
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid var(--emd-border) !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+.table-fullscreen-overlay tr:hover td {
+  background: var(--emd-bg-secondary) !important;
+}
+
+.table-fullscreen-overlay a {
+  color: var(--emd-primary) !important;
 }
 
 .dark .table-fullscreen-overlay {
@@ -797,6 +873,50 @@ th[data-sort="desc"] .sort-indicator {
 
 .table-footer span {
   font-style: italic;
+}
+
+.table-footer-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table-footer-search {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--emd-primary) !important;
+  border-radius: 4px;
+  background: var(--emd-bg);
+  color: var(--emd-text);
+  width: 150px;
+  outline: none;
+}
+
+.table-footer-search:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.table-footer-search::placeholder {
+  color: var(--emd-text-secondary);
+  opacity: 0.7;
+}
+
+.table-footer-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  color: var(--emd-primary) !important;
+  background: var(--emd-bg-secondary);
+  border: 1px solid var(--emd-primary) !important;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.table-footer-expand:hover {
+  background: var(--emd-primary-light);
 }
 
 .download-btn {

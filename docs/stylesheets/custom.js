@@ -26,7 +26,116 @@ function init() {
   updateFooter();
   addVersionSelector();
   setupHeaderAnchors();
+  fixCopyPageButton();
+  setupGlobalCopyHandler();
 }
+
+// ============================================
+// FIX COPY PAGE BUTTON
+// ============================================
+
+function fixCopyPageButton() {
+  // Find the copy page button (has "Copy Page" text or copy icon)
+  const copyButtons = document.querySelectorAll('button[onclick*="clipboard"]');
+  
+  copyButtons.forEach(btn => {
+    if (btn.dataset.copyFixed) return;
+    btn.dataset.copyFixed = 'true';
+    
+    // Remove the broken onclick handler
+    btn.removeAttribute('onclick');
+    
+    // Add working click handler
+    btn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      try {
+        // Get the article content as text
+        const article = document.querySelector('article');
+        if (!article) {
+          console.error('No article found to copy');
+          return;
+        }
+        
+        // Get text content, preserving some structure
+        const content = article.innerText || article.textContent;
+        
+        // Add footer with attribution
+        const contentWithFooter = appendCopyFooter(content);
+        
+        // Copy to clipboard
+        await navigator.clipboard.writeText(contentWithFooter);
+        
+        // Visual feedback
+        const span = btn.querySelector('span');
+        if (span) {
+          span.textContent = 'Copied!';
+        }
+        
+        setTimeout(() => {
+          if (span) {
+            span.textContent = 'Copy Page';
+          }
+        }, 2000);
+        
+        console.log('Page content copied to clipboard');
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  });
+}
+
+/**
+ * Append attribution footer to copied content
+ */
+function appendCopyFooter(content) {
+  const currentUrl = window.location.href.split('?')[0]; // Remove any existing query params
+  const embedUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'embed=true';
+  const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
+  
+  const footer = `
+
+---
+This content was copied from ${currentUrl} at ${timestamp}.
+Use of content is protected by a CC-BY-4.0 licence and external use is allowed at your own risk.
+
+If you wish to embed a live version of this page please use: ${embedUrl}
+
+Iframe example:
+<iframe src="${embedUrl}" width="100%" height="600" frameborder="0"></iframe>
+`;
+  
+  return content + footer;
+}
+
+/**
+ * Setup global copy handler - ensures it's only added once
+ */
+function setupGlobalCopyHandler() {
+  if (window.copyHandlerSetup) return;
+  window.copyHandlerSetup = true;
+  
+  // Use capturing phase to ensure we catch the event
+  document.addEventListener('copy', function(e) {
+    console.log('Copy event triggered');
+    const selection = window.getSelection().toString();
+    console.log('Selection length:', selection.length);
+    
+    // Only add footer if copying substantial content (more than 100 chars)
+    if (selection && selection.length > 100) {
+      e.preventDefault();
+      const contentWithFooter = appendCopyFooter(selection);
+      e.clipboardData.setData('text/plain', contentWithFooter);
+      console.log('Copy intercepted, footer added');
+    }
+  }, true); // Use capture phase
+  
+  console.log('Global copy handler installed');
+}
+
+// Install copy handler immediately (don't wait for DOMContentLoaded)
+setupGlobalCopyHandler();
 
 // ============================================
 // HEADER CONTROLS

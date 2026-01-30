@@ -21,6 +21,19 @@ CONFIG = {
     'max_cell_length': 50,                   # Max chars per cell
 }
 
+# Known collection directories that can be linked
+# Maps field names to their URL path
+LINKED_COLLECTIONS = {
+    'horizontal_grid_cells': 'horizontal_grid_cells',
+    'horizontal_subgrid': 'horizontal_subgrid',
+    'horizontal_computational_grid': 'horizontal_computational_grid',
+    'vertical_computational_grid': 'vertical_computational_grid',
+    'model': 'model',
+    'model_component': 'model_component',
+    'model_family': 'model_family',
+    'reference': 'reference',
+}
+
 
 def on_pre_build(config):
     """Process summary JSON files before build."""
@@ -196,14 +209,23 @@ def format_records_table(data, download_path=None):
         row = f"| **{record_id}** |"
         for key in keys:
             value = record.get(key, "")
-            formatted = format_cell_value(value)
+            formatted = format_cell_value(value, key)
             row += f" {formatted} |"
         lines.append(row)
     
     # Add record count and download link on same line
     record_text = f"*{len(data)} records*"
     if download_path:
-        lines.append(f'\n<div class="table-footer"><span>{record_text}</span><a href="{download_path}" download class="download-btn" title="Download JSON">⬇</a></div>\n')
+        lines.append(f'''
+<div class="table-footer">
+<span>{record_text}</span>
+<div class="table-footer-controls">
+<input type="text" class="table-footer-search" placeholder="Search..." data-table-search>
+<button class="table-footer-expand" title="Expand table" data-table-expand>⤢</button>
+<a href="{download_path}" download class="download-btn" title="Download JSON">⬇</a>
+</div>
+</div>
+''')
     else:
         lines.append(f"\n{record_text}\n")
     return lines
@@ -243,7 +265,7 @@ def format_list_table(data, download_path=None):
             row = f"| {i} |"
             for key in keys:
                 value = item.get(key, "")
-                row += f" {format_cell_value(value)} |"
+                row += f" {format_cell_value(value, key)} |"
             lines.append(row)
         
         if len(data) > 100:
@@ -263,29 +285,58 @@ def format_list_table(data, download_path=None):
     
     # Add record count and download link
     if download_path:
-        lines.append(f'\n<div class="table-footer"><span>{record_text}</span><a href="{download_path}" download class="download-btn" title="Download JSON">⬇</a></div>\n')
+        lines.append(f'''
+<div class="table-footer">
+<span>{record_text}</span>
+<div class="table-footer-controls">
+<input type="text" class="table-footer-search" placeholder="Search..." data-table-search>
+<button class="table-footer-expand" title="Expand table" data-table-expand>⤢</button>
+<a href="{download_path}" download class="download-btn" title="Download JSON">⬇</a>
+</div>
+</div>
+''')
     else:
         lines.append(f"\n{record_text}\n")
     
     return lines
 
 
-def format_cell_value(value):
-    """Format a value for display in a table cell."""
+def format_cell_value(value, key=None):
+    """Format a value for display in a table cell.
+    
+    If key matches a linked collection, create a hyperlink to the record.
+    """
     if value is None or value == "":
         return "*—*"
     elif isinstance(value, bool):
         return "✓" if value else "✗"
     elif isinstance(value, list):
+        # Format list items, potentially with links
+        formatted_items = []
+        for v in value[:3]:
+            formatted_items.append(format_single_value(v, key))
+        display = ", ".join(formatted_items)
         if len(value) > 3:
-            display = ", ".join(str(v) for v in value[:3]) + "..."
-        else:
-            display = ", ".join(str(v) for v in value)
-        return escape_markdown(display[:CONFIG['max_cell_length']])
+            display += "..."
+        return display[:CONFIG['max_cell_length']] if len(display) > CONFIG['max_cell_length'] else display
     elif isinstance(value, dict):
         return f"*{len(value)} items*"
     else:
-        return escape_markdown(str(value)[:CONFIG['max_cell_length']])
+        return format_single_value(value, key)
+
+
+def format_single_value(value, key=None):
+    """Format a single value, creating a link if applicable."""
+    str_value = str(value)
+    
+    # Check if this key references a linked collection
+    if key and key in LINKED_COLLECTIONS:
+        collection_path = LINKED_COLLECTIONS[key]
+        # Create link to the record's HTML page (relative to site root)
+        link_url = f"../../{collection_path}/{str_value}.html"
+        return f"[{escape_markdown(str_value)}]({link_url})"
+    
+    return escape_markdown(str_value[:CONFIG['max_cell_length']])
 
 
 def format_key_name(key):

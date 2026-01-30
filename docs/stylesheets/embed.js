@@ -9,13 +9,14 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Embed.js v8 (shadcn) loaded...');
+    console.log('Embed.js v9 (shadcn) loaded...');
     
     // Initialize
     cleanupOldButtons();
     addFloatingExpandButton();
     addKeyboardShortcuts();
     enhanceTables();
+    setupTableFooterControls();
     
     // Check for embed parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -96,7 +97,7 @@ function addFloatingExpandButton() {
 }
 
 /**
- * Enter embed mode - optimized for shadcn theme
+ * Enter embed mode - shows only article content
  */
 function enterEmbedMode() {
     console.log('Entering embed mode');
@@ -108,51 +109,43 @@ function enterEmbedMode() {
     url.searchParams.set('embed', 'true');
     window.history.replaceState({}, '', url);
     
-    // shadcn theme selectors - hide navigation elements
-    const elementsToHide = [
-        'header',                           // Main header
-        '[data-slot="sidebar"]',            // Left sidebar
-        '[data-slot="sidebar-content"]',    // Sidebar content
-        'aside',                            // Any aside elements
-        '.footer-attribution',              // Footer attribution
-        'nav',                              // Navigation elements
-        '[view-transition-name="toc"]',     // Table of contents
-    ];
+    // Get the article element
+    const article = document.querySelector('article');
+    if (!article) {
+        console.error('No article found');
+        return;
+    }
     
-    elementsToHide.forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => {
-            el.dataset.embedHidden = 'true';
-            el.style.display = 'none';
-        });
+    // Create fullscreen overlay with article content
+    const overlay = document.createElement('div');
+    overlay.id = 'embed-overlay';
+    overlay.className = 'embed-overlay';
+    
+    // Clone article content
+    const articleClone = article.cloneNode(true);
+    articleClone.style.cssText = `
+        max-width: 100%;
+        width: 100%;
+        margin: 5px;
+        padding: 0;
+    `;
+    
+    overlay.appendChild(articleClone);
+    document.body.appendChild(overlay);
+    
+    // Re-enhance tables in the cloned content
+    const tables = overlay.querySelectorAll('table');
+    tables.forEach((table, index) => {
+        if (table.dataset.enhanced !== 'true') {
+            addTableControls(table, index + 1000); // Offset index to avoid conflicts
+            addTableSorting(table);
+        }
     });
     
-    // Expand main content area
-    const main = document.querySelector('main');
-    const article = document.querySelector('article');
-    const contentWrapper = document.querySelector('[data-slot="content"]') || 
-                          document.querySelector('.prose') ||
-                          main;
-    
-    if (main) {
-        main.dataset.embedOriginalStyle = main.style.cssText;
-        Object.assign(main.style, {
-            maxWidth: '100%',
-            width: '100%',
-            margin: '0',
-            padding: '1rem',
-            minHeight: '100vh'
-        });
-    }
-    
-    if (article) {
-        article.dataset.embedOriginalStyle = article.style.cssText;
-        Object.assign(article.style, {
-            maxWidth: '100%',
-            width: '100%',
-            margin: '0 auto',
-            padding: '1rem'
-        });
-    }
+    // Show table controls in overlay
+    overlay.querySelectorAll('.table-controls').forEach(controls => {
+        controls.style.display = 'flex';
+    });
     
     // Convert button to close button
     const btn = document.querySelector('.floating-expand-btn');
@@ -169,12 +162,10 @@ function enterEmbedMode() {
             background: 'rgba(0, 0, 0, 0.7)',
             borderRadius: '6px',
             fontSize: '20px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            zIndex: '10001'
         });
     }
-    
-    // Show table controls
-    updateTableControlsVisibility(true);
     
     console.log('Embed mode activated');
 }
@@ -193,24 +184,10 @@ function exitEmbedMode() {
     url.searchParams.delete('fullscreen');
     window.history.replaceState({}, '', url);
     
-    // Restore hidden elements
-    document.querySelectorAll('[data-embed-hidden="true"]').forEach(el => {
-        el.style.display = '';
-        delete el.dataset.embedHidden;
-    });
-    
-    // Restore main/article styles
-    const main = document.querySelector('main');
-    const article = document.querySelector('article');
-    
-    if (main && main.dataset.embedOriginalStyle !== undefined) {
-        main.style.cssText = main.dataset.embedOriginalStyle;
-        delete main.dataset.embedOriginalStyle;
-    }
-    
-    if (article && article.dataset.embedOriginalStyle !== undefined) {
-        article.style.cssText = article.dataset.embedOriginalStyle;
-        delete article.dataset.embedOriginalStyle;
+    // Remove overlay
+    const overlay = document.getElementById('embed-overlay');
+    if (overlay) {
+        overlay.remove();
     }
     
     // Restore button
@@ -228,12 +205,10 @@ function exitEmbedMode() {
             background: 'var(--emd-primary, #3b82f6)',
             borderRadius: '50%',
             fontSize: '1.5rem',
-            fontWeight: 'normal'
+            fontWeight: 'normal',
+            zIndex: '9999'
         });
     }
-    
-    // Hide table controls
-    updateTableControlsVisibility(false);
     
     console.log('Embed mode deactivated');
 }
@@ -467,7 +442,7 @@ function expandTable(table) {
         background: 'var(--emd-bg, white)',
         zIndex: '10000',
         overflow: 'auto',
-        padding: '20px'
+        padding: '10px'
     });
     
     // Close button
@@ -476,8 +451,8 @@ function expandTable(table) {
     closeBtn.title = 'Close (ESC)';
     Object.assign(closeBtn.style, {
         position: 'fixed',
-        top: '15px',
-        right: '15px',
+        top: '10px',
+        right: '10px',
         width: '36px',
         height: '36px',
         background: 'rgba(0, 0, 0, 0.7)',
@@ -493,37 +468,53 @@ function expandTable(table) {
     // Search for expanded table
     const searchContainer = document.createElement('div');
     Object.assign(searchContainer.style, {
-        marginBottom: '15px',
+        marginBottom: '10px',
         position: 'sticky',
         top: '0',
         background: 'var(--emd-bg, white)',
-        padding: '10px 0',
-        zIndex: '1'
+        padding: '5px 0',
+        zIndex: '1',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
     });
     
     const searchInput = document.createElement('input');
     searchInput.type = 'text';
     searchInput.placeholder = 'Search table...';
     Object.assign(searchInput.style, {
-        padding: '10px 15px',
-        border: '1px solid var(--emd-border, #e2e8f0)',
+        padding: '8px 12px',
+        border: '1px solid var(--emd-primary, #3b82f6)',
         borderRadius: '6px',
-        fontSize: '1rem',
-        width: '300px',
-        maxWidth: '100%'
+        fontSize: '0.875rem',
+        width: '250px',
+        maxWidth: '100%',
+        outline: 'none'
     });
     
     searchContainer.appendChild(searchInput);
     
-    // Clone table
+    // Clone table and set full width
     const tableClone = table.cloneNode(true);
-    tableClone.style.width = '100%';
+    Object.assign(tableClone.style, {
+        width: '100%',
+        maxWidth: '100%',
+        tableLayout: 'auto'
+    });
     
     // Wire up search
     searchInput.addEventListener('input', () => filterTable(tableClone, searchInput.value));
     
-    // Add sorting to clone
-    addTableSorting(tableClone);
+    // Re-wire sorting on the cloned table (don't add new indicators, just event listeners)
+    const headers = tableClone.querySelectorAll('th');
+    headers.forEach((header, index) => {
+        // Remove existing click handlers by cloning
+        const newHeader = header.cloneNode(true);
+        header.parentNode.replaceChild(newHeader, header);
+        
+        // Add click handler for sorting
+        newHeader.addEventListener('click', () => sortTable(tableClone, index, newHeader));
+    });
     
     overlay.appendChild(closeBtn);
     overlay.appendChild(searchContainer);
@@ -556,6 +547,54 @@ function updateTableControlsVisibility(show) {
     });
 }
 
+/**
+ * Setup table footer controls (search and expand buttons)
+ */
+function setupTableFooterControls() {
+    // Find all table footers and wire up their controls
+    document.querySelectorAll('.table-footer').forEach(footer => {
+        // Find the preceding table-wrapper sibling
+        let sibling = footer.previousElementSibling;
+        let table = null;
+        
+        // Walk back to find the table
+        while (sibling && !table) {
+            if (sibling.classList.contains('table-wrapper')) {
+                table = sibling.querySelector('table');
+            } else if (sibling.tagName === 'TABLE') {
+                table = sibling;
+            }
+            sibling = sibling.previousElementSibling;
+        }
+        
+        if (table) {
+            wireUpFooterControls(footer, table);
+        } else {
+            console.warn('Could not find table for footer:', footer);
+        }
+    });
+}
+
+/**
+ * Wire up footer controls to a specific table
+ */
+function wireUpFooterControls(footer, table) {
+    const searchInput = footer.querySelector('[data-table-search]');
+    const expandBtn = footer.querySelector('[data-table-expand]');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            filterTable(table, searchInput.value);
+        });
+    }
+    
+    if (expandBtn) {
+        expandBtn.addEventListener('click', () => {
+            expandTable(table);
+        });
+    }
+}
+
 // Export for external use
 window.embedUtils = {
     enterEmbedMode,
@@ -563,5 +602,6 @@ window.embedUtils = {
     expandTable,
     filterTable,
     sortTable,
-    enhanceTables
+    enhanceTables,
+    setupTableFooterControls
 };
