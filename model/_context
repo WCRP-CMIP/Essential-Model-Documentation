@@ -1,9 +1,9 @@
 {
     "@context": {
         "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model/",
-        "@base": "https://emd.mipcvs.dev/model/",
+        "@base": "https://no-prefix.mipcvs.dev/model/",
         "@esgvoc": "Model",
-        "@vocab": "https://emd.mipcvs.dev/docs/contents/Model/",
+        "@vocab": "https://no-prefix.mipcvs.dev/docs/contents/Model/",
         "calendar": {
             "@context": "https://universal.mipcvs.dev/calendar/_context",
             "@type": "@id"

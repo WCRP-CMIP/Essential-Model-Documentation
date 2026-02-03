@@ -134,9 +134,14 @@ nav a {
   height: auto !important;
   min-height: 1.75rem;
   line-height: 1.3 !important;
-  padding: 0.25rem 0.5rem !important;
   display: flex !important;
   align-items: flex-start !important;
+}
+
+/* Active sidebar item text color */
+[data-active="true"],
+.data-\[active\=true\]\:text-sidebar-accent-foreground[data-active=true] {
+  color: var(--emd-primary) !important;
 }
 
 /* Reduce vertical spacing between nav items */
@@ -156,7 +161,6 @@ nav a {
 /* Tighter spacing for dropdown items */
 [data-slot="sidebar-group-content"] a,
 .nav-children a {
-  padding: 0.2rem 0.5rem 0.2rem 1.2rem !important;
   margin: 0 !important;
   font-size: 0.8rem !important;
 }
@@ -200,13 +204,25 @@ nav a {
   transform: rotate(90deg);
 }
 
-/* Collapsible children */
+/* Collapsible children - default to collapsed until JS adds expanded class */
 .nav-children,
 [data-slot="sidebar-group-content"].nav-children {
   overflow: hidden;
-  max-height: 2000px;
+  max-height: 0;
   transition: max-height 0.3s ease-out, opacity 0.2s ease;
-  opacity: 1;
+  opacity: 0;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Expanded state */
+.nav-collapsible.expanded + .nav-children,
+.nav-collapsible.expanded + [data-slot="sidebar-group-content"].nav-children,
+[data-slot="sidebar-group"]:has(.nav-collapsible.expanded) .nav-children {
+  max-height: 2000px !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .nav-children.collapsed,
@@ -214,6 +230,9 @@ nav a {
   max-height: 0 !important;
   opacity: 0;
   pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
 }
 
 /* ============================================

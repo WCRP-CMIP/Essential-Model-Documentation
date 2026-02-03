@@ -174,10 +174,7 @@ function setupCollapsibleNav() {
   
   console.log('Found sidebar groups:', groups.length);
   
-  // Get current page path for matching
-  const currentPath = window.location.pathname;
-  
-  groups.forEach(group => {
+  groups.forEach((group, index) => {
     const label = group.querySelector('[data-slot="sidebar-group-label"]');
     const content = group.querySelector('[data-slot="sidebar-group-content"]');
     
@@ -202,13 +199,15 @@ function setupCollapsibleNav() {
       }
     });
     
-    // Set initial state - collapsed unless contains current page
+    // Set initial state - ALL folders start collapsed unless they contain current page
     if (containsCurrentPage) {
       label.classList.add('expanded');
       content.classList.remove('collapsed');
+      console.log('Group', index, label.textContent.trim(), '-> EXPANDED (contains current page)');
     } else {
       label.classList.remove('expanded');
       content.classList.add('collapsed');
+      console.log('Group', index, label.textContent.trim(), '-> COLLAPSED');
     }
     
     // Click handler for toggle
@@ -228,6 +227,13 @@ function setupCollapsibleNav() {
       
       console.log('Toggled group:', label.textContent.trim(), 'expanded:', !isExpanded);
     });
+  });
+  
+  // Ensure root-level menu items (not inside groups) stay visible
+  const rootMenuItems = document.querySelectorAll('[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"]');
+  rootMenuItems.forEach(item => {
+    item.style.display = 'block';
+    item.style.visibility = 'visible';
   });
 }
 
