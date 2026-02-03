@@ -216,15 +216,15 @@ nav a {
   pointer-events: none;
 }
 
-/* Expanded state */
+/* Expanded state - only direct sibling, not all descendants */
 .nav-collapsible.expanded + .nav-children,
-.nav-collapsible.expanded + [data-slot="sidebar-group-content"].nav-children,
-[data-slot="sidebar-group"]:has(.nav-collapsible.expanded) .nav-children {
+.nav-collapsible.expanded + [data-slot="sidebar-group-content"].nav-children {
   max-height: 2000px !important;
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
+/* Collapsed state */
 .nav-children.collapsed,
 [data-slot="sidebar-group-content"].nav-children.collapsed {
   max-height: 0 !important;
@@ -232,7 +232,6 @@ nav a {
   pointer-events: none;
   position: relative;
   z-index: 1;
-}
 }
 
 /* ============================================
