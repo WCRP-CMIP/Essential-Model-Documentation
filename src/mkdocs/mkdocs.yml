@@ -8,6 +8,38 @@ site_author: WCRP-CMIP
 docs_dir: ../../docs
 site_dir: site
 
+# Navigation structure
+nav:
+  - Home: index.md
+  - Contributors: contributors.md
+  - Bidk:
+    - Warnings: bidk/Warnings.md
+    - Nested La:
+      - Gelato: bidk/nested la /gelato.md
+      - Info: bidk/nested la /info.md  
+      - Infobackup: bidk/nested la /infobackup.md
+  - Data Summaries:
+    - Horizontal Subgrid: data-summaries/horizontal_subgrid.md
+    - Index: data-summaries/index.md
+  - Technical:
+    - Contributors: technical/contributors.md
+    - Creating Issue Templates: technical/creating-issue-templates.md
+    - Mkdocs:
+      - Generators: technical/mkdocs/generators.md
+      - Index: technical/mkdocs/index.md
+      - Styling: technical/mkdocs/styling.md
+      - Templates: technical/mkdocs/templates.md
+  - Vocabularies:
+    - Horizontal Computational Grid: vocabularies/horizontal_computational_grid.md
+    - Horizontal Grid Cells: vocabularies/horizontal_grid_cells.md
+    - Horizontal Subgrid: vocabularies/horizontal_subgrid.md
+    - Index: vocabularies/index.md
+    - Model: vocabularies/model.md
+    - Model Component: vocabularies/model_component.md
+    - Model Family: vocabularies/model_family.md
+    - Reference: vocabularies/reference.md
+    - Vertical Computational Grid: vocabularies/vertical_computational_grid.md
+
 # Theme configuration
 theme:
   name: shadcn

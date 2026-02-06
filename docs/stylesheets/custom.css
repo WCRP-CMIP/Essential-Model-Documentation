@@ -1188,3 +1188,27 @@ th[data-sort="desc"] .sort-indicator {
 .tabbed-block .highlight {
   margin: 0;
 }
+
+
+/* ============================================
+   NESTED SIDEBAR GROUPS
+   ============================================ */
+
+/* Nested groups within groups */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-group"] {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--emd-border-light);
+}
+
+/* Nested group labels should be smaller */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-group-label"] {
+  font-size: 0.7rem !important;
+  padding: 0.3rem 0.4rem !important;
+}
+
+/* Make nested items more compact */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-group-content"] a {
+  font-size: 0.75rem !important;
+  padding-left: 1rem !important;
+}

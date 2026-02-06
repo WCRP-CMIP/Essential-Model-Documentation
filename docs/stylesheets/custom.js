@@ -146,19 +146,29 @@ function setupHeaderControls() {
   const header = document.querySelector('header');
   if (!header || header.querySelector('.header-repo')) return;
   
-  const title = header.querySelector('h1, [data-slot="title"], .title, a[href="/"]');
+  // Only target the title in the header, not the sidebar home link
+  const title = header.querySelector('h1, [data-slot="title"]');
   
   if (title && CONFIG.repoUrl) {
-    const repoLink = document.createElement('a');
-    repoLink.href = CONFIG.repoUrl;
-    repoLink.className = 'header-repo';
-    repoLink.target = '_blank';
-    repoLink.rel = 'noopener';
-    repoLink.textContent = CONFIG.repoName;
+    // Check if there's already an anchor tag
+    const existingLink = title.querySelector('a');
     
-    if (title.tagName === 'A') {
-      title.parentElement.replaceChild(repoLink, title);
+    if (existingLink) {
+      // Replace the existing link's href and text
+      existingLink.href = CONFIG.repoUrl;
+      existingLink.className = 'header-repo';
+      existingLink.target = '_blank';
+      existingLink.rel = 'noopener';
+      existingLink.textContent = CONFIG.repoName;
     } else {
+      // Create new link and replace title content
+      const repoLink = document.createElement('a');
+      repoLink.href = CONFIG.repoUrl;
+      repoLink.className = 'header-repo';
+      repoLink.target = '_blank';
+      repoLink.rel = 'noopener';
+      repoLink.textContent = CONFIG.repoName;
+      
       title.innerHTML = '';
       title.appendChild(repoLink);
     }
@@ -190,15 +200,25 @@ function setupCollapsibleNav() {
     content.classList.add('nav-children');
     
     // Check if any link in this group is active (matches current page)
-    const links = content.querySelectorAll('a[data-slot="sidebar-menu-button"]');
-    let containsCurrentPage = false;
-    
-    links.forEach(link => {
-      const isActive = link.getAttribute('data-active') === 'true';
-      if (isActive) {
-        containsCurrentPage = true;
+    // Also check nested groups recursively
+    const checkForActivePage = (element) => {
+      const links = element.querySelectorAll('a[data-slot="sidebar-menu-button"]');
+      for (const link of links) {
+        if (link.getAttribute('data-active') === 'true') {
+          return true;
+        }
       }
-    });
+      // Check nested groups
+      const nestedGroups = element.querySelectorAll('[data-slot="sidebar-group"]');
+      for (const nested of nestedGroups) {
+        if (checkForActivePage(nested)) {
+          return true;
+        }
+      }
+      return false;
+    };
+    
+    const containsCurrentPage = checkForActivePage(content);
     
     // Set initial state - ALL folders start collapsed unless they contain current page
     if (containsCurrentPage) {
