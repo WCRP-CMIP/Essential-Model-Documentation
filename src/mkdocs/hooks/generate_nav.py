@@ -159,10 +159,8 @@ def generate_navigation(docs_path, mkdocs_files):
         tree_to_nav(subtree, nav_lines, "  ")
     
     # Custom links - inserted directly
-
     links = parse_links_file(docs_path)
     nav_lines = add_links_to_nav(nav_lines, links)
-
     
     # Write
     with open(docs_path / 'SUMMARY.md', 'w') as f:

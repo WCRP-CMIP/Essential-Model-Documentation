@@ -1,11 +1,5 @@
 - [Home](index.md)
 - [Contributors](contributors.md)
-- Bidk:
-  - [Warnings](bidk/Warnings.md)
-  - Nested La :
-    - [Gelato](bidk/nested la /gelato.md)
-    - [Info](bidk/nested la /info.md)
-    - [Infobackup](bidk/nested la /infobackup.md)
 - Data Summaries:
   - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
   - [Index](data-summaries/index.md)
@@ -27,5 +21,11 @@
   - [Model Family](vocabularies/model_family.md)
   - [Reference](vocabularies/reference.md)
   - [Vertical Computational Grid](vocabularies/vertical_computational_grid.md)
+- Xee:
+  - [Warnings](xee/Warnings.md)
+  - Nested La :
+    - [Gelato](xee/nested la /gelato.md)
+    - [Info](xee/nested la /info.md)
+    - [Infobackup](xee/nested la /infobackup.md)
 - [CMIP Website](https://wcrp-cmip.org/)
 - [WCRP](https://www.wcrp-climate.org/)

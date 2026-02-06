@@ -1212,3 +1212,85 @@ th[data-sort="desc"] .sort-indicator {
   font-size: 0.75rem !important;
   padding-left: 1rem !important;
 }
+
+
+/* ============================================
+   NESTED NAVIGATION ITEMS (JS-generated)
+   ============================================ */
+
+/* Nested folder headers */
+.nested-folder {
+  position: relative;
+}
+
+.nested-folder::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.nested-folder.expanded::before {
+  transform: rotate(90deg);
+}
+
+.nested-folder:hover {
+  background: var(--emd-bg-secondary) !important;
+  color: var(--emd-text) !important;
+}
+
+/* Nested items list */
+.nested-items {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.nested-items:not(.collapsed) {
+  max-height: 500px !important;
+  opacity: 1 !important;
+}
+
+
+/* ============================================
+   FORCE ROOT MENU ITEMS VISIBLE
+   ============================================ */
+
+/* Force Home and Contributors links to always be visible */
+[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure the links inside are visible */
+[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"] > a {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+
+/* ============================================
+   ROOT GROUP (Home, Contributors) - NO LABEL
+   ============================================ */
+
+/* The first sidebar-group has no label - it contains Home and Contributors */
+/* Force it to always be visible and not collapsible */
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) {
+  display: block !important;
+}
+
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) [data-slot="sidebar-group-content"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-height: none !important;
+}
+
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) [data-slot="sidebar-menu-item"] {
+  display: block !important;
+  visibility: visible !important;
+}

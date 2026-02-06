@@ -22,6 +22,7 @@ function init() {
   console.log('Init running...');
   setupHeaderControls();
   setupCollapsibleNav();
+  buildNestedNavigation();
   addCustomLinks();
   updateFooter();
   addVersionSelector();
@@ -143,36 +144,10 @@ setupGlobalCopyHandler();
 // ============================================
 
 function setupHeaderControls() {
-  const header = document.querySelector('header');
-  if (!header || header.querySelector('.header-repo')) return;
-  
-  // Only target the title in the header, not the sidebar home link
-  const title = header.querySelector('h1, [data-slot="title"]');
-  
-  if (title && CONFIG.repoUrl) {
-    // Check if there's already an anchor tag
-    const existingLink = title.querySelector('a');
-    
-    if (existingLink) {
-      // Replace the existing link's href and text
-      existingLink.href = CONFIG.repoUrl;
-      existingLink.className = 'header-repo';
-      existingLink.target = '_blank';
-      existingLink.rel = 'noopener';
-      existingLink.textContent = CONFIG.repoName;
-    } else {
-      // Create new link and replace title content
-      const repoLink = document.createElement('a');
-      repoLink.href = CONFIG.repoUrl;
-      repoLink.className = 'header-repo';
-      repoLink.target = '_blank';
-      repoLink.rel = 'noopener';
-      repoLink.textContent = CONFIG.repoName;
-      
-      title.innerHTML = '';
-      title.appendChild(repoLink);
-    }
-  }
+  // Disabled - was interfering with sidebar Home link
+  // The GitHub link is already in the header by default
+  console.log('Header controls disabled to preserve Home link');
+  return;
 }
 
 // ============================================
@@ -189,7 +164,18 @@ function setupCollapsibleNav() {
     const label = group.querySelector('[data-slot="sidebar-group-label"]');
     const content = group.querySelector('[data-slot="sidebar-group-content"]');
     
-    if (!label || !content) return;
+    // If there's no label, this is the root group (Home, Contributors) - keep it expanded always
+    if (!label) {
+      console.log('Group', index, '-> ROOT GROUP (no label), keeping expanded');
+      if (content) {
+        content.style.display = 'block';
+        content.style.visibility = 'visible';
+        content.style.opacity = '1';
+      }
+      return;
+    }
+    
+    if (!content) return;
     
     // Already processed?
     if (label.dataset.collapsibleSetup === 'done') return;
@@ -251,10 +237,33 @@ function setupCollapsibleNav() {
   });
   
   // Ensure root-level menu items (not inside groups) stay visible
+  console.log('Making root menu items visible...');
+  
+  // Method 1: Direct children of sidebar-menu
   const rootMenuItems = document.querySelectorAll('[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"]');
-  rootMenuItems.forEach(item => {
+  console.log('Found root menu items (method 1):', rootMenuItems.length);
+  
+  rootMenuItems.forEach((item, i) => {
+    const link = item.querySelector('a');
+    console.log(`  Root item ${i}:`, link?.textContent?.trim());
     item.style.display = 'block';
     item.style.visibility = 'visible';
+    item.style.opacity = '1';
+  });
+  
+  // Method 2: Force visibility on all sidebar-menu-item elements NOT inside sidebar-group-content
+  const allMenuItems = document.querySelectorAll('[data-slot="sidebar-menu-item"]');
+  console.log('Total menu items:', allMenuItems.length);
+  
+  allMenuItems.forEach((item, i) => {
+    // Check if this item is a direct child of the main sidebar menu (not nested in a group)
+    const parent = item.parentElement;
+    if (parent && parent.getAttribute('data-slot') === 'sidebar-menu') {
+      const link = item.querySelector('a');
+      console.log(`  Forcing visibility on root item:`, link?.textContent?.trim());
+      item.style.display = 'block !important';
+      item.style.visibility = 'visible !important';
+    }
   });
 }
 
@@ -544,4 +553,231 @@ function setupTabbedContent() {
     
     console.log('Tabbed content initialized:', labels.length, 'tabs');
   });
+}
+
+
+// ============================================
+// BUILD NESTED NAVIGATION FROM SUMMARY.MD
+// ============================================
+
+async function buildNestedNavigation() {
+  console.log('=== BUILDING NESTED NAVIGATION ===');
+  
+  if (window.nestedNavBuilt) {
+    console.log('Already built, skipping');
+    return;
+  }
+  window.nestedNavBuilt = true;
+  
+  try {
+    const baseUrl = typeof base_url !== 'undefined' ? base_url : '/Essential-Model-Documentation/';
+    const response = await fetch(baseUrl + 'SUMMARY.md');
+    
+    if (!response.ok) {
+      console.log('Could not fetch SUMMARY.md');
+      return;
+    }
+    
+    const summaryText = await response.text();
+    const navTree = parseSummary(summaryText);
+    
+    console.log('Navigation tree parsed, processing groups...');
+    
+    // Process each top-level group
+    navTree.forEach(topItem => {
+      if (topItem.type === 'group') {
+        processGroupForNested(topItem, baseUrl);
+      }
+    });
+    
+    console.log('=== NESTED NAVIGATION COMPLETE ===');
+  } catch (err) {
+    console.error('Error building nested nav:', err);
+  }
+}
+
+function parseSummary(text) {
+  const lines = text.split('\n').filter(l => l.trim());
+  const result = [];
+  const stack = [{children: result, level: -1}];
+  
+  lines.forEach(line => {
+    const match = line.match(/^(\s*)-\s+(.+)$/);
+    if (!match) return;
+    
+    const indent = match[1].length;
+    const content = match[2];
+    const level = Math.floor(indent / 2);
+    
+    const linkMatch = content.match(/\[([^\]]+)\]\(([^)]+)\)/);
+    const groupMatch = content.match(/^(.+):$/);
+    
+    let item;
+    if (linkMatch) {
+      item = {type: 'link', title: linkMatch[1], path: linkMatch[2], level};
+    } else if (groupMatch) {
+      item = {type: 'group', title: groupMatch[1], children: [], level};
+    } else {
+      return;
+    }
+    
+    while (stack[stack.length - 1].level >= level) {
+      stack.pop();
+    }
+    
+    stack[stack.length - 1].children.push(item);
+    
+    if (item.type === 'group') {
+      stack.push(item);
+    }
+  });
+  
+  return result;
+}
+
+function processGroupForNested(group, baseUrl) {
+  const labels = document.querySelectorAll('[data-slot="sidebar-group-label"]');
+  const matchingLabel = Array.from(labels).find(l => l.textContent.trim() === group.title + ':');
+  
+  if (!matchingLabel) return;
+  
+  const menu = matchingLabel.closest('[data-slot="sidebar-group"]')
+    .querySelector('[data-slot="sidebar-menu"]');
+  
+  if (!menu) return;
+  
+  const nestedFolders = group.children.filter(c => c.type === 'group');
+  
+  console.log(`Group "${group.title}" has ${nestedFolders.length} nested folders`);
+  
+  nestedFolders.forEach(folder => {
+    createNestedFolder(menu, folder, baseUrl);
+  });
+}
+
+function createNestedFolder(parentMenu, folder, baseUrl) {
+  const currentPath = window.location.pathname;
+  
+  const li = document.createElement('li');
+  li.className = 'nested-folder-item';
+  li.style.margin = '2px 0';
+  
+  // Folder header with arrow
+  const header = document.createElement('div');
+  header.className = 'nested-folder-toggle';
+  header.innerHTML = `
+    <span class="arrow" style="display: inline-block; width: 1rem; transition: transform 0.2s; font-size: 0.7rem;">▸</span>
+    <span class="name">${folder.title}</span>
+  `;
+  header.style.cssText = `
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--emd-text-secondary);
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  `;
+  
+  // Nested items container
+  const container = document.createElement('ul');
+  container.className = 'nested-folder-items';
+  container.style.cssText = `
+    list-style: none;
+    padding: 0 0 0 1.5rem;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+  `;
+  
+  let hasActive = false;
+  
+  // Add child links
+  folder.children.forEach(child => {
+    if (child.type !== 'link') return;
+    
+    const itemLi = document.createElement('li');
+    itemLi.style.margin = '0';
+    
+    const link = document.createElement('a');
+    link.href = baseUrl + child.path.replace('.md', '/');
+    link.textContent = child.title;
+    link.style.cssText = `
+      display: block;
+      padding: 0.4rem 0.5rem;
+      font-size: 0.75rem;
+      color: var(--emd-text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.15s;
+    `;
+    
+    // Check if active
+    const isActive = currentPath === link.href || currentPath.includes(link.href);
+    if (isActive) {
+      link.style.color = 'var(--emd-primary)';
+      link.style.fontWeight = '600';
+      hasActive = true;
+    }
+    
+    link.addEventListener('mouseenter', () => {
+      link.style.background = 'var(--emd-bg-secondary)';
+      link.style.color = 'var(--emd-text)';
+    });
+    
+    link.addEventListener('mouseleave', () => {
+      link.style.background = 'transparent';
+      link.style.color = isActive ? 'var(--emd-primary)' : 'var(--emd-text-secondary)';
+    });
+    
+    itemLi.appendChild(link);
+    container.appendChild(itemLi);
+  });
+  
+  // Auto-expand if contains active page
+  if (hasActive) {
+    header.setAttribute('data-expanded', 'true');
+    header.querySelector('.arrow').style.transform = 'rotate(90deg)';
+    container.style.maxHeight = '1000px';
+    container.style.opacity = '1';
+  }
+  
+  // Toggle click handler
+  header.addEventListener('click', () => {
+    const expanded = header.getAttribute('data-expanded') === 'true';
+    const arrow = header.querySelector('.arrow');
+    
+    if (expanded) {
+      header.setAttribute('data-expanded', 'false');
+      arrow.style.transform = 'rotate(0deg)';
+      container.style.maxHeight = '0';
+      container.style.opacity = '0';
+    } else {
+      header.setAttribute('data-expanded', 'true');
+      arrow.style.transform = 'rotate(90deg)';
+      container.style.maxHeight = '1000px';
+      container.style.opacity = '1';
+    }
+  });
+  
+  // Hover effect
+  header.addEventListener('mouseenter', () => {
+    header.style.background = 'var(--emd-bg-secondary)';
+    header.style.color = 'var(--emd-text)';
+  });
+  
+  header.addEventListener('mouseleave', () => {
+    header.style.background = 'transparent';
+    header.style.color = 'var(--emd-text-secondary)';
+  });
+  
+  li.appendChild(header);
+  li.appendChild(container);
+  parentMenu.appendChild(li);
+  
+  console.log(`  Created nested folder "${folder.title}" with ${folder.children.length} items`);
 }
