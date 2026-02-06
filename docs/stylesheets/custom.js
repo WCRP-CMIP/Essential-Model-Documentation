@@ -28,6 +28,7 @@ function init() {
   setupHeaderAnchors();
   fixCopyPageButton();
   setupGlobalCopyHandler();
+  setupTabbedContent();
 }
 
 // ============================================
@@ -432,3 +433,95 @@ function addVersionSelector() {
 
 // Export for debugging
 window.EMDCustom = { init, CONFIG };
+
+// ============================================
+// TABBED CONTENT SUPPORT
+// ============================================
+
+function setupTabbedContent() {
+  const tabbedSets = document.querySelectorAll('.tabbed-set');
+  
+  tabbedSets.forEach(set => {
+    // Skip if already set up
+    if (set.dataset.tabbedSetup) return;
+    set.dataset.tabbedSetup = 'true';
+    
+    const labels = set.querySelectorAll('.tabbed-labels > label');
+    const inputs = set.querySelectorAll('input[type="radio"]');
+    const blocks = set.querySelectorAll('.tabbed-content > .tabbed-block');
+    
+    // Function to update visible tab
+    const updateTabs = () => {
+      const checkedIndex = Array.from(inputs).findIndex(input => input.checked);
+      
+      // Update blocks
+      blocks.forEach((block, index) => {
+        if (index === checkedIndex) {
+          block.style.display = 'block';
+          block.style.visibility = 'visible';
+          block.style.opacity = '1';
+          block.setAttribute('data-active', 'true');
+        } else {
+          block.style.display = 'none';
+          block.setAttribute('data-active', 'false');
+        }
+      });
+      
+      // Update labels
+      labels.forEach((label, index) => {
+        if (index === checkedIndex) {
+          label.setAttribute('data-active', 'true');
+        } else {
+          label.setAttribute('data-active', 'false');
+        }
+      });
+    };
+    
+    // Initial display
+    updateTabs();
+    
+    // Add keyboard navigation and click handlers
+    labels.forEach((label, index) => {
+      label.setAttribute('tabindex', '0');
+      label.setAttribute('role', 'tab');
+      
+      // Click handler
+      label.addEventListener('click', () => {
+        if (inputs[index]) {
+          inputs[index].checked = true;
+          updateTabs();
+        }
+      });
+      
+      // Keyboard handler
+      label.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (inputs[index]) {
+            inputs[index].checked = true;
+            updateTabs();
+          }
+        }
+        
+        // Arrow key navigation
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          const direction = e.key === 'ArrowLeft' ? -1 : 1;
+          const newIndex = (index + direction + labels.length) % labels.length;
+          labels[newIndex].focus();
+          if (inputs[newIndex]) {
+            inputs[newIndex].checked = true;
+            updateTabs();
+          }
+        }
+      });
+      
+      // Listen for radio button changes
+      if (inputs[index]) {
+        inputs[index].addEventListener('change', updateTabs);
+      }
+    });
+    
+    console.log('Tabbed content initialized:', labels.length, 'tabs');
+  });
+}

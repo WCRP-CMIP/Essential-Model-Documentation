@@ -113,10 +113,40 @@ header [data-slot="input"] {
   background: white !important;
   border: 1px solid var(--emd-border) !important;
   border-radius: 4px !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+header input[type="search"]:focus,
+header [data-slot="input"]:focus {
+  border-color: var(--emd-primary) !important;
+  box-shadow: 0 0 0 3px rgba(var(--emd-primary-rgb), 0.15) !important;
 }
 
 header input[type="search"]::placeholder {
   opacity: 0.6;
+}
+
+/* Search dialog trigger button - override Tailwind focus ring */
+button[data-slot="dialog-trigger"] {
+  border: 1px solid var(--emd-border) !important;
+}
+
+button[data-slot="dialog-trigger"] kbd {
+  border-color: var(--emd-primary) !important;
+}
+
+button[data-slot="dialog-trigger"]:hover {
+  border-color: var(--emd-primary) !important;
+  background: var(--emd-bg-secondary) !important;
+}
+
+button[data-slot="dialog-trigger"]:focus,
+button[data-slot="dialog-trigger"]:focus-visible,
+button[data-slot="dialog-trigger"]:focus-within {
+  border-color: var(--emd-primary) !important;
+  outline: 3px solid rgba(var(--emd-primary-rgb), 0.3) !important;
+  outline-offset: 0 !important;
 }
 
 /* ============================================
@@ -518,7 +548,7 @@ body > div > footer {
 .md-footer__button {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-center: center;
   color: var(--emd-primary);
 }
 
@@ -956,4 +986,205 @@ th[data-sort="desc"] .sort-indicator {
   background: var(--emd-primary-light);
   border-color: var(--emd-primary);
   text-decoration: none !important;
+}
+
+/* ============================================
+   MATERIAL FOR MKDOCS TABBED CONTENT
+   ============================================ */
+
+/* Hide the radio buttons */
+.tabbed-set > input[type="radio"] {
+  display: none !important;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Tab labels container */
+.tabbed-labels {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--emd-border);
+  margin-bottom: 1rem;
+}
+
+/* Individual tab labels */
+.tabbed-labels > label {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--emd-text-secondary);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tabbed-labels > label:hover {
+  color: var(--emd-text);
+  background: var(--emd-bg-secondary);
+}
+
+/* Active tab label - using ID selectors for specificity */
+#__tabbed_1_1:checked ~ .tabbed-labels > label[for="__tabbed_1_1"],
+#__tabbed_1_2:checked ~ .tabbed-labels > label[for="__tabbed_1_2"],
+#__tabbed_1_3:checked ~ .tabbed-labels > label[for="__tabbed_1_3"],
+#__tabbed_2_1:checked ~ .tabbed-labels > label[for="__tabbed_2_1"],
+#__tabbed_2_2:checked ~ .tabbed-labels > label[for="__tabbed_2_2"],
+#__tabbed_2_3:checked ~ .tabbed-labels > label[for="__tabbed_2_3"],
+#__tabbed_2_4:checked ~ .tabbed-labels > label[for="__tabbed_2_4"],
+#__tabbed_2_5:checked ~ .tabbed-labels > label[for="__tabbed_2_5"] {
+  color: var(--emd-primary) !important;
+  border-bottom-color: var(--emd-primary) !important;
+}
+
+/* Hide all tab content by default */
+.tabbed-set .tabbed-content .tabbed-block {
+  display: none !important;
+}
+
+/* Show first tab content when first radio is checked */
+#__tabbed_1_1:checked ~ .tabbed-content > .tabbed-block:nth-child(1),
+#__tabbed_2_1:checked ~ .tabbed-content > .tabbed-block:nth-child(1) {
+  display: block !important;
+}
+
+/* Show second tab content when second radio is checked */
+#__tabbed_1_2:checked ~ .tabbed-content > .tabbed-block:nth-child(2),
+#__tabbed_2_2:checked ~ .tabbed-content > .tabbed-block:nth-child(2) {
+  display: block !important;
+}
+
+/* Show third tab content when third radio is checked */
+#__tabbed_1_3:checked ~ .tabbed-content > .tabbed-block:nth-child(3),
+#__tabbed_2_3:checked ~ .tabbed-content > .tabbed-block:nth-child(3) {
+  display: block !important;
+}
+
+/* Show fourth tab content when fourth radio is checked */
+#__tabbed_2_4:checked ~ .tabbed-content > .tabbed-block:nth-child(4) {
+  display: block !important;
+}
+
+/* Show fifth tab content when fifth radio is checked */
+#__tabbed_2_5:checked ~ .tabbed-content > .tabbed-block:nth-child(5) {
+  display: block !important;
+}
+
+/* Content styling */
+.tabbed-content {
+  padding: 0;
+}
+
+.tabbed-block {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Code blocks inside tabs */
+.tabbed-block pre {
+  margin-top: 0;
+}
+
+/* Make sure code highlighting works inside tabs */
+.tabbed-block .highlight {
+  margin: 0;
+}
+
+
+
+/* ============================================
+   TABBED CONTENT - FORCE VISIBILITY
+   ============================================ */
+
+/* Force container visible */
+.tabbed-set {
+  display: block !important;
+  visibility: visible !important;
+  margin: 1.5rem 0 !important;
+}
+
+/* Force labels visible */
+.tabbed-labels {
+  display: flex !important;
+  visibility: visible !important;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--emd-border);
+  margin-bottom: 1rem;
+}
+
+.tabbed-labels > label {
+  display: block !important;
+  visibility: visible !important;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--emd-text-secondary);
+  transition: all 0.2s ease;
+  user-select: none;
+  background: transparent;
+}
+
+.tabbed-labels > label:hover {
+  color: var(--emd-text);
+  background: var(--emd-bg-secondary);
+}
+
+/* Active tab styling - enhanced by JavaScript */
+.tabbed-labels > label[data-active="true"] {
+  color: var(--emd-primary) !important;
+  border-bottom-color: var(--emd-primary) !important;
+}
+
+/* Force content container visible */
+.tabbed-content {
+  display: block !important;
+  visibility: visible !important;
+  padding: 0;
+}
+
+/* Blocks controlled by JavaScript - just set base styles */
+.tabbed-block {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/* Animation for visible blocks */
+.tabbed-block[data-active="true"] {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Code blocks inside tabs */
+.tabbed-block pre {
+  margin-top: 0;
+}
+
+.tabbed-block .highlight {
+  margin: 0;
 }

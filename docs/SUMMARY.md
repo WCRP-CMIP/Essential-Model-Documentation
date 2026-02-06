@@ -2,14 +2,16 @@
 - [Contributors](contributors.md)
 - Bidk:
   - [Warnings](bidk/Warnings.md)
-  - [Gelato](bidk/gelato.md)
-  - [Info](bidk/info.md)
-  - [Infobackup](bidk/infobackup.md)
+  - Nested La :
+    - [Gelato](bidk/nested la /gelato.md)
+    - [Info](bidk/nested la /info.md)
+    - [Infobackup](bidk/nested la /infobackup.md)
 - Data Summaries:
   - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
   - [Index](data-summaries/index.md)
 - Technical:
   - [Contributors](technical/contributors.md)
+  - [Creating Issue Templates](technical/creating-issue-templates.md)
   - Mkdocs:
     - [Generators](technical/mkdocs/generators.md)
     - [Index](technical/mkdocs/index.md)
