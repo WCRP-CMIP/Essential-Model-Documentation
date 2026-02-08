@@ -155,10 +155,9 @@ function setupHeaderControls() {
 // ============================================
 
 function setupCollapsibleNav() {
-  // shadcn uses data-slot="sidebar-group" for each section
   const groups = document.querySelectorAll('[data-slot="sidebar-group"]');
   
-  console.log('Found sidebar groups:', groups.length);
+  console.log('Setting up collapsible navigation for', groups.length, 'groups');
   
   groups.forEach((group, index) => {
     const label = group.querySelector('[data-slot="sidebar-group-label"]');
@@ -166,11 +165,12 @@ function setupCollapsibleNav() {
     
     // If there's no label, this is the root group (Home, Contributors) - keep it expanded always
     if (!label) {
-      console.log('Group', index, '-> ROOT GROUP (no label), keeping expanded');
+      console.log(`Group ${index}: ROOT GROUP (no label), keeping expanded`);
       if (content) {
         content.style.display = 'block';
         content.style.visibility = 'visible';
         content.style.opacity = '1';
+        content.style.maxHeight = 'none';
       }
       return;
     }
@@ -181,23 +181,17 @@ function setupCollapsibleNav() {
     if (label.dataset.collapsibleSetup === 'done') return;
     label.dataset.collapsibleSetup = 'done';
     
+    const groupName = label.textContent.trim();
+    
     // Add classes for styling
     label.classList.add('nav-collapsible');
     content.classList.add('nav-children');
     
-    // Check if any link in this group is active (matches current page)
-    // Also check nested groups recursively
+    // Check if any link in this group is active
     const checkForActivePage = (element) => {
       const links = element.querySelectorAll('a[data-slot="sidebar-menu-button"]');
       for (const link of links) {
         if (link.getAttribute('data-active') === 'true') {
-          return true;
-        }
-      }
-      // Check nested groups
-      const nestedGroups = element.querySelectorAll('[data-slot="sidebar-group"]');
-      for (const nested of nestedGroups) {
-        if (checkForActivePage(nested)) {
           return true;
         }
       }
@@ -206,65 +200,63 @@ function setupCollapsibleNav() {
     
     const containsCurrentPage = checkForActivePage(content);
     
-    // Set initial state - ALL folders start collapsed unless they contain current page
-    if (containsCurrentPage) {
+    // Set initial state based on whether it contains current page
+    const initiallyExpanded = containsCurrentPage;
+    
+    if (initiallyExpanded) {
       label.classList.add('expanded');
       content.classList.remove('collapsed');
-      console.log('Group', index, label.textContent.trim(), '-> EXPANDED (contains current page)');
+      content.style.maxHeight = '2000px';
+      content.style.opacity = '1';
+      content.style.pointerEvents = 'auto';
+      console.log(`Group ${index} "${groupName}": EXPANDED (contains active page)`);
     } else {
       label.classList.remove('expanded');
       content.classList.add('collapsed');
-      console.log('Group', index, label.textContent.trim(), '-> COLLAPSED');
+      content.style.maxHeight = '0';
+      content.style.opacity = '0';
+      content.style.pointerEvents = 'none';
+      console.log(`Group ${index} "${groupName}": COLLAPSED`);
     }
     
-    // Click handler for toggle
+    // Click handler for toggle - works for ALL groups
     label.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       
       const isExpanded = label.classList.contains('expanded');
       
+      console.log(`Toggling "${groupName}": currently ${isExpanded ? 'expanded' : 'collapsed'}`);
+      
       if (isExpanded) {
+        // Collapse
         label.classList.remove('expanded');
         content.classList.add('collapsed');
+        content.style.maxHeight = '0';
+        content.style.opacity = '0';
+        content.style.pointerEvents = 'none';
+        console.log(`  → Now COLLAPSED`);
       } else {
+        // Expand
         label.classList.add('expanded');
         content.classList.remove('collapsed');
+        content.style.maxHeight = '2000px';
+        content.style.opacity = '1';
+        content.style.pointerEvents = 'auto';
+        console.log(`  → Now EXPANDED`);
       }
-      
-      console.log('Toggled group:', label.textContent.trim(), 'expanded:', !isExpanded);
     });
   });
   
-  // Ensure root-level menu items (not inside groups) stay visible
-  console.log('Making root menu items visible...');
-  
-  // Method 1: Direct children of sidebar-menu
+  // Ensure root-level menu items stay visible
   const rootMenuItems = document.querySelectorAll('[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"]');
-  console.log('Found root menu items (method 1):', rootMenuItems.length);
-  
-  rootMenuItems.forEach((item, i) => {
-    const link = item.querySelector('a');
-    console.log(`  Root item ${i}:`, link?.textContent?.trim());
+  rootMenuItems.forEach(item => {
     item.style.display = 'block';
     item.style.visibility = 'visible';
     item.style.opacity = '1';
   });
   
-  // Method 2: Force visibility on all sidebar-menu-item elements NOT inside sidebar-group-content
-  const allMenuItems = document.querySelectorAll('[data-slot="sidebar-menu-item"]');
-  console.log('Total menu items:', allMenuItems.length);
-  
-  allMenuItems.forEach((item, i) => {
-    // Check if this item is a direct child of the main sidebar menu (not nested in a group)
-    const parent = item.parentElement;
-    if (parent && parent.getAttribute('data-slot') === 'sidebar-menu') {
-      const link = item.querySelector('a');
-      console.log(`  Forcing visibility on root item:`, link?.textContent?.trim());
-      item.style.display = 'block !important';
-      item.style.visibility = 'visible !important';
-    }
-  });
+  console.log('Collapsible nav setup complete');
 }
 
 // ============================================

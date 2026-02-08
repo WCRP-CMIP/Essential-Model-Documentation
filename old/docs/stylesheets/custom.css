@@ -238,30 +238,25 @@ nav a {
 .nav-children,
 [data-slot="sidebar-group-content"].nav-children {
   overflow: hidden;
-  max-height: 0;
   transition: max-height 0.3s ease-out, opacity 0.2s ease;
-  opacity: 0;
   position: relative;
   z-index: 1;
-  pointer-events: none;
 }
 
-/* Expanded state - only direct sibling, not all descendants */
-.nav-collapsible.expanded + .nav-children,
-.nav-collapsible.expanded + [data-slot="sidebar-group-content"].nav-children {
-  max-height: 2000px !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-/* Collapsed state */
+/* Collapsed state - explicit */
 .nav-children.collapsed,
 [data-slot="sidebar-group-content"].nav-children.collapsed {
   max-height: 0 !important;
-  opacity: 0;
-  pointer-events: none;
-  position: relative;
-  z-index: 1;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Expanded state - only when NOT collapsed */
+.nav-collapsible.expanded + .nav-children:not(.collapsed),
+.nav-collapsible.expanded + [data-slot="sidebar-group-content"].nav-children:not(.collapsed) {
+  max-height: 2000px !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 /* ============================================
