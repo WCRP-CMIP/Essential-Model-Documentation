@@ -39,16 +39,6 @@ else:
     scripts = sorted(scripts_dir.glob("*.py"))
     scripts = [s for s in scripts if not s.name.startswith('_')]
     
-    
-    #### Generate summary first if generate_summary/ exists
-    summary_dir = scripts_dir/'generate_summaries/'
-    if os.path.exists(summary_dir):
-        from cmipld.generate.generate_summary import main
-        main(script_dir=str(summary_dir))
-    print(summary_dir)
-    
-    
-    #### Now run all other scripts
     if not scripts:
         print("ℹ️  No Python scripts found in docs/scripts/")
     else:
@@ -83,8 +73,5 @@ else:
                 traceback.print_exc()
         
         print("\n" + "-" * 40)
-        
-
-        
 
 print("=" * 60 + "\n")

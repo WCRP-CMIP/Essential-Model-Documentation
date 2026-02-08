@@ -6,12 +6,13 @@
    CSS VARIABLES - BLUE THEME
    ============================================ */
 
+
+
 :root {
-  --emd-primary: #3b82f6;
-  --emd-primary-rgb: 59, 130, 246;
-  --emd-primary-light: #dbeafe;
-  --emd-primary-dark: #2563eb;
-  --emd-accent: #0ea5e9;
+  --emd-primary: #2196f3;
+  --emd-primary-light: #bbdefb;
+  --emd-primary-dark: #1976d2;
+  --emd-accent: #2196f3;
   --emd-text: #1e293b;
   --emd-text-secondary: #475569;
   --emd-text-tertiary: #94a3b8;
@@ -21,17 +22,13 @@
   --emd-border: #e2e8f0;
   --emd-border-light: #f1f5f9;
   
-  --primary: 217 91% 60%;
-  --primary-foreground: 210 40% 98%;
-  --accent: 199 89% 48%;
-  --sidebar-primary: 217 91% 60%;
+  color: var(--emd-text);
 }
 
 .dark {
-  --emd-primary: #60a5fa;
-  --emd-primary-rgb: 96, 165, 250;
-  --emd-primary-light: rgba(59, 130, 246, 0.15);
-  --emd-primary-dark: #93c5fd;
+  --emd-primary: #bbdefb;
+  --emd-primary-light: rgba(255, 255, 255, 0.1);
+  --emd-primary-dark: #2196f3;
   --emd-text: #f1f5f9;
   --emd-text-secondary: #cbd5e1;
   --emd-text-tertiary: #64748b;
@@ -40,6 +37,22 @@
   --emd-bg-tertiary: #334155;
   --emd-border: #334155;
   --emd-border-light: #1e293b;
+  
+  color: var(--emd-text);
+}
+  --emd-border-light: #1e293b;
+  
+  /* Map shadcn theme variables to emd-primary blue (dark mode) */
+  --primary: 213 94% 68%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --accent: 213 94% 68%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --sidebar-primary: 213 94% 68%;
+  --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+  --sidebar-accent: 213 94% 68%;
+  --ring: 213 94% 68%;
+  
+  color: var(--emd-text);
 }
 
 /* ============================================
@@ -49,6 +62,12 @@
 /* Hide shadcn theme's default GitHub link */
 header a[target="_blank"]:not(.header-repo):has(svg[viewBox="0 0 438.549 438.549"]),
 header a[href*="github.com"][target="_blank"]:not(.header-repo) {
+  display: none !important;
+}
+
+/* Hide Copy Page button */
+button[onclick*="clipboard"],
+button:has(.tabler-icon-copy) {
   display: none !important;
 }
 
@@ -63,12 +82,36 @@ header {
   position: relative;
 }
 
+/* Logo and home link SVGs */
+header a[href="/"] svg,
+header a[href="./"] svg,
+header [data-slot="logo"] svg,
+[data-slot="sidebar"] a[href="/"] svg,
+[data-slot="sidebar"] a[href="./"] svg,
+[data-slot="sidebar"] [data-slot="logo"] svg {
+  stroke: var(--emd-primary) !important;
+  fill: none !important;
+  color: var(--emd-primary) !important;
+}
+
+/* Header SVGs and icons - primary stroke */
+header svg {
+  stroke: var(--emd-primary) !important;
+  color: var(--emd-primary) !important;
+}
+
+/* Header buttons */
+header button svg {
+  fill: none !important;
+  stroke: var(--emd-primary) !important;
+}
+
 header h1,
 header [data-slot="title"] {
   font-family: "Noto Sans", var(--font-sans), system-ui;
   font-weight: 700 !important;
-  color: var(--emd-text) !important;
-  font-size: 1.1rem !important;
+  color: var(--emd-primary-dark) !important;
+  font-size: 0.95rem !important;
 }
 
 /* GitHub repo link in title */
@@ -92,10 +135,147 @@ header [data-slot="input"] {
   background: white !important;
   border: 1px solid var(--emd-border) !important;
   border-radius: 4px !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+header input[type="search"]:focus,
+header [data-slot="input"]:focus {
+  border-color: var(--emd-primary) !important;
+  box-shadow: 0 0 0 3px rgba(var(--emd-primary-rgb), 0.15) !important;
 }
 
 header input[type="search"]::placeholder {
   opacity: 0.6;
+}
+
+/* Search dialog trigger button - override Tailwind focus ring */
+button[data-slot="dialog-trigger"] {
+  border: 1px solid var(--emd-border) !important;
+}
+
+button[data-slot="dialog-trigger"] kbd {
+  border-color: var(--emd-primary) !important;
+}
+
+button[data-slot="dialog-trigger"]:hover {
+  border-color: var(--emd-primary) !important;
+  background: var(--emd-bg-secondary) !important;
+}
+
+button[data-slot="dialog-trigger"]:focus,
+button[data-slot="dialog-trigger"]:focus-visible,
+button[data-slot="dialog-trigger"]:focus-within {
+  border-color: var(--emd-primary) !important;
+  outline: 3px solid rgba(var(--emd-primary-rgb), 0.3) !important;
+  outline-offset: 0 !important;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+
+/* Sidebar container - full height */
+[data-slot="sidebar"] {
+  min-height: 100vh !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+[data-slot="sidebar"] > * {
+  flex-shrink: 0;
+}
+
+/* Sidebar icons and SVGs */
+[data-slot="sidebar"] svg,
+[data-slot="sidebar-menu"] svg,
+[data-slot="sidebar-menu-item"] svg {
+  color: var(--emd-primary);
+  stroke: var(--emd-primary);
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+/* Active menu item icons - white */
+[data-slot="sidebar-menu-item"] a[data-active="true"] svg,
+[data-slot="sidebar-menu-button"][data-active="true"] svg {
+  color: white;
+  stroke: white;
+}
+
+/* Sidebar menu items - allow text to wrap and center vertically */
+[data-slot="sidebar-menu-button"],
+[data-slot="sidebar-menu"] a,
+.sidebar-menu-button,
+nav a {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  height: auto !important;
+  min-height: 1.5rem;
+  line-height: 1.2 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Items inside groups/dropdowns - smaller, indented, tighter spacing */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-menu-item"],
+[data-slot="sidebar-group-content"] a,
+.nav-children a {
+  margin: 0 !important;
+  padding: 0.15rem 0.5rem 0.15rem 1rem !important;
+  font-size: 0.75rem !important;
+  min-height: 1.25rem !important;
+}
+
+[data-slot="sidebar-group-content"] [data-slot="sidebar-menu-item"] {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+[data-slot="sidebar-group-content"] ul {
+  gap: 0 !important;
+}
+
+/* Active sidebar item text color */
+[data-active="true"],
+.data-\[active\=true\]\:text-sidebar-accent-foreground[data-active=true] {
+  color: var(--emd-primary) !important;
+}
+
+/* Reduce vertical spacing between nav items */
+[data-slot="sidebar-menu"] > *,
+[data-slot="sidebar-group-content"] > *,
+.nav-children > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+[data-slot="sidebar-menu-item"],
+[data-slot="sidebar-group"] {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Tighter spacing for dropdown items */
+[data-slot="sidebar-group-content"] a,
+.nav-children a {
+  margin: 0 !important;
+  font-size: 0.8rem !important;
+}
+
+/* Group labels (section headers) */
+[data-slot="sidebar-group-label"] {
+  padding: 0.4rem 0.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0 !important;
+}
+
+/* First group label doesn't need top margin */
+[data-slot="sidebar-group"]:first-child [data-slot="sidebar-group-label"] {
+  margin-top: 0 !important;
 }
 
 /* ============================================
@@ -117,27 +297,47 @@ header input[type="search"]::placeholder {
   font-size: 0.7rem;
   opacity: 0.6;
   transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .nav-collapsible.expanded::before,
-[data-slot="sidebar-group-label"].nav-collapsible.expanded::before {
+[data-slot="sidebar-group-label"].expanded::before {
   transform: rotate(90deg);
 }
 
-/* Collapsible children */
-.nav-children,
-[data-slot="sidebar-group-content"].nav-children {
+/* Default: content after a label is COLLAPSED */
+[data-slot="sidebar-group-label"] + [data-slot="sidebar-group-content"] {
   overflow: hidden;
-  max-height: 2000px;
+  max-height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
   transition: max-height 0.3s ease-out, opacity 0.2s ease;
-  opacity: 1;
 }
 
-.nav-children.collapsed,
-[data-slot="sidebar-group-content"].nav-children.collapsed {
-  max-height: 0 !important;
-  opacity: 0;
-  pointer-events: none;
+/* Expanded: when label has .expanded class */
+[data-slot="sidebar-group-label"].expanded + [data-slot="sidebar-group-content"] {
+  max-height: 2000px !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Root groups (no label) - always visible */
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) [data-slot="sidebar-group-content"] {
+  max-height: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  display: block !important;
+}
+
+/* Ensure all sidebar groups are always visible on all pages */
+[data-slot="sidebar-group"] {
+  display: block !important;
+  visibility: visible !important;
+}
+
+[data-slot="sidebar-group-label"] {
+  display: flex !important;
+  visibility: visible !important;
 }
 
 /* ============================================
@@ -187,6 +387,40 @@ header input[type="search"]::placeholder {
 
 main, article {
   background: var(--emd-bg) !important;
+}
+
+/* Admonition icons */
+.admonition-title svg {
+  color: currentColor;
+}
+
+/* Lucide and other icon libraries */
+.lucide, [data-lucide] {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Material icons */
+.material-icons, .md-icon {
+  color: currentColor;
+}
+
+/* Override Tailwind typography/prose max-width (default is 65ch ≈ 672px) */
+.typography {
+  max-width: 1200px !important;
+  padding: 0 2rem !important;
+}
+
+/* Also target common prose classes */
+.prose {
+  max-width: 1200px !important;
+  padding: 0 2rem !important;
+}
+
+/* Ensure article itself can expand */
+article.w-full {
+  max-width: 1200px !important;
+  padding: 0 1rem !important;
 }
 
 /* Headers as full anchor links */
@@ -334,6 +568,13 @@ article table {
   overflow: hidden !important;
 }
 
+article table a {
+  color: var(--emd-primary) !important;
+}
+
+article thead {
+}
+
 article th {
   background: var(--emd-bg-secondary) !important;
   font-family: "Noto Sans", var(--font-sans), system-ui !important;
@@ -399,7 +640,7 @@ body > div > footer {
 .md-footer__button {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-center: center;
   color: var(--emd-primary);
 }
 
@@ -542,4 +783,611 @@ body > div > footer {
     display: none !important;
   }
   main, article { max-width: 100% !important; }
+}
+
+/* ============================================
+   EMBED MODE STYLES
+   ============================================ */
+
+/* Floating expand button */
+.floating-expand-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: var(--emd-primary, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.floating-expand-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Embed mode body state */
+body.embed-mode {
+  overflow-x: hidden;
+}
+
+body.embed-mode header,
+body.embed-mode [data-slot="sidebar"],
+body.embed-mode aside,
+body.embed-mode nav:not(.table-nav),
+body.embed-mode .footer-attribution,
+body.embed-mode [view-transition-name="toc"] {
+  display: none !important;
+}
+
+body.embed-mode main {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 15px !important;
+}
+
+body.embed-mode article {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 5px !important;
+  padding: 0 !important;
+}
+
+body.embed-mode .typography {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Tables expand more in embed mode */
+body.embed-mode table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+body.embed-mode .table-responsive {
+  max-width: 100% !important;
+}
+
+/* Table controls */
+.table-controls {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+body.embed-mode .table-controls {
+  display: flex !important;
+}
+
+.table-search {
+  padding: 8px 12px;
+  border: 1px solid var(--emd-border, #e2e8f0);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  width: 250px;
+  max-width: 100%;
+  background: var(--emd-bg, white);
+  color: var(--emd-text, #1e293b);
+}
+
+.table-search:focus {
+  outline: none;
+  border-color: var(--emd-primary, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.table-expand-btn {
+  padding: 8px 12px;
+  border: 1px solid var(--emd-border, #e2e8f0);
+  border-radius: 6px;
+  background: var(--emd-bg-secondary, #f8fafc);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.table-expand-btn:hover {
+  background: var(--emd-bg-tertiary, #f1f5f9);
+}
+
+/* Table responsive wrapper */
+.table-responsive {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Sort indicators */
+th[data-sort="asc"] .sort-indicator,
+th[data-sort="desc"] .sort-indicator {
+  opacity: 1 !important;
+  color: var(--emd-primary) !important;
+}
+
+/* Embed mode overlay */
+.embed-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--emd-bg, white);
+  z-index: 10000;
+  overflow: auto;
+  padding: 0;
+}
+
+.embed-overlay article {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.embed-overlay .typography {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.embed-overlay .table-wrapper,
+.embed-overlay table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.dark .embed-overlay {
+  background: var(--emd-bg, #0f172a);
+}
+
+/* Table fullscreen overlay */
+.table-fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--emd-bg, white);
+  z-index: 10000;
+  overflow: auto;
+  padding: 10px;
+}
+
+.table-fullscreen-overlay table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: auto !important;
+  border: 1px solid var(--emd-border) !important;
+  border-radius: 8px !important;
+  border-collapse: collapse !important;
+}
+
+.table-fullscreen-overlay th {
+  background: var(--emd-bg-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.75rem 1rem !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--emd-border) !important;
+  cursor: pointer;
+}
+
+.table-fullscreen-overlay td {
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid var(--emd-border) !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+.table-fullscreen-overlay tr:hover td {
+  background: var(--emd-bg-secondary) !important;
+}
+
+.table-fullscreen-overlay a {
+  color: var(--emd-primary) !important;
+}
+
+.dark .table-fullscreen-overlay {
+  background: var(--emd-bg, #0f172a);
+}
+
+/* ============================================
+   TABLE FOOTER WITH DOWNLOAD BUTTON
+   ============================================ */
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0;
+  font-size: 0.85rem;
+  color: var(--emd-text-secondary);
+}
+
+.table-footer span {
+  font-style: italic;
+}
+
+.table-footer-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table-footer-search {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--emd-primary) !important;
+  border-radius: 4px;
+  background: var(--emd-bg);
+  color: var(--emd-text);
+  width: 150px;
+  outline: none;
+}
+
+.table-footer-search:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.table-footer-search::placeholder {
+  color: var(--emd-text-secondary);
+  opacity: 0.7;
+}
+
+.table-footer-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  color: var(--emd-primary) !important;
+  background: var(--emd-bg-secondary);
+  border: 1px solid var(--emd-primary) !important;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.table-footer-expand:hover {
+  background: var(--emd-primary-light);
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--emd-primary) !important;
+  background: var(--emd-bg-secondary);
+  border: 1px solid var(--emd-border);
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover {
+  background: var(--emd-primary-light);
+  border-color: var(--emd-primary);
+  text-decoration: none !important;
+}
+
+/* ============================================
+   MATERIAL FOR MKDOCS TABBED CONTENT
+   ============================================ */
+
+/* Hide the radio buttons */
+.tabbed-set > input[type="radio"] {
+  display: none !important;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Tab labels container */
+.tabbed-labels {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--emd-border);
+  margin-bottom: 1rem;
+}
+
+/* Individual tab labels */
+.tabbed-labels > label {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--emd-text-secondary);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tabbed-labels > label:hover {
+  color: var(--emd-text);
+  background: var(--emd-bg-secondary);
+}
+
+/* Active tab label - using ID selectors for specificity */
+#__tabbed_1_1:checked ~ .tabbed-labels > label[for="__tabbed_1_1"],
+#__tabbed_1_2:checked ~ .tabbed-labels > label[for="__tabbed_1_2"],
+#__tabbed_1_3:checked ~ .tabbed-labels > label[for="__tabbed_1_3"],
+#__tabbed_2_1:checked ~ .tabbed-labels > label[for="__tabbed_2_1"],
+#__tabbed_2_2:checked ~ .tabbed-labels > label[for="__tabbed_2_2"],
+#__tabbed_2_3:checked ~ .tabbed-labels > label[for="__tabbed_2_3"],
+#__tabbed_2_4:checked ~ .tabbed-labels > label[for="__tabbed_2_4"],
+#__tabbed_2_5:checked ~ .tabbed-labels > label[for="__tabbed_2_5"] {
+  color: var(--emd-primary) !important;
+  border-bottom-color: var(--emd-primary) !important;
+}
+
+/* Hide all tab content by default */
+.tabbed-set .tabbed-content .tabbed-block {
+  display: none !important;
+}
+
+/* Show first tab content when first radio is checked */
+#__tabbed_1_1:checked ~ .tabbed-content > .tabbed-block:nth-child(1),
+#__tabbed_2_1:checked ~ .tabbed-content > .tabbed-block:nth-child(1) {
+  display: block !important;
+}
+
+/* Show second tab content when second radio is checked */
+#__tabbed_1_2:checked ~ .tabbed-content > .tabbed-block:nth-child(2),
+#__tabbed_2_2:checked ~ .tabbed-content > .tabbed-block:nth-child(2) {
+  display: block !important;
+}
+
+/* Show third tab content when third radio is checked */
+#__tabbed_1_3:checked ~ .tabbed-content > .tabbed-block:nth-child(3),
+#__tabbed_2_3:checked ~ .tabbed-content > .tabbed-block:nth-child(3) {
+  display: block !important;
+}
+
+/* Show fourth tab content when fourth radio is checked */
+#__tabbed_2_4:checked ~ .tabbed-content > .tabbed-block:nth-child(4) {
+  display: block !important;
+}
+
+/* Show fifth tab content when fifth radio is checked */
+#__tabbed_2_5:checked ~ .tabbed-content > .tabbed-block:nth-child(5) {
+  display: block !important;
+}
+
+/* Content styling */
+.tabbed-content {
+  padding: 0;
+}
+
+.tabbed-block {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Code blocks inside tabs */
+.tabbed-block pre {
+  margin-top: 0;
+}
+
+/* Make sure code highlighting works inside tabs */
+.tabbed-block .highlight {
+  margin: 0;
+}
+
+
+
+/* ============================================
+   TABBED CONTENT - FORCE VISIBILITY
+   ============================================ */
+
+/* Force container visible */
+.tabbed-set {
+  display: block !important;
+  visibility: visible !important;
+  margin: 1.5rem 0 !important;
+}
+
+/* Force labels visible */
+.tabbed-labels {
+  display: flex !important;
+  visibility: visible !important;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--emd-border);
+  margin-bottom: 1rem;
+}
+
+.tabbed-labels > label {
+  display: block !important;
+  visibility: visible !important;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--emd-text-secondary);
+  transition: all 0.2s ease;
+  user-select: none;
+  background: transparent;
+}
+
+.tabbed-labels > label:hover {
+  color: var(--emd-text);
+  background: var(--emd-bg-secondary);
+}
+
+/* Active tab styling - enhanced by JavaScript */
+.tabbed-labels > label[data-active="true"] {
+  color: var(--emd-primary) !important;
+  border-bottom-color: var(--emd-primary) !important;
+}
+
+/* Force content container visible */
+.tabbed-content {
+  display: block !important;
+  visibility: visible !important;
+  padding: 0;
+}
+
+/* Blocks controlled by JavaScript - just set base styles */
+.tabbed-block {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/* Animation for visible blocks */
+.tabbed-block[data-active="true"] {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Code blocks inside tabs */
+.tabbed-block pre {
+  margin-top: 0;
+}
+
+.tabbed-block .highlight {
+  margin: 0;
+}
+
+
+/* ============================================
+   NESTED SIDEBAR GROUPS
+   ============================================ */
+
+/* Nested groups within groups */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-group"] {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--emd-border-light);
+}
+
+/* Nested group labels should be smaller */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-group-label"] {
+  font-size: 0.7rem !important;
+  padding: 0.3rem 0.4rem !important;
+}
+
+/* Make nested items more compact */
+[data-slot="sidebar-group-content"] [data-slot="sidebar-group-content"] a {
+  font-size: 0.75rem !important;
+  padding-left: 1rem !important;
+}
+
+
+/* ============================================
+   NESTED NAVIGATION ITEMS (JS-generated)
+   ============================================ */
+
+/* Nested folder headers */
+.nested-folder {
+  position: relative;
+}
+
+.nested-folder::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.nested-folder.expanded::before {
+  transform: rotate(90deg);
+}
+
+.nested-folder:hover {
+  background: var(--emd-bg-secondary) !important;
+  color: var(--emd-text) !important;
+}
+
+/* Nested items list */
+.nested-items {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.nested-items:not(.collapsed) {
+  max-height: 500px !important;
+  opacity: 1 !important;
+}
+
+
+/* ============================================
+   FORCE ROOT MENU ITEMS VISIBLE
+   ============================================ */
+
+/* Force Home and Contributors links to always be visible */
+[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure the links inside are visible */
+[data-slot="sidebar-menu"] > [data-slot="sidebar-menu-item"] > a {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+
+/* ============================================
+   ROOT GROUP (Home, Contributors) - NO LABEL
+   ============================================ */
+
+/* The first sidebar-group has no label - it contains Home and Contributors */
+/* Force it to always be visible and not collapsible */
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) {
+  display: block !important;
+}
+
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) [data-slot="sidebar-group-content"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-height: none !important;
+}
+
+[data-slot="sidebar-group"]:not(:has([data-slot="sidebar-group-label"])) [data-slot="sidebar-menu-item"] {
+  display: block !important;
+  visibility: visible !important;
 }
