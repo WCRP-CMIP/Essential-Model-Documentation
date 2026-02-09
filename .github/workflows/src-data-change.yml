@@ -42,7 +42,7 @@ jobs:
       - name: Copy from src-data branch
         run: |
           echo "Fetching src-data branch..."
-          git fetch origin +refs/heads/src-data:refs/remotes/origin/src-data --depth=1
+          git fetch origin src-data
           
           echo "Restoring files from src-data..."
           git restore --source origin/src-data --staged --worktree -- . || true
