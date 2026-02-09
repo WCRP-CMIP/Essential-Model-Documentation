@@ -12,7 +12,7 @@ on:
       - '.github/GEN_ISSUE_TEMPLATE/**'
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 1'  # Weekly on Mondays
+    - cron: '0 0 * * 1'
 
 jobs:
   update_templates:
@@ -47,3 +47,4 @@ jobs:
           author_email: 'actions@wcrp-cmip.org'
           message: 'Auto-update issue templates'
           push: true
+
