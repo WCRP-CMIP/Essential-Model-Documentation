@@ -1,0 +1,178 @@
+name: Horizontal Computational Grid Registration
+description: Register a horizontal computational grid by linking subgrids
+title: "[EMD] Horizontal Computational Grid:"
+labels: ['emd-submission', 'grid', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Horizontal Computational Grid Registration
+        
+        Register a horizontal computational grid.
+        
+        **Prerequisites:** Subgrid IDs must exist (submit Grid Cells and Subgrid issue first).
+        
+        **This issue creates 1 entity:**
+        - Horizontal computational grid (links to subgrids)
+        
+        **Result:** Horizontal grid ID (e.g., c100) to use when registering Model Components.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Description of this horizontal computational grid.
+        
+        Include key characteristics and purpose.
+        
+        Example: 'Arakawa-C grid for atmospheric modelling combining regular lat-lon and spectral subgrids'
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Examples:**
+        - 'Arakawa-C grid for atmospheric modelling combining regular lat-lon and spectral subgrids'
+        - 'Tripolar ocean grid linking ORCA1 mass and velocity subgrids'
+        - 'Unstaggered cubed-sphere grid for high-resolution atmosphere'
+        
+        **Include:**
+        - Grid purpose (atmosphere, ocean, etc.)
+        - Staggering type
+        - Key characteristics
+        
+        </details>
+      placeholder: "e.g., Arakawa-C grid for atmosphere with TL127 spectral transform and 1.25° × 0.9° resolution"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: arrangement
+    attributes:
+      label: Arrangement
+      description: |
+        Grid staggering arrangement.
+        
+        Defines relative positions of mass and velocity variables.
+        
+        Common:
+        - **arakawa-a**: Unstaggered (mass and velocity same location)
+        - **arakawa-b**: Velocity at corners
+        - **arakawa-c**: Velocity at edge centers, perpendicular
+        - **arakawa-d**: Velocity at edge centers, tangential
+        - **arakawa-e**: Mass at edge centers
+        - **unstaggered**: No staggering
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Staggering types:**
+        
+        - **arakawa-a**: Unstaggered (mass and velocity at same points)
+        - **arakawa-b**: Velocity at cell corners
+        - **arakawa-c**: Velocity at edge midpoints, perpendicular to edge (most common for atmosphere/ocean)
+        - **arakawa-d**: Velocity at edge midpoints, tangential to edge
+        - **arakawa-e**: Mass at velocity cell edges
+        - **unstaggered**: No staggering (simple grids)
+        
+        **Match arrangement to number of subgrids:**
+        - Unstaggered/Arakawa-A: 1 subgrid
+        - Arakawa-C: 2 subgrids (mass + velocity)
+        - Complex: 2+ subgrids
+        
+        </details>
+      options:
+        - "Not specified"
+        - "arakawa-a"
+        - "arakawa-b"
+        - "arakawa-c"
+        - "arakawa-d"
+        - "arakawa-e"
+      default: 0
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Subgrid References
+        
+        Enter the subgrid IDs you received from your Grid Cells and Subgrid issue(s).
+        
+        One ID per line.
+        
+        **Must match your arrangement:**
+        - Unstaggered: 1 subgrid
+        - Arakawa-C: 2 subgrids (mass + velocity)
+        - Other staggered: 2+ subgrids
+
+  - type: textarea
+    id: horizontal_subgrids
+    attributes:
+      label: Subgrid IDs
+      description: |
+        Enter subgrid IDs, one per line.
+        
+        Example:
+        s100
+        s101
+        
+        You received these IDs when you submitted Grid Cells and Subgrid issue(s).
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Format:** One subgrid ID per line
+        
+        **Example:**
+        ```
+        s100
+        s101
+        ```
+        
+        **You received these IDs** when you submitted your Grid Cells and Subgrid issue(s).
+        
+        **Number of subgrids must match your arrangement:**
+        - Unstaggered: 1 subgrid
+        - Arakawa-C: 2 subgrids
+        - Custom staggering: 2+ subgrids
+        
+        **Order matters** for some arrangements (e.g., mass subgrid before velocity).
+        
+        </details>
+      placeholder: "s100\ns101"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## What Will Be Generated
+        
+        This issue creates:
+        
+        **horizontal_computational_grid** (ID: c###)
+        - Links to your subgrid(s)
+        - Contains: Arrangement type
+        - References: Subgrid IDs you provided
+        
+        **You'll receive:** Horizontal grid ID (c###)
+        
+        **Next:** Use this ID (c###) + vertical grid ID (v###) in Model Component issue.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Handling Metadata
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

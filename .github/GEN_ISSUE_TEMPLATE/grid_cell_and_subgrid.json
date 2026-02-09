@@ -1,0 +1,12 @@
+{
+  "name": "Grid Cell and Subgrid Registration",
+  "description": "Register horizontal grid cells and subgrid together",
+  "title": "[EMD] Grid Cell and Subgrid:",
+  "labels": ["emd-submission", "grid", "Review"],
+  "issue_category": "grid_cell_and_subgrid",
+  "dropdown_title": "Completion Guidance",
+  "field_guidance": {
+    "grid_type": "How cells are distributed over the region. Most common: regular-latitude-longitude, reduced-gaussian, tripolar, cubed-sphere.",
+    "cell_variable_type": "Types of variables at this subgrid location. mass: thermodynamic quantities, x-velocity/y-velocity: velocity components, velocity: full vector for unstructured grids."
+  }
+}

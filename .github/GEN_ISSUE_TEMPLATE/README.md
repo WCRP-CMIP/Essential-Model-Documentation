@@ -41,7 +41,7 @@ GEN_ISSUE_TEMPLATE/
 
 | Template | Creates | Dependencies | Files |
 |----------|---------|--------------|-------|
-| **grid_cells_and_subgrid** | Grid cells + Subgrids (2-3 entities) | None | .csv, .py, .json |
+| **grid_cell_and_subgrid** | Grid cells + Subgrids (2-3 entities) | None | .csv, .py, .json |
 | **horizontal_computational_grid** | H-Grid (1 entity) | Subgrids | .csv, .py, .json |
 | **vertical_computational_grid** | V-Grid (1 entity) | None | .csv, .py, .json |
 | **model_component** | Component + Config (2 entities) | Grids | .csv, .py, .json |
@@ -54,7 +54,7 @@ GEN_ISSUE_TEMPLATE/
 ### Phase 1: Grids (3 issues per config)
 
 ```
-1. grid_cells_and_subgrid → s100, s101
+1. grid_cell_and_subgrid → s100, s101
    ↓
 2. horizontal_computational_grid (refs s100, s101) → c100
    ↓ (parallel)
@@ -190,7 +190,7 @@ DATA = {
 ```json
 {
   "grouping": {
-    "Grid Registration": ["grid_cells_and_subgrid", "horizontal_computational_grid", "vertical_computational_grid"],
+    "Grid Registration": ["grid_cell_and_subgrid", "horizontal_computational_grid", "vertical_computational_grid"],
     "Component Registration": ["model_component"],
     "Model Registration": ["model_family", "model"]
   },
@@ -222,7 +222,7 @@ Workflow: `.github/workflows/issue-templates.yml`
 ## Template Files
 
 ### Active Templates (7)
-✅ grid_cells_and_subgrid (.csv, .py, .json)
+✅ grid_cell_and_subgrid (.csv, .py, .json)
 ✅ horizontal_computational_grid (.csv, .py, .json)
 ✅ vertical_computational_grid (.csv, .py, .json)
 ✅ model_component (.csv, .py, .json)

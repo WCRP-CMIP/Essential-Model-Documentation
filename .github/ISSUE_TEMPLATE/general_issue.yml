@@ -16,14 +16,7 @@ body:
       label: Issue Type
       description: What kind of issue are you reporting?
       options:
-        - "Not specified"
-        - "Bug Report"
-        - "Feature Request"
-        - "Documentation Issue"
-        - "CV Term Request"
-        - "Process Improvement"
-        - "Question"
-        - "Other"
+        - "No options available"
       default: 0
     validations:
       required: true
@@ -38,17 +31,7 @@ body:
         
         *Select multiple if applicable*
       options:
-        - "Model Registration"
-        - "Model Component Registration"
-        - "Model Family Registration"
-        - "Grid Definitions"
-        - "References"
-        - "Documentation"
-        - "GitHub Actions/Workflows"
-        - "Issue Templates"
-        - "Validation Scripts"
-        - "General Repository Structure"
-        - "All/Multiple Areas"
+        - "No options available"
     validations:
       required: true
 
@@ -90,11 +73,7 @@ body:
       label: Priority
       description: How urgent is this issue?
       options:
-        - "Not specified"
-        - "Critical - Blocking work"
-        - "High - Important issue"
-        - "Medium - Should be addressed"
-        - "Low - Nice to fix"
+        - "No options available"
       default: 0
     validations:
       required: true
@@ -106,6 +85,4 @@ body:
       label: Help Needed
       description: Do you need help with this issue?
       options:
-        - "I can work on this myself"
-        - "I need help implementing a solution"
-        - "I'm just reporting this issue"
+        - "No options available"

@@ -1,7 +1,7 @@
 {
   "grouping": {
     "Grid Registration": [
-      "grid_cells_and_subgrid",
+      "grid_cell_and_subgrid",
       "horizontal_computational_grid",
       "vertical_computational_grid"
     ],
@@ -13,12 +13,11 @@
       "model"
     ],
     "Issues & Discussion": [
-      "discussion",
       "general_issue"
     ]
   },
   "template_order": [
-    "grid_cells_and_subgrid",
+    "grid_cell_and_subgrid",
     "horizontal_computational_grid",
     "vertical_computational_grid",
     "model_component",

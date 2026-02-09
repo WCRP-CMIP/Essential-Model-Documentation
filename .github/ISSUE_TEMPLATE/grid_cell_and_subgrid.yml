@@ -1,0 +1,246 @@
+name: Grid Cell and Subgrid Registration
+description: Register horizontal grid cells and subgrid together
+title: "[EMD] Grid Cell and Subgrid:"
+labels: ['emd-submission', 'grid', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Grid Cell and Subgrid Registration
+        
+        One form creates TWO linked entities:
+        - **horizontal_grid_cells**: Physical properties (resolution, type, region)
+        - **horizontal_subgrid**: Variable types using these cells
+        
+        Descriptions and IDs auto-generated. Result: Subgrid ID (s###) for use in h-grid registration.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Horizontal Grid Cells
+
+  - type: dropdown
+    id: grid_type
+    attributes:
+      label: Grid Type
+      description: |
+        Cell distribution pattern.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        How cells are distributed over the region. Most common: regular-latitude-longitude, reduced-gaussian, tripolar, cubed-sphere.
+        
+        </details>
+      options:
+        - "Not specified"
+        - "cubed_sphere"
+        - "cubic_octahedral_spectral_reduced_gaussian"
+        - "displaced_pole"
+        - "hierarchical_discrete_global_grid"
+        - "icosahedral_geodesic_dual"
+        - "icosahedral_geodesic"
+        - "icosahedral"
+        - "linear_spectral_gaussian"
+        - "plane_projection"
+        - "quadratic_spectral_gaussian"
+        - "reduced_gaussian"
+        - "regular_gaussian"
+        - "regular_latitude_longitude"
+        - "rotated_pole"
+        - "spectral_gaussian"
+        - "spectral_reduced_gaussian"
+        - "stretched"
+        - "tripolar"
+        - "unstructured_polygonal"
+        - "unstructured_quadrilateral"
+        - "unstructured_triangular"
+        - "unstructured"
+        - "yin_yang"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: grid_mapping
+    attributes:
+      label: Coordinate System
+      description: Reference system.
+      options:
+        - "Not specified"
+        - "albers_conical_equal_area"
+        - "azimuthal_equidistant"
+        - "geostationary"
+        - "healpix"
+        - "lambert_azimuthal_equal_area"
+        - "lambert_conformal_conic"
+        - "lambert_cylindrical_equal_area"
+        - "latitude_longitude"
+        - "mercator"
+        - "orthographic"
+        - "polar_stereographic"
+        - "rotated_latitude_longitude"
+        - "sinusoidal"
+        - "stereographic"
+        - "transverse_mercator"
+        - "vertical_perspective"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: region
+    attributes:
+      multiple: true
+      label: Region
+      description: Geographic coverage.
+      options:
+        - "30s-90s"
+        - "antarctica"
+        - "arctic"
+        - "global"
+        - "greenland"
+        - "limited-area"
+        - "northern_hemisphere"
+        - "shem"
+        - "southern_hemisphere"
+        - "tropics"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: temporal_refinement
+    attributes:
+      label: Temporal Refinement
+      description: Time variation.
+      options:
+        - "Not specified"
+        - "adaptive"
+        - "dynamically_stretched"
+        - "static"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: x_resolution
+    attributes:
+      label: X Resolution
+      description: X cell size (omit if varies >25%).
+      placeholder: "e.g., 1.25"
+
+  - type: input
+    id: y_resolution
+    attributes:
+      label: Y Resolution
+      description: Y cell size (omit if varies >25%).
+      placeholder: "e.g., 0.9"
+
+  - type: dropdown
+    id: units
+    attributes:
+      label: Units
+      description: Resolution units.
+      options:
+        - "Not specified"
+        - "degree"
+        - "k"
+        - "km"
+        - "meter"
+        - "pa"
+      default: 0
+
+  - type: input
+    id: n_cells
+    attributes:
+      label: Number of Cells
+      description: Total cells.
+      placeholder: "e.g., 55296"
+
+  - type: input
+    id: southernmost_latitude
+    attributes:
+      label: Southernmost Latitude
+      description: Degrees north (-90 to 90).
+      placeholder: "e.g., -89.5"
+
+  - type: input
+    id: westernmost_longitude
+    attributes:
+      label: Westernmost Longitude
+      description: Degrees east (0 to <360).
+      placeholder: "e.g., 0.5"
+
+  - type: dropdown
+    id: truncation_method
+    attributes:
+      label: Truncation Method
+      description: Spectral only.
+      options:
+        - "Not specified"
+        - "rhomboidal"
+        - "triangular"
+      default: 0
+
+  - type: input
+    id: truncation_number
+    attributes:
+      label: Truncation Number
+      description: Spectral only.
+      placeholder: "e.g., 127"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Horizontal Subgrid
+
+  - type: dropdown
+    id: cell_variable_type
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: |
+        Variables at this subgrid.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        Types of variables at this subgrid location. mass: thermodynamic quantities, x-velocity/y-velocity: velocity components, velocity: full vector for unstructured grids.
+        
+        </details>
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Auto-Generated
+        
+        Creates:
+        - g### (grid_cells)
+        - s### (subgrid → g###)
+        
+        Descriptions generated from inputs.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Metadata
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: New or modify.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

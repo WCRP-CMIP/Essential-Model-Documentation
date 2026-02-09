@@ -1,0 +1,310 @@
+name: Model Family Registration
+description: Register a model family for genealogy tracking
+title: "[EMD] Model Family:"
+labels: ['emd-submission', 'family', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Model Family Registration
+        
+        Register a model family - a group of models sharing code bases.
+        
+        Model families help establish model genealogies for inter-model comparisons.
+        
+        See [Masson and Knutti (2011)](https://doi.org/10.1029/2011GL046864) for examples.
+
+  - type: input
+    id: name
+    attributes:
+      label: Family Name
+      description: |
+        The family name.
+        
+        Often persists across model versions and may be the first part of full model names.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Family names are persistent identifiers across model versions.**
+        
+        **Examples:**
+        - 'HadGEM3' - family for HadGEM3-GC31-LL, HadGEM3-GC31-MM, HadGEM3-GC31-HH
+        - 'CESM' - family for CESM1, CESM2, CESM2-WACCM
+        - 'CNRM-CM' - family for CNRM-CM5, CNRM-CM6-1, CNRM-ESM2-1
+        - 'ACCESS' - family for ACCESS-CM2, ACCESS-ESM1-5
+        
+        **Naming conventions:**
+        - Often first part of model names
+        - Use hyphens for separators
+        - Typically institution/project acronym + model name
+        
+        **Used for:**
+        - Model genealogy studies (Knutti et al.)
+        - Identifying related models
+        - Tracking code lineage
+        
+        </details>
+      placeholder: "e.g., HadGEM3, CESM, CNRM-CM, ACCESS"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Description of the model family.
+        
+        Include scientific focus and common characteristics shared by family members.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **What to include:**
+        
+        1. **Origin**: Institution and development history
+        2. **Scientific focus**: What distinguishes this family
+        3. **Common features**: Shared code, physics, or approach
+        4. **Variation dimensions**: How family members differ
+        
+        **Examples:**
+        
+        'The HadGEM3 family is developed at the UK Met Office Hadley Centre. All members share the Unified Model dynamical core and core physics but differ in resolution, atmospheric top height, and component selection.'
+        
+        'The CESM family from NCAR represents a hierarchy of Earth system model configurations sharing CAM atmosphere, POP ocean, and CLM land components, with variations in atmospheric chemistry, carbon cycle, and resolution.'
+        
+        **2-3 paragraphs typical**
+        
+        </details>
+      placeholder: "Describe the model family, its scientific focus, and common characteristics..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: primary_institution
+    attributes:
+      label: Primary Institution
+      description: The primary institution responsible for the model family.
+      options:
+        - "Not specified"
+        - "awi"
+        - "bcc"
+        - "cccma"
+        - "cmcc"
+        - "cnrm-cerfacs"
+        - "csiro"
+        - "csiro-arccss"
+        - "dkrz"
+        - "ec-earth-consortium"
+        - "gfdl"
+        - "inpe"
+        - "ipsl"
+        - "miroc"
+        - "mohc"
+        - "mpi-m"
+        - "nasa-giss"
+        - "ncar"
+        - "ncc"
+        - "nerc"
+        - "niwa"
+        - "noaa-gfdl"
+        - "ukmo"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: collaborative_institutions
+    attributes:
+      multiple: true
+      label: Collaborative Institutions
+      description: |
+        Other institutions that collaborate on this model family.
+        
+        Leave empty if none.
+      options:
+        - "awi"
+        - "bcc"
+        - "cccma"
+        - "cmcc"
+        - "cnrm-cerfacs"
+        - "csiro"
+        - "csiro-arccss"
+        - "dkrz"
+        - "ec-earth-consortium"
+        - "gfdl"
+        - "inpe"
+        - "ipsl"
+        - "miroc"
+        - "mohc"
+        - "mpi-m"
+        - "nasa-giss"
+        - "ncar"
+        - "ncc"
+        - "nerc"
+        - "niwa"
+        - "noaa-gfdl"
+        - "ukmo"
+
+  - type: dropdown
+    id: scientific_domains
+    attributes:
+      multiple: true
+      label: Scientific Domains
+      description: |
+        The scientific domains covered by this family.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Select all scientific domains covered by ANY member of this family.**
+        
+        **Note:** Individual models in the family may cover subset.
+        
+        **Example:**
+        - Family covers: atmosphere, ocean, land-surface, land-ice, sea-ice
+        - Model A uses: atmosphere, ocean, sea-ice (coupled model)
+        - Model B uses: atmosphere, land-surface, land-ice (atmosphere-land model)
+        
+        **Select the union** of all domains used by family members.
+        
+        </details>
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric-chemistry"
+        - "land-surface"
+        - "land-ice"
+        - "ocean"
+        - "ocean-biogeochemistry"
+        - "sea-ice"
+    validations:
+      required: true
+
+  - type: input
+    id: established
+    attributes:
+      label: Year Established
+      description: |
+        Year the model family was established.
+        
+        Leave blank if unknown.
+      placeholder: "e.g., 2008"
+
+  - type: input
+    id: representative_member
+    attributes:
+      label: Representative Member
+      description: |
+        Name of a representative model from this family.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **A well-known or canonical member of the family.**
+        
+        **Useful for:**
+        - Quick reference
+        - Understanding family characteristics
+        - Finding documentation
+        
+        **Examples:**
+        - HadGEM3 family → 'HadGEM3-GC31-LL'
+        - CESM family → 'CESM2'
+        - CNRM-CM family → 'CNRM-CM6-1'
+        
+        **Can be:**
+        - Most recent version
+        - Most widely used version
+        - Reference configuration
+        
+        **Leave blank if:**
+        - First model in family
+        - No clear representative
+        
+        </details>
+      placeholder: "e.g., HadGEM3-GC31-LL"
+
+  - type: input
+    id: website
+    attributes:
+      label: Website URL
+      description: |
+        Official website for the model family.
+        
+        Leave blank if none.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Official website with family documentation.**
+        
+        **Ideal content:**
+        - Model family overview
+        - Technical documentation
+        - Publication list
+        - Code access information
+        
+        **Examples:**
+        - https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model
+        - https://www.cesm.ucar.edu/
+        - https://www.umr-cnrm.fr/cmip6/
+        
+        **Leave blank if:**
+        - No dedicated website
+        - Information scattered across papers
+        
+        </details>
+      placeholder: "e.g., https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model"
+
+  - type: textarea
+    id: reference_dois
+    attributes:
+      label: Reference DOIs
+      description: |
+        Enter DOI URLs for key publications, one per line.
+        
+        Leave blank if none.
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Key publications about the model family:**
+        
+        **Include:**
+        - Family overview papers
+        - Model genealogy studies
+        - Foundational technical papers
+        
+        **Examples:**
+        ```
+        https://doi.org/10.1029/2019MS001739  (Family overview)
+        https://doi.org/10.1029/2011GL046864  (Genealogy paper)
+        ```
+        
+        **Leave blank if:**
+        - New family with no publications yet
+        - Will add later
+        
+        **Note:** Model-specific papers go in Model issues, not here.
+        
+        </details>
+      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Handling Metadata
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

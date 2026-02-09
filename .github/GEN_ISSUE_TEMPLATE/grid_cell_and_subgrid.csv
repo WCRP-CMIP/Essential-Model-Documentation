@@ -1,0 +1,20 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Grid Cell and Subgrid Registration\n\nOne form creates TWO linked entities:\n- **horizontal_grid_cells**: Physical properties (resolution, type, region)\n- **horizontal_subgrid**: Variable types using these cells\n\nDescriptions and IDs auto-generated. Result: Subgrid ID (s###) for use in h-grid registration.",none,false,,,
+2,markdown,cells_header,,"## Horizontal Grid Cells",none,false,,,
+3,dropdown,grid_type,Grid Type,Cell distribution pattern.,grid_type,true,,list_with_na,0
+4,dropdown,grid_mapping,Coordinate System,Reference system.,grid_mapping,true,,list_with_na,0
+5,multi-select,region,Region,Geographic coverage.,region,true,,list,
+6,dropdown,temporal_refinement,Temporal Refinement,Time variation.,temporal_refinement,true,,list_with_na,0
+7,input,x_resolution,X Resolution,X cell size (omit if varies >25%).,none,false,"e.g., 1.25",,
+8,input,y_resolution,Y Resolution,Y cell size (omit if varies >25%).,none,false,"e.g., 0.9",,
+9,dropdown,units,Units,Resolution units.,units,false,,list_with_na,0
+10,input,n_cells,Number of Cells,Total cells.,none,false,"e.g., 55296",,
+11,input,southernmost_latitude,Southernmost Latitude,Degrees north (-90 to 90).,none,false,"e.g., -89.5",,
+12,input,westernmost_longitude,Westernmost Longitude,Degrees east (0 to <360).,none,false,"e.g., 0.5",,
+13,dropdown,truncation_method,Truncation Method,Spectral only.,truncation_method,false,,list_with_na,0
+14,input,truncation_number,Truncation Number,Spectral only.,none,false,"e.g., 127",,
+15,markdown,subgrid_header,,"## Horizontal Subgrid",none,false,,,
+16,multi-select,cell_variable_type,Variable Types,Variables at this subgrid.,cell_variable_type,true,,list,
+17,markdown,generated_header,,"## Auto-Generated\n\nCreates:\n- g### (grid_cells)\n- s### (subgrid → g###)\n\nDescriptions generated from inputs.",none,false,,,
+18,markdown,metadata_header,,"## Metadata",none,false,,,
+19,dropdown,issue_kind,Issue Kind,New or modify.,issue_kind,true,,list_with_na,0
