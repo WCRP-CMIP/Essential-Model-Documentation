@@ -13,6 +13,9 @@ on:
     paths:
       - "docs/**"
 
+      - "mkdocs.yml"
+      - "docs/**"
+
   workflow_dispatch:
 
 jobs:
@@ -40,16 +43,30 @@ jobs:
           git checkout production
 
 
-      - name: Copy docs from docs branch
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install MkDocs dependencies
         run: |
-          echo "Fetching docs branch..."
-          git fetch origin docs --depth=1
+          python -m pip install --upgrade pip
           
-          echo "Restoring docs folder..."
-          rm -rf docs
-          git restore --source origin/docs --staged --worktree -- docs/
+          if [ -f "docs/requirements.txt" ]; then
+            pip install -r "docs/requirements.txt"
+          else
+            pip install mkdocs mkdocs-material
+          fi
+
+      - name: Build documentation
+        run: |
+          cd docs
+          mkdocs build --clean
           
-          echo "✓ Copied docs from docs branch"
+          git checkout production
+          rm -rf docs/site
+          mkdir -p docs
+          cp -r site docs/
 
 
       - name: Check for changes

@@ -41,13 +41,26 @@ jobs:
 
       - name: Copy from src-data branch
         run: |
-          echo "Fetching src-data branch..."
-          git fetch origin src-data --depth=1
-          
-          echo "Restoring files from src-data..."
-          git restore --source origin/src-data --staged --worktree -- . || true
-          
-          echo "✓ Copied from src-data"
+          echo "Checking if src-data branch exists..."
+          if git ls-remote --heads origin src-data | grep -q src-data; then
+            echo "✓ src-data branch exists"
+            echo "Fetching src-data branch..."
+            git fetch origin src-data --depth=1
+            
+            echo "Restoring files from src-data..."
+            git restore --source origin/src-data --staged --worktree -- . || true
+            
+            echo "✓ Copied from src-data"
+          else
+            echo "⚠️  src-data branch does not exist yet"
+            echo "Creating empty src-data branch..."
+            git checkout --orphan src-data
+            git rm -rf . || true
+            git commit --allow-empty -m "Initialize src-data branch"
+            git push origin src-data
+            git checkout production
+            echo "✓ Created empty src-data branch"
+          fi
 
 
       - name: Find vocabulary directories
