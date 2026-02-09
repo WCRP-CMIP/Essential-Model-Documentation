@@ -25,11 +25,16 @@ jobs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
     
     steps:
-      - name: Checkout docs branch
+      - name: Checkout repository with all branches
         uses: actions/checkout@v4
         with:
           ref: docs
           fetch-depth: 0
+          
+      - name: Fetch required branches
+        run: |
+          git fetch origin production:production
+          git fetch origin docs:docs
 
       - name: Configure Git
         run: |
@@ -38,8 +43,6 @@ jobs:
 
       - name: Checkout production branch
         run: |
-          echo "Fetching production branch..."
-          git fetch origin production
           git checkout production
 
 

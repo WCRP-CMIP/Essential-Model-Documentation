@@ -19,11 +19,15 @@ jobs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
     
     steps:
-      - name: Checkout production branch
+      - name: Checkout repository with all branches
         uses: actions/checkout@v4
         with:
           ref: production
           fetch-depth: 0
+          
+      - name: Fetch src-data branch
+        run: |
+          git fetch origin src-data:src-data
 
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
@@ -41,9 +45,6 @@ jobs:
 
       - name: Copy from src-data branch
         run: |
-          echo "Fetching src-data branch..."
-          git fetch origin src-data
-          
           echo "Restoring files from src-data..."
           git restore --source origin/src-data --staged --worktree -- . || true
           
