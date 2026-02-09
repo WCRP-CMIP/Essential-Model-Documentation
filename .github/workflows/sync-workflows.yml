@@ -1,59 +1,60 @@
-name: → workflows
+name: → Sync Workflows
+description: Sync shared workflows and files from main to other branches
+
+permissions:
+  contents: write
 
 on:
   push:
     branches:
       - main
     paths:
-      - '.github/**'
-      # - '.github/workflows/**'
-      # - '.github/CONTRIBUTING.md'
-      # - '.github/prepublish/**'
-      # - '.github/GENERATE_SUMMARIES/**'
-
+      - '.github/workflows/**'
+      - '.github/prepublish/**'
+      - '.github/CONTRIBUTING.md'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
-# ============================================================
-# CONFIGURATION: Define what to sync from main to other branches
-# ============================================================
+# ============================================
+# CONFIGURATION
+# ============================================
 env:
-  # Folders to sync (space-separated)
-  # Excluded: ISSUE_TEMPLATE, GEN_ISSUE_TEMPLATE
-  SYNC_FOLDERS: "workflows prepublish GENERATE_SUMMARIES"
+  # Folders to sync (space-separated, relative to .github/)
+  SYNC_FOLDERS: "workflows prepublish"
   
   # Individual files to sync (space-separated, relative to .github/)
   SYNC_FILES: "CONTRIBUTING.md"
+  
+  # Branches to sync to (space-separated)
+  TARGET_BRANCHES: "src-data docs"
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: 
-          - src-data
-          - docs
+        branch: [src-data, docs]
     
     steps:
-      - name: Checkout branch
+      - name: Checkout target branch
         uses: actions/checkout@v4
         with:
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Fetch main branch
-        run: git fetch origin main --depth=1 || true
+        run: git fetch origin main --depth=1
 
       - name: Sync folders from main
         run: |
           for folder in $SYNC_FOLDERS; do
             echo "Syncing folder: .github/$folder"
             mkdir -p ".github/$folder"
-            git checkout origin/main -- ".github/$folder/" 2>/dev/null || \
-              echo "  ⚠ Folder .github/$folder not found on main, skipping"
+            if git ls-tree -r origin/main --name-only | grep -q "^.github/$folder/"; then
+              git checkout origin/main -- ".github/$folder/" 2>/dev/null || \
+                echo "  ⚠ Folder .github/$folder not found on main"
+            else
+              echo "  ⚠ Folder .github/$folder not found on main"
+            fi
           done
 
       - name: Sync files from main
@@ -63,11 +64,11 @@ jobs:
             if git cat-file -e "origin/main:.github/$file" 2>/dev/null; then
               git checkout origin/main -- ".github/$file"
             else
-              echo "  ⚠ File .github/$file not found on main, skipping"
+              echo "  ⚠ File .github/$file not found on main"
             fi
           done
       
-      - name: Commit and push
+      - name: Commit and push changes
         uses: EndBug/add-and-commit@v9
         with:
           add: '.github/'
