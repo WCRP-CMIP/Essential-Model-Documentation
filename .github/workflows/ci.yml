@@ -8,25 +8,16 @@ permissions:
 
 on:
   schedule:
-    - cron: "0 0 * * 6"  # Weekly on Saturdays
+    - cron: "0 0 * * 6"
   workflow_dispatch:
 
 jobs:
-  # ============================================
-  # Check for broken links
-  # ============================================
   link_check:
     uses: WCRP-CMIP/CMIPLD/.github/workflows/linkcheck.yml@main
 
-  # ============================================
-  # Validate JSON files
-  # ============================================
   validate_json:
     uses: WCRP-CMIP/CMIPLD/.github/workflows/validate_json.yml@main
 
-  # ============================================
-  # Verify graphs exist
-  # ============================================
   check_graphs:
     runs-on: ubuntu-latest
     steps:

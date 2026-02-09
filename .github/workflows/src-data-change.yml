@@ -1,10 +1,9 @@
 name: ∆ src-data
-description: Sync JSON and @context changes from src-data to production
+description: Sync and process data from src-data to production
 
 permissions:
   contents: write
   pages: write
-  actions: write
   id-token: write
 
 on:
@@ -14,138 +13,165 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ============================================
-  # STEP 1: Sync data from src-data to production
-  # ============================================
-  sync_to_production:
+  sync_and_process:
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check_changes.outputs.has_changes }}
+    
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
         with:
           ref: production
           fetch-depth: 0
-          persist-credentials: true
 
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+      - name: Configure Git
+        run: |
+          git config user.name "cmip-ipo"
+          git config user.email "actions@wcrp-cmip.org"
 
       - name: Clean production (keep docs and summaries)
         run: |
           shopt -s extglob dotglob
           rm -rf -- !(docs|summaries|.git|.github) || true
+          echo "✓ Cleaned production branch"
 
       - name: Copy from src-data branch
-        uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path@main
-        with:
-          branch: "src-data"
-          path: .
-          remove: false
-
-      - name: Run prepublish scripts (if they exist)
         run: |
-          if [ -d ".github/prepublish" ]; then
-            for script in .github/prepublish/*.sh; do
-              if [ -f "$script" ]; then
-                echo "Running: $script"
-                chmod +x "$script"
-                bash "$script"
-              fi
-            done
+          echo "Fetching src-data branch..."
+          git fetch origin src-data --depth=1
+          
+          echo "Restoring files from src-data..."
+          git restore --source origin/src-data --staged --worktree -- . || true
+          
+          echo "✓ Copied from src-data"
+
+      - name: Find vocabulary directories
+        id: find_dirs
+        run: |
+          echo "Scanning for vocabulary directories..."
+          
+          dirs=()
+          for dir in */; do
+            dir="${dir%/}"
+            
+            if [[ "$dir" == "docs" || "$dir" == "summaries" || "$dir" == ".github" || "$dir" == "project" ]]; then
+              continue
+            fi
+            
+            if [ -f "$dir/_context" ]; then
+              dirs+=("$dir")
+              echo "  Found: $dir"
+            fi
+          done
+          
+          if [ ${#dirs[@]} -eq 0 ]; then
+            echo "dirs_json=[]" >> $GITHUB_OUTPUT
+            echo "No vocabulary directories found"
           else
-            echo "No prepublish scripts found, skipping"
+            dirs_json=$(printf '%s\n' "${dirs[@]}" | jq -R . | jq -s -c .)
+            echo "dirs_json=$dirs_json" >> $GITHUB_OUTPUT
+            echo "Found ${#dirs[@]} directories"
           fi
+
+      - name: Generate graphs
+        if: steps.find_dirs.outputs.dirs_json != '[]'
+        run: |
+          echo "## Graph Generation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Directory | Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          
+          dirs='${{ steps.find_dirs.outputs.dirs_json }}'
+          
+          echo "$dirs" | jq -r '.[]' | while read -r dir; do
+            echo ""
+            echo "════════════════════════════"
+            echo "Processing: $dir"
+            echo "════════════════════════════"
+            
+            if [ ! -d "$dir" ]; then
+              echo "⚠️  Directory not found"
+              echo "| \`$dir\` | ⚠️ | Not found |" >> $GITHUB_STEP_SUMMARY
+              continue
+            fi
+            
+            if (cd "$dir" && ld2graph "."); then
+              echo "✓ Graph generated"
+              
+              if [ -f "$dir/graph.jsonld" ]; then
+                tr -d '[:space:]' < "$dir/graph.jsonld" > "$dir/graph.min.json"
+                cp "$dir/graph.min.json" "$dir/graph"
+                cp "$dir/graph.min.json" "$dir/graph.json"
+                git add "$dir"/graph* || true
+                echo "✓ Variants created"
+                echo "| \`$dir\` | ✅ | Success |" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "⚠️  No output"
+                echo "| \`$dir\` | ⚠️ | No file |" >> $GITHUB_STEP_SUMMARY
+              fi
+            else
+              echo "❌ Failed"
+              echo "| \`$dir\` | ❌ | Failed |" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+      - name: Run prepublish scripts
+        run: |
+          if [ ! -d ".github/prepublish" ]; then
+            echo "No prepublish directory"
+            exit 0
+          fi
+          
+          for script in .github/prepublish/*.sh; do
+            if [ -f "$script" ]; then
+              echo "Running: $(basename $script)"
+              chmod +x "$script"
+              bash "$script" || echo "⚠️  Failed"
+            fi
+          done
 
       - name: Check for changes
         id: check_changes
         run: |
-          git config user.name "cmip-ipo"
-          git config user.email "actions@wcrp-cmip.org"
           git add -A
           
           if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No changes to commit"
+            echo "No changes"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Changes detected"
           fi
 
-      - name: Commit and push to production
+      - name: Commit changes
         if: steps.check_changes.outputs.has_changes == 'true'
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: '.'
-          author_name: 'cmip-ipo'
-          author_email: 'actions@wcrp-cmip.org'
-          message: 'Sync from src-data'
-          branch: production
-          push: true
-
-    outputs:
-      has_changes: ${{ steps.check_changes.outputs.has_changes }}
-
-  # ============================================
-  # STEP 2: Generate graphs
-  # ============================================
-  graph:
-    needs: sync_to_production
-    if: needs.sync_to_production.outputs.has_changes == 'true'
-    uses: WCRP-CMIP/CMIPLD/.github/workflows/graph.yml@main
-    with:
-      updated: false
-
-  # ============================================
-  # STEP 3: Update modification links
-  # ============================================
-  modification_scripts:
-    needs: sync_to_production
-    if: needs.sync_to_production.outputs.has_changes == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install CMIPLD
-        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
-
-      - name: Checkout src-data
-        uses: actions/checkout@v4
-        with:
-          ref: src-data
-          fetch-depth: 0
-
-      - name: Generate modification links
         run: |
-          # Use template_update for modification links
-          template_update || echo "template_update not available or failed"
+          git commit -m "Sync from src-data"
+          git push origin production
 
-      - name: Commit to main
-        uses: stefanzweifel/git-auto-commit-action@v4
+  deploy:
+    needs: sync_and_process
+    if: needs.sync_and_process.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
         with:
-          commit_message: "Update modification links"
-          branch: main
-          file_pattern: ".github/modifications.md"
-          commit_user_name: "cmip-ipo"
-          commit_user_email: "actions@wcrp-cmip.org"
-        continue-on-error: true
-
-  # ============================================
-  # STEP 4: Publish to GitHub Pages
-  # ============================================
-  publish_pages:
-    needs: graph
-    if: always() && needs.sync_to_production.outputs.has_changes == 'true'
-    uses: WCRP-CMIP/CMIPLD/.github/workflows/pages.yml@main
-    with:
-      branch: production
-      force: true
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
-
-  # ============================================
-  # STEP 5: Generate summaries
-  # ============================================
-  generate_summaries:
-    needs: graph
-    if: needs.sync_to_production.outputs.has_changes == 'true'
-    uses: WCRP-CMIP/CMIPLD/.github/workflows/summarise.yml@main
-    with:
-      output-path: './summaries/'
+          ref: production
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Display URL
+        run: |
+          echo "## 🚀 Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
