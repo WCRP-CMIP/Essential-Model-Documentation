@@ -1,0 +1,18 @@
+{
+  "name": "Grid Cell and Subgrid Registration",
+  "description": "Register horizontal grid cells and subgrid together",
+  "title": "[EMD] Grid Cell and Subgrid:",
+  "labels": ["emd-submission", "grid", "Review"],
+  "issue_category": "grid_cell_and_subgrid",
+  "dropdown_title": "Completion Guidance",
+  "field_guidance": {
+    "grid_cells_description": "**Describe the physical grid cells.**\n\n**Examples:**\n- 'Regular latitude-longitude grid at 1.25° × 0.9° resolution'\n- 'ORCA1 tripolar ocean grid with ~1° resolution'\n- 'Spectral Gaussian grid for T127 truncation'\n\n**Include:**\n- Grid type and resolution\n- Geographic coverage\n- Purpose (atmosphere, ocean, etc.)\n\n**This becomes the grid_cells entity description.**",
+    "grid_type": "**How cells are distributed:**\n\n**Most common:**\n- **regular-latitude-longitude**: Uniform lat-lon spacing (most models)\n- **reduced-gaussian**: Gaussian with fewer points near poles\n- **linear-spectral-gaussian**: Spectral transform representation\n- **tripolar**: Ocean grid with 3 poles (Arctic split)\n- **cubed-sphere**: Equal-area high-resolution atmosphere\n- **unstructured-polygon**: Flexible irregular mesh",
+    "temporal_refinement": "**How the grid changes with time:**\n\n- **static**: Fixed grid (most common)\n- **adaptive**: Mesh refinement (dynamic adaptation)\n- **dynamically-stretched**: Moving mesh (following features)\n\n**Most models use static grids.**",
+    "x_resolution": "**Cell size in X (longitude) direction:**\n\n**For lat-lon grids:** Degrees\n- Coarse: 2-4°\n- Standard: 1-2°\n- High-res: 0.25-1°\n\n**For spectral grids:** Leave blank, use truncation_number\n\n**Omit if varies >25% across domain**",
+    "n_cells": "**Total horizontal cells:**\n\n**Calculation for regular lat-lon:**\n- Formula: (360/x_res) × (180/y_res)\n- 1.25° × 0.9°: 288 × 200 = 57,600 cells\n- 1° × 1°: 360 × 180 = 64,800 cells\n\n**For irregular grids:** Check model documentation\n\n**Leave blank if:** Adaptive/variable grids",
+    "truncation_number": "**Spectral truncation wavenumber:**\n\n**Common values:**\n- T42 (2.8° × 2.8° equivalent)\n- T63 (1.9° × 1.9° equivalent)\n- T127 (0.9° × 0.9° equivalent)\n- T255 (0.5° × 0.5° equivalent)\n- T511 (0.25° × 0.25° equivalent)\n\n**Only for spectral/Gaussian grids**",
+    "subgrid_description": "**Describe this subgrid - what variables use these cells.**\n\n**Examples:**\n- 'Mass variables (temperature, pressure, tracers) on regular lat-lon grid'\n- 'Velocity components on staggered positions'\n- 'Spectral coefficients for atmospheric state variables'\n\n**This becomes the subgrid entity description.**\n\n**Different from grid_cells_description:**\n- Grid cells = physical properties (resolution, cells)\n- Subgrid = what's calculated there (variable types)",
+    "cell_variable_type": "**What types of variables are at this subgrid location:**\n\n**Most common patterns:**\n\n**Unstaggered (1 subgrid):**\n- Select: mass, x-velocity, y-velocity\n\n**Arakawa-C mass subgrid:**\n- Select: mass\n\n**Arakawa-C velocity subgrid:**\n- Select: x-velocity, y-velocity\n\n**Spectral subgrid:**\n- Select: mass (spectral coefficients are mass-related)\n\n**Types:**\n- **mass**: Temperature, pressure, density, tracers, moisture\n- **x-velocity**: U component (longitude direction)\n- **y-velocity**: V component (latitude direction)  \n- **velocity**: Full vector (unstructured grids)"
+  }
+}
