@@ -18,7 +18,6 @@ jobs:
   validate_json:
     uses: WCRP-CMIP/CMIPLD/.github/workflows/validate_json.yml@main
 
-
   check_graphs:
     runs-on: ubuntu-latest
     steps:
@@ -44,4 +43,3 @@ jobs:
               echo "" >> $GITHUB_STEP_SUMMARY
             fi
           done
-

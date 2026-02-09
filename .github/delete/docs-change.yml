@@ -12,7 +12,6 @@ on:
       - "docs"
     paths:
       - "docs/**"
-
   workflow_dispatch:
 
 jobs:
@@ -39,7 +38,6 @@ jobs:
           git fetch origin production --depth=1
           git checkout production
 
-
       - name: Copy docs from docs branch
         run: |
           echo "Fetching docs branch..."
@@ -50,7 +48,6 @@ jobs:
           git restore --source origin/docs --staged --worktree -- docs/
           
           echo "✓ Copied docs from docs branch"
-
 
       - name: Check for changes
         id: check_changes
@@ -70,7 +67,6 @@ jobs:
         run: |
           git commit -m "Update documentation from docs branch"
           git push origin production
-
 
   deploy:
     needs: build_and_deploy
@@ -94,4 +90,3 @@ jobs:
         run: |
           echo "## 📚 Documentation Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
-

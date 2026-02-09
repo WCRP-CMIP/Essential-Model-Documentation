@@ -49,7 +49,6 @@ jobs:
           
           echo "✓ Copied from src-data"
 
-
       - name: Find vocabulary directories
         id: find_dirs
         run: |
@@ -78,16 +77,47 @@ jobs:
             echo "Found ${#dirs[@]} directories"
           fi
 
-
-      - name: Generate graphs (Python)
+      - name: Generate graphs
         if: steps.find_dirs.outputs.dirs_json != '[]'
         run: |
-          python .github/scripts/generate_graphs.py \
-            --dirs ${{ steps.find_dirs.outputs.dirs_json }} \
-            --output-summary
-
-
-
+          echo "## Graph Generation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Directory | Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          
+          dirs='${{ steps.find_dirs.outputs.dirs_json }}'
+          
+          echo "$dirs" | jq -r '.[]' | while read -r dir; do
+            echo ""
+            echo "════════════════════════════"
+            echo "Processing: $dir"
+            echo "════════════════════════════"
+            
+            if [ ! -d "$dir" ]; then
+              echo "⚠️  Directory not found"
+              echo "| \`$dir\` | ⚠️ | Not found |" >> $GITHUB_STEP_SUMMARY
+              continue
+            fi
+            
+            if (cd "$dir" && ld2graph "."); then
+              echo "✓ Graph generated"
+              
+              if [ -f "$dir/graph.jsonld" ]; then
+                tr -d '[:space:]' < "$dir/graph.jsonld" > "$dir/graph.min.json"
+                cp "$dir/graph.min.json" "$dir/graph"
+                cp "$dir/graph.min.json" "$dir/graph.json"
+                git add "$dir"/graph* || true
+                echo "✓ Variants created"
+                echo "| \`$dir\` | ✅ | Success |" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "⚠️  No output"
+                echo "| \`$dir\` | ⚠️ | No file |" >> $GITHUB_STEP_SUMMARY
+              fi
+            else
+              echo "❌ Failed"
+              echo "| \`$dir\` | ❌ | Failed |" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
 
       - name: Run prepublish scripts
         run: |
@@ -100,10 +130,9 @@ jobs:
             if [ -f "$script" ]; then
               echo "Running: $(basename $script)"
               chmod +x "$script"
-              bash "$script" || echo "Script failed"
+              bash "$script" || echo "⚠️  Failed"
             fi
           done
-
 
       - name: Check for changes
         id: check_changes
@@ -123,7 +152,6 @@ jobs:
         run: |
           git commit -m "Sync from src-data"
           git push origin production
-
 
   deploy:
     needs: sync_and_process
@@ -147,4 +175,3 @@ jobs:
         run: |
           echo "## 🚀 Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
-

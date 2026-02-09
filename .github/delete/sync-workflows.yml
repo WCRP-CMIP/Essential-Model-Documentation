@@ -10,9 +10,7 @@ on:
       - main
     paths:
       - '.github/workflows/**'
-
       - '.github/prepublish/**'
-
       - '.github/CONTRIBUTING.md'
   workflow_dispatch:
 
@@ -26,11 +24,8 @@ jobs:
     strategy:
       matrix:
         branch:
-
           - src-data
-
           - docs
-
     
     steps:
       - name: Checkout target branch
