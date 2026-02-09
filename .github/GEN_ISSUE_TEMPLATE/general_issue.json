@@ -1,0 +1,13 @@
+{
+  "name": "General Issue or Question",
+  "description": "Report issues, ask questions, or suggest improvements",
+  "title": "[EMD] General Issue:",
+  "labels": ["question"],
+  "issue_category": "general_issue",
+  "dropdown_title": "Issue Guidance",
+  "field_guidance": {
+    "issue_summary": "**Provide a clear, concise summary.**\n\n**Good examples:**\n- 'Error validating component_config with multiple grids'\n- 'Question about embedding vs coupling for aerosols'\n- 'Suggestion: Add support for adaptive grids'\n- 'Documentation unclear for tripolar grids'\n\n**Include:**\n- What you're trying to do\n- What went wrong (if error)\n- What you expected vs what happened",
+    "issue_details": "**Provide relevant details:**\n\n**For errors:**\n- Steps to reproduce\n- Error messages\n- Which template/entity\n- Example data (if applicable)\n\n**For questions:**\n- Context of your use case\n- What you've already tried\n- Links to relevant entities/issues\n\n**For suggestions:**\n- Current limitation\n- Proposed improvement\n- Use cases that benefit\n\n**For documentation:**\n- Which section is unclear\n- What information is missing\n- Suggestions for improvement",
+    "affected_entities": "**If applicable, list entity IDs:**\n\n**Examples:**\n```\nmodel: cnrm-esm2-1e\ncomponent: arpege-climat-version-6-3\ncomponent_config: atmosphere_arpege-climat-version-6-3_c100_v100\ngrid: c100\n```\n\n**Helps us:**\n- Understand context\n- Reproduce issues\n- Provide specific help\n\n**Leave blank if:**\n- General question\n- Not related to specific entities"
+  }
+}

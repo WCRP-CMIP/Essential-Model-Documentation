@@ -1,0 +1,13 @@
+{
+  "name": "Horizontal Computational Grid Registration",
+  "description": "Register a horizontal computational grid by linking subgrids",
+  "title": "[EMD] Horizontal Computational Grid:",
+  "labels": ["emd-submission", "grid", "Review"],
+  "issue_category": "horizontal_computational_grid",
+  "dropdown_title": "Completion Guidance",
+  "field_guidance": {
+    "description": "**Examples:**\n- 'Arakawa-C grid for atmospheric modelling combining regular lat-lon and spectral subgrids'\n- 'Tripolar ocean grid linking ORCA1 mass and velocity subgrids'\n- 'Unstaggered cubed-sphere grid for high-resolution atmosphere'\n\n**Include:**\n- Grid purpose (atmosphere, ocean, etc.)\n- Staggering type\n- Key characteristics",
+    "arrangement": "**Staggering types:**\n\n- **arakawa-a**: Unstaggered (mass and velocity at same points)\n- **arakawa-b**: Velocity at cell corners\n- **arakawa-c**: Velocity at edge midpoints, perpendicular to edge (most common for atmosphere/ocean)\n- **arakawa-d**: Velocity at edge midpoints, tangential to edge\n- **arakawa-e**: Mass at velocity cell edges\n- **unstaggered**: No staggering (simple grids)\n\n**Match arrangement to number of subgrids:**\n- Unstaggered/Arakawa-A: 1 subgrid\n- Arakawa-C: 2 subgrids (mass + velocity)\n- Complex: 2+ subgrids",
+    "horizontal_subgrids": "**Format:** One subgrid ID per line\n\n**Example:**\n```\ns100\ns101\n```\n\n**You received these IDs** when you submitted your Grid Cells and Subgrid issue(s).\n\n**Number of subgrids must match your arrangement:**\n- Unstaggered: 1 subgrid\n- Arakawa-C: 2 subgrids\n- Custom staggering: 2+ subgrids\n\n**Order matters** for some arrangements (e.g., mass subgrid before velocity)."
+  }
+}
