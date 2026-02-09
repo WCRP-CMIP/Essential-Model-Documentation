@@ -1,0 +1,15 @@
+{
+  "validation_key": "land_surface_surfex_v8_modeling_platform_c100_v102",
+  "ui_label": "SURFEX v8 modeling platform with c100 and v102",
+  "description": "Configuration for SURFEX v8 modeling platform with horizontal grid c100 and vertical grid v102.",
+  "model_component": "surfex-v8-modeling-platform",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "land-surface_surfex-v8-modeling-platform_c100_v102",
+  "horizontal_computational_grid": "c100",
+  "vertical_computational_grid": "v102"
+}

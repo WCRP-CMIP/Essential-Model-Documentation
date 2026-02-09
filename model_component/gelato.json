@@ -4,15 +4,11 @@
   "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean.",
   "code_base": "private",
   "component": "sea-ice",
-  "coupled_with": "none",
-  "embedded_in": "ocean",
   "family": "gelato",
-  "horizontal_computational_grid": "c101",
   "name": "GELATO",
   "references": [
-    "REF002"
+    "https://doi.org/10.1029/2019MS001683"
   ],
-  "vertical_computational_grid": "v104",
   "@context": "_context",
   "@type": [
     "emd",

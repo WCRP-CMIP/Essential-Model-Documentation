@@ -4,21 +4,14 @@
   "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
   "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
   "component": "land-surface",
-  "coupled_with": [
-    "atmosphere",
-    "ocean"
-  ],
-  "embedded_in": "none",
   "family": "surfex",
-  "horizontal_computational_grid": "c100",
   "name": "SURFEX v8 modeling platform",
   "references": [
-    "REF006",
-    "REF007",
-    "REF008",
-    "REF009"
+    "https://doi.org/10.1029/2018MS001545",
+    "https://doi.org/10.1029/2019MS001886",
+    "https://doi.org/10.3402/tellusa.v68.31274",
+    "https://doi.org/10.5194/gmd-10-4207-2017"
   ],
-  "vertical_computational_grid": "v102",
   "@context": "_context",
   "@type": [
     "emd",

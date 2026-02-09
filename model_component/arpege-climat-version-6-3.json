@@ -4,18 +4,11 @@
   "description": "ARPEGE-Climat Version 6.3 is the atmospheric component of the CNRM climate and Earth System models (CNRM-CM6-1 and CNRM-ESM2-1).",
   "code_base": "private",
   "component": "atmosphere",
-  "coupled_with": [
-    "land-surface",
-    "ocean"
-  ],
-  "embedded_in": "none",
   "family": "arpege-climat",
-  "horizontal_computational_grid": "c100",
   "name": "Arpege-Climat Version 6.3",
   "references": [
-    "REF005"
+    "https://doi.org/10.1029/2020MS002075"
   ],
-  "vertical_computational_grid": "v100",
   "@context": "_context",
   "@type": [
     "emd",

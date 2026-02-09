@@ -4,18 +4,11 @@
   "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
   "code_base": "private",
   "component": "ocean",
-  "coupled_with": [
-    "atmosphere",
-    "land-surface"
-  ],
-  "embedded_in": "none",
   "family": "nemo",
-  "horizontal_computational_grid": "c101",
   "name": "NEMO v3.6",
   "references": [
-    "REF001"
+    "https://doi.org/10.1029/2019MS001791"
   ],
-  "vertical_computational_grid": "v103",
   "@context": "_context",
   "@type": [
     "emd",
