@@ -1,0 +1,150 @@
+name: ∆ src-data
+description: Sync and process data from src-data to production
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+on:
+  push:
+    branches:
+      - "src-data"
+  workflow_dispatch:
+
+jobs:
+  sync_and_process:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check_changes.outputs.has_changes }}
+    
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: production
+          fetch-depth: 0
+
+      - name: Install CMIPLD
+        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+      - name: Configure Git
+        run: |
+          git config user.name "cmip-ipo"
+          git config user.email "actions@wcrp-cmip.org"
+
+      - name: Clean production (keep docs and summaries)
+        run: |
+          shopt -s extglob dotglob
+          rm -rf -- !(docs|summaries|.git|.github) || true
+          echo "✓ Cleaned production branch"
+
+      - name: Copy from src-data branch
+        run: |
+          echo "Fetching src-data branch..."
+          git fetch origin src-data --depth=1
+          
+          echo "Restoring files from src-data..."
+          git restore --source origin/src-data --staged --worktree -- . || true
+          
+          echo "✓ Copied from src-data"
+
+
+      - name: Find vocabulary directories
+        id: find_dirs
+        run: |
+          echo "Scanning for vocabulary directories..."
+          
+          dirs=()
+          for dir in */; do
+            dir="${dir%/}"
+            
+            if [[ "$dir" == "docs" || "$dir" == "summaries" || "$dir" == ".github" || "$dir" == "project" ]]; then
+              continue
+            fi
+            
+            if [ -f "$dir/_context" ]; then
+              dirs+=("$dir")
+              echo "  Found: $dir"
+            fi
+          done
+          
+          if [ ${#dirs[@]} -eq 0 ]; then
+            echo "dirs_json=[]" >> $GITHUB_OUTPUT
+            echo "No vocabulary directories found"
+          else
+            dirs_json=$(printf '%s\n' "${dirs[@]}" | jq -R . | jq -s -c .)
+            echo "dirs_json=$dirs_json" >> $GITHUB_OUTPUT
+            echo "Found ${#dirs[@]} directories"
+          fi
+
+
+      - name: Generate graphs (Python)
+        if: steps.find_dirs.outputs.dirs_json != '[]'
+        run: |
+          python .github/scripts/generate_graphs.py \
+            --dirs ${{ steps.find_dirs.outputs.dirs_json }} \
+            --output-summary
+
+
+
+
+      - name: Run prepublish scripts
+        run: |
+          if [ ! -d ".github/prepublish" ]; then
+            echo "No prepublish directory"
+            exit 0
+          fi
+          
+          for script in .github/prepublish/*.sh; do
+            if [ -f "$script" ]; then
+              echo "Running: $(basename $script)"
+              chmod +x "$script"
+              bash "$script" || echo "Script failed"
+            fi
+          done
+
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add -A
+          
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected"
+          fi
+
+      - name: Commit changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git commit -m "Sync from src-data"
+          git push origin production
+
+
+  deploy:
+    needs: sync_and_process
+    if: needs.sync_and_process.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: production
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Display URL
+        run: |
+          echo "## 🚀 Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+
