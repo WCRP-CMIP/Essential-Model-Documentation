@@ -39,7 +39,7 @@ jobs:
       - name: Checkout production branch
         run: |
           echo "Fetching production branch..."
-          git fetch origin production --depth=1
+          git fetch origin production
           git checkout production
 
 
