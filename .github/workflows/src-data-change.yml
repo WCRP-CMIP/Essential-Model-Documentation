@@ -31,8 +31,8 @@ jobs:
 
       - name: Install CMIPLD
         run: |
-          pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
           npm i -g jsonld-recursive
+          pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
 
       - name: Configure Git
         run: |
