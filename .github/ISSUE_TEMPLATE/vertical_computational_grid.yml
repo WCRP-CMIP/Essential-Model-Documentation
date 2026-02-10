@@ -31,17 +31,20 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Examples:**
-        - '85-level atmospheric hybrid height coordinate extending to approximately 85 km'
-        - '75-level ocean depth coordinate from surface to 5500m'
-        - '10-level land ice sigma coordinate'
-        - '5-layer soil model with variable thickness'
+        **Grid description** (from EMD specification):
+        
+        A description is only required if there is information that is not covered by any of the other properties.
+        
+        Some model components may have different and wholly independent vertical grids for different physical processes (e.g., a land surface model with soil, lake and snow sub-models). In such cases it may not be possible to provide some properties because a single value might not apply to all processes. When this happens, use the description property to record the relevant information for each physical process.
         
         **Include:**
         - Number of levels
         - Coordinate type
         - Vertical extent
         - Purpose (atmosphere, ocean, soil, ice)
+        - Any non-standard features
+        
+        **Omit when:** All info covered by other properties
         
         </details>
       placeholder: "e.g., 75-level ocean depth coordinate from surface to 5500m"
@@ -65,22 +68,28 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Coordinate types explained:**
+        **Vertical coordinate types** (from EMD vertical_coordinate CV):
         
-        **Atmosphere:**
-        - **hybrid-height-coordinate**: Terrain-following near surface, flat at top (common)
-        - **hybrid-sigma-pressure-coordinate**: Sigma near surface, pressure at top
-        - **sigma-coordinate**: Pure terrain-following
+        The coordinate type of the vertical grid.
         
-        **Ocean:**
-        - **depth**: Standard z-levels (most common)
-        - **ocean-s-coordinate**: Stretched vertical (high res near surface)
-        - **ocean-sigma-z-coordinate**: Hybrid sigma-z
+        **Atmosphere options:**
+        - **atmosphere_hybrid_height_coordinate**: Terrain-following near surface, flat at top (common)
+        - **atmosphere_hybrid_sigma_pressure_coordinate**: Sigma near surface, pressure at top
+        - **atmosphere_sigma_coordinate**: Pure terrain-following sigma
+        - **height**: Height above reference surface
         
-        **Land/Ice:**
-        - **depth**: Soil layers
-        - **land-ice-sigma-coordinate**: Ice sheet layers
+        **Ocean options:**
+        - **depth**: Standard z-levels from surface (most common)
+        - **ocean_s_coordinate**: Stretched vertical (high resolution near surface)
+        - **ocean_sigma_z_coordinate**: Hybrid sigma-z coordinate
+        - **ocean_sigma_coordinate**: Pure sigma (terrain-following)
+        
+        **Land/Ice options:**
+        - **depth**: Soil layers below surface
+        - **land_ice_sigma_coordinate**: Ice sheet layers
         - **height**: Above ground height
+        
+        **Omit if:** Different physical processes have grids with different vertical coordinate types (note this in description instead)
         
         </details>
       options:
@@ -121,14 +130,18 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Number of layers (mass points):**
+        **Number of layers** (from EMD specification):
         
-        **Atmosphere:** Typically 30-100 levels
+        The number of layers (mass points) in the vertical grid.
+        
+        **Typical values:**
+        
+        **Atmosphere:**
         - Low-top models: 30-50 levels (~30km)
         - Mid-top models: 50-80 levels (~50-60km)
         - High-top models: 80-150 levels (~80-150km)
         
-        **Ocean:** Typically 30-75 levels
+        **Ocean:**
         - Standard: 40-50 levels (~5000m)
         - High-resolution: 60-75 levels
         
@@ -168,17 +181,28 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
+        **Top layer thickness** (from EMD specification):
+        
+        The thickness of the uppermost layer, in metres.
+        
         **Typical values:**
         
         **Atmosphere:**
-        - Surface layer: 10-50m
-        - Top layer: 500-2000m (increases with height)
+        - Near surface: 10-50m
+        - At model top: 500-2000m (increases with height)
         
         **Ocean:**
         - Surface layer: 1-10m
-        - Deep layer: 200-500m
         
-        **Provide representative value if varies**
+        **Land surface:**
+        - Top soil layer: 0.01-0.1m
+        
+        **Ice:**
+        - Top layer: 0.04m (from BISICLES example)
+        
+        **Provide representative value if varies.**
+        
+        **Note:** For atmosphere, this typically refers to the layer nearest the surface. For ocean, this is the surface layer.
         
         </details>
       placeholder: "e.g., 10.0"
@@ -197,6 +221,10 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
+        **Bottom layer thickness** (from EMD specification):
+        
+        The thickness of the lowermost layer, in metres.
+        
         **Typical values:**
         
         **Atmosphere:**
@@ -208,6 +236,8 @@ body:
         **Leave blank if:**
         - Layer can expand (e.g., ice accumulation)
         - Thickness not well-defined
+        
+        **From EMD example (BISICLES):** 'The bottom level of the snowpack, which starts 6 metres below the snow surface, expands in thickness to hold as much mass as the column accumulates.'
         
         </details>
       placeholder: "e.g., 100.0"
@@ -224,20 +254,28 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Vertical extent:**
+        **Total vertical extent** (from EMD specification):
+        
+        The total thickness of all layers combined, in metres.
+        
+        **Typical values:**
         
         **Atmosphere:**
         - Low-top: ~30,000m (30km)
-        - Mid-top: ~50,000m (50km) 
+        - Mid-top: ~50,000-61,000m (50-61km)
         - High-top: ~80,000-150,000m (80-150km)
+        - Example: 84763.34m (from EMD)
         
         **Ocean:**
-        - Standard: ~5,000-6,000m
+        - Standard: ~4,000-6,000m
         - Deep ocean: up to 11,000m
         
         **Ice sheets:**
         - Greenland: up to 3,000m
         - Antarctica: up to 4,500m
+        
+        **Soil:**
+        - Typically 3-10m depth
         
         </details>
       placeholder: "e.g., 84763.34"

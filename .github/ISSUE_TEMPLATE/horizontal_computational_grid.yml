@@ -31,15 +31,17 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Examples:**
-        - 'Arakawa-C grid for atmospheric modelling combining regular lat-lon and spectral subgrids'
-        - 'Tripolar ocean grid linking ORCA1 mass and velocity subgrids'
-        - 'Unstaggered cubed-sphere grid for high-resolution atmosphere'
+        **Grid description** (from EMD specification):
+        
+        A description is only required if there is information that is not covered by any of the other properties.
         
         **Include:**
         - Grid purpose (atmosphere, ocean, etc.)
         - Staggering type
         - Key characteristics
+        - Any non-standard features
+        
+        **Omit when:** Not required (all info covered by other properties)
         
         </details>
       placeholder: "e.g., Arakawa-C grid for atmosphere with TL127 spectral transform and 1.25° × 0.9° resolution"
@@ -66,19 +68,24 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Staggering types:**
+        **Grid arrangement/staggering** (from EMD arrangement CV):
         
-        - **arakawa-a**: Unstaggered (mass and velocity at same points)
-        - **arakawa-b**: Velocity at cell corners
-        - **arakawa-c**: Velocity at edge midpoints, perpendicular to edge (most common for atmosphere/ocean)
-        - **arakawa-d**: Velocity at edge midpoints, tangential to edge
-        - **arakawa-e**: Mass at velocity cell edges
-        - **unstaggered**: No staggering (simple grids)
+        A grid arrangement describes the relative locations of computed mass-related and velocity-related quantities on the horizontal computational grid.
+        
+        When the computational grid relies on more than one subgrid, it is referred to as a 'staggered' grid. For most staggered grids, the velocity-related variables are calculated on a subgrid offset from the mass-related variables.
+        
+        **Options:**
+        - **arakawa_a**: Mass- and velocity-related quantities at the same location on each grid cell (unstaggered)
+        - **arakawa_b**: Velocity-related quantities at the corners of mass cells
+        - **arakawa_c**: Velocity-related quantities at the centres of mass cell edges, perpendicular to edge (most common for atmosphere/ocean)
+        - **arakawa_d**: Velocity-related quantities at the centres of mass cell edges, tangential to edge
+        - **arakawa_e**: Mass-related quantities at the centres of velocity cell edges
         
         **Match arrangement to number of subgrids:**
-        - Unstaggered/Arakawa-A: 1 subgrid
-        - Arakawa-C: 2 subgrids (mass + velocity)
-        - Complex: 2+ subgrids
+        - Arakawa-A (unstaggered): 1 subgrid
+        - Arakawa-B: 2 subgrids (mass + velocity at corners)
+        - Arakawa-C: 2-3 subgrids (mass + x_velocity + y_velocity, or mass + velocity for unstructured)
+        - Complex staggering: 2+ subgrids
         
         </details>
       options:
@@ -122,22 +129,22 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
+        **Horizontal subgrids** (from EMD specification):
+        
+        All of the subgrids, of which there must be at least one, used to construct the horizontal computational grid.
+        
+        A horizontal subgrid describes the grid cells at one of the stagger positions. Often the locations of mass-related and velocity-related variables differ, so more than one horizontal subgrid will be defined.
+        
         **Format:** One subgrid ID per line
         
-        **Example:**
-        ```
-        s100
-        s101
-        ```
-        
-        **You received these IDs** when you submitted your Grid Cells and Subgrid issue(s).
+        You received these IDs when you submitted your Grid Cells and Subgrid issue(s).
         
         **Number of subgrids must match your arrangement:**
-        - Unstaggered: 1 subgrid
-        - Arakawa-C: 2 subgrids
-        - Custom staggering: 2+ subgrids
+        - Unstaggered/Arakawa-A: 1 subgrid (mass only)
+        - Arakawa-B: 2 subgrids (mass + velocity)
+        - Arakawa-C: 2-3 subgrids (mass + velocity components)
         
-        **Order matters** for some arrangements (e.g., mass subgrid before velocity).
+        **Order matters** for some arrangements (convention: mass subgrid first, then velocity)
         
         </details>
       placeholder: "s100\ns101"

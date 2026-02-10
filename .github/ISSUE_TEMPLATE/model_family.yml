@@ -26,13 +26,13 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Family names are persistent identifiers across model versions.**
+        **Family name** (from EMD specification):
         
-        **Examples:**
-        - 'HadGEM3' - family for HadGEM3-GC31-LL, HadGEM3-GC31-MM, HadGEM3-GC31-HH
-        - 'CESM' - family for CESM1, CESM2, CESM2-WACCM
-        - 'CNRM-CM' - family for CNRM-CM5, CNRM-CM6-1, CNRM-ESM2-1
-        - 'ACCESS' - family for ACCESS-CM2, ACCESS-ESM1-5
+        A family of models share much of their code bases, but may be configured in different ways (e.g. different resolutions, parameter choices, or the inclusion or not of particular model components).
+        
+        A family name often persists across model versions and may be the first part of the model's full name.
+        
+        See Masson and Knutti (2011) for an example of how the family can be used to inform model genealogies.
         
         **Naming conventions:**
         - Often first part of model names
@@ -40,7 +40,7 @@ body:
         - Typically institution/project acronym + model name
         
         **Used for:**
-        - Model genealogy studies (Knutti et al.)
+        - Model genealogy studies
         - Identifying related models
         - Tracking code lineage
         
@@ -61,18 +61,15 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **What to include:**
+        **Family description** (from EMD specification):
         
+        Describe what characterizes this model family.
+        
+        **What to include:**
         1. **Origin**: Institution and development history
         2. **Scientific focus**: What distinguishes this family
         3. **Common features**: Shared code, physics, or approach
-        4. **Variation dimensions**: How family members differ
-        
-        **Examples:**
-        
-        'The HadGEM3 family is developed at the UK Met Office Hadley Centre. All members share the Unified Model dynamical core and core physics but differ in resolution, atmospheric top height, and component selection.'
-        
-        'The CESM family from NCAR represents a hierarchy of Earth system model configurations sharing CAM atmosphere, POP ocean, and CLM land components, with variations in atmospheric chemistry, carbon cycle, and resolution.'
+        4. **Variation dimensions**: How family members differ (resolution, parameters, components)
         
         **2-3 paragraphs typical**
         
@@ -158,16 +155,21 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Select all scientific domains covered by ANY member of this family.**
+        **Scientific domains** (from EMD component CV):
         
-        **Note:** Individual models in the family may cover subset.
+        Select all scientific domains covered by ANY member of this family.
         
-        **Example:**
-        - Family covers: atmosphere, ocean, land-surface, land-ice, sea-ice
-        - Model A uses: atmosphere, ocean, sea-ice (coupled model)
-        - Model B uses: atmosphere, land-surface, land-ice (atmosphere-land model)
+        **Component types:**
+        - **aerosol**: Behaviour and evolution of aerosols suspended in the atmosphere
+        - **atmosphere**: Dynamical, thermodynamical, and physical processes in the atmosphere
+        - **atmospheric-chemistry**: Behaviour and evolution of the chemical composition of the atmosphere
+        - **land-ice**: Frozen freshwater in glaciers, ice-caps, ice-sheets, and ice-shelves
+        - **land-surface**: Water, energy, and mass fluxes between the surface and the atmosphere
+        - **ocean**: Dynamical, thermodynamical, and physical processes in the ocean
+        - **ocean-biogeochemistry**: Biological, geological, and chemical processes in the ocean
+        - **sea-ice**: Frozen seawater that floats on the ocean surface
         
-        **Select the union** of all domains used by family members.
+        **Note:** Individual models in the family may cover a subset of these domains.
         
         </details>
       options:
@@ -202,17 +204,14 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **A well-known or canonical member of the family.**
+        **Representative member:**
+        
+        A well-known or canonical member of the family.
         
         **Useful for:**
-        - Quick reference
-        - Understanding family characteristics
+        - Quick reference to understand family characteristics
         - Finding documentation
-        
-        **Examples:**
-        - HadGEM3 family → 'HadGEM3-GC31-LL'
-        - CESM family → 'CESM2'
-        - CNRM-CM family → 'CNRM-CM6-1'
+        - Citation purposes
         
         **Can be:**
         - Most recent version
@@ -221,7 +220,7 @@ body:
         
         **Leave blank if:**
         - First model in family
-        - No clear representative
+        - No clear representative yet
         
         </details>
       placeholder: "e.g., HadGEM3-GC31-LL"
@@ -238,18 +237,15 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Official website with family documentation.**
+        **Official website:**
+        
+        URL with family documentation.
         
         **Ideal content:**
         - Model family overview
         - Technical documentation
         - Publication list
         - Code access information
-        
-        **Examples:**
-        - https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model
-        - https://www.cesm.ucar.edu/
-        - https://www.umr-cnrm.fr/cmip6/
         
         **Leave blank if:**
         - No dedicated website
@@ -270,24 +266,22 @@ body:
         <details markdown="1">
         <summary>Completion Guidance</summary>
         
-        **Key publications about the model family:**
+        **Family-level publications:**
+        
+        Key publications about the model family as a whole.
         
         **Include:**
         - Family overview papers
-        - Model genealogy studies
+        - Model genealogy studies (e.g., Masson and Knutti 2011)
         - Foundational technical papers
         
-        **Examples:**
-        ```
-        https://doi.org/10.1029/2019MS001739  (Family overview)
-        https://doi.org/10.1029/2011GL046864  (Genealogy paper)
-        ```
+        **DO NOT include:**
+        - Model-specific papers (those go in Model issues)
+        - Component-specific papers (those go in Model Component issues)
         
         **Leave blank if:**
         - New family with no publications yet
         - Will add later
-        
-        **Note:** Model-specific papers go in Model issues, not here.
         
         </details>
       placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
