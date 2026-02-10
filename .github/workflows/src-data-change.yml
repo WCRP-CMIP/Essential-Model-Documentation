@@ -117,6 +117,28 @@ jobs:
           git restore --source origin/docs --staged --worktree -- docs/ || true
           
           echo "✓ Documentation updated"
+      
+      - name: Build MkDocs site
+        continue-on-error: true
+        run: |
+          if [ -f "src/mkdocs/mkdocs.yml" ]; then
+            echo "Building MkDocs site..."
+            
+            # Install dependencies from requirements.txt if it exists
+            if [ -f "src/mkdocs/requirements.txt" ]; then
+              echo "Installing from src/mkdocs/requirements.txt..."
+              pip install -r src/mkdocs/requirements.txt
+            else
+              echo "Installing default MkDocs packages..."
+              pip install mkdocs mkdocs-material
+            fi
+            
+            # Build site
+            mkdocs build -f src/mkdocs/mkdocs.yml -d ../../docs
+            echo "✓ MkDocs site built to docs/"
+          else
+            echo "No mkdocs.yml found, skipping MkDocs build"
+          fi
 
 
       - name: Check for changes
