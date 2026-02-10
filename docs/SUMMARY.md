@@ -1,5 +1,6 @@
 - [Home](index.md)
 - [Contributors](contributors.md)
+- [Submission Guide](submission-guide.md)
 - Data Summaries:
   - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
   - [Index](data-summaries/index.md)
@@ -21,5 +22,6 @@
   - [Model Family](vocabularies/model_family.md)
   - [Reference](vocabularies/reference.md)
   - [Vertical Computational Grid](vocabularies/vertical_computational_grid.md)
+- [CMIP7 Guidance](https://guidance.mipcvs.dev/)
 - [CMIP Website](https://wcrp-cmip.org/)
 - [WCRP](https://www.wcrp-climate.org/)
