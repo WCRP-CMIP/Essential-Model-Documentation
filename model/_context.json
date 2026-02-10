@@ -5,11 +5,11 @@
         "@esgvoc": "Model",
         "@vocab": "https://emd.mipcvs.dev/docs/contents/Model/",
         "calendar": {
-            "@context": "https://universal.mipcvs.dev/calendar/_context",
+            "@context": "https://constants.mipcvs.dev/calendar/_context",
             "@type": "@id"
         },
         "dynamic_components": {
-            "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+            "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
             "@type": "@id"
         },
         "family": {
@@ -17,11 +17,11 @@
             "@type": "@id"
         },
         "omitted_components": {
-            "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+            "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
             "@type": "@id"
         },
         "prescribed_components": {
-            "@context": "https://universal.mipcvs.dev/scientific_domain/_context",
+            "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
             "@type": "@id"
         },
         "references": {
