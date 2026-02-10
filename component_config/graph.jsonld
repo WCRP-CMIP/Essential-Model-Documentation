@@ -1,0 +1,119 @@
+{
+  "@context": {
+  "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/component_config/",
+  "@base": "https://emd.mipcvs.dev/component_config/",
+  "@vocab": "https://emd.mipcvs.dev/docs/contents/ComponentConfig/",
+  "model_component": {
+    "@context": "https://emd.mipcvs.dev/model_component/_context",
+    "@type": "@id"
+  },
+  "horizontal_computational_grid": {
+    "@context": "https://emd.mipcvs.dev/horizontal_computational_grid/_context",
+    "@type": "@id"
+  },
+  "vertical_computational_grid": {
+    "@context": "https://emd.mipcvs.dev/vertical_computational_grid/_context",
+    "@type": "@id"
+  }
+},
+  "@graph": [
+    {
+  "validation_key": "aerosol_tactic_c100_v100",
+  "ui_label": "TACTIC with c100 and v100",
+  "description": "Configuration for TACTIC with horizontal grid c100 and vertical grid v100.",
+  "model_component": "tactic",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "aerosol_tactic_c100_v100",
+  "horizontal_computational_grid": "c100",
+  "vertical_computational_grid": "v100"
+}
+    ,{
+  "validation_key": "atmosphere_arpege_climat_version_6_3_c100_v100",
+  "ui_label": "Arpege-Climat Version 6.3 with c100 and v100",
+  "description": "Configuration for Arpege-Climat Version 6.3 with horizontal grid c100 and vertical grid v100.",
+  "model_component": "arpege-climat-version-6-3",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "atmosphere_arpege-climat-version-6-3_c100_v100",
+  "horizontal_computational_grid": "c100",
+  "vertical_computational_grid": "v100"
+}
+    ,{
+  "validation_key": "atmospheric_chemistry_reprobus_c_v2_0_c100_v100",
+  "ui_label": "REPROBUS-C (v2.0) with c100 and v100",
+  "description": "Configuration for REPROBUS-C (v2.0) with horizontal grid c100 and vertical grid v100.",
+  "model_component": "reprobus-c-v2-0",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "atmospheric-chemistry_reprobus-c-v2-0_c100_v100",
+  "horizontal_computational_grid": "c100",
+  "vertical_computational_grid": "v100"
+}
+    ,{
+  "validation_key": "land_surface_surfex_v8_modeling_platform_c100_v102",
+  "ui_label": "SURFEX v8 modeling platform with c100 and v102",
+  "description": "Configuration for SURFEX v8 modeling platform with horizontal grid c100 and vertical grid v102.",
+  "model_component": "surfex-v8-modeling-platform",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "land-surface_surfex-v8-modeling-platform_c100_v102",
+  "horizontal_computational_grid": "c100",
+  "vertical_computational_grid": "v102"
+}
+    ,{
+  "validation_key": "ocean_biogeochemistry_piscesv2_gas_c101_v103",
+  "ui_label": "PISCESv2-gas with c101 and v103",
+  "description": "Configuration for PISCESv2-gas with horizontal grid c101 and vertical grid v103.",
+  "model_component": "piscesv2-gas",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "ocean-biogeochemistry_piscesv2-gas_c101_v103",
+  "horizontal_computational_grid": "c101",
+  "vertical_computational_grid": "v103"
+}
+    ,{
+  "validation_key": "ocean_nemo_v3_6_c101_v103",
+  "ui_label": "NEMO v3.6 with c101 and v103",
+  "description": "Configuration for NEMO v3.6 with horizontal grid c101 and vertical grid v103.",
+  "model_component": "nemo-v3-6",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "ocean_nemo-v3-6_c101_v103",
+  "horizontal_computational_grid": "c101",
+  "vertical_computational_grid": "v103"
+}
+    ,{
+  "validation_key": "sea_ice_gelato_c101_v104",
+  "ui_label": "GELATO with c101 and v104",
+  "description": "Configuration for GELATO with horizontal grid c101 and vertical grid v104.",
+  "model_component": "gelato",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "sea-ice_gelato_c101_v104",
+  "horizontal_computational_grid": "c101",
+  "vertical_computational_grid": "v104"
+}
+  ]
+}

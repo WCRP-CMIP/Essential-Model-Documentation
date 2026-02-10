@@ -1,0 +1,19 @@
+{
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/component_config/",
+        "@base": "https://emd.mipcvs.dev/component_config/",
+        "@vocab": "https://emd.mipcvs.dev/docs/contents/ComponentConfig/",
+        "model_component": {
+            "@context": "https://emd.mipcvs.dev/model_component/_context",
+            "@type": "@id"
+        },
+        "horizontal_computational_grid": {
+            "@context": "https://emd.mipcvs.dev/horizontal_computational_grid/_context",
+            "@type": "@id"
+        },
+        "vertical_computational_grid": {
+            "@context": "https://emd.mipcvs.dev/vertical_computational_grid/_context",
+            "@type": "@id"
+        }
+    }
+}

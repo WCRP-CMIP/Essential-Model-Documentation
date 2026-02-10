@@ -1,0 +1,32 @@
+{
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cells/",
+        "@base": "https://emd.mipcvs.dev/horizontal_grid_cells/",
+        "@esgvoc": "HorizontalGridCells",
+        "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalGridCells/",
+        "grid_mapping": {
+            "@context": "https://universal.mipcvs.dev/grid_mapping/_context",
+            "@type": "@id"
+        },
+        "grid_type": {
+            "@context": "https://universal.mipcvs.dev/grid_type/_context",
+            "@type": "@id"
+        },
+        "region": {
+            "@context": "https://universal.mipcvs.dev/region/_context",
+            "@type": "@id"
+        },
+        "temporal_refinement": {
+            "@context": "https://universal.mipcvs.dev/temporal_refinement/_context",
+            "@type": "@id"
+        },
+        "truncation_method": {
+            "@context": "https://universal.mipcvs.dev/truncation_method/_context",
+            "@type": "@id"
+        },
+        "units": {
+            "@context": "https://universal.mipcvs.dev/units/_context",
+            "@type": "@id"
+        }
+    }
+}

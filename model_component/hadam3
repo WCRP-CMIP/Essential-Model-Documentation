@@ -1,0 +1,15 @@
+{
+  "validation_key": "hadam3",
+  "ui_label": "",
+  "description": "HadAM3 is the atmospheric component of HadCM3, a coupled atmosphere-ocean general circulation model developed at the UK Met Office Hadley Centre.",
+  "component": "atmosphere",
+  "family": "hadam",
+  "name": "HadAM3",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "hadam3"
+}
