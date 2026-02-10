@@ -1,0 +1,18 @@
+# Custom Navigation Links
+# =======================
+# Links are inserted directly into the navigation.
+# Use 'category' to group links under a heading.
+
+links:
+  # Direct links (no category - appear at root level)
+  - title: "Docs Github"
+    url: "https://github.com/WCRP-CMIP/Essential-Model-Documentation"
+
+  # Categorized links
+  - title: "CMIP Website"
+    url: "https://wcrp-cmip.org/"
+    category: "Resources"
+
+  - title: "WCRP"
+    url: "https://www.wcrp-climate.org/"
+    category: "Resources"
