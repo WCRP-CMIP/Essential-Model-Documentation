@@ -132,12 +132,17 @@ jobs:
               pip install mkdocs mkdocs-material
             fi
             
-            # Remove old docs folder
-            rm -rf docs
+            # Build to 'build' folder
+            rm -rf build
+            mkdocs build -f src/mkdocs/mkdocs.yml -d ../../build
             
-            # Build site - output replaces docs/ folder
-            mkdocs build -f src/mkdocs/mkdocs.yml -d ../../docs
-            echo "✓ Built MkDocs site - docs/ folder now contains built site"
+            # Clean up: remove src and docs
+            rm -rf src docs
+            
+            # Move build to docs
+            mv build docs
+            
+            echo "✓ Built MkDocs site - docs/ folder now contains built site only"
           else
             echo "No src/mkdocs/mkdocs.yml found, skipping MkDocs build"
           fi
