@@ -1,0 +1,27 @@
+- [Home](index.md)
+- [Contributors](contributors.md)
+- [Submission Guide](submission-guide.md)
+- Data Summaries:
+  - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
+  - [Index](data-summaries/index.md)
+- Technical:
+  - [Creating Issue Templates](technical/creating-issue-templates.md)
+  - [Styling](technical/styling.md)
+  - Mkdocs:
+    - [Generators](technical/mkdocs/generators.md)
+    - [Index](technical/mkdocs/index.md)
+    - [Styling](technical/mkdocs/styling.md)
+    - [Templates](technical/mkdocs/templates.md)
+- Vocabularies:
+  - [Horizontal Computational Grid](vocabularies/horizontal_computational_grid.md)
+  - [Horizontal Grid Cells](vocabularies/horizontal_grid_cells.md)
+  - [Horizontal Subgrid](vocabularies/horizontal_subgrid.md)
+  - [Index](vocabularies/index.md)
+  - [Model](vocabularies/model.md)
+  - [Model Component](vocabularies/model_component.md)
+  - [Model Family](vocabularies/model_family.md)
+  - [Reference](vocabularies/reference.md)
+  - [Vertical Computational Grid](vocabularies/vertical_computational_grid.md)
+- [CMIP7 Guidance](https://guidance.mipcvs.dev/)
+- [CMIP Website](https://wcrp-cmip.org/)
+- [WCRP](https://www.wcrp-climate.org/)
