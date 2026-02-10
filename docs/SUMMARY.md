@@ -1,6 +1,5 @@
 - [Home](index.md)
 - [Contributors](contributors.md)
-- [Index](index.html)
 - [Submission Guide](submission-guide.md)
 - Data Summaries:
   - [Horizontal Subgrid](data-summaries/horizontal_subgrid.md)
