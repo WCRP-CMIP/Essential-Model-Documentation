@@ -1,57 +1,40 @@
 site_name: Essential Model Documentation
-site_url: https://WCRP-CMIP.github.io/Essential-Model-Documentation/
+site_url: https://WCRP-CMIP.github.io/emd/
 repo_url: https://github.com/WCRP-CMIP/Essential-Model-Documentation
 repo_name: WCRP-CMIP/Essential-Model-Documentation
-site_description: Documentation for CMIP Climate Models and Components
+site_description: Development repository for the EMD. This will link into the CVs and Universe Repos.
 site_author: WCRP-CMIP
 
 docs_dir: ../../docs
 site_dir: site
 
+# Theme configuration
 theme:
-  name: material
-  logo: stylesheets/logo-light.svg
-  favicon: stylesheets/logo.svg
-  custom_dir: overrides
-  font: false
-  features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.path
-    - navigation.indexes
-    - navigation.footer
-    - toc.follow
-    - search.suggest
-    - search.highlight
-    - content.code.copy
+  name: shadcn
   palette:
-    - scheme: default
-      primary: blue
-      accent: light blue
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-    - scheme: slate
-      primary: blue
-      accent: light blue
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
+    primary: blue
+    accent: blue
+  show_stargazers: false
+  favicon: assets/favicon.svg
+  logo: assets/logo.svg
 
+# Plugins
 plugins:
   - search:
       lang: en
       separator: '[\s\-\.]+'
+
   - gen-files:
       scripts:
         - hooks/run_scripts.py
+
   - literate-nav:
       nav_file: SUMMARY.md
       implicit_index: true
       tab_length: 2
 
+# Hooks
 hooks:
-  - hooks/pre_build.py
   - hooks/generate_nav.py
   - hooks/post_build.py
 
@@ -61,7 +44,11 @@ extra:
     provider: mike
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/custom.css
+
+extra_javascript:
+  - stylesheets/custom.js
+  - stylesheets/embed.js
 
 markdown_extensions:
   - admonition

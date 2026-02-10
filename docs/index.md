@@ -1,19 +1,12 @@
-# CMIP-Template Documentation
-
-Documentation for CMIP-Template Documentation
+# Essential Model Documentation.
 
 !!! tip "Documentation"
-    This documentation is auto-generated using [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+    This documentation is auto-generated using and should only be edited in the docs branch. 
 
-## Quick Start
 
-Browse the navigation on the left to explore the documentation.
+### Link to EMD document and how to cite
 
-## Repository
+### What is the EMD and why we need it. 
 
-- **Source**: [https://github.com/WCRP-CMIP/cmip-template-documentation](https://github.com/WCRP-CMIP/cmip-template-documentation)
-- **Pages**: [https://WCRP-CMIP.github.io/cmip-template-documentation/](https://WCRP-CMIP.github.io/cmip-template-documentation/)
 
----
-
-*Maintained by wolfiex*
+### How to fill out the EMD. 
