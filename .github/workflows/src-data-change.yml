@@ -82,12 +82,10 @@ jobs:
           fi
 
 
-      - name: Generate graphs (Python)
+      - name: Generate graphs (graphify)
         if: steps.find_dirs.outputs.dirs_json != '[]'
         run: |
-          python .github/scripts/generate_graphs.py \
-            --dirs ${{ steps.find_dirs.outputs.dirs_json }} \
-            --output-summary
+          graphify --all --output-summary
 
 
 
