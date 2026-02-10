@@ -19,7 +19,7 @@ jobs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
     
     steps:
-      - name: Checkout repository with all branches
+      - name: Checkout production branch
         uses: actions/checkout@v4
         with:
           ref: production
@@ -30,7 +30,9 @@ jobs:
           git fetch origin src-data:src-data
 
       - name: Install CMIPLD
-        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+        run: |
+          pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
+          npm i -g jsonld-recursive
 
       - name: Configure Git
         run: |
@@ -106,6 +108,19 @@ jobs:
           done
 
 
+
+      - name: Build documentation from docs branch
+        run: |
+          echo "Fetching docs branch..."
+          git fetch origin docs:docs
+          
+          echo "Copying docs to production..."
+          rm -rf docs
+          git restore --source origin/docs --staged --worktree -- docs/ || true
+          
+          echo "✓ Documentation updated"
+
+
       - name: Check for changes
         id: check_changes
         run: |
@@ -122,7 +137,7 @@ jobs:
       - name: Commit changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          git commit -m "Sync from src-data"
+          git commit -m "Sync from src-data and docs"
           git push origin production
 
 
