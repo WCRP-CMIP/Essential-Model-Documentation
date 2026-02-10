@@ -1,0 +1,6 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Horizontal Subgrid Registration\n\nRegister a horizontal subgrid - one stagger position of a computational grid.\n\nSubgrids define which variables are calculated at specific grid locations.\n\nSubgrid IDs are automatically generated.",none,false,,,
+2,textarea,description,Description,"Description to distinguish this subgrid from similar ones.",none,true,"e.g., Mass variables on a regular latitude-longitude grid",,
+3,multi-select,cell_variable_type,Cell Variable Type,"Types of physical variables at this subgrid location.\n\n- mass: Mass-related, thermodynamic, hydrodynamic quantities\n- x-velocity: X component of velocity (longitude direction)\n- y-velocity: Y component of velocity (latitude direction)\n- velocity: Full velocity vector (for unstructured grids)",cell_variable_type,true,,list,
+4,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+5,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list_with_na,0

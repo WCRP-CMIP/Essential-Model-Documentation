@@ -107,24 +107,23 @@ jobs:
 
 
 
-      - name: Build documentation from docs branch
+      - name: Copy all content from docs branch to production
         run: |
           echo "Fetching docs branch..."
           git fetch origin docs:docs
           
-          echo "Copying docs to production..."
-          rm -rf docs
-          git restore --source origin/docs --staged --worktree -- docs/ || true
+          echo "Copying all docs branch content to production..."
+          git restore --source origin/docs --staged --worktree -- . || true
           
-          echo "✓ Documentation updated"
+          echo "✓ Docs branch copied to production"
       
-      - name: Build MkDocs site
+      - name: Build MkDocs site on production branch
         continue-on-error: true
         run: |
           if [ -f "src/mkdocs/mkdocs.yml" ]; then
-            echo "Building MkDocs site..."
+            echo "Building MkDocs site on production branch..."
             
-            # Install dependencies from requirements.txt if it exists
+            # Install dependencies
             if [ -f "src/mkdocs/requirements.txt" ]; then
               echo "Installing from src/mkdocs/requirements.txt..."
               pip install -r src/mkdocs/requirements.txt
@@ -133,11 +132,14 @@ jobs:
               pip install mkdocs mkdocs-material
             fi
             
-            # Build site
+            # Remove old docs folder
+            rm -rf docs
+            
+            # Build site - output replaces docs/ folder
             mkdocs build -f src/mkdocs/mkdocs.yml -d ../../docs
-            echo "✓ MkDocs site built to docs/"
+            echo "✓ Built MkDocs site - docs/ folder now contains built site"
           else
-            echo "No mkdocs.yml found, skipping MkDocs build"
+            echo "No src/mkdocs/mkdocs.yml found, skipping MkDocs build"
           fi
 
 

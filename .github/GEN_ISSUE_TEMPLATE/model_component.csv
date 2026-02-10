@@ -1,0 +1,14 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Model Component Registration\n\nRegister a dynamically simulated model component.\n\nEach component type (atmosphere, ocean, etc.) in a top-level model requires separate registration.\n\nSee the [EMD Specification](https://wcrp-cmip.github.io/Essential-Model-Documentation/) for detailed guidance.",none,false,,,
+2,dropdown,component,Component Type,"The type of model component.\n\nMust match one of the dynamic_components in the parent model.",component,true,,list_with_na,0
+3,input,name,Component Name,"The name of the model component.\n\nIf embedded with no common name, use format: [HostName]-[component]\n\nExample: HadAM3-aerosol",none,true,"e.g., ARPEGE-Climat-v6.3, NEMO-v3.6, CLM5",,
+4,dropdown,family,Component Family,"The component's family name (if applicable).",component_family,false,,list_with_na,0
+5,textarea,description,Scientific Description,"Scientific overview of the component.\n\nSummarise the key processes simulated.",none,true,"Describe the key processes simulated by this component...",,
+6,markdown,relationships_header,,"## Component Relationships\n\nA component is either **embedded in** a host OR **coupled with** other components, never both.\n\n**Embedded**: Tightly integrated, shares host's grid, hard to extract\n**Coupled**: Recognizable name/version, exchanges through coupler, could transfer to another model",none,false,,,
+7,dropdown,embedded_in,Embedded In,"If this component is embedded in a host component, select the host's component type.\n\nLeave as 'Not applicable' if this component is coupled rather than embedded.",embedded_in,false,,list_with_na,0
+8,multi-select,coupled_with,Coupled With,"Components this one is coupled with.\n\n**Only if NOT embedded.**\n\nLeave empty if embedded.",component,false,,list,
+9,markdown,code_header,,"## Code and References",none,false,,,
+10,input,code_base,Code Base URL,"URL to source code (preferably pointing to a specific version/commit).\n\nEnter 'private' if not publicly available.\n\nLeave blank if not available.",none,false,"e.g., https://github.com/org/repo/tree/v1.0 or private",,
+11,textarea,reference_dois,Reference DOIs,"Enter DOI URLs, one per line.",none,true,"https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2",,
+12,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+13,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list_with_na,0

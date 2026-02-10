@@ -1,0 +1,5 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Reference Registration\n\nRegister references (publications) that describe models or model components.\n\n**All references MUST have a DOI.**\n\nIf a reference has no DOI, obtain one via [Zenodo](https://zenodo.org) first.",none,false,,,
+2,textarea,dois,DOI URLs,"Enter DOI URLs, one per line.\n\n**Must start with https://doi.org/**",none,true,"https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2",,
+3,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+4,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list_with_na,0

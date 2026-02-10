@@ -1,0 +1,84 @@
+site_name: Essential Model Documentation
+site_url: https://WCRP-CMIP.github.io/Essential-Model-Documentation/
+repo_url: https://github.com/WCRP-CMIP/Essential-Model-Documentation
+repo_name: WCRP-CMIP/Essential-Model-Documentation
+site_description: Documentation for CMIP Climate Models and Components
+site_author: WCRP-CMIP
+
+docs_dir: ../../docs
+site_dir: site
+
+theme:
+  name: material
+  logo: stylesheets/logo-light.svg
+  favicon: stylesheets/logo.svg
+  custom_dir: overrides
+  font: false
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.path
+    - navigation.indexes
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-\.]+'
+  - gen-files:
+      scripts:
+        - hooks/run_scripts.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+      implicit_index: true
+      tab_length: 2
+
+hooks:
+  - hooks/pre_build.py
+  - hooks/generate_nav.py
+  - hooks/post_build.py
+
+extra:
+  generator: false
+  version:
+    provider: mike
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
