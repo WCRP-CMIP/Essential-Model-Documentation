@@ -73,14 +73,13 @@
                 </div>
             </section>
 
-            <!-- Scientific Domains -->
+            <!-- Scientific Domain -->
             {% if component_domain %}
-            {% set domain_count = 1 + (1 if embedded_in else 0) %}
             <section class="emd-section expanded">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
                         <div class="emd-section-icon">{{ icons.domain | safe }}</div>
-                        <h2 class="emd-section-title">Scientific Domains <span class="emd-section-count">({{ domain_count }})</span></h2>
+                        <h2 class="emd-section-title">Scientific Domain</h2>
                     </div>
                     <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
@@ -91,230 +90,33 @@
                             <div class="emd-domain-card">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">{{ component_domain.name | e }}</span>
-                                    <span class="emd-domain-card-type">Component</span>
+                                    <span class="emd-domain-card-type">Component Type</span>
                                 </div>
                                 <div class="emd-domain-card-id">@id: {{ component_domain.id | e }}</div>
-                                <p class="emd-domain-card-description">{{ component_domain.description | e if component_domain.description else component_domain.name | e }}</p>
+                                {% if component_domain.description %}
+                                <p class="emd-domain-card-description">{{ component_domain.description | e }}</p>
+                                {% endif %}
                                 {% if component_domain.aliases %}
                                 <div class="emd-domain-card-meta">
                                     {% for alias in component_domain.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
                                 </div>
                                 {% endif %}
                             </div>
-                            {% if embedded_in %}
-                            <div class="emd-domain-card">
-                                <div class="emd-domain-card-header">
-                                    <span class="emd-domain-card-title">{{ embedded_in.name | e }}</span>
-                                    <span class="emd-domain-card-type">Embedded In</span>
-                                </div>
-                                <div class="emd-domain-card-id">@id: {{ embedded_in.id | e }}</div>
-                                <p class="emd-domain-card-description">{{ embedded_in.description | e if embedded_in.description else 'Parent domain' }}</p>
-                                {% if embedded_in.aliases %}
-                                <div class="emd-domain-card-meta">
-                                    {% for alias in embedded_in.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                            {% endif %}
                         </div>
+                        <p class="emd-description-text" style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                            <em>Note: Grid configurations for this component are defined in the component_config entries when used within a specific model.</em>
+                        </p>
                     </div>
                 </div>
             </section>
             {% endif %}
-
-            <!-- Computational Grids -->
-            {% if horizontal_grid or vertical_grid %}
-            {% set h_subgrid_count = horizontal_grid.subgrids | length if horizontal_grid and horizontal_grid.subgrids else 0 %}
-            {% set grid_count = (1 if horizontal_grid else 0) + (1 if vertical_grid else 0) %}
-            <section class="emd-section expanded">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.grid | safe }}</div>
-                        <h2 class="emd-section-title">Computational Grids <span class="emd-section-count">({{ grid_count }}{% if h_subgrid_count %} + {{ h_subgrid_count }} subgrids{% endif %})</span></h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        
-                        <div class="emd-grids-row">
-                            {% if horizontal_grid %}
-                            <div class="emd-grid-card">
-                                <div class="emd-grid-card-header">
-                                    <div class="emd-grid-card-icon">{{ icons.grid | safe }}</div>
-                                    <div class="emd-grid-card-title">
-                                        <span class="emd-grid-card-label">Horizontal Grid</span>
-                                        <span class="emd-grid-card-id">{{ horizontal_grid.id | e }}</span>
-                                    </div>
-                                </div>
-                                <p class="emd-grid-card-desc">{{ horizontal_grid.description | e if horizontal_grid.description else 'Horizontal computational grid' }}</p>
-                                <div class="emd-grid-card-stats">
-                                    {% if horizontal_grid.arrangement %}
-                                    <div class="emd-grid-card-stat">
-                                        <span class="emd-grid-card-stat-label">Arrangement</span>
-                                        <span class="emd-grid-card-stat-value">{{ horizontal_grid.arrangement | e }}</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if h_subgrid_count %}
-                                    <div class="emd-grid-card-stat">
-                                        <span class="emd-grid-card-stat-label">Subgrids</span>
-                                        <span class="emd-grid-card-stat-value accent">{{ h_subgrid_count }}</span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                                
-                                <!-- Nested Subgrids -->
-                                {% if horizontal_grid.subgrids %}
-                                <div class="emd-subgrids-section">
-                                    <div class="emd-subgrids-header">
-                                        <div class="emd-subgrids-title">{{ icons.grid | safe }} Horizontal Subgrids</div>
-                                        <span class="emd-subgrids-count">{{ horizontal_grid.subgrids | length }}</span>
-                                    </div>
-                                    <div class="emd-subgrids-list">
-                                        {% for subgrid in horizontal_grid.subgrids %}
-                                        <div class="emd-subgrid-card">
-                                            <div class="emd-subgrid-card-header">
-                                                <div class="emd-subgrid-card-id-row">
-                                                    <span class="emd-subgrid-card-id">{{ subgrid.id | e }}</span>
-                                                    {% if subgrid.cell_variable_type and subgrid.cell_variable_type.name %}
-                                                    <span class="emd-subgrid-type-badge">{{ subgrid.cell_variable_type.name | e }}</span>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            {% if subgrid.description %}
-                                            <p class="emd-subgrid-card-desc">{{ subgrid.description | e }}</p>
-                                            {% endif %}
-                                            {% if subgrid.grid_cells %}
-                                            <div class="emd-subgrid-details">
-                                                {% if subgrid.grid_cells.grid_type %}
-                                                <div class="emd-subgrid-detail">
-                                                    <span class="emd-subgrid-detail-label">Type</span>
-                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.grid_type | replace('-', ' ') | e }}</span>
-                                                </div>
-                                                {% endif %}
-                                                {% if subgrid.grid_cells.n_cells %}
-                                                <div class="emd-subgrid-detail">
-                                                    <span class="emd-subgrid-detail-label">Cells</span>
-                                                    <span class="emd-subgrid-detail-value">{{ "{:,}".format(subgrid.grid_cells.n_cells) }}</span>
-                                                </div>
-                                                {% endif %}
-                                                {% if subgrid.grid_cells.x_resolution and subgrid.grid_cells.y_resolution %}
-                                                <div class="emd-subgrid-detail">
-                                                    <span class="emd-subgrid-detail-label">Resolution</span>
-                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.x_resolution }}° × {{ subgrid.grid_cells.y_resolution }}°</span>
-                                                </div>
-                                                {% endif %}
-                                                {% if subgrid.grid_cells.region %}
-                                                <div class="emd-subgrid-detail">
-                                                    <span class="emd-subgrid-detail-label">Region</span>
-                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.region | e }}</span>
-                                                </div>
-                                                {% endif %}
-                                                {% if subgrid.grid_cells.truncation_number %}
-                                                <div class="emd-subgrid-detail">
-                                                    <span class="emd-subgrid-detail-label">Truncation</span>
-                                                    <span class="emd-subgrid-detail-value">{{ subgrid.grid_cells.truncation_method | default('T', true) | upper }}{{ subgrid.grid_cells.truncation_number }}</span>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                            {% endif %}
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            </div>
-                            {% endif %}
-                            
-                            {% if vertical_grid %}
-                            <div class="emd-grid-card">
-                                <div class="emd-grid-card-header">
-                                    <div class="emd-grid-card-icon">{{ icons.grid | safe }}</div>
-                                    <div class="emd-grid-card-title">
-                                        <span class="emd-grid-card-label">Vertical Grid</span>
-                                        <span class="emd-grid-card-id">{{ vertical_grid.id | e }}</span>
-                                    </div>
-                                </div>
-                                <p class="emd-grid-card-desc">{{ vertical_grid.description | e if vertical_grid.description else 'Vertical computational grid' }}</p>
-                                <div class="emd-grid-card-stats">
-                                    {% if vertical_grid.n_z %}
-                                    <div class="emd-grid-card-stat">
-                                        <span class="emd-grid-card-stat-label">Levels</span>
-                                        <span class="emd-grid-card-stat-value accent">{{ vertical_grid.n_z }}</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.coordinate %}
-                                    <div class="emd-grid-card-stat">
-                                        <span class="emd-grid-card-stat-label">Coordinate</span>
-                                        <span class="emd-grid-card-stat-value">{{ vertical_grid.coordinate | e }}</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.top_thickness %}
-                                    <div class="emd-grid-card-stat">
-                                        <span class="emd-grid-card-stat-label">Top Layer</span>
-                                        <span class="emd-grid-card-stat-value">{{ vertical_grid.top_thickness }}m</span>
-                                    </div>
-                                    {% endif %}
-                                    {% if vertical_grid.total_thickness %}
-                                    <div class="emd-grid-card-stat">
-                                        <span class="emd-grid-card-stat-label">Total Depth</span>
-                                        <span class="emd-grid-card-stat-value">{{ "{:,.0f}".format(vertical_grid.total_thickness) }}m</span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- Coupling -->
-            {% set coupling_count = coupled_with | length if coupled_with else 0 %}
-            <section class="emd-section{% if coupling_count > 0 %} expanded{% endif %}">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.coupling | safe }}</div>
-                        <h2 class="emd-section-title">Coupling <span class="emd-section-count">({{ coupling_count }})</span></h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        {% if coupled_with %}
-                        <div class="emd-domain-grid">
-                            {% for item in coupled_with %}
-                            <div class="emd-domain-card">
-                                <div class="emd-domain-card-header">
-                                    <span class="emd-domain-card-title">{{ item.name | e }}</span>
-                                    <span class="emd-domain-card-type">Coupled</span>
-                                </div>
-                                <div class="emd-domain-card-id">@id: {{ item.id | e }}</div>
-                                <p class="emd-domain-card-description">{{ item.description | e if item.description else item.name | e }}</p>
-                                {% if item.aliases %}
-                                <div class="emd-domain-card-meta">
-                                    {% for alias in item.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% else %}
-                        <p class="emd-description-text">No external coupling{% if embedded_in %} — component operates embedded within {{ embedded_in.name | e }}{% endif %}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </section>
 
             <!-- Technical Details -->
             <section class="emd-section">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
                         <div class="emd-section-icon">{{ icons.tech | safe }}</div>
-                        <h2 class="emd-section-title">Technical Details <span class="emd-section-count">({{ types | length }})</span></h2>
+                        <h2 class="emd-section-title">Technical Details</h2>
                     </div>
                     <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
@@ -360,7 +162,7 @@
                         <div class="emd-section-divider"></div>
                         {% if references %}
                         {% for ref in references %}
-                        <a href="#" class="emd-reference-item">
+                        <a href="{{ ref | e }}" class="emd-reference-item" target="_blank">
                             <div class="emd-reference-icon">{{ icons.description | safe }}</div>
                             <span class="emd-reference-text">{{ ref | e }}</span>
                             <span class="emd-reference-arrow">→</span>

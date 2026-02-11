@@ -37,7 +37,12 @@
                     <span class="emd-meta-value">{{ release_year }}</span>
                 </div>
                 {% endif %}
-                {% if calendar %}
+                {% if calendars %}
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Calendar{% if calendars | length > 1 %}s{% endif %}</span>
+                    <span class="emd-meta-value">{{ calendars | map(attribute='name') | join(', ') }}</span>
+                </div>
+                {% elif calendar %}
                 <div class="emd-meta-item">
                     <span class="emd-meta-label">Calendar</span>
                     <span class="emd-meta-value">{{ calendar.name | e }}</span>
@@ -159,6 +164,82 @@
             </section>
             {% endif %}
 
+            <!-- Component Architecture (Embedding & Coupling) -->
+            {% if embedded_components or coupling_groups %}
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.coupling | safe }}</div>
+                        <h2 class="emd-section-title">Component Architecture</h2>
+                    </div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        
+                        {% if embedded_components %}
+                        <h3 class="emd-subsection-title">Embedded Components</h3>
+                        <p class="emd-description-text" style="margin-bottom: 1rem;">Components that are tightly integrated within a host component.</p>
+                        <div class="emd-embedding-list">
+                            {% for emb in embedded_components %}
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded">{{ emb.embedded_name | e }}</span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host">{{ emb.host_name | e }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if coupling_groups %}
+                        <h3 class="emd-subsection-title" {% if embedded_components %}style="margin-top: 2rem;"{% endif %}>Coupling Groups</h3>
+                        <p class="emd-description-text" style="margin-bottom: 1rem;">Groups of components that exchange data through coupling.</p>
+                        <div class="emd-coupling-groups">
+                            {% for group in coupling_groups %}
+                            <div class="emd-coupling-group">
+                                <span class="emd-coupling-label">Group {{ loop.index }}:</span>
+                                <div class="emd-coupling-components">
+                                    {% for comp in group.component_names %}
+                                    <span class="emd-coupling-component">{{ comp | e }}</span>
+                                    {% if not loop.last %}<span class="emd-coupling-separator">↔</span>{% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Component Configurations -->
+            {% if component_configs %}
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+                        <h2 class="emd-section-title">Component Configurations <span class="emd-section-count">({{ component_configs | length }})</span></h2>
+                    </div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <p class="emd-description-text" style="margin-bottom: 1rem;">Specific configurations linking components to their grids.</p>
+                        <div class="emd-config-list">
+                            {% for config in component_configs %}
+                            <div class="emd-config-item">
+                                <a href="https://emd.mipcvs.dev/component_config/{{ config | e }}" target="_blank" class="emd-config-link">{{ config | e }}</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
             <!-- Technical Details -->
             <section class="emd-section">
                 <div class="emd-section-header" onclick="toggleSection(this)">
@@ -210,7 +291,7 @@
                         <div class="emd-section-divider"></div>
                         {% if references %}
                         {% for ref in references %}
-                        <a href="#" class="emd-reference-item">
+                        <a href="{{ ref | e }}" class="emd-reference-item" target="_blank">
                             <div class="emd-reference-icon">{{ icons.description | safe }}</div>
                             <span class="emd-reference-text">{{ ref | e }}</span>
                             <span class="emd-reference-arrow">→</span>
