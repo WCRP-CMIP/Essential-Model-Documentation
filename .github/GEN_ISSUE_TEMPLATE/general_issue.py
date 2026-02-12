@@ -1,14 +1,28 @@
-# General Issue Template Configuration
+# General Issue Template Data
 
-TEMPLATE_CONFIG = {
-    'name': 'General Issue or Question',
-    'description': 'Report issues, ask questions, or suggest improvements',
-    'title': '[EMD] General Issue:',
-    'labels': ['question'],
-    'issue_category': 'general_issue'
-}
-
-# Data for this template  
 DATA = {
+    'issue_type_options': [
+        'Bug Report',
+        'Feature Request', 
+        'Question',
+        'Documentation Issue',
+        'Data Quality Issue'
+    ],
+    'affected_areas_options': [
+        'Grid Registration',
+        'Component Registration',
+        'Model Registration',
+        'Model Family',
+        'Documentation',
+        'Issue Templates',
+        'Workflows',
+        'Other'
+    ],
+    'priority_options': [
+        'Low',
+        'Medium',
+        'High',
+        'Critical'
+    ],
     'issue_kind': ['New', 'Modify']
 }

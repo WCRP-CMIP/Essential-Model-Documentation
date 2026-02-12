@@ -8,44 +8,57 @@ body:
       value: |
         ## Model Family Registration
         
-        Register a model family - a group of models sharing code bases.
+        Registers a family of related models or components that share code.
         
-        Model families help establish model genealogies for inter-model comparisons.
+        **Prerequisites:** None — submit before Stage 3 or 4 if needed.
         
-        See [Masson and Knutti (2011)](https://doi.org/10.1029/2011GL046864) for examples.
+        ```mermaid
+        flowchart LR
+            subgraph Stage1[\**Stage 1**\"]
+                S1[\"Grid Cells & Subgrid\"]
+            end
+            subgraph Stage2[\"**Stage 2**\"]
+                direction TB
+                S2a[\"Horizontal Grid\"]
+                S2b[\"Vertical Grid\"]
+            end
+            subgraph MF[\"**Model Family**\"]
+                direction TB
+                ESM[\"Earth System Family\"]
+                CF[\"Component Family\"]
+            end
+            subgraph Stage3[\"**Stage 3**\"]
+                S3[\"Model Component\"]
+            end
+            subgraph Stage4[\"**Stage 4**\"]
+                S4[\"Model\"]
+            end
+            S1 -->|g###
 
   - type: input
     id: name
     attributes:
       label: Family Name
       description: |
-        The family name.
-        
-        Often persists across model versions and may be the first part of full model names.
+        Short identifier for this model family.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Family name** (from EMD specification):
+        **Family identifier**
         
-        A family of models share much of their code bases, but may be configured in different ways (e.g. different resolutions, parameter choices, or the inclusion or not of particular model components).
+        Short name, often the first part of model names.
         
-        A family name often persists across model versions and may be the first part of the model's full name.
+        **Examples:** HadGEM3, CESM, CNRM-CM, ACCESS, NEMO, CLM
         
-        See Masson and Knutti (2011) for an example of how the family can be used to inform model genealogies.
+        **Conventions:**
+        - Use hyphens as separators
+        - Typically: institution/project acronym + model type
         
-        **Naming conventions:**
-        - Often first part of model names
-        - Use hyphens for separators
-        - Typically institution/project acronym + model name
-        
-        **Used for:**
-        - Model genealogy studies
-        - Identifying related models
-        - Tracking code lineage
+        See [Masson and Knutti (2011)](https://doi.org/10.1029/2011GL046864) for model genealogy examples.
         
         </details>
-      placeholder: "e.g., HadGEM3, CESM, CNRM-CM, ACCESS"
+      placeholder: "HadGEM3"
     validations:
       required: true
 
@@ -54,34 +67,26 @@ body:
     attributes:
       label: Family Type
       description: |
-        Select the type of model family.
-        
-        - **Earth System Model**: Coupled models with multiple components (atmosphere, ocean, etc.)
-        - **Component Family**: Single-domain models (e.g., ocean-only, atmosphere-only)
+        Whether this is a coupled Earth System family or single-domain Component family.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Family type** (distinguishes coupled vs single-domain models):
+        **Family classification**
         
-        Select the type that best describes this model family:
+        Determines how this family is used in the workflow.
         
         **Earth System Model:**
         - Coupled models with multiple interacting components
-        - Include atmosphere AND ocean/land-surface/sea-ice
-        - Examples: CESM, HadGEM3, CNRM-CM, ACCESS, EC-Earth, IPSL-CM
-        - Used for: Climate projections, Earth system studies
+        - Include atmosphere AND ocean/land-surface
+        - Examples: CESM, HadGEM3, CNRM-CM, ACCESS, IPSL-CM
+        - Referenced in Stage 4 (Model)
         
         **Component Family:**
-        - Single scientific domain models
-        - Focus on one Earth system component
-        - Examples: NEMO (ocean), CAM (atmosphere), CLM (land), GELATO (sea-ice), PISCES (ocean-biogeochemistry)
-        - Used for: Standalone simulations, coupling into larger systems
-        
-        **How to decide:**
-        - If models in this family typically include atmosphere + ocean → Earth System Model
-        - If models focus on a single domain (even if sometimes coupled) → Component Family
-        - When in doubt, consider the primary use case of the family
+        - Single scientific domain
+        - May be coupled into larger systems
+        - Examples: NEMO (ocean), CAM (atmosphere), CLM (land)
+        - Referenced in Stage 3 (Model Component)
         
         </details>
       options:
@@ -97,27 +102,22 @@ body:
     attributes:
       label: Description
       description: |
-        Description of the model family.
-        
-        Include scientific focus and common characteristics shared by family members.
+        What characterizes this model family.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Family description** (from EMD specification):
-        
-        Describe what characterizes this model family.
+        **Family characterization**
         
         **What to include:**
-        1. **Origin**: Institution and development history
-        2. **Scientific focus**: What distinguishes this family
-        3. **Common features**: Shared code, physics, or approach
-        4. **Variation dimensions**: How family members differ (resolution, parameters, components)
+        1. Scientific focus and approach
+        2. Common code base and physics
+        3. How family members differ (resolution, components, parameters)
         
-        **2-3 paragraphs typical**
+        2-3 paragraphs typical.
         
         </details>
-      placeholder: "Describe the model family, its scientific focus, and common characteristics..."
+      placeholder: "1. Scientific focus and approach\n2. Common code base and physics\n3. How family members differ"
     validations:
       required: true
 
@@ -125,7 +125,17 @@ body:
     id: primary_institution
     attributes:
       label: Primary Institution
-      description: The primary institution responsible for the model family.
+      description: |
+        Lead institution responsible for development.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Lead institution**
+        
+        Institution primarily responsible for development and maintenance.
+        
+        </details>
       options:
         - "Not specified"
         - "awi"
@@ -138,13 +148,10 @@ body:
         - "cnrm"
         - "cnrm-cerfacs"
         - "csiro"
-        - "csiro-arccss"
         - "dkrz"
         - "dwd"
         - "ec-earth-consortium"
         - "ecmwf"
-        - "gfdl"
-        - "inpe"
         - "ipsl"
         - "jamstec"
         - "lbnl"
@@ -155,13 +162,10 @@ body:
         - "nasa-gsfc"
         - "ncar"
         - "ncas"
-        - "ncc"
         - "nerc"
-        - "niwa"
         - "noaa-gfdl"
         - "noc"
         - "pnnl"
-        - "ukmo"
         - "uob"
       default: 0
     validations:
@@ -173,9 +177,18 @@ body:
       multiple: true
       label: Collaborative Institutions
       description: |
-        Other institutions that collaborate on this model family.
+        Other institutions contributing to development.
         
-        Leave empty if none.
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Contributing institutions**
+        
+        Other institutions involved in development.
+        
+        **Leave empty if:** Single-institution project.
+        
+        </details>
       options:
         - "awi"
         - "bas"
@@ -187,13 +200,10 @@ body:
         - "cnrm"
         - "cnrm-cerfacs"
         - "csiro"
-        - "csiro-arccss"
         - "dkrz"
         - "dwd"
         - "ec-earth-consortium"
         - "ecmwf"
-        - "gfdl"
-        - "inpe"
         - "ipsl"
         - "jamstec"
         - "lbnl"
@@ -204,13 +214,10 @@ body:
         - "nasa-gsfc"
         - "ncar"
         - "ncas"
-        - "ncc"
         - "nerc"
-        - "niwa"
         - "noaa-gfdl"
         - "noc"
         - "pnnl"
-        - "ukmo"
         - "uob"
 
   - type: dropdown
@@ -219,34 +226,28 @@ body:
       multiple: true
       label: Scientific Domains
       description: |
-        The scientific domains covered by this family.
+        All domains covered by any family member.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Scientific domains** (from EMD component CV):
+        **Domains covered**
         
-        Select all scientific domains covered by ANY member of this family.
+        All domains covered by ANY member of this family.
         
-        **Component types:**
-        - **aerosol**: Behaviour and evolution of aerosols suspended in the atmosphere
-        - **atmosphere**: Dynamical, thermodynamical, and physical processes in the atmosphere
-        - **atmospheric-chemistry**: Behaviour and evolution of the chemical composition of the atmosphere
-        - **land-ice**: Frozen freshwater in glaciers, ice-caps, ice-sheets, and ice-shelves
-        - **land-surface**: Water, energy, and mass fluxes between the surface and the atmosphere
-        - **ocean**: Dynamical, thermodynamical, and physical processes in the ocean
-        - **ocean-biogeochemistry**: Biological, geological, and chemical processes in the ocean
-        - **sea-ice**: Frozen seawater that floats on the ocean surface
+        - aerosol, atmosphere, atmospheric-chemistry
+        - land-ice, land-surface
+        - ocean, ocean-biogeochemistry, sea-ice
         
-        **Note:** Individual models in the family may cover a subset of these domains.
+        Individual models may cover a subset.
         
         </details>
       options:
         - "aerosol"
         - "atmosphere"
         - "atmospheric-chemistry"
-        - "land-surface"
         - "land-ice"
+        - "land-surface"
         - "ocean"
         - "ocean-biogeochemistry"
         - "sea-ice"
@@ -258,113 +259,95 @@ body:
     attributes:
       label: Year Established
       description: |
-        Year the model family was established.
+        Year the family was first developed.
         
-        Leave blank if unknown.
-      placeholder: "e.g., 2008"
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Year established**
+        
+        When the family was first developed.
+        
+        **Leave blank if:** Unknown.
+        
+        </details>
+      placeholder: "2009"
 
   - type: input
     id: representative_member
     attributes:
       label: Representative Member
       description: |
-        Name of a representative model from this family.
+        A well-known configuration from this family.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Representative member:**
+        **Canonical configuration**
         
-        A well-known or canonical member of the family.
+        A well-known member for quick reference.
         
-        **Useful for:**
-        - Quick reference to understand family characteristics
-        - Finding documentation
-        - Citation purposes
-        
-        **Can be:**
-        - Most recent version
-        - Most widely used version
-        - Reference configuration
-        
-        **Leave blank if:**
-        - First model in family
-        - No clear representative yet
+        **Examples:** HadGEM3-GC31-LL, CESM2, CNRM-CM6-1
         
         </details>
-      placeholder: "e.g., HadGEM3-GC31-LL"
+      placeholder: "HadGEM3-GC31-LL"
 
   - type: input
     id: website
     attributes:
-      label: Website URL
+      label: Website
       description: |
-        Official website for the model family.
-        
-        Leave blank if none.
+        Official documentation URL.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Official website:**
+        **Documentation URL**
         
-        URL with family documentation.
-        
-        **Ideal content:**
-        - Model family overview
-        - Technical documentation
-        - Publication list
-        - Code access information
-        
-        **Leave blank if:**
-        - No dedicated website
-        - Information scattered across papers
+        Official website with family documentation, technical references, or code access.
         
         </details>
-      placeholder: "e.g., https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model"
+      placeholder: "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model"
 
   - type: textarea
     id: reference_dois
     attributes:
       label: Reference DOIs
       description: |
-        Enter DOI URLs for key publications, one per line.
-        
-        Leave blank if none.
+        DOI URLs for family-level publications.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Family-level publications:**
+        **Family-level publications**
         
-        Key publications about the model family as a whole.
+        DOIs for papers describing the family as a whole.
         
-        **Include:**
-        - Family overview papers
-        - Model genealogy studies (e.g., Masson and Knutti 2011)
-        - Foundational technical papers
+        **Format:** `https://doi.org/...` (one per line)
         
-        **DO NOT include:**
-        - Model-specific papers (those go in Model issues)
-        - Component-specific papers (those go in Model Component issues)
-        
-        **Leave blank if:**
-        - New family with no publications yet
-        - Will add later
+        **Do NOT include:** Model-specific or component-specific papers.
         
         </details>
-      placeholder: "https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2"
+      placeholder: "https://doi.org/10.1029/2019MS001995"
 
   - type: markdown
     attributes:
       value: |
-        ## Issue Handling Metadata
+        ---
+        
+        ## Issue Handling
+        
+        **After submission:**
+        - Creates `model_family` entry
+        - Earth System Families can be referenced in Stage 4 (Model)
+        - Component Families can be referenced in Stage 3 (Model Component)
+        - Track progress in issue comments
 
   - type: dropdown
     id: issue_kind
     attributes:
       label: Issue Kind
-      description: Select whether this is a new submission or modification of existing entry.
+      description: New submission or modification.
       options:
         - "New"
         - "Modify"

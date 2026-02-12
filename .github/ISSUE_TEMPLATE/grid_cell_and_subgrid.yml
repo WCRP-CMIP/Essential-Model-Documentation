@@ -1,23 +1,39 @@
-name: Grid Cell and Subgrid Registration
-description: Register horizontal grid cells and subgrid together
-title: "[EMD] Grid Cell and Subgrid:"
+name: "Stage 1: Grid Cells & Subgrid"
+description: Register grid cells and subgrid (Stage 1 of 4)
+title: "[EMD] Grid Cells & Subgrid:"
 labels: ['emd-submission', 'grid', 'Review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Grid Cell and Subgrid Registration
+        ## Stage 1: Grid Cells & Subgrid
         
-        One form creates TWO linked entities:
-        - **horizontal_grid_cells**: Physical properties (resolution, type, region)
-        - **horizontal_subgrid**: Variable types using these cells
+        Creates **two linked entities**: grid cells (physical properties) and subgrid (variable locations).
         
-        Descriptions and IDs auto-generated. Result: Subgrid ID (s###) for use in h-grid registration.
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Horizontal Grid Cells
+        **Prerequisites:** None — this is the first step.
+        
+        ```mermaid
+        flowchart LR
+            subgraph Stage1[\**Stage 1**\"]
+                S1[\"Grid Cells & Subgrid\"]
+            end
+            subgraph Stage2[\"**Stage 2**\"]
+                direction TB
+                S2a[\"Horizontal Grid\"]
+                S2b[\"Vertical Grid\"]
+            end
+            subgraph MF[\"**Model Family**\"]
+                direction TB
+                ESM[\"Earth System Family\"]
+                CF[\"Component Family\"]
+            end
+            subgraph Stage3[\"**Stage 3**\"]
+                S3[\"Model Component\"]
+            end
+            subgraph Stage4[\"**Stage 4**\"]
+                S4[\"Model\"]
+            end
+            S1 -->|g###
 
   - type: dropdown
     id: grid_type
@@ -27,57 +43,32 @@ body:
         Cell distribution pattern.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Horizontal grid types** (from EMD grid_type CV):
+        **Cell distribution pattern**
         
-        The method for distributing grid cells over the region.
+        Defines how grid cells are arranged across the domain.
         
-        **Common options:**
-        - **regular_latitude_longitude**: Rectilinear lat-lon grid with evenly spaced points
-        - **reduced_gaussian**: Gaussian grid with reduced longitudinal points near poles
-        - **tripolar**: Global curvilinear ocean grid with southern pole and two northern poles over land
-        - **cubed_sphere**: Spherical surface as six coupled logically square regions
-        - **icosahedral_geodesic**: Triangular tiles based on subdivision of an icosahedron
-        - **unstructured_polygonal**: Unstructured mesh of arbitrary polygons
-        - **displaced_pole**: Ocean grid with non-antipodean poles, typically northern pole over land
-        - **rotated_pole**: Regular lat-lon grid rotated to different north pole location
-        - **stretched**: Higher resolution concentrated over area of interest
-        - **plane_projection**: Transformation representing spherical surface on a plane
-        - **hierarchical_discrete_global_grid**: Tessellation with cells at given resolution having equal areas
+        - **regular-latitude-longitude**: Uniform spacing in lat/lon
+        - **reduced-gaussian**: Fewer points near poles (spectral models)
+        - **tripolar**: North Pole singularity moved onto land (ocean models)
+        - **displaced-pole**: Single rotated pole
+        - **icosahedral**: Quasi-uniform spherical coverage
+        - **cubed-sphere**: Six cube faces projected onto sphere
+        - **adaptive-mesh**: Dynamically refined regions
         
-        **Spectral options:**
-        - **spectral_gaussian**: Based on transformation from spectral space to Gaussian grid
-        - **linear_spectral_gaussian**: Smallest wavelength represented by 2 grid points
-        - **quadratic_spectral_gaussian**: Smallest wavelength represented by 3 grid points
-        - **cubic_octahedral_spectral_reduced_gaussian**: Smallest wavelength represented by 4 grid points with octahedron-based reduction
+        See [CF Conventions grid mappings](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#appendix-grid-mappings) for details.
         
         </details>
       options:
         - "Not specified"
-        - "cubed_sphere"
-        - "cubic_octahedral_spectral_reduced_gaussian"
-        - "displaced_pole"
-        - "hierarchical_discrete_global_grid"
-        - "icosahedral_geodesic_dual"
-        - "icosahedral_geodesic"
-        - "icosahedral"
-        - "linear_spectral_gaussian"
-        - "plane_projection"
-        - "quadratic_spectral_gaussian"
-        - "reduced_gaussian"
-        - "regular_gaussian"
-        - "regular_latitude_longitude"
-        - "rotated_pole"
-        - "spectral_gaussian"
-        - "spectral_reduced_gaussian"
-        - "stretched"
+        - "regular-latitude-longitude"
+        - "reduced-gaussian"
         - "tripolar"
-        - "unstructured_polygonal"
-        - "unstructured_quadrilateral"
-        - "unstructured_triangular"
-        - "unstructured"
-        - "yin_yang"
+        - "displaced-pole"
+        - "icosahedral"
+        - "cubed-sphere"
+        - "adaptive-mesh"
       default: 0
     validations:
       required: true
@@ -87,44 +78,27 @@ body:
     attributes:
       label: Coordinate System
       description: |
-        Reference system.
+        Reference system for cell positions.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Coordinate reference systems** (from EMD grid_mapping CV):
+        **Coordinate reference system**
         
-        The horizontal coordinate reference system.
+        Defines how cell positions are located.
         
-        **Common options:**
-        - **latitude_longitude**: Treats latitude and longitude as planar X and Y coordinates
-        - **polar_stereographic**: Azimuthal projection mapping from poles
-        - **lambert_conformal_conic**: Preserves shape using cone over Earth's surface
-        - **lambert_azimuthal_equal_area**: Accurately preserves area of all regions
-        - **albers_conical_equal_area**: Preserves area, accurate for east-west land masses
-        - **orthographic**: Parallel projection with orthogonal projection lines
-        - **geostationary**: Shows Earth as it appears to a geostationary satellite
-        - **healpix**: Hierarchical equal area isolatitude pixelisation of a sphere
+        - **latitude-longitude**: Standard geographic coordinates
+        - **rotated-latitude-longitude**: Pole moved to reduce distortion over region of interest
+        - **stereographic**: Polar projection (polar regions)
+        - **lambert-conformal**: Mid-latitude regional projection
         
         </details>
       options:
         - "Not specified"
-        - "albers_conical_equal_area"
-        - "azimuthal_equidistant"
-        - "geostationary"
-        - "healpix"
-        - "lambert_azimuthal_equal_area"
-        - "lambert_conformal_conic"
-        - "lambert_cylindrical_equal_area"
-        - "latitude_longitude"
-        - "mercator"
-        - "orthographic"
-        - "polar_stereographic"
-        - "rotated_latitude_longitude"
-        - "sinusoidal"
+        - "latitude-longitude"
+        - "rotated-latitude-longitude"
         - "stereographic"
-        - "transverse_mercator"
-        - "vertical_perspective"
+        - "lambert-conformal"
       default: 0
     validations:
       required: true
@@ -135,34 +109,27 @@ body:
       multiple: true
       label: Region
       description: |
-        Geographic coverage.
+        Geographic coverage of the grid.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Geographic regions** (from EMD region CV):
+        **Geographic coverage**
         
-        A region is a contiguous part of the Earth's surface which spans the horizontal grid cells, including areas for which no calculations are made (such as ocean areas for a land surface component).
+        - **global**: Full Earth coverage
+        - **regional**: Limited area domain
+        - **arctic/antarctic**: Polar-focused domains
+        - **tropical**: Equatorial band
         
-        **Options:**
-        - **global**: The whole of the Earth's surface
-        - **antarctica**: The geographical region of Antarctica
-        - **greenland**: The geographical region of Greenland
-        - **limited_area**: Any contiguous subregion, for limited area models that may be placed over different geographical regions
-        - **30S-90S**: Earth's surface between 30 and 90 degrees south
+        Select multiple if the grid covers distinct regions.
         
         </details>
       options:
-        - "30s-90s"
-        - "antarctica"
-        - "arctic"
         - "global"
-        - "greenland"
-        - "limited-area"
-        - "northern_hemisphere"
-        - "shem"
-        - "southern_hemisphere"
-        - "tropics"
+        - "regional"
+        - "arctic"
+        - "antarctic"
+        - "tropical"
     validations:
       required: true
 
@@ -171,25 +138,23 @@ body:
     attributes:
       label: Temporal Refinement
       description: |
-        Time variation.
+        Whether the grid changes over time.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Temporal refinement** (from EMD temporal_refinement CV):
+        **Time variation of grid**
         
-        Indicates how the distribution of grid cells varies with time.
+        - **static**: Grid remains fixed throughout simulation
+        - **adaptive**: Grid changes during runtime (adaptive mesh refinement)
         
-        **Options:**
-        - **static**: Grid does not change during simulation
-        - **adaptive**: Grid resolution evolves during simulation (e.g., mesh refinement following ice dynamics)
+        Most grids are static.
         
         </details>
       options:
         - "Not specified"
-        - "adaptive"
-        - "dynamically_stretched"
         - "static"
+        - "adaptive"
       default: 0
     validations:
       required: true
@@ -199,52 +164,38 @@ body:
     attributes:
       label: X Resolution
       description: |
-        X cell size (omit if varies >25%).
+        Nominal cell size in x-direction.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **X direction cell size** (from EMD specification):
+        **Zonal (x-direction) resolution**
         
-        The size of grid cells in the X direction. The X direction for a grid defined by spherical polar coordinates is longitude.
+        Nominal cell size. For spectral grids, use equivalent grid spacing.
         
-        **Report only when:**
-        - Cell sizes are identical, OR
-        - Vary by less than 25% of the largest size (provide representative value and note in description)
-        
-        **Omit when:**
-        - Smallest cell size is less than 75% of the largest cell size
-        
-        Cells for which no calculations are made are included (such as ocean areas for a land surface component).
+        **Leave blank if:** Resolution varies by more than 25% across the domain.
         
         </details>
-      placeholder: "e.g., 1.25"
+      placeholder: "1.25"
 
   - type: input
     id: y_resolution
     attributes:
       label: Y Resolution
       description: |
-        Y cell size (omit if varies >25%).
+        Nominal cell size in y-direction.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Y direction cell size** (from EMD specification):
+        **Meridional (y-direction) resolution**
         
-        The size of grid cells in the Y direction. The Y direction for a grid defined by spherical polar coordinates is latitude.
+        Nominal cell size.
         
-        **Report only when:**
-        - Cell sizes are identical, OR
-        - Vary by less than 25% of the largest size (provide representative value and note in description)
-        
-        **Omit when:**
-        - Smallest cell size is less than 75% of the largest cell size
-        
-        Cells for which no calculations are made are included (such as ocean areas for a land surface component).
+        **Leave blank if:** Resolution varies by more than 25% across the domain.
         
         </details>
-      placeholder: "e.g., 0.9"
+      placeholder: "0.9"
 
   - type: dropdown
     id: units
@@ -254,10 +205,8 @@ body:
       options:
         - "Not specified"
         - "degree"
-        - "k"
         - "km"
-        - "meter"
-        - "pa"
+        - "m"
       default: 0
 
   - type: input
@@ -265,98 +214,82 @@ body:
     attributes:
       label: Number of Cells
       description: |
-        Total cells.
+        Total number of grid cells.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Total number of cells** (from EMD specification):
+        **Total cell count**
         
-        The total number of cells in the horizontal grid.
+        Number of cells in the horizontal grid.
         
-        Cells for which no calculations are made are included (such as ocean areas for a land surface component).
-        
-        **Omit when:**
-        - Not constant (such as for grids with adaptive temporal refinement)
+        For reduced grids, count actual cells (not full Gaussian equivalent).
         
         </details>
-      placeholder: "e.g., 55296"
+      placeholder: "55296"
 
   - type: input
     id: southernmost_latitude
     attributes:
       label: Southernmost Latitude
       description: |
-        Degrees north (-90 to 90).
+        Southern boundary in degrees north.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Southernmost latitude** (from EMD specification):
+        **Domain southern boundary**
         
-        The southernmost latitude coordinate of the grid cells, in degrees north.
+        In degrees north (-90 to 90).
         
-        **Requirements:**
-        - Value must be ≥ -90 and ≤ 90
-        - May be shared by multiple cells
-        - Include cells where no calculations are made
-        
-        **Omit when:**
-        - Not applicable for grids with adaptive temporal refinement
-        - Grid does not map to a sphere
+        For global grids with shifted pole, give latitude of southernmost cell center.
         
         </details>
-      placeholder: "e.g., -89.5"
+      placeholder: "-89.5"
 
   - type: input
     id: westernmost_longitude
     attributes:
       label: Westernmost Longitude
       description: |
-        Degrees east (0 to <360).
+        Western boundary in degrees east.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Westernmost longitude** (from EMD specification):
+        **Domain western boundary**
         
-        The westernmost longitude coordinate, in degrees east, of the southernmost grid cell(s).
+        In degrees east (0 to 360).
         
-        **Requirements:**
-        - Value must be ≥ 0 and < 360
-        - Smallest longitude (in range 0 to 360) of cells sharing the southernmost_latitude
-        
-        **Omit when:**
-        - Not applicable for grids with adaptive temporal refinement
-        - Grid does not map to a sphere
+        For global grids, typically 0 or first cell center longitude.
         
         </details>
-      placeholder: "e.g., 0.5"
+      placeholder: "0.5"
 
   - type: dropdown
     id: truncation_method
     attributes:
       label: Truncation Method
       description: |
-        Spectral only.
+        Spectral truncation type (spectral grids only).
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Truncation method** (from EMD truncation_method CV):
+        **Spectral truncation type** (spectral grids only)
         
-        The method for truncating the spherical harmonic representation of a spectral model.
+        - **triangular**: T truncation (most common, e.g., T127)
+        - **rhomboidal**: R truncation
+        - **linear**: L truncation (linear grid)
         
-        **Options:**
-        - **triangular**: Triangular truncation
-        
-        **Omit when:** Not applicable (non-spectral models)
+        **Leave blank if:** Not a spectral grid.
         
         </details>
       options:
         - "Not specified"
-        - "rhomboidal"
         - "triangular"
+        - "rhomboidal"
+        - "linear"
       default: 0
 
   - type: input
@@ -364,24 +297,19 @@ body:
     attributes:
       label: Truncation Number
       description: |
-        Spectral only.
+        Maximum wavenumber (spectral grids only).
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Truncation number** (from EMD specification):
+        **Maximum wavenumber** (spectral grids only)
         
-        The zonal (east-west) wave number at which a spectral model is truncated.
+        Example: 127 for T127 truncation.
         
-        **Omit when:** Not applicable (non-spectral models)
+        **Leave blank if:** Not a spectral grid.
         
         </details>
-      placeholder: "e.g., 127"
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Horizontal Subgrid
+      placeholder: "127"
 
   - type: dropdown
     id: cell_variable_type
@@ -389,54 +317,50 @@ body:
       multiple: true
       label: Variable Types
       description: |
-        Variables at this subgrid.
+        Types of variables stored at this subgrid location.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Variable types at this subgrid** (from EMD cell_variable_type CV):
+        **Variable types at this subgrid location**
         
-        Types of physical variables that are carried at, or representative of conditions at, the cells of this horizontal subgrid.
+        Defines what variables are stored at these cell positions.
         
-        **Options:**
-        - **mass**: Mass-related variables, including thermodynamic and hydrodynamic quantities (pressure, temperature, water vapour, other mass constituents)
-        - **x_velocity**: Variables representing the X component of velocity vector and certain horizontal fluxes. For spherical polar coordinates, X direction is longitude.
-        - **y_velocity**: Variables representing the Y component of velocity vector and certain horizontal fluxes. For spherical polar coordinates, Y direction is latitude.
-        - **velocity**: Full velocity vector when not partitioned into X and Y components (for some unstructured grids)
+        - **mass**: Scalars (temperature, pressure, tracers)
+        - **zonal-velocity**: U-component of velocity
+        - **meridional-velocity**: V-component of velocity
+        - **vorticity**: For spectral vorticity-divergence formulations
+        - **divergence**: For spectral vorticity-divergence formulations
         
-        **Note:** A variable type comprises a class of physical quantities typically found at the same grid location, defined by the horizontal computational grid arrangement.
+        Staggered grids (Arakawa B/C/D/E) need multiple subgrids with different variable types.
         
         </details>
       options:
         - "mass"
-        - "velocity"
+        - "zonal-velocity"
+        - "meridional-velocity"
         - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
+        - "divergence"
     validations:
       required: true
 
   - type: markdown
     attributes:
       value: |
-        ## Auto-Generated
+        ---
         
-        Creates:
-        - g### (grid_cells)
-        - s### (subgrid → g###)
+        ## Issue Handling
         
-        Descriptions generated from inputs.
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Metadata
+        **After submission:**
+        - Creates `horizontal_grid_cells` (g###) and `horizontal_subgrid` (s###)
+        - Use the s### ID in Stage 2a (Horizontal Grid)
+        - Track progress in issue comments
 
   - type: dropdown
     id: issue_kind
     attributes:
       label: Issue Kind
-      description: New or modify.
+      description: New submission or modification.
       options:
         - "New"
         - "Modify"

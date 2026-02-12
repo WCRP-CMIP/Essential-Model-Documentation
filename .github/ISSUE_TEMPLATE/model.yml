@@ -1,0 +1,391 @@
+name: "Stage 4: Model (source_id)"
+description: Register complete model configuration (Stage 4 of 4)
+title: "[EMD] Model:"
+labels: ['emd-submission', 'model', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Stage 4: Model (source_id)
+        
+        Registers a complete model configuration — the final step in the EMD workflow.
+        
+        **Prerequisites:** Component config IDs from Stage 3; Model family ID (if applicable).
+        
+        ```mermaid
+        flowchart LR
+            subgraph Stage1[\**Stage 1**\"]
+                S1[\"Grid Cells & Subgrid\"]
+            end
+            subgraph Stage2[\"**Stage 2**\"]
+                direction TB
+                S2a[\"Horizontal Grid\"]
+                S2b[\"Vertical Grid\"]
+            end
+            subgraph MF[\"**Model Family**\"]
+                direction TB
+                ESM[\"Earth System Family\"]
+                CF[\"Component Family\"]
+            end
+            subgraph Stage3[\"**Stage 3**\"]
+                S3[\"Model Component\"]
+            end
+            subgraph Stage4[\"**Stage 4**\"]
+                S4[\"Model\"]
+            end
+            S1 -->|g###
+
+  - type: input
+    id: name
+    attributes:
+      label: Model Name
+      description: |
+        Full model name (becomes the CMIP source_id).
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Model name (source_id)**
+        
+        Full identifier including family and version.
+        
+        For CMIP, this becomes the official **source_id**.
+        
+        **Examples:** CNRM-ESM2-1, HadGEM3-GC31-LL, CESM2, ACCESS-ESM1-5
+        
+        </details>
+      placeholder: "CNRM-ESM2-1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family
+    attributes:
+      label: Model Family
+      description: |
+        Earth System family this model belongs to.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Model family**
+        
+        Earth System family this model belongs to.
+        
+        **Leave as 'Not applicable' if:**
+        - Standalone model
+        - Family not yet registered
+        
+        </details>
+      options:
+        - "Not specified"
+        - "access"
+        - "bcc-csm"
+        - "bisicles"
+        - "cam"
+        - "canesm"
+        - "cesm"
+        - "clm"
+        - "cnrm-cm"
+        - "ec-earth"
+        - "fgoals"
+        - "gfdl-cm4"
+        - "giss-e2"
+        - "hadcm2"
+        - "hadgem3"
+        - "icon"
+        - "ipsl-cm"
+        - "miroc"
+        - "mpi-esm"
+        - "ukesm1"
+      default: 0
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Scientific overview mentioning all component types.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Scientific overview**
+        
+        Must mention ALL component types.
+        
+        **What to include:**
+        1. Dynamic components (briefly describe each)
+        2. Prescribed components (explain treatment)
+        3. Omitted components (note absence)
+        
+        **Example:** 'CNRM-ESM2-1 includes atmosphere (ARPEGE-Climat), ocean (NEMO), land surface (SURFEX), with embedded aerosols, atmospheric chemistry, sea ice, and ocean biogeochemistry. Land ice is omitted.'
+        
+        </details>
+      placeholder: "1. Dynamic components (briefly)\n2. Prescribed components and their treatment\n3. Omitted components"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dynamic_components
+    attributes:
+      multiple: true
+      label: Dynamic Components
+      description: |
+        Components that are actively simulated.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Active components**
+        
+        Components that are dynamically simulated (prognostic).
+        
+        At least one required. Each must have a component_config from Stage 3.
+        
+        </details>
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric-chemistry"
+        - "land-ice"
+        - "land-surface"
+        - "ocean"
+        - "ocean-biogeochemistry"
+        - "sea-ice"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prescribed_components
+    attributes:
+      multiple: true
+      label: Prescribed Components
+      description: |
+        Components with prescribed boundary conditions.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Prescribed components**
+        
+        Components where values are provided as boundary conditions.
+        
+        **Example:** Sea ice extent prescribed from observations.
+        
+        </details>
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric-chemistry"
+        - "land-ice"
+        - "land-surface"
+        - "ocean"
+        - "ocean-biogeochemistry"
+        - "sea-ice"
+
+  - type: dropdown
+    id: omitted_components
+    attributes:
+      multiple: true
+      label: Omitted Components
+      description: |
+        Components not represented.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Omitted components**
+        
+        Components not represented at all.
+        
+        **Example:** Land-ice often omitted from atmosphere-ocean climate models.
+        
+        </details>
+      options:
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric-chemistry"
+        - "land-ice"
+        - "land-surface"
+        - "ocean"
+        - "ocean-biogeochemistry"
+        - "sea-ice"
+
+  - type: textarea
+    id: component_configs
+    attributes:
+      label: Component Config IDs
+      description: |
+        Config IDs from Stage 3.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Component configuration IDs**
+        
+        IDs from Stage 3 for each dynamic component.
+        
+        **Format:** `{domain}_- aerosol
+        - atmosphere
+        - atmospheric-chemistry
+        - land-ice
+        - land-surface
+        - ocean
+        - ocean-biogeochemistry
+        - sea-ice_{c###}_{v###}` (one per line)
+        
+        Must have one config per dynamic component.
+        
+        </details>
+      placeholder: "atmosphere_arpege-climat-v6-3_c100_v100\nocean_nemo-v3-6_c101_v103\nland-surface_surfex-v8_c100_v102"
+    validations:
+      required: true
+
+  - type: textarea
+    id: embedded_components
+    attributes:
+      label: Embedded Components
+      description: |
+        Pairs of embedded and host components.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Embedded relationships**
+        
+        Components tightly integrated within a host (share integration loop, often share grid).
+        
+        **Format:** `embedded,host` (one pair per line)
+        
+        **Example:**
+        ```
+        aerosol,atmosphere
+        atmospheric-chemistry,atmosphere
+        sea-ice,ocean
+        ocean-biogeochemistry,ocean
+        ```
+        
+        </details>
+      placeholder: "aerosol"
+
+  - type: textarea
+    id: coupling_groups
+    attributes:
+      label: Coupling Groups
+      description: |
+        Groups of mutually coupled components.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Coupling relationships**
+        
+        Groups of mutually coupled superior hosts (non-embedded components).
+        
+        **Format:** `comp1,comp2,comp3` (one group per line)
+        
+        Components in a group all exchange information directly.
+        
+        **Example:** `atmosphere,land-surface,ocean`
+        
+        </details>
+      placeholder: "atmosphere"
+
+  - type: dropdown
+    id: calendar
+    attributes:
+      multiple: true
+      label: Calendar(s)
+      description: |
+        Permitted calendar types.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Calendar types**
+        
+        Permitted calendar systems for this model.
+        
+        - **standard**: Gregorian with leap years
+        - **proleptic-gregorian**: Gregorian extended to past
+        - **365-day**: No leap years (noleap)
+        - **360-day**: 12 months × 30 days
+        
+        List most commonly used first.
+        
+        </details>
+      options:
+        - "standard"
+        - "proleptic-gregorian"
+        - "gregorian"
+        - "365-day"
+        - "360-day"
+    validations:
+      required: true
+
+  - type: input
+    id: release_year
+    attributes:
+      label: Release Year
+      description: |
+        Year the model was released.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Release year**
+        
+        Year model was first released or used for published simulations.
+        
+        </details>
+      placeholder: "2019"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference_dois
+    attributes:
+      label: Reference DOIs
+      description: |
+        DOI URLs for model description papers.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Model publications**
+        
+        DOIs for papers describing the complete model.
+        
+        **Format:** `https://doi.org/...` (one per line)
+        
+        **Do NOT include:** Component-specific papers (those belong in Stage 3).
+        
+        </details>
+      placeholder: "https://doi.org/10.1029/2019MS001791"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Issue Handling
+        
+        **After submission:**
+        - Creates `model` entry with CMIP source_id
+        - Registration complete — model can be used in CMIP activities
+        - Track progress in issue comments
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: New submission or modification.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

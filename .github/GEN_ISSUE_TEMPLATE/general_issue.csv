@@ -1,10 +1,9 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,header,,"## General Issue Report\n\nReport issues, ask questions, or request features for the EMD repository.",none,false,,,
-2,dropdown,issue_type,Issue Type,What kind of issue are you reporting?,issue_type_options,true,,list_with_na,0
-3,multi-select,affected_areas,Affected Areas,"Which parts of EMD does this issue affect?\n\n*Select multiple if applicable*",affected_areas_options,true,,list,
-4,textarea,description,Description,"Provide a clear and detailed description of the issue.\n\nFor bugs: What happened? What did you expect?\nFor features: What would you like added/changed?",none,true,"Describe your issue in detail...",,
-5,textarea,expected_behavior,Expected/Desired Behavior,What should happen instead? What would you like to see?,none,false,"The system should...",,
-6,textarea,steps_to_reproduce,Steps to Reproduce (for bugs),"If reporting a bug, provide step-by-step instructions to reproduce.",none,false,"1. Go to...\n2. Click on...\n3. See error...",,
-7,markdown,metadata_header,,"## Metadata",none,false,,,
-8,dropdown,priority,Priority,How urgent is this issue?,priority_options,true,,list_with_na,0
-9,multi-select,help_needed,Help Needed,Do you need help with this issue?,help_needed_options,false,,list,
+1,markdown,header,,"## General Issue\n\nReport bugs, ask questions, or suggest improvements to the EMD repository.\n\n> ℹ️ For model/component/grid registrations, use the specific registration forms instead.",none,false,,,
+2,dropdown,issue_type,Issue Type,Category of issue being reported.,issue_type_options,true,,list_with_na,0
+3,multi-select,affected_areas,Affected Areas,Parts of EMD affected by this issue.,affected_areas_options,true,,list,
+4,textarea,description,Description,Clear description of the issue.,none,true,1. What happened or what you need\n2. What you expected\n3. Any error messages,,
+5,textarea,steps_to_reproduce,Steps to Reproduce,How to reproduce the issue (for bugs).,none,false,1. Go to...\n2. Enter...\n3. See error...,,
+6,dropdown,priority,Priority,Urgency of the issue.,priority_options,true,,list_with_na,0
+7,markdown,metadata_header,,"---\n\n## Issue Handling\n\n**After submission:**\n- Issue will be triaged by maintainers\n- You may be asked for clarification\n- Track progress in issue comments",none,false,,,
+8,dropdown,issue_kind,Issue Kind,New submission or modification.,issue_kind,true,,list_with_na,0

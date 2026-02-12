@@ -1,119 +1,110 @@
-name: Vertical Computational Grid Registration
-description: Register a vertical computational grid
-title: "[EMD] Vertical Computational Grid:"
+name: "Stage 2b: Vertical Computational Grid"
+description: Register vertical computational grid (Stage 2b of 4)
+title: "[EMD] Vertical Grid:"
 labels: ['emd-submission', 'grid', 'Review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Vertical Computational Grid Registration
+        ## Stage 2b: Vertical Computational Grid
         
-        Register a vertical computational grid.
+        Defines the vertical level structure for a model component.
         
-        **This issue creates 1 entity:**
-        - Vertical computational grid
+        **Prerequisites:** None — can be submitted in parallel with Stage 2a.
         
-        **Result:** Vertical grid ID (e.g., v100) to use when registering Model Components.
-        
-        **Note:** This is independent of horizontal grids - you can submit this in parallel with horizontal grid issues.
+        ```mermaid
+        flowchart LR
+            subgraph Stage1[\**Stage 1**\"]
+                S1[\"Grid Cells & Subgrid\"]
+            end
+            subgraph Stage2[\"**Stage 2**\"]
+                direction TB
+                S2a[\"Horizontal Grid\"]
+                S2b[\"Vertical Grid\"]
+            end
+            subgraph MF[\"**Model Family**\"]
+                direction TB
+                ESM[\"Earth System Family\"]
+                CF[\"Component Family\"]
+            end
+            subgraph Stage3[\"**Stage 3**\"]
+                S3[\"Model Component\"]
+            end
+            subgraph Stage4[\"**Stage 4**\"]
+                S4[\"Model\"]
+            end
+            S1 -->|g###
 
   - type: textarea
     id: description
     attributes:
       label: Description
       description: |
-        Description of this vertical grid.
-        
-        Include number of levels and vertical extent.
-        
-        Example: '85-level atmospheric hybrid height coordinate extending to approximately 85 km'
+        Brief characterization of this vertical grid.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Grid description** (from EMD specification):
+        **Grid characterization**
         
-        A description is only required if there is information that is not covered by any of the other properties.
+        Brief description of this vertical grid.
         
-        Some model components may have different and wholly independent vertical grids for different physical processes (e.g., a land surface model with soil, lake and snow sub-models). In such cases it may not be possible to provide some properties because a single value might not apply to all processes. When this happens, use the description property to record the relevant information for each physical process.
+        **What to include:**
+        1. Number of levels
+        2. Coordinate type
+        3. Vertical extent
         
-        **Include:**
-        - Number of levels
-        - Coordinate type
-        - Vertical extent
-        - Purpose (atmosphere, ocean, soil, ice)
-        - Any non-standard features
-        
-        **Omit when:** All info covered by other properties
+        **Examples:**
+        - '91-level hybrid sigma-pressure coordinate extending to 0.01 hPa'
+        - '75-level z-coordinate ocean grid from surface to 6000m'
+        - '14 soil layers from 0.01m to 12m depth'
         
         </details>
-      placeholder: "e.g., 75-level ocean depth coordinate from surface to 5500m"
+      placeholder: "1. Number of levels\n2. Coordinate type\n3. Vertical extent"
     validations:
       required: true
 
   - type: dropdown
     id: vertical_coordinate
     attributes:
-      label: Vertical Coordinate
+      label: Coordinate Type
       description: |
-        Coordinate type.
-        
-        Common:
-        - **atmosphere-hybrid-height-coordinate**: Atmosphere height-based
-        - **atmosphere-hybrid-sigma-pressure-coordinate**: Atmosphere pressure-based
-        - **depth**: Ocean/soil depth
-        - **ocean-s-coordinate**: Ocean stretched
-        - **land-ice-sigma-coordinate**: Ice sheets
+        Vertical coordinate system.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Vertical coordinate types** (from EMD vertical_coordinate CV):
+        **Coordinate system**
         
-        The coordinate type of the vertical grid.
+        **Atmosphere:**
+        - **atmosphere-hybrid-height-coordinate**: Height-based with terrain following near surface
+        - **atmosphere-hybrid-sigma-pressure-coordinate**: Pressure-based with terrain following (most common)
+        - **atmosphere-sigma-coordinate**: Pure terrain-following
         
-        **Atmosphere options:**
-        - **atmosphere_hybrid_height_coordinate**: Terrain-following near surface, flat at top (common)
-        - **atmosphere_hybrid_sigma_pressure_coordinate**: Sigma near surface, pressure at top
-        - **atmosphere_sigma_coordinate**: Pure terrain-following sigma
-        - **height**: Height above reference surface
+        **Ocean:**
+        - **depth**: Fixed depth levels (z-coordinate)
+        - **ocean-s-coordinate**: Stretched terrain-following
+        - **ocean-sigma-coordinate**: Pure terrain-following
+        - **ocean-sigma-z-coordinate**: Hybrid sigma near coast, z in deep ocean
         
-        **Ocean options:**
-        - **depth**: Standard z-levels from surface (most common)
-        - **ocean_s_coordinate**: Stretched vertical (high resolution near surface)
-        - **ocean_sigma_z_coordinate**: Hybrid sigma-z coordinate
-        - **ocean_sigma_coordinate**: Pure sigma (terrain-following)
+        **Other:**
+        - **height**: Simple height coordinate (ice, snow)
+        - **land-ice-sigma-coordinate**: Ice sheet terrain-following
         
-        **Land/Ice options:**
-        - **depth**: Soil layers below surface
-        - **land_ice_sigma_coordinate**: Ice sheet layers
-        - **height**: Above ground height
-        
-        **Omit if:** Different physical processes have grids with different vertical coordinate types (note this in description instead)
+        See [CF Conventions](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#dimensionless-v-coord) for details.
         
         </details>
       options:
         - "Not specified"
-        - "air_potential_temperature"
-        - "air_pressure"
-        - "atmosphere_hybrid_height_coordinate"
-        - "atmosphere_hybrid_sigma_pressure_coordinate"
-        - "atmosphere_ln_pressure_coordinate"
-        - "atmosphere_sigma_coordinate"
-        - "atmosphere_sleve_coordinate"
+        - "atmosphere-hybrid-height-coordinate"
+        - "atmosphere-hybrid-sigma-pressure-coordinate"
+        - "atmosphere-sigma-coordinate"
         - "depth"
-        - "geopotential_height"
         - "height"
-        - "land_ice_sigma_coordinate"
-        - "ocean_double_sigma_coordinate"
-        - "ocean_s_coordinate_g1"
-        - "ocean_s_coordinate_g2"
-        - "ocean_s_coordinate"
-        - "ocean_sigma_coordinate"
-        - "ocean_sigma_z_coordinate"
-        - "sea_water_potential_temperature"
-        - "sea_water_pressure"
-        - "z*"
+        - "ocean-s-coordinate"
+        - "ocean-sigma-coordinate"
+        - "ocean-sigma-z-coordinate"
+        - "land-ice-sigma-coordinate"
       default: 0
     validations:
       required: true
@@ -121,126 +112,63 @@ body:
   - type: input
     id: n_z
     attributes:
-      label: Number of Layers
+      label: Number of Levels
       description: |
-        Number of vertical layers (grid cells).
-        
-        Leave blank if varies across processes.
+        Total number of vertical levels.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Number of layers** (from EMD specification):
+        **Number of vertical levels**
         
-        The number of layers (mass points) in the vertical grid.
+        Total grid cells in vertical.
         
-        **Typical values:**
-        
-        **Atmosphere:**
-        - Low-top models: 30-50 levels (~30km)
-        - Mid-top models: 50-80 levels (~50-60km)
-        - High-top models: 80-150 levels (~80-150km)
-        
-        **Ocean:**
-        - Standard: 40-50 levels (~5000m)
-        - High-resolution: 60-75 levels
-        
-        **Land/Ice:**
-        - Soil: 3-15 layers
-        - Ice sheets: 5-20 layers
-        
-        **Leave blank if:**
-        - Varies across domain
-        - Adaptive mesh
-        - Different for different processes
+        **Leave blank if:** Number varies (e.g., adaptive snow layers).
         
         </details>
-      placeholder: "e.g., 85"
-
-  - type: input
-    id: n_z_range
-    attributes:
-      label: Layer Range
-      description: |
-        Min and max layers if variable.
-        
-        Format: min,max
-        
-        Leave blank if n_z is provided.
-      placeholder: "e.g., 5,15"
+      placeholder: "91"
 
   - type: input
     id: top_layer_thickness
     attributes:
       label: Top Layer Thickness (m)
       description: |
-        Thickness of top layer in metres.
-        
-        Provide nominal/representative if varies.
+        Thickness of the uppermost layer in metres.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Top layer thickness** (from EMD specification):
+        **Uppermost layer thickness** (metres)
         
-        The thickness of the uppermost layer, in metres.
+        Typical values:
+        - Atmosphere: 10-100m
+        - Ocean surface: 1-10m
         
-        **Typical values:**
-        
-        **Atmosphere:**
-        - Near surface: 10-50m
-        - At model top: 500-2000m (increases with height)
-        
-        **Ocean:**
-        - Surface layer: 1-10m
-        
-        **Land surface:**
-        - Top soil layer: 0.01-0.1m
-        
-        **Ice:**
-        - Top layer: 0.04m (from BISICLES example)
-        
-        **Provide representative value if varies.**
-        
-        **Note:** For atmosphere, this typically refers to the layer nearest the surface. For ocean, this is the surface layer.
+        Provide nominal value if thickness varies.
         
         </details>
-      placeholder: "e.g., 10.0"
+      placeholder: "2.0"
 
   - type: input
     id: bottom_layer_thickness
     attributes:
       label: Bottom Layer Thickness (m)
       description: |
-        Thickness of bottom layer in metres.
-        
-        Provide nominal/representative if varies.
-        
-        Leave blank if expandable (e.g., ice accumulation).
+        Thickness of the lowest layer in metres.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Bottom layer thickness** (from EMD specification):
+        **Lowest layer thickness** (metres)
         
-        The thickness of the lowermost layer, in metres.
+        Typical values:
+        - Atmosphere near-surface: 10-50m
+        - Deep ocean: 100-500m
         
-        **Typical values:**
-        
-        **Atmosphere:**
-        - Model top layer: 1000-5000m
-        
-        **Ocean:**
-        - Bottom layer: 200-500m
-        
-        **Leave blank if:**
-        - Layer can expand (e.g., ice accumulation)
-        - Thickness not well-defined
-        
-        **From EMD example (BISICLES):** 'The bottom level of the snowpack, which starts 6 metres below the snow surface, expands in thickness to hold as much mass as the column accumulates.'
+        **Leave blank if:** Layer is expandable (e.g., ice accumulation).
         
         </details>
-      placeholder: "e.g., 100.0"
+      placeholder: "25.0"
 
   - type: input
     id: total_thickness
@@ -249,61 +177,38 @@ body:
       description: |
         Total vertical extent in metres.
         
-        Provide nominal/representative if varies.
-        
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Total vertical extent** (from EMD specification):
+        **Total vertical extent** (metres)
         
-        The total thickness of all layers combined, in metres.
+        Typical values:
+        - Atmosphere: 30,000-85,000m (to stratosphere/mesosphere)
+        - Ocean: 5,000-6,000m
+        - Soil: 3-15m
         
-        **Typical values:**
-        
-        **Atmosphere:**
-        - Low-top: ~30,000m (30km)
-        - Mid-top: ~50,000-61,000m (50-61km)
-        - High-top: ~80,000-150,000m (80-150km)
-        - Example: 84763.34m (from EMD)
-        
-        **Ocean:**
-        - Standard: ~4,000-6,000m
-        - Deep ocean: up to 11,000m
-        
-        **Ice sheets:**
-        - Greenland: up to 3,000m
-        - Antarctica: up to 4,500m
-        
-        **Soil:**
-        - Typically 3-10m depth
+        Provide nominal value if extent varies spatially.
         
         </details>
-      placeholder: "e.g., 84763.34"
+      placeholder: "80000"
 
   - type: markdown
     attributes:
       value: |
-        ## What Will Be Generated
+        ---
         
-        This issue creates:
+        ## Issue Handling
         
-        **vertical_computational_grid** (ID: v###)
-        - Contains: Coordinate type, number of layers, thicknesses
-        
-        **You'll receive:** Vertical grid ID (v###)
-        
-        **Next:** Use this ID + horizontal grid ID (c###) in Model Component issue.
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Issue Handling Metadata
+        **After submission:**
+        - Creates `vertical_computational_grid` (v###)
+        - Use this ID with a c### in Stage 3 (Model Component)
+        - Track progress in issue comments
 
   - type: dropdown
     id: issue_kind
     attributes:
       label: Issue Kind
-      description: Select whether this is a new submission or modification.
+      description: New submission or modification.
       options:
         - "New"
         - "Modify"

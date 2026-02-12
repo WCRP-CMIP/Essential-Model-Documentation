@@ -1,18 +1,20 @@
 {
   "grouping": {
-    "Grid Registration": [
-      "grid_cell_and_subgrid",
+    "Stage 1 - Grid Cells": [
+      "grid_cell_and_subgrid"
+    ],
+    "Stage 2 - Computational Grids": [
       "horizontal_computational_grid",
       "vertical_computational_grid"
     ],
-    "Component Registration": [
+    "Stage 3 - Components": [
       "model_component"
     ],
-    "Model Registration": [
-      "model_family",
+    "Stage 4 - Model": [
       "model"
     ],
-    "Issues & Discussion": [
+    "Supporting": [
+      "model_family",
       "general_issue"
     ]
   },
@@ -21,8 +23,8 @@
     "horizontal_computational_grid",
     "vertical_computational_grid",
     "model_component",
-    "model_family",
     "model",
+    "model_family",
     "general_issue"
   ],
   "deprecated": [

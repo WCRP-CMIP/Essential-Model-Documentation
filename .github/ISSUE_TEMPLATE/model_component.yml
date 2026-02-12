@@ -1,0 +1,285 @@
+name: "Stage 3: Model Component"
+description: Register model component and grid configuration (Stage 3 of 4)
+title: "[EMD] Component:"
+labels: ['emd-submission', 'component', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Stage 3: Model Component
+        
+        Registers a model component and creates a configuration linking it to computational grids.
+        
+        **Prerequisites:** Horizontal grid ID (c###) and/or Vertical grid ID (v###) from Stage 2.
+        
+        ```mermaid
+        flowchart LR
+            subgraph Stage1[\**Stage 1**\"]
+                S1[\"Grid Cells & Subgrid\"]
+            end
+            subgraph Stage2[\"**Stage 2**\"]
+                direction TB
+                S2a[\"Horizontal Grid\"]
+                S2b[\"Vertical Grid\"]
+            end
+            subgraph MF[\"**Model Family**\"]
+                direction TB
+                ESM[\"Earth System Family\"]
+                CF[\"Component Family\"]
+            end
+            subgraph Stage3[\"**Stage 3**\"]
+                S3[\"Model Component\"]
+            end
+            subgraph Stage4[\"**Stage 4**\"]
+                S4[\"Model\"]
+            end
+            S1 -->|g###
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component Type
+      description: |
+        Scientific domain this component simulates.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Scientific domain**
+        
+        The type of Earth system processes this component simulates.
+        
+        - **aerosol**: Aerosol behaviour and evolution in atmosphere
+        - **atmosphere**: Atmospheric dynamics, thermodynamics, physics
+        - **atmospheric-chemistry**: Atmospheric chemical composition
+        - **land-ice**: Glaciers, ice sheets, ice shelves
+        - **land-surface**: Surface-atmosphere fluxes, soil, vegetation, snow
+        - **ocean**: Ocean dynamics, thermodynamics, physics
+        - **ocean-biogeochemistry**: Marine carbon cycle, ecosystems
+        - **sea-ice**: Sea ice thermodynamics and dynamics
+        
+        This becomes the domain prefix in your component_config ID.
+        
+        </details>
+      options:
+        - "Not specified"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric-chemistry"
+        - "land-ice"
+        - "land-surface"
+        - "ocean"
+        - "ocean-biogeochemistry"
+        - "sea-ice"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Component Name
+      description: |
+        Official component name with version.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Official component name**
+        
+        Include version number.
+        
+        **Examples:**
+        - NEMO v3.6
+        - ARPEGE-Climat v6.3
+        - CLM5
+        
+        **For embedded components** without an official name: use `HostName-domain` (e.g., 'ARPEGE-aerosol').
+        
+        </details>
+      placeholder: "NEMO v3.6"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: family
+    attributes:
+      label: Component Family
+      description: |
+        Component family this belongs to.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Component family**
+        
+        Group of related component versions sharing code.
+        
+        Useful for tracking component genealogy and shared development.
+        
+        **Leave as 'Not applicable' if:**
+        - First/only version of this component
+        - No family grouping exists
+        - Standalone embedded component
+        
+        </details>
+      options:
+        - "Not specified"
+        - "arpege-climat"
+        - "bisicles"
+        - "cam"
+        - "clm"
+        - "gelato"
+        - "geos"
+        - "hadam"
+        - "ifs"
+        - "nemo"
+        - "nicam"
+        - "pisces"
+        - "reprobus"
+        - "surfex"
+        - "tactic"
+      default: 0
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Scientific overview of the component.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Scientific overview**
+        
+        High-level description of the component's capabilities.
+        
+        **What to include:**
+        1. Main processes simulated
+        2. Key physics/parameterizations
+        3. Notable features of this version
+        
+        Detailed physics should be in referenced publications.
+        
+        </details>
+      placeholder: "1. Main processes simulated\n2. Key physics/parameterizations\n3. Notable features of this version"
+    validations:
+      required: true
+
+  - type: input
+    id: horizontal_computational_grid
+    attributes:
+      label: Horizontal Grid ID
+      description: |
+        Horizontal grid ID from Stage 2a.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Horizontal grid reference**
+        
+        The c### ID from Stage 2a.
+        
+        **Leave blank if:** Component has no horizontal grid (e.g., 1D column models).
+        
+        </details>
+      placeholder: "c101"
+
+  - type: input
+    id: vertical_computational_grid
+    attributes:
+      label: Vertical Grid ID
+      description: |
+        Vertical grid ID from Stage 2b.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Vertical grid reference**
+        
+        The v### ID from Stage 2b.
+        
+        **Leave blank if:** Component has no vertical dimension (e.g., 2D surface models).
+        
+        </details>
+      placeholder: "v103"
+
+  - type: input
+    id: code_base
+    attributes:
+      label: Code Repository
+      description: |
+        URL to source code or 'private'.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Source code location**
+        
+        URL pointing to specific version/tag/commit.
+        
+        **Examples:**
+        - `https://github.com/ESCOMP/CTSM/tree/release-clm5.0`
+        - `https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6`
+        - DOI URL if archived (e.g., Zenodo)
+        
+        **Enter 'private'** if code is not publicly available.
+        
+        </details>
+      placeholder: "https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6"
+
+  - type: textarea
+    id: reference_dois
+    attributes:
+      label: Reference DOIs
+      description: |
+        DOI URLs for component publications.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Component publications**
+        
+        DOI URLs for papers describing this component.
+        
+        **Format:** `https://doi.org/...` (one per line)
+        
+        At least one reference required for traceability.
+        
+        </details>
+      placeholder: "https://doi.org/10.5194/gmd-8-1547-2015"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Issue Handling
+        
+        **After submission:**
+        - Creates `model_component` and `component_config`
+        - Config ID format: `{domain}_- aerosol
+        - atmosphere
+        - atmospheric-chemistry
+        - land-ice
+        - land-surface
+        - ocean
+        - ocean-biogeochemistry
+        - sea-ice_{c###}_{v###}`
+        - Use the config ID in Stage 4 (Model)
+        - Track progress in issue comments
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: New submission or modification.
+      options:
+        - "New"
+        - "Modify"
+      default: 0
+    validations:
+      required: true

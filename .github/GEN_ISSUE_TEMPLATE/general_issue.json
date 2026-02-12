@@ -1,13 +1,15 @@
 {
-  "name": "General Issue or Question",
-  "description": "Report issues, ask questions, or suggest improvements",
-  "title": "[EMD] General Issue:",
+  "name": "General Issue",
+  "description": "Report bugs, ask questions, or suggest improvements",
+  "title": "[EMD] Issue:",
   "labels": ["question"],
   "issue_category": "general_issue",
-  "dropdown_title": "Issue Guidance",
+  "dropdown_title": "Guidance",
   "field_guidance": {
-    "issue_summary": "**Provide a clear, concise summary.**\n\n**Include:**\n- What you're trying to do\n- What went wrong (if error)\n- What you expected vs what happened\n\n**Issue types:**\n- Error during submission\n- Question about EMD specification\n- Suggestion for new CV entry\n- Documentation unclear\n- Feature request",
-    "issue_details": "**Provide relevant details:**\n\n**For errors:**\n- Steps to reproduce\n- Error messages\n- Which template/entity\n- Example data (if applicable)\n\n**For questions:**\n- Context of your use case\n- What you've already tried\n- Links to relevant entities/issues\n- Reference to EMD specification section if applicable\n\n**For CV suggestions:**\n- Why the new term is needed\n- Definition following EMD CV style\n- Which models would use it\n\n**For documentation:**\n- Which section is unclear\n- What information is missing\n- Suggestions for improvement",
-    "affected_entities": "**If applicable, list entity IDs:**\n\n**Entity types and ID formats:**\n- model: source_id (e.g., cnrm-esm2-1)\n- model_family: family name (e.g., cnrm-cm)\n- component: component_id (e.g., arpege-climat-version-6-3)\n- component_config: {domain}_{component}_{h_grid}_{v_grid}\n- horizontal_computational_grid: c### (e.g., c100)\n- vertical_computational_grid: v### (e.g., v100)\n- horizontal_subgrid: s### (e.g., s100)\n\n**Helps us:**\n- Understand context\n- Reproduce issues\n- Provide specific help\n\n**Leave blank if:**\n- General question\n- Not related to specific entities"
+    "issue_type": "**Issue category**\n\n- **Bug Report**: Something isn't working as expected\n- **Feature Request**: New functionality or improvement\n- **Question**: Need help understanding EMD\n- **Documentation Issue**: Docs unclear or incomplete\n- **Data Quality Issue**: Problem with existing entries",
+    "affected_areas": "**Affected parts of EMD**\n\n- **Grid Registration**: Stage 1-2 issues\n- **Component Registration**: Stage 3 issues\n- **Model Registration**: Stage 4 issues\n- **Model Family**: Family registration issues\n- **Documentation**: Docs, README, specification\n- **Issue Templates**: Form problems\n- **Workflows**: Automation, CI/CD issues",
+    "description": "**Issue details**\n\n**What to include:**\n1. What happened or what you need\n2. What you expected\n3. Any error messages\n\n**For bugs:** Be specific about what went wrong\n**For questions:** Explain your use case\n**For features:** Describe why it would be useful",
+    "steps_to_reproduce": "**Reproduction steps** (bugs only)\n\n**What to include:**\n1. Which form/page you used\n2. What data you entered\n3. What error you saw",
+    "priority": "**Issue urgency**\n\n- **Low**: Minor inconvenience, workaround exists\n- **Medium**: Impacts workflow but not blocking\n- **High**: Blocking important work\n- **Critical**: Data integrity or system-wide issue"
   }
 }

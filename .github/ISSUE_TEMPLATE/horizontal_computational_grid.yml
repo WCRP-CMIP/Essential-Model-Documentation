@@ -1,50 +1,63 @@
-name: Horizontal Computational Grid Registration
-description: Register a horizontal computational grid by linking subgrids
-title: "[EMD] Horizontal Computational Grid:"
+name: "Stage 2a: Horizontal Computational Grid"
+description: Register horizontal computational grid (Stage 2a of 4)
+title: "[EMD] Horizontal Grid:"
 labels: ['emd-submission', 'grid', 'Review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Horizontal Computational Grid Registration
+        ## Stage 2a: Horizontal Computational Grid
         
-        Register a horizontal computational grid.
+        Links subgrids into a single computational grid with a specified staggering arrangement.
         
-        **Prerequisites:** Subgrid IDs must exist (submit Grid Cells and Subgrid issue first).
+        **Prerequisites:** Subgrid IDs (s###) from Stage 1.
         
-        **This issue creates 1 entity:**
-        - Horizontal computational grid (links to subgrids)
-        
-        **Result:** Horizontal grid ID (e.g., c100) to use when registering Model Components.
+        ```mermaid
+        flowchart LR
+            subgraph Stage1[\**Stage 1**\"]
+                S1[\"Grid Cells & Subgrid\"]
+            end
+            subgraph Stage2[\"**Stage 2**\"]
+                direction TB
+                S2a[\"Horizontal Grid\"]
+                S2b[\"Vertical Grid\"]
+            end
+            subgraph MF[\"**Model Family**\"]
+                direction TB
+                ESM[\"Earth System Family\"]
+                CF[\"Component Family\"]
+            end
+            subgraph Stage3[\"**Stage 3**\"]
+                S3[\"Model Component\"]
+            end
+            subgraph Stage4[\"**Stage 4**\"]
+                S4[\"Model\"]
+            end
+            S1 -->|g###
 
   - type: textarea
     id: description
     attributes:
       label: Description
       description: |
-        Description of this horizontal computational grid.
-        
-        Include key characteristics and purpose.
-        
-        Example: 'Arakawa-C grid for atmospheric modelling combining regular lat-lon and spectral subgrids'
+        Brief characterization of this computational grid.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Grid description** (from EMD specification):
+        **Grid characterization**
         
-        A description is only required if there is information that is not covered by any of the other properties.
+        Brief description of this computational grid.
         
-        **Include:**
-        - Grid purpose (atmosphere, ocean, etc.)
-        - Staggering type
-        - Key characteristics
-        - Any non-standard features
+        **What to include:**
+        1. Arrangement type (e.g., Arakawa-C)
+        2. Key properties (resolution, spectral truncation)
+        3. Typical use (atmosphere, ocean, etc.)
         
-        **Omit when:** Not required (all info covered by other properties)
+        **Example:** 'Arakawa-C grid combining TL127 spectral Gaussian and 1.25°×0.9° regular lat-lon subgrids for atmospheric modelling.'
         
         </details>
-      placeholder: "e.g., Arakawa-C grid for atmosphere with TL127 spectral transform and 1.25° × 0.9° resolution"
+      placeholder: "1. Arrangement type\n2. Resolution or spectral truncation\n3. Typical use (atmosphere/ocean)"
     validations:
       required: true
 
@@ -53,39 +66,25 @@ body:
     attributes:
       label: Arrangement
       description: |
-        Grid staggering arrangement.
+        Grid staggering pattern.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid staggering pattern**
         
         Defines relative positions of mass and velocity variables.
         
-        Common:
-        - **arakawa-a**: Unstaggered (mass and velocity same location)
-        - **arakawa-b**: Velocity at corners
-        - **arakawa-c**: Velocity at edge centers, perpendicular
-        - **arakawa-d**: Velocity at edge centers, tangential
-        - **arakawa-e**: Mass at edge centers
-        - **unstaggered**: No staggering
+        - **arakawa-a / unstaggered**: All variables at same location
+        - **arakawa-b**: Velocities at cell corners
+        - **arakawa-c**: U at east/west edges, V at north/south edges (common for ocean)
+        - **arakawa-d**: U at north/south edges, V at east/west edges
+        - **arakawa-e**: Mass at edge midpoints
         
-        <details markdown="1">
-        <summary>Completion Guidance</summary>
-        
-        **Grid arrangement/staggering** (from EMD arrangement CV):
-        
-        A grid arrangement describes the relative locations of computed mass-related and velocity-related quantities on the horizontal computational grid.
-        
-        When the computational grid relies on more than one subgrid, it is referred to as a 'staggered' grid. For most staggered grids, the velocity-related variables are calculated on a subgrid offset from the mass-related variables.
-        
-        **Options:**
-        - **arakawa_a**: Mass- and velocity-related quantities at the same location on each grid cell (unstaggered)
-        - **arakawa_b**: Velocity-related quantities at the corners of mass cells
-        - **arakawa_c**: Velocity-related quantities at the centres of mass cell edges, perpendicular to edge (most common for atmosphere/ocean)
-        - **arakawa_d**: Velocity-related quantities at the centres of mass cell edges, tangential to edge
-        - **arakawa_e**: Mass-related quantities at the centres of velocity cell edges
-        
-        **Match arrangement to number of subgrids:**
-        - Arakawa-A (unstaggered): 1 subgrid
-        - Arakawa-B: 2 subgrids (mass + velocity at corners)
-        - Arakawa-C: 2-3 subgrids (mass + x_velocity + y_velocity, or mass + velocity for unstructured)
-        - Complex staggering: 2+ subgrids
+        **Number of subgrids needed:**
+        - Unstaggered/A: 1 subgrid
+        - B: 2 subgrids (mass + corner velocity)
+        - C/D: 2-3 subgrids (mass + edge velocities)
         
         </details>
       options:
@@ -95,56 +94,35 @@ body:
         - "arakawa-c"
         - "arakawa-d"
         - "arakawa-e"
+        - "unstaggered"
       default: 0
     validations:
       required: true
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Subgrid References
-        
-        Enter the subgrid IDs you received from your Grid Cells and Subgrid issue(s).
-        
-        One ID per line.
-        
-        **Must match your arrangement:**
-        - Unstaggered: 1 subgrid
-        - Arakawa-C: 2 subgrids (mass + velocity)
-        - Other staggered: 2+ subgrids
 
   - type: textarea
     id: horizontal_subgrids
     attributes:
       label: Subgrid IDs
       description: |
-        Enter subgrid IDs, one per line.
-        
-        Example:
-        s100
-        s101
-        
-        You received these IDs when you submitted Grid Cells and Subgrid issue(s).
+        Subgrid IDs from Stage 1.
         
         <details markdown="1">
-        <summary>Completion Guidance</summary>
+        <summary>Detailed Guidance</summary>
         
-        **Horizontal subgrids** (from EMD specification):
+        **Subgrid references**
         
-        All of the subgrids, of which there must be at least one, used to construct the horizontal computational grid.
+        List the s### IDs from Stage 1.
         
-        A horizontal subgrid describes the grid cells at one of the stagger positions. Often the locations of mass-related and velocity-related variables differ, so more than one horizontal subgrid will be defined.
+        **Format:** One ID per line
         
-        **Format:** One subgrid ID per line
+        **Example for Arakawa-C:**
+        ```
+        s100
+        s101
+        ```
+        Where s100 = mass variables, s101 = velocity variables.
         
-        You received these IDs when you submitted your Grid Cells and Subgrid issue(s).
-        
-        **Number of subgrids must match your arrangement:**
-        - Unstaggered/Arakawa-A: 1 subgrid (mass only)
-        - Arakawa-B: 2 subgrids (mass + velocity)
-        - Arakawa-C: 2-3 subgrids (mass + velocity components)
-        
-        **Order matters** for some arrangements (convention: mass subgrid first, then velocity)
+        Number of subgrids must match your arrangement type.
         
         </details>
       placeholder: "s100\ns101"
@@ -154,29 +132,20 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## What Will Be Generated
+        ---
         
-        This issue creates:
+        ## Issue Handling
         
-        **horizontal_computational_grid** (ID: c###)
-        - Links to your subgrid(s)
-        - Contains: Arrangement type
-        - References: Subgrid IDs you provided
-        
-        **You'll receive:** Horizontal grid ID (c###)
-        
-        **Next:** Use this ID (c###) + vertical grid ID (v###) in Model Component issue.
-
-  - type: markdown
-    attributes:
-      value: |
-        ## Issue Handling Metadata
+        **After submission:**
+        - Creates `horizontal_computational_grid` (c###)
+        - Use this ID with a v### in Stage 3 (Model Component)
+        - Track progress in issue comments
 
   - type: dropdown
     id: issue_kind
     attributes:
       label: Issue Kind
-      description: Select whether this is a new submission or modification.
+      description: New submission or modification.
       options:
         - "New"
         - "Modify"
