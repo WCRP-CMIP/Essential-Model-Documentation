@@ -1,7 +1,7 @@
 {
   "validation_key": "g100",
   "ui_label": "",
-  "description": "Global regular latitude-longitude grid with 1.25° x 0.9° resolution and 55296 cells.",
+  "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells.",
   "grid_mapping": "latitude-longitude",
   "grid_type": "regular-latitude-longitude",
   "n_cells": 55296,
@@ -10,6 +10,8 @@
   ],
   "southernmost_latitude": -89.5,
   "temporal_refinement": "static",
+  "truncation_method": null,
+  "truncation_number": null,
   "units": "degree",
   "westernmost_longitude": 0.5,
   "x_resolution": 1.25,
