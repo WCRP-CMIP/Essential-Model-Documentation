@@ -4,11 +4,19 @@
   "description": "Adaptive polar stereographic mesh for ice sheets with variable resolution (9.6 km to 1.2 km for Greenland, 8 km to 2 km for Antarctica).",
   "grid_mapping": "polar-stereographic",
   "grid_type": "plane-projection",
+  "n_cells": null,
   "region": [
     "greenland",
     "antarctica"
   ],
+  "southernmost_latitude": null,
   "temporal_refinement": "adaptive",
+  "truncation_method": null,
+  "truncation_number": null,
+  "units": null,
+  "westernmost_longitude": null,
+  "x_resolution": null,
+  "y_resolution": null,
   "@context": "_context",
   "@type": [
     "emd",

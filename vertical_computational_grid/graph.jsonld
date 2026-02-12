@@ -65,6 +65,7 @@
   "bottom_layer_thickness": 200.0,
   "n_z": 75,
   "top_layer_thickness": 1.0,
+  "total_thickness": null,
   "vertical_coordinate": "ocean-sigma-z-coordinate",
   "@type": [
     "emd",
@@ -77,7 +78,10 @@
   "validation_key": "v104",
   "ui_label": "",
   "description": "10-level height coordinate for sea ice thermodynamics.",
+  "bottom_layer_thickness": null,
   "n_z": 10,
+  "top_layer_thickness": null,
+  "total_thickness": null,
   "vertical_coordinate": "height",
   "@type": [
     "emd",
@@ -90,8 +94,10 @@
   "validation_key": "v105",
   "ui_label": "",
   "description": "The bottom level of the snowpack, which starts 6 metres below the snow surface, expands in thickness to hold as much mass as the column accumulates.",
+  "bottom_layer_thickness": null,
   "n_z": 20,
   "top_layer_thickness": 0.04,
+  "total_thickness": null,
   "vertical_coordinate": "land-ice-sigma-coordinate",
   "@type": [
     "emd",
@@ -104,6 +110,10 @@
   "validation_key": "v106",
   "ui_label": "",
   "description": "Vegetated, wetland, and glacier landunits have 15 vertical layers. Lakes have 10 layers. Snow can have up to 5 layers.",
+  "bottom_layer_thickness": null,
+  "n_z": null,
+  "top_layer_thickness": null,
+  "total_thickness": null,
   "vertical_coordinate": "depth",
   "@type": [
     "emd",

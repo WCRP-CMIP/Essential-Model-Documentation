@@ -4,6 +4,16 @@
   "@base": "https://emd.mipcvs.dev/model_family/",
   "@esgvoc": "ModelFamily",
   "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
+  "wcrp:global_model_family": {
+    "@id": "https://emd.mipcvs.dev/types/GlobalModelFamily",
+    "@type": "@id",
+    "rdfs:comment": "A coupled Earth System Model family that includes multiple scientific domains (e.g., atmosphere, ocean, land surface)"
+  },
+  "wcrp:component_model_family": {
+    "@id": "https://emd.mipcvs.dev/types/ComponentModelFamily",
+    "@type": "@id",
+    "rdfs:comment": "A model family representing a single Earth system component (e.g., ocean only, atmosphere only)"
+  },
   "collaborative_institutions": {
     "@context": "https://constants.mipcvs.dev/organisation/_context",
     "@type": "@id"
@@ -53,6 +63,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "access"
@@ -62,14 +73,28 @@
   "ui_label": "",
   "description": "ARPEGE-Climat atmospheric model family developed by CNRM/Météo-France.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "cnrm",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "atmosphere"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "arpege-climat"
@@ -102,6 +127,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "bcc-csm"
@@ -140,6 +166,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "bisicles"
@@ -170,6 +197,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "cam"
@@ -203,6 +231,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "canesm"
@@ -237,6 +266,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "cesm"
@@ -277,6 +307,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "clm"
@@ -309,6 +340,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "cnrm-cm"
@@ -342,6 +374,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "ec-earth"
@@ -374,6 +407,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "fgoals"
@@ -383,14 +417,28 @@
   "ui_label": "",
   "description": "GELATO sea ice model family developed by CNRM/Météo-France.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "cnrm",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "sea-ice"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "gelato"
@@ -421,6 +469,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "geos"
@@ -454,6 +503,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "gfdl-cm4"
@@ -486,6 +536,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "giss-e2"
@@ -495,14 +546,28 @@
   "ui_label": "",
   "description": "Hadley Centre Atmospheric Model family developed by the UK Met Office.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "mohc",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "atmosphere"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "hadam"
@@ -539,6 +604,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "hadcm2"
@@ -584,6 +650,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "hadgem3"
@@ -617,6 +684,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "icon"
@@ -647,6 +715,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "ifs"
@@ -680,6 +749,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "ipsl-cm"
@@ -713,6 +783,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "miroc"
@@ -746,6 +817,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "mpi-esm"
@@ -758,14 +830,28 @@
     "cnrm",
     "mohc"
   ],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "ipsl",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "ocean"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "nemo"
@@ -796,6 +882,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "nicam"
@@ -805,14 +892,28 @@
   "ui_label": "",
   "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies ocean biogeochemistry model family.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "ipsl",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "ocean-biogeochemistry"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "pisces"
@@ -822,14 +923,28 @@
   "ui_label": "",
   "description": "REPROBUS atmospheric chemistry model family developed by CNRM.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "cnrm",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "atmospheric-chemistry"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "reprobus"
@@ -839,14 +954,28 @@
   "ui_label": "",
   "description": "SURFEX land surface modelling platform developed by CNRM/Météo-France.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "cnrm",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "land-surface"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "surfex"
@@ -856,14 +985,28 @@
   "ui_label": "",
   "description": "TACTIC tropospheric aerosol scheme developed by CNRM.",
   "collaborative_institutions": [],
+  "common_scientific_basis": "none",
+  "computational_requirements": "none",
+  "documentation": "none",
+  "established": "none",
+  "evolution": "none",
+  "license": "none",
   "primary_institution": "cnrm",
+  "programming_languages": "none",
   "references": [],
+  "representative_member": "none",
   "scientific_domains": [
     "aerosol"
   ],
+  "shared_code_base": "none",
+  "software_dependencies": "none",
+  "source_code_repository": "none",
+  "variation_dimensions": "none",
+  "website": "none",
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:component_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "tactic"
@@ -902,6 +1045,7 @@
   "@type": [
     "emd",
     "wcrp:model_family",
+    "wcrp:global_model_family",
     "esgvoc:ModelFamily"
   ],
   "@id": "ukesm1"

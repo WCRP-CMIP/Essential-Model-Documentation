@@ -31,16 +31,28 @@
                     <span class="emd-meta-value">{{ primary_institution.name | e }}</span>
                 </div>
                 {% endif %}
-                {% if scientific_domain %}
+                {% if scientific_domains %}
                 <div class="emd-meta-item">
-                    <span class="emd-meta-label">Scientific Domain</span>
-                    <span class="emd-meta-value">{{ scientific_domain.name | e }}</span>
+                    <span class="emd-meta-label">Scientific Domains</span>
+                    <span class="emd-meta-value">{{ scientific_domains | map(attribute='name') | join(', ') }}</span>
                 </div>
                 {% endif %}
                 {% if established and established != 'none' %}
                 <div class="emd-meta-item">
                     <span class="emd-meta-label">Established</span>
                     <span class="emd-meta-value">{{ established }}</span>
+                </div>
+                {% endif %}
+                {% if representative_member %}
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Representative Member</span>
+                    <span class="emd-meta-value">{{ representative_member | e }}</span>
+                </div>
+                {% endif %}
+                {% if website %}
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Website</span>
+                    <span class="emd-meta-value"><a href="{{ website | e }}" target="_blank">{{ website | replace('https://', '') | e }}</a></span>
                 </div>
                 {% endif %}
                 <div class="emd-meta-item">
@@ -68,25 +80,24 @@
                 </div>
             </section>
 
-            <!-- Institution -->
-            {% if primary_institution %}
+            <!-- Institutions -->
+            {% if primary_institution or collaborative_institutions %}
             <section class="emd-section expanded">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
                         <div class="emd-section-icon">{{ icons.domain | safe }}</div>
-                        <h2 class="emd-section-title">Primary Institution</h2>
+                        <h2 class="emd-section-title">Institutions</h2>
                     </div>
                     <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
                 <div class="emd-section-content">
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
+                        {% if primary_institution %}
                         <div class="emd-domain-card">
                             <div class="emd-domain-card-header">
                                 <span class="emd-domain-card-title">{{ primary_institution.name | e }}</span>
-                                {% if primary_institution.acronym %}
-                                <span class="emd-domain-card-type">{{ primary_institution.acronym | e }}</span>
-                                {% endif %}
+                                <span class="emd-domain-card-type">Primary</span>
                             </div>
                             <div class="emd-domain-card-id">@id: {{ primary_institution.id | e }}</div>
                             {% if primary_institution.location %}
@@ -98,38 +109,60 @@
                             </div>
                             {% endif %}
                         </div>
+                        {% endif %}
+                        {% for inst in collaborative_institutions %}
+                        <div class="emd-domain-card">
+                            <div class="emd-domain-card-header">
+                                <span class="emd-domain-card-title">{{ inst.name | e }}</span>
+                                <span class="emd-domain-card-type">Collaborative</span>
+                            </div>
+                            <div class="emd-domain-card-id">@id: {{ inst.id | e }}</div>
+                            {% if inst.location %}
+                            <p class="emd-domain-card-description">{{ inst.location.name | e }}{% if inst.location.country %}, {{ inst.location.country | e }}{% endif %}</p>
+                            {% endif %}
+                            {% if inst.url %}
+                            <div class="emd-domain-card-meta">
+                                <a href="{{ inst.url | e }}" target="_blank" class="emd-meta-tag">{{ inst.url | e }}</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </section>
             {% endif %}
 
-            <!-- Scientific Domain -->
-            {% if scientific_domain %}
+            <!-- Scientific Domains -->
+            {% if scientific_domains %}
             <section class="emd-section expanded">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
                         <div class="emd-section-icon">{{ icons.grid | safe }}</div>
-                        <h2 class="emd-section-title">Scientific Domain</h2>
+                        <h2 class="emd-section-title">Scientific Domains <span class="emd-section-count">({{ scientific_domains | length }})</span></h2>
                     </div>
                     <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
                 <div class="emd-section-content">
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
+                        <div class="emd-domains-grid">
+                        {% for domain in scientific_domains %}
                         <div class="emd-domain-card">
                             <div class="emd-domain-card-header">
-                                <span class="emd-domain-card-title">{{ scientific_domain.name | e }}</span>
+                                <span class="emd-domain-card-title">{{ domain.name | e }}</span>
                                 <span class="emd-domain-card-type">Domain</span>
                             </div>
-                            <div class="emd-domain-card-id">@id: {{ scientific_domain.id | e }}</div>
-                            {% if scientific_domain.description %}
-                            <p class="emd-domain-card-description">{{ scientific_domain.description | e }}</p>
+                            <div class="emd-domain-card-id">@id: {{ domain.id | e }}</div>
+                            {% if domain.description %}
+                            <p class="emd-domain-card-description">{{ domain.description | e }}</p>
                             {% endif %}
-                            {% if scientific_domain.alias %}
+                            {% if domain.alias %}
                             <div class="emd-domain-card-meta">
-                                <span class="emd-meta-tag">{{ scientific_domain.alias | e }}</span>
+                                <span class="emd-meta-tag">{{ domain.alias | e }}</span>
                             </div>
                             {% endif %}
+                        </div>
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -187,7 +220,7 @@
                         <div class="emd-section-divider"></div>
                         {% if references %}
                         {% for ref in references %}
-                        <a href="#" class="emd-reference-item">
+                        <a href="{{ ref | e }}" class="emd-reference-item" target="_blank">
                             <div class="emd-reference-icon">{{ icons.description | safe }}</div>
                             <span class="emd-reference-text">{{ ref | e }}</span>
                             <span class="emd-reference-arrow">→</span>
