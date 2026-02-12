@@ -18,7 +18,7 @@ body:
     attributes:
       label: Issue Type
       description: |
-        Category of issue being reported.
+        The category of issue being reported.
         
         <details markdown="1">
         <summary>Guidance</summary>
@@ -49,7 +49,7 @@ body:
       multiple: true
       label: Affected Areas
       description: |
-        Parts of EMD affected by this issue.
+        The parts of EMD that are affected by this issue.
         
         <details markdown="1">
         <summary>Guidance</summary>
@@ -82,7 +82,7 @@ body:
     attributes:
       label: Description
       description: |
-        Clear description of the issue.
+        A clear description of the issue including what happened and what you expected.
         
         <details markdown="1">
         <summary>Guidance</summary>
@@ -110,7 +110,7 @@ body:
     attributes:
       label: Steps to Reproduce
       description: |
-        How to reproduce the issue (for bugs).
+        The steps needed to reproduce this issue for bugs.
         
         <details markdown="1">
         <summary>Guidance</summary>
@@ -132,7 +132,7 @@ body:
     attributes:
       label: Priority
       description: |
-        Urgency of the issue.
+        The urgency of this issue.
         
         <details markdown="1">
         <summary>Guidance</summary>
@@ -171,7 +171,7 @@ body:
     id: issue_kind
     attributes:
       label: Issue Kind
-      description: New submission or modification.
+      description: Whether this is a new submission or a modification to an existing entry.
       options:
         - "New"
         - "Modify"

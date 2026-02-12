@@ -12,20 +12,16 @@ body:
         
         **Prerequisites:** Component config IDs from Stage 3; Model family ID (if applicable).
         
-        **Result:** CMIP source_id
-        
-        ![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)
-        
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-        > To modify an existing entry, check the [model files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model).
+        > To modify an existing entry, check the __[model files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model)__.
 
   - type: input
     id: name
     attributes:
       label: Model Name
       description: |
-        Full model name (becomes the CMIP source_id).
+        The full model name that becomes the CMIP source_id.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -48,7 +44,7 @@ body:
     attributes:
       label: Model Family
       description: |
-        Earth System family this model belongs to.
+        The Earth System family that this model belongs to.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -90,7 +86,7 @@ body:
     attributes:
       label: Description
       description: |
-        Scientific overview mentioning all component types.
+        A scientific overview of the model mentioning all component types and their treatment.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -119,7 +115,7 @@ body:
       multiple: true
       label: Dynamic Components
       description: |
-        Components that are actively simulated.
+        The components that are actively simulated in this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -149,7 +145,7 @@ body:
       multiple: true
       label: Prescribed Components
       description: |
-        Components with prescribed boundary conditions.
+        The components with prescribed boundary conditions in this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -177,7 +173,7 @@ body:
       multiple: true
       label: Omitted Components
       description: |
-        Components not represented.
+        The components that are not represented in this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -204,7 +200,7 @@ body:
     attributes:
       label: Component Config IDs
       description: |
-        Config IDs from Stage 3.
+        The component configuration IDs from Stage 3 that make up this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -236,7 +232,7 @@ land-surface_surfex-v8_c100_v102"
     attributes:
       label: Embedded Components
       description: |
-        Pairs of embedded and host components.
+        Pairs of embedded and host components where one runs within another.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -265,7 +261,7 @@ sea-ice,ocean"
     attributes:
       label: Coupling Groups
       description: |
-        Groups of mutually coupled components.
+        Groups of components that are mutually coupled and exchange data.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -289,7 +285,7 @@ sea-ice,ocean"
       multiple: true
       label: Calendar(s)
       description: |
-        Permitted calendar types.
+        The permitted calendar types for this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -320,7 +316,7 @@ sea-ice,ocean"
     attributes:
       label: Release Year
       description: |
-        Year the model was released.
+        The year when this model was released.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -339,7 +335,7 @@ sea-ice,ocean"
     attributes:
       label: Reference DOIs
       description: |
-        DOI URLs for model description papers.
+        The DOI URLs for model description papers.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -368,12 +364,14 @@ sea-ice,ocean"
         - Creates `model` entry with CMIP source_id
         - Registration complete — model can be used in CMIP activities
         - Track progress in issue comments
+        
+        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/GEN_ISSUE_TEMPLATE/README.md)
 
   - type: dropdown
     id: issue_kind
     attributes:
       label: Issue Kind
-      description: New submission or modification.
+      description: Whether this is a new submission or a modification to an existing entry.
       options:
         - "New"
         - "Modify"

@@ -5,23 +5,19 @@ Registers a model component and creates a configuration linking it to computatio
 
 **Prerequisites:** Horizontal grid ID (c###) and/or Vertical grid ID (v###) from Stage 2.
 
-**Result:** Component config ID (e.g. `ocean_nemo-v3-6_c101_v103`)
-
-![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)
-
 > [!NOTE]
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-> To modify an existing entry, check the [component files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model_component).",none,false,,,
-2,dropdown,component,Component Type,Scientific domain this component simulates.,component,true,,list_with_na,0
-3,input,name,Component Name,Official component name with version.,none,true,NEMO v3.6,,
-4,dropdown,family,Component Family,Component family this belongs to.,component_family,false,,list_with_na,0
-5,textarea,description,Description,Scientific overview of the component.,none,true,"1. Main processes simulated
+> To modify an existing entry, check the __[component files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model_component)__.",none,false,,,
+2,dropdown,component,Component Type,The scientific domain that this component simulates.,component,true,,list_with_na,0
+3,input,name,Component Name,The official component name including version information.,none,true,NEMO v3.6,,
+4,dropdown,family,Component Family,The component family that this component belongs to.,component_family,false,,list_with_na,0
+5,textarea,description,Description,A scientific overview of the component including main processes and key physics.,none,true,"1. Main processes simulated
 2. Key physics/parameterizations
 3. Notable features of this version",,
-6,input,horizontal_computational_grid,Horizontal Grid ID,Horizontal grid ID from Stage 2a.,none,false,c101,,
-7,input,vertical_computational_grid,Vertical Grid ID,Vertical grid ID from Stage 2b.,none,false,v103,,
-8,input,code_base,Code Repository,URL to source code or 'private'.,none,false,https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6,,
-9,textarea,reference_dois,Reference DOIs,DOI URLs for component publications.,none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
+6,input,horizontal_computational_grid,Horizontal Grid ID,The horizontal grid ID from Stage 2a that this component uses.,none,false,c101,,
+7,input,vertical_computational_grid,Vertical Grid ID,The vertical grid ID from Stage 2b that this component uses.,none,false,v103,,
+8,input,code_base,Code Repository,The URL to the source code repository or 'private' if not publicly available.,none,false,https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6,,
+9,textarea,reference_dois,Reference DOIs,The DOI URLs for publications describing this component.,none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
 10,markdown,metadata_header,,"---
 
 ## Issue Handling
@@ -30,5 +26,7 @@ Registers a model component and creates a configuration linking it to computatio
 - Creates `model_component` and `component_config`
 - Config ID format: `<domain>_<component>_<c###>_<v###>`
 - Use the config ID in Stage 4 (Model)
-- Track progress in issue comments",none,false,,,
-11,dropdown,issue_kind,Issue Kind,New submission or modification.,issue_kind,true,,list_with_na,0
+- Track progress in issue comments
+
+[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/GEN_ISSUE_TEMPLATE/README.md)",none,false,,,
+11,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
