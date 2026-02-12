@@ -2,7 +2,7 @@
 
 ## Submission Pipeline
 
-![EMD Workflow](https://mermaid.ink/svg/Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBTdGFnZTFbIlN0YWdlIDEiXQogICAgICAgIFMxWyJHcmlkIENlbGxzICYgU3ViZ3JpZCJdCiAgICBlbmQKICAgIHN1YmdyYXBoIFN0YWdlMlsiU3RhZ2UgMiJdCiAgICAgICAgZGlyZWN0aW9uIFRCCiAgICAgICAgUzJhWyJIb3Jpem9udGFsIEdyaWQiXQogICAgICAgIFMyYlsiVmVydGljYWwgR3JpZCJdCiAgICBlbmQKICAgIHN1YmdyYXBoIE1GWyJNb2RlbCBGYW1pbHkiXQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIEVTTVsiRWFydGggU3lzdGVtIEZhbWlseSJdCiAgICAgICAgQ0ZbIkNvbXBvbmVudCBGYW1pbHkiXQogICAgZW5kCiAgICBzdWJncmFwaCBTdGFnZTNbIlN0YWdlIDMiXQogICAgICAgIFMzWyJNb2RlbCBDb21wb25lbnQiXQogICAgZW5kCiAgICBzdWJncmFwaCBTdGFnZTRbIlN0YWdlIDQiXQogICAgICAgIFM0WyJNb2RlbCJdCiAgICBlbmQKICAgIFMxIC0tPnxnIyMjLCBzIyMjfCBTMmEKICAgIFMyYSAtLT58YyMjI3wgUzMKICAgIFMyYiAtLT58diMjI3wgUzMKICAgIFMzIC0tPnxjb25maWcgSUR8IFM0CiAgICBFU00gLS4tPnxmYW1pbHktaWR8IFM0CiAgICBDRiAtLi0-fGZhbWlseS1pZHwgUzMKICAgIHN0eWxlIFN0YWdlMSBzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4LGZpbGw6bm9uZQogICAgc3R5bGUgU3RhZ2UyIHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHgsZmlsbDpub25lCiAgICBzdHlsZSBNRiBzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4LGZpbGw6bm9uZQogICAgc3R5bGUgU3RhZ2UzIHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHgsZmlsbDpub25lCiAgICBzdHlsZSBTdGFnZTQgc3Ryb2tlOiMzMzMsc3Ryb2tlLXdpZHRoOjJweCxmaWxsOm5vbmU=)
+![EMD Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du53ur9WaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DbqBo6I-CFluKbDErvX-BK7VrNiW61GrdWyWlbTqrdsAy9hu7ZfaTkHMGp2w2k2Dhq3Br7KNNQq-62GgSn4U8bDvF3Lurbb3ySwHI0)
 
 ## Quick Reference
 
@@ -13,47 +13,20 @@
 | 2b | [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | vertical_computational_grid | v### | Stage 3 |
 | 3 | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | component + component_config | {domain}_{name}_{c###}_{v###} | Stage 4 |
 | 4 | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) | model | source_id | CMIP |
-| — | [Earth System Family](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml) | model_family | family-id | Stage 4 |
-| — | [Component Family](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml) | model_family | family-id | Stage 3 |
+| — | [Model Family](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml) | model_family | family-id | Stage 3/4 |
 
 ---
 
-## Diagram Source
+## Mermaid.ink URLs
 
-The workflow diagram is rendered via [mermaid.ink](https://mermaid.ink). To regenerate the URLs after modifying the diagram, use `_workflow_images.py` or encode the mermaid source as base64:
+Stage-highlighted diagrams for each template:
 
-```mermaid
-flowchart LR
-    subgraph Stage1["Stage 1"]
-        S1["Grid Cells & Subgrid"]
-    end
-    subgraph Stage2["Stage 2"]
-        direction TB
-        S2a["Horizontal Grid"]
-        S2b["Vertical Grid"]
-    end
-    subgraph MF["Model Family"]
-        direction TB
-        ESM["Earth System Family"]
-        CF["Component Family"]
-    end
-    subgraph Stage3["Stage 3"]
-        S3["Model Component"]
-    end
-    subgraph Stage4["Stage 4"]
-        S4["Model"]
-    end
-    S1 -->|g###, s###| S2a
-    S2a -->|c###| S3
-    S2b -->|v###| S3
-    S3 -->|config ID| S4
-    ESM -.->|family-id| S4
-    CF -.->|family-id| S3
-    style Stage1 stroke:#333,stroke-width:2px,fill:none
-    style Stage2 stroke:#333,stroke-width:2px,fill:none
-    style MF stroke:#333,stroke-width:2px,fill:none
-    style Stage3 stroke:#333,stroke-width:2px,fill:none
-    style Stage4 stroke:#333,stroke-width:2px,fill:none
-```
+| Template | URL |
+|----------|-----|
+| Stage 1 (Grid Cells) | `https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ...53ur9WaTc...` |
+| Stage 2 (Horizontal/Vertical) | `https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ...4d8uKkCa...` |
+| Stage 3 (Model Component) | `https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ...50nqtWaTc...` |
+| Model Family | `https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ...OWGqw` |
+| Stage 4 (Model) | `https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ...52warVm0...` |
 
-To highlight a stage, add: `style StageX stroke:#0066cc,stroke-width:3px,fill:none`
+Full URLs are stored in `_workflow_images.py`.
