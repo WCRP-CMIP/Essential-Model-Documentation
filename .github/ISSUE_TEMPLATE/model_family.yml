@@ -49,6 +49,49 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: family_type
+    attributes:
+      label: Family Type
+      description: |
+        Select the type of model family.
+        
+        - **Earth System Model**: Coupled models with multiple components (atmosphere, ocean, etc.)
+        - **Component Family**: Single-domain models (e.g., ocean-only, atmosphere-only)
+        
+        <details markdown="1">
+        <summary>Completion Guidance</summary>
+        
+        **Family type** (distinguishes coupled vs single-domain models):
+        
+        Select the type that best describes this model family:
+        
+        **Earth System Model:**
+        - Coupled models with multiple interacting components
+        - Include atmosphere AND ocean/land-surface/sea-ice
+        - Examples: CESM, HadGEM3, CNRM-CM, ACCESS, EC-Earth, IPSL-CM
+        - Used for: Climate projections, Earth system studies
+        
+        **Component Family:**
+        - Single scientific domain models
+        - Focus on one Earth system component
+        - Examples: NEMO (ocean), CAM (atmosphere), CLM (land), GELATO (sea-ice), PISCES (ocean-biogeochemistry)
+        - Used for: Standalone simulations, coupling into larger systems
+        
+        **How to decide:**
+        - If models in this family typically include atmosphere + ocean → Earth System Model
+        - If models focus on a single domain (even if sometimes coupled) → Component Family
+        - When in doubt, consider the primary use case of the family
+        
+        </details>
+      options:
+        - "Not specified"
+        - "Earth System Model"
+        - "Component Family"
+      default: 0
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
@@ -86,27 +129,40 @@ body:
       options:
         - "Not specified"
         - "awi"
+        - "bas"
         - "bcc"
+        - "bom"
+        - "cas"
         - "cccma"
         - "cmcc"
+        - "cnrm"
         - "cnrm-cerfacs"
         - "csiro"
         - "csiro-arccss"
         - "dkrz"
+        - "dwd"
         - "ec-earth-consortium"
+        - "ecmwf"
         - "gfdl"
         - "inpe"
         - "ipsl"
+        - "jamstec"
+        - "lbnl"
         - "miroc"
         - "mohc"
         - "mpi-m"
         - "nasa-giss"
+        - "nasa-gsfc"
         - "ncar"
+        - "ncas"
         - "ncc"
         - "nerc"
         - "niwa"
         - "noaa-gfdl"
+        - "noc"
+        - "pnnl"
         - "ukmo"
+        - "uob"
       default: 0
     validations:
       required: true
@@ -122,27 +178,40 @@ body:
         Leave empty if none.
       options:
         - "awi"
+        - "bas"
         - "bcc"
+        - "bom"
+        - "cas"
         - "cccma"
         - "cmcc"
+        - "cnrm"
         - "cnrm-cerfacs"
         - "csiro"
         - "csiro-arccss"
         - "dkrz"
+        - "dwd"
         - "ec-earth-consortium"
+        - "ecmwf"
         - "gfdl"
         - "inpe"
         - "ipsl"
+        - "jamstec"
+        - "lbnl"
         - "miroc"
         - "mohc"
         - "mpi-m"
         - "nasa-giss"
+        - "nasa-gsfc"
         - "ncar"
+        - "ncas"
         - "ncc"
         - "nerc"
         - "niwa"
         - "noaa-gfdl"
+        - "noc"
+        - "pnnl"
         - "ukmo"
+        - "uob"
 
   - type: dropdown
     id: scientific_domains

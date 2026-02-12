@@ -1,13 +1,14 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
 1,markdown,header,,"## Model Family Registration\n\nRegister a model family - a group of models sharing code bases.\n\nModel families help establish model genealogies for inter-model comparisons.\n\nSee [Masson and Knutti (2011)](https://doi.org/10.1029/2011GL046864) for examples.",none,false,,,
 2,input,name,Family Name,"The family name.\n\nOften persists across model versions and may be the first part of full model names.",none,true,"e.g., HadGEM3, CESM, CNRM-CM, ACCESS",,
-3,textarea,description,Description,"Description of the model family.\n\nInclude scientific focus and common characteristics shared by family members.",none,true,"Describe the model family, its scientific focus, and common characteristics...",,
-4,dropdown,primary_institution,Primary Institution,"The primary institution responsible for the model family.",institution,true,,list_with_na,0
-5,multi-select,collaborative_institutions,Collaborative Institutions,"Other institutions that collaborate on this model family.\n\nLeave empty if none.",institution,false,,list,
-6,multi-select,scientific_domains,Scientific Domains,"The scientific domains covered by this family.",component,true,,list,
-7,input,established,Year Established,"Year the model family was established.\n\nLeave blank if unknown.",none,false,"e.g., 2008",,
-8,input,representative_member,Representative Member,"Name of a representative model from this family.",none,false,"e.g., HadGEM3-GC31-LL",,
-9,input,website,Website URL,"Official website for the model family.\n\nLeave blank if none.",none,false,"e.g., https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",,
-10,textarea,reference_dois,Reference DOIs,"Enter DOI URLs for key publications, one per line.\n\nLeave blank if none.",none,false,"https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2",,
-11,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
-12,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list_with_na,0
+3,dropdown,family_type,Family Type,"Select the type of model family.\n\n- **Earth System Model**: Coupled models with multiple components (atmosphere, ocean, etc.)\n- **Component Family**: Single-domain models (e.g., ocean-only, atmosphere-only)",family_type,true,,list_with_na,0
+4,textarea,description,Description,"Description of the model family.\n\nInclude scientific focus and common characteristics shared by family members.",none,true,"Describe the model family, its scientific focus, and common characteristics...",,
+5,dropdown,primary_institution,Primary Institution,"The primary institution responsible for the model family.",institution,true,,list_with_na,0
+6,multi-select,collaborative_institutions,Collaborative Institutions,"Other institutions that collaborate on this model family.\n\nLeave empty if none.",institution,false,,list,
+7,multi-select,scientific_domains,Scientific Domains,"The scientific domains covered by this family.",component,true,,list,
+8,input,established,Year Established,"Year the model family was established.\n\nLeave blank if unknown.",none,false,"e.g., 2008",,
+9,input,representative_member,Representative Member,"Name of a representative model from this family.",none,false,"e.g., HadGEM3-GC31-LL",,
+10,input,website,Website URL,"Official website for the model family.\n\nLeave blank if none.",none,false,"e.g., https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",,
+11,textarea,reference_dois,Reference DOIs,"Enter DOI URLs for key publications, one per line.\n\nLeave blank if none.",none,false,"https://doi.org/10.1234/example1\nhttps://doi.org/10.1234/example2",,
+12,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
+13,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list_with_na,0
