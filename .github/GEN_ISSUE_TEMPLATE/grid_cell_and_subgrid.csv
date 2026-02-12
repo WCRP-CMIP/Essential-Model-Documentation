@@ -5,10 +5,12 @@ Creates **two linked entities**: grid cells (physical properties) and subgrid (v
 
 **Prerequisites:** None — this is the first step.
 
+**Result:** Grid cells ID (g###) and Subgrid ID (s###)
+
 ![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du53ur9WaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DbqBo6I-CFluKbDErvX-BK7VrNiW61GrdWyWlbTqrdsAy9hu7ZfaTkHMGp2w2k2Dhq3Br7KNNQq-62GgSn4U8bDvF3Lurbb3ySwHI0)
 
 > [!NOTE]
-> Please read the guidance (▶) before filling in — incorrect entries will be rejected.
+> Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
 > To modify an existing entry, check the [grid files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/horizontal_grid_cells).",none,false,,,
 2,dropdown,grid_type,Grid Type,Cell distribution pattern.,grid_type,true,,list_with_na,0
 3,dropdown,grid_mapping,Coordinate System,Reference system for cell positions.,grid_mapping,true,,list_with_na,0
@@ -30,5 +32,5 @@ Creates **two linked entities**: grid cells (physical properties) and subgrid (v
 **After submission:**
 - Creates `horizontal_grid_cells` (g###) and `horizontal_subgrid` (s###)
 - Use the s### ID in Stage 2a (Horizontal Grid)
-- [Track progress in your issues](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20state%3Aopen%20author%3A%40me)",none,false,,,
+- Track progress in issue comments",none,false,,,
 16,dropdown,issue_kind,Issue Kind,New submission or modification.,issue_kind,true,,list_with_na,0
