@@ -14,7 +14,9 @@ body:
         
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-        > To modify an existing entry, check the __[component files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model_component)__.
+        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+        
+        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
 
   - type: dropdown
     id: component
@@ -247,8 +249,6 @@ body:
         - Config ID format: `<domain>_<component>_<c###>_<v###>`
         - Use the config ID in Stage 4 (Model)
         - Track progress in issue comments
-        
-        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/GEN_ISSUE_TEMPLATE/README.md)
 
   - type: dropdown
     id: issue_kind

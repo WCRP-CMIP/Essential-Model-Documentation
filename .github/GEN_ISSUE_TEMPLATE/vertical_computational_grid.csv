@@ -7,7 +7,9 @@ Defines the vertical level structure for a model component.
 
 > [!NOTE]
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-> To modify an existing entry, check the __[vertical grid files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/vertical_computational_grid)__.",none,false,,,
+> To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+
+[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50-rNWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DZtA0dE_JAyXNNhid1rfIldq1mxrVaj1mpZLatp1VvAvITt2n6l5RzAqNkNp9k4aNwa-CrTUKvstxoGpuBPGQ_zdi3r2m5_Ayb4HJE)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)",none,false,,,
 2,textarea,description,Description,A brief characterization of this vertical grid including number of levels and coordinate type.,none,true,"1. Number of levels
 2. Coordinate type
 3. Vertical extent",,
@@ -23,7 +25,5 @@ Defines the vertical level structure for a model component.
 **After submission:**
 - Creates `vertical_computational_grid` (v###)
 - Use this ID with a c### in Stage 3 (Model Component)
-- Track progress in issue comments
-
-[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50-rNWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DZtA0dE_JAyXNNhid1rfIldq1mxrVaj1mpZLatp1VvAvITt2n6l5RzAqNkNp9k4aNwa-CrTUKvstxoGpuBPGQ_zdi3r2m5_Ayb4HJE)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/GEN_ISSUE_TEMPLATE/README.md)",none,false,,,
+- Track progress in issue comments",none,false,,,
 9,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

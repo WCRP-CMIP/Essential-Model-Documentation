@@ -7,7 +7,9 @@ Registers a family of related models or components that share code.
 
 > [!NOTE]
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-> To modify an existing entry, check the __[family files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model_family)__.",none,false,,,
+> To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+
+[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbeoo0EqgVYVt2saETGKIVceOEqctffz3nRNgaSmsrbpZSmL7Xp_vfLm7wZ70KXbxjMtLLyCxQv2zsUDZ2NtDxye94z48I3SIhqPDXsdF7YCIOUUqoChRC04RUdliKpWSIVISBWwecHhUQdHnSDEpEhcNFZnTupF_LQMNusu5vfw6WmolmaTTeUyiYCn2c4zL5WyK6uXyGP9a8ekx1ORezHzUppwn6A0aamnmF_io8LertwrqrQ31Pouppw-BRp_umbUIyB3LmF1LoQhHvfsmc54p8HylsWLeJsc2UINuBmgAEeKoS0LGF09G1RkOQLgDAYXDLRJFw6WGB_JtbaMtw0gKKtQmz06H2QWH2Zvx0OQc_NrAUzU7Bc3OpmZnpXm7vmEdmeaH23mpVDJQAu9bHak11SIZ2csJ9p_9abZ_8XDfztmlmLE5OjkCmrOigauRWQHqLHOeyfwitd3dJNpFoB5n3rmGO8aBUlHiVqtzpoJ0WvFkWP3WPjs124OT02onScCBjHAzO7l5JL00hB2io19lSZLSpCro5UeIdcSJou_13Z94kAsTIvxJkidDZRGC19Bkyok4f4ABnPLqIIJ1YkxAVZTmrLD6K5jp64O5WGbgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpY463cMv_RGUuu_9znD9a8rKXF6BYBHLc-qWbNs28rl5yXwVuFZ0ZcwY566AiD4iar1IdNB9uUX75aLOM0QfbRdM1PGZbgxYgjgTVPcFXt45rNsD9BbiqgOHZKrQTMZIFJqHd1sdUas1m553H5VdRIUNHNI4JMyHzuYmw4ihRQnpGLsw9emMpBxq0VjcAStJlRwuhIddFafUwLFM5wF2Z4QnsEojH27QESNQncIVi_5hrNmh8NC4LVOhsFuvGzgi4oeUa15YYvcGX2HXalZsq9WotVpWy2pa9ZZt4AVs1_YrLecARs1uOM3GQePOwNeZhlplv9UwMAVXyniQd2pZw3b3G0OWGqw)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)",none,false,,,
 2,input,name,Family Name,The short identifier for this model family.,none,true,HadGEM3,,
 3,dropdown,family_type,Family Type,Whether this is a coupled Earth System family or a single-domain Component family.,family_type,true,,list_with_na,0
 4,textarea,description,Description,A description of what characterizes this model family including scientific focus and common code.,none,true,"1. Scientific focus and approach
@@ -28,7 +30,5 @@ Registers a family of related models or components that share code.
 - Creates `model_family` entry
 - Earth System Families can be referenced in Stage 4 (Model)
 - Component Families can be referenced in Stage 3 (Model Component)
-- Track progress in issue comments
-
-[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbeoo0EqgVYVt2saETGKIVceOEqctffz3nRNgaSmsrbpZSmL7Xp_vfLm7wZ70KXbxjMtLLyCxQv2zsUDZ2NtDxye94z48I3SIhqPDXsdF7YCIOUUqoChRC04RUdliKpWSIVISBWwecHhUQdHnSDEpEhcNFZnTupF_LQMNusu5vfw6WmolmaTTeUyiYCn2c4zL5WyK6uXyGP9a8ekx1ORezHzUppwn6A0aamnmF_io8LertwrqrQ31Pouppw-BRp_umbUIyB3LmF1LoQhHvfsmc54p8HylsWLeJsc2UINuBmgAEeKoS0LGF09G1RkOQLgDAYXDLRJFw6WGB_JtbaMtw0gKKtQmz06H2QWH2Zvx0OQc_NrAUzU7Bc3OpmZnpXm7vmEdmeaH23mpVDJQAu9bHak11SIZ2csJ9p_9abZ_8XDfztmlmLE5OjkCmrOigauRWQHqLHOeyfwitd3dJNpFoB5n3rmGO8aBUlHiVqtzpoJ0WvFkWP3WPjs124OT02onScCBjHAzO7l5JL00hB2io19lSZLSpCro5UeIdcSJou_13Z94kAsTIvxJkidDZRGC19Bkyok4f4ABnPLqIIJ1YkxAVZTmrLD6K5jp64O5WGbgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpY463cMv_RGUuu_9znD9a8rKXF6BYBHLc-qWbNs28rl5yXwVuFZ0ZcwY566AiD4iar1IdNB9uUX75aLOM0QfbRdM1PGZbgxYgjgTVPcFXt45rNsD9BbiqgOHZKrQTMZIFJqHd1sdUas1m553H5VdRIUNHNI4JMyHzuYmw4ihRQnpGLsw9emMpBxq0VjcAStJlRwuhIddFafUwLFM5wF2Z4QnsEojH27QESNQncIVi_5hrNmh8NC4LVOhsFuvGzgi4oeUa15YYvcGX2HXalZsq9WotVpWy2pa9ZZt4AVs1_YrLecARs1uOM3GQePOwNeZhlplv9UwMAVXyniQd2pZw3b3G0OWGqw)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/GEN_ISSUE_TEMPLATE/README.md)",none,false,,,
+- Track progress in issue comments",none,false,,,
 13,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
