@@ -12,28 +12,18 @@ body:
         
         **Prerequisites:** Horizontal grid ID (c###) and/or Vertical grid ID (v###) from Stage 2.
         
-        ```mermaid
-        flowchart LR
-            subgraph Stage1[\**Stage 1**\"]
-                S1[\"Grid Cells & Subgrid\"]
-            end
-            subgraph Stage2[\"**Stage 2**\"]
-                direction TB
-                S2a[\"Horizontal Grid\"]
-                S2b[\"Vertical Grid\"]
-            end
-            subgraph MF[\"**Model Family**\"]
-                direction TB
-                ESM[\"Earth System Family\"]
-                CF[\"Component Family\"]
-            end
-            subgraph Stage3[\"**Stage 3**\"]
-                S3[\"Model Component\"]
-            end
-            subgraph Stage4[\"**Stage 4**\"]
-                S4[\"Model\"]
-            end
-            S1 -->|g###
+        **Result:** Component config ID (`{domain}_- aerosol
+        - atmosphere
+        - atmospheric-chemistry
+        - land-ice
+        - land-surface
+        - ocean
+        - ocean-biogeochemistry
+        - sea-ice_{c###}_{v###}`)
+        
+        ![Workflow](https://mermaid.ink/svg/Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBTdGFnZTFbIlN0YWdlIDEiXQogICAgICAgIFMxWyJHcmlkIENlbGxzICYgU3ViZ3JpZCJdCiAgICBlbmQKICAgIHN1YmdyYXBoIFN0YWdlMlsiU3RhZ2UgMiJdCiAgICAgICAgZGlyZWN0aW9uIFRCCiAgICAgICAgUzJhWyJIb3Jpem9udGFsIEdyaWQiXQogICAgICAgIFMyYlsiVmVydGljYWwgR3JpZCJdCiAgICBlbmQKICAgIHN1YmdyYXBoIE1GWyJNb2RlbCBGYW1pbHkiXQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIEVTTVsiRWFydGggU3lzdGVtIEZhbWlseSJdCiAgICAgICAgQ0ZbIkNvbXBvbmVudCBGYW1pbHkiXQogICAgZW5kCiAgICBzdWJncmFwaCBTdGFnZTNbIlN0YWdlIDMiXQogICAgICAgIFMzWyJNb2RlbCBDb21wb25lbnQiXQogICAgZW5kCiAgICBzdWJncmFwaCBTdGFnZTRbIlN0YWdlIDQiXQogICAgICAgIFM0WyJNb2RlbCJdCiAgICBlbmQKICAgIFMxIC0tPnxnIyMjLCBzIyMjfCBTMmEKICAgIFMyYSAtLT58YyMjI3wgUzMKICAgIFMyYiAtLT58diMjI3wgUzMKICAgIFMzIC0tPnxjb25maWcgSUR8IFM0CiAgICBFU00gLS4tPnxmYW1pbHktaWR8IFM0CiAgICBDRiAtLi0-fGZhbWlseS1pZHwgUzMKICAgIHN0eWxlIFN0YWdlMSBzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4LGZpbGw6bm9uZQogICAgc3R5bGUgU3RhZ2UyIHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHgsZmlsbDpub25lCiAgICBzdHlsZSBNRiBzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4LGZpbGw6bm9uZQogICAgc3R5bGUgU3RhZ2UzIHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHgsZmlsbDpub25lCiAgICBzdHlsZSBTdGFnZTQgc3Ryb2tlOiMzMzMsc3Ryb2tlLXdpZHRoOjJweCxmaWxsOm5vbmUKICAgIHN0eWxlIFN0YWdlMyBzdHJva2U6IzAwNjZjYyxzdHJva2Utd2lkdGg6M3B4LGZpbGw6bm9uZQ==)
+        
+        > ⚠️ **Read the guidance (▶) before filling in** — incorrect entries will be rejected. To modify an existing entry, check the [component files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/model_component).
 
   - type: dropdown
     id: component
@@ -163,7 +153,9 @@ body:
         Detailed physics should be in referenced publications.
         
         </details>
-      placeholder: "1. Main processes simulated\n2. Key physics/parameterizations\n3. Notable features of this version"
+      placeholder: "1. Main processes simulated
+2. Key physics/parameterizations
+3. Notable features of this version"
     validations:
       required: true
 

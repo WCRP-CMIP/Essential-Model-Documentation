@@ -1,9 +1,24 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,header,,"## General Issue\n\nReport bugs, ask questions, or suggest improvements to the EMD repository.\n\n> ℹ️ For model/component/grid registrations, use the specific registration forms instead.",none,false,,,
+1,markdown,header,,"## General Issue
+
+Report bugs, ask questions, or suggest improvements to the EMD repository.
+
+> ℹ️ For model/component/grid registrations, use the specific registration forms instead.",none,false,,,
 2,dropdown,issue_type,Issue Type,Category of issue being reported.,issue_type_options,true,,list_with_na,0
 3,multi-select,affected_areas,Affected Areas,Parts of EMD affected by this issue.,affected_areas_options,true,,list,
-4,textarea,description,Description,Clear description of the issue.,none,true,1. What happened or what you need\n2. What you expected\n3. Any error messages,,
-5,textarea,steps_to_reproduce,Steps to Reproduce,How to reproduce the issue (for bugs).,none,false,1. Go to...\n2. Enter...\n3. See error...,,
+4,textarea,description,Description,Clear description of the issue.,none,true,"1. What happened or what you need
+2. What you expected
+3. Any error messages",,
+5,textarea,steps_to_reproduce,Steps to Reproduce,How to reproduce the issue (for bugs).,none,false,"1. Go to...
+2. Enter...
+3. See error...",,
 6,dropdown,priority,Priority,Urgency of the issue.,priority_options,true,,list_with_na,0
-7,markdown,metadata_header,,"---\n\n## Issue Handling\n\n**After submission:**\n- Issue will be triaged by maintainers\n- You may be asked for clarification\n- Track progress in issue comments",none,false,,,
+7,markdown,metadata_header,,"---
+
+## Issue Handling
+
+**After submission:**
+- Issue will be triaged by maintainers
+- You may be asked for clarification
+- Track progress in issue comments",none,false,,,
 8,dropdown,issue_kind,Issue Kind,New submission or modification.,issue_kind,true,,list_with_na,0

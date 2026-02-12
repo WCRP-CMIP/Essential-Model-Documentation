@@ -12,6 +12,7 @@ body:
         
         **Prerequisites:** None — can be submitted in parallel with Stage 2a.
         
+<<<<<<< HEAD
         ```mermaid
           flowchart LR
               %% HIGHLIGHT A STAGE: Change the style at the bottom to highlight
@@ -66,6 +67,14 @@ body:
               %% HIGHLIGHT - Edit this line to change highlight (comment out for no highlight)
               style Stage3 stroke:#0066cc,stroke-width:3px,fill:none
         ```
+=======
+        **Result:** Vertical grid ID (v###)
+        
+        ![Workflow](https://mermaid.ink/svg/Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBTdGFnZTFbIlN0YWdlIDEiXQogICAgICAgIFMxWyJHcmlkIENlbGxzICYgU3ViZ3JpZCJdCiAgICBlbmQKICAgIHN1YmdyYXBoIFN0YWdlMlsiU3RhZ2UgMiJdCiAgICAgICAgZGlyZWN0aW9uIFRCCiAgICAgICAgUzJhWyJIb3Jpem9udGFsIEdyaWQiXQogICAgICAgIFMyYlsiVmVydGljYWwgR3JpZCJdCiAgICBlbmQKICAgIHN1YmdyYXBoIE1GWyJNb2RlbCBGYW1pbHkiXQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIEVTTVsiRWFydGggU3lzdGVtIEZhbWlseSJdCiAgICAgICAgQ0ZbIkNvbXBvbmVudCBGYW1pbHkiXQogICAgZW5kCiAgICBzdWJncmFwaCBTdGFnZTNbIlN0YWdlIDMiXQogICAgICAgIFMzWyJNb2RlbCBDb21wb25lbnQiXQogICAgZW5kCiAgICBzdWJncmFwaCBTdGFnZTRbIlN0YWdlIDQiXQogICAgICAgIFM0WyJNb2RlbCJdCiAgICBlbmQKICAgIFMxIC0tPnxnIyMjLCBzIyMjfCBTMmEKICAgIFMyYSAtLT58YyMjI3wgUzMKICAgIFMyYiAtLT58diMjI3wgUzMKICAgIFMzIC0tPnxjb25maWcgSUR8IFM0CiAgICBFU00gLS4tPnxmYW1pbHktaWR8IFM0CiAgICBDRiAtLi0-fGZhbWlseS1pZHwgUzMKICAgIHN0eWxlIFN0YWdlMSBzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4LGZpbGw6bm9uZQogICAgc3R5bGUgU3RhZ2UyIHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHgsZmlsbDpub25lCiAgICBzdHlsZSBNRiBzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4LGZpbGw6bm9uZQogICAgc3R5bGUgU3RhZ2UzIHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHgsZmlsbDpub25lCiAgICBzdHlsZSBTdGFnZTQgc3Ryb2tlOiMzMzMsc3Ryb2tlLXdpZHRoOjJweCxmaWxsOm5vbmUKICAgIHN0eWxlIFN0YWdlMiBzdHJva2U6IzAwNjZjYyxzdHJva2Utd2lkdGg6M3B4LGZpbGw6bm9uZQ==)
+        
+        > ⚠️ **Read the guidance (▶) before filling in** — incorrect entries will be rejected. To modify an existing entry, check the [vertical grid files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/vertical_computational_grid).
+
+>>>>>>> 289f4a2 (upating the forms with mermaid via packo strings.)
   - type: textarea
     id: description
     attributes:
@@ -91,7 +100,9 @@ body:
         - '14 soil layers from 0.01m to 12m depth'
         
         </details>
-      placeholder: "1. Number of levels\n2. Coordinate type\n3. Vertical extent"
+      placeholder: "1. Number of levels
+2. Coordinate type
+3. Vertical extent"
     validations:
       required: true
 

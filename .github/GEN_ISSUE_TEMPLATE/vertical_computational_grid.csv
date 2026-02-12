@@ -1,10 +1,29 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,header,,"## Stage 2b: Vertical Computational Grid\n\nDefines the vertical level structure for a model component.\n\n**Prerequisites:** None — can be submitted in parallel with Stage 2a.\n\n```mermaid\nflowchart LR\n    subgraph Stage1[\"**Stage 1**\"]\n        S1[\"Grid Cells & Subgrid\"]\n    end\n    subgraph Stage2[\"**Stage 2**\"]\n        direction TB\n        S2a[\"Horizontal Grid\"]\n        S2b[\"Vertical Grid\"]\n    end\n    subgraph MF[\"**Model Family**\"]\n        direction TB\n        ESM[\"Earth System Family\"]\n        CF[\"Component Family\"]\n    end\n    subgraph Stage3[\"**Stage 3**\"]\n        S3[\"Model Component\"]\n    end\n    subgraph Stage4[\"**Stage 4**\"]\n        S4[\"Model\"]\n    end\n    S1 -->|g###, s###| S2a\n    S2a -->|c###| S3\n    S2b -->|v###| S3\n    S3 -->|config ID| S4\n    ESM -.->|family-id| S4\n    CF -.->|family-id| S3\n    click S1 \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml\" _blank\n    click S2a \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml\" _blank\n    click S2b \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml\" _blank\n    click S3 \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml\" _blank\n    click S4 \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml\" _blank\n    click ESM \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml\" _blank\n    click CF \"https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml\" _blank\n    style Stage1 stroke:#333,stroke-width:2px,fill:none\n    style Stage2 stroke:#333,stroke-width:2px,fill:none\n    style MF stroke:#333,stroke-width:2px,fill:none\n    style Stage3 stroke:#333,stroke-width:2px,fill:none\n    style Stage4 stroke:#333,stroke-width:2px,fill:none\n    style Stage2 stroke:#0066cc,stroke-width:3px,fill:none\n```\n\n**Result:** Vertical grid ID (v###)\n\n> ℹ️ Read the guidance (▶) before filling in — incorrect entries will be rejected. To modify an existing entry, check the [vertical grid files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/vertical_computational_grid).",none,false,,,
-2,textarea,description,Description,Brief characterization of this vertical grid.,none,true,1. Number of levels\n2. Coordinate type\n3. Vertical extent,,
+1,markdown,header,,"## Stage 2b: Vertical Computational Grid
+
+Defines the vertical level structure for a model component.
+
+**Prerequisites:** None — can be submitted in parallel with Stage 2a.
+
+**Result:** Vertical grid ID (v###)
+
+![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du4d8uKkCa3i1WrPpeXcR2kWE2MAhjUPCfOhyrjO8GNqVkE6wC1OfzknKoS5NxC2wklTJ0VJ42FVxSg0cy3QRYHdOeAKrNPLhNnUYgUoVbnb132PDD1WIxm2ZCoVdp2XgiIgfUoZrOiyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgl9lPMzbtqx7u_0NCvweHQ)
+
+> ⚠️ **Read the guidance (▶) before filling in** — incorrect entries will be rejected. To modify an existing entry, check the [vertical grid files](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/vertical_computational_grid).",none,false,,,
+2,textarea,description,Description,Brief characterization of this vertical grid.,none,true,"1. Number of levels
+2. Coordinate type
+3. Vertical extent",,
 3,dropdown,vertical_coordinate,Coordinate Type,Vertical coordinate system.,vertical_coordinate,true,,list_with_na,0
 4,input,n_z,Number of Levels,Total number of vertical levels.,none,false,91,,
 5,input,top_layer_thickness,Top Layer Thickness (m),Thickness of the uppermost layer in metres.,none,false,2.0,,
 6,input,bottom_layer_thickness,Bottom Layer Thickness (m),Thickness of the lowest layer in metres.,none,false,25.0,,
 7,input,total_thickness,Total Thickness (m),Total vertical extent in metres.,none,false,80000,,
-8,markdown,metadata_header,,"---\n\n## Issue Handling\n\n**After submission:**\n- Creates `vertical_computational_grid` (v###)\n- Use this ID with a c### in Stage 3 (Model Component)\n- Track progress in issue comments",none,false,,,
+8,markdown,metadata_header,,"---
+
+## Issue Handling
+
+**After submission:**
+- Creates `vertical_computational_grid` (v###)
+- Use this ID with a c### in Stage 3 (Model Component)
+- Track progress in issue comments",none,false,,,
 9,dropdown,issue_kind,Issue Kind,New submission or modification.,issue_kind,true,,list_with_na,0

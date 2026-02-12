@@ -98,7 +98,9 @@ body:
         **For features:** Describe why it would be useful
         
         </details>
-      placeholder: "1. What happened or what you need\n2. What you expected\n3. Any error messages"
+      placeholder: "1. What happened or what you need
+2. What you expected
+3. Any error messages"
     validations:
       required: true
 
@@ -120,7 +122,9 @@ body:
         3. What error you saw
         
         </details>
-      placeholder: "1. Go to...\n2. Enter...\n3. See error..."
+      placeholder: "1. Go to...
+2. Enter...
+3. See error..."
 
   - type: dropdown
     id: priority
