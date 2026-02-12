@@ -1,7 +1,7 @@
 name: "Stage 1: Grid Cells & Subgrid"
 description: Register grid cells and subgrid (Stage 1 of 4)
 title: "[EMD] Grid Cells & Subgrid:"
-labels: ['emd-submission', 'grid', 'Review']
+labels: ['emd-submission', 'c+s', 'Review']
 body:
   - type: markdown
     attributes:
@@ -17,6 +17,24 @@ body:
         > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
         
         [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du53ur9WaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DbqBo6I-CFluKbDErvX-BK7VrNiW61GrdWyWlbTqrdsAy9hu7ZfaTkHMGp2w2k2Dhq3Br7KNNQq-62GgSn4U8bDvF3Lurbb3ySwHI0)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
+        
+        > [!TIP]
+        > **Reuse existing grid cells:** If a suitable grid cell definition already exists, you can reuse it by creating only a new subgrid entry. Use the prefill links below to view and copy existing grid cell configurations.
+        >
+        > <details><summary>Existing Grid Cells</summary>
+        >
+        > _Prefill links unavailable - run from repository root._
+        >
+        > </details>
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Grid Cell Definition
+        
+        Define the physical grid structure (cell arrangement, resolution, extent).
 
   - type: dropdown
     id: grid_type
@@ -294,13 +312,38 @@ body:
         </details>
       placeholder: "127"
 
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Subgrid Definition
+        
+        Define where variables are stored on this grid. 
+        
+        > [!NOTE]
+        > **Grid cells only?** If you only need a grid cell entry without a subgrid, select **'No subgrid (grid cells only)'** below and leave the Variable Types field empty.
+
+  - type: dropdown
+    id: subgrid_option
+    attributes:
+      label: Subgrid Option
+      description: Whether to create a subgrid entry alongside the grid cells.
+      options:
+        - "Not specified"
+        - "Create new subgrid"
+        - "No subgrid (grid cells only)"
+      default: 0
+    validations:
+      required: true
+
   - type: dropdown
     id: cell_variable_type
     attributes:
       multiple: true
       label: Variable Types
       description: |
-        The types of variables stored at this subgrid location.
+        The types of variables stored at this subgrid location. Leave empty if creating grid cells only.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -324,8 +367,6 @@ body:
         - "meridional-velocity"
         - "vorticity"
         - "divergence"
-    validations:
-      required: true
 
   - type: markdown
     attributes:
@@ -335,7 +376,7 @@ body:
         ## Issue Handling
         
         **After submission:**
-        - Creates `horizontal_grid_cells` (g###) and `horizontal_subgrid` (s###)
+        - Creates `horizontal_grid_cells` (g###) and optionally `horizontal_subgrid` (s###)
         - Use the s### ID in Stage 2a (Horizontal Grid)
         - Track progress in issue comments
 
