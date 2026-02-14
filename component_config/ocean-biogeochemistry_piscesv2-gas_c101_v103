@@ -1,15 +1,15 @@
 {
-  "validation_key": "ocean_biogeochemistry_piscesv2_gas_c101_v103",
-  "ui_label": "PISCESv2-gas with c101 and v103",
-  "description": "Configuration for PISCESv2-gas with horizontal grid c101 and vertical grid v103.",
-  "model_component": "piscesv2-gas",
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:component_config",
-    "esgvoc:ComponentConfig"
-  ],
-  "@id": "ocean-biogeochemistry_piscesv2-gas_c101_v103",
-  "horizontal_computational_grid": "c101",
-  "vertical_computational_grid": "v103"
+    "validation_key": "ocean_biogeochemistry_piscesv2_gas_c101_v103",
+    "ui_label": "PISCESv2-gas with c101 and v103",
+    "description": "Configuration for PISCESv2-gas with horizontal grid c101 and vertical grid v103.",
+    "horizontal_computational_grid": "c101",
+    "model_component": "piscesv2-gas",
+    "vertical_computational_grid": "v103",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "ocean-biogeochemistry-piscesv2-gas-c101-v103"
 }
