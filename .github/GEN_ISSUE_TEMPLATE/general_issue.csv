@@ -1,0 +1,21 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## General Issue
+
+Use this form to report bugs, ask questions about EMD, request new features, or flag documentation issues. For data submissions (grid cells, components, models), please use the appropriate Stage 1-4 templates instead.
+
+> [!NOTE]
+> Please provide as much detail as possible to help us understand and address your issue quickly.",none,false,,,
+2,dropdown,issue_type,Issue Type,The category of this issue.,issue_type,true,,list_with_na,0
+3,multi-select,affected_areas,Affected Areas,The parts of EMD that this issue relates to.,affected_areas,false,,list,
+4,textarea,description,Description,A detailed description of the issue including what happened and what you expected.,none,true,"1. What happened or what you need
+2. What you expected
+3. Any error messages",,
+5,textarea,steps_to_reproduce,Steps to Reproduce,For bugs: the steps needed to reproduce the issue.,none,false,"1. Go to...
+2. Click on...
+3. See error...",,
+6,dropdown,priority,Priority,The urgency of this issue.,priority,true,,list_with_na,0
+7,markdown,metadata_header,,"---
+
+## Issue Handling
+
+Your issue will be triaged by the EMD team. We aim to respond within 5 working days.",none,false,,,

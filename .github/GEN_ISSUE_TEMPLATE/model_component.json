@@ -1,0 +1,38 @@
+{
+  "name": "Stage 3: Model Component",
+  "description": "Register model component and grid configuration (Stage 3 of 4)",
+  "title": "[EMD] Component:",
+  "labels": ["emd-submission", "model_component", "Review"],
+  "issue_category": "model_component",
+  "dropdown_title": "Detailed Guidance",
+  "prefill_sources": {
+    "model_component": {
+      "display_name": "name",
+      "subtitle": "component",
+      "section_title": "Existing Components",
+      "fields": "all"
+    },
+    "horizontal_computational_grid": {
+      "display_name": "@id",
+      "section_title": "Available Horizontal Grids (c###)",
+      "link_type": "reference",
+      "fields": ["@id", "arrangement"]
+    },
+    "vertical_computational_grid": {
+      "display_name": "@id", 
+      "section_title": "Available Vertical Grids (v###)",
+      "link_type": "reference",
+      "fields": ["@id", "vertical_coordinate", "n_z"]
+    }
+  },
+  "field_guidance": {
+    "component": "**Scientific domain**\n\nThe type of Earth system processes this component simulates.\n\n- **aerosol**: Aerosol behaviour and evolution in atmosphere\n- **atmosphere**: Atmospheric dynamics, thermodynamics, physics\n- **atmospheric-chemistry**: Atmospheric chemical composition\n- **land-ice**: Glaciers, ice sheets, ice shelves\n- **land-surface**: Surface-atmosphere fluxes, soil, vegetation, snow\n- **ocean**: Ocean dynamics, thermodynamics, physics\n- **ocean-biogeochemistry**: Marine carbon cycle, ecosystems\n- **sea-ice**: Sea ice thermodynamics and dynamics\n\nThis becomes the domain prefix in your component_config ID.",
+    "name": "**Official component name**\n\nInclude version number.\n\n**Examples:**\n- NEMO v3.6\n- ARPEGE-Climat v6.3\n- CLM5\n\n**For embedded components** without an official name: use `HostName-domain` (e.g., 'ARPEGE-aerosol').",
+    "family": "**Component family**\n\nGroup of related component versions sharing code.\n\nUseful for tracking component genealogy and shared development.\n\n**Leave as 'Not applicable' if:**\n- First/only version of this component\n- No family grouping exists\n- Standalone embedded component",
+    "description": "**Scientific overview**\n\nHigh-level description of the component's capabilities.\n\n**What to include:**\n1. Main processes simulated\n2. Key physics/parameterizations\n3. Notable features of this version\n\nDetailed physics should be in referenced publications.",
+    "horizontal_computational_grid": "**Horizontal grid reference**\n\nThe c### ID from Stage 2a.\n\n**Leave blank if:** Component has no horizontal grid (e.g., 1D column models).",
+    "vertical_computational_grid": "**Vertical grid reference**\n\nThe v### ID from Stage 2b.\n\n**Leave blank if:** Component has no vertical dimension (e.g., 2D surface models).",
+    "code_base": "**Source code location**\n\nURL pointing to specific version/tag/commit.\n\n**Examples:**\n- `https://github.com/ESCOMP/CTSM/tree/release-clm5.0`\n- `https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6`\n- DOI URL if archived (e.g., Zenodo)\n\n**Enter 'private'** if code is not publicly available.",
+    "reference_dois": "**Component publications**\n\nDOI URLs for papers describing this component.\n\n**Format:** `https://doi.org/...` (one per line)\n\nAt least one reference required for traceability."
+  }
+}
