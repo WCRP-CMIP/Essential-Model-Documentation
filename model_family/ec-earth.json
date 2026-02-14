@@ -1,35 +1,34 @@
 {
-  "validation_key": "EC-Earth",
-  "ui_label": "",
-  "description": "Community-developed Earth system model based on the ECMWF Integrated Forecasting System (IFS).",
-  "collaborative_institutions": [],
-  "common_scientific_basis": "none",
-  "computational_requirements": "none",
-  "documentation": "none",
-  "established": "none",
-  "evolution": "none",
-  "license": "none",
-  "primary_institution": "ec-earth-consortium",
-  "programming_languages": "none",
-  "references": [],
-  "representative_member": "none",
-  "scientific_domains": [
-    "atmosphere",
-    "land_surface",
-    "ocean",
-    "sea_ice"
-  ],
-  "shared_code_base": "none",
-  "software_dependencies": "none",
-  "source_code_repository": "none",
-  "variation_dimensions": "none",
-  "website": "none",
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:model_family",
-    "wcrp:global_model_family",
-    "esgvoc:ModelFamily"
-  ],
-  "@id": "ec-earth"
+    "validation_key": "EC-Earth",
+    "ui_label": "",
+    "description": "Community-developed Earth system model based on the ECMWF Integrated Forecasting System (IFS).",
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "license": "none",
+    "primary_institution": "ec-earth-consortium",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+        "atmosphere",
+        "land_surface",
+        "ocean",
+        "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "variation_dimensions": "none",
+    "website": "none",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "ec-earth"
 }
