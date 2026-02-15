@@ -1,7 +1,8 @@
 # Model Component Template Data
 import cmipld
 from cmipld.utils.ldparse import graph_entry, name_entry
-from cmipld.generate.template_utils import get_repo_info, generate_prefill_link
+from cmipld.generate.template_utils import get_repo_info
+from urllib.parse import urlencode
 
 # Get component families (only those marked as 'component' type)
 component_family = name_entry(
@@ -28,7 +29,7 @@ def get_prefill_links():
         val_key = comp.get('validation_key', comp.get('@id', ''))
         comp_type = comp.get('component', '')
         
-        # Build prefill URL
+        # Build prefill params
         params = {
             'template': 'model_component.yml',
             'title': f'[EMD] Component: {name}',
@@ -43,13 +44,16 @@ def get_prefill_links():
         if comp.get('code_base'):
             params['code_base'] = comp.get('code_base')
         
-        url = f"{repo_url}/issues/new?"
-        url += "&".join(f"{k}={v}" for k, v in params.items())
+        url = f"{repo_url}/issues/new?" + urlencode(params)
         
         label = f"{name} ({comp_type})" if comp_type else name
-        links.append(f"- [{label}]({url.replace(' ', '%20')})")
+        # Use HTML link with target="_blank" to open in new tab
+        links.append(f'<li><a href="{url}" target="_blank">{label}</a></li>')
     
-    return "\n".join(sorted(links)) if links else "_No existing components found._"
+    if not links:
+        return "<p><em>No pre-registered components found.</em></p>"
+    
+    return "<ul>\n" + "\n".join(sorted(links)) + "\n</ul>"
 
 DATA = {
     'component_type': graph_entry('constants:scientific_domain/_graph.json'),
