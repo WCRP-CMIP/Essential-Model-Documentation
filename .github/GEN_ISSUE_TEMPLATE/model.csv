@@ -21,9 +21,7 @@ Registers a complete model configuration — the final step in the EMD workflow.
 8,textarea,component_configs,Component Config IDs,The component configuration IDs from Stage 3 that make up this model.,none,true,"atmosphere_arpege-climat-v6-3_c100_v100
 ocean_nemo-v3-6_c101_v103
 land-surface_surfex-v8_c100_v102",,
-9,textarea,embedded_components,Embedded Components,Pairs of embedded and host components where one runs within another.,none,false,"aerosol,atmosphere
-atmospheric-chemistry,atmosphere
-sea-ice,ocean",,
+9,multi-select,embedded_components,Embedded Components,**Select multiple.** Pairs of embedded and host components where one runs within another (embedded -> host).,embedded_pairs,false,,list,
 10,textarea,coupling_groups,Coupling Groups,Groups of components that are mutually coupled and exchange data.,none,false,"atmosphere,land-surface,ocean",,
 11,multi-select,calendar,Calendar(s),**Select multiple.** The permitted calendar types for this model.,calendar,true,,list,
 12,input,release_year,Release Year,The year when this model was released.,none,true,2019,,

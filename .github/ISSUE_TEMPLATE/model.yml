@@ -141,7 +141,14 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric_chemistry"
+        - "land_ice"
+        - "land_surface"
+        - "ocean"
+        - "ocean_biogeochemistry"
+        - "sea_ice"
     validations:
       required: true
 
@@ -164,7 +171,14 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric_chemistry"
+        - "land_ice"
+        - "land_surface"
+        - "ocean"
+        - "ocean_biogeochemistry"
+        - "sea_ice"
 
   - type: dropdown
     id: omitted_components
@@ -185,7 +199,14 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "aerosol"
+        - "atmosphere"
+        - "atmospheric_chemistry"
+        - "land_ice"
+        - "land_surface"
+        - "ocean"
+        - "ocean_biogeochemistry"
+        - "sea_ice"
 
   - type: textarea
     id: component_configs
@@ -201,7 +222,14 @@ body:
         
         IDs from Stage 3 for each dynamic component.
         
-        **Format:** `{domain}__{c###}_{v###}` (one per line)
+        **Format:** `{domain}_- land_ice
+        - sea_ice
+        - atmosphere
+        - atmospheric_chemistry
+        - aerosol
+        - ocean_biogeochemistry
+        - land_surface
+        - ocean_{c###}_{v###}` (one per line)
         
         Must have one config per dynamic component.
         
@@ -212,12 +240,13 @@ land-surface_surfex-v8_c100_v102"
     validations:
       required: true
 
-  - type: textarea
+  - type: dropdown
     id: embedded_components
     attributes:
+      multiple: true
       label: Embedded Components
       description: |
-        Pairs of embedded and host components where one runs within another.
+        **Select multiple.** Pairs of embedded and host components where one runs within another (embedded -> host).
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -237,9 +266,63 @@ land-surface_surfex-v8_c100_v102"
         ```
         
         </details>
-      placeholder: "aerosol,atmosphere
-atmospheric-chemistry,atmosphere
-sea-ice,ocean"
+      options:
+        - "aerosol -> atmosphere"
+        - "aerosol -> atmospheric_chemistry"
+        - "aerosol -> land_ice"
+        - "aerosol -> land_surface"
+        - "aerosol -> ocean"
+        - "aerosol -> ocean_biogeochemistry"
+        - "aerosol -> sea_ice"
+        - "atmosphere -> aerosol"
+        - "atmosphere -> atmospheric_chemistry"
+        - "atmosphere -> land_ice"
+        - "atmosphere -> land_surface"
+        - "atmosphere -> ocean"
+        - "atmosphere -> ocean_biogeochemistry"
+        - "atmosphere -> sea_ice"
+        - "atmospheric_chemistry -> aerosol"
+        - "atmospheric_chemistry -> atmosphere"
+        - "atmospheric_chemistry -> land_ice"
+        - "atmospheric_chemistry -> land_surface"
+        - "atmospheric_chemistry -> ocean"
+        - "atmospheric_chemistry -> ocean_biogeochemistry"
+        - "atmospheric_chemistry -> sea_ice"
+        - "land_ice -> aerosol"
+        - "land_ice -> atmosphere"
+        - "land_ice -> atmospheric_chemistry"
+        - "land_ice -> land_surface"
+        - "land_ice -> ocean"
+        - "land_ice -> ocean_biogeochemistry"
+        - "land_ice -> sea_ice"
+        - "land_surface -> aerosol"
+        - "land_surface -> atmosphere"
+        - "land_surface -> atmospheric_chemistry"
+        - "land_surface -> land_ice"
+        - "land_surface -> ocean"
+        - "land_surface -> ocean_biogeochemistry"
+        - "land_surface -> sea_ice"
+        - "ocean -> aerosol"
+        - "ocean -> atmosphere"
+        - "ocean -> atmospheric_chemistry"
+        - "ocean -> land_ice"
+        - "ocean -> land_surface"
+        - "ocean -> ocean_biogeochemistry"
+        - "ocean -> sea_ice"
+        - "ocean_biogeochemistry -> aerosol"
+        - "ocean_biogeochemistry -> atmosphere"
+        - "ocean_biogeochemistry -> atmospheric_chemistry"
+        - "ocean_biogeochemistry -> land_ice"
+        - "ocean_biogeochemistry -> land_surface"
+        - "ocean_biogeochemistry -> ocean"
+        - "ocean_biogeochemistry -> sea_ice"
+        - "sea_ice -> aerosol"
+        - "sea_ice -> atmosphere"
+        - "sea_ice -> atmospheric_chemistry"
+        - "sea_ice -> land_ice"
+        - "sea_ice -> land_surface"
+        - "sea_ice -> ocean"
+        - "sea_ice -> ocean_biogeochemistry"
 
   - type: textarea
     id: coupling_groups
