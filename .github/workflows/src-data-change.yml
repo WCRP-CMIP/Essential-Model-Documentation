@@ -25,8 +25,6 @@ jobs:
 
       - name: Check context URLs
         uses: WCRP-CMIP/CMIPLD/.github/actions/check-contexts@main
-        with:
-          create-issue: 'false'
 
   sync_and_process:
     runs-on: ubuntu-latest
@@ -61,7 +59,7 @@ jobs:
         run: |
           shopt -s extglob dotglob
           rm -rf -- !(docs|summaries|.git|.github) || true
-          echo "✓ Cleaned production branch"
+          echo "Cleaned production branch"
 
       - name: Copy data from src-data branch
         run: |
@@ -71,7 +69,7 @@ jobs:
           # Keep production's .gitignore
           git checkout production -- .gitignore 2>/dev/null || true
           
-          echo "✓ Copied from src-data"
+          echo "Copied from src-data"
 
 
       - name: Generate graphs (graphify)
@@ -97,13 +95,21 @@ jobs:
 
 
 
-      - name: Copy mkdocs from docs branch
+      - name: Copy docs source from docs branch
         run: |
-          echo "Copying mkdocs configuration from docs branch..."
-          git checkout origin/docs -- src/mkdocs 2>/dev/null && echo "✓ Copied src/mkdocs/" || echo "No src/mkdocs/ on docs branch"
-          git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "✓ Copied mkdocs.yml" || true
-          echo "Looking for mkdocs.yml:"
-          find . -name "mkdocs.yml" 2>/dev/null | head -5
+          echo "Copying documentation source from docs branch..."
+          
+          # Copy entire src folder (contains mkdocs config and docs source)
+          git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
+          
+          # Also check for standalone mkdocs.yml or docs folder
+          git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "Copied mkdocs.yml" || true
+          git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
+          
+          echo ""
+          echo "Documentation structure:"
+          find . -name "mkdocs.yml" 2>/dev/null
+          ls -la src/ 2>/dev/null || true
       
       - name: Build MkDocs site
         continue-on-error: true
@@ -134,14 +140,14 @@ jobs:
           rm -rf src mkdocs
           [ -d docs ] && rm -rf docs
           mv build docs
-          echo "✓ Built MkDocs site"
+          echo "Built MkDocs site to docs/"
 
 
       - name: Create root redirect to docs
         run: |
           if [ ! -f "index.html" ]; then
             echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=docs/"><link rel="canonical" href="docs/"><title>Redirecting...</title></head><body><p>Redirecting to <a href="docs/">documentation</a>...</p></body></html>' > index.html
-            echo "✓ Created root redirect to docs/"
+            echo "Created root redirect to docs/"
           else
             echo "index.html already exists, skipping redirect"
           fi
@@ -156,15 +162,15 @@ jobs:
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Changes detected"
-            echo "## 📝 Files Changed" >> $GITHUB_STEP_SUMMARY
+            echo "## Files Changed" >> $GITHUB_STEP_SUMMARY
             ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
             MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
             DELETED=$(git diff --cached --name-only --diff-filter=D | wc -l)
             echo "| Type | Count |" >> $GITHUB_STEP_SUMMARY
             echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
-            echo "| ➕ Added | $ADDED |" >> $GITHUB_STEP_SUMMARY
-            echo "| ✏️ Modified | $MODIFIED |" >> $GITHUB_STEP_SUMMARY
-            echo "| 🗑️ Deleted | $DELETED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Added | $ADDED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Modified | $MODIFIED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Deleted | $DELETED |" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Commit changes
@@ -194,6 +200,6 @@ jobs:
         id: deployment
       - name: Display URL
         run: |
-          echo "## 🚀 Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
 
