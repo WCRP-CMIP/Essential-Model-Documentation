@@ -5,15 +5,6 @@
   "labels": ["emd-submission", "model_component", "Review"],
   "issue_category": "model_component",
   "dropdown_title": "Detailed Guidance",
-  "prefill_sources": {
-    "model_component": {
-      "display_name": "name",
-      "subtitle": "validation_key",
-      "section_title": "Existing Model Components",
-      "fields": "all",
-      "link_type": "prefill"
-    }
-  },
   "field_guidance": {
     "component": "**Scientific domain**\n\nThe type of Earth system processes this component simulates.\n\n- **aerosol**: Aerosol behaviour and evolution in atmosphere\n- **atmosphere**: Atmospheric dynamics, thermodynamics, physics\n- **atmospheric-chemistry**: Atmospheric chemical composition\n- **land-ice**: Glaciers, ice sheets, ice shelves\n- **land-surface**: Surface-atmosphere fluxes, soil, vegetation, snow\n- **ocean**: Ocean dynamics, thermodynamics, physics\n- **ocean-biogeochemistry**: Marine carbon cycle, ecosystems\n- **sea-ice**: Sea ice thermodynamics and dynamics\n\nThis becomes the domain prefix in your component_config ID.",
     "name": "**Official component name**\n\nInclude version number.\n\n**Examples:**\n- NEMO v3.6\n- ARPEGE-Climat v6.3\n- CLM5\n\n**For embedded components** without an official name: use `HostName-domain` (e.g., 'ARPEGE-aerosol').",

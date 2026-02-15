@@ -8,13 +8,31 @@ body:
       value: |
         ## Stage 3: Model Component
         
+        > [!TIP]
+        > **Modifying an existing component?** Select from the list below to auto-populate fields.
+        
+        <details>
+        <summary>Existing Model Components (click to expand)</summary>
+        
+        - [Arpege-Climat Version 6.3 (atmosphere)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20Arpege-Climat%20Version%206.3&issue_kind="Modify"&name=Arpege-Climat%20Version%206.3&description=ARPEGE-Climat%20Version%206.3%20is%20the%20atmospheric%20component%20of%20the%20CNRM%20climate%20and%20Earth%20System%20models%20(CNRM-CM6-1%20and%20CNRM-ESM2-1).&code_base=private)
+        - [BISICLES-UKESM-ISMIP6-1.0 (land-ice)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20BISICLES-UKESM-ISMIP6-1.0&issue_kind="Modify"&name=BISICLES-UKESM-ISMIP6-1.0&description=UniCiCles%20(Unified%20Model-CISM-BISICLES)%20is%20a%20package%20combining%20BISICLES%20with%20an%20interface%20that%20obtains%20boundary%20conditions%20from%20Unified%20Model%20or%20JULES%20data.&code_base=none)
+        - [CLM4 (land-surface)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20CLM4&issue_kind="Modify"&name=CLM4&description=The%20Community%20Land%20Model%20represents%20several%20aspects%20of%20the%20land%20surface%20including%20surface%20heterogeneity%20through%20a%20nested%20subgrid%20hierarchy.&code_base=none)
+        - [GELATO (sea-ice)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20GELATO&issue_kind="Modify"&name=GELATO&description=Global%20Experimental%20Leads%20and%20sea%20ice%20for%20ATmosphere%20and%20Ocean.&code_base=private)
+        - [HadAM3 (atmosphere)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20HadAM3&issue_kind="Modify"&name=HadAM3&description=HadAM3%20is%20the%20atmospheric%20component%20of%20HadCM3,%20a%20coupled%20atmosphere-ocean%20general%20circulation%20model%20developed%20at%20the%20UK%20Met%20Office%20Hadley%20Centre.&code_base=none)
+        - [NEMO v3.6 (ocean)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20NEMO%20v3.6&issue_kind="Modify"&name=NEMO%20v3.6&description=Nucleus%20for%20European%20Modelling%20of%20the%20Ocean%20version%203.6%20(OPA).&code_base=private)
+        - [PISCESv2-gas (ocean-biogeochemistry)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20PISCESv2-gas&issue_kind="Modify"&name=PISCESv2-gas&description=Pelagic%20Interaction%20Scheme%20for%20Carbon%20and%20Ecosystem%20Studies%20model%20volume%202%20version%20trace%20gases.&code_base=https://gitlab.in2p3.fr/pisco/pisces-gas/pisces-gas)
+        - [REPROBUS-C (v2.0) (atmospheric-chemistry)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20REPROBUS-C%20(v2.0)&issue_kind="Modify"&name=REPROBUS-C%20(v2.0)&description=The%20chemistry%20scheme%20of%20CNRM-ESM2%20is%20an%20on-line%20scheme%20whereby%20the%20chemistry%20routines%20are%20part%20of%20the%20physics%20of%20the%20atmospheric%20climate%20model.&code_base=private)
+        - [SURFEX v8 modeling platform (land-surface)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20SURFEX%20v8%20modeling%20platform&issue_kind="Modify"&name=SURFEX%20v8%20modeling%20platform&description=SURFEXv8.0%20encompasses%20several%20submodules%20for%20modeling%20the%20interactions%20between%20the%20atmosphere,%20the%20ocean,%20the%20lakes%20and%20the%20land%20surface.&code_base=https://www.umr-cnrm.fr/surfex/spip.php?rubrique8)
+        - [TACTIC (aerosol)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=[EMD]%20Component:%20TACTIC&issue_kind="Modify"&name=TACTIC&description=TACTIC%20(Tropospheric%20Aerosols%20for%20ClimaTe%20In%20CNRM)%20is%20an%20interactive%20tropospheric%20aerosol%20scheme,%20able%20to%20represent%20the%20main%20anthropogenic%20and%20natural%20aerosol%20types%20in%20the%20troposphere.&code_base=private)
+        
+        </details>
+        
         Registers a model component and creates a configuration linking it to computational grids.
         
         **Prerequisites:** Horizontal grid ID (c###) and/or Vertical grid ID (v###) from Stage 2.
         
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
         
         [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
 
@@ -163,9 +181,9 @@ body:
         
         **Horizontal grid reference**
         
-        The c### ID from Stage 2a.
+        Select the horizontal grid from Stage 2a that this component uses.
         
-        **Leave blank if:** Component has no horizontal grid (e.g., 1D column models).
+        **Leave as 'Not specified' if:** Component has no horizontal grid (e.g., 1D column models).
         
         </details>
       options:
@@ -188,9 +206,9 @@ body:
         
         **Vertical grid reference**
         
-        The v### ID from Stage 2b.
+        Select the vertical grid from Stage 2b that this component uses.
         
-        **Leave blank if:** Component has no vertical dimension (e.g., 2D surface models).
+        **Leave as 'Not specified' if:** Component has no vertical dimension (e.g., 2D surface models).
         
         </details>
       options:
