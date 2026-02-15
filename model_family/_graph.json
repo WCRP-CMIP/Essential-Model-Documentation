@@ -19,16 +19,6 @@
     "scientific_domains": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
       "@type": "@id"
-    },
-    "wcrp:component_model_family": {
-      "@id": "https://emd.mipcvs.dev/types/ComponentModelFamily",
-      "@type": "@id",
-      "rdfs:comment": "A model family representing a single Earth system component (e.g., ocean only, atmosphere only)"
-    },
-    "wcrp:global_model_family": {
-      "@id": "https://emd.mipcvs.dev/types/GlobalModelFamily",
-      "@type": "@id",
-      "rdfs:comment": "A coupled Earth System Model family that includes multiple scientific domains (e.g., atmosphere, ocean, land surface)"
     }
   },
   "@type": [
