@@ -2,9 +2,9 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 1,markdown,header,,"## Stage 3: Model Component
 
 > [!TIP]
-> **Modifying a pre-registered component?** Select from the list below to auto-populate fields.
+> **Using a pre-registered component?** Select from the list below to auto-populate fields.
 >
-> NOTE: You must right-click and select "Open in New Window" or press `Ctrl+R` after selection for the pre-filled links to work.
+> NOTE: You must right-click and select ""Open in New Window"" or press `Ctrl+R` after selection for the pre-filled links to work.
 
 <details>
 <summary>Pre-registered Model Components (open in new tab!)</summary>
@@ -27,8 +27,8 @@ This form registers a model component and generates a composite configuration ID
 5,textarea,description,Description,A scientific overview of the component including main processes and key physics.,none,true,"1. Main processes simulated
 2. Key physics/parameterizations
 3. Notable features of this version",,
-6,dropdown,horizontal_computational_grid,Horizontal Grid,The horizontal computational grid that this component uses.,horizontal_grid,false,,list_with_na,0
-7,dropdown,vertical_computational_grid,Vertical Grid,The vertical computational grid that this component uses.,vertical_grid,false,,list_with_na,0
+6,dropdown,horizontal_computational_grid,Horizontal Grid,The horizontal computational grid that this component uses.,horizontal_grid,true,,list_with_na,0
+7,dropdown,vertical_computational_grid,Vertical Grid,The vertical computational grid that this component uses.,vertical_grid,true,,list_with_na,0
 8,input,code_base,Code Repository,The URL to the source code repository or 'private' if not publicly available.,none,false,https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6,,
 9,textarea,reference_dois,Reference DOIs,The DOI URLs for publications describing this component.,none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
 10,markdown,metadata_header,,"---
