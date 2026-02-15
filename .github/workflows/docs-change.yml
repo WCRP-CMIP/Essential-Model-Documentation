@@ -26,8 +26,7 @@ jobs:
           fetch-depth: 0
           
       - name: Fetch docs branch
-        run: |
-          git fetch origin docs:docs
+        run: git fetch origin docs:docs
 
       - name: Configure Git
         run: |
@@ -37,21 +36,14 @@ jobs:
       - name: Copy mkdocs from docs branch
         run: |
           echo "Copying mkdocs configuration from docs branch..."
-          
-          # Copy src/mkdocs/ from docs branch
           git checkout origin/docs -- src/mkdocs 2>/dev/null && echo "✓ Copied src/mkdocs/" || echo "No src/mkdocs/"
-          
-          # Also check for mkdocs.yml at root
           git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "✓ Copied mkdocs.yml" || true
-          
-          echo ""
           echo "Looking for mkdocs.yml:"
           find . -name "mkdocs.yml" 2>/dev/null | head -5
 
       - name: Build MkDocs site
         continue-on-error: true
         run: |
-          # Find mkdocs.yml
           MKDOCS_CONFIG=""
           for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
             if [ -f "$config" ]; then
@@ -66,50 +58,25 @@ jobs:
           fi
           
           echo "Building MkDocs site from $MKDOCS_CONFIG..."
-          
-          # Install Python and requirements
           python -m pip install --upgrade pip
-          
           MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
           if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
-            echo "Installing from $MKDOCS_DIR/requirements.txt..."
             pip install -r "$MKDOCS_DIR/requirements.txt"
           else
-            echo "Installing default MkDocs packages..."
             pip install mkdocs mkdocs-material
           fi
           
-          # Build to temporary folder
           rm -rf build
           mkdocs build -f "$MKDOCS_CONFIG" -d build
-          
-          # Clean up source files
           rm -rf src mkdocs
           [ -d docs ] && rm -rf docs
-          
-          # Move built site to docs
           mv build docs
-          
           echo "✓ Built MkDocs site"
 
       - name: Create root redirect to docs
         run: |
-          # Only create if no index.html exists at root
           if [ ! -f "index.html" ]; then
-            cat > index.html << 'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=docs/">
-  <link rel="canonical" href="docs/">
-  <title>Redirecting...</title>
-</head>
-<body>
-  <p>Redirecting to <a href="docs/">documentation</a>...</p>
-</body>
-</html>
-EOF
+            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=docs/"><link rel="canonical" href="docs/"><title>Redirecting...</title></head><body><p>Redirecting to <a href="docs/">documentation</a>...</p></body></html>' > index.html
             echo "✓ Created root redirect to docs/"
           else
             echo "index.html already exists, skipping redirect"
@@ -119,14 +86,12 @@ EOF
         id: check_changes
         run: |
           git add -A
-          
           if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "No documentation changes"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Documentation changes detected"
-            
             echo "## 📚 Documentation Changes" >> $GITHUB_STEP_SUMMARY
             ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
             MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
