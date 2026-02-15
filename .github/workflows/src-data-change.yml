@@ -3,6 +3,7 @@ description: Sync and process data from src-data to production
 
 permissions:
   contents: write
+  issues: write
   pages: write
   id-token: write
 
@@ -57,6 +58,11 @@ jobs:
           git checkout production -- .gitignore 2>/dev/null || true
           
           echo "✓ Copied from src-data"
+
+      - name: Check context URLs
+        uses: ./.github/actions/check-contexts
+        with:
+          create-issue: 'false'
 
 
       - name: Generate graphs (graphify)
