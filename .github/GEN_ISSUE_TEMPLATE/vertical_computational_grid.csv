@@ -1,11 +1,32 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,header,,"## Vertical Computational Grid Registration\n\nRegister a vertical computational grid definition.\n\nDefines the vertical layer structure for a model component.\n\nVertical grid IDs are automatically generated.",none,false,,,
-2,textarea,description,Description,"Description to distinguish this vertical grid.\n\nInclude key characteristics like number of levels and extent.",none,true,"e.g., 85-level atmospheric hybrid height coordinate extending to approximately 85 km",,
-3,dropdown,vertical_coordinate,Vertical Coordinate,"Coordinate type for the vertical grid.\n\n- atmosphere-hybrid-height-coordinate: Height-based hybrid\n- atmosphere-hybrid-sigma-pressure-coordinate: Pressure-based hybrid\n- atmosphere-sigma-coordinate: Terrain-following sigma\n- depth: Ocean/soil depth\n- height: Geometric height\n- land-ice-sigma-coordinate: Ice sheet sigma\n- ocean-s-coordinate: Ocean stretched coordinate\n- ocean-sigma-z-coordinate: Ocean sigma-z hybrid",vertical_coordinate,true,,list_with_na,0
-4,input,n_z,Number of Layers,"Number of mass layers (grid cells) in the vertical.\n\nLeave blank if varies across physical processes or grid.",none,false,"e.g., 85",,
-5,input,n_z_range,Layer Range,"Min and max layers if variable.\n\nFormat: min,max\n\nLeave blank if n_z is provided or not applicable.",none,false,"e.g., 5,15",,
-6,input,top_layer_thickness,Top Layer Thickness,"Thickness of the top model layer in metres.\n\nProvide nominal/representative maximum if varies.",none,false,"e.g., 10.0",,
-7,input,bottom_layer_thickness,Bottom Layer Thickness,"Thickness of the bottom model layer in metres.\n\nProvide nominal/representative maximum if varies.\n\nLeave blank if layer can expand (e.g., ice accumulation).",none,false,"e.g., 100.0",,
-8,input,total_thickness,Total Thickness,"Total thickness spanned by all layers in metres.\n\nProvide nominal/representative maximum if varies.",none,false,"e.g., 84763.34",,
-9,markdown,metadata_header,,"## Issue Handling Metadata",none,false,,,
-10,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,list_with_na,0
+1,markdown,header,,"## Stage 2b: Vertical Computational Grid
+
+Vertical grids define the level structure used by model components — the number of layers, their thickness distribution, and the coordinate system that locates them. Different domains use different coordinate types: atmospheres typically use hybrid sigma-pressure coordinates that follow terrain near the surface but transition to pressure levels aloft; oceans use depth coordinates or terrain-following sigma coordinates; land models have soil and snow layers. The vertical grid directly affects a model's ability to resolve boundary layers, stratospheric processes, or deep ocean circulation.
+
+**Creates:** `vertical_computational_grid` (v###)
+
+**Prerequisites:** None — can be submitted in parallel with Stage 2a.
+
+> [!NOTE]
+> Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+>
+> To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+
+[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50-rNWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DZtA0dE_JAyXNNhid1rfIldq1mxrVaj1mpZLatp1VvAvITt2n6l5RzAqNkNp9k4aNwa-CrTUKvstxoGpuBPGQ_zdi3r2m5_Ayb4HJE)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)",none,false,,,
+2,textarea,description,Description,A brief characterization of this vertical grid including number of levels and coordinate type.,none,true,"1. Number of levels
+2. Coordinate type
+3. Vertical extent",,
+3,dropdown,vertical_coordinate,Coordinate Type,The vertical coordinate system used to define level positions.,vertical_coordinate,true,,list_with_na,0
+4,input,n_z,Number of Levels,The total number of vertical levels in the grid.,none,false,91,,
+5,input,top_layer_thickness,Top Layer Thickness (m),The thickness of the uppermost layer in metres.,none,false,2.0,,
+6,input,bottom_layer_thickness,Bottom Layer Thickness (m),The thickness of the lowest layer in metres.,none,false,25.0,,
+7,input,total_thickness,Total Thickness (m),The total vertical extent of the grid in metres.,none,false,80000,,
+8,markdown,metadata_header,,"---
+
+## Issue Handling
+
+**After submission:**
+- Creates `vertical_computational_grid` (v###)
+- Use this ID with a c### in Stage 3 (Model Component)
+- Track progress in issue comments",none,false,,,
+9,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

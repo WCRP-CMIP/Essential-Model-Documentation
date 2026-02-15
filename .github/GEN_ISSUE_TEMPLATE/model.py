@@ -1,81 +1,66 @@
-# Model Template Configuration
+#!/usr/bin/env python3
+"""
+Data definitions for model template.
 
-TEMPLATE_CONFIG = {
-    'name': 'Add/Modify: Model',
-    'description': 'Register a top-level Earth system model for EMD/CMIP7',
-    'title': 'Add/Modify: Model: <Type model name here>',
-    'labels': ['emd-submission', 'model', 'Review'],
-    'issue_category': 'model'
-}
+Provides dropdown options and dynamic content for template generation.
 
-# Reserved words that cannot be used in GitHub issue template options
-GITHUB_RESERVED_WORDS = ['None', 'none', 'True', 'true', 'False', 'false']
+Note: This template references model_family and component_config from other folders.
+"""
 
-def filter_reserved_words(items):
-    """Replace reserved words with safe alternatives."""
-    result = []
-    for item in items:
-        if item in GITHUB_RESERVED_WORDS:
-            # Replace 'none' with 'no-calendar' for calendar options
-            if item.lower() == 'none':
-                result.append('no-calendar')
-            else:
-                result.append(f'{item}-value')
-        else:
-            result.append(item)
-    return result
-
-# Try to load from cmipld if available, otherwise use hardcoded values
+# Try to fetch from controlled vocabularies
 try:
     import cmipld
-    from cmipld.utils.ldparse import name_extract
+    
+    def get_cv_list(url, key='id'):
+        """Fetch controlled vocabulary list from JSON-LD."""
+        try:
+            data = cmipld.get(url, depth=1)
+            if isinstance(data, dict) and '@graph' in data:
+                items = data['@graph']
+            elif isinstance(data, list):
+                items = data
+            else:
+                return []
+            return [item.get(key, '').split('/')[-1] for item in items if item.get(key)]
+        except:
+            return []
+    
+    model_family = get_cv_list('emd:model_family') or []
+    component = get_cv_list('emd:component') or [
+        'aerosol', 'atmosphere', 'atmospheric-chemistry',
+        'land-ice', 'land-surface', 'ocean',
+        'ocean-biogeochemistry', 'sea-ice'
+    ]
+    calendar = get_cv_list('emd:calendar') or [
+        'standard', 'proleptic-gregorian', '365-day', '360-day'
+    ]
 
-    DATA = {
-        'component': name_extract(cmipld.get('universal:scientific_domain/graph.jsonld', depth=0)),
-        'calendar': filter_reserved_words(name_extract(cmipld.get('universal:calendar/graph.jsonld', depth=0))),
-        'model_family': name_extract(cmipld.get('emd:model_family/graph.jsonld', depth=0)),
-        'issue_kind': ['New', 'Modify']
-    }
 except ImportError:
-    # Fallback hardcoded values
-    DATA = {
-        'component': [
-            'aerosol',
-            'atmosphere',
-            'atmospheric-chemistry',
-            'land-surface',
-            'land-ice',
-            'ocean',
-            'ocean-biogeochemistry',
-            'sea-ice'
-        ],
-        'calendar': [
-            'proleptic-gregorian',
-            'standard',
-            'julian',
-            '360-day',
-            '365-day',
-            '366-day',
-            'utc',
-            'tai',
-            'no-calendar'
-        ],
-        'model_family': [
-            'access',
-            'arpege-climat',
-            'bcc-csm',
-            'cam',
-            'cesm',
-            'cnrm-cm',
-            'cnrm-esm',
-            'ec-earth',
-            'gfdl',
-            'hadgem3',
-            'ipsl-cm',
-            'miroc',
-            'mpi-esm',
-            'noresm',
-            'ukesm'
-        ],
-        'issue_kind': ['New', 'Modify']
-    }
+    model_family = []
+    component = [
+        'aerosol', 'atmosphere', 'atmospheric-chemistry',
+        'land-ice', 'land-surface', 'ocean',
+        'ocean-biogeochemistry', 'sea-ice'
+    ]
+    calendar = ['standard', 'proleptic-gregorian', '365-day', '360-day']
+
+# Try to generate prefill links for existing entries
+try:
+    from cmipld.generate.template_utils import get_existing_entries_markdown
+    existing_entries = get_existing_entries_markdown('model')
+    if not existing_entries:
+        existing_entries = "_No existing models registered yet._"
+except:
+    existing_entries = "_Prefill links unavailable - run from repository root._"
+
+# Standard options
+issue_kind = ['New', 'Modify']
+
+# Data dictionary for template substitution
+DATA = {
+    'model_family': model_family,
+    'component': component,
+    'calendar': calendar,
+    'issue_kind': issue_kind,
+    'existing_entries': existing_entries,
+}

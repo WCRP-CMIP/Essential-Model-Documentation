@@ -1,0 +1,17 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,instructions,Instructions,"# Top Level Model Documentation\n\nThis template documents your complete climate model as required for CMIP7 participation and is mandatory for publishing datasets to ESGF. The documentation enables model discovery and comparison across institutions, provides essential context for interpreting model output, and supports automated validation workflows that ensure data quality and scientific reproducibility in the global climate research community.",none,false,,,
+2,input,name,Name,"The name of the model.\n\nFor CMIP7, must be a registered source_id.\n\nMANDATORY field.",none,true,"e.g., HadGEM3-GC31-HH, CESM2",,
+3,input,family,Family,"The name of the family of models that this model belongs to.\n\nMANDATORY field.",none,true,"e.g., HadGEM3, CESM",,
+4,multi-select,dynamic_components,Dynamic Components,"Select the processes that are dynamically simulated by the model components.\n\nSelect all that apply.\n\nMANDATORY field from Model component process CV.",realms,true,,dict_multiple,
+5,multi-select,prescribed_components,Prescribed Components,"Select the processes that use prescribed (externally provided) data rather than dynamic simulation.\n\nSelect all that apply.\n\nMANDATORY field from Model component process CV.",realms,true,,dict_multiple,
+6,multi-select,omitted_components,Omitted Components,"Select the processes that are completely absent from this model.\n\nSelect all that apply.\n\nMANDATORY field from Model component process CV.",realms,true,,dict_multiple,
+7,textarea,description,Description,"A brief, free-text scientific overview of the model.\n\nMANDATORY field.",none,true,"Brief scientific overview of the model, its purpose, and key capabilities.",,
+8,multi-select,calendar,Calendar,"The calendars that define which dates are permitted in the model.\n\nSelect all that apply.\n\nMANDATORY field from Model Calendar CV.",calendars,true,,dict_multiple,
+9,input,release_year,Release Year,"The year in which this model configuration was released.\n\nMANDATORY integer field.",none,true,"e.g., 2016, 2019, 2023",,
+10,markdown,references_header,References,"## References\n\nMANDATORY: Each reference must include both Citation and DOI properties.",none,false,,,
+11,textarea,reference_1_citation,Reference 1 - Citation,"Human-readable citation for the primary model reference.\n\nMANDATORY field.",none,true,"Smith, R. S., et al. (2021). Model Name: Description. Journal, Volume, Pages.",,
+12,input,reference_1_doi,Reference 1 - DOI,"The persistent identifier (DOI) for the primary model reference.\n\nMANDATORY field.",none,true,https://doi.org/10.1029/2021MS002520,,
+13,textarea,reference_2_citation,Reference 2 - Citation (Optional),Human-readable citation for additional model reference.,none,false,"Additional reference citation (optional)",,
+14,input,reference_2_doi,Reference 2 - DOI (Optional),DOI for additional model reference.,none,false,https://doi.org/...,,
+15,dropdown,issue_category,Issue Type,This is pre-set and cannot be changed.,issue_category,true,,hardcoded,0
+16,dropdown,issue_kind,Issue Kind,Select whether this is a new submission or modification of existing entry.,issue_kind,true,,hardcoded,0

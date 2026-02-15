@@ -1,0 +1,217 @@
+name: Top Level Model Submission
+description: Submit metadata for the top-level model properties as specified in the EMD specification.
+title: "[EMD] Top Level Model Submission"
+labels: ['emd-submission', 'top_level_model']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Top Level Model Documentation
+        
+        This template documents your complete climate model as required for CMIP7 participation and is mandatory for publishing datasets to ESGF. The documentation enables model discovery and comparison across institutions, provides essential context for interpreting model output, and supports automated validation workflows that ensure data quality and scientific reproducibility in the global climate research community.
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: |
+        The name of the model.
+        
+        For CMIP7, must be a registered source_id.
+        
+        MANDATORY field.
+      placeholder: "e.g., HadGEM3-GC31-HH, CESM2"
+    validations:
+      required: true
+
+  - type: input
+    id: family
+    attributes:
+      label: Family
+      description: |
+        The name of the family of models that this model belongs to.
+        
+        MANDATORY field.
+      placeholder: "e.g., HadGEM3, CESM"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Dynamic Components
+      description: |
+        Select the processes that are dynamically simulated by the model components.
+        
+        Select all that apply.
+        
+        MANDATORY field from Model component process CV.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Prescribed Components
+      description: |
+        Select the processes that use prescribed (externally provided) data rather than dynamic simulation.
+        
+        Select all that apply.
+        
+        MANDATORY field from Model component process CV.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Omitted Components
+      description: |
+        Select the processes that are completely absent from this model.
+        
+        Select all that apply.
+        
+        MANDATORY field from Model component process CV.
+      options:
+        - "aerosol"
+        - "atmos"
+        - "atmosChem"
+        - "land"
+        - "landIce"
+        - "ocean"
+        - "ocnBgchem"
+        - "seaIce"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A brief, free-text scientific overview of the model.
+        
+        MANDATORY field.
+      placeholder: "Brief scientific overview of the model, its purpose, and key capabilities."
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Calendar
+      description: |
+        The calendars that define which dates are permitted in the model.
+        
+        Select all that apply.
+        
+        MANDATORY field from Model Calendar CV.
+      options:
+        - "no-calendar"
+        - "360-day"
+        - "365-day"
+        - "366-day"
+        - "julian"
+        - "none"
+        - "proleptic-gregorian"
+        - "standard"
+    validations:
+      required: true
+
+  - type: input
+    id: release_year
+    attributes:
+      label: Release Year
+      description: |
+        The year in which this model configuration was released.
+        
+        MANDATORY integer field.
+      placeholder: "e.g., 2016, 2019, 2023"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## References
+        
+        MANDATORY: Each reference must include both Citation and DOI properties.
+
+  - type: textarea
+    id: reference_1_citation
+    attributes:
+      label: Reference 1 - Citation
+      description: |
+        Human-readable citation for the primary model reference.
+        
+        MANDATORY field.
+      placeholder: "Smith, R. S., et al. (2021). Model Name: Description. Journal, Volume, Pages."
+    validations:
+      required: true
+
+  - type: input
+    id: reference_1_doi
+    attributes:
+      label: Reference 1 - DOI
+      description: |
+        The persistent identifier (DOI) for the primary model reference.
+        
+        MANDATORY field.
+      placeholder: "https://doi.org/10.1029/2021MS002520"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference_2_citation
+    attributes:
+      label: Reference 2 - Citation (Optional)
+      description: Human-readable citation for additional model reference.
+      placeholder: "Additional reference citation (optional)"
+
+  - type: input
+    id: reference_2_doi
+    attributes:
+      label: Reference 2 - DOI (Optional)
+      description: DOI for additional model reference.
+      placeholder: "https://doi.org/..."
+
+  - type: dropdown
+    id: issue_category
+    attributes:
+      label: Issue Type
+      description: This is pre-set and cannot be changed.
+      options:
+        - "top_level_model"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Select whether this is a new submission or modification of existing entry.
+      options:
+        - "new"
+        - "modify"
+      default: 0
+    validations:
+      required: true

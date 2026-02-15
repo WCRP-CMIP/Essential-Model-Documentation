@@ -1,57 +1,61 @@
-# Model Family Template Configuration
+#!/usr/bin/env python3
+"""
+Data definitions for model_family template.
 
-TEMPLATE_CONFIG = {
-    'name': 'Add/Modify: Model Family',
-    'description': 'Register a model family (group of related models)',
-    'title': 'Add/Modify: Model Family: <Type family name here>',
-    'labels': ['emd-submission', 'model-family', 'Review'],
-    'issue_category': 'model_family'
-}
+Provides dropdown options and dynamic content for template generation.
+"""
 
-# Try to load from cmipld if available, otherwise use hardcoded values
+# Try to fetch from controlled vocabularies
 try:
     import cmipld
-    from cmipld.utils.ldparse import name_extract
+    
+    def get_cv_list(url, key='id'):
+        """Fetch controlled vocabulary list from JSON-LD."""
+        try:
+            data = cmipld.get(url, depth=1)
+            if isinstance(data, dict) and '@graph' in data:
+                items = data['@graph']
+            elif isinstance(data, list):
+                items = data
+            else:
+                return []
+            return [item.get(key, '').split('/')[-1] for item in items if item.get(key)]
+        except:
+            return []
+    
+    institution = get_cv_list('emd:institution') or []
+    component = get_cv_list('emd:component') or [
+        'aerosol', 'atmosphere', 'atmospheric-chemistry',
+        'land-ice', 'land-surface', 'ocean',
+        'ocean-biogeochemistry', 'sea-ice'
+    ]
 
-    DATA = {
-        'component': name_extract(cmipld.get('universal:scientific_domain/graph.jsonld', depth=0)),
-        'institution': name_extract(cmipld.get('universal:organisation/graph.jsonld', depth=0)),
-        'issue_kind': ['New', 'Modify']
-    }
 except ImportError:
-    # Fallback hardcoded values
-    DATA = {
-        'component': [
-            'aerosol',
-            'atmosphere',
-            'atmospheric-chemistry',
-            'land-surface',
-            'land-ice',
-            'ocean',
-            'ocean-biogeochemistry',
-            'sea-ice'
-        ],
-        'institution': [
-            'awi',
-            'bcc',
-            'cccma',
-            'cmcc',
-            'cnrm-cerfacs',
-            'csiro',
-            'dkrz',
-            'ec-earth-consortium',
-            'gfdl',
-            'inpe',
-            'ipsl',
-            'miroc',
-            'mohc',
-            'mpi-m',
-            'nasa-giss',
-            'ncar',
-            'ncc',
-            'nerc',
-            'niwa',
-            'noaa-gfdl'
-        ],
-        'issue_kind': ['New', 'Modify']
-    }
+    institution = []
+    component = [
+        'aerosol', 'atmosphere', 'atmospheric-chemistry',
+        'land-ice', 'land-surface', 'ocean',
+        'ocean-biogeochemistry', 'sea-ice'
+    ]
+
+# Try to generate prefill links for existing entries
+try:
+    from cmipld.generate.template_utils import get_existing_entries_markdown
+    existing_entries = get_existing_entries_markdown('model_family')
+    if not existing_entries:
+        existing_entries = "_No existing model families registered yet._"
+except:
+    existing_entries = "_Prefill links unavailable - run from repository root._"
+
+# Standard options
+issue_kind = ['New', 'Modify']
+family_type = ['Earth System Model', 'Component']
+
+# Data dictionary for template substitution
+DATA = {
+    'institution': institution,
+    'component': component,
+    'family_type': family_type,
+    'issue_kind': issue_kind,
+    'existing_entries': existing_entries,
+}

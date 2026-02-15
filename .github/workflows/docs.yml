@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to deploy (leave empty to use docs/.version)'
+        description: 'Version to deploy (leave empty for auto: v.yy.mm.dd)'
         required: false
         default: ''
       set_latest:
@@ -90,10 +90,9 @@ jobs:
         run: |
           if [ -n "${{ github.event.inputs.version }}" ]; then
             VERSION="${{ github.event.inputs.version }}"
-          elif [ -f "build/docs/.version" ]; then
-            VERSION=$(cat build/docs/.version | tr -d '[:space:]')
           else
-            VERSION="v0.1.0"
+            # Use date-based versioning: v.yy.mm.dd
+            VERSION="v.$(date +'%y.%m.%d')"
           fi
           
           echo "version=$VERSION" >> $GITHUB_OUTPUT

@@ -10,12 +10,6 @@ on:
   push:
     branches:
       - "docs"
-    paths:
-      - "docs/**"
-
-      - "mkdocs.yml"
-      - "docs/**"
-
   workflow_dispatch:
 
 jobs:
@@ -25,64 +19,88 @@ jobs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
     
     steps:
-      - name: Checkout repository with all branches
+      - name: Checkout production branch
         uses: actions/checkout@v4
         with:
-          ref: docs
+          ref: production
           fetch-depth: 0
           
-      - name: Fetch required branches
-        run: |
-          git fetch origin production:production
-          git fetch origin docs:docs
+      - name: Fetch docs branch
+        run: git fetch origin docs:docs
 
       - name: Configure Git
         run: |
           git config user.name "cmip-ipo"
           git config user.email "actions@wcrp-cmip.org"
 
-      - name: Checkout production branch
+      - name: Copy mkdocs from docs branch
         run: |
-          git checkout production
+          echo "Copying mkdocs configuration from docs branch..."
+          git checkout origin/docs -- src/mkdocs 2>/dev/null && echo "✓ Copied src/mkdocs/" || echo "No src/mkdocs/"
+          git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "✓ Copied mkdocs.yml" || true
+          echo "Looking for mkdocs.yml:"
+          find . -name "mkdocs.yml" 2>/dev/null | head -5
 
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install MkDocs dependencies
+      - name: Build MkDocs site
+        continue-on-error: true
         run: |
-          python -m pip install --upgrade pip
+          MKDOCS_CONFIG=""
+          for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
+            if [ -f "$config" ]; then
+              MKDOCS_CONFIG="$config"
+              break
+            fi
+          done
           
-          if [ -f "docs/requirements.txt" ]; then
-            pip install -r "docs/requirements.txt"
+          if [ -z "$MKDOCS_CONFIG" ]; then
+            echo "No mkdocs.yml found, skipping MkDocs build"
+            exit 0
+          fi
+          
+          echo "Building MkDocs site from $MKDOCS_CONFIG..."
+          python -m pip install --upgrade pip
+          MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
+          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+            pip install -r "$MKDOCS_DIR/requirements.txt"
           else
             pip install mkdocs mkdocs-material
           fi
-
-      - name: Build documentation
-        run: |
-          cd docs
-          mkdocs build --clean
           
-          git checkout production
-          rm -rf docs/site
-          mkdir -p docs
-          cp -r site docs/
+          rm -rf build
+          mkdocs build -f "$MKDOCS_CONFIG" -d build
+          rm -rf src mkdocs
+          [ -d docs ] && rm -rf docs
+          mv build docs
+          echo "✓ Built MkDocs site"
 
+      - name: Create root redirect to docs
+        run: |
+          if [ ! -f "index.html" ]; then
+            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=docs/"><link rel="canonical" href="docs/"><title>Redirecting...</title></head><body><p>Redirecting to <a href="docs/">documentation</a>...</p></body></html>' > index.html
+            echo "✓ Created root redirect to docs/"
+          else
+            echo "index.html already exists, skipping redirect"
+          fi
 
       - name: Check for changes
         id: check_changes
         run: |
           git add -A
-          
           if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "No documentation changes"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Documentation changes detected"
+            echo "## 📚 Documentation Changes" >> $GITHUB_STEP_SUMMARY
+            ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
+            MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
+            DELETED=$(git diff --cached --name-only --diff-filter=D | wc -l)
+            echo "| Type | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| ➕ Added | $ADDED |" >> $GITHUB_STEP_SUMMARY
+            echo "| ✏️ Modified | $MODIFIED |" >> $GITHUB_STEP_SUMMARY
+            echo "| 🗑️ Deleted | $DELETED |" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Commit changes

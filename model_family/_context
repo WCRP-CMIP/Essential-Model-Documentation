@@ -1,0 +1,34 @@
+{
+    "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_family/",
+        "@base": "https://emd.mipcvs.dev/model_family/",
+        "@esgvoc": "ModelFamily",
+        "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
+        "collaborative_institutions": {
+            "@context": "https://constants.mipcvs.dev/organisation/_context",
+            "@type": "@id"
+        },
+        "primary_institution": {
+            "@context": "https://constants.mipcvs.dev/organisation/_context",
+            "@type": "@id"
+        },
+        "references": {
+            "@context": "https://citations.mipcvs.dev/doi/_context",
+            "@type": "@id"
+        },
+        "scientific_domains": {
+            "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
+            "@type": "@id"
+        },
+        "wcrp:component_model_family": {
+            "@id": "https://emd.mipcvs.dev/types/ComponentModelFamily",
+            "@type": "@id",
+            "rdfs:comment": "A model family representing a single Earth system component (e.g., ocean only, atmosphere only)"
+        },
+        "wcrp:global_model_family": {
+            "@id": "https://emd.mipcvs.dev/types/GlobalModelFamily",
+            "@type": "@id",
+            "rdfs:comment": "A coupled Earth System Model family that includes multiple scientific domains (e.g., atmosphere, ocean, land surface)"
+        }
+    }
+}
