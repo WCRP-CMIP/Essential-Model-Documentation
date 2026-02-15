@@ -17,5 +17,5 @@ DATA = {
     'horizontal_grid': graph_entry('emd:horizontal_computational_grid/_graph.json'),
     'vertical_grid': graph_entry('emd:vertical_computational_grid/_graph.json'),
     'issue_kind': ['New', 'Modify'],
-    'prefill_links': get_existing_entries_markdown('model_component')
+    'prefill_links': get_existing_entries_markdown('model_component', issue_kind='New')
 }
