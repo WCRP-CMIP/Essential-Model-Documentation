@@ -15,9 +15,9 @@ Registers a complete model configuration — the final step in the EMD workflow.
 4,textarea,description,Description,A scientific overview of the model mentioning all component types and their treatment.,none,true,"1. Dynamic components (briefly)
 2. Prescribed components and their treatment
 3. Omitted components",,
-5,multi-select,dynamic_components,Dynamic Components,The components that are actively simulated in this model.,component,true,,list,
-6,multi-select,prescribed_components,Prescribed Components,The components with prescribed boundary conditions in this model.,component,false,,list,
-7,multi-select,omitted_components,Omitted Components,The components that are not represented in this model.,component,false,,list,
+5,multi-select,dynamic_components,Dynamic Components,**Select multiple.** The components that are actively simulated in this model.,component,true,,list,
+6,multi-select,prescribed_components,Prescribed Components,**Select multiple.** The components with prescribed boundary conditions in this model.,component,false,,list,
+7,multi-select,omitted_components,Omitted Components,**Select multiple.** The components that are not represented in this model.,component,false,,list,
 8,textarea,component_configs,Component Config IDs,The component configuration IDs from Stage 3 that make up this model.,none,true,"atmosphere_arpege-climat-v6-3_c100_v100
 ocean_nemo-v3-6_c101_v103
 land-surface_surfex-v8_c100_v102",,
@@ -25,7 +25,7 @@ land-surface_surfex-v8_c100_v102",,
 atmospheric-chemistry,atmosphere
 sea-ice,ocean",,
 10,textarea,coupling_groups,Coupling Groups,Groups of components that are mutually coupled and exchange data.,none,false,"atmosphere,land-surface,ocean",,
-11,multi-select,calendar,Calendar(s),The permitted calendar types for this model.,calendar,true,,list,
+11,multi-select,calendar,Calendar(s),**Select multiple.** The permitted calendar types for this model.,calendar,true,,list,
 12,input,release_year,Release Year,The year when this model was released.,none,true,2019,,
 13,textarea,reference_dois,Reference DOIs,The DOI URLs for model description papers.,none,true,https://doi.org/10.1029/2019MS001791,,
 14,markdown,metadata_header,,"---

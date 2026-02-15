@@ -128,7 +128,7 @@ body:
       multiple: true
       label: Dynamic Components
       description: |
-        The components that are actively simulated in this model.
+        **Select multiple.** The components that are actively simulated in this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -151,7 +151,7 @@ body:
       multiple: true
       label: Prescribed Components
       description: |
-        The components with prescribed boundary conditions in this model.
+        **Select multiple.** The components with prescribed boundary conditions in this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -172,7 +172,7 @@ body:
       multiple: true
       label: Omitted Components
       description: |
-        The components that are not represented in this model.
+        **Select multiple.** The components that are not represented in this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -270,7 +270,7 @@ sea-ice,ocean"
       multiple: true
       label: Calendar(s)
       description: |
-        The permitted calendar types for this model.
+        **Select multiple.** The permitted calendar types for this model.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>

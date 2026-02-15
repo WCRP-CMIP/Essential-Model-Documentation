@@ -16,8 +16,8 @@ Registers a family of related models or components that share code.
 2. Common code base and physics
 3. How family members differ",,
 5,dropdown,primary_institution,Primary Institution,The lead institution responsible for development of this family.,institution,true,,list_with_na,0
-6,multi-select,collaborative_institutions,Collaborative Institutions,Other institutions contributing to the development of this family.,institution,false,,list,
-7,multi-select,scientific_domains,Scientific Domains,All scientific domains covered by any member of this family.,component,true,,list,
+6,multi-select,collaborative_institutions,Collaborative Institutions,**Select multiple.** Other institutions contributing to the development of this family.,institution,false,,list,
+7,multi-select,scientific_domains,Scientific Domains,**Select multiple.** All scientific domains covered by any member of this family.,component,true,,list,
 8,input,established,Year Established,The year when this family was first developed.,none,false,2009,,
 9,input,representative_member,Representative Member,A well-known configuration from this family that serves as a representative example.,none,false,HadGEM3-GC31-LL,,
 10,input,website,Website,The official documentation URL for this family.,none,false,https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model,,
