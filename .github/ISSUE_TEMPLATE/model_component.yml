@@ -46,14 +46,14 @@ body:
         </details>
       options:
         - "Not specified"
-        - "aerosol"
+        - "land_ice"
+        - "sea_ice"
         - "atmosphere"
-        - "atmospheric-chemistry"
-        - "land-ice"
-        - "land-surface"
+        - "atmospheric_chemistry"
+        - "aerosol"
+        - "ocean_biogeochemistry"
+        - "land_surface"
         - "ocean"
-        - "ocean-biogeochemistry"
-        - "sea-ice"
       default: 0
     validations:
       required: true
@@ -107,17 +107,16 @@ body:
         
         </details>
       options:
-        - "Not specified"
+        - "BISICLES"
+        - "CAM"
+        - "CLM"
+        - "GEOS"
+        - "IFS"
+        - "NICAM"
         - "arpege-climat"
-        - "bisicles"
-        - "cam"
-        - "clm"
         - "gelato"
-        - "geos"
         - "hadam"
-        - "ifs"
         - "nemo"
-        - "nicam"
         - "pisces"
         - "reprobus"
         - "surfex"
@@ -152,12 +151,12 @@ body:
     validations:
       required: true
 
-  - type: input
+  - type: dropdown
     id: horizontal_computational_grid
     attributes:
-      label: Horizontal Grid ID
+      label: Horizontal Grid
       description: |
-        The horizontal grid ID from Stage 2a that this component uses.
+        The horizontal computational grid that this component uses.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -169,14 +168,20 @@ body:
         **Leave blank if:** Component has no horizontal grid (e.g., 1D column models).
         
         </details>
-      placeholder: "c101"
+      options:
+        - "Not specified"
+        - "c100"
+        - "c101"
+        - "c102"
+        - "c103"
+      default: 0
 
-  - type: input
+  - type: dropdown
     id: vertical_computational_grid
     attributes:
-      label: Vertical Grid ID
+      label: Vertical Grid
       description: |
-        The vertical grid ID from Stage 2b that this component uses.
+        The vertical computational grid that this component uses.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -188,7 +193,16 @@ body:
         **Leave blank if:** Component has no vertical dimension (e.g., 2D surface models).
         
         </details>
-      placeholder: "v103"
+      options:
+        - "Not specified"
+        - "v102"
+        - "v100"
+        - "v104"
+        - "v106"
+        - "v101"
+        - "v103"
+        - "v105"
+      default: 0
 
   - type: input
     id: code_base
