@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 1
 
       - name: Check context URLs
-        uses: ./.github/actions/check-contexts
+        uses: WCRP-CMIP/CMIPLD/.github/actions/check-contexts@main
         with:
           create-issue: ${{ inputs.create_issue_on_failure || 'false' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

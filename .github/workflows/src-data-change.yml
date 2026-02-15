@@ -60,7 +60,7 @@ jobs:
           echo "✓ Copied from src-data"
 
       - name: Check context URLs
-        uses: ./.github/actions/check-contexts
+        uses: WCRP-CMIP/CMIPLD/.github/actions/check-contexts@main
         with:
           create-issue: 'false'
 
