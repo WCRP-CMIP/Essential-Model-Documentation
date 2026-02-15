@@ -1,5 +1,6 @@
 # Model Component Template Data
 import cmipld
+import time
 from cmipld.utils.ldparse import graph_entry, name_entry
 from cmipld.generate.template_utils import get_repo_info
 from urllib.parse import urlencode
@@ -44,7 +45,7 @@ def get_prefill_links():
         if comp.get('code_base'):
             params['code_base'] = comp.get('code_base')
         
-        url = f"{repo_url}/issues/new?" + urlencode(params) + f"&_={hash(name) % 100000}"
+        url = f"{repo_url}/issues/new?" + urlencode(params)
         
         label = f"{name} ({comp_type})" if comp_type else name
         links.append(f'<li><a href="{url}">{label}</a></li>')
