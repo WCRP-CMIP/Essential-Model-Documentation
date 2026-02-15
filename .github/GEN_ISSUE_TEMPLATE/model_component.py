@@ -44,11 +44,10 @@ def get_prefill_links():
         if comp.get('code_base'):
             params['code_base'] = comp.get('code_base')
         
-        url = f"{repo_url}/issues/new?" + urlencode(params)
+        url = f"{repo_url}/issues/new?" + urlencode(params) + f"&_={hash(name) % 100000}"
         
         label = f"{name} ({comp_type})" if comp_type else name
-        # Use HTML link with target="_blank" and rel for new tab
-        links.append(f'<li><a href="{url}" target="_blank" rel="noopener noreferrer">{label}</a></li>')
+        links.append(f'<li><a href="{url}">{label}</a></li>')
     
     if not links:
         return "<p><em>No pre-registered components found.</em></p>"
