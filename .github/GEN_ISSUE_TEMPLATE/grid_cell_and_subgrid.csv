@@ -33,7 +33,7 @@ This form has two sections:
 This section defines the physical grid structure that can be reused across multiple subgrid registrations.",none,false,,,
 2,dropdown,grid_type,Grid Type,The cell distribution pattern that defines how grid cells are arranged across the domain.,grid_type,true,,list_with_na,0
 3,dropdown,grid_mapping,Coordinate System,The reference coordinate system used for cell positions.,grid_mapping,true,,list_with_na,0
-4,multi-select,region,Region,**Select multiple.** The geographic coverage area of the grid.,region,true,,list,
+4,multi-select,region,Region,The geographic coverage area of the grid. **Select multiple.**,region,true,,list,
 5,dropdown,temporal_refinement,Temporal Refinement,Whether the grid changes over time during the simulation.,temporal_refinement,true,,list_with_na,0
 6,input,x_resolution,X Resolution,The nominal cell size in the x-direction.,none,false,1.25,,
 7,input,y_resolution,Y Resolution,The nominal cell size in the y-direction.,none,false,0.9,,
@@ -52,7 +52,7 @@ This section specifies where variables are stored on the grid, generating a subg
 > [!NOTE]
 > **Grid cells only?** If you only need a grid cell entry without a subgrid, select **'No subgrid (grid cells only)'** below and leave the Variable Types field empty.",none,false,,,
 15,dropdown,subgrid_option,Subgrid Option,Whether to create a subgrid entry alongside the grid cells.,subgrid_option,true,,list_with_na,0
-16,multi-select,cell_variable_type,Variable Types,**Select multiple.** The types of variables stored at this subgrid location. Leave empty if creating grid cells only.,cell_variable_type,false,,list,
+16,multi-select,cell_variable_type,Variable Types,The types of variables stored at this subgrid location. Leave empty if creating grid cells only. **Select multiple.**,cell_variable_type,false,,list,
 17,markdown,metadata_header,,"---
 
 ## Issue Handling

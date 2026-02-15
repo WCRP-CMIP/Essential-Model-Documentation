@@ -1,32 +1,66 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,header,,"## Stage 4: Model (source_id)
+1,markdown,header,,"## Registered Models
 
-Registers a complete model configuration — the final step in the EMD workflow.
+> [!TIP]
+> **Using a pre-registered model?** Select from the list below to auto-populate fields.
+>
+> NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` to refresh after selecting in order for the pre-filled links to update.
 
-**Prerequisites:** Component config IDs from Stage 3; Model family ID (if applicable).
+<details>
+<summary>Pre-registered Models (must be opened in a new window)</summary>
+
+{prefill_links}
+
+</details>
+
+## Stage 4: Model (source_id)
+
+This form has three sections:
+1. **Model Definition** — Registers the model identity and component coverage
+2. **Component Configuration** — Links to specific component configs from Stage 3
+3. **Coupling Configuration** — Defines how components interact
+
+[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
 
 > [!NOTE]
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-> To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
 
-[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)",none,false,,,
+---
+
+### Model Definition
+
+This section defines the model identity that becomes the CMIP source_id.",none,false,,,
 2,input,name,Model Name,The full model name that becomes the CMIP source_id.,none,true,CNRM-ESM2-1,,
-3,dropdown,family,Model Family,The Earth System family that this model belongs to.,model_family,false,,list_with_na,0
+3,dropdown,family,Model Family,The Earth System family that this model belongs to.,model_family,false,,dict_keys,0
 4,textarea,description,Description,A scientific overview of the model mentioning all component types and their treatment.,none,true,"1. Dynamic components (briefly)
 2. Prescribed components and their treatment
 3. Omitted components",,
-5,multi-select,dynamic_components,Dynamic Components,**Select multiple.** The components that are actively simulated in this model.,component,true,,list,
-6,multi-select,prescribed_components,Prescribed Components,**Select multiple.** The components with prescribed boundary conditions in this model.,component,false,,list,
-7,multi-select,omitted_components,Omitted Components,**Select multiple.** The components that are not represented in this model.,component,false,,list,
-8,textarea,component_configs,Component Config IDs,The component configuration IDs from Stage 3 that make up this model.,none,true,"atmosphere_arpege-climat-v6-3_c100_v100
-ocean_nemo-v3-6_c101_v103
-land-surface_surfex-v8_c100_v102",,
-9,multi-select,embedded_components,Embedded Components,**Select multiple.** Pairs of embedded and host components where one runs within another (embedded -> host).,embedded_pairs,false,,list,
-10,textarea,coupling_groups,Coupling Groups,Groups of components that are mutually coupled and exchange data.,none,false,"atmosphere,land-surface,ocean",,
-11,multi-select,calendar,Calendar(s),**Select multiple.** The permitted calendar types for this model.,calendar,true,,list,
-12,input,release_year,Release Year,The year when this model was released.,none,true,2019,,
-13,textarea,reference_dois,Reference DOIs,The DOI URLs for model description papers.,none,true,https://doi.org/10.1029/2019MS001791,,
-14,markdown,metadata_header,,"---
+5,multi-select,dynamic_components,Dynamic Components,The components that are actively simulated in this model. **Select multiple.**,component,true,,list,
+6,multi-select,prescribed_components,Prescribed Components,The components with prescribed boundary conditions in this model. **Select multiple.**,component,false,,list,
+7,multi-select,omitted_components,Omitted Components,The components that are not represented in this model. **Select multiple.**,component,false,,list,
+8,multi-select,calendar,Calendar(s),The permitted calendar types for this model. **Select multiple.**,calendar,true,,list,
+9,input,release_year,Release Year,The year when this model was released.,none,true,2019,,
+10,textarea,reference_dois,Reference DOIs,The DOI URLs for model description papers.,none,true,https://doi.org/10.1029/2019MS001791,,
+11,markdown,config_section,,"---
+
+### Component Configuration
+
+This section links the model to specific component configurations from Stage 3.
+
+**Prerequisites:** Component config IDs from Stage 3 (format: `<domain>_<component>_<c###>_<v###>`).",none,false,,,
+12,multi-select,component_configs,Component Config IDs,The component configuration IDs from Stage 3 that make up this model. **Select multiple.**,component_configs,true,,list,
+13,markdown,coupling_section,,"---
+
+### Coupling Configuration
+
+This section defines how components interact within the model.",none,false,,,
+14,multi-select,embedded_components,Embedded Components,Pairs of embedded and host components where one runs within another (embedded -> host). **Select multiple.**,embedded_pairs,false,,list,
+15,multi-select,coupling_group_1,Coupling Group 1,First group of mutually coupled components that exchange data directly. **Select multiple.**,domains,false,,list,
+16,multi-select,coupling_group_2,Coupling Group 2,Second group of mutually coupled components (if needed). **Select multiple.**,domains,false,,list,
+17,multi-select,coupling_group_3,Coupling Group 3,Third group of mutually coupled components (if needed). **Select multiple.**,domains,false,,list,
+18,multi-select,coupling_group_4,Coupling Group 4,Fourth group of mutually coupled components (if needed). **Select multiple.**,domains,false,,list,
+19,multi-select,coupling_group_5,Coupling Group 5,Fifth group of mutually coupled components (if needed). **Select multiple.**,domains,false,,list,
+20,markdown,metadata_header,,"---
 
 ## Issue Handling
 
@@ -34,4 +68,4 @@ land-surface_surfex-v8_c100_v102",,
 - Creates `model` entry with CMIP source_id
 - Registration complete — model can be used in CMIP activities
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
-15,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
+21,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

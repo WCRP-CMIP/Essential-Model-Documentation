@@ -16,11 +16,11 @@ body:
         <details>
         <summary>Pre-registered Grid Cells (must be opened in a new window)</summary>
         
-        - [g100 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g100&issue_kind=%22New%22&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&southernmost_latitude=-89.5&x_resolution=1.25&y_resolution=0.9&grid_mapping=%22latitude_longitude%22&westernmost_longitude=0.5&region=%22global%22&units=%22degree%22&n_cells=55296)
-        - [g101 (linear-spectral-gaussian)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g101&issue_kind=%22New%22&temporal_refinement=%22static%22&grid_type=%22linear_spectral_gaussian%22&southernmost_latitude=-88.9277353522076&x_resolution=1.4&y_resolution=1.4&grid_mapping=%22latitude_longitude%22&westernmost_longitude=0.0&region=%22global%22&units=%22degree%22&n_cells=24572&truncation_number=127&truncation_method=%22triangular%22)
-        - [g102 (tripolar)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g102&issue_kind=%22New%22&temporal_refinement=%22static%22&grid_type=%22tripolar%22&grid_mapping=%22latitude_longitude%22&region=%22global%22&n_cells=105704)
-        - [g103 (plane-projection)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g103&issue_kind=%22New%22&temporal_refinement=%22adaptive%22&grid_type=%22plane_projection%22&grid_mapping=%22polar_stereographic%22&region=%22greenland%22%2C%22antarctica%22)
-        - [g104 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g104&issue_kind=%22New%22&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&southernmost_latitude=-89.65&x_resolution=1.25&y_resolution=0.9&grid_mapping=%22latitude_longitude%22&westernmost_longitude=0.0&region=%22global%22&units=%22degree%22&n_cells=55296)
+        - [g100 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g100&issue_kind=%22New%22&n_cells=55296&units=%22degree%22&southernmost_latitude=-89.5&region=%22global%22&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&x_resolution=1.25&grid_mapping=%22latitude_longitude%22&y_resolution=0.9&westernmost_longitude=0.5)
+        - [g101 (linear-spectral-gaussian)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g101&issue_kind=%22New%22&n_cells=24572&truncation_number=127&truncation_method=%22triangular%22&units=%22degree%22&southernmost_latitude=-88.9277353522076&region=%22global%22&temporal_refinement=%22static%22&grid_type=%22linear_spectral_gaussian%22&x_resolution=1.4&grid_mapping=%22latitude_longitude%22&y_resolution=1.4&westernmost_longitude=0.0)
+        - [g102 (tripolar)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g102&issue_kind=%22New%22&n_cells=105704&region=%22global%22&temporal_refinement=%22static%22&grid_type=%22tripolar%22&grid_mapping=%22latitude_longitude%22)
+        - [g103 (plane-projection)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g103&issue_kind=%22New%22&region=%22greenland%22%2C%22antarctica%22&temporal_refinement=%22adaptive%22&grid_type=%22plane_projection%22&grid_mapping=%22polar_stereographic%22)
+        - [g104 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g104&issue_kind=%22New%22&n_cells=55296&units=%22degree%22&southernmost_latitude=-89.65&region=%22global%22&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&x_resolution=1.25&grid_mapping=%22latitude_longitude%22&y_resolution=0.9&westernmost_longitude=0.0)
         
         </details>
         
@@ -145,7 +145,7 @@ body:
       multiple: true
       label: Region
       description: |
-        **Select multiple.** The geographic coverage area of the grid.
+        The geographic coverage area of the grid. **Select multiple.**
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -385,7 +385,7 @@ body:
       multiple: true
       label: Variable Types
       description: |
-        **Select multiple.** The types of variables stored at this subgrid location. Leave empty if creating grid cells only.
+        The types of variables stored at this subgrid location. Leave empty if creating grid cells only. **Select multiple.**
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>

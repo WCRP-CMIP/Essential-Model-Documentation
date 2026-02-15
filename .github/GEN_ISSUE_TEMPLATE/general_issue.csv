@@ -7,7 +7,7 @@ Report bugs, ask questions, or suggest improvements to the EMD repository.
 > For model/component/grid registrations, use the specific registration forms instead.
 > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.",none,false,,,
 2,dropdown,issue_type,Issue Type,The category of issue being reported.,issue_type_options,true,,list_with_na,0
-3,multi-select,affected_areas,Affected Areas,**Select multiple.** The parts of EMD that are affected by this issue.,affected_areas_options,true,,list,
+3,multi-select,affected_areas,Affected Areas,The parts of EMD that are affected by this issue. **Select multiple.**,affected_areas_options,true,,list,
 4,textarea,description,Description,A clear description of the issue including what happened and what you expected.,none,true,"1. What happened or what you need
 2. What you expected
 3. Any error messages",,

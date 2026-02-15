@@ -6,17 +6,37 @@ body:
   - type: markdown
     attributes:
       value: |
+        ## Registered Models
+        
+        > [!TIP]
+        > **Using a pre-registered model?** Select from the list below to auto-populate fields.
+        >
+        > NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` to refresh after selecting in order for the pre-filled links to update.
+        
+        <details>
+        <summary>Pre-registered Models (must be opened in a new window)</summary>
+        
+        - [CNRM-ESM2-1e (cnrm-cm)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml&title=Model%3A+cnrm-esm2-1e&issue_kind=%22New%22&omitted_components=%22Land+Ice%22&release_year=2018&prescribed_components=&description=CNRM-ESM2-1e+is+the+CNRM+Earth+System+model+version+2+designed+for+CMIP6+on+the+basis+of+the+physical+core+CNRM-CM6-1+%28Voldoire+et+al.+2019%29.+In+concentration+mode%2C+it+is+the+same+model+as+CNRM-ESM2-1+%28S%C3%A9f%C3%A9rian+et+al.+2019%29%2C+it+only+differs+from+CNRM-ESM2-1+in+emission-driven+mode+%28see+Bossert+et+al.+2026%29.+The+main+adaptations+consist+in+a+better+conservation+of+the+carbon+in+all+the+components+leading+to+a+more+consistent%2Frealistic+carbon+flux+evolution+in+historical+simulations.&family=%22CNRM-CM%22&embedded_components=%22%5B%27aerosol%27%2C+%27atmosphere%27%5D%22%2C%22%5B%27atmospheric-chemistry%27%2C+%27atmosphere%27%5D%22%2C%22%5B%27sea-ice%27%2C+%27ocean%27%5D%22%2C%22%5B%27ocean-biogeochemistry%27%2C+%27ocean%27%5D%22&dynamic_components=%22Aerosol%22%2C%22Atmosphere%22%2C%22Atmospheric+Chemistry%22%2C%22land-surface%22%2C%22Ocean%22%2C%22Ocean+Biogeochemistry%22%2C%22Sea+Ice%22&calendar=%22standard%22&name=CNRM-ESM2-1e)
+        
+        </details>
+        
         ## Stage 4: Model (source_id)
         
-        Registers a complete model configuration — the final step in the EMD workflow.
+        This form has three sections:
+        1. **Model Definition** — Registers the model identity and component coverage
+        2. **Component Configuration** — Links to specific component configs from Stage 3
+        3. **Coupling Configuration** — Defines how components interact
         
-        **Prerequisites:** Component config IDs from Stage 3; Model family ID (if applicable).
+        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
         
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
         
-        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
+        ---
+        
+        ### Model Definition
+        
+        This section defines the model identity that becomes the CMIP source_id.
 
   - type: input
     id: name
@@ -61,36 +81,21 @@ body:
         
         </details>
       options:
-        - "Not specified"
         - "ACCESS"
-        - "arpege-climat"
         - "BCC-CSM"
-        - "BISICLES"
-        - "CAM"
         - "CanESM"
         - "CESM"
-        - "CLM"
         - "CNRM-CM"
         - "EC-Earth"
         - "FGOALS"
-        - "gelato"
-        - "GEOS"
         - "GFDL-CM4"
         - "GISS-E2"
-        - "hadam"
         - "HadCM2"
         - "HadGEM3"
         - "ICON"
-        - "IFS"
         - "IPSL-CM"
         - "MIROC"
         - "MPI-ESM"
-        - "nemo"
-        - "NICAM"
-        - "pisces"
-        - "reprobus"
-        - "surfex"
-        - "tactic"
         - "UKESM1"
       default: 0
 
@@ -128,27 +133,27 @@ body:
       multiple: true
       label: Dynamic Components
       description: |
-        **Select multiple.** The components that are actively simulated in this model.
+        The components that are actively simulated in this model. **Select multiple.**
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
         
         **Active components**
         
-        Components that are dynamically simulated (prognostic).
+        Scientific domains that are dynamically simulated (prognostic).
         
-        At least one required. Each must have a component_config from Stage 3.
+        At least one required.
         
         </details>
       options:
-        - "aerosol"
-        - "atmosphere"
-        - "atmospheric_chemistry"
-        - "land_ice"
-        - "land_surface"
-        - "ocean"
-        - "ocean_biogeochemistry"
-        - "sea_ice"
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
     validations:
       required: true
 
@@ -158,27 +163,27 @@ body:
       multiple: true
       label: Prescribed Components
       description: |
-        **Select multiple.** The components with prescribed boundary conditions in this model.
+        The components with prescribed boundary conditions in this model. **Select multiple.**
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
         
         **Prescribed components**
         
-        Components where values are provided as boundary conditions.
+        Domains where values are provided as boundary conditions.
         
         **Example:** Sea ice extent prescribed from observations.
         
         </details>
       options:
-        - "aerosol"
-        - "atmosphere"
-        - "atmospheric_chemistry"
-        - "land_ice"
-        - "land_surface"
-        - "ocean"
-        - "ocean_biogeochemistry"
-        - "sea_ice"
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
 
   - type: dropdown
     id: omitted_components
@@ -186,166 +191,27 @@ body:
       multiple: true
       label: Omitted Components
       description: |
-        **Select multiple.** The components that are not represented in this model.
+        The components that are not represented in this model. **Select multiple.**
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
         
         **Omitted components**
         
-        Components not represented at all.
+        Domains not represented at all.
         
         **Example:** Land-ice often omitted from atmosphere-ocean climate models.
         
         </details>
       options:
-        - "aerosol"
-        - "atmosphere"
-        - "atmospheric_chemistry"
-        - "land_ice"
-        - "land_surface"
-        - "ocean"
-        - "ocean_biogeochemistry"
-        - "sea_ice"
-
-  - type: textarea
-    id: component_configs
-    attributes:
-      label: Component Config IDs
-      description: |
-        The component configuration IDs from Stage 3 that make up this model.
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Component configuration IDs**
-        
-        IDs from Stage 3 for each dynamic component.
-        
-        **Format:** `{domain}_- land_ice
-        - sea_ice
-        - atmosphere
-        - atmospheric_chemistry
-        - aerosol
-        - ocean_biogeochemistry
-        - land_surface
-        - ocean_{c###}_{v###}` (one per line)
-        
-        Must have one config per dynamic component.
-        
-        </details>
-      placeholder: "atmosphere_arpege-climat-v6-3_c100_v100
-ocean_nemo-v3-6_c101_v103
-land-surface_surfex-v8_c100_v102"
-    validations:
-      required: true
-
-  - type: dropdown
-    id: embedded_components
-    attributes:
-      multiple: true
-      label: Embedded Components
-      description: |
-        **Select multiple.** Pairs of embedded and host components where one runs within another (embedded -> host).
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Embedded relationships**
-        
-        Components tightly integrated within a host (share integration loop, often share grid).
-        
-        **Format:** `embedded,host` (one pair per line)
-        
-        **Example:**
-        ```
-        aerosol,atmosphere
-        atmospheric-chemistry,atmosphere
-        sea-ice,ocean
-        ocean-biogeochemistry,ocean
-        ```
-        
-        </details>
-      options:
-        - "aerosol -> atmosphere"
-        - "aerosol -> atmospheric_chemistry"
-        - "aerosol -> land_ice"
-        - "aerosol -> land_surface"
-        - "aerosol -> ocean"
-        - "aerosol -> ocean_biogeochemistry"
-        - "aerosol -> sea_ice"
-        - "atmosphere -> aerosol"
-        - "atmosphere -> atmospheric_chemistry"
-        - "atmosphere -> land_ice"
-        - "atmosphere -> land_surface"
-        - "atmosphere -> ocean"
-        - "atmosphere -> ocean_biogeochemistry"
-        - "atmosphere -> sea_ice"
-        - "atmospheric_chemistry -> aerosol"
-        - "atmospheric_chemistry -> atmosphere"
-        - "atmospheric_chemistry -> land_ice"
-        - "atmospheric_chemistry -> land_surface"
-        - "atmospheric_chemistry -> ocean"
-        - "atmospheric_chemistry -> ocean_biogeochemistry"
-        - "atmospheric_chemistry -> sea_ice"
-        - "land_ice -> aerosol"
-        - "land_ice -> atmosphere"
-        - "land_ice -> atmospheric_chemistry"
-        - "land_ice -> land_surface"
-        - "land_ice -> ocean"
-        - "land_ice -> ocean_biogeochemistry"
-        - "land_ice -> sea_ice"
-        - "land_surface -> aerosol"
-        - "land_surface -> atmosphere"
-        - "land_surface -> atmospheric_chemistry"
-        - "land_surface -> land_ice"
-        - "land_surface -> ocean"
-        - "land_surface -> ocean_biogeochemistry"
-        - "land_surface -> sea_ice"
-        - "ocean -> aerosol"
-        - "ocean -> atmosphere"
-        - "ocean -> atmospheric_chemistry"
-        - "ocean -> land_ice"
-        - "ocean -> land_surface"
-        - "ocean -> ocean_biogeochemistry"
-        - "ocean -> sea_ice"
-        - "ocean_biogeochemistry -> aerosol"
-        - "ocean_biogeochemistry -> atmosphere"
-        - "ocean_biogeochemistry -> atmospheric_chemistry"
-        - "ocean_biogeochemistry -> land_ice"
-        - "ocean_biogeochemistry -> land_surface"
-        - "ocean_biogeochemistry -> ocean"
-        - "ocean_biogeochemistry -> sea_ice"
-        - "sea_ice -> aerosol"
-        - "sea_ice -> atmosphere"
-        - "sea_ice -> atmospheric_chemistry"
-        - "sea_ice -> land_ice"
-        - "sea_ice -> land_surface"
-        - "sea_ice -> ocean"
-        - "sea_ice -> ocean_biogeochemistry"
-
-  - type: textarea
-    id: coupling_groups
-    attributes:
-      label: Coupling Groups
-      description: |
-        Groups of components that are mutually coupled and exchange data.
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Coupling relationships**
-        
-        Groups of mutually coupled superior hosts (non-embedded components).
-        
-        **Format:** `comp1,comp2,comp3` (one group per line)
-        
-        Components in a group all exchange information directly.
-        
-        **Example:** `atmosphere,land-surface,ocean`
-        
-        </details>
-      placeholder: "atmosphere,land-surface,ocean"
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
 
   - type: dropdown
     id: calendar
@@ -353,7 +219,7 @@ land-surface_surfex-v8_c100_v102"
       multiple: true
       label: Calendar(s)
       description: |
-        **Select multiple.** The permitted calendar types for this model.
+        The permitted calendar types for this model. **Select multiple.**
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -366,8 +232,6 @@ land-surface_surfex-v8_c100_v102"
         - **proleptic-gregorian**: Gregorian extended to past
         - **365-day**: No leap years (noleap)
         - **360-day**: 12 months × 30 days
-        
-        List most commonly used first.
         
         </details>
       options:
@@ -424,6 +288,237 @@ land-surface_surfex-v8_c100_v102"
       placeholder: "https://doi.org/10.1029/2019MS001791"
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Component Configuration
+        
+        This section links the model to specific component configurations from Stage 3.
+        
+        **Prerequisites:** Component config IDs from Stage 3 (format: `<domain>_<component>_<c###>_<v###>`).
+
+  - type: dropdown
+    id: component_configs
+    attributes:
+      multiple: true
+      label: Component Config IDs
+      description: |
+        The component configuration IDs from Stage 3 that make up this model. **Select multiple.**
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Component configuration IDs**
+        
+        Select the specific component configurations from Stage 3 that make up this model.
+        
+        Must have one config per dynamic component domain.
+        
+        </details>
+      options:
+        - "aerosol_tactic_c100_v100"
+        - "aerosol_tactic_c100_v100"
+        - "atmosphere_arpege_climat_version_6_3_c100_v100"
+        - "atmosphere_arpege_climat_version_6_3_c100_v100"
+        - "atmospheric_chemistry_reprobus_c_v2_0_c100_v100"
+        - "atmospheric_chemistry_reprobus_c_v2_0_c100_v100"
+        - "land_surface_surfex_v8_modeling_platform_c100_v102"
+        - "land_surface_surfex_v8_modeling_platform_c100_v102"
+        - "ocean_biogeochemistry_piscesv2_gas_c101_v103"
+        - "ocean_biogeochemistry_piscesv2_gas_c101_v103"
+        - "ocean_nemo_v3_6_c101_v103"
+        - "ocean_nemo_v3_6_c101_v103"
+        - "sea_ice_gelato_c101_v104"
+        - "sea_ice_gelato_c101_v104"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Coupling Configuration
+        
+        This section defines how components interact within the model.
+
+  - type: dropdown
+    id: embedded_components
+    attributes:
+      multiple: true
+      label: Embedded Components
+      description: |
+        Pairs of embedded and host components where one runs within another (embedded -> host). **Select multiple.**
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Embedded relationships**
+        
+        Components tightly integrated within a host (share integration loop, often share grid).
+        
+        **Format:** `embedded -> host`
+        
+        **Example:**
+        - Aerosol -> Atmosphere
+        - Atmospheric Chemistry -> Atmosphere
+        - Sea Ice -> Ocean
+        
+        </details>
+      options:
+        - "Aerosol -> Atmosphere"
+        - "Aerosol -> Atmospheric Chemistry"
+        - "Aerosol -> Land Ice"
+        - "Aerosol -> Land Surface and Subsurface"
+        - "Aerosol -> Ocean"
+        - "Aerosol -> Ocean Biogeochemistry"
+        - "Aerosol -> Sea Ice"
+        - "Atmosphere -> Aerosol"
+        - "Atmosphere -> Atmospheric Chemistry"
+        - "Atmosphere -> Land Ice"
+        - "Atmosphere -> Land Surface and Subsurface"
+        - "Atmosphere -> Ocean"
+        - "Atmosphere -> Ocean Biogeochemistry"
+        - "Atmosphere -> Sea Ice"
+        - "Atmospheric Chemistry -> Aerosol"
+        - "Atmospheric Chemistry -> Atmosphere"
+        - "Atmospheric Chemistry -> Land Ice"
+        - "Atmospheric Chemistry -> Land Surface and Subsurface"
+        - "Atmospheric Chemistry -> Ocean"
+        - "Atmospheric Chemistry -> Ocean Biogeochemistry"
+        - "Atmospheric Chemistry -> Sea Ice"
+        - "Land Ice -> Aerosol"
+        - "Land Ice -> Atmosphere"
+        - "Land Ice -> Atmospheric Chemistry"
+        - "Land Ice -> Land Surface and Subsurface"
+        - "Land Ice -> Ocean"
+        - "Land Ice -> Ocean Biogeochemistry"
+        - "Land Ice -> Sea Ice"
+        - "Land Surface and Subsurface -> Aerosol"
+        - "Land Surface and Subsurface -> Atmosphere"
+        - "Land Surface and Subsurface -> Atmospheric Chemistry"
+        - "Land Surface and Subsurface -> Land Ice"
+        - "Land Surface and Subsurface -> Ocean"
+        - "Land Surface and Subsurface -> Ocean Biogeochemistry"
+        - "Land Surface and Subsurface -> Sea Ice"
+        - "Ocean -> Aerosol"
+        - "Ocean -> Atmosphere"
+        - "Ocean -> Atmospheric Chemistry"
+        - "Ocean -> Land Ice"
+        - "Ocean -> Land Surface and Subsurface"
+        - "Ocean -> Ocean Biogeochemistry"
+        - "Ocean -> Sea Ice"
+        - "Ocean Biogeochemistry -> Aerosol"
+        - "Ocean Biogeochemistry -> Atmosphere"
+        - "Ocean Biogeochemistry -> Atmospheric Chemistry"
+        - "Ocean Biogeochemistry -> Land Ice"
+        - "Ocean Biogeochemistry -> Land Surface and Subsurface"
+        - "Ocean Biogeochemistry -> Ocean"
+        - "Ocean Biogeochemistry -> Sea Ice"
+        - "Sea Ice -> Aerosol"
+        - "Sea Ice -> Atmosphere"
+        - "Sea Ice -> Atmospheric Chemistry"
+        - "Sea Ice -> Land Ice"
+        - "Sea Ice -> Land Surface and Subsurface"
+        - "Sea Ice -> Ocean"
+        - "Sea Ice -> Ocean Biogeochemistry"
+
+  - type: dropdown
+    id: coupling_group_1
+    attributes:
+      multiple: true
+      label: Coupling Group 1
+      description: |
+        First group of mutually coupled components that exchange data directly. **Select multiple.**
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Coupling groups**
+        
+        Groups of mutually coupled superior hosts (non-embedded components).
+        
+        Components in a group all exchange information directly.
+        
+        **Example:** Atmosphere, Land Surface, Ocean
+        
+        </details>
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_2
+    attributes:
+      multiple: true
+      label: Coupling Group 2
+      description: Second group of mutually coupled components (if needed). **Select multiple.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_3
+    attributes:
+      multiple: true
+      label: Coupling Group 3
+      description: Third group of mutually coupled components (if needed). **Select multiple.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_4
+    attributes:
+      multiple: true
+      label: Coupling Group 4
+      description: Fourth group of mutually coupled components (if needed). **Select multiple.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_5
+    attributes:
+      multiple: true
+      label: Coupling Group 5
+      description: Fifth group of mutually coupled components (if needed). **Select multiple.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
 
   - type: markdown
     attributes:
