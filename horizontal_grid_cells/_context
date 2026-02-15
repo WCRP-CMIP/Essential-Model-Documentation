@@ -1,32 +1,32 @@
 {
-    "@context": {
-        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cells/",
-        "@base": "https://emd.mipcvs.dev/horizontal_grid_cells/",
-        "@esgvoc": "HorizontalGridCells",
-        "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalGridCells/",
-        "grid_mapping": {
-            "@context": "https://constants.mipcvs.dev/grid_mapping/_context",
-            "@type": "@id"
-        },
-        "grid_type": {
-            "@context": "https://constants.mipcvs.dev/grid_type/_context",
-            "@type": "@id"
-        },
-        "region": {
-            "@context": "https://constants.mipcvs.dev/region/_context",
-            "@type": "@id"
-        },
-        "temporal_refinement": {
-            "@context": "https://constants.mipcvs.dev/temporal_refinement/_context",
-            "@type": "@id"
-        },
-        "truncation_method": {
-            "@context": "https://constants.mipcvs.dev/truncation_method/_context",
-            "@type": "@id"
-        },
-        "units": {
-            "@context": "https://constants.mipcvs.dev/units/_context",
-            "@type": "@id"
-        }
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cells/",
+    "@base": "https://emd.mipcvs.dev/horizontal_grid_cells/",
+    "@esgvoc": "HorizontalGridCells",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalGridCells/",
+    "grid_mapping": {
+      "@context": "https://constants.mipcvs.dev/grid_mapping/_context",
+      "@type": "@id"
+    },
+    "grid_type": {
+      "@context": "https://constants.mipcvs.dev/grid_type/_context",
+      "@type": "@id"
+    },
+    "region": {
+      "@context": "https://constants.mipcvs.dev/region/_context",
+      "@type": "@id"
+    },
+    "temporal_refinement": {
+      "@context": "https://constants.mipcvs.dev/temporal_refinement/_context",
+      "@type": "@id"
+    },
+    "truncation_method": {
+      "@context": "https://constants.mipcvs.dev/truncation_method/_context",
+      "@type": "@id"
+    },
+    "units": {
+      "@context": "https://constants.mipcvs.dev/units/_context",
+      "@type": "@id"
     }
+  }
 }

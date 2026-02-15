@@ -3,6 +3,7 @@ description: Sync and process data from src-data to production
 
 permissions:
   contents: write
+  issues: write
   pages: write
   id-token: write
 
@@ -13,6 +14,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  check_contexts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout src-data branch
+        uses: actions/checkout@v4
+        with:
+          ref: src-data
+          fetch-depth: 1
+
+      - name: Check context URLs
+        uses: WCRP-CMIP/CMIPLD/.github/actions/check-contexts@main
+        with:
+          create-issue: 'false'
+
   sync_and_process:
     runs-on: ubuntu-latest
     outputs:
