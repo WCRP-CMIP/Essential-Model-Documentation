@@ -25,9 +25,12 @@ jobs:
           ref: production
           fetch-depth: 0
           
-      - name: Fetch src-data branch
+      - name: Fetch all branches
         run: |
           git fetch origin src-data:src-data
+
+          git fetch origin docs:docs
+
 
       - name: Install CMIPLD
         run: |
@@ -45,48 +48,20 @@ jobs:
           rm -rf -- !(docs|summaries|.git|.github) || true
           echo "✓ Cleaned production branch"
 
-      - name: Copy from src-data branch
+      - name: Copy data from src-data branch
         run: |
-          echo "Restoring files from src-data..."
-          git restore --source origin/src-data --staged --worktree -- . || true
+          echo "Copying files from src-data..."
+          git checkout origin/src-data -- . 2>/dev/null || true
+          
+          # Keep production's .gitignore
+          git checkout production -- .gitignore 2>/dev/null || true
           
           echo "✓ Copied from src-data"
 
 
-      - name: Find vocabulary directories
-        id: find_dirs
-        run: |
-          echo "Scanning for vocabulary directories..."
-          
-          dirs=()
-          for dir in */; do
-            dir="${dir%/}"
-            
-            if [[ "$dir" == "docs" || "$dir" == "summaries" || "$dir" == ".github" || "$dir" == "project" ]]; then
-              continue
-            fi
-            
-            if [ -f "$dir/_context" ]; then
-              dirs+=("$dir")
-              echo "  Found: $dir"
-            fi
-          done
-          
-          if [ ${#dirs[@]} -eq 0 ]; then
-            echo "dirs_json=[]" >> $GITHUB_OUTPUT
-            echo "No vocabulary directories found"
-          else
-            dirs_json=$(printf '%s\n' "${dirs[@]}" | jq -R . | jq -s -c .)
-            echo "dirs_json=$dirs_json" >> $GITHUB_OUTPUT
-            echo "Found ${#dirs[@]} directories"
-          fi
-
-
       - name: Generate graphs (graphify)
-        if: steps.find_dirs.outputs.dirs_json != '[]'
         run: |
           graphify --all --output-summary
-
 
 
 
@@ -107,46 +82,85 @@ jobs:
 
 
 
-      - name: Copy all content from docs branch to production
+      - name: Copy mkdocs from docs branch
         run: |
-          echo "Fetching docs branch..."
-          git fetch origin docs:docs
+          echo "Copying mkdocs configuration from docs branch..."
           
-          echo "Copying all docs branch content to production..."
-          git restore --source origin/docs --staged --worktree -- . || true
+          # Copy src/mkdocs/ from docs branch (contains mkdocs.yml and docs source)
+          git checkout origin/docs -- src/mkdocs 2>/dev/null && echo "✓ Copied src/mkdocs/" || echo "No src/mkdocs/ on docs branch"
           
-          echo "✓ Docs branch copied to production"
+          # Also check for mkdocs.yml at root
+          git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "✓ Copied mkdocs.yml" || true
+          
+          echo ""
+          echo "Looking for mkdocs.yml:"
+          find . -name "mkdocs.yml" 2>/dev/null | head -5
       
-      - name: Build MkDocs site on production branch
+      - name: Build MkDocs site
         continue-on-error: true
         run: |
-          if [ -f "src/mkdocs/mkdocs.yml" ]; then
-            echo "Building MkDocs site on production branch..."
-            
-            # Install dependencies
-            if [ -f "src/mkdocs/requirements.txt" ]; then
-              echo "Installing from src/mkdocs/requirements.txt..."
-              pip install -r src/mkdocs/requirements.txt
-            else
-              echo "Installing default MkDocs packages..."
-              pip install mkdocs mkdocs-material
+          # Find mkdocs.yml
+          MKDOCS_CONFIG=""
+          for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
+            if [ -f "$config" ]; then
+              MKDOCS_CONFIG="$config"
+              break
             fi
-            
-            # Build to 'build' folder
-            rm -rf build
-            mkdocs build -f src/mkdocs/mkdocs.yml -d ../../build
-            
-            # Clean up: remove src and docs
-            rm -rf src docs
-            
-            # Move build to docs
-            mv build docs
-            
-            echo "✓ Built MkDocs site - docs/ folder now contains built site only"
-          else
-            echo "No src/mkdocs/mkdocs.yml found, skipping MkDocs build"
+          done
+          
+          if [ -z "$MKDOCS_CONFIG" ]; then
+            echo "No mkdocs.yml found, skipping MkDocs build"
+            exit 0
           fi
+          
+          echo "Building MkDocs site from $MKDOCS_CONFIG..."
+          
+          # Install requirements
+          MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
+          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+            echo "Installing from $MKDOCS_DIR/requirements.txt..."
+            pip install -r "$MKDOCS_DIR/requirements.txt"
+          else
+            echo "Installing default MkDocs packages..."
+            pip install mkdocs mkdocs-material
+          fi
+          
+          # Build to temporary folder
+          rm -rf build
+          mkdocs build -f "$MKDOCS_CONFIG" -d build
+          
+          # Clean up source files
+          rm -rf src mkdocs
+          [ -d docs ] && rm -rf docs
+          
+          # Move built site to docs
+          mv build docs
+          
+          echo "✓ Built MkDocs site"
 
+
+      - name: Create root redirect to docs
+        run: |
+          # Only create if no index.html exists at root
+          if [ ! -f "index.html" ]; then
+            cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=docs/">
+  <link rel="canonical" href="docs/">
+  <title>Redirecting...</title>
+</head>
+<body>
+  <p>Redirecting to <a href="docs/">documentation</a>...</p>
+</body>
+</html>
+EOF
+            echo "✓ Created root redirect to docs/"
+          else
+            echo "index.html already exists, skipping redirect"
+          fi
 
       - name: Check for changes
         id: check_changes
@@ -159,6 +173,17 @@ jobs:
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Changes detected"
+            
+            # Summary
+            echo "## 📝 Files Changed" >> $GITHUB_STEP_SUMMARY
+            ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
+            MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
+            DELETED=$(git diff --cached --name-only --diff-filter=D | wc -l)
+            echo "| Type | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| ➕ Added | $ADDED |" >> $GITHUB_STEP_SUMMARY
+            echo "| ✏️ Modified | $MODIFIED |" >> $GITHUB_STEP_SUMMARY
+            echo "| 🗑️ Deleted | $DELETED |" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Commit changes

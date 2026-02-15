@@ -73,9 +73,7 @@ body:
         
         </details>
       options:
-        - "Not specified"
-        - "Earth System Model"
-        - "Component Family"
+        - "No options available"
       default: 0
     validations:
       required: true
@@ -122,36 +120,7 @@ body:
         
         </details>
       options:
-        - "Not specified"
-        - "awi"
-        - "bas"
-        - "bcc"
-        - "bom"
-        - "cas"
-        - "cccma"
-        - "cmcc"
-        - "cnrm"
-        - "cnrm-cerfacs"
-        - "csiro"
-        - "dkrz"
-        - "dwd"
-        - "ec-earth-consortium"
-        - "ecmwf"
-        - "ipsl"
-        - "jamstec"
-        - "lbnl"
-        - "miroc"
-        - "mohc"
-        - "mpi-m"
-        - "nasa-giss"
-        - "nasa-gsfc"
-        - "ncar"
-        - "ncas"
-        - "nerc"
-        - "noaa-gfdl"
-        - "noc"
-        - "pnnl"
-        - "uob"
+        - "No options available"
       default: 0
     validations:
       required: true
@@ -175,35 +144,7 @@ body:
         
         </details>
       options:
-        - "awi"
-        - "bas"
-        - "bcc"
-        - "bom"
-        - "cas"
-        - "cccma"
-        - "cmcc"
-        - "cnrm"
-        - "cnrm-cerfacs"
-        - "csiro"
-        - "dkrz"
-        - "dwd"
-        - "ec-earth-consortium"
-        - "ecmwf"
-        - "ipsl"
-        - "jamstec"
-        - "lbnl"
-        - "miroc"
-        - "mohc"
-        - "mpi-m"
-        - "nasa-giss"
-        - "nasa-gsfc"
-        - "ncar"
-        - "ncas"
-        - "nerc"
-        - "noaa-gfdl"
-        - "noc"
-        - "pnnl"
-        - "uob"
+        - "No options available"
 
   - type: dropdown
     id: scientific_domains
@@ -228,14 +169,7 @@ body:
         
         </details>
       options:
-        - "aerosol"
-        - "atmosphere"
-        - "atmospheric-chemistry"
-        - "land-ice"
-        - "land-surface"
-        - "ocean"
-        - "ocean-biogeochemistry"
-        - "sea-ice"
+        - "No options available"
     validations:
       required: true
 

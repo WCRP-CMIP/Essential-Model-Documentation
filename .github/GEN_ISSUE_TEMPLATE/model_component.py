@@ -1,31 +1,8 @@
 # Model Component Template Data
+from cmipld.utils.ldparse import graph_entry
 
 DATA = {
-    'component': [
-        'aerosol',
-        'atmosphere',
-        'atmospheric-chemistry',
-        'land-ice',
-        'land-surface',
-        'ocean',
-        'ocean-biogeochemistry',
-        'sea-ice'
-    ],
-    'component_family': [
-        'arpege-climat',
-        'bisicles',
-        'cam',
-        'clm',
-        'gelato',
-        'geos',
-        'hadam',
-        'ifs',
-        'nemo',
-        'nicam',
-        'pisces',
-        'reprobus',
-        'surfex',
-        'tactic'
-    ],
+    'component': graph_entry('constants:model_component_type/_graph.json'),
+    'component_family': graph_entry('emd:model_component/_graph.json'),
     'issue_kind': ['New', 'Modify']
 }

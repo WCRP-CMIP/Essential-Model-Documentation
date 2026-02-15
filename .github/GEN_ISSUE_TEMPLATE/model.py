@@ -1,43 +1,9 @@
 # Model Template Data
+from cmipld.utils.ldparse import graph_entry
 
 DATA = {
-    'component': [
-        'aerosol',
-        'atmosphere',
-        'atmospheric-chemistry',
-        'land-ice',
-        'land-surface',
-        'ocean',
-        'ocean-biogeochemistry',
-        'sea-ice'
-    ],
-    'calendar': [
-        'standard',
-        'proleptic-gregorian',
-        'gregorian',
-        '365-day',
-        '360-day'
-    ],
-    'model_family': [
-        'access',
-        'bcc-csm',
-        'bisicles',
-        'cam',
-        'canesm',
-        'cesm',
-        'clm',
-        'cnrm-cm',
-        'ec-earth',
-        'fgoals',
-        'gfdl-cm4',
-        'giss-e2',
-        'hadcm2',
-        'hadgem3',
-        'icon',
-        'ipsl-cm',
-        'miroc',
-        'mpi-esm',
-        'ukesm1'
-    ],
+    'component': graph_entry('constants:model_component_type/_graph.json'),
+    'calendar': graph_entry('constants:calendar/_graph.json'),
+    'model_family': graph_entry('emd:model_family/_graph.json'),
     'issue_kind': ['New', 'Modify']
 }

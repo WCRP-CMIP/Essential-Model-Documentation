@@ -23,7 +23,7 @@ body:
         >
         > <details><summary>Existing Grid Cells</summary>
         >
-        > _Prefill links unavailable - run from repository root._
+        > {existing_grid_cells}
         >
         > </details>
 
@@ -63,13 +63,29 @@ body:
         </details>
       options:
         - "Not specified"
-        - "regular-latitude-longitude"
-        - "reduced-gaussian"
+        - "unstructured_polygonal"
+        - "quadratic_spectral_gaussian"
+        - "unstructured"
+        - "hierarchical_discrete_global_grid"
+        - "rotated_pole"
+        - "displaced_pole"
+        - "regular_gaussian"
+        - "spectral_reduced_gaussian"
+        - "unstructured_quadrilateral"
+        - "icosahedral_geodesic_dual"
         - "tripolar"
-        - "displaced-pole"
+        - "cubic_octahedral_spectral_reduced_gaussian"
+        - "icosahedral_geodesic"
         - "icosahedral"
-        - "cubed-sphere"
-        - "adaptive-mesh"
+        - "yin_yang"
+        - "cubed_sphere"
+        - "linear_spectral_gaussian"
+        - "unstructured_triangular"
+        - "reduced_gaussian"
+        - "spectral_gaussian"
+        - "stretched"
+        - "regular_latitude_longitude"
+        - "plane_projection"
       default: 0
     validations:
       required: true
@@ -96,10 +112,22 @@ body:
         </details>
       options:
         - "Not specified"
-        - "latitude-longitude"
-        - "rotated-latitude-longitude"
+        - "albers_conical_equal_area"
+        - "polar_stereographic"
+        - "vertical_perspective"
+        - "rotated_latitude_longitude"
+        - "transverse_mercator"
+        - "lambert_conformal_conic"
+        - "azimuthal_equidistant"
+        - "lambert_azimuthal_equal_area"
+        - "healpix"
+        - "lambert_cylindrical_equal_area"
+        - "geostationary"
+        - "mercator"
+        - "latitude_longitude"
+        - "sinusoidal"
+        - "orthographic"
         - "stereographic"
-        - "lambert-conformal"
       default: 0
     validations:
       required: true
@@ -126,11 +154,16 @@ body:
         
         </details>
       options:
-        - "global"
-        - "regional"
+        - "northern_hemisphere"
+        - "30s-90s"
+        - "tropics"
+        - "greenland"
+        - "antarctica"
+        - "shem"
+        - "southern_hemisphere"
         - "arctic"
-        - "antarctic"
-        - "tropical"
+        - "global"
+        - "limited-area"
     validations:
       required: true
 
@@ -156,6 +189,7 @@ body:
         - "Not specified"
         - "static"
         - "adaptive"
+        - "dynamically_stretched"
       default: 0
     validations:
       required: true
@@ -206,8 +240,10 @@ body:
       options:
         - "Not specified"
         - "degree"
+        - "meter"
         - "km"
-        - "m"
+        - "k"
+        - "pa"
       default: 0
 
   - type: input
@@ -288,9 +324,8 @@ body:
         </details>
       options:
         - "Not specified"
-        - "triangular"
         - "rhomboidal"
-        - "linear"
+        - "triangular"
       default: 0
 
   - type: input
@@ -362,11 +397,11 @@ body:
         
         </details>
       options:
-        - "mass"
-        - "zonal-velocity"
-        - "meridional-velocity"
+        - "velocity"
+        - "x-velocity"
         - "vorticity"
-        - "divergence"
+        - "y-velocity"
+        - "mass"
 
   - type: markdown
     attributes:

@@ -74,12 +74,11 @@ body:
         </details>
       options:
         - "Not specified"
-        - "arakawa-a"
-        - "arakawa-b"
         - "arakawa-c"
-        - "arakawa-d"
         - "arakawa-e"
-        - "unstaggered"
+        - "arakawa-b"
+        - "arakawa-a"
+        - "arakawa-d"
       default: 0
     validations:
       required: true

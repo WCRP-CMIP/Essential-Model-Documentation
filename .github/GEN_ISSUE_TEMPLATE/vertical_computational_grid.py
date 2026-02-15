@@ -1,16 +1,7 @@
 # Vertical Computational Grid Template Data
+from cmipld.utils.ldparse import graph_entry
 
 DATA = {
-    'vertical_coordinate': [
-        'atmosphere-hybrid-height-coordinate',
-        'atmosphere-hybrid-sigma-pressure-coordinate',
-        'atmosphere-sigma-coordinate',
-        'depth',
-        'height',
-        'ocean-s-coordinate',
-        'ocean-sigma-coordinate',
-        'ocean-sigma-z-coordinate',
-        'land-ice-sigma-coordinate'
-    ],
+    'vertical_coordinate': graph_entry('constants:vertical_coordinate/_graph.json'),
     'issue_kind': ['New', 'Modify']
 }
