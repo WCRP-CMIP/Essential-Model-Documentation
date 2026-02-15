@@ -4,7 +4,7 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 > [!TIP]
 > **Using a pre-registered component?** Select from the list below to auto-populate fields.
 >
-> NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` after selection for the pre-filled links to work.
+> NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` to refresh after selecting in order for the pre-filled links to update.
 
 <details>
 <summary>Pre-registered Model Components (must be opened in a new window)</summary>
@@ -28,7 +28,7 @@ This form has two sections:
 
 ### Component Definition
 
-This section defines the model component that can be reused across multiple source_id registrations.",none,false,,,
+This section defines the model component that can be reused across multiple source_id and component-grid registrations.",none,false,,,
 2,dropdown,component,Component Type,The scientific domain that this component simulates.,component_type,true,,list_with_na,0
 3,input,name,Component Name,The official component name including version information.,none,true,NEMO v3.6,,
 4,dropdown,family,Component Family,The component family that this component belongs to.,component_family,false,,dict_keys,0
@@ -54,5 +54,5 @@ This section links the component to computational grids, generating a composite 
 - Creates `model_component` and `component_config` entries
 - Config ID format: `<domain>_<component>_<c###>_<v###>`
 - Use the config ID in Stage 4 (Model)
-- Track progress in issue comments",none,false,,,
+- [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
 12,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

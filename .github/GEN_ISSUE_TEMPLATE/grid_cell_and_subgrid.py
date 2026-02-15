@@ -1,5 +1,6 @@
 # Grid Cell and Subgrid Template Data
 from cmipld.utils.ldparse import graph_entry
+from cmipld.generate.template_utils import get_existing_entries_markdown
 
 DATA = {
     'grid_type': graph_entry('constants:grid_type/_graph.json'),
@@ -10,5 +11,6 @@ DATA = {
     'truncation_method': graph_entry('constants:truncation_method/_graph.json'),
     'cell_variable_type': graph_entry('constants:cell_variable_type/_graph.json'),
     'subgrid_option': ['Create new subgrid', 'No subgrid (grid cells only)'],
-    'issue_kind': ['New', 'Modify']
+    'issue_kind': ['New', 'Modify'],
+    'prefill_links': get_existing_entries_markdown('grid_cell_and_subgrid', issue_kind='New')
 }

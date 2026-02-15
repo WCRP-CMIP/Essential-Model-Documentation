@@ -260,7 +260,7 @@ body:
         - Creates `model_family` entry
         - Earth System Families can be referenced in Stage 4 (Model)
         - Component Families can be referenced in Stage 3 (Model Component)
-        - Track progress in issue comments
+        - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown
     id: issue_kind
@@ -268,8 +268,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true

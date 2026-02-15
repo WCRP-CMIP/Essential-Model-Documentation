@@ -5,6 +5,14 @@
   "labels": ["emd-submission", "c+s", "Review"],
   "issue_category": "grid_cell_and_subgrid",
   "dropdown_title": "Detailed Guidance",
+  "prefill_sources": {
+    "horizontal_grid_cells": {
+      "display_name": "validation_key",
+      "subtitle": "grid_type",
+      "fields": "all",
+      "link_type": "prefill"
+    }
+  },
   "field_guidance": {
     "grid_type": "**Cell distribution pattern**\n\nDefines how grid cells are arranged across the domain.\n\n- **regular-latitude-longitude**: Uniform spacing in lat/lon\n- **reduced-gaussian**: Fewer points near poles (spectral models)\n- **tripolar**: North Pole singularity moved onto land (ocean models)\n- **displaced-pole**: Single rotated pole\n- **icosahedral**: Quasi-uniform spherical coverage\n- **cubed-sphere**: Six cube faces projected onto sphere\n- **adaptive-mesh**: Dynamically refined regions\n\nSee [CF Conventions grid mappings](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#appendix-grid-mappings) for details.",
     "grid_mapping": "**Coordinate reference system**\n\nDefines how cell positions are located.\n\n- **latitude-longitude**: Standard geographic coordinates\n- **rotated-latitude-longitude**: Pole moved to reduce distortion over region of interest\n- **stereographic**: Polar projection (polar regions)\n- **lambert-conformal**: Mid-latitude regional projection",

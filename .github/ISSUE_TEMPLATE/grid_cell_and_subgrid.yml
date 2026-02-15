@@ -6,35 +6,42 @@ body:
   - type: markdown
     attributes:
       value: |
+        ## Reusable Grid Cells
+        
+        > [!TIP]
+        > **Using a pre-registered grid cell?** Select from the list below to auto-populate fields.
+        >
+        > NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` to refresh after selecting in order for the pre-filled links to update.
+        
+        <details>
+        <summary>Pre-registered Grid Cells (must be opened in a new window)</summary>
+        
+        - [g100 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g100&issue_kind=%22New%22&x_resolution=1.25&westernmost_longitude=0.5&southernmost_latitude=-89.5&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&grid_mapping=%22latitude_longitude%22&region=%22global%22&units=%22degree%22&n_cells=55296&y_resolution=0.9)
+        - [g101 (linear-spectral-gaussian)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g101&issue_kind=%22New%22&x_resolution=1.4&truncation_method=%22triangular%22&truncation_number=127&westernmost_longitude=0.0&southernmost_latitude=-88.9277353522076&temporal_refinement=%22static%22&grid_type=%22linear_spectral_gaussian%22&grid_mapping=%22latitude_longitude%22&region=%22global%22&units=%22degree%22&n_cells=24572&y_resolution=1.4)
+        - [g102 (tripolar)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g102&issue_kind=%22New%22&temporal_refinement=%22static%22&grid_type=%22tripolar%22&grid_mapping=%22latitude_longitude%22&region=%22global%22&n_cells=105704)
+        - [g103 (plane-projection)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g103&issue_kind=%22New%22&temporal_refinement=%22adaptive%22&grid_type=%22plane_projection%22&grid_mapping=%22polar_stereographic%22&region=%22greenland%22%2C%22antarctica%22)
+        - [g104 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g104&issue_kind=%22New%22&x_resolution=1.25&westernmost_longitude=0.0&southernmost_latitude=-89.65&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&grid_mapping=%22latitude_longitude%22&region=%22global%22&units=%22degree%22&n_cells=55296&y_resolution=0.9)
+        
+        </details>
+        
         ## Stage 1: Grid Cells & Subgrid
         
-        Creates **two linked entities**: grid cells (physical properties) and subgrid (variable locations).
+        This form has two sections:
+        1. **Grid Cell Definition** — Defines the physical grid structure (cell arrangement, resolution, extent) that can be reused across multiple subgrid and component registrations
+        2. **Subgrid Definition** — Specifies where variables are stored on the grid for use in Stage 2a
         
         **Prerequisites:** None — this is the first step.
         
-        > [!NOTE]
-        > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
-        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
-        
         [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du53ur9WaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DbqBo6I-CFluKbDErvX-BK7VrNiW61GrdWyWlbTqrdsAy9hu7ZfaTkHMGp2w2k2Dhq3Br7KNNQq-62GgSn4U8bDvF3Lurbb3ySwHI0)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
         
-        > [!TIP]
-        > **Reuse existing grid cells:** If a suitable grid cell definition already exists, you can reuse it by creating only a new subgrid entry. Use the prefill links below to view and copy existing grid cell configurations.
-        >
-        > <details><summary>Existing Grid Cells</summary>
-        >
-        > {existing_grid_cells}
-        >
-        > </details>
-
-  - type: markdown
-    attributes:
-      value: |
+        > [!NOTE]
+        > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+        
         ---
         
         ### Grid Cell Definition
         
-        Define the physical grid structure (cell arrangement, resolution, extent).
+        This section defines the physical grid structure that can be reused across multiple subgrid registrations.
 
   - type: dropdown
     id: grid_type
@@ -63,29 +70,29 @@ body:
         </details>
       options:
         - "Not specified"
-        - "unstructured_polygonal"
-        - "quadratic_spectral_gaussian"
-        - "unstructured"
-        - "hierarchical_discrete_global_grid"
-        - "rotated_pole"
-        - "displaced_pole"
-        - "regular_gaussian"
-        - "spectral_reduced_gaussian"
-        - "unstructured_quadrilateral"
-        - "icosahedral_geodesic_dual"
-        - "tripolar"
-        - "cubic_octahedral_spectral_reduced_gaussian"
-        - "icosahedral_geodesic"
-        - "icosahedral"
-        - "yin_yang"
         - "cubed_sphere"
+        - "cubic_octahedral_spectral_reduced_gaussian"
+        - "displaced_pole"
+        - "hierarchical_discrete_global_grid"
+        - "icosahedral"
+        - "icosahedral_geodesic"
+        - "icosahedral_geodesic_dual"
         - "linear_spectral_gaussian"
-        - "unstructured_triangular"
-        - "reduced_gaussian"
-        - "spectral_gaussian"
-        - "stretched"
-        - "regular_latitude_longitude"
         - "plane_projection"
+        - "quadratic_spectral_gaussian"
+        - "reduced_gaussian"
+        - "regular_gaussian"
+        - "regular_latitude_longitude"
+        - "rotated_pole"
+        - "spectral_gaussian"
+        - "spectral_reduced_gaussian"
+        - "stretched"
+        - "tripolar"
+        - "unstructured"
+        - "unstructured_polygonal"
+        - "unstructured_quadrilateral"
+        - "unstructured_triangular"
+        - "yin_yang"
       default: 0
     validations:
       required: true
@@ -113,21 +120,21 @@ body:
       options:
         - "Not specified"
         - "albers_conical_equal_area"
-        - "polar_stereographic"
-        - "vertical_perspective"
-        - "rotated_latitude_longitude"
-        - "transverse_mercator"
-        - "lambert_conformal_conic"
         - "azimuthal_equidistant"
-        - "lambert_azimuthal_equal_area"
-        - "healpix"
-        - "lambert_cylindrical_equal_area"
         - "geostationary"
-        - "mercator"
+        - "healpix"
+        - "lambert_azimuthal_equal_area"
+        - "lambert_conformal_conic"
+        - "lambert_cylindrical_equal_area"
         - "latitude_longitude"
-        - "sinusoidal"
+        - "mercator"
         - "orthographic"
+        - "polar_stereographic"
+        - "rotated_latitude_longitude"
+        - "sinusoidal"
         - "stereographic"
+        - "transverse_mercator"
+        - "vertical_perspective"
       default: 0
     validations:
       required: true
@@ -154,16 +161,16 @@ body:
         
         </details>
       options:
-        - "northern_hemisphere"
         - "30s-90s"
-        - "tropics"
-        - "greenland"
         - "antarctica"
-        - "shem"
-        - "southern_hemisphere"
         - "arctic"
         - "global"
+        - "greenland"
         - "limited-area"
+        - "northern_hemisphere"
+        - "shem"
+        - "southern_hemisphere"
+        - "tropics"
     validations:
       required: true
 
@@ -187,9 +194,9 @@ body:
         </details>
       options:
         - "Not specified"
-        - "static"
         - "adaptive"
         - "dynamically_stretched"
+        - "static"
       default: 0
     validations:
       required: true
@@ -240,9 +247,9 @@ body:
       options:
         - "Not specified"
         - "degree"
-        - "meter"
-        - "km"
         - "k"
+        - "km"
+        - "meter"
         - "pa"
       default: 0
 
@@ -354,7 +361,7 @@ body:
         
         ### Subgrid Definition
         
-        Define where variables are stored on this grid. 
+        This section specifies where variables are stored on the grid, generating a subgrid ID (s###) for use in Stage 2a: Horizontal Computational Grid.
         
         > [!NOTE]
         > **Grid cells only?** If you only need a grid cell entry without a subgrid, select **'No subgrid (grid cells only)'** below and leave the Variable Types field empty.
@@ -397,11 +404,11 @@ body:
         
         </details>
       options:
-        - "velocity"
-        - "x-velocity"
-        - "vorticity"
-        - "y-velocity"
         - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
 
   - type: markdown
     attributes:
@@ -412,8 +419,8 @@ body:
         
         **After submission:**
         - Creates `horizontal_grid_cells` (g###) and optionally `horizontal_subgrid` (s###)
-        - Use the s### ID in Stage 2a (Horizontal Grid)
-        - Track progress in issue comments
+        - Use the s### ID in Stage 2a (Horizontal Computational Grid)
+        - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown
     id: issue_kind
@@ -421,8 +428,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true

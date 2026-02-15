@@ -81,26 +81,26 @@ body:
         </details>
       options:
         - "Not specified"
-        - "atmosphere_sleve_coordinate"
-        - "sea_water_pressure"
-        - "atmosphere_ln_pressure_coordinate"
-        - "land_ice_sigma_coordinate"
         - "air_potential_temperature"
         - "air_pressure"
-        - "ocean_sigma_coordinate"
+        - "atmosphere_hybrid_height_coordinate"
+        - "atmosphere_hybrid_sigma_pressure_coordinate"
+        - "atmosphere_ln_pressure_coordinate"
+        - "atmosphere_sigma_coordinate"
+        - "atmosphere_sleve_coordinate"
+        - "depth"
+        - "geopotential_height"
+        - "height"
+        - "land_ice_sigma_coordinate"
+        - "ocean_double_sigma_coordinate"
         - "ocean_s_coordinate"
         - "ocean_s_coordinate_g1"
-        - "atmosphere_sigma_coordinate"
-        - "sea_water_potential_temperature"
-        - "atmosphere_hybrid_sigma_pressure_coordinate"
-        - "atmosphere_hybrid_height_coordinate"
         - "ocean_s_coordinate_g2"
-        - "geopotential_height"
+        - "ocean_sigma_coordinate"
         - "ocean_sigma_z_coordinate"
+        - "sea_water_potential_temperature"
+        - "sea_water_pressure"
         - "z*"
-        - "depth"
-        - "height"
-        - "ocean_double_sigma_coordinate"
       default: 0
     validations:
       required: true
@@ -198,7 +198,7 @@ body:
         **After submission:**
         - Creates `vertical_computational_grid` (v###)
         - Use this ID with a c### in Stage 3 (Model Component)
-        - Track progress in issue comments
+        - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown
     id: issue_kind
@@ -206,8 +206,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true
