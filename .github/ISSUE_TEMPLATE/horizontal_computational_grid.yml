@@ -83,9 +83,10 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: dropdown
     id: horizontal_subgrids
     attributes:
+      multiple: true
       label: Subgrid IDs
       description: |
         The subgrid IDs from Stage 1 that make up this computational grid.
@@ -109,8 +110,12 @@ body:
         Number of subgrids must match your arrangement type.
         
         </details>
-      placeholder: "s100
-s101"
+      options:
+        - "s100"
+        - "s101"
+        - "s102"
+        - "s103"
+        - "s104"
     validations:
       required: true
 

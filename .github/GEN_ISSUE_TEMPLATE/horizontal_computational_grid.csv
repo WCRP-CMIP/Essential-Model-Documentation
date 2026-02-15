@@ -14,8 +14,7 @@ Links subgrids into a single computational grid with a specified staggering arra
 2. Resolution or spectral truncation
 3. Typical use (atmosphere/ocean)",,
 3,dropdown,arrangement,Arrangement,The grid staggering pattern that defines how variables are positioned relative to cell centres.,arrangement,true,,list_with_na,0
-4,textarea,horizontal_subgrids,Subgrid IDs,The subgrid IDs from Stage 1 that make up this computational grid.,none,true,"s100
-s101",,
+4,multi-select,horizontal_subgrids,Subgrid IDs,The subgrid IDs from Stage 1 that make up this computational grid.,subgrids,true,,list,
 5,markdown,metadata_header,,"---
 
 ## Issue Handling
