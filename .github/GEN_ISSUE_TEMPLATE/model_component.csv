@@ -3,13 +3,13 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 
 > [!TIP]
 > **Modifying a pre-registered component?** Select from the list below to auto-populate fields.
->
-> <details>
-> <summary>Pre-registered Model Components (click to expand)</summary>
->
-> {prefill_links}
->
-> </details>
+
+<details>
+<summary>Pre-registered Model Components (click to expand)</summary>
+
+{prefill_links}
+
+</details>
 
 This form registers a model component and generates a composite configuration ID (e.g., `ocean_nemo-v3-6_c101_v103`) for use in Stage 4: Model registration.
 

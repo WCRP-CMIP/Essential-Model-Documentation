@@ -10,11 +10,11 @@ body:
         
         > [!TIP]
         > **Modifying a pre-registered component?** Select from the list below to auto-populate fields.
-        >
-        > <details>
-        > <summary>Pre-registered Model Components (click to expand)</summary>
-        >
-        > <ul>
+        
+        <details>
+        <summary>Pre-registered Model Components (click to expand)</summary>
+        
+        <ul>
         <li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=%5BEMD%5D+Component%3A+Arpege-Climat+Version+6.3&issue_kind=%22Modify%22&name=Arpege-Climat+Version+6.3&description=ARPEGE-Climat+Version+6.3+is+the+atmospheric+component+of+the+CNRM+climate+and+Earth+System+models+%28CNRM-CM6-1+and+CNRM-ESM2-1%29.&code_base=private" target="_blank">Arpege-Climat Version 6.3 (atmosphere)</a></li>
         <li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=%5BEMD%5D+Component%3A+BISICLES-UKESM-ISMIP6-1.0&issue_kind=%22Modify%22&name=BISICLES-UKESM-ISMIP6-1.0&description=UniCiCles+%28Unified+Model-CISM-BISICLES%29+is+a+package+combining+BISICLES+with+an+interface+that+obtains+boundary+conditions+from+Unified+Model+or+JULES+data.&code_base=none" target="_blank">BISICLES-UKESM-ISMIP6-1.0 (land-ice)</a></li>
         <li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=%5BEMD%5D+Component%3A+CLM4&issue_kind=%22Modify%22&name=CLM4&description=The+Community+Land+Model+represents+several+aspects+of+the+land+surface+including+surface+heterogeneity+through+a+nested+subgrid+hierarchy.&code_base=none" target="_blank">CLM4 (land-surface)</a></li>
@@ -26,8 +26,8 @@ body:
         <li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=%5BEMD%5D+Component%3A+SURFEX+v8+modeling+platform&issue_kind=%22Modify%22&name=SURFEX+v8+modeling+platform&description=SURFEXv8.0+encompasses+several+submodules+for+modeling+the+interactions+between+the+atmosphere%2C+the+ocean%2C+the+lakes+and+the+land+surface.&code_base=https%3A%2F%2Fwww.umr-cnrm.fr%2Fsurfex%2Fspip.php%3Frubrique8" target="_blank">SURFEX v8 modeling platform (land-surface)</a></li>
         <li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=%5BEMD%5D+Component%3A+TACTIC&issue_kind=%22Modify%22&name=TACTIC&description=TACTIC+%28Tropospheric+Aerosols+for+ClimaTe+In+CNRM%29+is+an+interactive+tropospheric+aerosol+scheme%2C+able+to+represent+the+main+anthropogenic+and+natural+aerosol+types+in+the+troposphere.&code_base=private" target="_blank">TACTIC (aerosol)</a></li>
         </ul>
-        >
-        > </details>
+        
+        </details>
         
         This form registers a model component and generates a composite configuration ID (e.g., `ocean_nemo-v3-6_c101_v103`) for use in Stage 4: Model registration.
         
