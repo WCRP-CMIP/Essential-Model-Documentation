@@ -1,0 +1,101 @@
+[
+  {
+    "@id": "g100",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cells",
+      "esgvoc:HorizontalGridCells"
+    ],
+    "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 55296,
+    "region": "global",
+    "southernmost_latitude": -89.5,
+    "temporal_refinement": "static",
+    "ui_label": "",
+    "units": "degree",
+    "validation_key": "g100",
+    "westernmost_longitude": 0.5,
+    "x_resolution": 1.25,
+    "y_resolution": 0.9
+  },
+  {
+    "@id": "g101",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cells",
+      "esgvoc:HorizontalGridCells"
+    ],
+    "description": "Linear spectral Gaussian grid (TL127) with 24572 cells.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "linear-spectral-gaussian",
+    "n_cells": 24572,
+    "region": "global",
+    "southernmost_latitude": -88.9277353522076,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 127,
+    "ui_label": "",
+    "units": "degree",
+    "validation_key": "g101",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.4,
+    "y_resolution": 1.4
+  },
+  {
+    "@id": "g102",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cells",
+      "esgvoc:HorizontalGridCells"
+    ],
+    "description": "Ocean tripolar grid (eORCA1) with 105704 cells.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 105704,
+    "region": "global",
+    "temporal_refinement": "static",
+    "ui_label": "",
+    "validation_key": "g102"
+  },
+  {
+    "@id": "g103",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cells",
+      "esgvoc:HorizontalGridCells"
+    ],
+    "description": "Adaptive polar stereographic mesh for ice sheets with variable resolution (9.6 km to 1.2 km for Greenland, 8 km to 2 km for Antarctica).",
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "region": [
+      "greenland",
+      "antarctica"
+    ],
+    "temporal_refinement": "adaptive",
+    "ui_label": "",
+    "validation_key": "g103"
+  },
+  {
+    "@id": "g104",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cells",
+      "esgvoc:HorizontalGridCells"
+    ],
+    "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells, offset origin from g100.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 55296,
+    "region": "global",
+    "southernmost_latitude": -89.65,
+    "temporal_refinement": "static",
+    "ui_label": "",
+    "units": "degree",
+    "validation_key": "g104",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.25,
+    "y_resolution": 0.9
+  }
+]

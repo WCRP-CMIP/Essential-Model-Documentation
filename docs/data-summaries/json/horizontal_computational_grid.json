@@ -1,0 +1,57 @@
+[
+  {
+    "@id": "c100",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "Arakawa-C grid combining regular latitude-longitude and spectral Gaussian subgrids for atmospheric modelling.",
+    "horizontal_subgrids": [
+      "s100",
+      "s101"
+    ],
+    "ui_label": "",
+    "validation_key": "c100"
+  },
+  {
+    "@id": "c101",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
+    "horizontal_subgrids": "s102",
+    "ui_label": "",
+    "validation_key": "c101"
+  },
+  {
+    "@id": "c102",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "Arakawa-C grid with adaptive mesh refinement for ice sheet modelling.",
+    "horizontal_subgrids": "s103",
+    "ui_label": "",
+    "validation_key": "c102"
+  },
+  {
+    "@id": "c103",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Arakawa-A grid on a regular latitude-longitude configuration for land surface modelling.",
+    "horizontal_subgrids": "s104",
+    "ui_label": "",
+    "validation_key": "c103"
+  }
+]

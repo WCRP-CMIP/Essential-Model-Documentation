@@ -1,0 +1,104 @@
+[
+  {
+    "@id": "v100",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 100,
+    "description": "85-level atmospheric hybrid height coordinate extending to approximately 85 km.",
+    "n_z": 85,
+    "top_layer_thickness": 10,
+    "total_thickness": 84763.34,
+    "ui_label": "",
+    "validation_key": "v100",
+    "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
+  },
+  {
+    "@id": "v101",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 240,
+    "description": "91-level atmospheric hybrid sigma-pressure coordinate extending to 61 km.",
+    "n_z": 91,
+    "top_layer_thickness": 2,
+    "total_thickness": 61000,
+    "ui_label": "",
+    "validation_key": "v101",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
+  },
+  {
+    "@id": "v102",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 4,
+    "description": "14 soil layers (0.01, 0.04, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0, 3.0, 5.0, 8.0, and 12.0 m) but the soil moisture profile is computed only over the rooting depth, from 0.2 (rocks) to 8 m (tropical forest) according to the land cover type, while the soil temperature is computed down to a depth of 12 m.",
+    "n_z": 14,
+    "top_layer_thickness": 0.01,
+    "total_thickness": 12,
+    "ui_label": "",
+    "validation_key": "v102",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v103",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 200,
+    "description": "75-level ocean sigma-z coordinate with 1 m surface layers and 200 m bottom layers.",
+    "n_z": 75,
+    "top_layer_thickness": 1,
+    "ui_label": "",
+    "validation_key": "v103",
+    "vertical_coordinate": "ocean-sigma-z-coordinate"
+  },
+  {
+    "@id": "v104",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "description": "10-level height coordinate for sea ice thermodynamics.",
+    "n_z": 10,
+    "ui_label": "",
+    "validation_key": "v104",
+    "vertical_coordinate": "height"
+  },
+  {
+    "@id": "v105",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "description": "The bottom level of the snowpack, which starts 6 metres below the snow surface, expands in thickness to hold as much mass as the column accumulates.",
+    "n_z": 20,
+    "top_layer_thickness": 0.04,
+    "ui_label": "",
+    "validation_key": "v105",
+    "vertical_coordinate": "land-ice-sigma-coordinate"
+  },
+  {
+    "@id": "v106",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "description": "Vegetated, wetland, and glacier landunits have 15 vertical layers. Lakes have 10 layers. Snow can have up to 5 layers.",
+    "ui_label": "",
+    "validation_key": "v106",
+    "vertical_coordinate": "depth"
+  }
+]
