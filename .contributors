@@ -1,19 +1,55 @@
 {
-  "last_updated": "2026-02-15T22:31:29.502969",
+  "last_updated": "2026-02-16T00:11:28.629390",
   "files": {
     ".contributors": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-15T22:13:52Z"
+      "last_updated": "2026-02-15T22:31:31Z"
     },
     "contributors.html": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-15T22:13:52Z"
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
+    "model_component/_context": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
+    "model_component/_context.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
+    "model_component/_graph.json": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
+    "model_component/_graph.jsonld": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
+    "model_component/graph": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
     },
     "src/mkdocs/.gitignore": {
       "contributors": [
@@ -94,7 +130,8 @@
     },
     ".github/workflows/docs-change.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-15T22:10:53Z"
     },
@@ -108,8 +145,8 @@
     "component_config/_context": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:46:40Z"
     },
@@ -173,21 +210,6 @@
       "last_updated": "2026-02-15T21:46:40Z"
     },
     "model/_context.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-15T21:46:40Z"
-    },
-    "model_component/_context": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-02-15T22:30:28Z"
-    },
-    "model_component/_context.json": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
@@ -691,13 +713,15 @@
     },
     ".github/prepublish/01-copy_json_without_extension.sh": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
     ".github/prepublish/02-copy_context_with_extension.sh": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
@@ -746,6 +770,7 @@
     "component_config/aerosol-tactic-c100-v100.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -753,14 +778,15 @@
     "component_config/aerosol_tactic_c100_v100.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
     "component_config/atmosphere-arpege-climat-version-6-3-c100-v100.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -768,14 +794,15 @@
     "component_config/atmosphere_arpege-climat-version-6-3_c100_v100.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
     "component_config/atmospheric-chemistry-reprobus-c-v2-0-c100-v100.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -783,8 +810,8 @@
     "component_config/atmospheric-chemistry_reprobus-c-v2-0_c100_v100.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
@@ -797,6 +824,7 @@
     "component_config/land-surface-surfex-v8-modeling-platform-c100-v102.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -804,14 +832,15 @@
     "component_config/land-surface_surfex-v8-modeling-platform_c100_v102.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
     "component_config/ocean-biogeochemistry-piscesv2-gas-c101-v103.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -819,14 +848,15 @@
     "component_config/ocean-biogeochemistry_piscesv2-gas_c101_v103.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
     "component_config/ocean-nemo-v3-6-c101-v103.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -834,14 +864,15 @@
     "component_config/ocean_nemo-v3-6_c101_v103.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
     "component_config/sea-ice-gelato-c101-v104.json": {
       "contributors": [
         "cmip-ipo",
+        "daniel.ellis",
         "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
@@ -849,8 +880,8 @@
     "component_config/sea-ice_gelato_c101_v104.json": {
       "contributors": [
         "cmip-ipo",
-        "wolfiex",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
@@ -2185,13 +2216,6 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "model_component/_graph.jsonld": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-15T22:30:28Z"
-    },
     "model_component/arpege-climat-version-6-3.json": {
       "contributors": [
         "cmip-ipo",
@@ -2869,12 +2893,6 @@
       ],
       "last_updated": "2026-02-15T20:39:46Z"
     },
-    "model_component/_graph.json": {
-      "contributors": [
-        "cmip-ipo"
-      ],
-      "last_updated": "2026-02-15T20:39:46Z"
-    },
     "model_component/_graph.ttl": {
       "contributors": [
         "cmip-ipo"
@@ -3172,14 +3190,6 @@
       ],
       "last_updated": "2026-02-14T21:03:19Z"
     },
-    "model_component/graph": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-02-14T21:03:19Z"
-    },
     "model_component/graph.json": {
       "contributors": [
         "cmip-ipo",
@@ -3375,7 +3385,8 @@
     },
     ".github/CONTRIBUTING.md": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T13:57:50Z"
     },
@@ -4064,7 +4075,8 @@
     },
     ".github/GENERATE_SUMMARIES/horizontal_subgrid.py": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T00:25:09Z"
     },
@@ -8040,141 +8052,11 @@
       ],
       "last_updated": "2025-12-19T15:27:15Z"
     },
-    "reference/.DS_Store": {
+    "data/reference/.DS_Store": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-09T12:58:58Z"
-    },
-    "src/mkdocs/site/assets/logo.svg": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/ds copy/index.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/ds/index.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/info.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/infobackup.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/infomd/index.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "horizontal_subgrid/s105.json": {
-      "contributors": [
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-01-12T11:38:24Z"
-    },
-    "horizontal_subgrid/s106.json": {
-      "contributors": [
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-01-12T11:38:24Z"
-    },
-    "horizontal_computational_grid/c104.json": {
-      "contributors": [
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-01-12T11:38:24Z"
-    },
-    "horizontal_computational_grid/c105.json": {
-      "contributors": [
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-01-12T11:38:24Z"
-    },
-    "horizontal_computational_grid/g100.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_computational_grid/g101.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_computational_grid/g102.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_computational_grid/g103.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_computational_grid/g104.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_computational_grid/g105.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_grid_cells/c100.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_grid_cells/c101.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_grid_cells/c102.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_grid_cells/c103.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
-    },
-    "horizontal_grid_cells/c104.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T19:56:12Z"
+      "last_updated": "2026-01-07T15:10:28Z"
     },
     "CHANGELOG_EMD_JSONLD.md": {
       "contributors": [
@@ -8201,54 +8083,6 @@
       "last_updated": "2026-01-07T15:10:28Z"
     },
     "data/.DS_Store": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "docs/EMD_Model_v0.993_CNRM.xlsx": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "docs/EMD_Model_v0.993_CNRM.xltx": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "docs/Essential Model Documentation (EMD) - version 1.0.pdf": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "docs/Essential Model Documentation (EMD) POST community review - version 0.90.pdf": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "docs/emd_property_requirements.md": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "docs/recovered_EMD_Model_v0.993_CNRM.xlsx": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "examples.zip": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/horizontal_computational_grid/_context": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8290,7 +8124,7 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/horizontal_grid_cells/_context": {
+    "data/horizontal_computational_grid/_context": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8326,13 +8160,7 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/horizontal_subgrid/.DS_Store": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/horizontal_subgrid/_context": {
+    "data/horizontal_grid_cells/_context": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8380,13 +8208,7 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/model/.DS_Store": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/model/_context": {
+    "data/horizontal_subgrid/_context": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8399,18 +8221,6 @@
       "last_updated": "2026-01-07T15:10:28Z"
     },
     "data/model_component/.DS_Store": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/model_component/_context": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/model_component/arpege-climat-version-6-3.json": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8446,12 +8256,6 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/model_component/nemo-v3-6.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
     "data/model_component/NEMO_v3_6.json": {
       "contributors": [
         "daniel.ellis"
@@ -8464,19 +8268,7 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/model_component/reprobus-c-v2-0.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
     "data/model_component/REPROBUS-C_v2_0.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/model_component/surfex-v8-modeling-platform.json": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8494,7 +8286,283 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
+    "data/model_component/_context": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_component/arpege-climat-version-6-3.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_component/nemo-v3-6.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_component/reprobus-c-v2-0.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_component/surfex-v8-modeling-platform.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_family/CNRM-CM.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_family/GEOS.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
     "data/model_family/_context": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model_family/ifs.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF001.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF002.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF003.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF004.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF005.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF006.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF007.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF008.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF009.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF010.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF011.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF012.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF013.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF014.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF015.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF_BISICLES.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/REF_CLM4.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/_context": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/ref-bisicles.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference/ref-clm4.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG100.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG101.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG102.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG103.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG104.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG105.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/VG106.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid/_context": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "docs/EMD_Model_v0.993_CNRM.xlsx": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "docs/EMD_Model_v0.993_CNRM.xltx": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "docs/Essential Model Documentation (EMD) - version 1.0.pdf": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "docs/Essential Model Documentation (EMD) POST community review - version 0.90.pdf": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "docs/emd_property_requirements.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "docs/recovered_EMD_Model_v0.993_CNRM.xlsx": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "examples.zip": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/horizontal_subgrid/.DS_Store": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model/.DS_Store": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/model/_context": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8542,12 +8610,6 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/model_family/CNRM-CM.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
     "data/model_family/EC-Earth.json": {
       "contributors": [
         "daniel.ellis"
@@ -8555,12 +8617,6 @@
       "last_updated": "2026-01-07T15:10:28Z"
     },
     "data/model_family/FGOALS.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/model_family/GEOS.json": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8591,12 +8647,6 @@
       "last_updated": "2026-01-07T15:10:28Z"
     },
     "data/model_family/icon.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/model_family/ifs.json": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -8723,12 +8773,6 @@
       "last_updated": "2026-01-07T15:10:28Z"
     },
     "old/dev/duplicates/VGRID001_atmosphere_hybrid_sigma_pressure.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "old/dev/duplicates/VGRID002_land_surface_depth.json": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -9256,185 +9300,153 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/reference/.DS_Store": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/_context": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/ref-bisicles.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/ref-clm4.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF001.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF002.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF003.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF004.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF005.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF006.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF007.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF008.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF009.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF010.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF011.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF012.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF013.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF014.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF015.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF_BISICLES.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
-    "data/reference/REF_CLM4.json": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-07T15:10:28Z"
-    },
     "rename_grids.ipynb": {
       "contributors": [
         "daniel.ellis"
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/vertical_computational_grid/_context": {
+    "old/dev/duplicates/VGRID002_land_surface_depth.json": {
       "contributors": [
         "daniel.ellis"
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/vertical_computational_grid/VG100.json": {
+    "reference/.DS_Store": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-02-09T12:58:58Z"
     },
-    "data/vertical_computational_grid/VG101.json": {
+    "src/mkdocs/site/assets/logo.svg": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
     },
-    "data/vertical_computational_grid/VG102.json": {
+    "src/mkdocs/site/bidk/ds copy/index.html": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
     },
-    "data/vertical_computational_grid/VG103.json": {
+    "src/mkdocs/site/bidk/ds/index.html": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
     },
-    "data/vertical_computational_grid/VG104.json": {
+    "src/mkdocs/site/bidk/info.html": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
     },
-    "data/vertical_computational_grid/VG105.json": {
+    "src/mkdocs/site/bidk/infobackup.html": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
     },
-    "data/vertical_computational_grid/VG106.json": {
+    "src/mkdocs/site/bidk/infomd/index.html": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
+    },
+    "horizontal_subgrid/s105.json": {
+      "contributors": [
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-01-12T11:38:24Z"
+    },
+    "horizontal_subgrid/s106.json": {
+      "contributors": [
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-01-12T11:38:24Z"
+    },
+    "horizontal_computational_grid/c104.json": {
+      "contributors": [
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-01-12T11:38:24Z"
+    },
+    "horizontal_computational_grid/c105.json": {
+      "contributors": [
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-01-12T11:38:24Z"
+    },
+    "horizontal_computational_grid/g100.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_computational_grid/g101.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_computational_grid/g102.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_computational_grid/g103.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_computational_grid/g104.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_computational_grid/g105.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_grid_cells/c100.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_grid_cells/c101.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_grid_cells/c102.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_grid_cells/c103.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
+    },
+    "horizontal_grid_cells/c104.json": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T19:56:12Z"
     },
     "data/_delete/examples/README.md": {
       "contributors": [
@@ -11172,6 +11184,14 @@
     }
   },
   "folders": {
+    "model_component": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
     "src": {
       "contributors": [
         "cmip-ipo",
@@ -11275,14 +11295,6 @@
       ],
       "last_updated": "2026-02-15T21:46:40Z"
     },
-    "model_component": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis",
-        "wolfiex"
-      ],
-      "last_updated": "2026-02-15T22:30:28Z"
-    },
     "model_family": {
       "contributors": [
         "cmip-ipo",
@@ -11357,7 +11369,8 @@
     },
     ".github/prepublish": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
@@ -11663,7 +11676,8 @@
     },
     ".github/GENERATE_SUMMARIES": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T00:25:09Z"
     },
@@ -12165,25 +12179,13 @@
       ],
       "last_updated": "2025-12-19T15:27:15Z"
     },
-    "src/mkdocs/site/bidk/ds copy": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/ds": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
-    "src/mkdocs/site/bidk/infomd": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-01-13T23:48:26Z"
-    },
     "data": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/reference": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -12220,6 +12222,12 @@
       "last_updated": "2026-01-07T15:10:28Z"
     },
     "data/model_family": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-07T15:10:28Z"
+    },
+    "data/vertical_computational_grid": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -12345,17 +12353,23 @@
       ],
       "last_updated": "2026-01-07T15:10:28Z"
     },
-    "data/reference": {
+    "src/mkdocs/site/bidk/ds copy": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
     },
-    "data/vertical_computational_grid": {
+    "src/mkdocs/site/bidk/ds": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:10:28Z"
+      "last_updated": "2026-01-13T23:48:26Z"
+    },
+    "src/mkdocs/site/bidk/infomd": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-13T23:48:26Z"
     },
     "data/_delete": {
       "contributors": [
@@ -12684,9 +12698,9 @@
         "actions@wcrp-cmip.org"
       ],
       "username": "cmip-ipo",
-      "first_seen": "2026-02-15T22:31:25.493451",
-      "last_seen": "2026-02-15T22:31:28.661810",
-      "commit_count": 60
+      "first_seen": "2026-02-16T00:11:24.766204",
+      "last_seen": "2026-02-16T00:11:27.833012",
+      "commit_count": 61
     },
     "daniel.ellis": {
       "name": "Daniel Ellis",
@@ -12695,9 +12709,9 @@
         "daniel.ellis@ext.esa.int"
       ],
       "username": "daniel.ellis",
-      "first_seen": "2026-02-15T22:31:26.215168",
-      "last_seen": "2026-02-15T22:31:29.413586",
-      "commit_count": 53
+      "first_seen": "2026-02-16T00:11:25.462290",
+      "last_seen": "2026-02-16T00:11:28.543531",
+      "commit_count": 55
     },
     "wolfiex": {
       "name": "wolfiex",
@@ -12706,8 +12720,8 @@
         "wolfiex@users.noreply.github.com"
       ],
       "username": "wolfiex",
-      "first_seen": "2026-02-15T22:31:26.597657",
-      "last_seen": "2026-02-15T22:31:28.844966",
+      "first_seen": "2026-02-16T00:11:25.825976",
+      "last_seen": "2026-02-16T00:11:28.010547",
       "commit_count": 11
     }
   },
