@@ -22,8 +22,9 @@ model_family = name_entry(
     key='validation_key'
 )
 
-# Get component configs for dropdown
-component_configs = graph_entry('emd:component_config/_graph.json')
+# Get component configs for dropdown (deduplicated)
+component_configs_raw = graph_entry('emd:component_config/_graph.json')
+component_configs = sorted(list(set(component_configs_raw)))
 
 DATA = {
     'component': sorted(domain_labels),
