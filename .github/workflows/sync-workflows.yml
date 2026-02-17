@@ -31,16 +31,22 @@ jobs:
 
           - docs
 
-    
+
     steps:
       - name: Checkout target branch
         uses: actions/checkout@v4
         with:
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-      
+
       - name: Fetch main branch
         run: git fetch origin main --depth=1
+
+      - name: Clean .github folder on target branch
+        run: |
+          echo "Cleaning .github/ on ${{ matrix.branch }}..."
+          rm -rf .github/*
+          echo "Cleaned all contents of .github/"
 
       - name: Sync folders from main
         run: |
@@ -49,9 +55,9 @@ jobs:
             mkdir -p ".github/$folder"
             if git ls-tree -r origin/main --name-only | grep -q "^.github/$folder/"; then
               git checkout origin/main -- ".github/$folder/" 2>/dev/null || \
-                echo "  ⚠ Folder .github/$folder not found on main"
+                echo "  Folder .github/$folder not found on main"
             else
-              echo "  ⚠ Folder .github/$folder not found on main"
+              echo "  Folder .github/$folder not found on main"
             fi
           done
 
@@ -62,10 +68,10 @@ jobs:
             if git cat-file -e "origin/main:.github/$file" 2>/dev/null; then
               git checkout origin/main -- ".github/$file"
             else
-              echo "  ⚠ File .github/$file not found on main"
+              echo "  File .github/$file not found on main"
             fi
           done
-      
+
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v9
         with:

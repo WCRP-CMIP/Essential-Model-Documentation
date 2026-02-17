@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "## Graph Status" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           MISSING=0
           for dir in */; do
             if [ -f "${dir}_context" ] || [ -f "${dir}_context.json" ]; then
@@ -56,7 +56,7 @@ jobs:
               fi
             fi
           done
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ $MISSING -gt 0 ]; then
             echo "**$MISSING graph file(s) missing** - run graphify to generate" >> $GITHUB_STEP_SUMMARY

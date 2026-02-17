@@ -21,7 +21,7 @@ flowchart LR
     %% Options: Stage1, Stage2, MF, Stage3, Stage4
 
     subgraph Stage1["**Stage 1**"]
-        S1["Grid Cells & Subgrid"]
+        S1["Grid Cells"]
     end
 
     subgraph Stage2["**Stage 2**"]
@@ -41,7 +41,7 @@ flowchart LR
     end
 
     subgraph Stage4["**Stage 4**"]
-        S4["Model"]
+        S4["Model (source_id)"]
     end
 
     S1 -->|g###, s###| S2a
@@ -67,8 +67,6 @@ flowchart LR
     style Stage4 stroke:#333,stroke-width:2px,fill:none
 
     %% HIGHLIGHT - Edit this line to change highlight (comment out for no highlight)
-    %%    style Stage3 stroke:#0066cc,stroke-width:3px,fill:none
-
     style Stage3 stroke:#0066cc,stroke-width:3px,fill:none
 ```
 

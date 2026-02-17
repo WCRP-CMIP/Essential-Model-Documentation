@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="3; url=docs/">
+    <link rel="canonical" href="docs/">
+    <title>Redirecting  Essential Model Documentation</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 3rem 3.5rem;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 4px 24px color-mix(in srgb, #2196f3 10%, transparent);
+        }
+
+        /*  Logo spinner  */
+        .logo-wrap {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            animation: spin 1.4s linear infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /*  Text  */
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .destination {
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 1.75rem;
+        }
+
+        .destination code {
+            font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+            font-size: 0.88rem;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 1px 6px;
+            color: #2196f3;
+        }
+
+        /*  Fallback link  */
+        .fallback {
+            font-size: 0.88rem;
+            color: #94a3b8;
+        }
+
+        .fallback a {
+            color: #2196f3;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #2196f3a8;
+            transition: border-color 0.15s;
+        }
+
+        .fallback a:hover {
+            border-color: #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+
+        <!-- Project logo as spinner -->
+        <div class="logo-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="80" height="80" aria-hidden="true">
+                <rect width="256" height="256" fill="none"/>
+                <line x1="208" y1="128" x2="128" y2="208" fill="none"
+                      stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                <line x1="192" y1="40" x2="40" y2="192" fill="none"
+                      stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            </svg>
+        </div>
+
+        <h1>Redirecting to Essential Model Documentation</h1>
+        <p class="destination">Taking you to <code>docs/</code></p>
+
+        <p class="fallback">
+            Not redirected?
+            <a href="docs/">Essential Model Documentation &rarr;</a>
+        </p>
+
+    </div>
+</body>
+</html>
