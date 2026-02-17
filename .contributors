@@ -1,19 +1,1012 @@
 {
-  "last_updated": "2026-02-17T16:22:20.087408",
+  "last_updated": "2026-02-17T16:29:41.796736",
   "files": {
     ".contributors": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-17T16:20:48Z"
+      "last_updated": "2026-02-17T16:23:55Z"
     },
     "contributors.html": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/.DS_Store": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/999_Contributors.md": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/Data Summaries/index.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/SUMMARY.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/assets/cmip-logo.svg": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/arpege-climat-version-6-3.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/bisicles-ukesm-ismip6-1.0.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/clm4.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/gelato.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/hadam3.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/nemo-v3-6.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/piscesv2-gas.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/reprobus-c-v2-0.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/surfex-v8-modeling-platform.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component/tactic.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/.DS_Store": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_chord_diagram.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_component_families.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_contributors.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_esm_families.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_grids.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_model_components.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_models.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/generate_vertical_grids.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers/templates/family.html.j2": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers/templates/grid.html.j2": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers/templates/model.html.j2": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers/templates/model_component.html.j2": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers/templates/model_family.html.j2": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/.DS_Store": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/diagnose_data.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/disabled_scripts/example_generator.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/disabled_scripts/generate_model_components.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/disabled_scripts/generate_model_families.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/disabled_scripts/generate_models.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/example_generator.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/generate_horizontal_grids.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/generate_model_families.py": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/summaries_config.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/zzz_generate_indexes.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/stylesheets/custom.css": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/hooks/generate_nav.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/hooks/post_build.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/mkdocs.yml": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/overrides/components/icon.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/overrides/templates/bottom_sidebar.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/overrides/templates/sidebar.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/pre_build.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/requirements.txt": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/.version": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/01_submission-guide.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/99_contributors.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
       "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/assets/favicon-32x32.png": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/assets/favicon.svg": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/assets/logo.svg": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/data-summaries/.DS_Store": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/component_config.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/component_family.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/horizontal_computational_grid.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/horizontal_grid_cells.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/horizontal_subgrid.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/index.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/component_config.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/component_family.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/horizontal_computational_grid.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/horizontal_grid_cells.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/horizontal_subgrid.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/model_component.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/source_family.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json/vertical_computational_grid.json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/model_component.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/source_family.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/vertical_computational_grid.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/index.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/links.yml": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/model_family/access.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/arpege-climat.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/bcc-csm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/bisicles.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/cam.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/canesm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/cesm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/clm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/cnrm-cm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/ec-earth.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/fgoals.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/gelato.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/geos.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/gfdl-cm4.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/giss-e2.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/hadam.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/hadcm2.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/hadgem3.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/icon.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/ifs.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/ipsl-cm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/miroc.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/mpi-esm.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/nemo.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/nicam.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/pisces.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/reprobus.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/surfex.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/tactic.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family/ukesm1.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/scripts/auto_version.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/collect_vocab_docs.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/deploy_version.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/disabled_scripts/example_generator.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/scripts/disabled_scripts/generate_model_components.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/scripts/disabled_scripts/generate_model_families.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/scripts/disabled_scripts/generate_models.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/scripts/example_generator.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/generate_model_families.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/scripts/generate_summaries.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/helpers/.DS_Store": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/helpers/__init__.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/helpers/data_loader.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/helpers/icons.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/helpers/keywords.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/helpers/utils.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/paused/generate_contributors.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/scripts/paused/summaries_config.example.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/stylesheets/component-page.css": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/stylesheets/custom.js": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/stylesheets/embed.js": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/stylesheets/emd-page.css": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/stylesheets/model-page.css": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "docs/vocabularies/horizontal_computational_grid.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/horizontal_grid_cells.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/horizontal_subgrid.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/index.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/model.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/model_component.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/model_family.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/reference.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/vocabularies/vertical_computational_grid.md": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "src/mkdocs/.gitignore": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "src/mkdocs/hooks/run_scripts.py": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "src/mkdocs/overrides/.gitkeep": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "src/mkdocs/overrides/.icons/material/arrow-left.svg": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "src/mkdocs/overrides/.icons/material/arrow-right.svg": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
+    },
+    "src/mkdocs/overrides/partials/footer.html": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T14:38:46Z"
     },
     "model_component/_context": {
       "contributors": [
@@ -50,76 +1043,6 @@
         "wolfiex"
       ],
       "last_updated": "2026-02-15T22:31:31Z"
-    },
-    "src/mkdocs/.gitignore": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/hooks/generate_nav.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "src/mkdocs/hooks/post_build.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "src/mkdocs/hooks/run_scripts.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/mkdocs.yml": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "src/mkdocs/overrides/.gitkeep": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/overrides/.icons/material/arrow-left.svg": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/overrides/.icons/material/arrow-right.svg": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/overrides/partials/footer.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/requirements.txt": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
     },
     ".github/workflows/ci.yml": {
       "contributors": [
@@ -207,7 +1130,7 @@
         "daniel.ellis",
         "wolfiex"
       ],
-      "last_updated": "2026-02-15T21:46:40Z"
+      "last_updated": "2026-02-17T16:28:02Z"
     },
     "model/_context.json": {
       "contributors": [
@@ -276,7 +1199,8 @@
     },
     ".copier-answers.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
@@ -885,39 +1809,11 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/SUMMARY.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
     "docs/SUMMARY/index.html": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/assets/favicon-32x32.png": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/assets/favicon.svg": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/assets/logo.svg": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
     },
     "docs/contributors.md": {
       "contributors": [
@@ -1346,13 +2242,6 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/data-summaries/horizontal_subgrid.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/data-summaries/horizontal_subgrid/index.html": {
       "contributors": [
         "cmip-ipo"
@@ -1364,20 +2253,6 @@
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/data-summaries/index.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/horizontal_subgrid.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "docs/fonts/Geist.woff2": {
       "contributors": [
@@ -1561,16 +2436,10 @@
     },
     "docs/index.html": {
       "contributors": [
-        "cmip-ipo"
-      ],
-      "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/index.md": {
-      "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-16T14:38:46Z"
+      "last_updated": "2026-02-15T21:08:27Z"
     },
     "docs/js/auto-render.min.js": {
       "contributors": [
@@ -1602,159 +2471,12 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/links.yml": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/auto_version.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/collect_vocab_docs.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/deploy_version.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/disabled_scripts/example_generator.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/disabled_scripts/generate_model_components.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/disabled_scripts/generate_model_families.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/disabled_scripts/generate_models.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/example_generator.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/generate_contributors.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_model_components.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_model_families.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_models.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
     "docs/scripts/generate_summaries/horizontal_subgrid.py": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
       "last_updated": "2026-02-16T14:38:33Z"
-    },
-    "docs/scripts/helpers/__init__.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/helpers/icons.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/helpers/keywords.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/helpers/templates/model.html.j2": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/templates/model_component.html.j2": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/templates/model_family.html.j2": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/utils.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/paused/generate_contributors.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
     },
     "docs/search/lunr.js": {
       "contributors": [
@@ -1791,27 +2513,6 @@
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/stylesheets/custom.css": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/stylesheets/custom.js": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/stylesheets/embed.js": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
     },
     "docs/submission-guide.md": {
       "contributors": [
@@ -1904,38 +2605,17 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/vocabularies/horizontal_computational_grid.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/vocabularies/horizontal_computational_grid/index.html": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/vocabularies/horizontal_grid_cells.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/vocabularies/horizontal_grid_cells/index.html": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/vocabularies/horizontal_subgrid.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "docs/vocabularies/horizontal_subgrid/index.html": {
       "contributors": [
@@ -1949,32 +2629,11 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/vocabularies/index.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/vocabularies/model.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/vocabularies/model/index.html": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/vocabularies/model_component.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "docs/vocabularies/model_component/index.html": {
       "contributors": [
@@ -1982,38 +2641,17 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/vocabularies/model_family.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/vocabularies/model_family/index.html": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/vocabularies/reference.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/vocabularies/reference/index.html": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/vocabularies/vertical_computational_grid.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "docs/vocabularies/vertical_computational_grid/index.html": {
       "contributors": [
@@ -3343,19 +3981,22 @@
     },
     "rm/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-12T12:02:10Z"
     },
     "rm/docs/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-12T12:02:10Z"
     },
     "rm/reference/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-12T12:02:10Z"
     },
@@ -3502,33 +4143,6 @@
       ],
       "last_updated": "2026-02-10T13:57:50Z"
     },
-    "docs/.DS_Store": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/.version": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/.DS_Store": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/.DS_Store": {
-      "contributors": [
-        "cmip-ipo"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
     "docs/technical/.DS_Store": {
       "contributors": [
         "cmip-ipo",
@@ -3538,19 +4152,22 @@
     },
     ".github/GEN_ISSUE_TEMPLATE/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
     "docs/bidk/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
     "docs/assets/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
@@ -3598,135 +4215,10 @@
     },
     "docs/model/cnrm-esm2-1e.html": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
-    },
-    "docs/model_component/arpege-climat-version-6-3.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/bisicles-ukesm-ismip6-1.0.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/clm4.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/gelato.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/hadam3.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/nemo-v3-6.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/piscesv2-gas.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/reprobus-c-v2-0.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/surfex-v8-modeling-platform.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_component/tactic.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/arpege-climat.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/bcc-csm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/bisicles.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/cam.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/canesm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/cesm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/clm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/stylesheets/component-page.css": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
     },
     "docs/stylesheets/extra.css": {
       "contributors": [
@@ -3756,13 +4248,6 @@
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
-    "docs/stylesheets/model-page.css": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
     "docs/stylesheets/shared-page.css": {
       "contributors": [
         "cmip-ipo",
@@ -3772,7 +4257,8 @@
     },
     "src/.DS_Store": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
@@ -3792,25 +4278,29 @@
     },
     "src/mkdocs/overrides/main.html": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
     "src/mkdocs/overrides/partials/header.html": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
     "src/mkdocs/overrides/partials/toc.html": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
     "src/mkdocs/overrides/partials/toc.html.bak": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
     },
@@ -3844,109 +4334,134 @@
     },
     ".github/GEN_ISSUE_TEMPLATE/README.md": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/_config.json": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/horizontal_grid_cells.csv": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/horizontal_grid_cells.py": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/horizontal_subgrid.csv": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/horizontal_subgrid.py": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/reference.csv": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/GEN_ISSUE_TEMPLATE/reference.py": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/config.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/general_issue.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/horizontal_computational_grid.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/horizontal_grid_cells.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/horizontal_subgrid.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/model.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/model_component.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/model_family.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/reference.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
     ".github/ISSUE_TEMPLATE/vertical_computational_grid.yml": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
@@ -3959,7 +4474,8 @@
     },
     ".github/description.md": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:29:06Z"
     },
@@ -5874,7 +6390,7 @@
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-08T23:32:53Z"
+      "last_updated": "2026-02-08T23:47:53Z"
     },
     "horizontal_computational_grid/README.md": {
       "contributors": [
@@ -7799,112 +8315,112 @@
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/CSV_TEMPLATES/templates/grid_properties.csv": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/CSV_TEMPLATES/templates/grid_properties.py": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/.DS_Store": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/.DS_Store": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/component_submission.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/component_submission_fixed.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/experiment_documentation.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/extended_component_documentation.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/extended_model_documentation.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/generate_final.py": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/model_family_documentation.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/requirements.txt": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/top_level_model.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder/top_level_model_fixed.j2": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_TEMPLATE/grid_properties.yml": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T23:22:35Z"
     },
     ".github/workflows/.DS_Store": {
       "contributors": [
@@ -11205,335 +11721,6 @@
       ],
       "last_updated": "2025-12-19T15:27:15Z"
     },
-    "docs/01_submission-guide.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/99_contributors.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/data-summaries/.DS_Store": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/component_config.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/component_family.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/horizontal_computational_grid.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/horizontal_grid_cells.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/component_config.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/component_family.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/horizontal_computational_grid.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/horizontal_grid_cells.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/model_component.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/source_family.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/json/vertical_computational_grid.json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/model_component.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/source_family.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/data-summaries/vertical_computational_grid.md": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/access.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/cnrm-cm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/ec-earth.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/fgoals.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/gelato.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/geos.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/gfdl-cm4.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/giss-e2.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/hadam.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/hadcm2.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/hadgem3.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/icon.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/ifs.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/ipsl-cm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/miroc.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/mpi-esm.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/nemo.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/nicam.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/pisces.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/reprobus.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/surfex.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/tactic.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family/ukesm1.html": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/scripts/generate_summaries.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/helpers/data_loader.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/paused/summaries_config.example.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "docs/scripts/summaries_config.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/scripts/zzz_generate_indexes.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/stylesheets/emd-page.css": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T14:38:46Z"
-    },
-    "src/mkdocs/pre_build.py": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/1_Explore_The_EMD/.DS_Store": {
       "contributors": [
         "daniel.ellis"
@@ -11906,12 +12093,6 @@
       ],
       "last_updated": "2026-02-17T16:21:22Z"
     },
-    "docs/Data Summaries/index.md": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:21:22Z"
-    },
     "docs/Data Summaries/json/component_config.json": {
       "contributors": [
         "daniel.ellis"
@@ -12020,67 +12201,7 @@
       ],
       "last_updated": "2026-02-17T16:21:22Z"
     },
-    "docs/assets/cmip-logo.svg": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_chord_diagram.py": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_component_families.py": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_esm_families.py": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_grids.py": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/generate_vertical_grids.py": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/templates/family.html.j2": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/templates/grid.html.j2": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/paused/.DS_Store": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
     "docs/scripts/diagnose_data.py": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/paused/example_generator.py": {
       "contributors": [
         "daniel.ellis"
       ],
@@ -12092,67 +12213,267 @@
       ],
       "last_updated": "2026-02-17T16:20:48Z"
     },
-    "src/mkdocs/overrides/components/icon.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "src/mkdocs/overrides/templates/bottom_sidebar.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "src/mkdocs/overrides/templates/sidebar.html": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
     ".github/GENERATE_SUMMARIES/.DS_Store": {
       "contributors": [
         "daniel.ellis"
       ],
       "last_updated": "2026-02-16T14:38:33Z"
+    },
+    ".github/delete/.DS_Store": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-10T12:42:16Z"
+    },
+    ".github/workflows.backup-20260209-170434/.DS_Store": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-10T12:42:16Z"
+    },
+    "testgraph.ttl": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-08T23:47:53Z"
+    },
+    "HTML_SEARCH_HOOK_SOLUTION.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-21T23:47:33Z"
+    },
+    "HTML_SEARCH_PLUGIN_SUMMARY.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-21T23:47:33Z"
+    },
+    "HTML_SEARCH_SOLUTION.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-21T23:47:33Z"
+    },
+    "SEARCH_FIX.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-21T23:47:33Z"
+    },
+    "VERSIONING_ALTERNATIVES.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-21T23:47:33Z"
+    },
+    "docs/bidk/gelato.html": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-19T20:34:20Z"
+    },
+    "docs/bidk/info.html": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-19T20:34:20Z"
+    },
+    "docs/bidk/infobackup.html": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-19T20:34:20Z"
+    },
+    "docs/assets/component-page.css": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-18T23:52:45Z"
+    },
+    "docs/assets/model-page.css": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-18T23:52:45Z"
+    },
+    "docs/Warnings.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-14T01:54:20Z"
+    },
+    "docs/bidk/ds copy.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-14T01:54:20Z"
+    },
+    "docs/bidk/ds.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-14T01:54:20Z"
+    },
+    "docs/bidk/infomd.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-14T01:54:20Z"
+    },
+    ".github/modifications.md": {
+      "contributors": [
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-01-13T00:04:55Z"
     }
   },
   "folders": {
-    "model_component": {
+    "docs": {
       "contributors": [
         "cmip-ipo",
-        "daniel.ellis",
-        "wolfiex"
+        "daniel.ellis"
       ],
-      "last_updated": "2026-02-15T22:31:31Z"
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/Data Summaries": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/assets": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/model_component": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/helpers/templates": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/scripts/paused/disabled_scripts": {
+      "contributors": [
+        "cmip-ipo"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/stylesheets": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
     },
     "src": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-17T16:20:48Z"
+      "last_updated": "2026-02-17T16:23:55Z"
     },
     "src/mkdocs": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-17T16:20:48Z"
+      "last_updated": "2026-02-17T16:23:55Z"
     },
     "src/mkdocs/hooks": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-17T16:20:48Z"
+      "last_updated": "2026-02-17T16:23:55Z"
     },
     "src/mkdocs/overrides": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/overrides/components": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "src/mkdocs/overrides/templates": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-17T16:23:55Z"
+    },
+    "docs/data-summaries": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/data-summaries/json": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/model_family": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
+    },
+    "docs/scripts/disabled_scripts": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
       "last_updated": "2026-02-17T16:20:48Z"
+    },
+    "docs/vocabularies": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis"
+      ],
+      "last_updated": "2026-02-16T22:00:55Z"
     },
     "src/mkdocs/overrides/.icons": {
       "contributors": [
@@ -12175,10 +12496,19 @@
       ],
       "last_updated": "2026-02-16T14:38:46Z"
     },
+    "model_component": {
+      "contributors": [
+        "cmip-ipo",
+        "daniel.ellis",
+        "wolfiex"
+      ],
+      "last_updated": "2026-02-15T22:31:31Z"
+    },
     ".github": {
       "contributors": [
         "cmip-ipo",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-16T22:00:55Z"
     },
@@ -12227,7 +12557,7 @@
         "daniel.ellis",
         "wolfiex"
       ],
-      "last_updated": "2026-02-15T21:46:40Z"
+      "last_updated": "2026-02-17T16:28:02Z"
     },
     "model_family": {
       "contributors": [
@@ -12297,7 +12627,8 @@
     ".github/ISSUE_TEMPLATE": {
       "contributors": [
         "cmip-ipo",
-        "daniel.ellis"
+        "daniel.ellis",
+        "wolfiex"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
@@ -12308,25 +12639,11 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:21:22Z"
-    },
     "docs/SUMMARY": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/assets": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
     },
     "docs/contributors": {
       "contributors": [
@@ -12346,25 +12663,11 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/data-summaries": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
     "docs/data-summaries/horizontal_subgrid": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/data-summaries/json": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "docs/fonts": {
       "contributors": [
@@ -12396,20 +12699,6 @@
       ],
       "last_updated": "2026-02-15T21:08:27Z"
     },
-    "docs/scripts": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/disabled_scripts": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
     "docs/scripts/generate_summaries": {
       "contributors": [
         "cmip-ipo",
@@ -12417,39 +12706,11 @@
       ],
       "last_updated": "2026-02-16T14:38:33Z"
     },
-    "docs/scripts/helpers": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/helpers/templates": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
-    "docs/scripts/paused": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
-    },
     "docs/search": {
       "contributors": [
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/stylesheets": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:20:48Z"
     },
     "docs/submission-guide": {
       "contributors": [
@@ -12500,13 +12761,6 @@
         "cmip-ipo"
       ],
       "last_updated": "2026-02-15T21:08:27Z"
-    },
-    "docs/vocabularies": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "docs/vocabularies/horizontal_computational_grid": {
       "contributors": [
@@ -12565,7 +12819,8 @@
     },
     "rm/docs": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-12T12:02:10Z"
     },
@@ -12585,23 +12840,10 @@
     },
     "docs/model": {
       "contributors": [
-        "cmip-ipo"
+        "cmip-ipo",
+        "daniel.ellis"
       ],
       "last_updated": "2026-02-10T12:44:26Z"
-    },
-    "docs/model_component": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
-    },
-    "docs/model_family": {
-      "contributors": [
-        "cmip-ipo",
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-16T22:00:55Z"
     },
     "src/mkdocs/plugins": {
       "contributors": [
@@ -13094,14 +13336,14 @@
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     ".github/ISSUE_GENERATE/untitled folder": {
       "contributors": [
         "cmip-ipo",
         "daniel.ellis"
       ],
-      "last_updated": "2026-01-07T15:20:10Z"
+      "last_updated": "2026-01-12T14:37:51Z"
     },
     "src-data": {
       "contributors": [
@@ -13661,12 +13903,6 @@
       ],
       "last_updated": "2026-02-17T16:21:22Z"
     },
-    "docs/Data Summaries": {
-      "contributors": [
-        "daniel.ellis"
-      ],
-      "last_updated": "2026-02-17T16:21:22Z"
-    },
     "docs/Data Summaries/json": {
       "contributors": [
         "daniel.ellis"
@@ -13679,17 +13915,17 @@
       ],
       "last_updated": "2026-02-17T16:21:22Z"
     },
-    "src/mkdocs/overrides/components": {
+    ".github/delete": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-17T16:20:48Z"
+      "last_updated": "2026-02-10T12:42:16Z"
     },
-    "src/mkdocs/overrides/templates": {
+    ".github/workflows.backup-20260209-170434": {
       "contributors": [
         "daniel.ellis"
       ],
-      "last_updated": "2026-02-17T16:20:48Z"
+      "last_updated": "2026-02-10T12:42:16Z"
     }
   },
   "contributors": {
@@ -13697,12 +13933,16 @@
       "name": "cmip-ipo",
       "email": "actions@wcrp-cmip.org",
       "emails": [
-        "actions@wcrp-cmip.org"
+        "actions@wcrp-cmip.org",
+        "wolfiex@users.noreply.github.com"
       ],
       "username": "cmip-ipo",
-      "first_seen": "2026-02-16T00:11:24.766204",
-      "last_seen": "2026-02-17T16:22:19.841496",
-      "commit_count": 65
+      "first_seen": "2026-02-17T16:29:35.461677",
+      "last_seen": "2026-02-17T16:29:41.487540",
+      "commit_count": 90,
+      "alt_usernames": [
+        "wolfiex"
+      ]
     },
     "daniel.ellis": {
       "name": "Daniel Ellis",
@@ -13711,9 +13951,9 @@
         "daniel.ellis@ext.esa.int"
       ],
       "username": "daniel.ellis",
-      "first_seen": "2026-02-16T00:11:25.462290",
-      "last_seen": "2026-02-17T16:22:19.997745",
-      "commit_count": 59
+      "first_seen": "2026-02-17T16:29:36.288052",
+      "last_seen": "2026-02-17T16:29:41.708508",
+      "commit_count": 100
     },
     "wolfiex": {
       "name": "wolfiex",
@@ -13722,8 +13962,8 @@
         "wolfiex@users.noreply.github.com"
       ],
       "username": "wolfiex",
-      "first_seen": "2026-02-16T00:11:25.825976",
-      "last_seen": "2026-02-16T00:11:28.010547",
+      "first_seen": "2026-02-17T16:29:36.661917",
+      "last_seen": "2026-02-17T16:29:39.006992",
       "commit_count": 11
     }
   },
