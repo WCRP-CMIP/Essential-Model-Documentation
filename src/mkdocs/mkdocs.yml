@@ -2,7 +2,7 @@ site_name: Essential Model Documentation
 site_url: https://WCRP-CMIP.github.io/emd/
 repo_url: https://github.com/WCRP-CMIP/Essential-Model-Documentation
 repo_name: WCRP-CMIP/Essential-Model-Documentation
-site_description: Development repository for the EMD. This will link into the CVs and Universe Repos.
+site_description: Development repository for the EMD. This will link into the CVs and Constants Repos.
 site_author: WCRP-CMIP
 
 docs_dir: ../../docs
@@ -11,12 +11,15 @@ site_dir: site
 # Theme configuration
 theme:
   name: shadcn
+  custom_dir: overrides
   palette:
     primary: blue
     accent: blue
   show_stargazers: false
   favicon: assets/favicon.svg
-  logo: assets/logo.svg
+
+  icon: assets/cmip-logo.svg
+
 
 # Plugins
 plugins:

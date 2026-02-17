@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name | e }} | Model Component</title>
+    <title>{{ name | e }} | {{ page_type }}</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
 </head>
 <body class="emd-page">
@@ -14,35 +14,35 @@
                 <span>|</span>
                 <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
                 <span>→</span>
-                <a href="https://emd.mipcvs.dev/model_component/" target="_blank">Model Components</a>
+                <span>{{ page_type }}</span>
                 <span>→</span>
                 <span>{{ name | e }}</span>
             </nav>
-            <div class="emd-badge">Model Component</div>
+            <div class="emd-badge">{{ page_type }}</div>
             <h1 class="emd-title">{{ name | e }}</h1>
+            {% if validation_key %}
+            <p class="emd-long-name">{{ validation_key | e }}</p>
+            {% endif %}
             <p class="emd-subtitle">{{ description | e }}</p>
             <div class="emd-header-meta">
-                {% if family %}
+                {% if arrangement %}
                 <div class="emd-meta-item">
-                    <span class="emd-meta-label">Family</span>
-                    <span class="emd-meta-value">{{ family.name | e if family.name else family.id | e }}</span>
+                    <span class="emd-meta-label">Arrangement</span>
+                    <span class="emd-meta-value">{{ arrangement | e }}</span>
                 </div>
                 {% endif %}
-                {% if component_domain %}
+                {% if vertical_coordinate %}
                 <div class="emd-meta-item">
-                    <span class="emd-meta-label">Scientific Domain</span>
-                    <span class="emd-meta-value">{{ component_domain.name | e }}</span>
+                    <span class="emd-meta-label">Vertical Coordinate</span>
+                    <span class="emd-meta-value">{{ vertical_coordinate | e }}</span>
                 </div>
                 {% endif %}
+                {% if n_z %}
                 <div class="emd-meta-item">
-                    <span class="emd-meta-label">Code Base</span>
-                    <span class="emd-meta-value{% if code_base.is_private %} private{% endif %}">
-                        {%- if code_base.is_private -%}Private
-                        {%- elif code_base.is_url -%}<a href="{{ code_base.value | e }}" target="_blank">{{ code_base.value | e }}</a>
-                        {%- elif code_base.value -%}{{ code_base.value | e }}
-                        {%- else -%}Not specified{%- endif -%}
-                    </span>
+                    <span class="emd-meta-label">Number of Levels (n_z)</span>
+                    <span class="emd-meta-value">{{ n_z }}</span>
                 </div>
+                {% endif %}
                 <div class="emd-meta-item">
                     <span class="emd-meta-label">Context</span>
                     <span class="emd-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
@@ -63,49 +63,84 @@
                 <div class="emd-section-content">
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
-                        <p class="emd-description-text"><strong>{{ name | e }}</strong> — {{ description_highlighted | safe }}</p>
-                        {% if family and family.description %}
-                        <p class="emd-description-text" style="margin-top: 1rem;">
-                            <strong>Family:</strong> {{ family.description | e }}
-                        </p>
-                        {% endif %}
+                        <p class="emd-description-text">{{ description | e }}</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Scientific Domain -->
-            {% if component_domain %}
+            <!-- Subgrids (for horizontal grids) -->
+            {% if subgrids %}
             <section class="emd-section expanded">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.domain | safe }}</div>
-                        <h2 class="emd-section-title">Scientific Domain</h2>
+                        <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+                        <h2 class="emd-section-title">Subgrids <span class="emd-section-count">({{ subgrids | length }})</span></h2>
                     </div>
                     <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
                 </div>
                 <div class="emd-section-content">
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
-                        <div class="emd-domain-grid">
-                            <div class="emd-domain-card">
-                                <div class="emd-domain-card-header">
-                                    <span class="emd-domain-card-title">{{ component_domain.name | e }}</span>
-                                    <span class="emd-domain-card-type">Component Type</span>
-                                </div>
-                                <div class="emd-domain-card-id">@id: {{ component_domain.id | e }}</div>
-                                {% if component_domain.description %}
-                                <p class="emd-domain-card-description">{{ component_domain.description | e }}</p>
+                        <div class="emd-domains-grid">
+                        {% for sg in subgrids %}
+                        <div class="emd-domain-card">
+                            <div class="emd-domain-card-header">
+                                <span class="emd-domain-card-title">{{ sg.name | e }}</span>
+                                <span class="emd-domain-card-type">Subgrid</span>
+                            </div>
+                            <div class="emd-domain-card-id">@id: {{ sg.id | e }}</div>
+                            {% if sg.description %}
+                            <p class="emd-domain-card-description">{{ sg.description | e }}</p>
+                            {% endif %}
+                            <div class="emd-domain-card-meta">
+                                {% if sg.cell_variable_type %}
+                                <span class="emd-meta-tag">{{ sg.cell_variable_type | e }}</span>
                                 {% endif %}
-                                {% if component_domain.aliases %}
-                                <div class="emd-domain-card-meta">
-                                    {% for alias in component_domain.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
-                                </div>
+                                {% if sg.grid_cells_id %}
+                                <span class="emd-meta-tag">Grid: {{ sg.grid_cells_id | e }}</span>
                                 {% endif %}
                             </div>
                         </div>
-                        <p class="emd-description-text" style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                            <em>Note: Grid configurations for this component are defined in the component_config entries when used within a specific model.</em>
-                        </p>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Vertical Grid Specifications -->
+            {% if top_layer_thickness or bottom_layer_thickness or total_thickness %}
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+                        <h2 class="emd-section-title">Layer Specifications</h2>
+                    </div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-tech-grid">
+                            {% if top_layer_thickness %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Top Layer Thickness</div>
+                                <div class="emd-tech-value">{{ top_layer_thickness }}</div>
+                            </div>
+                            {% endif %}
+                            {% if bottom_layer_thickness %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Bottom Layer Thickness</div>
+                                <div class="emd-tech-value">{{ bottom_layer_thickness }}</div>
+                            </div>
+                            {% endif %}
+                            {% if total_thickness %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Total Thickness</div>
+                                <div class="emd-tech-value">{{ total_thickness }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -143,34 +178,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- References -->
-            {% set ref_count = references | length if references else 0 %}
-            <section class="emd-section{% if ref_count > 0 %} expanded{% endif %}">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.reference | safe }}</div>
-                        <h2 class="emd-section-title">References <span class="emd-section-count">({{ ref_count }})</span></h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        {% if references %}
-                        {% for ref in references %}
-                        <a href="{{ ref | e }}" class="emd-reference-item" target="_blank">
-                            <div class="emd-reference-icon">{{ icons.description | safe }}</div>
-                            <span class="emd-reference-text">{{ ref | e }}</span>
-                            <span class="emd-reference-arrow">→</span>
-                        </a>
-                        {% endfor %}
-                        {% else %}
-                        <p class="emd-description-text">No references available.</p>
-                        {% endif %}
                     </div>
                 </div>
             </section>

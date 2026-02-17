@@ -1543,6 +1543,14 @@ th[data-sort="desc"] .sort-indicator {
 
 
 /* ============================================
+   DOCS CONTENT AREA PADDING
+   ============================================ */
+
+[data-slot="docs"] {
+  padding-bottom: 3em !important;
+}
+
+/* ============================================
    ROOT GROUP (Home, Contributors) - NO LABEL
    ============================================ */
 

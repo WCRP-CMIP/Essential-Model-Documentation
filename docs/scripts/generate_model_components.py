@@ -27,7 +27,41 @@ from helpers.utils import parse_references, highlight_keywords
 from helpers.data_loader import init_loader, list_entries, fetch_entry
 
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR = SCRIPT_DIR.parent / "model_component"
+OUTPUT_DIR = SCRIPT_DIR.parent / "1_Explore_The_EMD" / "Model_Components"
+
+# Old directories to clean up
+OLD_DIRS = [
+    SCRIPT_DIR.parent / "model_component",
+    SCRIPT_DIR.parent / "Model_Component",
+]
+
+
+def safe_filename(name):
+    """Convert a display name to a safe filename."""
+    if not name:
+        return "unknown"
+    name = str(name)
+    name = name.replace('/', '-').replace('\\', '-').replace(':', '-')
+    name = name.replace('<', '').replace('>', '').replace('"', '')
+    name = name.replace('|', '-').replace('?', '').replace('*', '')
+    return name.strip()
+
+
+def get_display_name(data):
+    """Get display name: name (preferred), ui_label, or validation_key."""
+    name = data.get("name", "")
+    if name and isinstance(name, str) and name.strip():
+        return name.strip()
+    
+    ui_label = data.get("ui_label", "")
+    if ui_label and isinstance(ui_label, str) and ui_label.strip():
+        return ui_label.strip()
+    
+    validation_key = data.get("validation_key", "")
+    if validation_key and isinstance(validation_key, str) and validation_key.strip():
+        return validation_key.strip()
+    
+    return data.get("@id", "unknown")
 
 
 def parse_domain(d):
@@ -93,7 +127,7 @@ def parse_code_base(cb):
 def prepare_template_context(data):
     """Prepare context for Jinja2 template."""
     component_id = data.get("@id") or data.get("validation_key") or "unknown"
-    name = data.get("name") or data.get("ui_label") or component_id.replace("-", " ").title()
+    name = get_display_name(data)
     description = data.get("description") or "No description available."
     
     types = data.get("@type", [])
@@ -124,7 +158,6 @@ def prepare_template_context(data):
         "component_domain": component_domain,
         "code_base": code_base,
         "references": references,
-        # Grid info no longer in model_component - set to None for template compatibility
         "horizontal_grid": None,
         "vertical_grid": None,
         "embedded_in": None,
@@ -142,8 +175,6 @@ def setup_jinja_env():
 
 def process_component(env, template, entry_id, pbar=None):
     """Process a single model component."""
-    output_path = OUTPUT_DIR / f"{entry_id}.html"
-    
     if pbar:
         pbar.set_description(f"Processing {entry_id[:30]}")
     
@@ -151,8 +182,16 @@ def process_component(env, template, entry_id, pbar=None):
         data = fetch_entry("model_component", entry_id)
         if not data:
             if pbar:
-                pbar.write(f"No data for {entry_id}")
+                pbar.write(f"  No data for {entry_id}")
             return False
+        
+        # Get display name for filename
+        display_name = get_display_name(data)
+        filename = safe_filename(display_name) + ".html"
+        output_path = OUTPUT_DIR / filename
+        
+        if pbar:
+            pbar.write(f"  {entry_id} -> {filename}")
         
         context = prepare_template_context(data)
         html = template.render(**context)
@@ -160,9 +199,9 @@ def process_component(env, template, entry_id, pbar=None):
         return True
     except Exception as e:
         if pbar:
-            pbar.write(f"Error {entry_id}: {e}")
+            pbar.write(f"  Error {entry_id}: {e}")
         else:
-            print(f"Error {entry_id}: {e}")
+            print(f"  Error {entry_id}: {e}")
         return False
 
 
@@ -174,6 +213,15 @@ def clear_output_dir():
             f.unlink()
 
 
+def remove_old_dirs():
+    """Remove old directories."""
+    import shutil
+    for old_dir in OLD_DIRS:
+        if old_dir.exists() and old_dir != OUTPUT_DIR:
+            shutil.rmtree(old_dir)
+            print(f"  Removed old directory: {old_dir.name}")
+
+
 def main():
     print("Model Component Page Generator")
     print("=" * 40)
@@ -181,7 +229,11 @@ def main():
     # Initialize branch-aware data loading
     init_loader()
     
+    # Remove old directories
+    remove_old_dirs()
+    
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"  Output dir: {OUTPUT_DIR.name}")
     
     # Clear old files
     clear_output_dir()
@@ -199,7 +251,7 @@ def main():
     
     if not entries:
         print("No model components found - check data source")
-        return 0  # Not an error, just no data yet
+        return 0
     
     success = 0
     with tqdm(entries, desc="Generating components", unit="file") as pbar:
@@ -207,9 +259,11 @@ def main():
             if process_component(env, template, entry_id, pbar):
                 success += 1
     
-    print(f"Done: {success}/{len(entries)} components generated")
+    print(f"Done: {success}/{len(entries)} components generated in {OUTPUT_DIR.name}/")
     return 0
 
 
 if __name__ == "__main__":
     sys.exit(main())
+else:
+    main()

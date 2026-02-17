@@ -64,15 +64,20 @@ def main():
     print("Index Page Generator")
     print("=" * 40)
     
+    # New directory structure in 1_Explore_The_EMD
+    explore_dir = DOCS_DIR / "1_Explore_The_EMD"
+    
     directories = [
-        ("model_family", "Model Families", "Families of related climate models and components."),
-        ("model_component", "Model Components", "Individual model components (atmosphere, ocean, land, etc.)."),
-        ("model", "Models", "Complete coupled climate models (source_id)."),
+        (explore_dir / "Horizontal_Computational_Grids", "Horizontal Computational Grids", "Horizontal grid configurations used by model components."),
+        (explore_dir / "Vertical_Computational_Grids", "Vertical Computational Grids", "Vertical coordinate systems and layer structures."),
+        (explore_dir / "Model_Components", "Model Components", "Individual model components (atmosphere, ocean, land, etc.)."),
+        (explore_dir / "Component_Families", "Component Families", "Families of related model components sharing common code."),
+        (explore_dir / "ESM_Families", "ESM Families", "Earth System Model families and lineages."),
+        (explore_dir / "Models", "Models", "Complete coupled climate models (source_id)."),
     ]
     
     total = 0
-    for dir_name, title, desc in directories:
-        dir_path = DOCS_DIR / dir_name
+    for dir_path, title, desc in directories:
         count = generate_index_for_directory(dir_path, title, desc)
         total += count
     
@@ -82,3 +87,5 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+else:
+    main()

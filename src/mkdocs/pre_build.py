@@ -22,10 +22,17 @@ import argparse
 
 # Scripts that generate content and need to run BEFORE mkdocs build
 PRE_BUILD_SCRIPTS = [
+    # Family pages (splits into component_family/ and source_family/)
     "generate_model_families.py",
+    # Model and component pages
     "generate_models.py",
     "generate_model_components.py",
+    # Grid pages (horizontal and vertical)
+    "generate_grids.py",
+    # Summary tables
     "generate_summaries.py",
+    # Visualizations
+    "generate_chord_diagram.py",
 ]
 
 

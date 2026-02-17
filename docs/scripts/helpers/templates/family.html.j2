@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name | e }} | {{ family_type | default('Model Family') }}</title>
+    <title>{{ name | e }} | {{ family_type }}</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
 </head>
 <body class="emd-page">
@@ -14,11 +14,11 @@
                 <span>|</span>
                 <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
                 <span>→</span>
-                <span>{{ family_type | default('Model Families') }}</span>
+                <span>{{ family_type }}</span>
                 <span>→</span>
                 <span>{{ name | e }}</span>
             </nav>
-            <div class="emd-badge">{{ family_type | default('Model Family') }}</div>
+            <div class="emd-badge">{{ family_type }}</div>
             <h1 class="emd-title">{{ name | e }}</h1>
             {% if validation_key %}
             <p class="emd-long-name">{{ validation_key | e }}</p>
@@ -76,6 +76,11 @@
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
                         <p class="emd-description-text">{{ description_highlighted | safe }}</p>
+                        {% if evolution %}
+                        <div style="margin-top: 1rem;">
+                            <strong>Evolution:</strong> {{ evolution | e }}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </section>
@@ -163,6 +168,58 @@
                             {% endif %}
                         </div>
                         {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Code & Development -->
+            {% if source_code_repository or shared_code_base or programming_languages or license %}
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+                        <h2 class="emd-section-title">Code & Development</h2>
+                    </div>
+                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-tech-grid">
+                            {% if source_code_repository %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Source Code Repository</div>
+                                <div class="emd-tech-value">
+                                    {% if source_code_repository.startswith('http') %}
+                                    <a href="{{ source_code_repository | e }}" target="_blank">{{ source_code_repository | replace('https://', '') | e }}</a>
+                                    {% else %}
+                                    {{ source_code_repository | e }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if shared_code_base %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Shared Code Base</div>
+                                <div class="emd-tech-value">{{ shared_code_base | e }}</div>
+                            </div>
+                            {% endif %}
+                            {% if programming_languages %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Programming Languages</div>
+                                <div class="emd-type-badges">
+                                    {% for lang in programming_languages %}<span class="emd-type-badge">{{ lang | e }}</span>{% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if license %}
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">License</div>
+                                <div class="emd-tech-value">{{ license | e }}</div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
