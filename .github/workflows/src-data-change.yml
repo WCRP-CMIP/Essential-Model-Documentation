@@ -135,12 +135,25 @@ jobs:
             pip install mkdocs mkdocs-material
           fi
           
+          # Run pre-build scripts (generates HTML/MD files before MkDocs scans)
+          if [ -f "$MKDOCS_DIR/pre_build.py" ]; then
+            echo "Running pre-build scripts..."
+            cd "$MKDOCS_DIR"
+            python pre_build.py
+            cd - > /dev/null
+          fi
+          
           rm -rf build
           mkdocs build -f "$MKDOCS_CONFIG" -d build
-          rm -rf src mkdocs
-          [ -d docs ] && rm -rf docs
-          mv build docs
-          echo "Built MkDocs site to docs/"
+          
+          if [ -d "build" ]; then
+            rm -rf src mkdocs
+            [ -d docs ] && rm -rf docs
+            mv build docs
+            echo "Built MkDocs site to docs/"
+          else
+            echo "MkDocs build did not produce output"
+          fi
 
 
       - name: Create root redirect to docs
