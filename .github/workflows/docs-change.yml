@@ -18,14 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
-    
+
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
         with:
           ref: production
           fetch-depth: 0
-          
+
       - name: Fetch docs branch
         run: git fetch origin docs:docs
 
@@ -37,58 +37,89 @@ jobs:
       - name: Copy docs source from docs branch
         run: |
           echo "Copying documentation source from docs branch..."
-          
-          # Copy entire src folder (contains mkdocs config and docs source)
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
-          
-          # Also check for standalone mkdocs.yml or docs folder
           git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "Copied mkdocs.yml" || true
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
-          
-          echo ""
           echo "Documentation structure:"
           find . -name "mkdocs.yml" 2>/dev/null
           ls -la src/ 2>/dev/null || true
+
+      - name: Install Node LDR server
+        run: npm i -g jsonld-recursive
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          MKDOCS_CONFIG=""
+          for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
+            if [ -f "$config" ]; then MKDOCS_CONFIG="$config"; break; fi
+          done
+          MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
+          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+            pip install -r "$MKDOCS_DIR/requirements.txt"
+          else
+            pip install mkdocs mkdocs-material cmipld
+          fi
 
       - name: Build MkDocs site
         continue-on-error: true
         run: |
           MKDOCS_CONFIG=""
           for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
-            if [ -f "$config" ]; then
-              MKDOCS_CONFIG="$config"
-              break
-            fi
+            if [ -f "$config" ]; then MKDOCS_CONFIG="$config"; break; fi
           done
-          
+
           if [ -z "$MKDOCS_CONFIG" ]; then
             echo "No mkdocs.yml found, skipping MkDocs build"
             exit 0
           fi
-          
+
           echo "Building MkDocs site from $MKDOCS_CONFIG..."
-          python -m pip install --upgrade pip
           MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
-          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
-            pip install -r "$MKDOCS_DIR/requirements.txt"
-          else
-            pip install mkdocs mkdocs-material
+
+          if [ -f "$MKDOCS_DIR/pre_build.py" ]; then
+            echo "Running pre-build scripts..."
+            cd "$MKDOCS_DIR"
+            python pre_build.py
+            cd - > /dev/null
           fi
-          
+
           rm -rf build
-          mkdocs build -f "$MKDOCS_CONFIG" -d build
+          mkdocs build -f "$MKDOCS_CONFIG"
+
+          if [ -d "src/mkdocs/site" ]; then
+            BUILD_DIR="src/mkdocs/site"
+          elif [ -d "site" ]; then
+            BUILD_DIR="site"
+          elif [ -d "build" ]; then
+            BUILD_DIR="build"
+          else
+            echo "Error: Could not find built site directory"
+            exit 1
+          fi
+
+          echo "Found built site at: $BUILD_DIR"
           rm -rf src mkdocs
           [ -d docs ] && rm -rf docs
-          mv build docs
+          mv "$BUILD_DIR" docs
           echo "Built MkDocs site to docs/"
 
-      - name: Create root redirect to docs
+      - name: Generate root redirect
         run: |
-          if [ ! -f "index.html" ]; then
-            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=docs/"><link rel="canonical" href="docs/"><title>Redirecting...</title></head><body><p>Redirecting to <a href="docs/">documentation</a>...</p></body></html>' > index.html
-            echo "Created root redirect to docs/"
-          else
-            echo "index.html already exists, skipping redirect"
+          REDIRECT_SCRIPT=""
+          for p in "docs/scripts/create_redirect.py" "src/mkdocs/docs/scripts/create_redirect.py"; do
+            if [ -f "$p" ]; then REDIRECT_SCRIPT="$p"; break; fi
+          done
+          if [ -n "$REDIRECT_SCRIPT" ]; then
+            python "$REDIRECT_SCRIPT"
+          elif [ ! -f "index.html" ]; then
+            python3 -c "
+          open('index.html','w').write(
+            '<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">'
+            '<meta http-equiv=\"refresh\" content=\"3; url=docs/\">'
+            '<title>Redirecting...</title></head>'
+            '<body><p>Redirecting to <a href=\"docs/\">documentation</a>...</p></body></html>'
+          )"
           fi
 
       - name: Check for changes
@@ -97,10 +128,8 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No documentation changes"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Documentation changes detected"
             echo "## Documentation Changes" >> $GITHUB_STEP_SUMMARY
             ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
             MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
@@ -113,7 +142,7 @@ jobs:
           fi
 
       - name: Commit changes
-        if: steps.check_changes.outputs.has_changes == 'true'
+        if: ${{ steps.check_changes.outputs.has_changes == 'true' }}
         run: |
           git commit -m "Update documentation from docs branch"
           git push origin production
@@ -121,7 +150,7 @@ jobs:
 
   deploy:
     needs: build_and_deploy
-    if: needs.build_and_deploy.outputs.has_changes == 'true'
+    if: ${{ needs.build_and_deploy.outputs.has_changes == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -30,14 +30,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
-    
+
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
         with:
           ref: production
           fetch-depth: 0
-          
+
       - name: Fetch all branches
         run: |
           git fetch origin src-data:src-data
@@ -65,31 +65,25 @@ jobs:
         run: |
           echo "Copying files from src-data..."
           git checkout origin/src-data -- . 2>/dev/null || true
-          
-          # Keep production's .gitignore
           git checkout production -- .gitignore 2>/dev/null || true
-          
           echo "Copied from src-data"
 
 
       - name: Generate graphs (graphify)
-        run: |
-          graphify --all --output-summary
+        run: graphify --all --output-summary
 
 
 
       - name: Run prepublish scripts
         run: |
           if [ ! -d ".github/prepublish" ]; then
-            echo "No prepublish directory"
-            exit 0
+            echo "No prepublish directory"; exit 0
           fi
-          
           for script in .github/prepublish/*.sh; do
             if [ -f "$script" ]; then
               echo "Running: $(basename $script)"
               chmod +x "$script"
-              bash "$script" || echo "Script failed"
+              bash "$script" || echo "Script failed: $script"
             fi
           done
 
@@ -98,58 +92,80 @@ jobs:
       - name: Copy docs source from docs branch
         run: |
           echo "Copying documentation source from docs branch..."
-          
-          # Copy entire src folder (contains mkdocs config and docs source)
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
-          
-          # Also check for standalone mkdocs.yml or docs folder
           git checkout origin/docs -- mkdocs.yml 2>/dev/null && echo "Copied mkdocs.yml" || true
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
-          
-          echo ""
           echo "Documentation structure:"
           find . -name "mkdocs.yml" 2>/dev/null
           ls -la src/ 2>/dev/null || true
-      
+
+      - name: Install Python doc dependencies
+        run: |
+          python -m pip install --upgrade pip
+          MKDOCS_CONFIG=""
+          for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
+            if [ -f "$config" ]; then MKDOCS_CONFIG="$config"; break; fi
+          done
+          if [ -n "$MKDOCS_CONFIG" ]; then
+            MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
+            if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+              pip install -r "$MKDOCS_DIR/requirements.txt"
+            else
+              pip install mkdocs mkdocs-material
+            fi
+          fi
+
       - name: Build MkDocs site
         continue-on-error: true
         run: |
           MKDOCS_CONFIG=""
           for config in "src/mkdocs/mkdocs.yml" "mkdocs.yml" "mkdocs/mkdocs.yml" "docs/mkdocs.yml"; do
-            if [ -f "$config" ]; then
-              MKDOCS_CONFIG="$config"
-              break
-            fi
+            if [ -f "$config" ]; then MKDOCS_CONFIG="$config"; break; fi
           done
-          
+
           if [ -z "$MKDOCS_CONFIG" ]; then
             echo "No mkdocs.yml found, skipping MkDocs build"
             exit 0
           fi
-          
-          echo "Building MkDocs site from $MKDOCS_CONFIG..."
+
           MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
-          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
-            pip install -r "$MKDOCS_DIR/requirements.txt"
-          else
-            pip install mkdocs mkdocs-material
+
+          if [ -f "$MKDOCS_DIR/pre_build.py" ]; then
+            echo "Running pre-build scripts..."
+            cd "$MKDOCS_DIR"
+            python pre_build.py
+            cd - > /dev/null
           fi
-          
+
           rm -rf build
           mkdocs build -f "$MKDOCS_CONFIG" -d build
-          rm -rf src mkdocs
-          [ -d docs ] && rm -rf docs
-          mv build docs
-          echo "Built MkDocs site to docs/"
 
-
-      - name: Create root redirect to docs
-        run: |
-          if [ ! -f "index.html" ]; then
-            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=docs/"><link rel="canonical" href="docs/"><title>Redirecting...</title></head><body><p>Redirecting to <a href="docs/">documentation</a>...</p></body></html>' > index.html
-            echo "Created root redirect to docs/"
+          if [ -d "build" ]; then
+            rm -rf src mkdocs
+            [ -d docs ] && rm -rf docs
+            mv build docs
+            echo "Built MkDocs site to docs/"
           else
-            echo "index.html already exists, skipping redirect"
+            echo "MkDocs build did not produce output"
+          fi
+
+
+      - name: Generate root redirect
+        run: |
+          REDIRECT_SCRIPT=""
+          for p in "docs/scripts/create_redirect.py" "src/mkdocs/docs/scripts/create_redirect.py"; do
+            if [ -f "$p" ]; then REDIRECT_SCRIPT="$p"; break; fi
+          done
+          if [ -n "$REDIRECT_SCRIPT" ]; then
+            python "$REDIRECT_SCRIPT"
+          elif [ ! -f "index.html" ]; then
+            python3 -c "
+          open('index.html','w').write(
+            '<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">'
+            '<meta http-equiv=\"refresh\" content=\"3; url=docs/\">'
+            '<title>Redirecting...</title></head>'
+            '<body><p>Redirecting to <a href=\"docs/\">documentation</a>...</p></body></html>'
+          )"
           fi
 
       - name: Check for changes
@@ -158,10 +174,8 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No changes"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Changes detected"
             echo "## Files Changed" >> $GITHUB_STEP_SUMMARY
             ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l)
             MODIFIED=$(git diff --cached --name-only --diff-filter=M | wc -l)
@@ -174,7 +188,7 @@ jobs:
           fi
 
       - name: Commit changes
-        if: steps.check_changes.outputs.has_changes == 'true'
+        if: ${{ steps.check_changes.outputs.has_changes == 'true' }}
         run: |
           git commit -m "Sync from src-data and docs"
           git push origin production
@@ -182,7 +196,7 @@ jobs:
 
   deploy:
     needs: sync_and_process
-    if: needs.sync_and_process.outputs.has_changes == 'true'
+    if: ${{ needs.sync_and_process.outputs.has_changes == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "Generating issue templates..."
           template_generate
-          
+
           echo "Updating modification links..."
           template_update || echo "template_update not available"
 
@@ -47,4 +47,3 @@ jobs:
           author_email: 'actions@wcrp-cmip.org'
           message: 'Auto-update issue templates'
           push: true
-
