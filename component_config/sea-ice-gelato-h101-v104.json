@@ -1,0 +1,15 @@
+{
+    "validation_key": "sea_ice_gelato_h101_v104",
+    "ui_label": "GELATO with h101 and v104",
+    "description": "Configuration for GELATO with horizontal grid h101 and vertical grid v104.",
+    "horizontal_computational_grid": "h101",
+    "model_component": "gelato",
+    "vertical_computational_grid": "v104",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "sea-ice-gelato-h101-v104"
+}

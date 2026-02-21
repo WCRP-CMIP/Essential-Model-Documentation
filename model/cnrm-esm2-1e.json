@@ -6,13 +6,13 @@
         "standard"
     ],
     "component_configs": [
-        "atmosphere_arpege-climat-version-6-3_c100_v100",
-        "land-surface_surfex-v8-modeling-platform_c100_v102",
-        "ocean_nemo-v3-6_c101_v103",
-        "aerosol_tactic_c100_v100",
-        "atmospheric-chemistry_reprobus-c-v2-0_c100_v100",
-        "sea-ice_gelato_c101_v104",
-        "ocean-biogeochemistry_piscesv2-gas_c101_v103"
+        "atmosphere-arpege-climat-version-6-3-h100-v100",
+        "land-surface-surfex-v8-modeling-platform-h100-v102",
+        "ocean-nemo-v3-6-h101-v103",
+        "aerosol-tactic-h100-v100",
+        "atmospheric-chemistry-reprobus-c-v2-0-h100-v100",
+        "sea-ice-gelato-h101-v104",
+        "ocean-biogeochemistry-piscesv2-gas-h101-v103"
     ],
     "coupling_groups": [
         [
@@ -32,20 +32,20 @@
     ],
     "embedded_components": [
         [
-            "aerosol",
-            "atmosphere"
+            "atmosphere",
+            "aerosol"
         ],
         [
-            "atmospheric-chemistry",
-            "atmosphere"
+            "atmosphere",
+            "atmospheric-chemistry"
         ],
         [
-            "sea-ice",
-            "ocean"
+            "ocean",
+            "sea-ice"
         ],
         [
-            "ocean-biogeochemistry",
-            "ocean"
+            "ocean",
+            "ocean-biogeochemistry"
         ]
     ],
     "family": "cnrm-cm",

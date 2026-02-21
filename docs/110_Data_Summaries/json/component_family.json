@@ -1,0 +1,1295 @@
+[
+  {
+    "@id": "arpege-climat",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "ARPEGE-Climat atmospheric model family developed by CNRM/M\u00e9t\u00e9o-France.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "arpege-climat",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "bisicles",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "uob",
+      {
+        "@id": "bas",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "BAS",
+        "aliases": [],
+        "description": "",
+        "established": 1962,
+        "kind": "funder",
+        "labels": "British Antarctic Survey",
+        "location": {
+          "@id": "universal:location/01rhff309",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 52.2,
+          "lng": 0.11667,
+          "name": "Cambridge"
+        },
+        "ror": "01rhff309",
+        "ui_label": "British Antarctic Survey",
+        "url": [
+          "https://www.bas.ac.uk/",
+          "https://en.wikipedia.org/wiki/British_Antarctic_Survey"
+        ],
+        "validation_key": "BAS"
+      }
+    ],
+    "common_scientific_basis": "SSA- approximation, adaptive mesh refinement, basal traction treatments.",
+    "computational_requirements": "Adaptive mesh allows efficient resource usage",
+    "description": "BISICLES uses adaptive-mesh Chombo libraries for ice sheet modeling with SSA- momentum approximation.",
+    "documentation": "https://bisicles.lbl.gov/documentation/",
+    "established": "2008",
+    "evolution": "Enhanced through ISMIP6, extended with UniCiCles coupling interface.",
+    "family_type": "component",
+    "license": "Open Source",
+    "primary_institution": {
+      "@id": "lbnl",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [
+        "LBL",
+        "LBNL"
+      ],
+      "aliases": [
+        "Berkeley Lab",
+        "United States Department of Energy Office of Science Lawrence Berkeley National Laboratory"
+      ],
+      "description": "",
+      "established": 1931,
+      "kind": "facility",
+      "labels": [
+        "Laboratoire national lawrence-berkeley",
+        "Lawrence Berkeley National Laboratory"
+      ],
+      "location": {
+        "@id": "universal:location/02jbv0t02",
+        "@type": "wcrp:location",
+        "continent_code": "NA",
+        "continent_name": "North America",
+        "country_code": "US",
+        "country_name": "United States",
+        "country_subdivision_code": "CA",
+        "country_subdivision_name": "California",
+        "lat": 37.87159,
+        "lng": -122.27275,
+        "name": "Berkeley"
+      },
+      "ror": "02jbv0t02",
+      "ui_label": "Lawrence Berkeley National Laboratory",
+      "url": [
+        "https://www.lbl.gov/",
+        "https://en.wikipedia.org/wiki/Lawrence_Berkeley_National_Laboratory"
+      ],
+      "validation_key": "LBNL"
+    },
+    "programming_languages": [
+      "C++",
+      "Fortran"
+    ],
+    "references": "REF012",
+    "representative_member": "BISICLES-UKESM-ISMIP6-1.0",
+    "scientific_domains": {
+      "@id": "land-ice",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "landice",
+        "landIce"
+      ],
+      "description": "Land Ice",
+      "ui_label": "Land Ice",
+      "validation_key": "land_ice"
+    },
+    "shared_code_base": "Chombo adaptive mesh refinement framework with 4:1 recursive refinement, SSA- momentum approximation.",
+    "software_dependencies": "Chombo, PETSc, HDF5/NetCDF, MPI",
+    "source_code_repository": "https://github.com/ggslc/bisicles-uob",
+    "ui_label": "",
+    "validation_key": "BISICLES",
+    "variation_dimensions": "Coupling interfaces, domain applications, base mesh resolution, refinement strategies.",
+    "website": "https://bisicles.lbl.gov/"
+  },
+  {
+    "@id": "cam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Community Atmosphere Model - the atmospheric component of CESM, also used standalone for atmospheric research.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ncar",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NCAS",
+      "aliases": [],
+      "description": "",
+      "established": 2002,
+      "kind": "funder",
+      "labels": "National Centre for Atmospheric Science",
+      "location": {
+        "@id": "universal:location/01wwwe276",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "country_subdivision_code": "ENG",
+        "country_subdivision_name": "England",
+        "lat": 53.79648,
+        "lng": -1.54785,
+        "name": "Leeds"
+      },
+      "ror": "01wwwe276",
+      "ui_label": "National Centre for Atmospheric Science",
+      "url": [
+        "https://ncas.ac.uk/",
+        "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
+      ],
+      "validation_key": "NCAR"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CAM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "clm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      {
+        "@id": "lbnl",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": [
+          "LBL",
+          "LBNL"
+        ],
+        "aliases": [
+          "Berkeley Lab",
+          "United States Department of Energy Office of Science Lawrence Berkeley National Laboratory"
+        ],
+        "description": "",
+        "established": 1931,
+        "kind": "facility",
+        "labels": [
+          "Laboratoire national lawrence-berkeley",
+          "Lawrence Berkeley National Laboratory"
+        ],
+        "location": {
+          "@id": "universal:location/02jbv0t02",
+          "@type": "wcrp:location",
+          "continent_code": "NA",
+          "continent_name": "North America",
+          "country_code": "US",
+          "country_name": "United States",
+          "country_subdivision_code": "CA",
+          "country_subdivision_name": "California",
+          "lat": 37.87159,
+          "lng": -122.27275,
+          "name": "Berkeley"
+        },
+        "ror": "02jbv0t02",
+        "ui_label": "Lawrence Berkeley National Laboratory",
+        "url": [
+          "https://www.lbl.gov/",
+          "https://en.wikipedia.org/wiki/Lawrence_Berkeley_National_Laboratory"
+        ],
+        "validation_key": "LBNL"
+      },
+      {
+        "@id": "pnnl",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "PNNL",
+        "aliases": [
+          "Office of Science Pacific Northwest National Laboratory",
+          "United States Department of Energy Office of Science Pacific Northwest National Laboratory"
+        ],
+        "description": "",
+        "established": 1965,
+        "kind": "facility",
+        "labels": "Pacific Northwest National Laboratory",
+        "location": {
+          "@id": "universal:location/05h992307",
+          "@type": "wcrp:location",
+          "continent_code": "NA",
+          "continent_name": "North America",
+          "country_code": "US",
+          "country_name": "United States",
+          "country_subdivision_code": "WA",
+          "country_subdivision_name": "Washington",
+          "lat": 46.28569,
+          "lng": -119.28446,
+          "name": "Richland"
+        },
+        "ror": "05h992307",
+        "ui_label": "Pacific Northwest National Laboratory",
+        "url": [
+          "http://www.pnnl.gov/",
+          "https://en.wikipedia.org/wiki/Pacific_Northwest_National_Laboratory"
+        ],
+        "validation_key": "PNNL"
+      }
+    ],
+    "common_scientific_basis": "Nested subgrid representation, area-weighted averaging for atmosphere-land coupling.",
+    "computational_requirements": "10-25% of total coupled model cost",
+    "description": "Community Land Model family representing land surface heterogeneity through nested subgrid hierarchy.",
+    "documentation": "https://escomp.github.io/ctsm-docs/",
+    "established": "1996",
+    "evolution": "Evolution from simple land surface to comprehensive terrestrial system models through CLM1-CLM5.",
+    "family_type": "component",
+    "license": "Open Source",
+    "primary_institution": {
+      "@id": "ncar",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NCAS",
+      "aliases": [],
+      "description": "",
+      "established": 2002,
+      "kind": "funder",
+      "labels": "National Centre for Atmospheric Science",
+      "location": {
+        "@id": "universal:location/01wwwe276",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "country_subdivision_code": "ENG",
+        "country_subdivision_name": "England",
+        "lat": 53.79648,
+        "lng": -1.54785,
+        "name": "Leeds"
+      },
+      "ror": "01wwwe276",
+      "ui_label": "National Centre for Atmospheric Science",
+      "url": [
+        "https://ncas.ac.uk/",
+        "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
+      ],
+      "validation_key": "NCAR"
+    },
+    "programming_languages": [
+      "Fortran 90",
+      "Fortran 95",
+      "Python"
+    ],
+    "references": "REF013",
+    "representative_member": "CLM4",
+    "scientific_domains": [
+      {
+        "@id": "land-surface",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "land",
+        "description": "Land Surface and Subsurface",
+        "ui_label": "Land Surface and Subsurface",
+        "validation_key": "land_surface"
+      },
+      {
+        "@id": "ocean-biogeochemistry",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": [
+          "ocnbgchem",
+          "ocnBgchem"
+        ],
+        "description": "Ocean Biogeochemistry",
+        "ui_label": "Ocean Biogeochemistry",
+        "validation_key": "ocean_biogeochemistry"
+      }
+    ],
+    "shared_code_base": "Nested subgrid hierarchy architecture with independent biogeophysical processes per landunit/column/PFT.",
+    "software_dependencies": "NetCDF, MPI, ESMF/MCT",
+    "source_code_repository": "https://github.com/ESCOMP/CTSM",
+    "ui_label": "",
+    "validation_key": "CLM",
+    "variation_dimensions": "Version complexity, soil layers, vegetation representation, biogeochemical complexity.",
+    "website": "https://www.cesm.ucar.edu/models/cesm2/land"
+  },
+  {
+    "@id": "gelato",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "GELATO sea ice model family developed by CNRM/M\u00e9t\u00e9o-France.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "sea-ice",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "seaice",
+        "seaIce"
+      ],
+      "description": "Sea Ice",
+      "ui_label": "Sea Ice",
+      "validation_key": "sea_ice"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "gelato",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "geos",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Goddard Earth Observing System - NASA's atmospheric general circulation model.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "nasa-gsfc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "GSFC",
+      "aliases": [],
+      "description": "",
+      "established": 1959,
+      "kind": "Facility",
+      "labels": "Centro de Vuelo Espacial Goddard",
+      "location": {
+        "@id": "universal:location/0171mag52",
+        "@type": "esgf:location",
+        "city": "Greenbelt",
+        "country": [
+          "United States",
+          "US"
+        ],
+        "lat": 39.00455,
+        "lon": -76.87553
+      },
+      "ror": "0171mag52",
+      "ui_label": "Goddard Space Flight Center",
+      "url": "https://www.nasa.gov/centers/goddard/home/index.html",
+      "validation_key": "NASA-GSFC"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "GEOS",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "hadam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Hadley Centre Atmospheric Model family developed by the UK Met Office.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "mohc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": "Meteorological Office",
+      "description": "",
+      "established": 1854,
+      "kind": "Funder",
+      "labels": [],
+      "location": {
+        "@id": "universal:location/01ch2yn61",
+        "@type": "esgf:location",
+        "city": "Exeter",
+        "country": [
+          "United Kingdom",
+          "GB"
+        ],
+        "lat": 50.7236,
+        "lon": -3.52751
+      },
+      "ror": "01ch2yn61",
+      "ui_label": "Met Office",
+      "url": "http://www.metoffice.gov.uk/",
+      "validation_key": "MOHC"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "hadam",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "ifs",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Integrated Forecasting System - ECMWF's operational weather and climate model.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ecmwf",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "ECMWF",
+      "aliases": [],
+      "description": "",
+      "established": 1975,
+      "kind": "funder",
+      "labels": "European Centre for Medium-Range Weather Forecasts",
+      "location": {
+        "@id": "universal:location/014w0fd65",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "country_subdivision_code": "ENG",
+        "country_subdivision_name": "England",
+        "lat": 51.45625,
+        "lng": -0.97113,
+        "name": "Reading"
+      },
+      "ror": "014w0fd65",
+      "ui_label": "European Centre for Medium-Range Weather Forecasts",
+      "url": [
+        "http://www.ecmwf.int/",
+        "http://en.wikipedia.org/wiki/European_Centre_for_Medium-Range_Weather_Forecasts"
+      ],
+      "validation_key": "ECMWF"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "IFS",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "nemo",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      {
+        "@id": "cnrm",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "NMSC",
+        "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+        "description": "",
+        "established": 2009,
+        "kind": "facility",
+        "labels": [
+          "National Meteorological Satellite Center",
+          "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+        ],
+        "location": {
+          "@id": "universal:location/043zvrs33",
+          "@type": "wcrp:location",
+          "continent_code": "AS",
+          "continent_name": "Asia",
+          "country_code": "KR",
+          "country_name": "South Korea",
+          "country_subdivision_code": "43",
+          "country_subdivision_name": "North Chungcheong",
+          "lat": 36.85667,
+          "lng": 127.44333,
+          "name": "Chinch'\u014fn"
+        },
+        "ror": "043zvrs33",
+        "ui_label": "National Meteorological Satellite Center",
+        "url": [
+          "https://nmsc.kma.go.kr",
+          "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+        ],
+        "validation_key": "CNRM"
+      },
+      {
+        "@id": "mohc",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": [],
+        "aliases": "Meteorological Office",
+        "description": "",
+        "established": 1854,
+        "kind": "Funder",
+        "labels": [],
+        "location": {
+          "@id": "universal:location/01ch2yn61",
+          "@type": "esgf:location",
+          "city": "Exeter",
+          "country": [
+            "United Kingdom",
+            "GB"
+          ],
+          "lat": 50.7236,
+          "lon": -3.52751
+        },
+        "ror": "01ch2yn61",
+        "ui_label": "Met Office",
+        "url": "http://www.metoffice.gov.uk/",
+        "validation_key": "MOHC"
+      }
+    ],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Nucleus for European Modelling of the Ocean model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ipsl",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "IPSL",
+      "aliases": [],
+      "description": "",
+      "established": 1991,
+      "kind": "facility",
+      "labels": "Institut Pierre-Simon Laplace",
+      "location": {
+        "@id": "universal:location/02haar591",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "FR",
+        "country_name": "France",
+        "country_subdivision_code": "IDF",
+        "country_subdivision_name": "\u00cele-de-France",
+        "lat": 48.85341,
+        "lng": 2.3488,
+        "name": "Paris"
+      },
+      "ror": "02haar591",
+      "ui_label": "Institut Pierre-Simon Laplace",
+      "url": [
+        "https://www.ipsl.fr/en/",
+        "https://en.wikipedia.org/wiki/Institut_Pierre_Simon_Laplace"
+      ],
+      "validation_key": "IPSL"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "ocean",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "ocean",
+      "description": "Ocean",
+      "ui_label": "Ocean",
+      "validation_key": "ocean"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "nemo",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "nicam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Nonhydrostatic ICosahedral Atmospheric Model - developed by JAMSTEC for high-resolution global simulations.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "jamstec",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "JAMSTEC",
+      "aliases": "Dokuritsu-gy\u014dsei-h\u014djin Kaiy\u014d Kenky\u016b Kaihatsu Kik\u014d",
+      "description": "",
+      "established": 1971,
+      "kind": "facility",
+      "labels": [
+        "Japan Agency for Marine-Earth Science and Technology",
+        "\u6d77\u6d0b\u7814\u7a76\u958b\u767a\u6a5f\u69cb"
+      ],
+      "location": {
+        "@id": "universal:location/059qg2m13",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "country_subdivision_code": "14",
+        "country_subdivision_name": "Kanagawa",
+        "lat": 35.28361,
+        "lng": 139.66722,
+        "name": "Yokosuka"
+      },
+      "ror": "059qg2m13",
+      "ui_label": "Japan Agency for Marine-Earth Science and Technology",
+      "url": [
+        "http://www.jamstec.go.jp/e/",
+        "https://en.wikipedia.org/wiki/Japan_Agency_for_Marine-Earth_Science_and_Technology"
+      ],
+      "validation_key": "JAMSTEC"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "NICAM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "pisces",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies ocean biogeochemistry model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ipsl",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "IPSL",
+      "aliases": [],
+      "description": "",
+      "established": 1991,
+      "kind": "facility",
+      "labels": "Institut Pierre-Simon Laplace",
+      "location": {
+        "@id": "universal:location/02haar591",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "FR",
+        "country_name": "France",
+        "country_subdivision_code": "IDF",
+        "country_subdivision_name": "\u00cele-de-France",
+        "lat": 48.85341,
+        "lng": 2.3488,
+        "name": "Paris"
+      },
+      "ror": "02haar591",
+      "ui_label": "Institut Pierre-Simon Laplace",
+      "url": [
+        "https://www.ipsl.fr/en/",
+        "https://en.wikipedia.org/wiki/Institut_Pierre_Simon_Laplace"
+      ],
+      "validation_key": "IPSL"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "ocean-biogeochemistry",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "ocnbgchem",
+        "ocnBgchem"
+      ],
+      "description": "Ocean Biogeochemistry",
+      "ui_label": "Ocean Biogeochemistry",
+      "validation_key": "ocean_biogeochemistry"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "pisces",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "reprobus",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "REPROBUS atmospheric chemistry model family developed by CNRM.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmospheric-chemistry",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "atmoschem",
+        "atmosChem"
+      ],
+      "description": "Atmospheric Chemistry",
+      "ui_label": "Atmospheric Chemistry",
+      "validation_key": "atmospheric_chemistry"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "reprobus",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "surfex",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "SURFEX land surface modelling platform developed by CNRM/M\u00e9t\u00e9o-France.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "land-surface",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "land",
+      "description": "Land Surface and Subsurface",
+      "ui_label": "Land Surface and Subsurface",
+      "validation_key": "land_surface"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "surfex",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "tactic",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "TACTIC tropospheric aerosol scheme developed by CNRM.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "aerosol",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "aerosol",
+      "description": "Aerosol",
+      "ui_label": "Aerosol",
+      "validation_key": "aerosol"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "tactic",
+    "variation_dimensions": "none",
+    "website": "none"
+  }
+]

@@ -2,7 +2,6 @@
     "validation_key": "HadGEM3",
     "ui_label": "",
     "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
-    "family_type": "model",
     "collaborative_institutions": [
         "ncas",
         "noc",
@@ -13,6 +12,7 @@
     "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
     "established": "2009",
     "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
+    "family_type": "model",
     "license": "Registration Required",
     "primary_institution": "mohc",
     "programming_languages": [

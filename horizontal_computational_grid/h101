@@ -1,0 +1,18 @@
+{
+  "validation_key": "h101",
+  "ui_label": "",
+  "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
+  "arrangement": "arakawa-c",
+  "horizontal_subgrids": [
+    "s102",
+    "s105",
+    "s106"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid"
+  ],
+  "@id": "h101"
+}
