@@ -1,0 +1,15 @@
+{
+    "validation_key": "ocean_nemo_v3_6_h101_v103",
+    "ui_label": "NEMO v3.6 with h101 and v103",
+    "description": "Configuration for NEMO v3.6 with horizontal grid h101 and vertical grid v103.",
+    "horizontal_computational_grid": "h101",
+    "model_component": "nemo-v3-6",
+    "vertical_computational_grid": "v103",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "ocean-nemo-v3-6-h101-v103"
+}
