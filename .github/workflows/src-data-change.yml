@@ -41,9 +41,7 @@ jobs:
       - name: Fetch all branches
         run: |
           git fetch origin src-data:src-data
-
           git fetch origin docs:docs
-
 
       - name: Install CMIPLD
         run: |
@@ -69,30 +67,10 @@ jobs:
           git checkout production -- .gitignore 2>/dev/null || true
           echo "Copied from src-data"
 
-      - name: List production branch files
-        # GITHUB_WORKSPACE is the repo root. Vocab dirs must be present here for
-        # map_current() to resolve prefix: URLs correctly during the build.
-        run: |
-          echo "## Production branch: $GITHUB_WORKSPACE" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          ls -la "$GITHUB_WORKSPACE" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "### Vocabulary directories:" >> $GITHUB_STEP_SUMMARY
-          for dir in "$GITHUB_WORKSPACE"/*/; do
-            if [ -f "${dir}_context" ] || [ -f "${dir}_context.json" ]; then
-              n=$(find "$dir" -maxdepth 1 -name "*.json" ! -name "_*" | wc -l)
-              echo "- \`$(basename $dir)/\` ($n entries)" >> $GITHUB_STEP_SUMMARY
-              echo "  $(basename $dir)/: $n entries"
-            fi
-          done
-
-
       - name: Generate graphs (graphify)
         run: |
           cd "$GITHUB_WORKSPACE"
           graphify --all --output-summary
-
-
 
       - name: Run prepublish scripts
         run: |
@@ -108,42 +86,60 @@ jobs:
             fi
           done
 
-
-
       - name: Copy docs source from docs branch
         run: |
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
-          find "$GITHUB_WORKSPACE" -name "mkdocs.yml" 2>/dev/null
 
       - name: Install Python doc dependencies
         run: |
           python -m pip install --upgrade pip
-          MKDOCS_CONFIG="$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
-          MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
+          MKDOCS_DIR="$GITHUB_WORKSPACE/src/mkdocs"
           if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
             pip install -r "$MKDOCS_DIR/requirements.txt"
           else
             pip install mkdocs mkdocs-material
           fi
 
-      - name: Run pre-build scripts
+      - name: Pre-build diagnostics
+        # Show current branch, cwd, and vocab dirs so we can verify
+        # map_current() will find the right files at GITHUB_WORKSPACE
         run: |
-          MKDOCS_CONFIG="$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
-          MKDOCS_DIR=$(dirname "$MKDOCS_CONFIG")
-          if [ -f "$MKDOCS_DIR/pre_build.py" ]; then
-            echo "Running pre-build from repo root: $GITHUB_WORKSPACE"
-            cd "$GITHUB_WORKSPACE"
-            python "$MKDOCS_DIR/pre_build.py" --docs-dir "$MKDOCS_DIR/../../docs"
-          fi
+          echo "## Pre-build diagnostics" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** $(git -C $GITHUB_WORKSPACE rev-parse --abbrev-ref HEAD)" >> $GITHUB_STEP_SUMMARY
+          echo "**CWD:** $(pwd)" >> $GITHUB_STEP_SUMMARY
+          echo "**GITHUB_WORKSPACE:** $GITHUB_WORKSPACE" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Root files:" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          ls -la "$GITHUB_WORKSPACE" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "### Vocabulary directories (must be present for map_current):" >> $GITHUB_STEP_SUMMARY
+          for dir in "$GITHUB_WORKSPACE"/*/; do
+            if [ -f "${dir}_context" ] || [ -f "${dir}_context.json" ]; then
+              n=$(find "$dir" -maxdepth 1 -name "*.json" ! -name "_*" | wc -l)
+              echo "- \`$(basename $dir)/\` ($n entries)" >> $GITHUB_STEP_SUMMARY
+              echo "  $(basename $dir)/: $n entries"
+            fi
+          done
+          echo ""
+          echo "Branch: $(git -C $GITHUB_WORKSPACE rev-parse --abbrev-ref HEAD)"
+          echo "CWD: $(pwd)"
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+
+      - name: Start LDR server
+        run: |
+          ldr server stop 2>/dev/null || true
+          ldr server start
+          echo "LDR server started"
 
       - name: Build MkDocs site
         continue-on-error: true
+        # Run from GITHUB_WORKSPACE (repo root) with absolute config path.
+        # Pre-build scripts are invoked by the gen-files plugin inside mkdocs build.
         run: |
-          MKDOCS_CONFIG="$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
-          echo "Building: mkdocs build -f $MKDOCS_CONFIG"
           cd "$GITHUB_WORKSPACE"
-          mkdocs build -f "$MKDOCS_CONFIG" -d "$GITHUB_WORKSPACE/build"
+          mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml" -d "$GITHUB_WORKSPACE/build"
 
           if [ -d "$GITHUB_WORKSPACE/build" ]; then
             rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs"
@@ -157,9 +153,8 @@ jobs:
       - name: Generate root redirect
         run: |
           cd "$GITHUB_WORKSPACE"
-          REDIRECT_SCRIPT="$GITHUB_WORKSPACE/docs/scripts/create_redirect.py"
-          if [ -f "$REDIRECT_SCRIPT" ]; then
-            python "$REDIRECT_SCRIPT"
+          if [ -f "$GITHUB_WORKSPACE/docs/scripts/create_redirect.py" ]; then
+            python "$GITHUB_WORKSPACE/docs/scripts/create_redirect.py"
           elif [ ! -f "$GITHUB_WORKSPACE/index.html" ]; then
             python3 -c "
           open('index.html','w').write(
@@ -169,7 +164,6 @@ jobs:
             '<body><p>Redirecting to <a href=\"docs/\">documentation</a>...</p></body></html>'
           )"
           fi
-
 
       - name: Check for changes
         id: check_changes
@@ -196,7 +190,6 @@ jobs:
           git commit -m "Sync from src-data and docs"
           git push origin production
 
-
   deploy:
     needs: sync_and_process
     if: ${{ needs.sync_and_process.outputs.has_changes == 'true' }}
@@ -219,4 +212,3 @@ jobs:
         run: |
           echo "## Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
-
