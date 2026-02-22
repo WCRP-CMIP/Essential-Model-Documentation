@@ -1,19 +1,8 @@
 {
   "@context": {
-    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_family/",
     "@base": "https://emd.mipcvs.dev/model_family/",
     "@esgvoc": "ModelFamily",
     "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
-    "wcrp:global_model_family": {
-      "@id": "https://emd.mipcvs.dev/types/GlobalModelFamily",
-      "@type": "@id",
-      "rdfs:comment": "A coupled Earth System Model family that includes multiple scientific domains (e.g., atmosphere, ocean, land surface)"
-    },
-    "wcrp:component_model_family": {
-      "@id": "https://emd.mipcvs.dev/types/ComponentModelFamily",
-      "@type": "@id",
-      "rdfs:comment": "A model family representing a single Earth system component (e.g., ocean only, atmosphere only)"
-    },
     "collaborative_institutions": {
       "@context": "https://constants.mipcvs.dev/organisation/_context",
       "@type": "@id"
@@ -23,7 +12,6 @@
       "@type": "@id"
     },
     "references": {
-      "@context": "https://citations.mipcvs.dev/doi/_context",
       "@type": "@id"
     },
     "scientific_domains": {
@@ -35,35 +23,95 @@
     "Collection"
   ],
   "contents": [
-    {"@id": "ifs"},
-    {"@id": "pisces"},
-    {"@id": "cesm"},
-    {"@id": "tactic"},
-    {"@id": "canesm"},
-    {"@id": "hadam"},
-    {"@id": "cam"},
-    {"@id": "hadgem3"},
-    {"@id": "gfdl-cm4"},
-    {"@id": "nemo"},
-    {"@id": "reprobus"},
-    {"@id": "giss-e2"},
-    {"@id": "icon"},
-    {"@id": "arpege-climat"},
-    {"@id": "access"},
-    {"@id": "fgoals"},
-    {"@id": "miroc"},
-    {"@id": "ukesm1"},
-    {"@id": "ec-earth"},
-    {"@id": "cnrm-cm"},
-    {"@id": "mpi-esm"},
-    {"@id": "nicam"},
-    {"@id": "geos"},
-    {"@id": "ipsl-cm"},
-    {"@id": "hadcm2"},
-    {"@id": "surfex"},
-    {"@id": "clm"},
-    {"@id": "gelato"},
-    {"@id": "bisicles"},
-    {"@id": "bcc-csm"}
+    {
+      "@id": "access"
+    },
+    {
+      "@id": "arpege-climat"
+    },
+    {
+      "@id": "bcc-csm"
+    },
+    {
+      "@id": "bisicles"
+    },
+    {
+      "@id": "cam"
+    },
+    {
+      "@id": "canesm"
+    },
+    {
+      "@id": "cesm"
+    },
+    {
+      "@id": "clm"
+    },
+    {
+      "@id": "cnrm-cm"
+    },
+    {
+      "@id": "ec-earth"
+    },
+    {
+      "@id": "fgoals"
+    },
+    {
+      "@id": "gelato"
+    },
+    {
+      "@id": "geos"
+    },
+    {
+      "@id": "gfdl-cm4"
+    },
+    {
+      "@id": "giss-e2"
+    },
+    {
+      "@id": "hadam"
+    },
+    {
+      "@id": "hadcm2"
+    },
+    {
+      "@id": "hadgem3"
+    },
+    {
+      "@id": "icon"
+    },
+    {
+      "@id": "ifs"
+    },
+    {
+      "@id": "ipsl-cm"
+    },
+    {
+      "@id": "miroc"
+    },
+    {
+      "@id": "mpi-esm"
+    },
+    {
+      "@id": "nemo"
+    },
+    {
+      "@id": "nicam"
+    },
+    {
+      "@id": "pisces"
+    },
+    {
+      "@id": "reprobus"
+    },
+    {
+      "@id": "surfex"
+    },
+    {
+      "@id": "tactic"
+    },
+    {
+      "@id": "ukesm1"
+    }
   ]
 }
