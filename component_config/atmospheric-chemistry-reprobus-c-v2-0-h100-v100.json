@@ -1,0 +1,15 @@
+{
+    "validation_key": "atmospheric_chemistry_reprobus_c_v2_0_h100_v100",
+    "ui_label": "REPROBUS-C (v2.0) with h100 and v100",
+    "description": "Configuration for REPROBUS-C (v2.0) with horizontal grid h100 and vertical grid v100.",
+    "horizontal_computational_grid": "h100",
+    "model_component": "reprobus-c-v2-0",
+    "vertical_computational_grid": "v100",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "atmospheric-chemistry-reprobus-c-v2-0-h100-v100"
+}

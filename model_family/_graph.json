@@ -1,0 +1,58 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_family/",
+    "@base": "https://emd.mipcvs.dev/model_family/",
+    "@esgvoc": "ModelFamily",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
+    "collaborative_institutions": {
+      "@context": "https://constants.mipcvs.dev/organisation/_context",
+      "@type": "@id"
+    },
+    "primary_institution": {
+      "@context": "https://constants.mipcvs.dev/organisation/_context",
+      "@type": "@id"
+    },
+    "references": {
+      "@type": "@id"
+    },
+    "scientific_domains": {
+      "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
+      "@type": "@id"
+    }
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "geos"},
+    {"@id": "mpi-esm"},
+    {"@id": "miroc"},
+    {"@id": "gelato"},
+    {"@id": "ec-earth"},
+    {"@id": "clm"},
+    {"@id": "arpege-climat"},
+    {"@id": "hadcm2"},
+    {"@id": "canesm"},
+    {"@id": "hadgem3"},
+    {"@id": "gfdl-cm4"},
+    {"@id": "hadam"},
+    {"@id": "nicam"},
+    {"@id": "icon"},
+    {"@id": "nemo"},
+    {"@id": "ukesm1"},
+    {"@id": "access"},
+    {"@id": "giss-e2"},
+    {"@id": "bcc-csm"},
+    {"@id": "tactic"},
+    {"@id": "fgoals"},
+    {"@id": "ifs"},
+    {"@id": "cnrm-cm"},
+    {"@id": "ipsl-cm"},
+    {"@id": "reprobus"},
+    {"@id": "surfex"},
+    {"@id": "cam"},
+    {"@id": "pisces"},
+    {"@id": "cesm"},
+    {"@id": "bisicles"}
+  ]
+}

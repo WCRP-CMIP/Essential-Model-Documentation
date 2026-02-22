@@ -1,0 +1,15 @@
+{
+    "validation_key": "atmosphere_arpege_climat_version_6_3_h100_v100",
+    "ui_label": "Arpege-Climat Version 6.3 with h100 and v100",
+    "description": "Configuration for Arpege-Climat Version 6.3 with horizontal grid h100 and vertical grid v100.",
+    "horizontal_computational_grid": "h100",
+    "model_component": "arpege-climat-version-6-3",
+    "vertical_computational_grid": "v100",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "atmosphere-arpege-climat-version-6-3-h100-v100"
+}

@@ -1,0 +1,17 @@
+{
+  "validation_key": "v103",
+  "ui_label": "",
+  "description": "75-level ocean sigma-z coordinate with 1 m surface layers and 200 m bottom layers.",
+  "bottom_layer_thickness": 200.0,
+  "n_z": 75,
+  "top_layer_thickness": 1.0,
+  "total_thickness": null,
+  "vertical_coordinate": "ocean-sigma-z-coordinate",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v103"
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "@id": "cnrm-cm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm-cerfacs",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": [],
+      "description": "",
+      "established": 1995,
+      "kind": "other",
+      "labels": "M\u00e9t\u00e9o-France",
+      "location": {
+        "@id": "universal:location/0233st365",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "FR",
+        "country_name": "France",
+        "country_subdivision_code": "OCC",
+        "country_subdivision_name": "Occitanie",
+        "lat": 43.60426,
+        "lng": 1.44367,
+        "name": "Toulouse"
+      },
+      "ror": "0233st365",
+      "ui_label": "M\u00e9t\u00e9o-France",
+      "url": [
+        "http://www.meteofrance.com/accueil",
+        "https://en.wikipedia.org/wiki/M%C3%A9t%C3%A9o-France"
+      ],
+      "validation_key": "CNRM-CERFACS"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      {
+        "@id": "land-surface",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "land",
+        "description": "Land Surface and Subsurface",
+        "ui_label": "Land Surface and Subsurface",
+        "validation_key": "land_surface"
+      },
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CNRM-CM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "land-ice",
+    "@type": [
+      "wcrp:scientific_domain",
+      "esgvoc:ScientificDomain",
+      "universal",
+      "constants"
+    ],
+    "alias": [
+      "landice",
+      "landIce"
+    ],
+    "description": "Land Ice",
+    "ui_label": "Land Ice",
+    "validation_key": "land_ice"
+  },
+  {
+    "@id": "standard",
+    "@type": [
+      "wcrp:calendar",
+      "esgvoc:Calendar",
+      "universal",
+      "constants"
+    ],
+    "alias": "gregorian",
+    "description": "Mixed Gregorian/Julian calendar as defined by UDUNITS. This is the default calendar assumed if no calendar attribute is specified. A deprecated alternative name for this calendar is 'gregorian'.",
+    "ui_label": "Standard (Gregorian)",
+    "validation_key": "standard"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "validation_key": "g104",
+  "ui_label": "",
+  "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells, offset origin from g100.",
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 55296,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.65,
+  "temporal_refinement": "static",
+  "truncation_method": null,
+  "truncation_number": null,
+  "units": "degree",
+  "westernmost_longitude": 0.0,
+  "x_resolution": 1.25,
+  "y_resolution": 0.9,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cells",
+    "esgvoc:HorizontalGridCells"
+  ],
+  "@id": "g104"
+}

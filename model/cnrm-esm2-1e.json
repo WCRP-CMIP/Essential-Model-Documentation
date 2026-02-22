@@ -1,0 +1,69 @@
+{
+    "validation_key": "cnrm-esm2-1e",
+    "ui_label": "",
+    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
+    "calendar": [
+        "standard"
+    ],
+    "component_configs": [
+        "atmosphere-arpege-climat-version-6-3-h100-v100",
+        "land-surface-surfex-v8-modeling-platform-h100-v102",
+        "ocean-nemo-v3-6-h101-v103",
+        "aerosol-tactic-h100-v100",
+        "atmospheric-chemistry-reprobus-c-v2-0-h100-v100",
+        "sea-ice-gelato-h101-v104",
+        "ocean-biogeochemistry-piscesv2-gas-h101-v103"
+    ],
+    "coupling_groups": [
+        [
+            "atmosphere",
+            "land-surface",
+            "ocean"
+        ]
+    ],
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "atmosphere",
+            "aerosol"
+        ],
+        [
+            "atmosphere",
+            "atmospheric-chemistry"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ],
+        [
+            "ocean",
+            "ocean-biogeochemistry"
+        ]
+    ],
+    "family": "cnrm-cm",
+    "name": "CNRM-ESM2-1e",
+    "omitted_components": [
+        "land-ice"
+    ],
+    "prescribed_components": [],
+    "references": [
+        "https://doi.org/10.1029/2019MS001791",
+        "https://doi.org/10.1029/2019MS001683"
+    ],
+    "release_year": 2018,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "cnrm-esm2-1e"
+}
