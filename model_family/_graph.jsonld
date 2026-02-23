@@ -17,6 +17,9 @@
     "scientific_domains": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
       "@type": "@id"
+    },
+    "Collection": {
+      "@container": "@list"
     }
   },
   "@type": [
