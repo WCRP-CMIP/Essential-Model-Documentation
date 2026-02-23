@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cnrm-esm2-1e | Climate Model</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
+    <script>
+    // Fix breadcrumb link to work with any base URL
+    document.addEventListener('DOMContentLoaded', function() {
+        const breadcrumb = document.querySelector('.emd-breadcrumb a[href*="index.html"]');
+        if (breadcrumb) {
+            // Count directory levels (excluding filename)
+            const path = window.location.pathname;
+            const parts = path.split('/').filter(p => p && !p.includes('.html'));
+            // Go up correct number of levels to reach root
+            const upLevels = Math.max(parts.length - 1, 2);
+            breadcrumb.href = '../'.repeat(upLevels) + 'index.html';
+        }
+    });
+    </script>
+</head>
+<body class="emd-page">
+    <div class="emd-container">
+        <header class="emd-header">
+            <nav class="emd-breadcrumb">
+                <a href="../../index.html">← Back to Documentation</a>
+                <span>|</span>
+                <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
+                <span>→</span>
+                <a href="https://emd.mipcvs.dev/model/" target="_blank">Models</a>
+                <span>→</span>
+                <span>cnrm-esm2-1e</span>
+            </nav>
+            <div class="emd-badge">Climate Model</div>
+            <h1 class="emd-title">cnrm-esm2-1e</h1>
+            
+            <p class="emd-long-name">
+                <a href="../04_Earth_System_Model_Families/cnrm-cm.html" style="color:inherit;text-decoration:underline;text-decoration-color:#bbdefb;">Cnrm Cm Family</a>
+            </p>
+            
+            <p class="emd-subtitle">CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.</p>
+            <div class="emd-header-meta">
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Family</span>
+                    <span class="emd-meta-value">
+                        <a href="../04_Earth_System_Model_Families/cnrm-cm.html">Cnrm Cm</a>
+                    </span>
+                </div>
+                
+                
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Release Year</span>
+                    <span class="emd-meta-value">2018</span>
+                </div>
+                
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Calendar</span>
+                    <span class="emd-meta-value"></span>
+                </div>
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Context</span>
+                    <span class="emd-meta-value"><a href="emd:model/cnrm-esm2-1e" target="_blank">JSON-LD →</a></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Description -->
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                        <h2 class="emd-section-title">Description</h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <p class="emd-description-text">__BOLD_PLACEHOLDER_13__<strong>CNRM</strong>-ESM2-1e is the <strong>CNRM</strong> <strong>Earth System</strong> model version 2 designed for CMIP6 on the basis of the physical core <strong>CNRM</strong>-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as <strong>CNRM</strong>-ESM2-1 (Séférian et al. 2019), it only differs from <strong>CNRM</strong>-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the <strong>carbon</strong> in all the components leading to a more consistent/realistic <strong>carbon</strong> flux evolution in historical simulations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Model Components - All grouped together -->
+            
+            
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <h2 class="emd-section-title">Model Components <span class="emd-section-count">(8)</span></h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        
+                        <!-- Component Legend -->
+                        <div class="emd-component-legend">
+                            <span class="emd-legend-item emd-legend-dynamic"><span class="emd-legend-dot"></span> Dynamic (7)</span>
+                            
+                            <span class="emd-legend-item emd-legend-omitted"><span class="emd-legend-dot"></span> Omitted (1)</span>
+                        </div>
+                        
+                        <div class="emd-domain-grid">
+                            <!-- Dynamic Components - Blue -->
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Aerosol</p>
+                                
+                                
+                            </div>
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Atmosphere</p>
+                                
+                                
+                            </div>
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Atmospheric Chemistry</p>
+                                
+                                
+                            </div>
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Land Surface and Subsurface</p>
+                                
+                                
+                            </div>
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Ocean</p>
+                                
+                                
+                            </div>
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Ocean Biogeochemistry</p>
+                                
+                                
+                            </div>
+                            
+                            <div class="emd-domain-card emd-component-dynamic">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Sea Ice</p>
+                                
+                                
+                            </div>
+                            
+                            
+                            <!-- Prescribed Components - Green -->
+                            
+                            
+                            <!-- Omitted Components - Red -->
+                            
+                            <div class="emd-domain-card emd-component-omitted">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title"></span>
+                                    <span class="emd-domain-card-type emd-type-omitted">Omitted</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: </div>
+                                
+                                <p class="emd-domain-card-description">Land Ice</p>
+                                
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+
+            <!-- Component Architecture (Embedding & Coupling) -->
+            
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg></div>
+                        <h2 class="emd-section-title">Component Architecture</h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        
+                        
+                        <h3 class="emd-subsection-title">Embedded Components</h3>
+                        <p class="emd-description-text" style="margin-bottom: 1rem;">Components that are tightly integrated within a host component.</p>
+                        <div class="emd-embedding-list">
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                            <div class="emd-embedding-item">
+                                <span class="emd-embedding-embedded"></span>
+                                <span class="emd-embedding-arrow">→ embedded in →</span>
+                                <span class="emd-embedding-host"></span>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                        
+                        <h3 class="emd-subsection-title" style="margin-top: 2rem;">Coupling Groups</h3>
+                        <p class="emd-description-text" style="margin-bottom: 1rem;">Groups of components that exchange data through coupling.</p>
+                        <div class="emd-coupling-groups">
+                            
+                            <div class="emd-coupling-group">
+                                <span class="emd-coupling-label">Group 1:</span>
+                                <div class="emd-coupling-components">
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-coupling-group">
+                                <span class="emd-coupling-label">Group 2:</span>
+                                <div class="emd-coupling-components">
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-coupling-group">
+                                <span class="emd-coupling-label">Group 3:</span>
+                                <div class="emd-coupling-components">
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+
+            <!-- Component Configurations -->
+            
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
+                        <h2 class="emd-section-title">Component Configurations <span class="emd-section-count">(7)</span></h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <p class="emd-description-text" style="margin-bottom: 1rem;">Specific configurations linking model components to their computational grids.</p>
+                        <div class="emd-domains-grid">
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Atmosphere Arpege Climat Version 6 3 C100 V100</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">atmosphere_arpege-climat-version-6-3_c100_v100</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Land Surface Surfex V8 Modeling Platform C100 V102</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">land-surface_surfex-v8-modeling-platform_c100_v102</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Ocean Nemo V3 6 C101 V103</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">ocean_nemo-v3-6_c101_v103</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Aerosol Tactic C100 V100</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">aerosol_tactic_c100_v100</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Atmospheric Chemistry Reprobus C V2 0 C100 V100</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">atmospheric-chemistry_reprobus-c-v2-0_c100_v100</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Sea Ice Gelato C101 V104</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">sea-ice_gelato_c101_v104</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="emd-domain-card">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Ocean Biogeochemistry Piscesv2 Gas C101 V103</span>
+                                    <span class="emd-domain-card-type">Config</span>
+                                </div>
+                                <div class="emd-domain-card-id">ocean-biogeochemistry_piscesv2-gas_c101_v103</div>
+                                
+                                <div class="emd-domain-card-meta">
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+
+            <!-- Technical Details -->
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                        <h2 class="emd-section-title">Technical Details</h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-tech-grid">
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Resource Identifier (@id)</div>
+                                <div class="emd-tech-value">cnrm-esm2-1e</div>
+                            </div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Validation Key</div>
+                                <div class="emd-tech-value">cnrm-esm2-1e</div>
+                            </div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">JSON-LD Context</div>
+                                <div class="emd-tech-value"><a href="emd:model/cnrm-esm2-1e" target="_blank">emd:model/cnrm-esm2-1e</a></div>
+                            </div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Resource Types (@type)</div>
+                                <div class="emd-type-badges">
+                                    <span class="emd-type-badge">emd</span><span class="emd-type-badge">wcrp:model</span><span class="emd-type-badge">esgvoc:Model</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- References -->
+            
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+                        <h2 class="emd-section-title">References <span class="emd-section-count">(0)</span></h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        
+                        <p class="emd-description-text">No references available.</p>
+                        
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="emd-footer">
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-21 13:33 UTC</p>
+        </footer>
+    </div>
+    <script>
+    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
+    
+    const sourceData = {
+  "@context": "emd:model/cnrm-esm2-1e",
+  "@id": "cnrm-esm2-1e",
+  "@type": [
+    "emd",
+    "wcrp:model",
+    "esgvoc:Model"
+  ],
+  "calendar": {
+    "@id": "standard",
+    "@type": [
+      "wcrp:calendar",
+      "esgvoc:Calendar",
+      "universal",
+      "constants"
+    ],
+    "alias": "gregorian",
+    "description": "Mixed Gregorian/Julian calendar as defined by UDUNITS. This is the default calendar assumed if no calendar attribute is specified. A deprecated alternative name for this calendar is 'gregorian'.",
+    "ui_label": "Standard (Gregorian)",
+    "validation_key": "standard"
+  },
+  "component_configs": [
+    "atmosphere_arpege-climat-version-6-3_c100_v100",
+    "land-surface_surfex-v8-modeling-platform_c100_v102",
+    "ocean_nemo-v3-6_c101_v103",
+    "aerosol_tactic_c100_v100",
+    "atmospheric-chemistry_reprobus-c-v2-0_c100_v100",
+    "sea-ice_gelato_c101_v104",
+    "ocean-biogeochemistry_piscesv2-gas_c101_v103"
+  ],
+  "coupling_groups": [
+    "atmosphere",
+    "land-surface",
+    "ocean"
+  ],
+  "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (S\u00e9f\u00e9rian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
+  "dynamic_components": [
+    {
+      "@id": "aerosol",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "aerosol",
+      "description": "Aerosol",
+      "ui_label": "Aerosol",
+      "validation_key": "aerosol"
+    },
+    {
+      "@id": "atmosphere",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "atmos",
+      "description": "Atmosphere",
+      "ui_label": "Atmosphere",
+      "validation_key": "atmosphere"
+    },
+    {
+      "@id": "atmospheric-chemistry",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "atmoschem",
+        "atmosChem"
+      ],
+      "description": "Atmospheric Chemistry",
+      "ui_label": "Atmospheric Chemistry",
+      "validation_key": "atmospheric_chemistry"
+    },
+    {
+      "@id": "land-surface",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "land",
+      "description": "Land Surface and Subsurface",
+      "ui_label": "Land Surface and Subsurface",
+      "validation_key": "land_surface"
+    },
+    {
+      "@id": "ocean",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": "ocean",
+      "description": "Ocean",
+      "ui_label": "Ocean",
+      "validation_key": "ocean"
+    },
+    {
+      "@id": "ocean-biogeochemistry",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "ocnbgchem",
+        "ocnBgchem"
+      ],
+      "description": "Ocean Biogeochemistry",
+      "ui_label": "Ocean Biogeochemistry",
+      "validation_key": "ocean_biogeochemistry"
+    },
+    {
+      "@id": "sea-ice",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "seaice",
+        "seaIce"
+      ],
+      "description": "Sea Ice",
+      "ui_label": "Sea Ice",
+      "validation_key": "sea_ice"
+    }
+  ],
+  "embedded_components": [
+    "aerosol",
+    "atmosphere",
+    "atmospheric-chemistry",
+    "atmosphere",
+    "sea-ice",
+    "ocean",
+    "ocean-biogeochemistry",
+    "ocean"
+  ],
+  "family": {
+    "@id": "cnrm-cm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm-cerfacs",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": [],
+      "description": "",
+      "established": 1995,
+      "kind": "other",
+      "labels": "M\u00e9t\u00e9o-France",
+      "location": {
+        "@id": "universal:location/0233st365",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "FR",
+        "country_name": "France",
+        "country_subdivision_code": "OCC",
+        "country_subdivision_name": "Occitanie",
+        "lat": 43.60426,
+        "lng": 1.44367,
+        "name": "Toulouse"
+      },
+      "ror": "0233st365",
+      "ui_label": "M\u00e9t\u00e9o-France",
+      "url": [
+        "http://www.meteofrance.com/accueil",
+        "https://en.wikipedia.org/wiki/M%C3%A9t%C3%A9o-France"
+      ],
+      "validation_key": "CNRM-CERFACS"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      {
+        "@id": "land-surface",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "land",
+        "description": "Land Surface and Subsurface",
+        "ui_label": "Land Surface and Subsurface",
+        "validation_key": "land_surface"
+      },
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CNRM-CM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  "name": "CNRM-ESM2-1e",
+  "omitted_components": {
+    "@id": "land-ice",
+    "@type": [
+      "wcrp:scientific_domain",
+      "esgvoc:ScientificDomain",
+      "universal",
+      "constants"
+    ],
+    "alias": [
+      "landice",
+      "landIce"
+    ],
+    "description": "Land Ice",
+    "ui_label": "Land Ice",
+    "validation_key": "land_ice"
+  },
+  "prescribed_components": [],
+  "references": [],
+  "release_year": 2018,
+  "ui_label": "",
+  "validation_key": "cnrm-esm2-1e"
+};
+    document.addEventListener("copy", function(e) {
+        e.preventDefault();
+        const jsonString = JSON.stringify(sourceData, null, 2);
+        const copyText = "// JSON-LD Source Data for cnrm-esm2-1e\n// From: emd:model/cnrm-esm2-1e\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-21 13:33 UTC\n\n" + jsonString;
+        e.clipboardData.setData("text/plain", copyText);
+    });
+    </script>
+</body>
+</html>
