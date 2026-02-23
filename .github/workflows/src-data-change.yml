@@ -140,16 +140,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
-          npm install -g jsonld-recursive
-          MKDOCS_DIR="$GITHUB_WORKSPACE/src/mkdocs"
-          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
-            pip install -r "$MKDOCS_DIR/requirements.txt"
-          else
-            pip install mkdocs mkdocs-material cmipld
-          fi
-
       - name: Configure Git
         run: |
           git config user.name "cmip-ipo"
@@ -159,6 +149,17 @@ jobs:
         run: |
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
+
+      - name: Install dependencies
+        run: |
+          npm install -g jsonld-recursive
+          MKDOCS_DIR="$GITHUB_WORKSPACE/src/mkdocs"
+          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+            pip install -r "$MKDOCS_DIR/requirements.txt"
+          else
+            echo "WARNING: $MKDOCS_DIR/requirements.txt not found, using fallback"
+            pip install mkdocs mkdocs-material mkdocs-shadcn mkdocs-gen-files mkdocs-literate-nav pymdown-extensions beautifulsoup4 cmipld
+          fi
 
       - name: Pre-build diagnostics
         run: |
