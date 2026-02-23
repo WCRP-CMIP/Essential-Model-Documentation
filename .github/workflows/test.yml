@@ -1,0 +1,63 @@
+name: test-sync-build
+description: Sync and process data from src-data to production, then build docs
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: production
+          fetch-depth: 0
+
+      - name: Fetch docs branch
+        run: git fetch origin docs:docs || true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          npm install -g jsonld-recursive
+          MKDOCS_DIR="$GITHUB_WORKSPACE/src/mkdocs"
+          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
+            pip install -r "$MKDOCS_DIR/requirements.txt"
+          fi
+
+      - name: Pre-build diagnostics
+        run: |
+          echo "## Pre-build diagnostics" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** $(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Build + LDR tests
+        run: |
+          set -e
+
+          ldr server stop 2>/dev/null || true
+          nohup ldr server start > ldr.log 2>&1 &
+          sleep 5
+          echo "LDR server started"
+
+          ldr compact model_family/_graph.json
+
+          python -c 'import cmipld; cmipld.map_current("emg"); print(cmipld.get("emd:model_family/_graph.json"))'
+
+          
