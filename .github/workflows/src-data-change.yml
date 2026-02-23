@@ -86,6 +86,9 @@ jobs:
             fi
           done
 
+          git add -A
+          git commit -m "Creating graph files from src-data."
+
       - name: Copy docs source from docs branch
         run: |
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
@@ -139,12 +142,13 @@ jobs:
         # Pre-build scripts are invoked by the gen-files plugin inside mkdocs build.
         run: |
           cd "$GITHUB_WORKSPACE"
-          mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml" -d "$GITHUB_WORKSPACE/build"
+          mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml" 
+          # -d "$GITHUB_WORKSPACE/build"
 
           if [ -d "$GITHUB_WORKSPACE/build" ]; then
             rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs"
             [ -d "$GITHUB_WORKSPACE/docs" ] && rm -rf "$GITHUB_WORKSPACE/docs"
-            mv "$GITHUB_WORKSPACE/build" "$GITHUB_WORKSPACE/docs"
+            mv "$GITHUB_WORKSPACE/src/mkdocs/site" "$GITHUB_WORKSPACE/docs"
             echo "Built MkDocs site to docs/"
           else
             echo "MkDocs build did not produce output"
