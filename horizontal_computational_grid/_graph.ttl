@@ -1,1 +1,8 @@
+@prefix ns1: <https://emd.mipcvs.dev/docs/contents/HorizontalComputationalGrid/> .
+
+[] a ns1:Collection ;
+    ns1:contents <https://emd.mipcvs.dev/horizontal_computational_grid/h100>,
+        <https://emd.mipcvs.dev/horizontal_computational_grid/h101>,
+        <https://emd.mipcvs.dev/horizontal_computational_grid/h102>,
+        <https://emd.mipcvs.dev/horizontal_computational_grid/h103> .
 
