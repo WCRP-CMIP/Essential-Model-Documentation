@@ -1,11 +1,1 @@
-@prefix ns1: <https://emd.mipcvs.dev/docs/contents/ComponentConfig/> .
-
-[] a ns1:Collection ;
-    ns1:contents <https://emd.mipcvs.dev/component_config/aerosol-tactic-h100-v100>,
-        <https://emd.mipcvs.dev/component_config/atmosphere-arpege-climat-version-6-3-h100-v100>,
-        <https://emd.mipcvs.dev/component_config/atmospheric-chemistry-reprobus-c-v2-0-h100-v100>,
-        <https://emd.mipcvs.dev/component_config/land-surface-surfex-v8-modeling-platform-h100-v102>,
-        <https://emd.mipcvs.dev/component_config/ocean-biogeochemistry-piscesv2-gas-h101-v103>,
-        <https://emd.mipcvs.dev/component_config/ocean-nemo-v3-6-h101-v103>,
-        <https://emd.mipcvs.dev/component_config/sea-ice-gelato-h101-v104> .
 
