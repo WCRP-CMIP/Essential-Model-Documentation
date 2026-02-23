@@ -190,10 +190,8 @@ jobs:
           cd "$GITHUB_WORKSPACE"
 
           echo "$GITHUB_WORKSPACE"
-          ls
-          ldr server stop;
-          ldr server start;
-          ldr compact model_family/_graph.json
+          ls model_family/
+          ldr compact model_family/clm.json
           python -c 'import cmipld; cmipld.map_current("emd");cmipld.get("emd:model_family/_graph.json")';
 
 
