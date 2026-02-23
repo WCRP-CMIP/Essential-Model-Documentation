@@ -1,15 +1,13 @@
 name: test-sync-build
 
-description: Sync and process data from src-data to production, then build docs
+on:
+  workflow_dispatch:
 
 permissions:
   contents: write
   issues: write
   pages: write
   id-token: write
-
-on:
-  workflow_dispatch:
 
 jobs:
   build_docs:
@@ -21,9 +19,6 @@ jobs:
         with:
           ref: production
           fetch-depth: 0
-
-      - name: Fetch docs branch
-        run: git fetch origin docs:docs || true
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -39,9 +34,9 @@ jobs:
         run: |
           set -e
           npm install -g jsonld-recursive
-          pip install cmipld mkdocs mkdocs-material pymdown-extensions
+          pip install cmipld
 
-      - name: Debug LDR + Python (retry + summary logging)
+      - name: Debug LDR + Python
         shell: bash
         run: |
           set -euo pipefail
@@ -51,13 +46,8 @@ jobs:
 
           echo "## Workspace contents" | tee -a "$GITHUB_STEP_SUMMARY"
           ls -la | tee -a "$GITHUB_STEP_SUMMARY"
-          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
 
-          echo "## Environment Info" | tee -a "$GITHUB_STEP_SUMMARY"
-          echo "Node: $(node --version)" | tee -a "$GITHUB_STEP_SUMMARY"
-          echo "Python: $(python --version)" | tee -a "$GITHUB_STEP_SUMMARY"
-          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
-
+          echo ""
           echo "## Starting LDR server" | tee -a "$GITHUB_STEP_SUMMARY"
           ldr server stop 2>/dev/null || true
           nohup ldr server start > ldr.log 2>&1 &
@@ -68,25 +58,21 @@ jobs:
           SUCCESS=false
 
           while [ "$COUNT" -le "$MAX_RETRIES" ]; do
-            echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo ""
             echo "# Attempt $COUNT" | tee -a "$GITHUB_STEP_SUMMARY"
 
-            echo "### LDR compact output" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "### LDR compact"
             if ldr compact model_family/_graph.json 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"; then
-              echo "LDR compact succeeded" | tee -a "$GITHUB_STEP_SUMMARY"
+              echo "LDR succeeded" | tee -a "$GITHUB_STEP_SUMMARY"
             else
-              echo "LDR compact failed" | tee -a "$GITHUB_STEP_SUMMARY"
+              echo "LDR failed" | tee -a "$GITHUB_STEP_SUMMARY"
             fi
 
-            echo "" | tee -a "$GITHUB_STEP_SUMMARY"
-            echo "### Python cmipld test" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo ""
+            echo "### Python test"
 
-            if python - <<'EOF' 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
-import cmipld
-cmipld.map_current("emg")
-print(cmipld.get("emd:model_family/_graph.json"))
-EOF
-            then
+            if python -c "import cmipld; cmipld.map_current('emg'); print(cmipld.get('emd:model_family/_graph.json'))" \
+              2>&1 | tee -a "$GITHUB_STEP_SUMMARY"; then
               SUCCESS=true
               break
             else
@@ -99,12 +85,12 @@ EOF
           done
 
           if [ "$SUCCESS" = false ]; then
-            echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo ""
             echo "## ❌ All attempts failed" | tee -a "$GITHUB_STEP_SUMMARY"
-            echo "### LDR Server Log" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "### LDR log" | tee -a "$GITHUB_STEP_SUMMARY"
             cat ldr.log | tee -a "$GITHUB_STEP_SUMMARY"
             exit 1
           else
-            echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo ""
             echo "## ✅ Success after $COUNT attempt(s)" | tee -a "$GITHUB_STEP_SUMMARY"
           fi
