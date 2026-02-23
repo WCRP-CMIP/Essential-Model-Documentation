@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>h101 | Horizontal Computational Grid</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <style>
+        /* ── grid-specific extras ── */
+        .gc-info {
+            background: var(--emd-surface);
+            border: 1px solid var(--emd-border);
+            border-radius: var(--emd-radius);
+            padding: 0.85rem 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+        }
+        .gc-info-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--emd-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .gc-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.25rem;
+        }
+        .gc-stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .gc-stat-label {
+            font-size: 0.7rem;
+            color: var(--emd-text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .gc-stat-value {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--emd-text);
+        }
+        .gc-stat-value.highlight { color: var(--emd-primary); }
+        .vg-bar-wrap {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 60px;
+            margin: 0.75rem 0 0.25rem;
+        }
+        .vg-bar {
+            flex: 1;
+            background: var(--emd-primary);
+            opacity: 0.25;
+            border-radius: 3px 3px 0 0;
+            min-width: 4px;
+        }
+        .vg-bar-label { font-size: 0.7rem; color: var(--emd-text-muted); text-align: center; margin-top: 2px; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.5rem 0 0; }
+        .cv-tag {
+            font-size: 0.72rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            border: 1px solid var(--emd-border);
+            color: var(--emd-text-muted);
+            cursor: default;
+        }
+        .cv-tag[title] { cursor: help; }
+        .cv-tag.primary { border-color: var(--emd-primary); color: var(--emd-primary); background: rgba(37,99,235,0.07); }
+        .arr-card {
+            background: var(--emd-bg);
+            border: 1px solid var(--emd-border);
+            border-radius: var(--emd-radius);
+            padding: 1rem 1.25rem;
+        }
+        .arr-name { font-size: 1rem; font-weight: 600; color: var(--emd-text); margin-bottom: 0.4rem; }
+        .arr-desc { font-size: 0.875rem; color: var(--emd-secondary); line-height: 1.6; }
+        .level-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .level-stat {
+            background: var(--emd-bg);
+            border: 1px solid var(--emd-border);
+            border-radius: var(--emd-radius);
+            padding: 1rem;
+            text-align: center;
+        }
+        .level-stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--emd-primary);
+            font-family: 'SF Mono', Monaco, monospace;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .level-stat-label {
+            font-size: 0.75rem;
+            color: var(--emd-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bc = document.querySelector('.emd-breadcrumb a[href*="index.html"]');
+        if (bc) {
+            const parts = window.location.pathname.split('/').filter(p => p && !p.includes('.html'));
+            bc.href = '../'.repeat(Math.max(parts.length - 1, 2)) + 'index.html';
+        }
+    });
+    </script>
+</head>
+<body class="emd-page">
+<div class="emd-container">
+
+    <header class="emd-header">
+        <nav class="emd-breadcrumb">
+            <a href="../../index.html">← Back to Documentation</a>
+            <span>|</span>
+            <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
+            <span>→</span>
+            <span>Horizontal Computational Grid</span>
+            <span>→</span>
+            <span>h101</span>
+        </nav>
+
+        <div class="emd-badge">Horizontal Computational Grid</div>
+        <h1 class="emd-title">h101</h1>
+        
+        <p class="emd-subtitle">Arakawa-C grid on an ocean tripolar configuration (eORCA1).</p>
+
+        <div class="emd-header-meta">
+            
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Arrangement</span>
+                <span class="emd-meta-value" title="The Arakawa C grid places velocity-related quantities at the centres of mass cell edges, such that each component is perpendicular to its edge.">Arakawa C-grid</span>
+            </div>
+            
+            
+            
+            
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Subgrids</span>
+                <span class="emd-meta-value">3</span>
+            </div>
+            
+            <div class="emd-meta-item">
+                <span class="emd-meta-label">Context</span>
+                <span class="emd-meta-value"><a href="emd:horizontal_computational_grid/h101" target="_blank">JSON-LD →</a></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+    
+    
+
+        
+        <section class="emd-section expanded">
+            <div class="emd-section-header" onclick="toggleSection(this)">
+                <div class="emd-section-title-wrapper">
+                    <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
+                    <h2 class="emd-section-title">Staggering Arrangement</h2>
+                </div>
+                <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+            </div>
+            <div class="emd-section-content">
+                <div class="emd-section-body">
+                    <div class="emd-section-divider"></div>
+                    <div class="arr-card">
+                        <div class="arr-name">Arakawa C-grid</div>
+                        
+                        <div class="arr-desc">The Arakawa C grid places velocity-related quantities at the centres of mass cell edges, such that each component is perpendicular to its edge.</div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        
+        <section class="emd-section expanded">
+            <div class="emd-section-header" onclick="toggleSection(this)">
+                <div class="emd-section-title-wrapper">
+                    <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg></div>
+                    <h2 class="emd-section-title">
+                        Subgrids <span class="emd-section-count">(3)</span>
+                    </h2>
+                </div>
+                <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+            </div>
+            <div class="emd-section-content">
+                <div class="emd-section-body">
+                    <div class="emd-section-divider"></div>
+                    <div class="emd-domains-grid">
+                    
+                    <div class="emd-domain-card">
+                        <div class="emd-domain-card-header">
+                            <span class="emd-domain-card-title">s102</span>
+                            <span class="emd-domain-card-type">Subgrid</span>
+                        </div>
+                        
+                        <p class="emd-domain-card-description">Mass variables on an ocean tripolar grid (eORCA1).</p>
+                        
+
+                        
+                        
+                        <div class="tag-row">
+                            
+                            <span class="cv-tag primary" title="Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.">Mass</span>
+                            
+                        </div>
+                        
+
+                        
+                        
+                        
+                        <div class="gc-info">
+                            <div class="gc-info-title">Grid Cells — g102</div>
+                            
+                            <p style="font-size:0.8rem;color:var(--emd-secondary);margin-bottom:0.5rem;line-height:1.5;">Ocean tripolar grid (eORCA1) with 105704 cells.</p>
+                            
+                            <div class="gc-stats">
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Cells</span>
+                                    <span class="gc-stat-value highlight">105,704</span>
+                                </div>
+                                
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Grid Type</span>
+                                    <span class="gc-stat-value" title="A global curvilinear ocean grid with a southern pole and two northern poles all placed over land.">Tripolar</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Projection</span>
+                                    <span class="gc-stat-value" title="A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.">Latitude-Longitude</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Temporal</span>
+                                    <span class="gc-stat-value" title="Grid resolution remains constant throughout the simulation.">Static</span>
+                                </div>
+                                
+                                
+                                
+                            </div>
+                            
+                            <div class="tag-row">
+                                <span class="cv-tag" title="The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.">Global</span>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="emd-domain-card">
+                        <div class="emd-domain-card-header">
+                            <span class="emd-domain-card-title">s105</span>
+                            <span class="emd-domain-card-type">Subgrid</span>
+                        </div>
+                        
+                        <p class="emd-domain-card-description">X-velocity (U-grid) on ocean tripolar grid (eORCA1).</p>
+                        
+
+                        
+                        
+                        <div class="tag-row">
+                            
+                            <span class="cv-tag primary" title="Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.">X Velocity</span>
+                            
+                        </div>
+                        
+
+                        
+                        
+                        
+                        <div class="gc-info">
+                            <div class="gc-info-title">Grid Cells — g105</div>
+                            
+                            <p style="font-size:0.8rem;color:var(--emd-secondary);margin-bottom:0.5rem;line-height:1.5;">U-grid cells on ocean tripolar configuration (eORCA1) for x-velocity.</p>
+                            
+                            <div class="gc-stats">
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Cells</span>
+                                    <span class="gc-stat-value highlight">105,705</span>
+                                </div>
+                                
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Grid Type</span>
+                                    <span class="gc-stat-value" title="A global curvilinear ocean grid with a southern pole and two northern poles all placed over land.">Tripolar</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Projection</span>
+                                    <span class="gc-stat-value" title="A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.">Latitude-Longitude</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Temporal</span>
+                                    <span class="gc-stat-value" title="Grid resolution remains constant throughout the simulation.">Static</span>
+                                </div>
+                                
+                                
+                                
+                            </div>
+                            
+                            <div class="tag-row">
+                                <span class="cv-tag" title="The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.">Global</span>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="emd-domain-card">
+                        <div class="emd-domain-card-header">
+                            <span class="emd-domain-card-title">s106</span>
+                            <span class="emd-domain-card-type">Subgrid</span>
+                        </div>
+                        
+                        <p class="emd-domain-card-description">Y-velocity (V-grid) on ocean tripolar grid (eORCA1).</p>
+                        
+
+                        
+                        
+                        <div class="tag-row">
+                            
+                            <span class="cv-tag primary" title="Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.">Y Velocity</span>
+                            
+                        </div>
+                        
+
+                        
+                        
+                        
+                        <div class="gc-info">
+                            <div class="gc-info-title">Grid Cells — g106</div>
+                            
+                            <p style="font-size:0.8rem;color:var(--emd-secondary);margin-bottom:0.5rem;line-height:1.5;">V-grid cells on ocean tripolar configuration (eORCA1) for y-velocity.</p>
+                            
+                            <div class="gc-stats">
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Cells</span>
+                                    <span class="gc-stat-value highlight">105,706</span>
+                                </div>
+                                
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Grid Type</span>
+                                    <span class="gc-stat-value" title="A global curvilinear ocean grid with a southern pole and two northern poles all placed over land.">Tripolar</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Projection</span>
+                                    <span class="gc-stat-value" title="A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.">Latitude-Longitude</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Temporal</span>
+                                    <span class="gc-stat-value" title="Grid resolution remains constant throughout the simulation.">Static</span>
+                                </div>
+                                
+                                
+                                
+                            </div>
+                            
+                            <div class="tag-row">
+                                <span class="cv-tag" title="The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.">Global</span>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+    
+
+    
+    
+
+    
+    <section class="emd-section">
+        <div class="emd-section-header" onclick="toggleSection(this)">
+            <div class="emd-section-title-wrapper">
+                <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <h2 class="emd-section-title">Technical Details</h2>
+            </div>
+            <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+        </div>
+        <div class="emd-section-content">
+            <div class="emd-section-body">
+                <div class="emd-section-divider"></div>
+                <div class="emd-tech-grid">
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">Resource Identifier (@id)</div>
+                        <div class="emd-tech-value">h101</div>
+                    </div>
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">Validation Key</div>
+                        <div class="emd-tech-value">h101</div>
+                    </div>
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">JSON-LD Context</div>
+                        <div class="emd-tech-value"><a href="emd:horizontal_computational_grid/h101" target="_blank">emd:horizontal_computational_grid/h101</a></div>
+                    </div>
+                    <div class="emd-tech-item">
+                        <div class="emd-tech-label">Resource Types (@type)</div>
+                        <div class="emd-type-badges">
+                            <span class="emd-type-badge">emd</span><span class="emd-type-badge">wcrp:horizontal_computational_grid</span><span class="emd-type-badge">esgvoc:HorizontalComputationalGrid</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="emd-footer">
+        <p class="emd-footer-text">
+            Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a>
+            · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative
+            · Generated 2026-02-22 23:18 UTC
+        </p>
+    </footer>
+</div>
+<script>
+function toggleSection(h) { h.parentElement.classList.toggle('expanded'); }
+const sourceData = {
+  "@context": "emd:horizontal_computational_grid/h101",
+  "@id": "h101",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid"
+  ],
+  "arrangement": {
+    "@id": "arakawa-c",
+    "@type": [
+      "universal",
+      "wcrp:arrangement",
+      "esgvoc:Arrangement",
+      "constants"
+    ],
+    "description": "The Arakawa C grid places velocity-related quantities at the centres of mass cell edges, such that each component is perpendicular to its edge.",
+    "ui_label": "Arakawa C-grid",
+    "validation_key": "arakawa-c"
+  },
+  "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
+  "horizontal_subgrids": [
+    {
+      "@id": "s102",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+      ],
+      "cell_variable_type": {
+        "@id": "mass",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+        "ui_label": "Mass",
+        "validation_key": "mass"
+      },
+      "description": "Mass variables on an ocean tripolar grid (eORCA1).",
+      "horizontal_grid_cells": {
+        "@id": "g102",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_grid_cells",
+          "esgvoc:HorizontalGridCells"
+        ],
+        "description": "Ocean tripolar grid (eORCA1) with 105704 cells.",
+        "grid_mapping": {
+          "@id": "latitude-longitude",
+          "@type": [
+            "universal",
+            "wcrp:grid_mapping",
+            "esgvoc:GridMapping",
+            "constants"
+          ],
+          "description": "A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.",
+          "ui_label": "Latitude-Longitude",
+          "validation_key": "latitude_longitude"
+        },
+        "grid_type": {
+          "@id": "tripolar",
+          "@type": [
+            "universal",
+            "wcrp:grid_type",
+            "esgvoc:GridType",
+            "constants"
+          ],
+          "description": "A global curvilinear ocean grid with a southern pole and two northern poles all placed over land.",
+          "ui_label": "Tripolar",
+          "validation_key": "tripolar"
+        },
+        "n_cells": 105704,
+        "region": {
+          "@id": "global",
+          "@type": [
+            "universal",
+            "wcrp:region",
+            "esgvoc:Region",
+            "constants"
+          ],
+          "alias": "glb",
+          "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+          "ui_label": "Global",
+          "validation_key": "global"
+        },
+        "temporal_refinement": {
+          "@id": "static",
+          "@type": [
+            "universal",
+            "wcrp:temporal_refinement",
+            "esgvoc:TemporalRefinement",
+            "constants"
+          ],
+          "description": "Grid resolution remains constant throughout the simulation.",
+          "ui_label": "Static",
+          "validation_key": "static"
+        },
+        "ui_label": "",
+        "validation_key": "g102"
+      },
+      "ui_label": "",
+      "validation_key": "s102"
+    },
+    {
+      "@id": "s105",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+      ],
+      "cell_variable_type": {
+        "@id": "x-velocity",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.",
+        "ui_label": "X Velocity",
+        "validation_key": "x-velocity"
+      },
+      "description": "X-velocity (U-grid) on ocean tripolar grid (eORCA1).",
+      "horizontal_grid_cells": {
+        "@id": "g105",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_grid_cells",
+          "esgvoc:HorizontalGridCells"
+        ],
+        "description": "U-grid cells on ocean tripolar configuration (eORCA1) for x-velocity.",
+        "grid_mapping": {
+          "@id": "latitude-longitude",
+          "@type": [
+            "universal",
+            "wcrp:grid_mapping",
+            "esgvoc:GridMapping",
+            "constants"
+          ],
+          "description": "A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.",
+          "ui_label": "Latitude-Longitude",
+          "validation_key": "latitude_longitude"
+        },
+        "grid_type": {
+          "@id": "tripolar",
+          "@type": [
+            "universal",
+            "wcrp:grid_type",
+            "esgvoc:GridType",
+            "constants"
+          ],
+          "description": "A global curvilinear ocean grid with a southern pole and two northern poles all placed over land.",
+          "ui_label": "Tripolar",
+          "validation_key": "tripolar"
+        },
+        "n_cells": 105705,
+        "region": {
+          "@id": "global",
+          "@type": [
+            "universal",
+            "wcrp:region",
+            "esgvoc:Region",
+            "constants"
+          ],
+          "alias": "glb",
+          "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+          "ui_label": "Global",
+          "validation_key": "global"
+        },
+        "temporal_refinement": {
+          "@id": "static",
+          "@type": [
+            "universal",
+            "wcrp:temporal_refinement",
+            "esgvoc:TemporalRefinement",
+            "constants"
+          ],
+          "description": "Grid resolution remains constant throughout the simulation.",
+          "ui_label": "Static",
+          "validation_key": "static"
+        },
+        "ui_label": "",
+        "validation_key": "g105"
+      },
+      "ui_label": "",
+      "validation_key": "s105"
+    },
+    {
+      "@id": "s106",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+      ],
+      "cell_variable_type": {
+        "@id": "y-velocity",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.",
+        "ui_label": "Y Velocity",
+        "validation_key": "y-velocity"
+      },
+      "description": "Y-velocity (V-grid) on ocean tripolar grid (eORCA1).",
+      "horizontal_grid_cells": {
+        "@id": "g106",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_grid_cells",
+          "esgvoc:HorizontalGridCells"
+        ],
+        "description": "V-grid cells on ocean tripolar configuration (eORCA1) for y-velocity.",
+        "grid_mapping": {
+          "@id": "latitude-longitude",
+          "@type": [
+            "universal",
+            "wcrp:grid_mapping",
+            "esgvoc:GridMapping",
+            "constants"
+          ],
+          "description": "A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.",
+          "ui_label": "Latitude-Longitude",
+          "validation_key": "latitude_longitude"
+        },
+        "grid_type": {
+          "@id": "tripolar",
+          "@type": [
+            "universal",
+            "wcrp:grid_type",
+            "esgvoc:GridType",
+            "constants"
+          ],
+          "description": "A global curvilinear ocean grid with a southern pole and two northern poles all placed over land.",
+          "ui_label": "Tripolar",
+          "validation_key": "tripolar"
+        },
+        "n_cells": 105706,
+        "region": {
+          "@id": "global",
+          "@type": [
+            "universal",
+            "wcrp:region",
+            "esgvoc:Region",
+            "constants"
+          ],
+          "alias": "glb",
+          "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+          "ui_label": "Global",
+          "validation_key": "global"
+        },
+        "temporal_refinement": {
+          "@id": "static",
+          "@type": [
+            "universal",
+            "wcrp:temporal_refinement",
+            "esgvoc:TemporalRefinement",
+            "constants"
+          ],
+          "description": "Grid resolution remains constant throughout the simulation.",
+          "ui_label": "Static",
+          "validation_key": "static"
+        },
+        "ui_label": "",
+        "validation_key": "g106"
+      },
+      "ui_label": "",
+      "validation_key": "s106"
+    }
+  ],
+  "ui_label": "",
+  "validation_key": "h101"
+};
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+    e.clipboardData.setData("text/plain",
+        "// JSON-LD: h101\n// Generated: 2026-02-22 23:18 UTC\n\n" +
+        JSON.stringify(sourceData, null, 2));
+});
+</script>
+</body>
+</html>
