@@ -1,6 +1,6 @@
 # Horizontal Computational Grids
 
-**Total entries:** 8
+**Total entries:** 9
 
 ---
 
@@ -12,7 +12,8 @@
 - [H101](h101.html)
 - [H102](h102.html)
 - [H103](h103.html)
+- [Index](index.html)
 
 ---
 
-*Generated: 2026-02-23 21:33 UTC*
+*Generated: 2026-02-23 21:38 UTC*

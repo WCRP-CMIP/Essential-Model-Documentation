@@ -106,10 +106,11 @@ def init_loader():
     if branch == "production":
         print(branch,'\n\n\n')
         try:
-            # prefix = cmipld.prefix()
+            prefix = cmipld.prefix()
             # print ('prefix',prefix)
-            cmipld.map_current(prefix)
-            print(f"  Branch: {branch} — mounted local files as '{prefix}'")
+            if prefix:
+                cmipld.map_current(prefix)
+                print(f"  Branch: {branch} — mounted local files as '{prefix}'")
         except Exception as e:
             print(f"  Warning: Could not mount local files: {e}")
     else:
