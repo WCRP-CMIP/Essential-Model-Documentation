@@ -1,11 +1,13 @@
 {
     "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_computational_grid/",
         "@base": "https://emd.mipcvs.dev/horizontal_computational_grid/",
         "@esgvoc": "HorizontalComputationalGrid",
         "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalComputationalGrid/",
         "arrangement": {
             "@context": "https://constants.mipcvs.dev/arrangement/_context",
-            "@type": "@id"
+            "@type": "@id",
+            "@id": "arrangement"
         },
         "horizontal_subgrids": {
             "@type": "@id"

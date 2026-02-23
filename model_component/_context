@@ -1,11 +1,13 @@
 {
     "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_component/",
         "@base": "https://emd.mipcvs.dev/model_component/",
         "@esgvoc": "ModelComponent",
         "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelComponent/",
         "component": {
             "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-            "@type": "@id"
+            "@type": "@id",
+            "@id": "component"
         },
         "family": {
             "@type": "@id"

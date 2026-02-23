@@ -1,26 +1,31 @@
 {
     "@context": {
+        "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model/",
         "@base": "https://emd.mipcvs.dev/model/",
         "@esgvoc": "Model",
         "@vocab": "https://emd.mipcvs.dev/docs/contents/Model/",
         "calendar": {
             "@context": "https://constants.mipcvs.dev/calendar/_context",
-            "@type": "@id"
+            "@type": "@id",
+            "@id": "calendar"
         },
         "dynamic_components": {
             "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-            "@type": "@id"
+            "@type": "@id",
+            "@id": "dynamic_components"
         },
         "family": {
             "@type": "@id"
         },
         "omitted_components": {
             "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-            "@type": "@id"
+            "@type": "@id",
+            "@id": "omitted_components"
         },
         "prescribed_components": {
             "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-            "@type": "@id"
+            "@type": "@id",
+            "@id": "prescribed_components"
         },
         "references": {
             "@type": "@id"
