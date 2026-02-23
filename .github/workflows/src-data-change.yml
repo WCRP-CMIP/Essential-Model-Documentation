@@ -142,13 +142,14 @@ jobs:
         # Pre-build scripts are invoked by the gen-files plugin inside mkdocs build.
         run: |
           cd "$GITHUB_WORKSPACE"
-          mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml" 
-          # -d "$GITHUB_WORKSPACE/build"
+          ldr server stop;
+          ldr server start;
+          mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml" -d "$GITHUB_WORKSPACE/build"
 
           if [ -d "$GITHUB_WORKSPACE/build" ]; then
             rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs"
             [ -d "$GITHUB_WORKSPACE/docs" ] && rm -rf "$GITHUB_WORKSPACE/docs"
-            mv "$GITHUB_WORKSPACE/src/mkdocs/site" "$GITHUB_WORKSPACE/docs"
+            mv "$GITHUB_WORKSPACE/src/mkdocs/build" "$GITHUB_WORKSPACE/docs"
             echo "Built MkDocs site to docs/"
           else
             echo "MkDocs build did not produce output"
