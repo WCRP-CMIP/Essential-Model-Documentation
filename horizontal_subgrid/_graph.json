@@ -1,11 +1,13 @@
 {
   "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_subgrid/",
     "@base": "https://emd.mipcvs.dev/horizontal_subgrid/",
     "@esgvoc": "HorizontalSubgrid",
     "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalSubgrid/",
     "cell_variable_type": {
       "@context": "https://constants.mipcvs.dev/cell_variable_type/_context",
-      "@type": "@id"
+      "@type": "@id",
+      "@id": "cell_variable_type"
     },
     "horizontal_grid_cells": {
       "@type": "@id"
