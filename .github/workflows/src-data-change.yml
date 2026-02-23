@@ -144,6 +144,9 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           ldr server stop;
           ldr server start;
+          python -c 'import cmipld; cmipld.map_current("emd");cmipld.get("emd:model_family/_graph.json")';
+
+
           mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml" -d "$GITHUB_WORKSPACE/build"
 
           if [ -d "$GITHUB_WORKSPACE/build" ]; then
