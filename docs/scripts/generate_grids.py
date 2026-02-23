@@ -25,6 +25,8 @@ except ImportError:
 from helpers import ICONS, is_none_value, escape_html
 from helpers.data_loader import init_loader, list_entries, fetch_entry
 
+
+
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
 OUTPUT_DIR_H = SCRIPT_DIR.parent / "10_EMD_Repository" / "05_Horizontal_Computational_Grids"
 OUTPUT_DIR_V = SCRIPT_DIR.parent / "10_EMD_Repository" / "06_Vertical_Computational_Grids"
@@ -250,7 +252,7 @@ def main():
 
     # ── Horizontal computational grids ────────────────────────────────────────
     OUTPUT_DIR_H.mkdir(parents=True, exist_ok=True)
-    clear_output_dir(OUTPUT_DIR_H)
+    # clear_output_dir(OUTPUT_DIR_H)  # disabled: nav already registered these files
     print(f"  Output dir: {OUTPUT_DIR_H.name}")
 
     h_entries = list_entries("horizontal_computational_grid")
@@ -265,7 +267,7 @@ def main():
 
     # ── Vertical computational grids ──────────────────────────────────────────
     OUTPUT_DIR_V.mkdir(parents=True, exist_ok=True)
-    clear_output_dir(OUTPUT_DIR_V)
+    # clear_output_dir(OUTPUT_DIR_V)  # disabled: nav already registered these files
     print(f"  Output dir: {OUTPUT_DIR_V.name}")
 
     v_entries = list_entries("vertical_computational_grid")

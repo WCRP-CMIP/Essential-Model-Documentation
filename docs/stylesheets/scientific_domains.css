@@ -1,27 +1,29 @@
 /* Scientific Domain Colours
-   One class per domain, applied to .emd-domain-card and component badge elements.
-   Class names match the validation_key / @id of each domain (e.g. "atmosphere",
-   "ocean", "land-surface").
-   Each domain gets:
-     --sd-color      primary accent  (text, border)
-     --sd-bg         tinted background
-     --sd-badge-bg   pill/badge background
+   ─────────────────────────────────────────────────────────────────────
+   Palette: #264653 #287271 #2a9d8f #8ab17d #7cadbe #e9c46a #f4a261 #e76f51
+   Land-ice uses a derived icy blue (#7cadbe).
+
+   Class names use the domain @id (e.g. "atmosphere", "land-surface").
+   CSS custom properties per domain:
+     --sd-color      primary accent (text, border)
+     --sd-bg         light tinted background
+     --sd-badge-bg   pill / badge background
 */
 
-/* ── Base override for coloured domain cards ───────────────────────────────── */
-.emd-domain-card.sd-atmosphere       { --sd-color: #0284c7; --sd-bg: #e0f2fe; --sd-badge-bg: #bae6fd; border-color: #7dd3fc; }
-.emd-domain-card.sd-ocean            { --sd-color: #1d4ed8; --sd-bg: #dbeafe; --sd-badge-bg: #bfdbfe; border-color: #93c5fd; }
-.emd-domain-card.sd-land-surface     { --sd-color: #4d7c0f; --sd-bg: #ecfccb; --sd-badge-bg: #d9f99d; border-color: #a3e635; }
-.emd-domain-card.sd-sea-ice          { --sd-color: #0891b2; --sd-bg: #cffafe; --sd-badge-bg: #a5f3fc; border-color: #67e8f9; }
-.emd-domain-card.sd-land-ice         { --sd-color: #6366f1; --sd-bg: #e0e7ff; --sd-badge-bg: #c7d2fe; border-color: #a5b4fc; }
-.emd-domain-card.sd-aerosol          { --sd-color: #7c3aed; --sd-bg: #ede9fe; --sd-badge-bg: #ddd6fe; border-color: #c4b5fd; }
-.emd-domain-card.sd-atmospheric-chemistry { --sd-color: #c2410c; --sd-bg: #ffedd5; --sd-badge-bg: #fed7aa; border-color: #fdba74; }
-.emd-domain-card.sd-ocean-biogeochemistry { --sd-color: #0f766e; --sd-bg: #ccfbf1; --sd-badge-bg: #99f6e4; border-color: #5eead4; }
+/* ── Domain card colours ───────────────────────────────────────────────────── */
 
-/* Apply the variables to card elements */
+.emd-domain-card.sd-ocean                     { --sd-color: #264653; --sd-bg: #e8eef0; --sd-badge-bg: #c8d6db; border-color: #264653; }
+.emd-domain-card.sd-ocean-biogeochemistry     { --sd-color: #287271; --sd-bg: #e8f1f1; --sd-badge-bg: #bfdbd9; border-color: #287271; }
+.emd-domain-card.sd-sea-ice                   { --sd-color: #2a9d8f; --sd-bg: #e9f5f3; --sd-badge-bg: #bfe7e1; border-color: #2a9d8f; }
+.emd-domain-card.sd-land-surface              { --sd-color: #8ab17d; --sd-bg: #f0f5ee; --sd-badge-bg: #d8e8d3; border-color: #8ab17d; }
+.emd-domain-card.sd-land-ice                  { --sd-color: #7cadbe; --sd-bg: #eef4f7; --sd-badge-bg: #cfe0e8; border-color: #7cadbe; }
+.emd-domain-card.sd-aerosol                   { --sd-color: #c9a43a; --sd-bg: #fcf6e6; --sd-badge-bg: #f5e7b8; border-color: #e9c46a; }
+.emd-domain-card.sd-atmospheric-chemistry     { --sd-color: #d4863a; --sd-bg: #fef2e5; --sd-badge-bg: #fcd9b6; border-color: #f4a261; }
+.emd-domain-card.sd-atmosphere                { --sd-color: #c45a3e; --sd-bg: #fce9e4; --sd-badge-bg: #f9c8bc; border-color: #e76f51; }
+
+/* Apply variables to card elements — left colour stripe only */
 .emd-domain-card[class*="sd-"] {
-    background: var(--sd-bg);
-    border-color: var(--sd-color);
+    border-left: 4px solid var(--sd-color);
 }
 .emd-domain-card[class*="sd-"] .emd-domain-card-title {
     color: var(--sd-color);
@@ -31,8 +33,19 @@
     color: var(--sd-color);
 }
 
-/* ── Component status badges that use domain colouring ─────────────────────── */
+/* ── Institution tags (family pages) ───────────────────────────────────────── */
+.emd-tag-primary {
+    background: #1e40af !important;
+    color: #fff !important;
+}
+.emd-tag-collaborative {
+    background: #93c5fd !important;
+    color: #1e3a5f !important;
+}
+
+/* ── Domain badges ─────────────────────────────────────────────────────────── */
 /* Usage: <span class="emd-domain-badge sd-ocean">Ocean</span> */
+
 .emd-domain-badge {
     display: inline-flex;
     align-items: center;
@@ -47,11 +60,12 @@
     border-color: var(--sd-color, #cbd5e1);
     cursor: default;
 }
-.emd-domain-badge.sd-atmosphere            { --sd-color: #0284c7; --sd-bg: #e0f2fe; }
-.emd-domain-badge.sd-ocean                 { --sd-color: #1d4ed8; --sd-bg: #dbeafe; }
-.emd-domain-badge.sd-land-surface          { --sd-color: #4d7c0f; --sd-bg: #ecfccb; }
-.emd-domain-badge.sd-sea-ice               { --sd-color: #0891b2; --sd-bg: #cffafe; }
-.emd-domain-badge.sd-land-ice              { --sd-color: #6366f1; --sd-bg: #e0e7ff; }
-.emd-domain-badge.sd-aerosol               { --sd-color: #7c3aed; --sd-bg: #ede9fe; }
-.emd-domain-badge.sd-atmospheric-chemistry { --sd-color: #c2410c; --sd-bg: #ffedd5; }
-.emd-domain-badge.sd-ocean-biogeochemistry { --sd-color: #0f766e; --sd-bg: #ccfbf1; }
+
+.emd-domain-badge.sd-ocean                     { --sd-color: #264653; --sd-bg: #e8eef0; }
+.emd-domain-badge.sd-ocean-biogeochemistry     { --sd-color: #287271; --sd-bg: #e8f1f1; }
+.emd-domain-badge.sd-sea-ice                   { --sd-color: #2a9d8f; --sd-bg: #e9f5f3; }
+.emd-domain-badge.sd-land-surface              { --sd-color: #8ab17d; --sd-bg: #f0f5ee; }
+.emd-domain-badge.sd-land-ice                  { --sd-color: #7cadbe; --sd-bg: #eef4f7; }
+.emd-domain-badge.sd-aerosol                   { --sd-color: #c9a43a; --sd-bg: #fcf6e6; }
+.emd-domain-badge.sd-atmospheric-chemistry     { --sd-color: #d4863a; --sd-bg: #fef2e5; }
+.emd-domain-badge.sd-atmosphere                { --sd-color: #c45a3e; --sd-bg: #fce9e4; }

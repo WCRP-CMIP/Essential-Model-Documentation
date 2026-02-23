@@ -1,163 +1,72 @@
 # Essential Model Documentation
 
-The **Essential Model Documentation (EMD)** provides a standardised, machine-readable description of Earth system models for CMIP7 and beyond. It captures exactly the information a scientist needs to understand how a model was configured without imposing unnecessary documentation burden on modelling groups.
+The Essential Model Documentation (EMD) is a high-level description of an earth system model. It is intended to contain information about model configuration that may be helpful to the communities who expect to make use of the model output, whilst not imposing burdensome requirements on those providing the data.
 
-**[Submit a model ->](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml)** &nbsp;·&nbsp; [Submission guide](01_submission-guide.md) &nbsp;·&nbsp; [Browse the registry](10_EMD_Repository/01_Models/)
+It is not intended to contain all information about a model. More detailed model documentation than that provided by the EMD should be found in the references cited as part of the EMD, or from other external sources.
 
----
+The EMD has been designed to be applicable to any earth system model. It was originally developed for use within the [CMIP7](https://wcrp-cmip.org) project ([Dunne et al., 2025](https://doi.org/10.5194/gmd-18-6671-2025)), for which EMD registration is a mandatory requirement for model participation. A model cannot be assigned a CMIP7 `source_id` unless its EMD has been provided and accepted.
 
-## Why EMD?
+The EMD is defined by a versioned [specification document](https://doi.org/10.5281/zenodo.17853724) maintained by the [CMIP7 MIP Controlled Vocabularies Task Team](https://wcrp-cmip.org/cmip7-task-teams/cvs/).
 
-Model output is only useful if users understand how it was produced. Comprehensive documentation is time-consuming to write, and inconsistent formats make cross-model comparison difficult. EMD solves this by defining a **minimal but sufficient** set of metadata covering:
+## Structure
 
-- The top-level model and its CMIP `source_id`
-- Each model component what is dynamically simulated, prescribed, or omitted
-- The computational grids used by each component
-- The model family and development institution(s)
+The EMD is collected for the model as a whole (the top-level model), and for each of the model's dynamically simulated components.
 
-For CMIP7, EMD registration is **mandatory** ensuring every participating model has consistent, comparable documentation from day one.
+A **top-level model** is described by its name, model family, calendar, release year, references to published work, and the classification of its components as dynamically simulated, prescribed, or omitted. For CMIP7, the model name is registered as the `source_id`.
 
----
+A **model component** describes an individual part of the top-level model that dynamically simulates a set of physical processes. Eight component types are defined: aerosol, atmosphere, atmospheric chemistry, land surface, land ice, ocean, ocean biogeochemistry, and sea ice. Each dynamic component is described by its name, family, scientific overview, references, code location, and its relationships with other components.
 
-## How a Submission Works
+A **computational grid** describes the mesh on which a model component is integrated. The horizontal grid records the staggering arrangement, grid type, resolution, region, and coordinate reference system. The vertical grid records the coordinate type, number of layers, and layer thicknesses.
 
-Submissions are made through **GitHub issue forms** no Git knowledge required. Once submitted, an automated pipeline handles validation, review assignment, and registration.
+## Component relationships
+
+All dynamically simulated components within a top-level model interact with each other either directly or indirectly. The EMD identifies which components directly interact, characterising each as either "embedded in" or "coupled with" other components.
+
+An **embedded** component is tightly integrated within a host component, typically sharing its grid and code base. An embedded component has a single host, which may itself be embedded in another host, forming a hierarchy. An embedded component cannot also be coupled with any other components.
+
+A **coupled** component exchanges quantities with other components at regular intervals, such as fluxes of mass, energy, and momentum. Coupling is symmetrical: if component A is coupled with component B, then B is also coupled with A. Only superior host components — those at the top of an embedding hierarchy — may be coupled with each other.
 
 ```mermaid
 flowchart TD
- A(["Submitter\nfills in issue form"]) --> B
+  ATM["Atmosphere"]
+  CHEM["Atmos. Chemistry"]
+  AER["Aerosol"]
+  OCN["Ocean"]
+  SEAICE["Sea Ice"]
+  OBGC["Ocean Biogeochem."]
+  LAND["Land Surface"]
+  ICE["Land Ice"]
 
- B["GitHub Issue created\nwith structured fields"]
- B --> C
+  CHEM -.->|embedded in| ATM
+  AER -.->|embedded in| CHEM
+  SEAICE -.->|embedded in| OCN
+  OBGC -.->|embedded in| OCN
 
- C{"Action: Parse & Validate"}
- C -->|"JSON schema\ncheck fails"| D
- C -->|"JSON valid"| E
+  ATM <-->|coupled| OCN
+  ATM <-->|coupled| LAND
+  ATM <-->|coupled| ICE
+  OCN <-->|coupled| ICE
 
- D["Validation report\nposted on issue\nwith field errors"]
- D --> A2(["Submitter edits\nor resubmits form"])
- A2 --> B
-
- E["Action: Create branch\nWrite JSON file\nOpen Pull Request"]
- E --> F
-
- F["Review report\ngenerated on PR"]
-
- F --> G["Auto-checked \nSchema · IDs · Cross-refs\nDOIs · CVs · Ranges"]
-
- F --> H["Flagged for review \nDescriptions · Names\nDuplicates · Plausibility"]
-
- G --> I
- H --> I
-
- I{"Action: Assign reviewer\nfrom matching pool"}
- I --> J(["Domain reviewer\nassigned"])
-
- J --> K{"Reviewer decision"}
- K -->|"Approve"| L
- K -->|"Reject"| M
- K -->|"Request changes"| N
-
- L["PR merged to\nproduction branch"]
- L --> O["Docs auto-updated\nEntry live in\nEMD registry & dropdowns"]
-
- M["Issue closed\nwith explanation"]
-
- N["Submitter notified\nto modify PR"]
- N --> K
-
- style A fill:#e3f2fd,stroke:#2196f3,color:#1e293b
- style A2 fill:#e3f2fd,stroke:#2196f3,color:#1e293b
- style J fill:#e3f2fd,stroke:#2196f3,color:#1e293b
- style C fill:#f3e5f5,stroke:#9c27b0,color:#1e293b
- style I fill:#f3e5f5,stroke:#9c27b0,color:#1e293b
- style K fill:#fff3e0,stroke:#ff9800,color:#1e293b
- style D fill:#ffebee,stroke:#ef5350,color:#1e293b
- style M fill:#ffebee,stroke:#ef5350,color:#1e293b
- style L fill:#e8f5e9,stroke:#4caf50,color:#1e293b
- style O fill:#e8f5e9,stroke:#4caf50,color:#1e293b
- style F fill:#fafafa,stroke:#90a4ae,color:#1e293b
- style G fill:#e8f5e9,stroke:#81c784,color:#1e293b
- style H fill:#fff8e1,stroke:#ffca28,color:#1e293b
+  style ATM fill:#e3f2fd,stroke:#2196f3,color:#1e293b
+  style OCN fill:#e3f2fd,stroke:#2196f3,color:#1e293b
+  style LAND fill:#e3f2fd,stroke:#2196f3,color:#1e293b
+  style ICE fill:#e3f2fd,stroke:#2196f3,color:#1e293b
+  style CHEM fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
+  style AER fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
+  style SEAICE fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
+  style OBGC fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
 ```
 
----
+*The relationships between model components for a hypothetical top-level model. Coupling occurs between the four superior host components (atmosphere, ocean, land surface, and land ice). The other four components are each embedded in a host component, and are therefore not coupled with any other components. Based on the EMD specification, Figure 1.*
 
-## Automated Checks
+## Registration
 
-When your issue is parsed, the following checks run automatically. Results are posted directly on the pull request.
+An on-line creation tool is used for CMIP7 model registration, and this tool collects the content that is recorded in the EMD. Submissions are validated against the EMD schema and reviewed by a domain scientist. When the EMD is accepted, the model registration is completed. The tool also enables those documenting a model to import documentation from earlier registered models, model components, and grids, which can then be edited if required.
 
-### Automatically verified
+Full instructions are given in the [submission guide](01_submission-guide.md).
 
-| Check | What is tested |
-|---|---|
-| **Schema validity** | All required fields are present and correctly typed |
-| **ID uniqueness** | The proposed ID does not clash with an existing entry |
-| **Cross-references** | Referenced IDs (grid IDs, family IDs, component configs) resolve to real entries |
-| **DOI reachability** | Reference DOI URLs return a valid HTTP response |
-| **Controlled vocabulary** | Dropdown values match the registered CVs (grid types, arrangements, calendars, etc.) |
-| **Numeric ranges** | Values like `n_z`, `x_resolution`, release year are within plausible bounds |
+## References
 
-### Flagged for human review
-
-These items cannot be automatically verified and are highlighted in the review report for the assigned reviewer:
-
-| Flag | Reason |
-|---|---|
-| **Description quality** | Free text checked for length and completeness, but scientific accuracy requires human judgement |
-| **Name conventions** | Naming patterns vary across modelling groups; a reviewer confirms consistency |
-| **Potential duplicates** | Similar entries detected reviewer confirms whether this is truly new or a modification |
-| **Component completeness** | Whether dynamic/prescribed/omitted assignments cover all expected domains for this model type |
-| **Scientific plausibility** | e.g. a 1 km global ocean grid, or a land-only model with no land surface component |
-
----
-
-## Review Assignment
-
-Once the pull request is opened, an action automatically assigns a reviewer from the **EMD reviewer pool**. Assignment is based on:
-
-- **Scientific domain** atmosphere, ocean, land surface, sea ice, etc. matched to the submission type
-- **Institutional affiliation** preference for reviewers independent of the submitting group
-- **Current workload** reviewers with fewer open assignments are prioritised
-
-Reviewers are CMIP community scientists who have volunteered for the pool. The assigned reviewer is tagged on the PR and has 14 days to respond before escalation.
-
----
-
-## Reviewer Actions
-
-The reviewer examines the flagged items and the auto-check report, then takes one of:
-
-| Action | Outcome |
-|---|---|
-| **Approve** | PR is merged; entry enters the registry; docs update automatically within minutes |
-| **Request changes** | Reviewer leaves specific comments; submitter is notified to update the PR |
-| **Reject** | Issue is closed with a written explanation; submitter may open a new issue after addressing the concerns |
-
----
-
-## After Registration
-
-Once merged to the production branch:
-
-1. The JSON file is written to the vocabulary directory
-2. The docs build runs automatically the entry appears on this site within ~5 minutes
-3. The entry becomes available in issue form **dropdowns** for other submitters to reference
-4. The `source_id` (for models) is officially registered in the CMIP7 CVs
-
----
-
-## Start a Submission
-
-| What you're registering | Form |
-|---|---|
-| Grid cells & subgrid geometry | [Stage 1 Grid Cells & Subgrid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cells.yml) |
-| Horizontal computational grid | [Stage 2a Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) |
-| Vertical computational grid | [Stage 2b Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) |
-| Model or component family | [Family](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml) |
-| Model component | [Stage 3 Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) |
-| Complete model (source_id) | [Stage 4 Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
-
-Not sure where to start? See the [full submission guide](01_submission-guide.md).
-
-Track your open submissions: [My Issues ->](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue+author%3A%40me+is%3Aopen)
+- [EMD Specification v1.1](https://doi.org/10.5281/zenodo.17853724) — the complete specification with property definitions, controlled vocabularies, and worked examples
+- [CMIP7 Grid Guidance v1.0](https://doi.org/10.5281/zenodo.15697025) — companion guidance on grid description
+- [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation) — source data, issue tracker, and contribution workflow

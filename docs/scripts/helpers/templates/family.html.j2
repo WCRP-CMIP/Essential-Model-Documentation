@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ name | e }} | {{ family_type }}</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
     <script>
     // Fix breadcrumb link to work with any base URL
     document.addEventListener('DOMContentLoaded', function() {
@@ -122,7 +123,7 @@
                                     {{ primary_institution.name | e }}
                                     {% endif %}
                                 </span>
-                                <span class="emd-domain-card-type">Primary</span>
+                                <span class="emd-domain-card-type emd-tag-primary">Primary</span>
                             </div>
                             {% if primary_institution.acronym %}
                             <div class="emd-domain-card-id">{{ primary_institution.acronym | e }}</div>
@@ -153,7 +154,7 @@
                                     {{ inst.name | e }}
                                     {% endif %}
                                 </span>
-                                <span class="emd-domain-card-type">Collaborative</span>
+                                <span class="emd-domain-card-type emd-tag-collaborative">Collaborative</span>
                             </div>
                             {% if inst.acronym %}
                             <div class="emd-domain-card-id">{{ inst.acronym | e }}</div>
@@ -195,7 +196,7 @@
                         <div class="emd-section-divider"></div>
                         <div class="emd-domains-grid">
                         {% for domain in scientific_domains %}
-                        <div class="emd-domain-card">
+                        <div class="emd-domain-card sd-{{ domain.domain_key }}">
                             <div class="emd-domain-card-header">
                                 <span class="emd-domain-card-title">{{ domain.name | e }}</span>
                                 <span class="emd-domain-card-type">Domain</span>
@@ -219,7 +220,7 @@
 
             <!-- Code & Development -->
             {% if source_code_repository or shared_code_base or programming_languages or license %}
-            <section class="emd-section">
+            <section class="emd-section expanded">
                 <div class="emd-section-header" onclick="toggleSection(this)">
                     <div class="emd-section-title-wrapper">
                         <div class="emd-section-icon">{{ icons.tech | safe }}</div>
@@ -335,7 +336,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated {{ generated_date }}</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Generated {{ generated_date }}</p>
         </footer>
     </div>
     <script>

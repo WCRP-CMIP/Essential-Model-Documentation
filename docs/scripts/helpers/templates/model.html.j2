@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ name | e }} | Climate Model</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
     <script>
     // Fix breadcrumb link to work with any base URL
     document.addEventListener('DOMContentLoaded', function() {
@@ -120,9 +121,9 @@
                         </div>
                         
                         <div class="emd-domain-grid">
-                            <!-- Dynamic Components - Blue -->
+                            <!-- Dynamic Components -->
                             {% for comp in dynamic_components %}
-                            <div class="emd-domain-card emd-component-dynamic">
+                            <div class="emd-domain-card emd-component-dynamic sd-{{ comp.id | replace('_', '-') }}">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">{{ comp.name | e }}</span>
                                     <span class="emd-domain-card-type emd-type-dynamic">Dynamic</span>
@@ -141,9 +142,9 @@
                             </div>
                             {% endfor %}
                             
-                            <!-- Prescribed Components - Green -->
+                            <!-- Prescribed Components -->
                             {% for comp in prescribed_components %}
-                            <div class="emd-domain-card emd-component-prescribed">
+                            <div class="emd-domain-card emd-component-prescribed sd-{{ comp.id | replace('_', '-') }}">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">{{ comp.name | e }}</span>
                                     <span class="emd-domain-card-type emd-type-prescribed">Prescribed</span>
@@ -162,9 +163,9 @@
                             </div>
                             {% endfor %}
                             
-                            <!-- Omitted Components - Red -->
+                            <!-- Omitted Components -->
                             {% for comp in omitted_components %}
-                            <div class="emd-domain-card emd-component-omitted">
+                            <div class="emd-domain-card emd-component-omitted sd-{{ comp.id | replace('_', '-') }}">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">{{ comp.name | e }}</span>
                                     <span class="emd-domain-card-type emd-type-omitted">Omitted</span>
@@ -345,7 +346,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated {{ generated_date }}</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Generated {{ generated_date }}</p>
         </footer>
     </div>
     <script>

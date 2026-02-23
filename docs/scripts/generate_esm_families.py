@@ -26,6 +26,8 @@ from helpers import ICONS, HIGHLIGHT_KEYWORDS, is_none_value, escape_html
 from helpers.utils import parse_references, highlight_keywords
 from helpers.data_loader import init_loader, fetch_data
 
+
+
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
 OUTPUT_DIR = SCRIPT_DIR.parent / "10_EMD_Repository" / "04_Earth_System_Model_Families"
 
@@ -282,7 +284,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
     # Clear old files
-    clear_output_dir()
+    # clear_output_dir()  # disabled: nav already registered these files
     
     env = setup_jinja_env()
     try:
