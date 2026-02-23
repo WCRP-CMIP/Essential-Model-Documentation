@@ -130,7 +130,6 @@ jobs:
       - name: Fetch docs branch
         run: git fetch origin docs:docs
 
-      # ✅ FIX 1 & 6 — Proper setup + caching
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -174,9 +173,9 @@ jobs:
 
       - name: Build MkDocs site
         run: |
-          cd "$GITHUB_WORKSPACE"
-          ldr compact model_family/clm.json
-          python -c 'import cmipld; cmipld.map_current("emd");cmipld.get("emd:model_family/_graph.json")';
+          # cd "$GITHUB_WORKSPACE"
+          # ldr compact model_family/clm.json
+          # python -c 'import cmipld; cmipld.map_current("emd");cmipld.get("emd:model_family/_graph.json")';
           mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
 
           BUILD_DIR="$GITHUB_WORKSPACE/src/mkdocs/site"
