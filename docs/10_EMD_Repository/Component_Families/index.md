@@ -1,6 +1,6 @@
 # Component Families
 
-**Total entries:** 14
+**Total entries:** 15
 
 ---
 
@@ -12,6 +12,7 @@
 - [Geos](geos.html)
 - [Hadam](hadam.html)
 - [Ifs](ifs.html)
+- [Index](index.html)
 - [Nemo](nemo.html)
 - [Nicam](nicam.html)
 - [Pisces](pisces.html)
@@ -21,4 +22,4 @@
 
 ---
 
-*Generated: 2026-02-23 22:02 UTC*
+*Generated: 2026-02-23 22:06 UTC*
