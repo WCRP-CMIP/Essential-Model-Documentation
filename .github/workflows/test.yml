@@ -71,7 +71,7 @@ jobs:
             echo ""
             echo "### Python test"
 
-            if python -c "import cmipld; cmipld.map_current('emg'); print(cmipld.get('emd:model_family/arpege-climat.json'))" \
+            if python -c "import cmipld; cmipld.map_current('emd'); print(cmipld.get('emd:model_family/arpege-climat.json'))" \
               2>&1 | tee -a "$GITHUB_STEP_SUMMARY"; then
               SUCCESS=true
               break
