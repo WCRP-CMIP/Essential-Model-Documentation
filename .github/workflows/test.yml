@@ -35,6 +35,71 @@ jobs:
           npm install -g jsonld-recursive
           pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
 
+
+      - name: Test remote JSON-LD fetch + jsonld processing
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          URL="https://emd.mipcvs.dev/model_family/arpege-climat.json"
+
+          echo "## Testing remote JSON-LD URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          echo "### 1️⃣ Curl HEAD request" | tee -a "$GITHUB_STEP_SUMMARY"
+          curl -I "$URL" | tee -a "$GITHUB_STEP_SUMMARY"
+
+          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "### 2️⃣ Download file" | tee -a "$GITHUB_STEP_SUMMARY"
+          curl -L "$URL" -o test.json
+
+          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "File size:" | tee -a "$GITHUB_STEP_SUMMARY"
+          ls -lh test.json | tee -a "$GITHUB_STEP_SUMMARY"
+
+          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "First 20 lines:" | tee -a "$GITHUB_STEP_SUMMARY"
+          head -n 20 test.json | tee -a "$GITHUB_STEP_SUMMARY"
+
+          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "### 3️⃣ Load with Node (plain fetch)" | tee -a "$GITHUB_STEP_SUMMARY"
+
+          node -e "
+            fetch('$URL')
+              .then(r => {
+                console.log('Status:', r.status);
+                return r.json();
+              })
+              .then(j => {
+                console.log('Top-level keys:', Object.keys(j));
+              })
+              .catch(e => {
+                console.error('Fetch failed:', e.message);
+                process.exit(1);
+              });
+          " 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
+
+          echo "" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "### 4️⃣ Process with jsonld" | tee -a "$GITHUB_STEP_SUMMARY"
+
+          node -e "
+            const fs = require('fs');
+            const jsonld = require('jsonld');
+
+            const doc = JSON.parse(fs.readFileSync('test.json'));
+
+            jsonld.compact(doc, doc['@context'])
+              .then(result => {
+                console.log('jsonld.compact SUCCESS');
+              })
+              .catch(err => {
+                console.error('jsonld.compact FAILED:', err.message);
+                process.exit(1);
+              });
+          " 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
+
+
+
       - name: Debug LDR + Python
         shell: bash
         run: |
