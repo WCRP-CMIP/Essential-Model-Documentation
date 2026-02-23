@@ -32,9 +32,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          set -e
           npm install -g jsonld-recursive
-          pip install cmipld
+          pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
 
       - name: Debug LDR + Python
         shell: bash
