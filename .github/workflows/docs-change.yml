@@ -87,8 +87,7 @@ jobs:
       - name: Build MkDocs site
         # Run from GITHUB_WORKSPACE (repo root) with absolute config path.
         # Pre-build scripts are invoked by the gen-files plugin inside mkdocs build.
-        # run_scripts.py uses GITHUB_WORKSPACE to chdir to repo root before
-        # calling map_current(), so vocab dirs are found correctly.
+        # run_scripts.py uses GITHUB_WORKSPACE to chdir before calling map_current().
         run: |
           cd "$GITHUB_WORKSPACE"
           mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
@@ -143,6 +142,7 @@ jobs:
           git commit -m "Update documentation from docs branch"
           git push origin production
 
+
   deploy:
     needs: build_and_deploy
     if: ${{ needs.build_and_deploy.outputs.has_changes == 'true' }}
@@ -165,3 +165,4 @@ jobs:
         run: |
           echo "## Documentation Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+
