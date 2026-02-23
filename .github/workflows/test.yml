@@ -1,4 +1,5 @@
 name: test-sync-build
+
 description: Sync and process data from src-data to production, then build docs
 
 permissions:
@@ -36,28 +37,37 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -e
           npm install -g jsonld-recursive
-          MKDOCS_DIR="$GITHUB_WORKSPACE/src/mkdocs"
-          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
-            pip install -r "$MKDOCS_DIR/requirements.txt"
-          fi
+          pip install cmipld mkdocs mkdocs-material pymdown-extensions
 
-      - name: Pre-build diagnostics
-        run: |
-          echo "## Pre-build diagnostics" >> $GITHUB_STEP_SUMMARY
-          echo "**Branch:** $(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_STEP_SUMMARY
-
-      - name: Build + LDR tests
+      - name: Debug LDR + Python (with retry + summary logging)
         run: |
           set -e
 
+          echo "# Debug Run" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          echo "## Workspace contents" | tee -a $GITHUB_STEP_SUMMARY
+          ls -la | tee -a $GITHUB_STEP_SUMMARY
+          echo "" | tee -a $GITHUB_STEP_SUMMARY
+
+          echo "## Environment Info" | tee -a $GITHUB_STEP_SUMMARY
+          echo "Node: $(node --version)" | tee -a $GITHUB_STEP_SUMMARY
+          echo "Python: $(python --version)" | tee -a $GITHUB_STEP_SUMMARY
+          echo "" | tee -a $GITHUB_STEP_SUMMARY
+
+          echo "## Starting LDR server" | tee -a $GITHUB_STEP_SUMMARY
           ldr server stop 2>/dev/null || true
           nohup ldr server start > ldr.log 2>&1 &
           sleep 5
-          echo "LDR server started"
 
-          ldr compact model_family/_graph.json
+          MAX_RETRIES=5
+          COUNT=1
+          SUCCESS=false
 
-          python -c 'import cmipld; cmipld.map_current("emg"); print(cmipld.get("emd:model_family/_graph.json"))'
+          while [ $COUNT -le $MAX_RETRIES ]; do
+            echo "" | tee -a $GITHUB_STEP_SUMMARY
+            echo "# Attempt $COUNT" | tee -a $GITHUB_STEP_SUMMARY
 
-          
+            echo "### LDR compact output" | tee -a $GITHUB_STEP_SUMMARY
