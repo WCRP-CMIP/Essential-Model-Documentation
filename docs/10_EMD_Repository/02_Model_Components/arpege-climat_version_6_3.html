@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>arpege-climat_version_6_3 | Model Component</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
-    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
     <script>
     // Fix breadcrumb link to work with any base URL
     document.addEventListener('DOMContentLoaded', function() {
@@ -97,7 +96,7 @@
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
                         <div class="emd-domain-grid">
-                            <div class="emd-domain-card sd-atmosphere">
+                            <div class="emd-domain-card">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">Atmosphere</span>
                                     <span class="emd-domain-card-type">Component Type</span>
@@ -175,7 +174,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Generated 2026-02-24 02:23 UTC</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-24 02:49 UTC</p>
         </footer>
     </div>
     <script>
@@ -213,7 +212,7 @@
     document.addEventListener("copy", function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for arpege-climat_version_6_3\n// From: emd:model_component/arpege-climat-version-6-3\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-24 02:23 UTC\n\n" + jsonString;
+        const copyText = "// JSON-LD Source Data for arpege-climat_version_6_3\n// From: emd:model_component/arpege-climat-version-6-3\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-24 02:49 UTC\n\n" + jsonString;
         e.clipboardData.setData("text/plain", copyText);
     });
     </script>

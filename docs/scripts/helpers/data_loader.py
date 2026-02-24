@@ -1,199 +1,303 @@
 """
-Data loading utilities for EMD build scripts.
+Branch-aware data loading utilities.
 
-Uses cmipld to fetch JSON-LD data. On the production branch, maps
-the repository prefix to local files. On all other branches, fetches
-from remote prefix URLs.
-
-Automatically restarts the LDR server if it has been killed (e.g. by
-a subprocess that imported cmipld independently).
+Handles loading data differently depending on whether we're on:
+- docs branch: fetch from remote via cmipld prefix URLs
+- production branch: mount local files with cmipld.map_current()
 """
 
+import json
 import subprocess
-import time
+from pathlib import Path
 from typing import Optional, List, Dict, Any
 
-# ── cmipld import ────────────────────────────────────────────────────────────
-
+# Try to import cmipld
 try:
     import cmipld
-    HAS_CMIPLD = True
+    CMIPLD_AVAILABLE = True
 except ImportError:
     cmipld = None
-    HAS_CMIPLD = False
+    CMIPLD_AVAILABLE = False
 
-
-# ── helpers ──────────────────────────────────────────────────────────────────
 
 def get_current_branch() -> str:
+    """Get the current git branch name."""
     try:
-        r = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
-                           capture_output=True, text=True, check=True)
-        return r.stdout.strip()
-    except Exception:
+        result = subprocess.run(
+            ['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
         return "unknown"
 
 
-def _ensure_server():
-    """Make sure the LDR server is responding. Start or restart if not."""
-    if not HAS_CMIPLD:
+def get_repo_root() -> Optional[Path]:
+    """Get the repository root directory."""
+    try:
+        result = subprocess.run(
+            ['git', 'rev-parse', '--show-toplevel'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return Path(result.stdout.strip())
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+
+def is_docs_branch() -> bool:
+    """Check if we're on the docs branch."""
+    return get_current_branch() == "docs"
+
+
+def is_production_branch() -> bool:
+    """Check if we're on the production branch."""
+    return get_current_branch() == "production"
+
+
+def setup_for_branch():
+    """
+    Setup cmipld for the current branch.
+    
+    On production: mount local files with map_current()
+    On docs: use remote prefix URLs
+    
+    Returns True if local files are mounted.
+    """
+    if not CMIPLD_AVAILABLE:
+        print("  Warning: cmipld not available")
         return False
-    try:
-        cmipld.client.get_mappings()
-        return True
-    except Exception:
-        pass
+    
+    branch = get_current_branch()
 
-    # Server is dead — restart it
-    print("  LDR server not responding — restarting...")
-    try:
-        subprocess.run(["ldr", "server", "stop"], capture_output=True, timeout=5)
-    except Exception:
-        pass
-    try:
-        subprocess.run(["ldr", "server", "start"], capture_output=True, timeout=10)
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            print("Running in GitHub Actions")
-            
-    except Exception:
-        pass
+    if branch == "production":
+        # Mount local files so cmipld resolves prefix: URLs to the local repo
+        try:
+            prefix = cmipld.prefix()
+            cmipld.map_current(prefix)
+            print(f"  Branch: {branch} - mounted local files as '{prefix}:'")
+            return True
+        except Exception as e:
+            print(f"  Warning: Could not mount local files: {e}")
+            return False
+    else:
+        # All other branches (docs, main, src-data, feature branches, CI) —
+        # fetch from remote prefix URLs, no local mapping
+        print(f"  Branch: {branch} - using remote prefix URLs")
+        return False
 
-    # Re-import cmipld so the client picks up the new server
-    import sys
+
+# Singleton to track if we've initialized
+_initialized = False
+_use_local = False
+
+
+def init_loader():
+    """Initialize the data loader (call once at script start)."""
+    global _initialized, _use_local
+    if not _initialized:
+        _use_local = setup_for_branch()
+        _initialized = True
+    return _use_local
+
+
+def get_use_local() -> bool:
+    """Get whether we're using local files."""
+    global _initialized, _use_local
+    if not _initialized:
+        init_loader()
+    return _use_local
+
+
+def _restart_ldr() -> bool:
+    """
+    Drop and re-import cmipld to restart the LDR server after it has been
+    killed (e.g. by generate_contributors.py's subprocess exiting).
+    Resets the loader state so the next call to init_loader() re-runs setup.
+    """
+    global _initialized, _use_local, _default_loader, cmipld, CMIPLD_AVAILABLE
+    import sys, time
+
     for key in [k for k in sys.modules if k.startswith("cmipld")]:
         del sys.modules[key]
+
     try:
-        import cmipld as _fresh
-        globals()['cmipld'] = _fresh
-    except Exception:
-        pass
-
-    # Wait for it
-    deadline = time.monotonic() + 10.0
-    while time.monotonic() < deadline:
-        try:
-            cmipld.client.get_mappings()
-            print("  LDR server restarted")
-            return True
-        except Exception:
-            time.sleep(0.5)
-
-    print("  Warning: LDR server did not recover")
-    return False
+        import cmipld as _cmipld
+        cmipld = _cmipld
+        CMIPLD_AVAILABLE = True
+        # Wait up to 10 s for the server to be ready
+        deadline = time.monotonic() + 10.0
+        while time.monotonic() < deadline:
+            try:
+                cmipld.client.get_mappings()
+                break
+            except Exception:
+                time.sleep(0.5)
+        # Reset loader state so init_loader() re-runs branch setup
+        _initialized = False
+        _use_local = False
+        _default_loader = None
+        init_loader()
+        return True
+    except Exception as e:
+        print(f"  Warning: Could not restart LDR server: {e}")
+        CMIPLD_AVAILABLE = False
+        return False
 
 
 def _is_connection_error(exc: Exception) -> bool:
     msg = str(exc).lower()
-    return "connection refused" in msg or "max retries" in msg
+    return "connection refused" in msg or "max retries" in msg or "connectionerror" in msg
 
-
-# ── initialisation ───────────────────────────────────────────────────────────
-
-_initialized = False
-
-
-def init_loader():
-    """Ensure cmipld is ready. On production, map prefix to local files."""
-    global _initialized
-    if _initialized:
-        return
-    _initialized = True
-
-    if not HAS_CMIPLD:
-        print("  Warning: cmipld not available")
-        return
-
-    _ensure_server()
-
-    branch = get_current_branch()
-    if branch == "production":
-        print(branch,'\n\n\n')
-        try:
-            prefix = cmipld.prefix()
-            # print ('prefix',prefix)
-            if prefix:
-                cmipld.map_current(prefix)
-                print(f"  Branch: {branch} — mounted local files as '{prefix}'")
-        except Exception as e:
-            print(f"  Warning: Could not mount local files: {e}")
-    else:
-        print(f"  Branch: {branch} — using remote prefix URLs")
-
-
-# ── data fetching (with automatic server recovery) ──────────────────────────
-
-def _with_retry(fn):
-    """Call fn(). On connection error, restart server and retry once."""
-    try:
-        return fn()
-    except Exception as e:
-        if _is_connection_error(e):
-            _ensure_server()
-            # Re-apply local mapping if on production
-            if get_current_branch() == "production":
-                try:
-                    cmipld.map_current(cmipld.prefix())
-                except Exception:
-                    pass
-            return fn()
-        raise
 
 
 def _normalise_contents(raw) -> List[Dict[str, Any]]:
-    """Coerce the 'contents' field to a list of dicts."""
+    """
+    Coerce the 'contents' field to a plain list of dicts regardless of how
+    the JSON-LD compaction serialised it at any depth.
+
+    depth=2  -> list of dicts (normal case)
+    depth>=4 -> may be a dict keyed by @id, or values may be bare strings
+                (unresolved @id refs) — those are filtered out.
+    """
     if not raw:
         return []
-    items = list(raw.values()) if isinstance(raw, dict) else raw
+    if isinstance(raw, list):
+        items = raw
+    elif isinstance(raw, dict):
+        items = list(raw.values())
+    else:
+        return []
+    # Drop bare strings, None, or any non-object that slipped through
     return [i for i in items if isinstance(i, dict)]
 
 
 def fetch_data(endpoint: str, depth: int = 4) -> List[Dict[str, Any]]:
-    """Fetch all entries from an endpoint's _graph.json."""
-    if not HAS_CMIPLD:
+    """
+    Fetch data contents from an endpoint.
+    If the LDR server has been killed mid-build, restarts it and retries once.
+    """
+    if not CMIPLD_AVAILABLE:
+        print(f"  Warning: cmipld not available for {endpoint}")
         return []
+
     init_loader()
-    try:
-        url = f"{cmipld.prefix()}:{endpoint}/_graph.json"
-        data = _with_retry(lambda: cmipld.get(url, depth=depth))
-        return _normalise_contents(data.get('contents')) if data else []
-    except Exception as e:
-        print(f"  Warning: Could not fetch {endpoint}: {e}")
-        return []
+
+    for attempt in range(2):
+        try:
+            prefix = cmipld.prefix()
+            url = f"{prefix}:{endpoint}/_graph.json"
+            data = cmipld.get(url, depth=depth)
+            if data:
+                return _normalise_contents(data.get('contents'))
+            return []
+        except Exception as e:
+            if attempt == 0 and _is_connection_error(e):
+                print(f"  Warning: LDR connection lost for {endpoint} — restarting server...")
+                if not _restart_ldr():
+                    break
+            else:
+                print(f"  Warning: Could not fetch {endpoint}: {e}")
+                break
+
+    return []
 
 
 def fetch_entry(endpoint: str, entry_id: str, depth: int = 4) -> Optional[Dict[str, Any]]:
-    """Fetch a single entry."""
-    if not HAS_CMIPLD:
+    """
+    Fetch a single entry from an endpoint.
+    If the LDR server has been killed mid-build, restarts it and retries once.
+    """
+    if not CMIPLD_AVAILABLE:
         return None
+
     init_loader()
-    try:
-        url = f"{cmipld.prefix()}:{endpoint}/{entry_id}"
-        return _with_retry(lambda: cmipld.get(url, depth=depth))
-    except Exception as e:
-        print(f"  Warning: Could not fetch {endpoint}/{entry_id}: {e}")
-        return None
+
+    for attempt in range(2):
+        try:
+            prefix = cmipld.prefix()
+            url = f"{prefix}:{endpoint}/{entry_id}"
+            return cmipld.get(url, depth=depth)
+        except Exception as e:
+            if attempt == 0 and _is_connection_error(e):
+                print(f"  Warning: LDR connection lost for {endpoint}/{entry_id} — restarting server...")
+                if not _restart_ldr():
+                    break
+            else:
+                print(f"  Warning: Could not fetch {endpoint}/{entry_id}: {e}")
+                break
+
+    return None
 
 
 def list_entries(endpoint: str) -> List[str]:
-    """List all entry IDs for an endpoint."""
-    if not HAS_CMIPLD:
+    """
+    List all entry IDs for an endpoint.
+    """
+    if not CMIPLD_AVAILABLE:
         return []
+    
+    # Ensure initialized
     init_loader()
+    
     try:
-        url = f"{cmipld.prefix()}:{endpoint}/_graph.json"
-        
-        data = _with_retry(lambda: cmipld.get(url, depth=0))
-        
-        print(data)
+        prefix = cmipld.prefix()
+        url = f"{prefix}:{endpoint}/_graph.json"
+        data = cmipld.get(url, depth=0)
         
         if data and 'contents' in data:
-            return sorted(
-                item.get('@id') or item.get('validation_key')
-                for item in data['contents']
-                if isinstance(item, dict)
-                and (item.get('@id') or item.get('validation_key'))
-                and not (item.get('@id', '')).startswith('_')
-            )
+            entries = []
+            for item in data['contents']:
+                if isinstance(item, dict):
+                    entry_id = item.get('@id') or item.get('validation_key')
+                    if entry_id and not entry_id.startswith('_'):
+                        entries.append(entry_id)
+            return sorted(entries)
     except Exception as e:
         print(f"  Warning: Could not list entries for {endpoint}: {e}")
+    
     return []
+
+
+# For backwards compatibility
+class DataLoader:
+    """Branch-aware data loader for EMD content."""
+    
+    def __init__(self, prefix: str = "emd", base_url: str = "https://emd.mipcvs.dev"):
+        self.prefix = prefix
+        self.base_url = base_url
+        self.use_local = init_loader()
+        self.branch = get_current_branch()
+    
+    def list_entries(self, endpoint: str) -> List[str]:
+        return list_entries(endpoint)
+    
+    def get(self, endpoint: str, entry_id: str, depth: int = 4) -> Optional[Dict[str, Any]]:
+        return fetch_entry(endpoint, entry_id, depth)
+    
+    def get_all(self, endpoint: str, depth: int = 4) -> List[Dict[str, Any]]:
+        return fetch_data(endpoint, depth)
+    
+    def get_graph_contents(self, endpoint: str, depth: int = 4) -> List[Dict[str, Any]]:
+        return fetch_data(endpoint, depth)
+
+
+_default_loader = None
+
+def get_loader(prefix: str = "emd", base_url: str = "https://emd.mipcvs.dev") -> DataLoader:
+    """Get or create the default data loader."""
+    global _default_loader
+    if _default_loader is None:
+        _default_loader = DataLoader(prefix, base_url)
+    return _default_loader
+
+
+def reset_loader():
+    """Reset the loader state (for testing)."""
+    global _default_loader, _initialized, _use_local
+    _default_loader = None
+    _initialized = False
+    _use_local = False

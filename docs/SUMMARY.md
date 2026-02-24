@@ -1,12 +1,12 @@
 - [Home](index.md)
-- [submission guide](submission-guide/index.md)
+- submission guide:
   - [index](submission-guide/index.html)
 - [submission guide](submission-guide.md)
-- [EMD Repository](EMD_Repository/index.md)
-  - [Models](Models/index.md)
+- EMD Repository:
+  - Models:
     - [cnrm esm2 1e](EMD_Repository/Models/cnrm-esm2-1e.html)
     - [index](EMD_Repository/Models/index.html)
-  - [Model Components](Model_Components/index.md)
+  - Model Components:
     - [arpege climat version 6 3](EMD_Repository/Model_Components/arpege-climat_version_6_3.html)
     - [bisicles ukesm ismip6 1 0](EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html)
     - [clm4](EMD_Repository/Model_Components/clm4.html)
@@ -18,7 +18,7 @@
     - [reprobus c v2 0](EMD_Repository/Model_Components/reprobus-c_v2_0.html)
     - [surfex v8 modeling platform](EMD_Repository/Model_Components/surfex_v8_modeling_platform.html)
     - [tactic](EMD_Repository/Model_Components/tactic.html)
-  - [Component Families](Component_Families/index.md)
+  - Component Families:
     - [arpege climat](EMD_Repository/Component_Families/arpege-climat.html)
     - [bisicles](EMD_Repository/Component_Families/bisicles.html)
     - [cam](EMD_Repository/Component_Families/cam.html)
@@ -34,7 +34,7 @@
     - [reprobus](EMD_Repository/Component_Families/reprobus.html)
     - [surfex](EMD_Repository/Component_Families/surfex.html)
     - [tactic](EMD_Repository/Component_Families/tactic.html)
-  - [Earth System Model Families](Earth_System_Model_Families/index.md)
+  - Earth System Model Families:
     - [access](EMD_Repository/Earth_System_Model_Families/access.html)
     - [bcc csm](EMD_Repository/Earth_System_Model_Families/bcc-csm.html)
     - [canesm](EMD_Repository/Earth_System_Model_Families/canesm.html)
@@ -52,7 +52,7 @@
     - [miroc](EMD_Repository/Earth_System_Model_Families/miroc.html)
     - [mpi esm](EMD_Repository/Earth_System_Model_Families/mpi-esm.html)
     - [ukesm1](EMD_Repository/Earth_System_Model_Families/ukesm1.html)
-  - [Horizontal Computational Grids](Horizontal_Computational_Grids/index.md)
+  - Horizontal Computational Grids:
     - [c100](EMD_Repository/Horizontal_Computational_Grids/c100.html)
     - [c101](EMD_Repository/Horizontal_Computational_Grids/c101.html)
     - [c102](EMD_Repository/Horizontal_Computational_Grids/c102.html)
@@ -62,7 +62,7 @@
     - [h102](EMD_Repository/Horizontal_Computational_Grids/h102.html)
     - [h103](EMD_Repository/Horizontal_Computational_Grids/h103.html)
     - [index](EMD_Repository/Horizontal_Computational_Grids/index.html)
-  - [Vertical Computational Grids](Vertical_Computational_Grids/index.md)
+  - Vertical Computational Grids:
     - [index](EMD_Repository/Vertical_Computational_Grids/index.html)
     - [v100](EMD_Repository/Vertical_Computational_Grids/v100.html)
     - [v101](EMD_Repository/Vertical_Computational_Grids/v101.html)
@@ -71,7 +71,7 @@
     - [v104](EMD_Repository/Vertical_Computational_Grids/v104.html)
     - [v105](EMD_Repository/Vertical_Computational_Grids/v105.html)
     - [v106](EMD_Repository/Vertical_Computational_Grids/v106.html)
-  - [Component Families](Component_Families/index.md)
+  - Component Families:
     - [arpege climat](EMD_Repository/Component_Families/arpege-climat.html)
     - [bisicles](EMD_Repository/Component_Families/bisicles.html)
     - [cam](EMD_Repository/Component_Families/cam.html)
@@ -87,7 +87,7 @@
     - [reprobus](EMD_Repository/Component_Families/reprobus.html)
     - [surfex](EMD_Repository/Component_Families/surfex.html)
     - [tactic](EMD_Repository/Component_Families/tactic.html)
-  - [Earth System Model Families](Earth_System_Model_Families/index.md)
+  - Earth System Model Families:
     - [access](EMD_Repository/Earth_System_Model_Families/access.html)
     - [bcc csm](EMD_Repository/Earth_System_Model_Families/bcc-csm.html)
     - [canesm](EMD_Repository/Earth_System_Model_Families/canesm.html)
@@ -105,7 +105,7 @@
     - [miroc](EMD_Repository/Earth_System_Model_Families/miroc.html)
     - [mpi esm](EMD_Repository/Earth_System_Model_Families/mpi-esm.html)
     - [ukesm1](EMD_Repository/Earth_System_Model_Families/ukesm1.html)
-  - [Horizontal Computational Grids](Horizontal_Computational_Grids/index.md)
+  - Horizontal Computational Grids:
     - [c100](EMD_Repository/Horizontal_Computational_Grids/c100.html)
     - [c101](EMD_Repository/Horizontal_Computational_Grids/c101.html)
     - [c102](EMD_Repository/Horizontal_Computational_Grids/c102.html)
@@ -115,7 +115,7 @@
     - [h102](EMD_Repository/Horizontal_Computational_Grids/h102.html)
     - [h103](EMD_Repository/Horizontal_Computational_Grids/h103.html)
     - [index](EMD_Repository/Horizontal_Computational_Grids/index.html)
-  - [Model Components](Model_Components/index.md)
+  - Model Components:
     - [arpege climat version 6 3](EMD_Repository/Model_Components/arpege-climat_version_6_3.html)
     - [bisicles ukesm ismip6 1 0](EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html)
     - [clm4](EMD_Repository/Model_Components/clm4.html)
@@ -127,10 +127,10 @@
     - [reprobus c v2 0](EMD_Repository/Model_Components/reprobus-c_v2_0.html)
     - [surfex v8 modeling platform](EMD_Repository/Model_Components/surfex_v8_modeling_platform.html)
     - [tactic](EMD_Repository/Model_Components/tactic.html)
-  - [Models](Models/index.md)
+  - Models:
     - [cnrm esm2 1e](EMD_Repository/Models/cnrm-esm2-1e.html)
     - [index](EMD_Repository/Models/index.html)
-  - [Vertical Computational Grids](Vertical_Computational_Grids/index.md)
+  - Vertical Computational Grids:
     - [index](EMD_Repository/Vertical_Computational_Grids/index.html)
     - [v100](EMD_Repository/Vertical_Computational_Grids/v100.html)
     - [v101](EMD_Repository/Vertical_Computational_Grids/v101.html)
@@ -140,74 +140,74 @@
     - [v105](EMD_Repository/Vertical_Computational_Grids/v105.html)
     - [v106](EMD_Repository/Vertical_Computational_Grids/v106.html)
 - [Data Summaries](Data_Summaries/index.md)
-  - [component config](component_config/index.md)
+  - component config:
     - [index](Data_Summaries/component_config/index.html)
   - [component config](Data_Summaries/component_config.md)
-  - [component family](component_family/index.md)
+  - component family:
     - [index](Data_Summaries/component_family/index.html)
   - [component family](Data_Summaries/component_family.md)
-  - [horizontal computational grid](horizontal_computational_grid/index.md)
+  - horizontal computational grid:
     - [index](Data_Summaries/horizontal_computational_grid/index.html)
   - [horizontal computational grid](Data_Summaries/horizontal_computational_grid.md)
-  - [horizontal grid cells](horizontal_grid_cells/index.md)
+  - horizontal grid cells:
     - [index](Data_Summaries/horizontal_grid_cells/index.html)
   - [horizontal grid cells](Data_Summaries/horizontal_grid_cells.md)
-  - [horizontal subgrid](horizontal_subgrid/index.md)
+  - horizontal subgrid:
     - [index](Data_Summaries/horizontal_subgrid/index.html)
   - [horizontal subgrid](Data_Summaries/horizontal_subgrid.md)
   - [index](Data_Summaries/index.html)
-  - [model](model/index.md)
+  - model:
     - [index](Data_Summaries/model/index.html)
   - [model](Data_Summaries/model.md)
-  - [model component](model_component/index.md)
+  - model component:
     - [index](Data_Summaries/model_component/index.html)
   - [model component](Data_Summaries/model_component.md)
-  - [source family](source_family/index.md)
+  - source family:
     - [index](Data_Summaries/source_family/index.html)
   - [source family](Data_Summaries/source_family.md)
-  - [vertical computational grid](vertical_computational_grid/index.md)
+  - vertical computational grid:
     - [index](Data_Summaries/vertical_computational_grid/index.html)
   - [vertical computational grid](Data_Summaries/vertical_computational_grid.md)
-- [Reviewer information](Reviewer_information/index.md)
+- Reviewer information:
   - [index](Reviewer_information/index.html)
 - [Reviewer information](Reviewer_information.md)
-- [Contributors](Contributors/index.md)
+- Contributors:
   - [index](Contributors/index.html)
 - [Contributors](Contributors.md)
-- [Contributors](Contributors/index.md)
+- Contributors:
   - [index](Contributors/index.html)
 - [Contributors](Contributors.md)
 - [Data Summaries](Data_Summaries/index.md)
-  - [component config](component_config/index.md)
+  - component config:
     - [index](Data_Summaries/component_config/index.html)
   - [component config](Data_Summaries/component_config.md)
-  - [component family](component_family/index.md)
+  - component family:
     - [index](Data_Summaries/component_family/index.html)
   - [component family](Data_Summaries/component_family.md)
-  - [horizontal computational grid](horizontal_computational_grid/index.md)
+  - horizontal computational grid:
     - [index](Data_Summaries/horizontal_computational_grid/index.html)
   - [horizontal computational grid](Data_Summaries/horizontal_computational_grid.md)
-  - [horizontal grid cells](horizontal_grid_cells/index.md)
+  - horizontal grid cells:
     - [index](Data_Summaries/horizontal_grid_cells/index.html)
   - [horizontal grid cells](Data_Summaries/horizontal_grid_cells.md)
-  - [horizontal subgrid](horizontal_subgrid/index.md)
+  - horizontal subgrid:
     - [index](Data_Summaries/horizontal_subgrid/index.html)
   - [horizontal subgrid](Data_Summaries/horizontal_subgrid.md)
   - [index](Data_Summaries/index.html)
-  - [model](model/index.md)
+  - model:
     - [index](Data_Summaries/model/index.html)
   - [model](Data_Summaries/model.md)
-  - [model component](model_component/index.md)
+  - model component:
     - [index](Data_Summaries/model_component/index.html)
   - [model component](Data_Summaries/model_component.md)
-  - [source family](source_family/index.md)
+  - source family:
     - [index](Data_Summaries/source_family/index.html)
   - [source family](Data_Summaries/source_family.md)
-  - [vertical computational grid](vertical_computational_grid/index.md)
+  - vertical computational grid:
     - [index](Data_Summaries/vertical_computational_grid/index.html)
   - [vertical computational grid](Data_Summaries/vertical_computational_grid.md)
-- [EMD Repository](EMD_Repository/index.md)
-  - [Component Families](Component_Families/index.md)
+- EMD Repository:
+  - Component Families:
     - [arpege climat](EMD_Repository/Component_Families/arpege-climat.html)
     - [bisicles](EMD_Repository/Component_Families/bisicles.html)
     - [cam](EMD_Repository/Component_Families/cam.html)
@@ -223,7 +223,7 @@
     - [reprobus](EMD_Repository/Component_Families/reprobus.html)
     - [surfex](EMD_Repository/Component_Families/surfex.html)
     - [tactic](EMD_Repository/Component_Families/tactic.html)
-  - [Earth System Model Families](Earth_System_Model_Families/index.md)
+  - Earth System Model Families:
     - [access](EMD_Repository/Earth_System_Model_Families/access.html)
     - [bcc csm](EMD_Repository/Earth_System_Model_Families/bcc-csm.html)
     - [canesm](EMD_Repository/Earth_System_Model_Families/canesm.html)
@@ -241,7 +241,7 @@
     - [miroc](EMD_Repository/Earth_System_Model_Families/miroc.html)
     - [mpi esm](EMD_Repository/Earth_System_Model_Families/mpi-esm.html)
     - [ukesm1](EMD_Repository/Earth_System_Model_Families/ukesm1.html)
-  - [Horizontal Computational Grids](Horizontal_Computational_Grids/index.md)
+  - Horizontal Computational Grids:
     - [c100](EMD_Repository/Horizontal_Computational_Grids/c100.html)
     - [c101](EMD_Repository/Horizontal_Computational_Grids/c101.html)
     - [c102](EMD_Repository/Horizontal_Computational_Grids/c102.html)
@@ -251,7 +251,7 @@
     - [h102](EMD_Repository/Horizontal_Computational_Grids/h102.html)
     - [h103](EMD_Repository/Horizontal_Computational_Grids/h103.html)
     - [index](EMD_Repository/Horizontal_Computational_Grids/index.html)
-  - [Model Components](Model_Components/index.md)
+  - Model Components:
     - [arpege climat version 6 3](EMD_Repository/Model_Components/arpege-climat_version_6_3.html)
     - [bisicles ukesm ismip6 1 0](EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html)
     - [clm4](EMD_Repository/Model_Components/clm4.html)
@@ -263,10 +263,10 @@
     - [reprobus c v2 0](EMD_Repository/Model_Components/reprobus-c_v2_0.html)
     - [surfex v8 modeling platform](EMD_Repository/Model_Components/surfex_v8_modeling_platform.html)
     - [tactic](EMD_Repository/Model_Components/tactic.html)
-  - [Models](Models/index.md)
+  - Models:
     - [cnrm esm2 1e](EMD_Repository/Models/cnrm-esm2-1e.html)
     - [index](EMD_Repository/Models/index.html)
-  - [Vertical Computational Grids](Vertical_Computational_Grids/index.md)
+  - Vertical Computational Grids:
     - [index](EMD_Repository/Vertical_Computational_Grids/index.html)
     - [v100](EMD_Repository/Vertical_Computational_Grids/v100.html)
     - [v101](EMD_Repository/Vertical_Computational_Grids/v101.html)
@@ -276,15 +276,15 @@
     - [v105](EMD_Repository/Vertical_Computational_Grids/v105.html)
     - [v106](EMD_Repository/Vertical_Computational_Grids/v106.html)
 - [index](index.html)
-- [Reviewer information](Reviewer_information/index.md)
+- Reviewer information:
   - [index](Reviewer_information/index.html)
 - [Reviewer information](Reviewer_information.md)
-- [submission guide](submission-guide/index.md)
+- submission guide:
   - [index](submission-guide/index.html)
 - [submission guide](submission-guide.md)
-- [SUMMARY](SUMMARY/index.md)
+- SUMMARY:
   - [index](SUMMARY/index.html)
-- [vocabularies](vocabularies/index.md)
+- vocabularies:
   - [component config](vocabularies/component_config.md)
   - [horizontal computational grid](vocabularies/horizontal_computational_grid.md)
   - [horizontal grid cells](vocabularies/horizontal_grid_cells.md)
