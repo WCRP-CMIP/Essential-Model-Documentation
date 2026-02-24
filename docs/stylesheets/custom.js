@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function init() {
   setupHeaderControls();
   setupCollapsibleNav();
-  buildNestedNavigation();
+  if (!window.nestedNavBuilt) buildNestedNavigation();
   addCustomLinks();
   updateFooter();
   addVersionSelector();
@@ -654,11 +654,11 @@ function setupTabbedContent() {
 // ============================================
 
 async function buildNestedNavigation() {
-  
-  if (window.nestedNavBuilt) {
-    return;
-  }
+  if (window.nestedNavBuilt) return;
   window.nestedNavBuilt = true;
+
+  // Clean up any previously added nested folders
+  document.querySelectorAll('.nested-folder-item').forEach(el => el.remove());
   
   try {
     // Detect base URL dynamically
@@ -759,7 +759,7 @@ function createNestedFolder(parentMenu, folder, baseUrl) {
   const header = document.createElement('div');
   header.className = 'nested-folder-toggle';
   header.innerHTML = `
-    <span class="arrow" style="display: inline-block; width: 1rem; transition: transform 0.2s; font-size: 0.7rem;"></span>
+    <span class="arrow" style="display: inline-block; width: 1rem; transition: transform 0.2s; font-size: 0.7rem;">&#9654;</span>
     <span class="name">${folder.title}</span>
   `;
   header.style.cssText = `

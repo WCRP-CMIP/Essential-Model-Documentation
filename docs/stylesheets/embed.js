@@ -50,7 +50,7 @@ function addFloatingExpandButton() {
     
     const button = document.createElement('button');
     button.className = 'floating-expand-btn';
-    button.innerHTML = '';
+    button.innerHTML = '&#x26F6;';
     button.title = 'Toggle Fullscreen (F11)';
     button.setAttribute('aria-label', 'Toggle fullscreen');
     
@@ -150,7 +150,7 @@ function enterEmbedMode() {
     // Convert button to close button
     const btn = document.querySelector('.floating-expand-btn');
     if (btn) {
-        btn.innerHTML = '';
+        btn.innerHTML = '&#x2715;';
         btn.title = 'Close Fullscreen (ESC)';
         Object.assign(btn.style, {
             position: 'fixed',
@@ -193,7 +193,7 @@ function exitEmbedMode() {
     // Restore button
     const btn = document.querySelector('.floating-expand-btn');
     if (btn) {
-        btn.innerHTML = '';
+        btn.innerHTML = '&#x26F6;';
         btn.title = 'Toggle Fullscreen (F11)';
         Object.assign(btn.style, {
             position: 'fixed',
@@ -284,7 +284,7 @@ function addTableControls(table, index) {
     // Expand button for individual table
     const expandBtn = document.createElement('button');
     expandBtn.className = 'table-expand-btn';
-    expandBtn.innerHTML = '';
+    expandBtn.innerHTML = '&#x26F6;';
     expandBtn.title = 'Expand table';
     
     Object.assign(expandBtn.style, {
@@ -352,7 +352,7 @@ function addTableSorting(table) {
         indicator.className = 'sort-indicator';
         indicator.style.marginLeft = '5px';
         indicator.style.opacity = '0.5';
-        indicator.innerHTML = '';
+        indicator.innerHTML = '&#x21C5;';
         header.appendChild(indicator);
         
         header.addEventListener('click', () => sortTable(table, index, header));
@@ -376,13 +376,13 @@ function sortTable(table, columnIndex, header) {
     table.querySelectorAll('th').forEach(th => {
         th.dataset.sort = 'none';
         const ind = th.querySelector('.sort-indicator');
-        if (ind) ind.innerHTML = '';
+        if (ind) ind.innerHTML = '&#x21C5;';
     });
     
     // Set current header
     header.dataset.sort = newSort;
     const indicator = header.querySelector('.sort-indicator');
-    if (indicator) indicator.innerHTML = newSort === 'asc' ? '' : '';
+    if (indicator) indicator.innerHTML = newSort === 'asc' ? '&#x25B2;' : '&#x25BC;';
     
     // Sort rows
     rows.sort((a, b) => {
@@ -447,7 +447,7 @@ function expandTable(table) {
     
     // Close button
     const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '';
+    closeBtn.innerHTML = '&#x2715;';
     closeBtn.title = 'Close (ESC)';
     Object.assign(closeBtn.style, {
         position: 'fixed',
