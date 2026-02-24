@@ -201,8 +201,8 @@ jobs:
 
 
   deploy:
-    needs: build_docs
-    if: ${{ needs.build_docs.outputs.has_changes == 'true' }}
+    needs: [sync_data, build_docs]
+    if: ${{ !failure() && !cancelled() && (needs.build_docs.outputs.has_changes == 'true' || needs.sync_data.outputs.has_data_changes == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
