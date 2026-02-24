@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gelato | Model Component</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
+    <script>
+    // Fix breadcrumb link to work with any base URL
+    document.addEventListener('DOMContentLoaded', function() {
+        const breadcrumb = document.querySelector('.emd-breadcrumb a[href*="index.html"]');
+        if (breadcrumb) {
+            // Count directory levels (excluding filename)
+            const path = window.location.pathname;
+            const parts = path.split('/').filter(p => p && !p.includes('.html'));
+            // Go up correct number of levels to reach root
+            const upLevels = Math.max(parts.length - 1, 2);
+            breadcrumb.href = '../'.repeat(upLevels) + 'index.html';
+        }
+    });
+    </script>
+</head>
+<body class="emd-page">
+    <div class="emd-container">
+        <header class="emd-header">
+            <nav class="emd-breadcrumb">
+                <a href="../../index.html">← Back to Documentation</a>
+                <span>|</span>
+                <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
+                <span>→</span>
+                <a href="https://emd.mipcvs.dev/model_component/" target="_blank">Model Components</a>
+                <span>→</span>
+                <span>gelato</span>
+            </nav>
+            <div class="emd-badge">Model Component</div>
+            <h1 class="emd-title">gelato</h1>
+            <p class="emd-subtitle">Global Experimental Leads and sea ice for ATmosphere and Ocean.</p>
+            <div class="emd-header-meta">
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Family</span>
+                    <span class="emd-meta-value">
+                        
+                        <a href="../03_Component_Families/gelato.html">Gelato</a>
+                        
+                    </span>
+                </div>
+                
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Scientific Domain</span>
+                    <span class="emd-meta-value">Sea Ice</span>
+                </div>
+                
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Code Base</span>
+                    <span class="emd-meta-value private">Private</span>
+                </div>
+                <div class="emd-meta-item">
+                    <span class="emd-meta-label">Context</span>
+                    <span class="emd-meta-value"><a href="emd:model_component/gelato" target="_blank">JSON-LD →</a></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Description -->
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                        <h2 class="emd-section-title">Description</h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <p class="emd-description-text"><strong>gelato</strong> — Global Experimental Leads and <strong>sea ice</strong> for <strong>ATmosphere</strong> and <strong>Ocean</strong>.</p>
+                        
+                        <p class="emd-description-text" style="margin-top: 1rem;">
+                            <strong>Family:</strong> GELATO sea ice model family developed by CNRM/Météo-France.
+                        </p>
+                        
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scientific Domain -->
+            
+            <section class="emd-section expanded">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <h2 class="emd-section-title">Scientific Domain</h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-domain-grid">
+                            <div class="emd-domain-card sd-sea-ice">
+                                <div class="emd-domain-card-header">
+                                    <span class="emd-domain-card-title">Sea Ice</span>
+                                    <span class="emd-domain-card-type">Component Type</span>
+                                </div>
+                                <div class="emd-domain-card-id">@id: sea-ice</div>
+                                
+                                <p class="emd-domain-card-description">Sea Ice</p>
+                                
+                                
+                            </div>
+                        </div>
+                        <p class="emd-description-text" style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                            <em>Note: Grid configurations for this component are defined in the component_config entries when used within a specific model.</em>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+
+            <!-- Technical Details -->
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                        <h2 class="emd-section-title">Technical Details</h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        <div class="emd-tech-grid">
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Resource Identifier (@id)</div>
+                                <div class="emd-tech-value">gelato</div>
+                            </div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Validation Key</div>
+                                <div class="emd-tech-value">gelato</div>
+                            </div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">JSON-LD Context</div>
+                                <div class="emd-tech-value"><a href="emd:model_component/gelato" target="_blank">emd:model_component/gelato</a></div>
+                            </div>
+                            <div class="emd-tech-item">
+                                <div class="emd-tech-label">Resource Types (@type)</div>
+                                <div class="emd-type-badges">
+                                    <span class="emd-type-badge">emd</span><span class="emd-type-badge">wcrp:model_component</span><span class="emd-type-badge">esgvoc:ModelComponent</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- References -->
+            
+            <section class="emd-section">
+                <div class="emd-section-header" onclick="toggleSection(this)">
+                    <div class="emd-section-title-wrapper">
+                        <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+                        <h2 class="emd-section-title">References <span class="emd-section-count">(0)</span></h2>
+                    </div>
+                    <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+                </div>
+                <div class="emd-section-content">
+                    <div class="emd-section-body">
+                        <div class="emd-section-divider"></div>
+                        
+                        <p class="emd-description-text">No references available.</p>
+                        
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="emd-footer">
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-21 13:33 UTC</p>
+        </footer>
+    </div>
+    <script>
+    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
+    
+    const sourceData = {
+  "@context": "emd:model_component/gelato",
+  "@id": "gelato",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "code_base": "private",
+  "component": {
+    "@id": "sea-ice",
+    "@type": [
+      "wcrp:scientific_domain",
+      "esgvoc:ScientificDomain",
+      "universal",
+      "constants"
+    ],
+    "alias": [
+      "seaice",
+      "seaIce"
+    ],
+    "description": "Sea Ice",
+    "ui_label": "Sea Ice",
+    "validation_key": "sea_ice"
+  },
+  "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean.",
+  "family": {
+    "@id": "gelato",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "GELATO sea ice model family developed by CNRM/M\u00e9t\u00e9o-France.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "sea-ice",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "seaice",
+        "seaIce"
+      ],
+      "description": "Sea Ice",
+      "ui_label": "Sea Ice",
+      "validation_key": "sea_ice"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "gelato",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  "name": "GELATO",
+  "references": [],
+  "ui_label": "",
+  "validation_key": "gelato"
+};
+    document.addEventListener("copy", function(e) {
+        e.preventDefault();
+        const jsonString = JSON.stringify(sourceData, null, 2);
+        const copyText = "// JSON-LD Source Data for gelato\n// From: emd:model_component/gelato\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-21 13:33 UTC\n\n" + jsonString;
+        e.clipboardData.setData("text/plain", copyText);
+    });
+    </script>
+</body>
+</html>
