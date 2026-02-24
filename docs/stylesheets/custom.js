@@ -473,11 +473,11 @@ function updateFooter() {
       
       const attribution = document.createElement('div');
       attribution.className = 'footer-attribution';
+      attribution.style.opacity = '0.1';
       attribution.innerHTML = `
         <p>
           Built by <a href="https://github.com/wolfiex">Daniel Ellis</a>
           for <a href="https://wcrp-cmip.org">WCRP-CMIP</a>
-          using the <a href="https://github.com/asiffer/mkdocs-shadcn">shadcn</a> theme.
         </p>
       `;
       docsDiv.appendChild(attribution);
