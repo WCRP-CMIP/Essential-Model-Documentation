@@ -2,7 +2,7 @@
 
 Horizontal grid configurations used by model components.
 
-**Total entries:** 4
+**Total entries:** 5
 
 ---
 
@@ -10,7 +10,8 @@ Horizontal grid configurations used by model components.
 - [H101](h101.html)
 - [H102](h102.html)
 - [H103](h103.html)
+- [Index](index.html)
 
 ---
 
-*Generated: 2026-02-24 23:13 UTC*
+*Generated: 2026-02-24 23:16 UTC*

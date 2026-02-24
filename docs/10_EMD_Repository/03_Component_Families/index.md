@@ -2,7 +2,7 @@
 
 Families of related model components sharing common code.
 
-**Total entries:** 14
+**Total entries:** 15
 
 ---
 
@@ -14,6 +14,7 @@ Families of related model components sharing common code.
 - [Geos](geos.html)
 - [Hadam](hadam.html)
 - [Ifs](ifs.html)
+- [Index](index.html)
 - [Nemo](nemo.html)
 - [Nicam](nicam.html)
 - [Pisces](pisces.html)
@@ -23,4 +24,4 @@ Families of related model components sharing common code.
 
 ---
 
-*Generated: 2026-02-24 23:13 UTC*
+*Generated: 2026-02-24 23:16 UTC*
