@@ -466,9 +466,12 @@ def scan_docs_for_nav(docs_path):
                     continue
                 label = nice_label(stem)
                 rel_parts = [strip_prefix(p) for p in entry.relative_to(docs_path).parts[:-1]]
-                url = '/' + '/'.join(rel_parts + [stem])
-                if entry.suffix == '.md':
-                    url += '/'
+                if entry.suffix == '.html':
+                    # HTML files are served as bare .html files, not directory indexes
+                    url = '/' + '/'.join(rel_parts + [stem]) + '.html'
+                else:
+                    # MD files become directory indexes via use_directory_urls
+                    url = '/' + '/'.join(rel_parts + [stem]) + '/'
                 items.append({'type': 'link', 'label': label, 'url': url})
         return items
 
