@@ -36,11 +36,11 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Submission guide - Essential Model Documentation</title>
+    <title>submission guide - Essential Model Documentation</title>
     
 
 
-<title>Submission guide</title>
+<title>submission guide</title>
 
 
 
@@ -53,7 +53,7 @@
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="Submission guide">
+<meta property="og:title" content="submission guide">
 
 
 
@@ -66,7 +66,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="Submission guide">
+<meta name="twitter:title" content="submission guide">
 
 
 
@@ -285,8 +285,8 @@
             
             
             <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
-        data-size="default" href="../submission-guide/"
+    <a data-slot="sidebar-menu-button" data-active="true" data-sidebar="menu-button"
+        data-size="default" href="./"
         class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
         
@@ -362,7 +362,7 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          Submission guide
+          submission guide
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
@@ -392,7 +392,7 @@
 <p>Subsequent submissions become faster as more shared information is registered.</p>
 <pre class="mermaid"><code>flowchart LR
     subgraph Stage1["**Stage 1**"]
-        S1["Grid Cells &amp; Subgrid"]
+        S1["Grid Cells"]
     end
     subgraph Stage2["**Stage 2**"]
         direction TB
@@ -411,7 +411,7 @@
         S4["Model"]
     end
     S1 --&gt;|g###, s###| S2a
-    S2a --&gt;|c###| S3
+    S2a --&gt;|h###| S3
     S2b --&gt;|v###| S3
     S3 --&gt;|config ID| S4
     ESM -.-&gt;|family-id| S4
@@ -428,7 +428,7 @@
     style MF stroke:#333,stroke-width:2px,fill:none
     style Stage3 stroke:#0066cc,stroke-width:3px,fill:none
     style Stage4 stroke:#333,stroke-width:2px,fill:none</code></pre>
-<p>Click any box to open the corresponding form.</p>
+<h2 id="lick-any-box-to-open-the-corresponding-form">lick any box to open the corresponding form.<a class="headerlink" href="#lick-any-box-to-open-the-corresponding-form" title="Permanent link">&para;</a></h2>
 <hr />
 <h2 id="stage-1-grid-cells-subgrids">Stage 1: Grid Cells &amp; Subgrids<a class="headerlink" href="#stage-1-grid-cells-subgrids" title="Permanent link">&para;</a></h2>
 <p><strong>Form:</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml">Grid Cell and Subgrid</a></p>
@@ -438,7 +438,7 @@
 <h2 id="stage-2-computational-grids">Stage 2: Computational Grids<a class="headerlink" href="#stage-2-computational-grids" title="Permanent link">&para;</a></h2>
 <p><strong>Forms:</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml">Horizontal Grid</a> | <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml">Vertical Grid</a></p>
 <p>Link subgrids into computational grids with specified staggering arrangements.</p>
-<p><strong>Output:</strong> Horizontal grid ID (<code>c###</code>) and vertical grid ID (<code>v###</code>) for use in Stage 3.</p>
+<p><strong>Output:</strong> Horizontal grid ID (<code>h###</code>) and vertical grid ID (<code>v###</code>) for use in Stage 3.</p>
 <hr />
 <h2 id="model-family-optional">Model Family (Optional)<a class="headerlink" href="#model-family-optional" title="Permanent link">&para;</a></h2>
 <p><strong>Form:</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml">Model Family</a></p>
@@ -493,7 +493,7 @@
 <td>2a</td>
 <td>Horizontal Grid</td>
 <td>Subgrid IDs, arrangement</td>
-<td><code>c###</code></td>
+<td><code>h###</code></td>
 </tr>
 <tr>
 <td>2b</td>
@@ -557,7 +557,7 @@
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../submission-guide/">
+                    <a class="text-2xl font-medium" href="./">
                         
                         submission guide
                         
@@ -612,6 +612,14 @@
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active="false" data-depth="2">
             Overview
+        </a>
+        
+
+        
+        <a href="#lick-any-box-to-open-the-corresponding-form"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2">
+            lick any box to open the corresponding form.
         </a>
         
 
