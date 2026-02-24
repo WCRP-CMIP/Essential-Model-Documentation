@@ -148,6 +148,8 @@ jobs:
 
       - name: Copy docs source from docs branch
         run: |
+          # Clean stale generated content from docs/ before overlaying
+          rm -rf "$GITHUB_WORKSPACE/docs" "$GITHUB_WORKSPACE/src"
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
 
