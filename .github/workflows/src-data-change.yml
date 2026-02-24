@@ -61,7 +61,7 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE"
           shopt -s extglob dotglob
-          rm -rf -- !(docs|summaries|.git|.github) || true
+          rm -rf -- !(.git|.github) || true
           echo "Cleaned production vocab dirs"
 
       - name: Copy data from src-data branch
