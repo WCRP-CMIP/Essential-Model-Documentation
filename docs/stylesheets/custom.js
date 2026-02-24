@@ -97,7 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function init() {
   setupHeaderControls();
   setupCollapsibleNav();
-  if (!window.nestedNavBuilt) buildNestedNavigation();
+  // Disabled: literate-nav handles navigation properly now
+  // if (!window.nestedNavBuilt) buildNestedNavigation();
   addCustomLinks();
   updateFooter();
   addVersionSelector();
@@ -650,10 +651,12 @@ function setupTabbedContent() {
 
 
 // ============================================
-// BUILD NESTED NAVIGATION FROM SUMMARY.MD
+// BUILD NESTED NAVIGATION FROM SUMMARY.MD (DISABLED)
 // ============================================
+// Disabled: literate-nav plugin handles navigation properly
 
 async function buildNestedNavigation() {
+  return; // Disabled
   if (window.nestedNavBuilt) return;
   window.nestedNavBuilt = true;
 
