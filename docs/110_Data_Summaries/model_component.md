@@ -7,8 +7,8 @@ Registered model components (Stage 3 input).
 | Id | Name | Description | Component | Family | Code Base | References |
 |---|---|---|---|---|---|---|
 | **arpege-climat_version_6_3** | Arpege-Climat Version 6.3 | ARPEGE-Climat Version 6.3 is the atmospheric co... | atmosphere | arpege-climat | private | ** |
-| **bisicles-ukesm-ismip6-1_0** | BISICLES-UKESM-ISMIP6-1.0 | UniCiCles (Unified Model-CISM-BISICLES) is a pa... | land_ice | bisicles | ** | ** |
-| **clm4** | CLM4 | The Community Land Model represents several asp... | land_surface | clm | ** | https://doi.org/10.5194/gmd-5-1341-2012 |
+| **bisicles-ukesm-ismip6-1_0** | BISICLES-UKESM-ISMIP6-1.0 | UniCiCles (Unified Model-CISM-BISICLES) is a pa... | land_ice | bisicles | ** | https://doi.org/10.1029/2021MS002520 |
+| **clm4** | CLM4 | The Community Land Model represents several asp... | land_surface | clm | ** | ** |
 | **gelato** | GELATO | Global Experimental Leads and sea ice for ATmos... | sea_ice | gelato | private | ** |
 | **hadam3** | HadAM3 | HadAM3 is the atmospheric component of HadCM3, ... | atmosphere | hadam | ** | ** |
 | **nemo_v3_6** | NEMO v3.6 | Nucleus for European Modelling of the Ocean ver... | ocean | nemo | private | ** |
@@ -17,4 +17,4 @@ Registered model components (Stage 3 input).
 | **surfex_v8_modeling_platform** | SURFEX v8 modeling platform | SURFEXv8.0 encompasses several submodules for m... | land_surface | surfex | https://www.umr-cnrm.fr/surfex/spip.php?rubrique8 | ** |
 | **tactic** | TACTIC | TACTIC (Tropospheric Aerosols for ClimaTe In CN... | aerosol | tactic | private | ** |
 
-*Generated: 2026-02-24 23:19*
+*Generated: 2026-02-24 23:32*
