@@ -95,11 +95,41 @@ document.addEventListener('DOMContentLoaded', function() {
 // Prevent any nested nav building
 window.nestedNavBuilt = true;
 
+function fixNavDisplay() {
+  // Fix nav text that shows prefixed folder names in shadcn sidebar
+  // Target all text elements in nav (group labels, menu items)
+  const navSelectors = [
+    '[data-slot="sidebar-group-label"]',  // Group titles
+    '[data-slot="sidebar-menu-item"] a',   // Menu links
+    '[data-slot="sidebar-label"]'          // Labels
+  ];
+  
+  navSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      // Replace patterns like "10_EMD_Repository" with "EMD Repository"
+      if (el.childNodes.length > 0) {
+        el.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            node.textContent = node.textContent.replace(/(\d+[-_.])([A-Za-z_]+)/g, (match, p1, p2) => {
+              return p2.replace(/_/g, ' ');
+            });
+          }
+        });
+      } else {
+        el.textContent = el.textContent.replace(/(\d+[-_.])([A-Za-z_]+)/g, (match, p1, p2) => {
+          return p2.replace(/_/g, ' ');
+        });
+      }
+    });
+  });
+}
+
 function init() {
   setupHeaderControls();
   setupCollapsibleNav();
   // Disabled: literate-nav handles navigation properly now
   // if (!window.nestedNavBuilt) buildNestedNavigation();
+  fixNavDisplay();
   addCustomLinks();
   updateFooter();
   addVersionSelector();
