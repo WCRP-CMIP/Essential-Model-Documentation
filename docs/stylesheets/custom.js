@@ -96,32 +96,43 @@ document.addEventListener('DOMContentLoaded', function() {
 window.nestedNavBuilt = true;
 
 function fixNavDisplay() {
-  // Fix nav text that shows prefixed folder names in shadcn sidebar
-  // Target all text elements in nav (group labels, menu items)
+  // Fix nav text that shows prefixed folder/file names in shadcn sidebar
+  // Replace all text nodes containing numeric prefixes
+  
+  // Target all nav elements
   const navSelectors = [
-    '[data-slot="sidebar-group-label"]',  // Group titles
-    '[data-slot="sidebar-menu-item"] a',   // Menu links
+    '[data-slot="sidebar-group-label"]',  // Group titles like "EMD Repository:"
+    '[data-slot="sidebar-menu-item"]',     // Menu items
     '[data-slot="sidebar-label"]'          // Labels
   ];
   
   navSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
-      // Replace patterns like "10_EMD_Repository" with "EMD Repository"
-      if (el.childNodes.length > 0) {
-        el.childNodes.forEach(node => {
-          if (node.nodeType === Node.TEXT_NODE) {
-            node.textContent = node.textContent.replace(/(\d+[-_.])([A-Za-z_]+)/g, (match, p1, p2) => {
-              return p2.replace(/_/g, ' ');
-            });
-          }
-        });
-      } else {
-        el.textContent = el.textContent.replace(/(\d+[-_.])([A-Za-z_]+)/g, (match, p1, p2) => {
-          return p2.replace(/_/g, ' ');
-        });
-      }
+      // Process all child nodes recursively
+      walkAndCleanTextNodes(el);
     });
   });
+  
+  function walkAndCleanTextNodes(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      // Replace patterns like "01_Submission-Guide" with "Submission Guide"
+      const cleaned = node.textContent.replace(/(\d+[-_.])([A-Za-z_\-]+)/g, (match, p1, p2) => {
+        return p2.replace(/_/g, ' ').replace(/-/g, ' ');
+      });
+      if (cleaned !== node.textContent) {
+        node.textContent = cleaned;
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      // Skip code/pre elements
+      if (['CODE', 'PRE', 'SCRIPT', 'STYLE'].includes(node.tagName)) {
+        return;
+      }
+      // Recursively process children
+      for (let child of node.childNodes) {
+        walkAndCleanTextNodes(child);
+      }
+    }
+  }
 }
 
 function init() {
