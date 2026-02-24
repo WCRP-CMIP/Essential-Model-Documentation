@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bisicles-ukesm-ismip6-1_0 | Model Component</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
     <script>
     // Fix breadcrumb link to work with any base URL
     document.addEventListener('DOMContentLoaded', function() {
@@ -41,7 +42,7 @@
                     <span class="emd-meta-label">Family</span>
                     <span class="emd-meta-value">
                         
-                        <a href="../Component_Families/bisicles.html">Bisicles</a>
+                        <a href="../03_Component_Families/bisicles.html">Bisicles</a>
                         
                     </span>
                 </div>
@@ -78,6 +79,10 @@
                         <div class="emd-section-divider"></div>
                         <p class="emd-description-text"><strong>bisicles-ukesm-ismip6-1_0</strong> — UniCiCles (Unified Model-CISM-<strong>BISICLES</strong>) is a package combining <strong>BISICLES</strong> with an interface that obtains boundary conditions from Unified Model or JULES data.</p>
                         
+                        <p class="emd-description-text" style="margin-top: 1rem;">
+                            <strong>Family:</strong> BISICLES uses adaptive-mesh Chombo libraries for ice sheet modeling with SSA- momentum approximation.
+                        </p>
+                        
                     </div>
                 </div>
             </section>
@@ -96,7 +101,7 @@
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
                         <div class="emd-domain-grid">
-                            <div class="emd-domain-card">
+                            <div class="emd-domain-card sd-land-ice">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">Land Ice</span>
                                     <span class="emd-domain-card-type">Component Type</span>
@@ -174,7 +179,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-24 03:08 UTC</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-21 13:33 UTC</p>
         </footer>
     </div>
     <script>
@@ -206,7 +211,133 @@
     "validation_key": "land_ice"
   },
   "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
-  "family": "bisicles",
+  "family": {
+    "@id": "bisicles",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "uob",
+      {
+        "@id": "bas",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "BAS",
+        "aliases": [],
+        "description": "",
+        "established": 1962,
+        "kind": "funder",
+        "labels": "British Antarctic Survey",
+        "location": {
+          "@id": "universal:location/01rhff309",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 52.2,
+          "lng": 0.11667,
+          "name": "Cambridge"
+        },
+        "ror": "01rhff309",
+        "ui_label": "British Antarctic Survey",
+        "url": [
+          "https://www.bas.ac.uk/",
+          "https://en.wikipedia.org/wiki/British_Antarctic_Survey"
+        ],
+        "validation_key": "BAS"
+      }
+    ],
+    "common_scientific_basis": "SSA- approximation, adaptive mesh refinement, basal traction treatments.",
+    "computational_requirements": "Adaptive mesh allows efficient resource usage",
+    "description": "BISICLES uses adaptive-mesh Chombo libraries for ice sheet modeling with SSA- momentum approximation.",
+    "documentation": "https://bisicles.lbl.gov/documentation/",
+    "established": "2008",
+    "evolution": "Enhanced through ISMIP6, extended with UniCiCles coupling interface.",
+    "family_type": "component",
+    "license": "Open Source",
+    "primary_institution": {
+      "@id": "lbnl",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [
+        "LBL",
+        "LBNL"
+      ],
+      "aliases": [
+        "Berkeley Lab",
+        "United States Department of Energy Office of Science Lawrence Berkeley National Laboratory"
+      ],
+      "description": "",
+      "established": 1931,
+      "kind": "facility",
+      "labels": [
+        "Laboratoire national lawrence-berkeley",
+        "Lawrence Berkeley National Laboratory"
+      ],
+      "location": {
+        "@id": "universal:location/02jbv0t02",
+        "@type": "wcrp:location",
+        "continent_code": "NA",
+        "continent_name": "North America",
+        "country_code": "US",
+        "country_name": "United States",
+        "country_subdivision_code": "CA",
+        "country_subdivision_name": "California",
+        "lat": 37.87159,
+        "lng": -122.27275,
+        "name": "Berkeley"
+      },
+      "ror": "02jbv0t02",
+      "ui_label": "Lawrence Berkeley National Laboratory",
+      "url": [
+        "https://www.lbl.gov/",
+        "https://en.wikipedia.org/wiki/Lawrence_Berkeley_National_Laboratory"
+      ],
+      "validation_key": "LBNL"
+    },
+    "programming_languages": [
+      "C++",
+      "Fortran"
+    ],
+    "references": "REF012",
+    "representative_member": "BISICLES-UKESM-ISMIP6-1.0",
+    "scientific_domains": {
+      "@id": "land-ice",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "landice",
+        "landIce"
+      ],
+      "description": "Land Ice",
+      "ui_label": "Land Ice",
+      "validation_key": "land_ice"
+    },
+    "shared_code_base": "Chombo adaptive mesh refinement framework with 4:1 recursive refinement, SSA- momentum approximation.",
+    "software_dependencies": "Chombo, PETSc, HDF5/NetCDF, MPI",
+    "source_code_repository": "https://github.com/ggslc/bisicles-uob",
+    "ui_label": "",
+    "validation_key": "BISICLES",
+    "variation_dimensions": "Coupling interfaces, domain applications, base mesh resolution, refinement strategies.",
+    "website": "https://bisicles.lbl.gov/"
+  },
   "name": "BISICLES-UKESM-ISMIP6-1.0",
   "references": [],
   "ui_label": "",
@@ -215,7 +346,7 @@
     document.addEventListener("copy", function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for bisicles-ukesm-ismip6-1_0\n// From: emd:model_component/bisicles-ukesm-ismip6-1.0\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-24 03:08 UTC\n\n" + jsonString;
+        const copyText = "// JSON-LD Source Data for bisicles-ukesm-ismip6-1_0\n// From: emd:model_component/bisicles-ukesm-ismip6-1.0\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-21 13:33 UTC\n\n" + jsonString;
         e.clipboardData.setData("text/plain", copyText);
     });
     </script>

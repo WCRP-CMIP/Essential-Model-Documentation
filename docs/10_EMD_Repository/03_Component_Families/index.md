@@ -1,6 +1,8 @@
 # Component Families
 
-**Total entries:** 15
+Families of related model components sharing common code.
+
+**Total entries:** 14
 
 ---
 
@@ -12,7 +14,6 @@
 - [Geos](geos.html)
 - [Hadam](hadam.html)
 - [Ifs](ifs.html)
-- [Index](index.html)
 - [Nemo](nemo.html)
 - [Nicam](nicam.html)
 - [Pisces](pisces.html)
@@ -22,4 +23,4 @@
 
 ---
 
-*Generated: 2026-02-24 02:23 UTC*
+*Generated: 2026-02-18 22:51 UTC*

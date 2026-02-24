@@ -11,10 +11,14 @@ on:
   push:
     branches:
       - "src-data"
+
+      - "docs"
+
   workflow_dispatch:
 
 jobs:
   check_contexts:
+    if: github.ref == 'refs/heads/src-data'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout src-data branch
@@ -28,6 +32,7 @@ jobs:
 
   # ── Job 1: sync data to production and commit ────────────────────────────
   sync_data:
+    if: github.ref == 'refs/heads/src-data'
     runs-on: ubuntu-latest
     outputs:
       has_data_changes: ${{ steps.commit_data.outputs.has_changes }}
@@ -42,19 +47,9 @@ jobs:
       - name: Fetch src-data branch
         run: git fetch origin src-data:src-data
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - name: Install CMIPLD
         run: |
-          npm install -g jsonld-recursive
+          npm i -g jsonld-recursive
           pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
 
       - name: Configure Git
@@ -78,10 +73,13 @@ jobs:
           echo "Files now at GITHUB_WORKSPACE:"
           ls "$GITHUB_WORKSPACE"
 
+
       - name: Generate graphs (graphify)
         run: |
           cd "$GITHUB_WORKSPACE"
           graphify --all --output-summary
+
+
 
       - name: Run prepublish scripts
         run: |
@@ -95,6 +93,7 @@ jobs:
             chmod +x "$script"
             bash "$script" || echo "Script failed: $(basename $script)"
           done
+
 
       - name: Commit data to production
         id: commit_data
@@ -110,12 +109,14 @@ jobs:
             git push origin production
             echo "Data committed and pushed to production"
             echo "## Data sync" >> $GITHUB_STEP_SUMMARY
-            echo "Vocab data committed to production and live at emd.mipcvs.dev" >> $GITHUB_STEP_SUMMARY
+            echo "Vocab data committed to production" >> $GITHUB_STEP_SUMMARY
           fi
 
   # ── Job 2: build docs ────────────────────────────────────────────────────
+
   build_docs:
     needs: sync_data
+    if: ${{ !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     outputs:
       has_changes: ${{ steps.check_changes.outputs.has_changes }}
@@ -147,6 +148,8 @@ jobs:
 
       - name: Copy docs source from docs branch
         run: |
+          # Clean stale generated content from docs/ before overlaying
+          rm -rf "$GITHUB_WORKSPACE/docs" "$GITHUB_WORKSPACE/src"
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
 
@@ -157,7 +160,7 @@ jobs:
           if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
             pip install -r "$MKDOCS_DIR/requirements.txt"
           else
-            echo "WARNING: $MKDOCS_DIR/requirements.txt not found, using fallback"
+            echo "WARNING: requirements.txt not found, using fallback"
             pip install mkdocs mkdocs-material mkdocs-shadcn mkdocs-gen-files mkdocs-literate-nav pymdown-extensions beautifulsoup4 cmipld
           fi
 
@@ -168,30 +171,18 @@ jobs:
 
       - name: Build MkDocs site
         run: |
-
           ldr server stop 2>/dev/null || true
           ldr server start
           echo "LDR server started"
 
-          # cd "$GITHUB_WORKSPACE"
-          # ldr compact model_family/clm.json
-          # python -c 'import cmipld; cmipld.map_current("emd");cmipld.get("emd:model_family/_graph.json")';
           mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
 
-          BUILD_DIR="$GITHUB_WORKSPACE/src/mkdocs/site"
-          if [ ! -d "$BUILD_DIR" ]; then BUILD_DIR="$GITHUB_WORKSPACE/site"; fi
-          if [ ! -d "$BUILD_DIR" ]; then echo "Error: no built site dir"; exit 1; fi
+          BUILD_DIR="$GITHUB_WORKSPACE/build"
+          if [ ! -d "$BUILD_DIR" ]; then echo "Error: no build dir"; exit 1; fi
 
           rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs"
           [ -d "$GITHUB_WORKSPACE/docs" ] && rm -rf "$GITHUB_WORKSPACE/docs"
           mv "$BUILD_DIR" "$GITHUB_WORKSPACE/docs"
-
-      - name: Generate root redirect
-        run: |
-          cd "$GITHUB_WORKSPACE"
-          if [ ! -f "$GITHUB_WORKSPACE/index.html" ]; then
-            echo '<meta http-equiv="refresh" content="3; url=docs/">' > index.html
-          fi
 
       - name: Check for changes
         id: check_changes
@@ -209,9 +200,11 @@ jobs:
           git commit -m "Build documentation from docs branch"
           git push origin production
 
+
+
   deploy:
-    needs: build_docs
-    if: ${{ needs.build_docs.outputs.has_changes == 'true' }}
+    needs: [sync_data, build_docs]
+    if: ${{ !failure() && !cancelled() && (needs.build_docs.outputs.has_changes == 'true' || needs.sync_data.outputs.has_data_changes == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -231,3 +224,4 @@ jobs:
         run: |
           echo "## Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+

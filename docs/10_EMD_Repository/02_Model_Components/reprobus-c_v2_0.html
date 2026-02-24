@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reprobus-c_v2_0 | Model Component</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
     <script>
     // Fix breadcrumb link to work with any base URL
     document.addEventListener('DOMContentLoaded', function() {
@@ -41,7 +42,7 @@
                     <span class="emd-meta-label">Family</span>
                     <span class="emd-meta-value">
                         
-                        <a href="../Component_Families/reprobus.html">Reprobus</a>
+                        <a href="../03_Component_Families/reprobus.html">Reprobus</a>
                         
                     </span>
                 </div>
@@ -78,6 +79,10 @@
                         <div class="emd-section-divider"></div>
                         <p class="emd-description-text"><strong>reprobus-c_v2_0</strong> — The <strong>chemistry</strong> <strong>scheme</strong> of <strong>CNRM</strong>-ESM2 is an <strong>on-line</strong> <strong>scheme</strong> whereby the <strong>chemistry</strong> routines are part of the physics of the <strong>atmospheric</strong> <strong>climate</strong> model.</p>
                         
+                        <p class="emd-description-text" style="margin-top: 1rem;">
+                            <strong>Family:</strong> REPROBUS atmospheric chemistry model family developed by CNRM.
+                        </p>
+                        
                     </div>
                 </div>
             </section>
@@ -96,7 +101,7 @@
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
                         <div class="emd-domain-grid">
-                            <div class="emd-domain-card">
+                            <div class="emd-domain-card sd-atmospheric-chemistry">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">Atmospheric Chemistry</span>
                                     <span class="emd-domain-card-type">Component Type</span>
@@ -174,7 +179,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-24 03:08 UTC</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-21 13:33 UTC</p>
         </footer>
     </div>
     <script>
@@ -206,7 +211,87 @@
     "validation_key": "atmospheric_chemistry"
   },
   "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
-  "family": "reprobus",
+  "family": {
+    "@id": "reprobus",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "REPROBUS atmospheric chemistry model family developed by CNRM.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NMSC",
+      "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
+      "description": "",
+      "established": 2009,
+      "kind": "facility",
+      "labels": [
+        "National Meteorological Satellite Center",
+        "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
+      ],
+      "location": {
+        "@id": "universal:location/043zvrs33",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "country_subdivision_code": "43",
+        "country_subdivision_name": "North Chungcheong",
+        "lat": 36.85667,
+        "lng": 127.44333,
+        "name": "Chinch'\u014fn"
+      },
+      "ror": "043zvrs33",
+      "ui_label": "National Meteorological Satellite Center",
+      "url": [
+        "https://nmsc.kma.go.kr",
+        "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
+      ],
+      "validation_key": "CNRM"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": {
+      "@id": "atmospheric-chemistry",
+      "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+      ],
+      "alias": [
+        "atmoschem",
+        "atmosChem"
+      ],
+      "description": "Atmospheric Chemistry",
+      "ui_label": "Atmospheric Chemistry",
+      "validation_key": "atmospheric_chemistry"
+    },
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "reprobus",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
   "name": "REPROBUS-C (v2.0)",
   "references": [],
   "ui_label": "",
@@ -215,7 +300,7 @@
     document.addEventListener("copy", function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for reprobus-c_v2_0\n// From: emd:model_component/reprobus-c-v2-0\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-24 03:08 UTC\n\n" + jsonString;
+        const copyText = "// JSON-LD Source Data for reprobus-c_v2_0\n// From: emd:model_component/reprobus-c-v2-0\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-21 13:33 UTC\n\n" + jsonString;
         e.clipboardData.setData("text/plain", copyText);
     });
     </script>

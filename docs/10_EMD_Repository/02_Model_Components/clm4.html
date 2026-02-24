@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>clm4 | Model Component</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
     <script>
     // Fix breadcrumb link to work with any base URL
     document.addEventListener('DOMContentLoaded', function() {
@@ -41,7 +42,7 @@
                     <span class="emd-meta-label">Family</span>
                     <span class="emd-meta-value">
                         
-                        <a href="../Component_Families/clm.html">Clm</a>
+                        <a href="../03_Component_Families/clm.html">Clm</a>
                         
                     </span>
                 </div>
@@ -78,6 +79,10 @@
                         <div class="emd-section-divider"></div>
                         <p class="emd-description-text"><strong>clm4</strong> — The Community Land Model represents several aspects of the <strong>land surface</strong> including surface heterogeneity through a nested subgrid hierarchy.</p>
                         
+                        <p class="emd-description-text" style="margin-top: 1rem;">
+                            <strong>Family:</strong> Community Land Model family representing land surface heterogeneity through nested subgrid hierarchy.
+                        </p>
+                        
                     </div>
                 </div>
             </section>
@@ -96,7 +101,7 @@
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
                         <div class="emd-domain-grid">
-                            <div class="emd-domain-card">
+                            <div class="emd-domain-card sd-land-surface">
                                 <div class="emd-domain-card-header">
                                     <span class="emd-domain-card-title">Land Surface and Subsurface</span>
                                     <span class="emd-domain-card-type">Component Type</span>
@@ -174,7 +179,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-24 03:08 UTC</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-21 13:33 UTC</p>
         </footer>
     </div>
     <script>
@@ -203,7 +208,186 @@
     "validation_key": "land_surface"
   },
   "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
-  "family": "clm",
+  "family": {
+    "@id": "clm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      {
+        "@id": "lbnl",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": [
+          "LBL",
+          "LBNL"
+        ],
+        "aliases": [
+          "Berkeley Lab",
+          "United States Department of Energy Office of Science Lawrence Berkeley National Laboratory"
+        ],
+        "description": "",
+        "established": 1931,
+        "kind": "facility",
+        "labels": [
+          "Laboratoire national lawrence-berkeley",
+          "Lawrence Berkeley National Laboratory"
+        ],
+        "location": {
+          "@id": "universal:location/02jbv0t02",
+          "@type": "wcrp:location",
+          "continent_code": "NA",
+          "continent_name": "North America",
+          "country_code": "US",
+          "country_name": "United States",
+          "country_subdivision_code": "CA",
+          "country_subdivision_name": "California",
+          "lat": 37.87159,
+          "lng": -122.27275,
+          "name": "Berkeley"
+        },
+        "ror": "02jbv0t02",
+        "ui_label": "Lawrence Berkeley National Laboratory",
+        "url": [
+          "https://www.lbl.gov/",
+          "https://en.wikipedia.org/wiki/Lawrence_Berkeley_National_Laboratory"
+        ],
+        "validation_key": "LBNL"
+      },
+      {
+        "@id": "pnnl",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "PNNL",
+        "aliases": [
+          "Office of Science Pacific Northwest National Laboratory",
+          "United States Department of Energy Office of Science Pacific Northwest National Laboratory"
+        ],
+        "description": "",
+        "established": 1965,
+        "kind": "facility",
+        "labels": "Pacific Northwest National Laboratory",
+        "location": {
+          "@id": "universal:location/05h992307",
+          "@type": "wcrp:location",
+          "continent_code": "NA",
+          "continent_name": "North America",
+          "country_code": "US",
+          "country_name": "United States",
+          "country_subdivision_code": "WA",
+          "country_subdivision_name": "Washington",
+          "lat": 46.28569,
+          "lng": -119.28446,
+          "name": "Richland"
+        },
+        "ror": "05h992307",
+        "ui_label": "Pacific Northwest National Laboratory",
+        "url": [
+          "http://www.pnnl.gov/",
+          "https://en.wikipedia.org/wiki/Pacific_Northwest_National_Laboratory"
+        ],
+        "validation_key": "PNNL"
+      }
+    ],
+    "common_scientific_basis": "Nested subgrid representation, area-weighted averaging for atmosphere-land coupling.",
+    "computational_requirements": "10-25% of total coupled model cost",
+    "description": "Community Land Model family representing land surface heterogeneity through nested subgrid hierarchy.",
+    "documentation": "https://escomp.github.io/ctsm-docs/",
+    "established": "1996",
+    "evolution": "Evolution from simple land surface to comprehensive terrestrial system models through CLM1-CLM5.",
+    "family_type": "component",
+    "license": "Open Source",
+    "primary_institution": {
+      "@id": "ncar",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NCAS",
+      "aliases": [],
+      "description": "",
+      "established": 2002,
+      "kind": "funder",
+      "labels": "National Centre for Atmospheric Science",
+      "location": {
+        "@id": "universal:location/01wwwe276",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "country_subdivision_code": "ENG",
+        "country_subdivision_name": "England",
+        "lat": 53.79648,
+        "lng": -1.54785,
+        "name": "Leeds"
+      },
+      "ror": "01wwwe276",
+      "ui_label": "National Centre for Atmospheric Science",
+      "url": [
+        "https://ncas.ac.uk/",
+        "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
+      ],
+      "validation_key": "NCAR"
+    },
+    "programming_languages": [
+      "Fortran 90",
+      "Fortran 95",
+      "Python"
+    ],
+    "references": "REF013",
+    "representative_member": "CLM4",
+    "scientific_domains": [
+      {
+        "@id": "land-surface",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "land",
+        "description": "Land Surface and Subsurface",
+        "ui_label": "Land Surface and Subsurface",
+        "validation_key": "land_surface"
+      },
+      {
+        "@id": "ocean-biogeochemistry",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": [
+          "ocnbgchem",
+          "ocnBgchem"
+        ],
+        "description": "Ocean Biogeochemistry",
+        "ui_label": "Ocean Biogeochemistry",
+        "validation_key": "ocean_biogeochemistry"
+      }
+    ],
+    "shared_code_base": "Nested subgrid hierarchy architecture with independent biogeophysical processes per landunit/column/PFT.",
+    "software_dependencies": "NetCDF, MPI, ESMF/MCT",
+    "source_code_repository": "https://github.com/ESCOMP/CTSM",
+    "ui_label": "",
+    "validation_key": "CLM",
+    "variation_dimensions": "Version complexity, soil layers, vegetation representation, biogeochemical complexity.",
+    "website": "https://www.cesm.ucar.edu/models/cesm2/land"
+  },
   "name": "CLM4",
   "references": [],
   "ui_label": "",
@@ -212,7 +396,7 @@
     document.addEventListener("copy", function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for clm4\n// From: emd:model_component/clm4\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-24 03:08 UTC\n\n" + jsonString;
+        const copyText = "// JSON-LD Source Data for clm4\n// From: emd:model_component/clm4\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-21 13:33 UTC\n\n" + jsonString;
         e.clipboardData.setData("text/plain", copyText);
     });
     </script>

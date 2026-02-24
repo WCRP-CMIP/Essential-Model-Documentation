@@ -209,11 +209,76 @@
                             <span class="emd-domain-card-type">Subgrid</span>
                         </div>
                         
+                        <p class="emd-domain-card-description">Mass variables on a regular latitude-longitude grid for land surface modelling.</p>
+                        
 
                         
                         
+                        <div class="tag-row">
+                            
+                            <span class="cv-tag primary" title="Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.">Mass</span>
+                            
+                        </div>
+                        
 
                         
+                        
+                        
+                        <div class="gc-info">
+                            <div class="gc-info-title">Grid Cells — g104</div>
+                            
+                            <p style="font-size:0.8rem;color:var(--emd-secondary);margin-bottom:0.5rem;line-height:1.5;">Global regular latitude-longitude grid with 1.25° x 0.9° resolution and 55296 cells, offset origin from g100.</p>
+                            
+                            <div class="gc-stats">
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Cells</span>
+                                    <span class="gc-stat-value highlight">55,296</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Resolution</span>
+                                    <span class="gc-stat-value">1.25° × 0.9° (Degrees)</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Grid Type</span>
+                                    <span class="gc-stat-value" title="A rectilinear latitude-longitude grid with evenly spaced latitude points and evenly spaced longitude points.">Regular Latitude-Longitude</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Projection</span>
+                                    <span class="gc-stat-value" title="A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.">Latitude-Longitude</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">Temporal</span>
+                                    <span class="gc-stat-value" title="Grid resolution remains constant throughout the simulation.">Static</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">S. Extent</span>
+                                    <span class="gc-stat-value">-89.65°</span>
+                                </div>
+                                
+                                
+                                <div class="gc-stat">
+                                    <span class="gc-stat-label">W. Extent</span>
+                                    <span class="gc-stat-value">0°</span>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="tag-row">
+                                <span class="cv-tag" title="The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.">Global</span>
+                            </div>
+                            
+                        </div>
                         
                     </div>
                     
@@ -270,7 +335,7 @@
         <p class="emd-footer-text">
             Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a>
             · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative
-            · Generated 2026-02-24 03:08 UTC
+            · Generated 2026-02-22 23:18 UTC
         </p>
     </footer>
 </div>
@@ -297,14 +362,117 @@ const sourceData = {
     "validation_key": "arakawa-a"
   },
   "description": "Arakawa-A grid on a regular latitude-longitude configuration for land surface modelling.",
-  "horizontal_subgrids": "s104",
+  "horizontal_subgrids": {
+    "@id": "s104",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "mass",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+      "ui_label": "Mass",
+      "validation_key": "mass"
+    },
+    "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
+    "horizontal_grid_cells": {
+      "@id": "g104",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cells",
+        "esgvoc:HorizontalGridCells"
+      ],
+      "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells, offset origin from g100.",
+      "grid_mapping": {
+        "@id": "latitude-longitude",
+        "@type": [
+          "universal",
+          "wcrp:grid_mapping",
+          "esgvoc:GridMapping",
+          "constants"
+        ],
+        "description": "A projection that treats latitude and longitude as planar X and Y coordinates, as defined by the CF conventions.",
+        "ui_label": "Latitude-Longitude",
+        "validation_key": "latitude_longitude"
+      },
+      "grid_type": {
+        "@id": "regular-latitude-longitude",
+        "@type": [
+          "universal",
+          "wcrp:grid_type",
+          "esgvoc:GridType",
+          "constants"
+        ],
+        "description": "A rectilinear latitude-longitude grid with evenly spaced latitude points and evenly spaced longitude points.",
+        "ui_label": "Regular Latitude-Longitude",
+        "validation_key": "regular_latitude_longitude"
+      },
+      "n_cells": 55296,
+      "region": {
+        "@id": "global",
+        "@type": [
+          "universal",
+          "wcrp:region",
+          "esgvoc:Region",
+          "constants"
+        ],
+        "alias": "glb",
+        "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+        "ui_label": "Global",
+        "validation_key": "global"
+      },
+      "southernmost_latitude": -89.65,
+      "temporal_refinement": {
+        "@id": "static",
+        "@type": [
+          "universal",
+          "wcrp:temporal_refinement",
+          "esgvoc:TemporalRefinement",
+          "constants"
+        ],
+        "description": "Grid resolution remains constant throughout the simulation.",
+        "ui_label": "Static",
+        "validation_key": "static"
+      },
+      "ui_label": "",
+      "units": {
+        "@id": "degree",
+        "@type": [
+          "universal",
+          "wcrp:units",
+          "esgvoc:Units",
+          "constants"
+        ],
+        "alias": [
+          "deg",
+          "degrees"
+        ],
+        "description": "Angular measurement in degrees for latitude/longitude coordinates.",
+        "ui_label": "Degrees",
+        "validation_key": "degree"
+      },
+      "validation_key": "g104",
+      "westernmost_longitude": 0,
+      "x_resolution": 1.25,
+      "y_resolution": 0.9
+    },
+    "ui_label": "",
+    "validation_key": "s104"
+  },
   "ui_label": "",
   "validation_key": "h103"
 };
 document.addEventListener("copy", function(e) {
     e.preventDefault();
     e.clipboardData.setData("text/plain",
-        "// JSON-LD: h103\n// Generated: 2026-02-24 03:08 UTC\n\n" +
+        "// JSON-LD: h103\n// Generated: 2026-02-22 23:18 UTC\n\n" +
         JSON.stringify(sourceData, null, 2));
 });
 </script>
