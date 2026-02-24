@@ -27,15 +27,24 @@ def is_none_value(val: Any) -> bool:
     return False
 
 
+def ensure_list(val: Any) -> list:
+    """Coerce any value to a list.
+
+    Handles the common JSON-LD compaction quirk where a single-item
+    collection is returned as a bare dict/string instead of a list.
+    """
+    if val is None or is_none_value(val):
+        return []
+    if isinstance(val, list):
+        return val
+    # Single dict or string → wrap in list
+    return [val]
+
+
 def format_list(items: Any) -> list:
     """Convert items to a list format, filtering out empty/none values."""
-    if items is None:
-        return []
-    if isinstance(items, str):
-        return [items] if items and not is_none_value(items) else []
-    if isinstance(items, list):
-        return [item for item in items if item and not is_none_value(item)]
-    return []
+    items = ensure_list(items)
+    return [item for item in items if item and not is_none_value(item)]
 
 
 def format_aliases(aliases: Any) -> list:

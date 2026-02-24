@@ -1,6 +1,7 @@
 # EMD Reviewer Guide
 
-This guide is for vetted community members interested in helping to review an EMD submission. It explains how submissions reach you, what has already been checked, what needs your judgement, and how to record your decision.
+!!! tip "Who?"
+    This guide is for vetted community members interested in helping to review an EMD submission. It explains how submissions reach you, what has already been checked, what needs your judgement, and how to record your decision.
 
 ---
 
@@ -119,10 +120,10 @@ Take one of the following actions directly on the pull request.
 
 ## Practicalities
 
-You were assigned because your expertise matches the submission. You have **14 days** to respond before the review is reassigned. If you have a conflict of interest or are unable to review, reassign the pull request to another reviewer via the assignee field.
+You were assigned because your expertise or interests matche the submitted content. You have **4 days** to respond before the review is automatically reassigned. If you have a conflict of interest or are unable to review, reassign the pull request to another reviewer via the assignee field.
 
 Once you approve and the entry is merged:
 
-- The entry appears on the EMD website within a few minutes.
-- Other submitters can immediately reference it in their own submissions (for example, selecting a registered grid or model family from a dropdown).
-- For model submissions, the `source_id` becomes officially registered in the CMIP7 controlled vocabularies.
+- The entry appears on the EMD github within a few minutes.
+- Other submitters will then be able to reference it in their own submissions within the next few hours (for example, selecting a registered grid or model family from a dropdown).
+- For model submissions, the `source_id` will need to be linked in the dropdown in CMIP7 controlled vocabularies. This will automatically be accepted. 

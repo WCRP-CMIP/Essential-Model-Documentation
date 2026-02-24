@@ -249,12 +249,12 @@ def list_entries(endpoint: str) -> List[str]:
         data = cmipld.get(url, depth=0)
         
         if data and 'contents' in data:
+            items = _normalise_contents(data['contents'])
             entries = []
-            for item in data['contents']:
-                if isinstance(item, dict):
-                    entry_id = item.get('@id') or item.get('validation_key')
-                    if entry_id and not entry_id.startswith('_'):
-                        entries.append(entry_id)
+            for item in items:
+                entry_id = item.get('@id') or item.get('validation_key')
+                if entry_id and not entry_id.startswith('_'):
+                    entries.append(entry_id)
             return sorted(entries)
     except Exception as e:
         print(f"  Warning: Could not list entries for {endpoint}: {e}")
