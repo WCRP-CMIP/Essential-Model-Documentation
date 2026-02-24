@@ -9,13 +9,20 @@
       "@type": "@id",
       "@id": "calendar"
     },
+    "component_configs": {
+      "@context": "https://end.mipcvs.dev/component_config/_context",
+      "@type": "@id",
+      "@id": "component_configs"
+    },
     "dynamic_components": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
       "@type": "@id",
       "@id": "dynamic_components"
     },
     "family": {
-      "@type": "@id"
+      "@context": "https://emd.mipcvs.dev/model_family/_context",
+      "@type": "@id",
+      "@id": "dynamic_components"
     },
     "omitted_components": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
