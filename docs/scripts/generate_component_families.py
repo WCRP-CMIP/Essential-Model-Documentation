@@ -188,6 +188,10 @@ def prepare_template_context(data):
     extra_kw = [name]
     description_highlighted = highlight_keywords(description, extra_kw + HIGHLIGHT_KEYWORDS)
     
+    def _field(key):
+        v = data.get(key, "")
+        return "" if (not v or v == "none") else v
+
     return {
         "id": family_id,
         "name": name,
@@ -206,6 +210,15 @@ def prepare_template_context(data):
         "programming_languages": programming_languages,
         "license": license_info,
         "references": references,
+        # Extra scientific/technical fields
+        "common_scientific_basis": _field("common_scientific_basis"),
+        "computational_requirements": _field("computational_requirements"),
+        "variation_dimensions": _field("variation_dimensions"),
+        "software_dependencies": _field("software_dependencies"),
+        "documentation": _field("documentation"),
+        "evolution": _field("evolution"),
+        "representative_member": _field("representative_member"),
+        "website": _field("website"),
         "icons": ICONS,
         "raw_json": json.dumps(data, indent=2),
         "depth": "../../",

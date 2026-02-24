@@ -1,215 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name | e }} | Model Component</title>
-    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
-    <script>
-    // Fix breadcrumb link to work with any base URL
-    document.addEventListener('DOMContentLoaded', function() {
-        const breadcrumb = document.querySelector('.emd-breadcrumb a[href*="index.html"]');
-        if (breadcrumb) {
-            // Count directory levels (excluding filename)
-            const path = window.location.pathname;
-            const parts = path.split('/').filter(p => p && !p.includes('.html'));
-            // Go up correct number of levels to reach root
-            const upLevels = Math.max(parts.length - 1, 2);
-            breadcrumb.href = '../'.repeat(upLevels) + 'index.html';
-        }
-    });
-    </script>
-</head>
-<body class="emd-page">
-    <div class="emd-container">
-        <header class="emd-header">
-            <nav class="emd-breadcrumb">
-                <a href="../../index.html">← Back to Documentation</a>
-                <span>|</span>
-                <a href="https://emd.mipcvs.dev/" target="_blank">EMD Registry</a>
-                <span>→</span>
-                <a href="https://emd.mipcvs.dev/model_component/" target="_blank">Model Components</a>
-                <span>→</span>
-                <span>{{ name | e }}</span>
-            </nav>
-            <div class="emd-badge">Model Component</div>
-            <h1 class="emd-title">{{ name | e }}</h1>
-            <p class="emd-subtitle">{{ description | e }}</p>
-            <div class="emd-header-meta">
-                {% if family %}
-                <div class="emd-meta-item">
-                    <span class="emd-meta-label">Family</span>
-                    <span class="emd-meta-value">
-                        {% if family.page %}
-                        <a href="{{ family.page | e }}">{{ family.name | e if family.name else family.id | e }}</a>
-                        {% else %}
-                        {{ family.name | e if family.name else family.id | e }}
-                        {% endif %}
-                    </span>
-                </div>
-                {% endif %}
-                {% if component_domain %}
-                <div class="emd-meta-item">
-                    <span class="emd-meta-label">Scientific Domain</span>
-                    <span class="emd-meta-value">{{ component_domain.name | e }}</span>
-                </div>
-                {% endif %}
-                <div class="emd-meta-item">
-                    <span class="emd-meta-label">Code Base</span>
-                    <span class="emd-meta-value{% if code_base.is_private %} private{% endif %}">
-                        {%- if code_base.is_private -%}Private
-                        {%- elif code_base.is_url -%}<a href="{{ code_base.value | e }}" target="_blank">{{ code_base.value | e }}</a>
-                        {%- elif code_base.value -%}{{ code_base.value | e }}
-                        {%- else -%}Not specified{%- endif -%}
-                    </span>
-                </div>
-                <div class="emd-meta-item">
-                    <span class="emd-meta-label">Context</span>
-                    <span class="emd-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
+{% extends "base.html.j2" %}
+
+{% block title %}{{ name | e }} | Model Component{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="{{ depth }}stylesheets/scientific_domains.css">
+<style>
+/* ── Domain accent header ───────────────────────────────────── */
+.emd-header.has-domain {
+    border-left: 4px solid var(--sd-color, var(--emd-primary));
+}
+/* ── Plain-language callout ─────────────────────────────────── */
+.plain-summary {
+    background: rgba(37,99,235,0.05);
+    border-radius: var(--emd-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--emd-text);
+}
+.plain-summary strong { color: var(--emd-primary); }
+/* ── Domain pill in header ──────────────────────────────────── */
+.emd-domain-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--sd-color, var(--emd-primary));
+    background: var(--sd-bg, #eff6ff);
+    color: var(--sd-color, var(--emd-primary));
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+/* ── Family link card ───────────────────────────────────────── */
+.family-link-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.1rem;
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: var(--emd-radius);
+    text-decoration: none;
+    color: var(--emd-text);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.family-link-card:hover { box-shadow: var(--emd-shadow); border-color: var(--emd-primary); }
+.family-link-card-name { font-weight: 600; font-size: 1rem; }
+.family-link-card-label { font-size: 0.75rem; color: var(--emd-text-muted); margin-top: 0.15rem; }
+.family-link-arrow { font-size: 1.2rem; color: var(--emd-text-muted); }
+</style>
+{% endblock %}
+
+{% block breadcrumb_extra %}
+<span>→</span>
+<a href="https://emd.mipcvs.dev/model_component/" target="_blank">Model Components</a>
+<span>→</span>
+<span>{{ name | e }}</span>
+{% endblock %}
+
+{% block page_header %}
+{% if component_domain %}
+<div class="emd-domain-pill sd-{{ component_domain.domain_key }}">
+    {{ component_domain.name | e }}
+</div>
+{% endif %}
+<div class="emd-badge">Model Component</div>
+<h1 class="emd-title">{{ name | e }}</h1>
+{% if validation_key and validation_key != name %}
+<p class="emd-long-name">{{ validation_key | e }}</p>
+{% endif %}
+<p class="emd-subtitle">{{ description | e }}</p>
+<div class="emd-header-meta">
+    {% if family %}
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Family</span>
+        <span class="emd-meta-value">
+            {% if family.page %}<a href="{{ family.page | e }}">{{ family.name | e }}</a>
+            {% else %}{{ family.name | e }}{% endif %}
+        </span>
+    </div>
+    {% endif %}
+    {% if component_domain %}
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Scientific Domain</span>
+        <span class="emd-meta-value">{{ component_domain.name | e }}</span>
+    </div>
+    {% endif %}
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Code Base</span>
+        <span class="emd-meta-value">
+            {%- if code_base.is_private -%}🔒 Private
+            {%- elif code_base.is_url -%}<a href="{{ code_base.value | e }}" target="_blank">{{ code_base.value | replace('https://', '') | e }}</a>
+            {%- elif code_base.value -%}{{ code_base.value | e }}
+            {%- else -%}Not specified{%- endif -%}
+        </span>
+    </div>
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Registry</span>
+        <span class="emd-meta-value"><a href="{{ context_url | e }}" target="_blank">JSON-LD →</a></span>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{# ── Plain-language summary ────────────────────────────────────── #}
+<div class="plain-summary">
+    <strong>What is this?</strong>
+    {{ name | e }} is a <strong>model component</strong> that simulates the
+    {% if component_domain %}<strong>{{ component_domain.name | e }}</strong>{% else %}physical{% endif %}
+    processes within an Earth system model.
+    {% if family %}It belongs to the <strong>{{ family.name | e }}</strong> model family.{% endif %}
+    {% if code_base.is_private %}The source code is kept private.
+    {% elif code_base.is_url %}The source code is publicly available.{% endif %}
+</div>
+
+{# ── Description ─────────────────────────────────────────────────── #}
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.description | safe }}</div>
+            <h2 class="emd-section-title">Scientific Description</h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <p class="emd-description-text">{{ description_highlighted | safe }}</p>
+        </div>
+    </div>
+</section>
+
+{# ── Scientific Domain ────────────────────────────────────────────── #}
+{% if component_domain %}
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.domain | safe }}</div>
+            <h2 class="emd-section-title">Scientific Domain</h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <div class="emd-domains-grid">
+                <div class="emd-domain-card sd-{{ component_domain.domain_key }}">
+                    <div class="emd-domain-card-header">
+                        <span class="emd-domain-card-title">{{ component_domain.name | e }}</span>
+                        <span class="emd-domain-card-type">Component Type</span>
+                    </div>
+                    <div class="emd-domain-card-id">{{ component_domain.id | e }}</div>
+                    {% if component_domain.description %}
+                    <p class="emd-domain-card-description">{{ component_domain.description | e }}</p>
+                    {% endif %}
                 </div>
             </div>
-        </header>
-
-        <main>
-            <!-- Description -->
-            <section class="emd-section expanded">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.description | safe }}</div>
-                        <h2 class="emd-section-title">Description</h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        <p class="emd-description-text"><strong>{{ name | e }}</strong> — {{ description_highlighted | safe }}</p>
-                        {% if family and family.description %}
-                        <p class="emd-description-text" style="margin-top: 1rem;">
-                            <strong>Family:</strong> {{ family.description | e }}
-                        </p>
-                        {% endif %}
-                    </div>
-                </div>
-            </section>
-
-            <!-- Scientific Domain -->
-            {% if component_domain %}
-            <section class="emd-section expanded">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.domain | safe }}</div>
-                        <h2 class="emd-section-title">Scientific Domain</h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        <div class="emd-domain-grid">
-                            <div class="emd-domain-card">
-                                <div class="emd-domain-card-header">
-                                    <span class="emd-domain-card-title">{{ component_domain.name | e }}</span>
-                                    <span class="emd-domain-card-type">Component Type</span>
-                                </div>
-                                <div class="emd-domain-card-id">@id: {{ component_domain.id | e }}</div>
-                                {% if component_domain.description %}
-                                <p class="emd-domain-card-description">{{ component_domain.description | e }}</p>
-                                {% endif %}
-                                {% if component_domain.aliases %}
-                                <div class="emd-domain-card-meta">
-                                    {% for alias in component_domain.aliases %}<span class="emd-meta-tag">{{ alias | e }}</span>{% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <p class="emd-description-text" style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                            <em>Note: Grid configurations for this component are defined in the component_config entries when used within a specific model.</em>
-                        </p>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-
-            <!-- Technical Details -->
-            <section class="emd-section">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.tech | safe }}</div>
-                        <h2 class="emd-section-title">Technical Details</h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        <div class="emd-tech-grid">
-                            <div class="emd-tech-item">
-                                <div class="emd-tech-label">Resource Identifier (@id)</div>
-                                <div class="emd-tech-value">{{ id | e }}</div>
-                            </div>
-                            <div class="emd-tech-item">
-                                <div class="emd-tech-label">Validation Key</div>
-                                <div class="emd-tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
-                            </div>
-                            <div class="emd-tech-item">
-                                <div class="emd-tech-label">JSON-LD Context</div>
-                                <div class="emd-tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
-                            </div>
-                            <div class="emd-tech-item">
-                                <div class="emd-tech-label">Resource Types (@type)</div>
-                                <div class="emd-type-badges">
-                                    {% for t in types %}<span class="emd-type-badge">{{ t | e }}</span>{% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- References -->
-            {% set ref_count = references | length if references else 0 %}
-            <section class="emd-section{% if ref_count > 0 %} expanded{% endif %}">
-                <div class="emd-section-header" onclick="toggleSection(this)">
-                    <div class="emd-section-title-wrapper">
-                        <div class="emd-section-icon">{{ icons.reference | safe }}</div>
-                        <h2 class="emd-section-title">References <span class="emd-section-count">({{ ref_count }})</span></h2>
-                    </div>
-                    <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
-                </div>
-                <div class="emd-section-content">
-                    <div class="emd-section-body">
-                        <div class="emd-section-divider"></div>
-                        {% if references %}
-                        {% for ref in references %}
-                        <a href="{{ ref | e }}" class="emd-reference-item" target="_blank">
-                            <div class="emd-reference-icon">{{ icons.description | safe }}</div>
-                            <span class="emd-reference-text">{{ ref | e }}</span>
-                            <span class="emd-reference-arrow">→</span>
-                        </a>
-                        {% endfor %}
-                        {% else %}
-                        <p class="emd-description-text">No references available.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated {{ generated_date }}</p>
-        </footer>
+            <p style="margin-top:1rem;font-size:0.875rem;color:var(--emd-text-muted);">
+                Grid configurations for this component are defined per model in the component_config entries.
+            </p>
+        </div>
     </div>
-    <script>
-    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
-    
-    const sourceData = {{ raw_json | safe }};
-    document.addEventListener("copy", function(e) {
-        e.preventDefault();
-        const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for {{ name | e }}\n// From: {{ context_url | e }}\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: {{ generated_date }}\n\n" + jsonString;
-        e.clipboardData.setData("text/plain", copyText);
-    });
-    </script>
-</body>
-</html>
+</section>
+{% endif %}
+
+{# ── Model Family ────────────────────────────────────────────────── #}
+{% if family %}
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+            <h2 class="emd-section-title">Model Family</h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <a class="family-link-card" href="{{ family.page | e }}">
+                <div>
+                    <div class="family-link-card-name">{{ family.name | e }}</div>
+                    <div class="family-link-card-label">Component Family → View full family page</div>
+                </div>
+                <span class="family-link-arrow">→</span>
+            </a>
+            {% if family.description %}
+            <p class="emd-description-text" style="margin-top:1rem;">{{ family.description | e }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ── References ───────────────────────────────────────────────────── #}
+{% set ref_count = references | length if references else 0 %}
+<section class="emd-section{% if ref_count > 0 %} expanded{% endif %}">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.reference | safe }}</div>
+            <h2 class="emd-section-title">References <span class="emd-section-count">({{ ref_count }})</span></h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            {% if references %}
+            {% for ref in references %}
+            <a href="{{ ref | e }}" class="emd-reference-item" target="_blank">
+                <div class="emd-reference-icon">{{ icons.description | safe }}</div>
+                <span class="emd-reference-text">{{ ref | e }}</span>
+                <span class="emd-reference-arrow">→</span>
+            </a>
+            {% endfor %}
+            {% else %}
+            <p class="emd-description-text">No references available.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{# ── Technical Details ────────────────────────────────────────────── #}
+<section class="emd-section">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+            <h2 class="emd-section-title">Technical Details</h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <div class="emd-tech-grid">
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Resource Identifier (@id)</div>
+                    <div class="emd-tech-value">{{ id | e }}</div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Validation Key</div>
+                    <div class="emd-tech-value">{{ validation_key | e if validation_key else 'N/A' }}</div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">JSON-LD Context</div>
+                    <div class="emd-tech-value"><a href="{{ context_url | e }}" target="_blank">{{ context_url | replace('https://', '') | e }}</a></div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Resource Types</div>
+                    <div class="emd-type-badges">
+                        {% for t in types %}<span class="emd-type-badge">{{ t | e }}</span>{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+{% if component_domain %}
+// Apply domain colour to header left border
+(function() {
+    const pill = document.querySelector('.emd-domain-pill');
+    const header = document.querySelector('.emd-header');
+    if (pill && header) {
+        const color = getComputedStyle(pill).getPropertyValue('--sd-color').trim();
+        if (color) { header.classList.add('has-domain'); header.style.setProperty('--sd-color', color); }
+    }
+})();
+{% endif %}
+const sourceData = {{ raw_json | safe }};
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+    e.clipboardData.setData("text/plain",
+        "// JSON-LD: {{ name | e }}\n// Generated: {{ generated_date }}\n\n" +
+        JSON.stringify(sourceData, null, 2));
+});
+{% endblock %}
