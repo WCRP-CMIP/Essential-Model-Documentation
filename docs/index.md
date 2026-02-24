@@ -63,7 +63,7 @@ flowchart TD
 
 An on-line creation tool is used for CMIP7 model registration, and this tool collects the content that is recorded in the EMD. Submissions are validated against the EMD schema and reviewed by a domain scientist. When the EMD is accepted, the model registration is completed. The tool also enables those documenting a model to import documentation from earlier registered models, model components, and grids, which can then be edited if required.
 
-Full instructions are given in the [submission guide](01_submission-guide.md).
+Full instructions are given in the [submission guide](Submission-Guide/).
 
 ## References
 

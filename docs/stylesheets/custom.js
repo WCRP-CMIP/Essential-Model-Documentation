@@ -97,42 +97,22 @@ window.nestedNavBuilt = true;
 
 function fixNavDisplay() {
   // Fix nav text that shows prefixed folder/file names in shadcn sidebar
-  // Replace all text nodes containing numeric prefixes
+  // This needs to run AFTER the nav is rendered
   
-  // Target all nav elements
-  const navSelectors = [
-    '[data-slot="sidebar-group-label"]',  // Group titles like "EMD Repository:"
-    '[data-slot="sidebar-menu-item"]',     // Menu items
-    '[data-slot="sidebar-label"]'          // Labels
-  ];
-  
-  navSelectors.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      // Process all child nodes recursively
-      walkAndCleanTextNodes(el);
+  // Wait a tick to ensure DOM is ready
+  setTimeout(() => {
+    // Replace text in all nav elements
+    document.querySelectorAll('[data-slot="sidebar-menu-button"], [data-slot="sidebar-group-label"]').forEach(el => {
+      // Get the text content
+      const text = el.textContent;
+      // Check if it has a numeric prefix
+      if (text && /^\d+[-_.]/.test(text.trim())) {
+        // Replace the numeric prefix
+        const cleaned = text.replace(/^\s*(\d+[-_.])(.+?)(\s*)$/m, '$2');
+        el.textContent = cleaned;
+      }
     });
-  });
-  
-  function walkAndCleanTextNodes(node) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      // Replace patterns like "01_Submission-Guide" with "Submission Guide"
-      const cleaned = node.textContent.replace(/(\d+[-_.])([A-Za-z_\-]+)/g, (match, p1, p2) => {
-        return p2.replace(/_/g, ' ').replace(/-/g, ' ');
-      });
-      if (cleaned !== node.textContent) {
-        node.textContent = cleaned;
-      }
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      // Skip code/pre elements
-      if (['CODE', 'PRE', 'SCRIPT', 'STYLE'].includes(node.tagName)) {
-        return;
-      }
-      // Recursively process children
-      for (let child of node.childNodes) {
-        walkAndCleanTextNodes(child);
-      }
-    }
-  }
+  }, 50);
 }
 
 function init() {

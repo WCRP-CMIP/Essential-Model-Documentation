@@ -64,16 +64,16 @@ def main():
     print("Index Page Generator")
     print("=" * 40)
     
-    # New directory structure in 1_Explore_The_EMD
-    explore_dir = DOCS_DIR / "1_Explore_The_EMD"
+    # Directory structure under 10_EMD_Repository
+    explore_dir = DOCS_DIR / "10_EMD_Repository"
     
     directories = [
-        (explore_dir / "Horizontal_Computational_Grids", "Horizontal Computational Grids", "Horizontal grid configurations used by model components."),
-        (explore_dir / "Vertical_Computational_Grids", "Vertical Computational Grids", "Vertical coordinate systems and layer structures."),
-        (explore_dir / "Model_Components", "Model Components", "Individual model components (atmosphere, ocean, land, etc.)."),
-        (explore_dir / "Component_Families", "Component Families", "Families of related model components sharing common code."),
-        (explore_dir / "ESM_Families", "ESM Families", "Earth System Model families and lineages."),
-        (explore_dir / "Models", "Models", "Complete coupled climate models (source_id)."),
+        (explore_dir / "05_Horizontal_Computational_Grids", "Horizontal Computational Grids", "Horizontal grid configurations used by model components."),
+        (explore_dir / "06_Vertical_Computational_Grids", "Vertical Computational Grids", "Vertical coordinate systems and layer structures."),
+        (explore_dir / "02_Model_Components", "Model Components", "Individual model components (atmosphere, ocean, land, etc.)."),
+        (explore_dir / "03_Component_Families", "Component Families", "Families of related model components sharing common code."),
+        (explore_dir / "04_Earth_System_Model_Families", "ESM Families", "Earth System Model families and lineages."),
+        (explore_dir / "01_Models", "Models", "Complete coupled climate models (source_id)."),
     ]
     
     total = 0
