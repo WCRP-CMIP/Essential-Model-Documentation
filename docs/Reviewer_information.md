@@ -15,7 +15,7 @@ EMD entries are submitted through online forms. Before a submission reaches you 
 
 ### Step 1: Submission
 
-A modelling group fills in a structured form on GitHub. No programming or Git knowledge is needed.
+A modelling group fills in a structured form. No programming or Git knowledge is needed.
 
 ```mermaid
 flowchart LR
