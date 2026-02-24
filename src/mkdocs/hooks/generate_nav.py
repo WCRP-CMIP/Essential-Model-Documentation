@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
 Navigation generation hook for MkDocs.
-Generates SUMMARY.md for literate-nav plugin using on_config hook.
-Keeps original paths with prefixes so MkDocs can find source files.
-Post-build hook handles URL cleaning after site is built.
+- on_config : generates SUMMARY.md (kept for reference)
+- on_files  : scans ALL script-generated HTML/MD files and injects them into
+              the MkDocs file collection + rebuilds the nav dynamically.
+              Runs AFTER gen-files plugin so every generated file is on disk.
 """
 
 import os
@@ -12,202 +13,206 @@ import yaml
 from pathlib import Path
 
 
+# ── Directories produced by docs/scripts/*.py ────────────────────────────────
+# Paths are relative to docs_dir.  Add new output dirs here as scripts grow.
+GENERATED_DIRS = [
+    "10_EMD_Repository/01_Models",
+    "10_EMD_Repository/02_Model_Components",
+    "10_EMD_Repository/03_Component_Families",
+    "10_EMD_Repository/04_Earth_System_Model_Families",
+    "10_EMD_Repository/05_Horizontal_Computational_Grids",
+    "10_EMD_Repository/06_Vertical_Computational_Grids",
+    "110_Data_Summaries",
+]
+
+# Dirs/files to ignore when scanning docs_dir
+EXCLUDE = {'scripts', 'assets', 'stylesheets', '__pycache__', 'Visualizations',
+           'SUMMARY.md', 'links.yml', 'json'}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# on_files  — inject generated files + rebuild nav
+# ─────────────────────────────────────────────────────────────────────────────
+
+def on_files(files, config):
+    """
+    1. Scan all GENERATED_DIRS for .html and .md files not yet known to MkDocs.
+    2. Add missing files to the Files collection so they are copied to build.
+    3. Rebuild config['nav'] from the full on-disk state of docs/.
+    """
+    from mkdocs.structure.files import File
+
+    docs_dir  = Path(config['docs_dir']).resolve()
+    site_dir  = Path(config['site_dir']).resolve()
+    use_dir   = config.get('use_directory_urls', True)
+
+    # Index existing src paths so we don't double-add
+    existing = {f.src_path for f in files}
+    added = 0
+
+    for rel_dir in GENERATED_DIRS:
+        abs_dir = docs_dir / rel_dir
+        if not abs_dir.exists():
+            continue
+        for fpath in sorted(abs_dir.iterdir()):
+            if fpath.suffix not in ('.html', '.md'):
+                continue
+            src = str(fpath.relative_to(docs_dir))
+            if src in existing:
+                continue
+            mf = File(src, str(docs_dir), str(site_dir), use_dir)
+            files.append(mf)
+            existing.add(src)
+            added += 1
+
+    if added:
+        print(f"  [generate_nav] Added {added} generated files to MkDocs collection")
+
+    # Rebuild nav from current on-disk state
+    config['nav'] = _build_nav(docs_dir)
+
+    return files
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# on_config  — kept only to write SUMMARY.md (legacy / informational)
+# ─────────────────────────────────────────────────────────────────────────────
+
 def on_config(config):
-    """Hook that runs BEFORE plugins - generates SUMMARY.md."""
     docs_dir = Path(config['docs_dir'])
-    generate_navigation(docs_dir)
+    _write_summary(docs_dir)
     return config
 
 
-def clean_name(name):
-    """Remove numeric prefix from name for display."""
-    return re.sub(r'^\d+[-_.](?=\w)', '', name)
+# ─────────────────────────────────────────────────────────────────────────────
+# Nav building
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _strip_prefix(name):
+    return re.sub(r'^\d+[-_.]', '', name)
+
+def _sort_key(name):
+    m = re.match(r'^(\d+)[-_.]', name.replace('.md','').replace('.html',''))
+    return (int(m.group(1)), name.lower()) if m else (9999, name.lower())
+
+def _title(name):
+    name = _strip_prefix(name)
+    name = re.sub(r'\.(md|html)$', '', name)
+    name = re.sub(r'[_-]', ' ', name).strip()
+    return name[0].upper() + name[1:] if name else name
+
+def _build_nav(docs_dir):
+    """Walk docs_dir and build a MkDocs nav list from what exists on disk."""
+
+    def _scan(path, rel_base):
+        items = []
+        try:
+            entries = sorted(path.iterdir(), key=lambda e: _sort_key(e.name))
+        except PermissionError:
+            return items
+
+        for entry in entries:
+            if entry.name in EXCLUDE or entry.name.startswith('.') or entry.name.startswith('_'):
+                continue
+
+            if entry.is_dir():
+                children = _scan(entry, rel_base)
+                if not children:
+                    continue
+                rel = str(entry.relative_to(rel_base)).replace(os.sep, '/')
+                # Use index.md as section root if available
+                index = rel + '/index.md'
+                if (rel_base / (rel + '/index.md')).exists():
+                    items.append({_title(entry.name): [{ 'Overview': index }] + children})
+                else:
+                    items.append({_title(entry.name): children})
+
+            elif entry.suffix in ('.md', '.html') and entry.name != 'index.md':
+                rel = str(entry.relative_to(rel_base)).replace(os.sep, '/')
+                items.append({_title(entry.name): rel})
+
+        return items
+
+    # Root: index.md first, then everything else
+    root = []
+    if (docs_dir / 'index.md').exists():
+        root.append({'Home': 'index.md'})
+
+    root += _scan(docs_dir, docs_dir)
+    return root
 
 
-def clean_title_folder(name):
-    """Convert folder name to display title."""
-    name = clean_name(name)
-    return name.replace('_', ' ').replace('-', ' ')
+# ─────────────────────────────────────────────────────────────────────────────
+# SUMMARY.md writer (legacy — not used by literate-nav but kept for reference)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _write_summary(docs_path):
+    def _scan(path, base, indent=''):
+        lines = []
+        try:
+            entries = sorted(path.iterdir(), key=lambda e: _sort_key(e.name))
+        except PermissionError:
+            return lines
+        for entry in entries:
+            if entry.name in EXCLUDE or entry.name.startswith('.') or entry.name.startswith('_'):
+                continue
+            if entry.name == 'index.md':
+                continue
+            rel = str(entry.relative_to(base)).replace(os.sep, '/')
+            if entry.is_file() and entry.suffix in ('.md', '.html'):
+                lines.append(f"{indent}- [{_title(entry.name)}]({rel})")
+            elif entry.is_dir():
+                sub = _scan(entry, base, indent + '  ')
+                if sub:
+                    if (entry / 'index.md').exists():
+                        lines.append(f"{indent}- [{_title(entry.name)}]({rel}/index.md)")
+                    else:
+                        lines.append(f"{indent}- {_title(entry.name)}:")
+                    lines += sub
+        return lines
+
+    nav_lines = []
+    if (docs_path / 'index.md').exists():
+        nav_lines.append('- [Home](index.md)')
+    nav_lines += _scan(docs_path, docs_path)
+
+    # Custom links
+    links_path = docs_path / 'links.yml'
+    if links_path.exists():
+        try:
+            import yaml as _yaml
+            data = _yaml.safe_load(links_path.read_text())
+            for link in (data or {}).get('links', []):
+                if isinstance(link, dict) and 'title' in link and 'url' in link:
+                    nav_lines.append(f"- [{link['title']}]({link['url']})")
+        except Exception:
+            pass
+
+    (docs_path / 'SUMMARY.md').write_text('\n'.join(nav_lines), encoding='utf-8')
 
 
-def clean_title_file(filename):
-    """Convert filename to display title."""
-    name = filename.replace('.md', '').replace('.html', '')
-    name = clean_name(name)
-    return name.replace('_', ' ').replace('-', ' ')
-
-
-def get_sort_key(name):
-    """Get sort key for ordering - unprefixed items sort last at 9999."""
-    base = name.replace('.md', '').replace('.html', '')
-    match = re.match(r'^(\d+)[-_.]', base)
-    if match:
-        return (int(match.group(1)), name.lower())
-    return (9999, name.lower())
-
-
+# ── parse_links_file / add_links_to_nav kept for any external callers ─────────
 def parse_links_file(docs_dir):
-    """Parse custom links from YAML file."""
-    links_path = docs_dir / "links.yml"
+    links_path = Path(docs_dir) / "links.yml"
     if not links_path.exists():
         return []
-    
     try:
-        with open(links_path, 'r', encoding='utf-8') as f:
-            data = yaml.safe_load(f)
-        return data.get('links', []) if data else []
-    except:
+        import yaml as _yaml
+        data = _yaml.safe_load(links_path.read_text())
+        return (data or {}).get('links', [])
+    except Exception:
         return []
 
-
 def add_links_to_nav(nav_lines, links):
-    """Add links directly to navigation."""
-    if not links:
-        return nav_lines
-    
-    categories = {}
-    root_links = []
-    
     for link in links:
-        if not isinstance(link, dict) or 'title' not in link or 'url' not in link:
-            continue
-        cat = link.get('category')
-        if cat:
-            categories.setdefault(cat, []).append(link)
-        else:
-            root_links.append(link)
-    
-    for link in root_links:
-        nav_lines.append(f"- [{link['title']}]({link['url']})")
-    
-    for cat_name in sorted(categories.keys()):
-        nav_lines.append(f'- {cat_name}:')
-        for link in categories[cat_name]:
-            nav_lines.append(f"  - [{link['title']}]({link['url']})")
-    
+        if isinstance(link, dict) and 'title' in link and 'url' in link:
+            nav_lines.append(f"- [{link['title']}]({link['url']})")
     return nav_lines
 
 
-def build_tree(docs_path, exclude=None):
-    """Build directory tree with files and dirs as unified items.
-    Uses ORIGINAL paths with prefixes - post_build.py handles URL cleaning."""
-    if exclude is None:
-        exclude = {'scripts', 'assets', 'stylesheets', '__pycache__', 'Visualizations'}
-    
-    items = []
-    
-    for item in docs_path.iterdir():
-        if item.name.startswith('.') or item.name.startswith('_'):
-            continue
-        if item.name in exclude or item.name in ('SUMMARY.md', 'links.yml'):
-            continue
-        
-        if item.is_file() and item.suffix in ('.md', '.html'):
-            items.append({
-                'type': 'file',
-                'name': item.name,
-                'path': item.name,
-                'sort': get_sort_key(item.name)
-            })
-        elif item.is_dir():
-            subtree = build_subtree(item, docs_path)
-            if subtree:
-                items.append({
-                    'type': 'dir',
-                    'name': item.name,
-                    'children': subtree,
-                    'sort': get_sort_key(item.name)
-                })
-    
-    return items
-
-
-def build_subtree(dir_path, base_path):
-    """Build subtree recursively - excludes index.md (implicit_index handles it)."""
-    items = []
-    
-    for item in dir_path.iterdir():
-        if item.name.startswith('.') or item.name.startswith('_'):
-            continue
-        if item.name == 'index.md':
-            continue
-        
-        rel = item.relative_to(base_path)
-        
-        if item.is_file() and item.suffix in ('.md', '.html'):
-            # Keep original path WITH prefixes for MkDocs to find during build
-            original_path = str(rel).replace(os.sep, '/')
-            items.append({
-                'type': 'file',
-                'name': item.name,
-                'path': original_path,
-                'sort': get_sort_key(item.name)
-            })
-        elif item.is_dir():
-            subtree = build_subtree(item, base_path)
-            if subtree:
-                items.append({
-                    'type': 'dir',
-                    'name': item.name,
-                    'children': subtree,
-                    'sort': get_sort_key(item.name)
-                })
-    
-    return items
-
-
-def items_to_nav(items, nav_lines, indent="", base_path=None):
-    """Convert items to nav lines, sorted by numerical prefix.
-    Uses original paths (with prefixes) - post_build.py cleans URLs after build."""
-    for item in sorted(items, key=lambda x: x['sort']):
-        if item['type'] == 'file':
-            title = clean_title_file(item['name'])
-            # Use original path WITH prefix - MkDocs needs it to find the file
-            nav_lines.append(f"{indent}- [{title}]({item['path']})")
-        else:
-            title = clean_title_folder(item['name'])
-            # Check if folder has index.md
-            if base_path:
-                folder_path = base_path / item['name']
-                if (folder_path / 'index.md').exists():
-                    # Make section header a clickable link to index.md
-                    index_path = f"{item['name']}/index.md"
-                    nav_lines.append(f'{indent}- [{title}]({index_path})')
-                else:
-                    # Just a section header
-                    nav_lines.append(f'{indent}- {title}:')
-            else:
-                nav_lines.append(f'{indent}- {title}:')
-            items_to_nav(item['children'], nav_lines, indent + "  ", base_path)
-
-
-def generate_navigation(docs_path):
-    """Generate SUMMARY.md with ORIGINAL paths (prefixed).
-    Post-build hook will clean URLs and rename files AFTER build completes."""
-    items = build_tree(docs_path)
-    nav_lines = []
-    
-    # Separate index.md from other items
-    index_item = None
-    other_items = []
-    
-    for item in items:
-        if item['type'] == 'file' and item['name'] == 'index.md':
-            index_item = item
-        else:
-            other_items.append(item)
-    
-    # Add index.md first
-    if index_item:
-        nav_lines.append('- [Home](index.md)')
-    
-    # Add other items sorted by prefix
-    items_to_nav(other_items, nav_lines, "", docs_path)
-    
-    # Add custom links from links.yml
-    links = parse_links_file(docs_path)
-    nav_lines = add_links_to_nav(nav_lines, links)
-    
-    # Write SUMMARY.md
-    with open(docs_path / 'SUMMARY.md', 'w', encoding='utf-8') as f:
-        f.write('\n'.join(nav_lines))
+# Legacy aliases kept so other hooks don't break
+def clean_name(name):        return _strip_prefix(name)
+def get_sort_key(name):      return _sort_key(name)
+def clean_title_file(name):  return _title(name)
+def clean_title_folder(name):return _title(name)
+def generate_navigation(docs_path): _write_summary(docs_path)
