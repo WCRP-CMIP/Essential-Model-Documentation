@@ -82,7 +82,7 @@
     "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
     "family": "clm",
     "name": "CLM4",
-    "references": [],
+    "references": "https://doi.org/10.5194/gmd-5-1341-2012",
     "ui_label": "",
     "validation_key": "clm4"
   },
@@ -153,7 +153,7 @@
         "validation_key": "gelato"
       },
       "name": "GELATO",
-      "references": "https://doi.org/10.1029/2019MS001683",
+      "references": [],
       "ui_label": "",
       "validation_key": "gelato"
     },
@@ -276,7 +276,7 @@
     "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
     "family": "reprobus",
     "name": "REPROBUS-C (v2.0)",
-    "references": "https://doi.org/10.1029/2019MS001816",
+    "references": [],
     "ui_label": "",
     "validation_key": "reprobus-c_v2_0"
   },
@@ -304,7 +304,7 @@
     "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
     "family": "surfex",
     "name": "SURFEX v8 modeling platform",
-    "references": [],
+    "references": "https://doi.org/10.3402/tellusa.v68.31274",
     "ui_label": "",
     "validation_key": "surfex_v8_modeling_platform"
   },

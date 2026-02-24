@@ -14,4 +14,4 @@ Component-grid configurations (Stage 3 output).
 | **ocean_nemo_v3_6_h101_v103** | NEMO v3.6 with h101 and v103 | Configuration for NEMO v3.6 with horizontal gri... | nemo-v3-6 | h101 | v103 |
 | **sea_ice_gelato_h101_v104** | GELATO with h101 and v104 | Configuration for GELATO with horizontal grid h... | gelato | h101 | v104 |
 
-*Generated: 2026-02-24 03:05*
+*Generated: 2026-02-24 03:09*
