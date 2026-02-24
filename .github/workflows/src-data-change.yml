@@ -11,7 +11,9 @@ on:
   push:
     branches:
       - "src-data"
+
       - "docs"
+
   workflow_dispatch:
 
 jobs:
@@ -45,19 +47,9 @@ jobs:
       - name: Fetch src-data branch
         run: git fetch origin src-data:src-data
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - name: Install CMIPLD
         run: |
-          npm install -g jsonld-recursive
+          npm i -g jsonld-recursive
           pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
 
       - name: Configure Git
@@ -81,10 +73,13 @@ jobs:
           echo "Files now at GITHUB_WORKSPACE:"
           ls "$GITHUB_WORKSPACE"
 
+
       - name: Generate graphs (graphify)
         run: |
           cd "$GITHUB_WORKSPACE"
           graphify --all --output-summary
+
+
 
       - name: Run prepublish scripts
         run: |
@@ -98,6 +93,7 @@ jobs:
             chmod +x "$script"
             bash "$script" || echo "Script failed: $(basename $script)"
           done
+
 
       - name: Commit data to production
         id: commit_data
@@ -113,10 +109,11 @@ jobs:
             git push origin production
             echo "Data committed and pushed to production"
             echo "## Data sync" >> $GITHUB_STEP_SUMMARY
-            echo "Vocab data committed to production and live at emd.mipcvs.dev" >> $GITHUB_STEP_SUMMARY
+            echo "Vocab data committed to production" >> $GITHUB_STEP_SUMMARY
           fi
 
   # ── Job 2: build docs ────────────────────────────────────────────────────
+
   build_docs:
     needs: sync_data
     if: ${{ !failure() && !cancelled() }}
@@ -161,7 +158,7 @@ jobs:
           if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
             pip install -r "$MKDOCS_DIR/requirements.txt"
           else
-            echo "WARNING: $MKDOCS_DIR/requirements.txt not found, using fallback"
+            echo "WARNING: requirements.txt not found, using fallback"
             pip install mkdocs mkdocs-material mkdocs-shadcn mkdocs-gen-files mkdocs-literate-nav pymdown-extensions beautifulsoup4 cmipld
           fi
 
@@ -172,7 +169,6 @@ jobs:
 
       - name: Build MkDocs site
         run: |
-
           ldr server stop 2>/dev/null || true
           ldr server start
           echo "LDR server started"
@@ -180,8 +176,8 @@ jobs:
           mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
 
           BUILD_DIR="$GITHUB_WORKSPACE/src/mkdocs/build"
-          if [ ! -d "$BUILD_DIR" ]; then BUILD_DIR="$GITHUB_WORKSPACE/src/mkdocs/site"; fi
-          if [ ! -d "$BUILD_DIR" ]; then BUILD_DIR="$GITHUB_WORKSPACE/site"; fi
+          if [ ! -d "$BUILD_DIR" ]; then BUILD_DIR="$GITHUB_WORKSPACE/src/mkdocs/build"; fi
+          if [ ! -d "$BUILD_DIR" ]; then BUILD_DIR="$GITHUB_WORKSPACE/build"; fi
           if [ ! -d "$BUILD_DIR" ]; then echo "Error: no build dir"; exit 1; fi
 
           rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs"
@@ -211,6 +207,8 @@ jobs:
           git commit -m "Build documentation from docs branch"
           git push origin production
 
+
+
   deploy:
     needs: build_docs
     if: ${{ needs.build_docs.outputs.has_changes == 'true' }}
@@ -233,3 +231,4 @@ jobs:
         run: |
           echo "## Deployed" >> $GITHUB_STEP_SUMMARY
           echo "URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+
