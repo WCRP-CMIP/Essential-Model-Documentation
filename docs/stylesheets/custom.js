@@ -351,6 +351,9 @@ function setupCollapsibleNav() {
     item.style.visibility = 'visible';
     item.style.opacity = '1';
   });
+  
+  // Clean nav display after setup
+  fixNavDisplay();
 }
 
 // ============================================
