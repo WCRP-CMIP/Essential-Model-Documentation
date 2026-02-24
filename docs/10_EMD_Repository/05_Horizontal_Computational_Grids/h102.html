@@ -209,60 +209,11 @@
                             <span class="emd-domain-card-type">Subgrid</span>
                         </div>
                         
-                        <p class="emd-domain-card-description">Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.</p>
-                        
 
                         
                         
-                        <div class="tag-row">
-                            
-                            <span class="cv-tag primary" title="Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.">Mass</span>
-                            
-                            <span class="cv-tag primary" title="Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.">X Velocity</span>
-                            
-                            <span class="cv-tag primary" title="Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.">Y Velocity</span>
-                            
-                        </div>
-                        
 
                         
-                        
-                        
-                        <div class="gc-info">
-                            <div class="gc-info-title">Grid Cells — g103</div>
-                            
-                            <p style="font-size:0.8rem;color:var(--emd-secondary);margin-bottom:0.5rem;line-height:1.5;">Adaptive polar stereographic mesh for ice sheets with variable resolution (9.6 km to 1.2 km for Greenland, 8 km to 2 km for Antarctica).</p>
-                            
-                            <div class="gc-stats">
-                                
-                                
-                                
-                                <div class="gc-stat">
-                                    <span class="gc-stat-label">Grid Type</span>
-                                    <span class="gc-stat-value" title="Any transformation employed to represent the spherical surface of the globe on a plane.">Plane Projection</span>
-                                </div>
-                                
-                                
-                                <div class="gc-stat">
-                                    <span class="gc-stat-label">Projection</span>
-                                    <span class="gc-stat-value" title="An azimuthal projection that maps the Earth&#39;s surface onto a flat plane from a view point at one pole, projecting points from the globe to a plane tangent to the opposite pole, as defined by the CF conventions.">Polar Stereographic</span>
-                                </div>
-                                
-                                
-                                <div class="gc-stat">
-                                    <span class="gc-stat-label">Temporal</span>
-                                    <span class="gc-stat-value" title="Grid resolution changes dynamically during the simulation based on solution features.">Adaptive</span>
-                                </div>
-                                
-                                
-                                
-                            </div>
-                            
-                            <div class="tag-row">
-                                <span class="cv-tag" title="Located in the Northern Atlantic Ocean, separated from other land masses by the Labrador Sea and Straits, and almost entirely north of 60 degrees North latitude.">Greenland</span><span class="cv-tag" title="Located around the South Pole, separated from other land masses by the Southern Ocean, and almost entirely south of 60 degrees South latitude.">Antarctica</span>
-                            </div>
-                            
-                        </div>
                         
                     </div>
                     
@@ -318,8 +269,8 @@
     <footer class="emd-footer">
         <p class="emd-footer-text">
             Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a>
-            · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative
-            · Generated 2026-02-22 23:18 UTC
+
+            · Generated 2026-02-24 01:02 UTC
         </p>
     </footer>
 </div>
@@ -346,137 +297,14 @@ const sourceData = {
     "validation_key": "arakawa-c"
   },
   "description": "Arakawa-C grid with adaptive mesh refinement for ice sheet modelling.",
-  "horizontal_subgrids": {
-    "@id": "s103",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_subgrid",
-      "esgvoc:HorizontalSubgrid"
-    ],
-    "cell_variable_type": [
-      {
-        "@id": "mass",
-        "@type": [
-          "universal",
-          "wcrp:cell_variable_type",
-          "esgvoc:CellVariableType",
-          "constants"
-        ],
-        "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
-        "ui_label": "Mass",
-        "validation_key": "mass"
-      },
-      {
-        "@id": "x-velocity",
-        "@type": [
-          "universal",
-          "wcrp:cell_variable_type",
-          "esgvoc:CellVariableType",
-          "constants"
-        ],
-        "description": "Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.",
-        "ui_label": "X Velocity",
-        "validation_key": "x-velocity"
-      },
-      {
-        "@id": "y-velocity",
-        "@type": [
-          "universal",
-          "wcrp:cell_variable_type",
-          "esgvoc:CellVariableType",
-          "constants"
-        ],
-        "description": "Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.",
-        "ui_label": "Y Velocity",
-        "validation_key": "y-velocity"
-      }
-    ],
-    "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
-    "horizontal_grid_cells": {
-      "@id": "g103",
-      "@type": [
-        "emd",
-        "wcrp:horizontal_grid_cells",
-        "esgvoc:HorizontalGridCells"
-      ],
-      "description": "Adaptive polar stereographic mesh for ice sheets with variable resolution (9.6 km to 1.2 km for Greenland, 8 km to 2 km for Antarctica).",
-      "grid_mapping": {
-        "@id": "polar-stereographic",
-        "@type": [
-          "universal",
-          "wcrp:grid_mapping",
-          "esgvoc:GridMapping",
-          "constants"
-        ],
-        "description": "An azimuthal projection that maps the Earth's surface onto a flat plane from a view point at one pole, projecting points from the globe to a plane tangent to the opposite pole, as defined by the CF conventions.",
-        "ui_label": "Polar Stereographic",
-        "validation_key": "polar_stereographic"
-      },
-      "grid_type": {
-        "@id": "plane-projection",
-        "@type": [
-          "universal",
-          "wcrp:grid_type",
-          "esgvoc:GridType",
-          "constants"
-        ],
-        "description": "Any transformation employed to represent the spherical surface of the globe on a plane.",
-        "ui_label": "Plane Projection",
-        "validation_key": "plane_projection"
-      },
-      "region": [
-        {
-          "@id": "greenland",
-          "@type": [
-            "universal",
-            "wcrp:region",
-            "esgvoc:Region",
-            "constants"
-          ],
-          "alias": "gre",
-          "description": "Located in the Northern Atlantic Ocean, separated from other land masses by the Labrador Sea and Straits, and almost entirely north of 60 degrees North latitude.",
-          "ui_label": "Greenland",
-          "validation_key": "greenland"
-        },
-        {
-          "@id": "antarctica",
-          "@type": [
-            "universal",
-            "wcrp:region",
-            "esgvoc:Region",
-            "constants"
-          ],
-          "alias": "ant",
-          "description": "Located around the South Pole, separated from other land masses by the Southern Ocean, and almost entirely south of 60 degrees South latitude.",
-          "ui_label": "Antarctica",
-          "validation_key": "antarctica"
-        }
-      ],
-      "temporal_refinement": {
-        "@id": "adaptive",
-        "@type": [
-          "universal",
-          "wcrp:temporal_refinement",
-          "esgvoc:TemporalRefinement",
-          "constants"
-        ],
-        "description": "Grid resolution changes dynamically during the simulation based on solution features.",
-        "ui_label": "Adaptive",
-        "validation_key": "adaptive"
-      },
-      "ui_label": "",
-      "validation_key": "g103"
-    },
-    "ui_label": "",
-    "validation_key": "s103"
-  },
+  "horizontal_subgrids": "s103",
   "ui_label": "",
   "validation_key": "h102"
 };
 document.addEventListener("copy", function(e) {
     e.preventDefault();
     e.clipboardData.setData("text/plain",
-        "// JSON-LD: h102\n// Generated: 2026-02-22 23:18 UTC\n\n" +
+        "// JSON-LD: h102\n// Generated: 2026-02-24 01:02 UTC\n\n" +
         JSON.stringify(sourceData, null, 2));
 });
 </script>

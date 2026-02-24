@@ -42,7 +42,7 @@
                     <span class="emd-meta-label">Family</span>
                     <span class="emd-meta-value">
                         
-                        <a href="../03_Component_Families/pisces.html">Pisces</a>
+                        <a href="../Component_Families/pisces.html">Pisces</a>
                         
                     </span>
                 </div>
@@ -78,10 +78,6 @@
                     <div class="emd-section-body">
                         <div class="emd-section-divider"></div>
                         <p class="emd-description-text"><strong>piscesv2-gas</strong> — Pelagic Interaction <strong>Scheme</strong> for <strong>Carbon</strong> and <strong>Ecosystem</strong> Studies model volume 2 version trace gases.</p>
-                        
-                        <p class="emd-description-text" style="margin-top: 1rem;">
-                            <strong>Family:</strong> Pelagic Interaction Scheme for Carbon and Ecosystem Studies ocean biogeochemistry model family.
-                        </p>
                         
                     </div>
                 </div>
@@ -179,7 +175,7 @@
         </main>
 
         <footer class="emd-footer">
-            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Part of the <a href="https://wcrp-cmip.org/" class="emd-footer-link" target="_blank">WCRP CMIP</a> initiative · Generated 2026-02-21 13:33 UTC</p>
+            <p class="emd-footer-text">Data sourced from <a href="https://emd.mipcvs.dev/" class="emd-footer-link" target="_blank">EMD Registry</a> · Generated 2026-02-24 01:02 UTC</p>
         </footer>
     </div>
     <script>
@@ -211,84 +207,7 @@
     "validation_key": "ocean_biogeochemistry"
   },
   "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies model volume 2 version trace gases.",
-  "family": {
-    "@id": "pisces",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies ocean biogeochemistry model family.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": {
-      "@id": "ipsl",
-      "@type": [
-        "wcrp:organisation",
-        "esgvoc:Organisation",
-        "universal",
-        "constants"
-      ],
-      "acronyms": "IPSL",
-      "aliases": [],
-      "description": "",
-      "established": 1991,
-      "kind": "facility",
-      "labels": "Institut Pierre-Simon Laplace",
-      "location": {
-        "@id": "universal:location/02haar591",
-        "@type": "wcrp:location",
-        "continent_code": "EU",
-        "continent_name": "Europe",
-        "country_code": "FR",
-        "country_name": "France",
-        "country_subdivision_code": "IDF",
-        "country_subdivision_name": "\u00cele-de-France",
-        "lat": 48.85341,
-        "lng": 2.3488,
-        "name": "Paris"
-      },
-      "ror": "02haar591",
-      "ui_label": "Institut Pierre-Simon Laplace",
-      "url": [
-        "https://www.ipsl.fr/en/",
-        "https://en.wikipedia.org/wiki/Institut_Pierre_Simon_Laplace"
-      ],
-      "validation_key": "IPSL"
-    },
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": {
-      "@id": "ocean-biogeochemistry",
-      "@type": [
-        "wcrp:scientific_domain",
-        "esgvoc:ScientificDomain",
-        "universal",
-        "constants"
-      ],
-      "alias": [
-        "ocnbgchem",
-        "ocnBgchem"
-      ],
-      "description": "Ocean Biogeochemistry",
-      "ui_label": "Ocean Biogeochemistry",
-      "validation_key": "ocean_biogeochemistry"
-    },
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "pisces",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
+  "family": "pisces",
   "name": "PISCESv2-gas",
   "references": [],
   "ui_label": "",
@@ -297,7 +216,7 @@
     document.addEventListener("copy", function(e) {
         e.preventDefault();
         const jsonString = JSON.stringify(sourceData, null, 2);
-        const copyText = "// JSON-LD Source Data for piscesv2-gas\n// From: emd:model_component/piscesv2-gas\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-21 13:33 UTC\n\n" + jsonString;
+        const copyText = "// JSON-LD Source Data for piscesv2-gas\n// From: emd:model_component/piscesv2-gas\n// EMD Registry: https://emd.mipcvs.dev/\n// Generated: 2026-02-24 01:02 UTC\n\n" + jsonString;
         e.clipboardData.setData("text/plain", copyText);
     });
     </script>

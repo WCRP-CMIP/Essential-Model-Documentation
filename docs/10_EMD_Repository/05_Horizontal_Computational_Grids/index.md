@@ -1,8 +1,6 @@
 # Horizontal Computational Grids
 
-Horizontal grid configurations used by model components.
-
-**Total entries:** 4
+**Total entries:** 8
 
 ---
 
@@ -10,7 +8,11 @@ Horizontal grid configurations used by model components.
 - [C101](c101.html)
 - [C102](c102.html)
 - [C103](c103.html)
+- [H100](h100.html)
+- [H101](h101.html)
+- [H102](h102.html)
+- [H103](h103.html)
 
 ---
 
-*Generated: 2026-02-18 22:51 UTC*
+*Generated: 2026-02-24 01:02 UTC*

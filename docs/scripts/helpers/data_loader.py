@@ -52,6 +52,9 @@ def _ensure_server():
         pass
     try:
         subprocess.run(["ldr", "server", "start"], capture_output=True, timeout=10)
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            print("Running in GitHub Actions")
+            
     except Exception:
         pass
 
