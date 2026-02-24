@@ -14,4 +14,4 @@ Vertical grid configurations (Stage 2b).
 | **v105** | The bottom level of the snowpack, which starts ... | land_ice_sigma_coordinate | 20 | 0.04 | ** | ** |
 | **v106** | Vegetated, wetland, and glacier landunits have ... | depth | ** | ** | ** | ** |
 
-*Generated: 2026-02-24 23:07*
+*Generated: 2026-02-24 23:13*

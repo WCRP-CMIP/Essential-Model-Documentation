@@ -14,7 +14,7 @@ Registered model components (Stage 3 input).
 | **nemo_v3_6** | NEMO v3.6 | Nucleus for European Modelling of the Ocean ver... | ocean | nemo | private | ** |
 | **piscesv2-gas** | PISCESv2-gas | Pelagic Interaction Scheme for Carbon and Ecosy... | ocean_biogeochemistry | pisces | https://gitlab.in2p3.fr/pisco/pisces-gas/pisces... | ** |
 | **reprobus-c_v2_0** | REPROBUS-C (v2.0) | The chemistry scheme of CNRM-ESM2 is an on-line... | atmospheric_chemistry | reprobus | private | ** |
-| **surfex_v8_modeling_platform** | SURFEX v8 modeling platform | SURFEXv8.0 encompasses several submodules for m... | land_surface | surfex | https://www.umr-cnrm.fr/surfex/spip.php?rubrique8 | https://doi.org/10.1029/2018MS001545 |
+| **surfex_v8_modeling_platform** | SURFEX v8 modeling platform | SURFEXv8.0 encompasses several submodules for m... | land_surface | surfex | https://www.umr-cnrm.fr/surfex/spip.php?rubrique8 | https://doi.org/10.3402/tellusa.v68.31274 |
 | **tactic** | TACTIC | TACTIC (Tropospheric Aerosols for ClimaTe In CN... | aerosol | tactic | private | ** |
 
-*Generated: 2026-02-24 23:07*
+*Generated: 2026-02-24 23:13*
