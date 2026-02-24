@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reprobus-c_v2_0 | Model Component | Essential Model Documentation</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <style>
+    /* ── Collapsible nav bar ─────────────────────────────────────────── */
+    .emd-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--emd-surface);
+        border-bottom: 1px solid var(--emd-border);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .emd-nav-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 0 1.25rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .emd-nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--emd-text);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    .emd-nav-brand svg {
+        flex-shrink: 0;
+    }
+    .emd-nav-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--emd-text-muted);
+        padding: 0.25rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        transition: color 0.15s, background 0.15s;
+    }
+    .emd-nav-toggle:hover { color: var(--emd-primary); background: var(--emd-bg); }
+    .emd-nav-links {
+        display: none;
+        border-top: 1px solid var(--emd-border);
+        background: var(--emd-surface);
+    }
+    .emd-nav-links.open { display: block; }
+    .emd-nav-links-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.5rem 1.25rem;
+    }
+    .emd-nav-links a {
+        font-size: 0.825rem;
+        color: var(--emd-text-muted);
+        text-decoration: none;
+        padding: 0.3rem 0.75rem;
+        border-radius: 5px;
+        transition: color 0.15s, background 0.15s;
+    }
+    .emd-nav-links a:hover { color: var(--emd-primary); background: var(--emd-bg); }
+
+    /* ── MkDocs-style footer ─────────────────────────────────────────── */
+    .emd-site-footer {
+        margin-top: 3rem;
+        border-top: 1px solid var(--emd-border);
+        background: var(--emd-surface);
+    }
+    .emd-site-footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .emd-site-footer p {
+        font-size: 0.75rem;
+        color: var(--emd-text-muted);
+        margin: 0;
+    }
+    .emd-site-footer a {
+        color: var(--emd-primary);
+        text-decoration: none;
+    }
+    .emd-site-footer a:hover { text-decoration: underline; }
+    .emd-site-footer-right {
+        font-size: 0.75rem;
+        color: var(--emd-text-muted);
+    }
+    </style>
+    
+<link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
+<style>
+/* ── Domain accent header ───────────────────────────────────── */
+.emd-header.has-domain {
+    border-left: 4px solid var(--sd-color, var(--emd-primary));
+}
+/* ── Plain-language callout ─────────────────────────────────── */
+.plain-summary {
+    background: rgba(37,99,235,0.05);
+    border-radius: var(--emd-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--emd-text);
+}
+.plain-summary strong { color: var(--emd-primary); }
+/* ── Domain pill in header ──────────────────────────────────── */
+.emd-domain-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--sd-color, var(--emd-primary));
+    background: var(--sd-bg, #eff6ff);
+    color: var(--sd-color, var(--emd-primary));
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+/* ── Family link card ───────────────────────────────────────── */
+.family-link-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.1rem;
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: var(--emd-radius);
+    text-decoration: none;
+    color: var(--emd-text);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.family-link-card:hover { box-shadow: var(--emd-shadow); border-color: var(--emd-primary); }
+.family-link-card-name { font-weight: 600; font-size: 1rem; }
+.family-link-card-label { font-size: 0.75rem; color: var(--emd-text-muted); margin-top: 0.15rem; }
+.family-link-arrow { font-size: 1.2rem; color: var(--emd-text-muted); }
+</style>
+
+</head>
+<body class="emd-page">
+
+    <!-- ── Hidden nav bar ────────────────────────────────────────────── -->
+    <nav class="emd-nav" aria-label="Site navigation">
+        <div class="emd-nav-bar">
+            <a class="emd-nav-brand" href="../../index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20" aria-hidden="true">
+                    <rect width="256" height="256" fill="none"/>
+                    <line x1="208" y1="128" x2="128" y2="208" fill="none"
+                          stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                    <line x1="192" y1="40" x2="40" y2="192" fill="none"
+                          stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                </svg>
+                Essential Model Documentation
+            </a>
+            <button class="emd-nav-toggle" onclick="toggleNav(this)" aria-label="Toggle navigation" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="emd-nav-links" id="emd-nav-links">
+            <div class="emd-nav-links-inner">
+                <a href="../../index.html">Home</a>
+                <a href="../../01_submission-guide.html">Submission Guide</a>
+                <a href="../../1_Explore_The_EMD/Models/">Models</a>
+                <a href="../../1_Explore_The_EMD/Earth_System_Model_Families/">Earth System Model Families</a>
+                <a href="../../1_Explore_The_EMD/Component_Families/">Component Families</a>
+                <a href="../../1_Explore_The_EMD/Model_Components/">Model Components</a>
+                <a href="../../1_Explore_The_EMD/Horizontal_Computational_Grids/">Horizontal Grids</a>
+                <a href="../../1_Explore_The_EMD/Vertical_Computational_Grids/">Vertical Grids</a>
+                <a href="../../Data_Summaries/">Data Summaries</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="emd-container">
+
+        <!-- ── Page header ───────────────────────────────────────────── -->
+        <header class="emd-header">
+            <nav class="emd-breadcrumb" aria-label="Breadcrumb">
+                <a href="../../index.html">Back to Documentation</a>
+                <span>|</span>
+                <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
+                
+<span>→</span>
+<a href="https://emd.mipcvs.dev/model_component/" target="_blank">Model Components</a>
+<span>→</span>
+<span>reprobus-c_v2_0</span>
+
+            </nav>
+            
+
+<div class="emd-domain-pill sd-atmospheric-chemistry">
+    Atmospheric Chemistry
+</div>
+
+<div class="emd-badge">Model Component</div>
+<h1 class="emd-title">reprobus-c_v2_0</h1>
+
+<p class="emd-subtitle">The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.</p>
+<div class="emd-header-meta">
+    
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Family</span>
+        <span class="emd-meta-value">
+            <a href="../Component_Families/reprobus.html">Reprobus</a>
+            
+        </span>
+    </div>
+    
+    
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Scientific Domain</span>
+        <span class="emd-meta-value">Atmospheric Chemistry</span>
+    </div>
+    
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Code Base</span>
+        <span class="emd-meta-value">🔒 Private</span>
+    </div>
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Registry</span>
+        <span class="emd-meta-value"><a href="emd:model_component/reprobus-c-v2-0" target="_blank">JSON-LD →</a></span>
+    </div>
+</div>
+
+        </header>
+
+        <!-- ── Main content ──────────────────────────────────────────── -->
+        <main>
+            
+
+
+<div class="plain-summary">
+    <strong>What is this?</strong>
+    reprobus-c_v2_0 is a <strong>model component</strong> that simulates the
+    <strong>Atmospheric Chemistry</strong>
+    processes within an Earth system model.
+    It belongs to the <strong>Reprobus</strong> model family.
+    The source code is kept private.
+    
+</div>
+
+
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+            <h2 class="emd-section-title">Scientific Description</h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <p class="emd-description-text">The <strong>chemistry</strong> <strong>scheme</strong> of <strong>CNRM</strong>-ESM2 is an <strong>on-line</strong> <strong>scheme</strong> whereby the <strong>chemistry</strong> routines are part of the physics of the <strong>atmospheric</strong> <strong>climate</strong> model.</p>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+            <h2 class="emd-section-title">Scientific Domain</h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <div class="emd-domains-grid">
+                <div class="emd-domain-card sd-atmospheric-chemistry">
+                    <div class="emd-domain-card-header">
+                        <span class="emd-domain-card-title">Atmospheric Chemistry</span>
+                        <span class="emd-domain-card-type">Component Type</span>
+                    </div>
+                    <div class="emd-domain-card-id">atmospheric-chemistry</div>
+                    
+                    <p class="emd-domain-card-description">Atmospheric Chemistry</p>
+                    
+                </div>
+            </div>
+            <p style="margin-top:1rem;font-size:0.875rem;color:var(--emd-text-muted);">
+                Grid configurations for this component are defined per model in the component_config entries.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+            <h2 class="emd-section-title">Model Family</h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <a class="family-link-card" href="../Component_Families/reprobus.html">
+                <div>
+                    <div class="family-link-card-name">Reprobus</div>
+                    <div class="family-link-card-label">Component Family → View full family page</div>
+                </div>
+                <span class="family-link-arrow">→</span>
+            </a>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="emd-section">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+            <h2 class="emd-section-title">References <span class="emd-section-count">(0)</span></h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            
+            <p class="emd-description-text">No references available.</p>
+            
+        </div>
+    </div>
+</section>
+
+
+<section class="emd-section">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+            <h2 class="emd-section-title">Technical Details</h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <div class="emd-tech-grid">
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Resource Identifier (@id)</div>
+                    <div class="emd-tech-value">reprobus-c-v2-0</div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Validation Key</div>
+                    <div class="emd-tech-value">reprobus-c_v2_0</div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">JSON-LD Context</div>
+                    <div class="emd-tech-value"><a href="emd:model_component/reprobus-c-v2-0" target="_blank">emd:model_component/reprobus-c-v2-0</a></div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Resource Types</div>
+                    <div class="emd-type-badges">
+                        <span class="emd-type-badge">emd</span><span class="emd-type-badge">wcrp:model_component</span><span class="emd-type-badge">esgvoc:ModelComponent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        </main>
+
+    </div>
+
+    <!-- ── MkDocs-style site footer ──────────────────────────────────── -->
+    <footer class="emd-site-footer">
+        <div class="emd-site-footer-inner">
+            <p>
+                Data sourced from <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
+                &nbsp;&middot;&nbsp;
+                Part of the <a href="https://wcrp-cmip.org/" target="_blank" rel="noopener">WCRP CMIP</a> initiative
+                &nbsp;&middot;&nbsp;
+                Generated 2026-02-24 22:58 UTC
+            </p>
+            <p class="emd-site-footer-right">
+                <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation" target="_blank" rel="noopener">
+                    WCRP-CMIP/Essential-Model-Documentation
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    // ── Nav toggle ────────────────────────────────────────────────────
+    function toggleNav(btn) {
+        const links = document.getElementById('emd-nav-links');
+        const open = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+    }
+    // Close nav when clicking outside
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.emd-nav');
+        if (!nav.contains(e.target)) {
+            document.getElementById('emd-nav-links').classList.remove('open');
+            document.querySelector('.emd-nav-toggle').setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // ── Section toggle ────────────────────────────────────────────────
+    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
+
+    // ── Breadcrumb depth fix ──────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+        const parts = window.location.pathname.split('/').filter(p => p && !p.endsWith('.html'));
+        const depth = '../'.repeat(Math.max(parts.length - 1, 2));
+        document.querySelectorAll('a[data-depth]').forEach(a => {
+            a.href = depth + a.getAttribute('data-depth');
+        });
+    });
+
+    
+
+// Apply domain colour to header left border
+(function() {
+    const pill = document.querySelector('.emd-domain-pill');
+    const header = document.querySelector('.emd-header');
+    if (pill && header) {
+        const color = getComputedStyle(pill).getPropertyValue('--sd-color').trim();
+        if (color) { header.classList.add('has-domain'); header.style.setProperty('--sd-color', color); }
+    }
+})();
+
+const sourceData = {
+  "@context": "emd:model_component/reprobus-c-v2-0",
+  "@id": "reprobus-c-v2-0",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "code_base": "private",
+  "component": {
+    "@id": "atmospheric-chemistry",
+    "@type": [
+      "wcrp:scientific_domain",
+      "esgvoc:ScientificDomain",
+      "universal",
+      "constants"
+    ],
+    "alias": [
+      "atmoschem",
+      "atmosChem"
+    ],
+    "description": "Atmospheric Chemistry",
+    "ui_label": "Atmospheric Chemistry",
+    "validation_key": "atmospheric_chemistry"
+  },
+  "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
+  "family": "reprobus",
+  "name": "REPROBUS-C (v2.0)",
+  "references": [],
+  "ui_label": "",
+  "validation_key": "reprobus-c_v2_0"
+};
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+    e.clipboardData.setData("text/plain",
+        "// JSON-LD: reprobus-c_v2_0\n// Generated: 2026-02-24 22:58 UTC\n\n" +
+        JSON.stringify(sourceData, null, 2));
+});
+
+    </script>
+  <script>
+(function() {
+  var BASE_URL = "";
+  var NAV = [{"type": "link", "label": "Home", "url": "/"}, {"type": "group", "label": "Submission guide", "url": "/submission-guide/", "children": []}, {"type": "link", "label": "Submission guide", "url": "/submission-guide/"}, {"type": "group", "label": "EMD Repository", "url": "/EMD_Repository/", "children": [{"type": "group", "label": "Models", "url": "/EMD_Repository/Models/", "children": []}, {"type": "group", "label": "Model Components", "url": "/EMD_Repository/Model_Components/", "children": [{"type": "link", "label": "Arpege climat version 6 3", "url": "/EMD_Repository/Model_Components/arpege-climat_version_6_3.html"}, {"type": "link", "label": "Bisicles ukesm ismip6 1 0", "url": "/EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html"}, {"type": "link", "label": "Clm4", "url": "/EMD_Repository/Model_Components/clm4.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Model_Components/gelato.html"}, {"type": "link", "label": "Hadam3", "url": "/EMD_Repository/Model_Components/hadam3.html"}, {"type": "link", "label": "Nemo v3 6", "url": "/EMD_Repository/Model_Components/nemo_v3_6.html"}, {"type": "link", "label": "Piscesv2 gas", "url": "/EMD_Repository/Model_Components/piscesv2-gas.html"}, {"type": "link", "label": "Reprobus c v2 0", "url": "/EMD_Repository/Model_Components/reprobus-c_v2_0.html"}, {"type": "link", "label": "Surfex v8 modeling platform", "url": "/EMD_Repository/Model_Components/surfex_v8_modeling_platform.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Model_Components/tactic.html"}]}, {"type": "group", "label": "Component Families", "url": "/EMD_Repository/Component_Families/", "children": [{"type": "link", "label": "Arpege climat", "url": "/EMD_Repository/Component_Families/arpege-climat.html"}, {"type": "link", "label": "Bisicles", "url": "/EMD_Repository/Component_Families/bisicles.html"}, {"type": "link", "label": "Cam", "url": "/EMD_Repository/Component_Families/cam.html"}, {"type": "link", "label": "Clm", "url": "/EMD_Repository/Component_Families/clm.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Component_Families/gelato.html"}, {"type": "link", "label": "Geos", "url": "/EMD_Repository/Component_Families/geos.html"}, {"type": "link", "label": "Hadam", "url": "/EMD_Repository/Component_Families/hadam.html"}, {"type": "link", "label": "Ifs", "url": "/EMD_Repository/Component_Families/ifs.html"}, {"type": "link", "label": "Nemo", "url": "/EMD_Repository/Component_Families/nemo.html"}, {"type": "link", "label": "Nicam", "url": "/EMD_Repository/Component_Families/nicam.html"}, {"type": "link", "label": "Pisces", "url": "/EMD_Repository/Component_Families/pisces.html"}, {"type": "link", "label": "Reprobus", "url": "/EMD_Repository/Component_Families/reprobus.html"}, {"type": "link", "label": "Surfex", "url": "/EMD_Repository/Component_Families/surfex.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Component_Families/tactic.html"}]}, {"type": "group", "label": "Earth System Model Families", "url": "/EMD_Repository/Earth_System_Model_Families/", "children": [{"type": "link", "label": "Access", "url": "/EMD_Repository/Earth_System_Model_Families/access.html"}, {"type": "link", "label": "Bcc csm", "url": "/EMD_Repository/Earth_System_Model_Families/bcc-csm.html"}, {"type": "link", "label": "Canesm", "url": "/EMD_Repository/Earth_System_Model_Families/canesm.html"}, {"type": "link", "label": "Cesm", "url": "/EMD_Repository/Earth_System_Model_Families/cesm.html"}, {"type": "link", "label": "Cnrm cm", "url": "/EMD_Repository/Earth_System_Model_Families/cnrm-cm.html"}, {"type": "link", "label": "Ec earth", "url": "/EMD_Repository/Earth_System_Model_Families/ec-earth.html"}, {"type": "link", "label": "Fgoals", "url": "/EMD_Repository/Earth_System_Model_Families/fgoals.html"}, {"type": "link", "label": "Gfdl cm4", "url": "/EMD_Repository/Earth_System_Model_Families/gfdl-cm4.html"}, {"type": "link", "label": "Giss e2", "url": "/EMD_Repository/Earth_System_Model_Families/giss-e2.html"}, {"type": "link", "label": "Hadcm2", "url": "/EMD_Repository/Earth_System_Model_Families/hadcm2.html"}, {"type": "link", "label": "Hadgem3", "url": "/EMD_Repository/Earth_System_Model_Families/hadgem3.html"}, {"type": "link", "label": "Icon", "url": "/EMD_Repository/Earth_System_Model_Families/icon.html"}, {"type": "link", "label": "Ipsl cm", "url": "/EMD_Repository/Earth_System_Model_Families/ipsl-cm.html"}, {"type": "link", "label": "Miroc", "url": "/EMD_Repository/Earth_System_Model_Families/miroc.html"}, {"type": "link", "label": "Mpi esm", "url": "/EMD_Repository/Earth_System_Model_Families/mpi-esm.html"}, {"type": "link", "label": "Ukesm1", "url": "/EMD_Repository/Earth_System_Model_Families/ukesm1.html"}]}, {"type": "group", "label": "Horizontal Computational Grids", "url": "/EMD_Repository/Horizontal_Computational_Grids/", "children": [{"type": "link", "label": "H100", "url": "/EMD_Repository/Horizontal_Computational_Grids/h100.html"}, {"type": "link", "label": "H101", "url": "/EMD_Repository/Horizontal_Computational_Grids/h101.html"}, {"type": "link", "label": "H102", "url": "/EMD_Repository/Horizontal_Computational_Grids/h102.html"}, {"type": "link", "label": "H103", "url": "/EMD_Repository/Horizontal_Computational_Grids/h103.html"}]}, {"type": "group", "label": "Vertical Computational Grids", "url": "/EMD_Repository/Vertical_Computational_Grids/", "children": [{"type": "link", "label": "V100", "url": "/EMD_Repository/Vertical_Computational_Grids/v100.html"}, {"type": "link", "label": "V101", "url": "/EMD_Repository/Vertical_Computational_Grids/v101.html"}, {"type": "link", "label": "V102", "url": "/EMD_Repository/Vertical_Computational_Grids/v102.html"}, {"type": "link", "label": "V103", "url": "/EMD_Repository/Vertical_Computational_Grids/v103.html"}, {"type": "link", "label": "V104", "url": "/EMD_Repository/Vertical_Computational_Grids/v104.html"}, {"type": "link", "label": "V105", "url": "/EMD_Repository/Vertical_Computational_Grids/v105.html"}, {"type": "link", "label": "V106", "url": "/EMD_Repository/Vertical_Computational_Grids/v106.html"}]}]}, {"type": "group", "label": "Data Summaries", "url": "/Data_Summaries/", "children": [{"type": "link", "label": "Component config", "url": "/Data_Summaries/component_config/"}, {"type": "link", "label": "Component family", "url": "/Data_Summaries/component_family/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/Data_Summaries/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cells", "url": "/Data_Summaries/horizontal_grid_cells/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/Data_Summaries/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/Data_Summaries/model/"}, {"type": "link", "label": "Model component", "url": "/Data_Summaries/model_component/"}, {"type": "link", "label": "Source family", "url": "/Data_Summaries/source_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/Data_Summaries/vertical_computational_grid/"}]}, {"type": "group", "label": "Reviewer information", "url": "/Reviewer_information/", "children": []}, {"type": "link", "label": "Reviewer information", "url": "/Reviewer_information/"}, {"type": "link", "label": "Contributors", "url": "/Contributors/"}, {"type": "group", "label": "Reviewer information", "url": "/Reviewer_information/", "children": []}, {"type": "link", "label": "Reviewer information", "url": "/Reviewer_information/"}, {"type": "group", "label": "Css", "url": "/css/", "children": [{"type": "group", "label": "Pygments", "url": "/css/pygments/", "children": []}]}, {"type": "group", "label": "Fonts", "url": "/fonts/", "children": [{"type": "group", "label": "Katex", "url": "/fonts/katex/", "children": []}]}, {"type": "group", "label": "Icons", "url": "/icons/", "children": []}, {"type": "group", "label": "Img", "url": "/img/", "children": []}, {"type": "group", "label": "Js", "url": "/js/", "children": []}, {"type": "group", "label": "Search", "url": "/search/", "children": []}, {"type": "group", "label": "Submission guide", "url": "/submission-guide/", "children": []}, {"type": "link", "label": "Submission guide", "url": "/submission-guide/"}, {"type": "group", "label": "Vocabularies", "url": "/vocabularies/", "children": [{"type": "link", "label": "Component config", "url": "/vocabularies/component_config/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/vocabularies/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cells", "url": "/vocabularies/horizontal_grid_cells/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/vocabularies/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/vocabularies/model/"}, {"type": "link", "label": "Model component", "url": "/vocabularies/model_component/"}, {"type": "link", "label": "Model family", "url": "/vocabularies/model_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/vocabularies/vertical_computational_grid/"}]}];
+  var chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+  function currentPath() {
+    return window.location.pathname.replace(/\/$/, '') || '/';
+  }
+  function isActive(url) {
+    var cp = currentPath();
+    var u = (url || '').replace(/\/$/, '');
+    if (!u) return cp === '' || cp === '/';
+    return cp === u || cp.startsWith(u + '/');
+  }
+  function groupHasActive(group) {
+    for (var i = 0; i < (group.children || []).length; i++) {
+      var item = group.children[i];
+      if (item.type === 'link' && isActive(item.url)) return true;
+      if (item.type === 'group' && groupHasActive(item)) return true;
+    }
+    return group.url && isActive(group.url);
+  }
+  function renderItems(items) {
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (item.type === 'link') {
+        html += '<a href="' + item.url + '"' + (isActive(item.url) ? ' class="active"' : '') + '>' + item.label + '</a>';
+      } else {
+        var hasActive = groupHasActive(item);
+        var collapsed = hasActive ? '' : ' collapsed';
+        var id = 'grp' + Math.random().toString(36).slice(2);
+        html += '<div>';
+        html += '<div class="nav-group-label' + collapsed + '" onclick="toggleNavGroup(this,\'' + id + '\')">' + chevron + item.label + '</div>';
+        html += '<div id="' + id + '" class="nav-group-children' + collapsed + '">';
+        if (item.url) html += '<a href="' + item.url + '"' + (isActive(item.url) ? ' class="active"' : '') + '>Overview</a>';
+        html += renderItems(item.children || []);
+        html += '</div></div>';
+      }
+    }
+    return html;
+  }
+  window.toggleNavGroup = function(el, id) {
+    el.classList.toggle('collapsed');
+    document.getElementById(id).classList.toggle('collapsed');
+  };
+  function buildNav() { return '<div id="custom-nav">' + renderItems(NAV) + '</div>'; }
+  function injectDesktop() {
+    var slot = document.querySelector('[data-slot="sidebar-content"]');
+    if (!slot) return;
+    var old = slot.querySelector('#custom-nav');
+    if (old) old.remove();
+    var spacer = slot.querySelector('.h-\\(--top-spacing\\)');
+    var div = document.createElement('div');
+    div.innerHTML = buildNav();
+    if (spacer && spacer.nextSibling) slot.insertBefore(div.firstChild, spacer.nextSibling);
+    else slot.appendChild(div.firstChild);
+  }
+  function injectMobile() {
+    if (document.getElementById('mobile-nav-overlay')) return;
+    var overlay = document.createElement('div');
+    overlay.id = 'mobile-nav-overlay';
+    overlay.innerHTML = '<div id="mobile-nav-drawer">' + buildNav() + '</div>';
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.classList.remove('open'); });
+    document.body.appendChild(overlay);
+    var btn = document.getElementById('menu-button');
+    if (btn) btn.addEventListener('click', function(e) { e.stopPropagation(); overlay.classList.toggle('open'); });
+  }
+  var style = document.createElement('style');
+  style.textContent = "\n#custom-nav {\n  font-size: 0.85rem;\n  padding: 0.5rem 0;\n}\n#custom-nav a {\n  display: block;\n  padding: 0.25rem 0.75rem;\n  border-radius: 0.375rem;\n  color: inherit;\n  text-decoration: none;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: background 0.15s;\n}\n#custom-nav a:hover { background: var(--accent, rgba(0,0,0,0.07)); }\n#custom-nav a.active {\n  background: var(--accent, rgba(0,0,0,0.10));\n  font-weight: 600;\n  color: var(--accent-foreground, inherit);\n}\n.nav-group-label {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n  padding: 0.25rem 0.75rem;\n  font-weight: 600;\n  font-size: 0.85rem;\n  color: var(--muted-foreground, #888);\n  cursor: pointer;\n  border-radius: 0.375rem;\n  user-select: none;\n  transition: background 0.15s;\n}\n.nav-group-label:hover { background: var(--accent, rgba(0,0,0,0.05)); }\n.nav-group-label svg { flex-shrink: 0; transition: transform 0.2s; }\n.nav-group-label.collapsed svg { transform: rotate(-90deg); }\n.nav-group-children {\n  padding-left: 0.75rem;\n  border-left: 1px solid var(--border, rgba(0,0,0,0.1));\n  margin-left: 0.9rem;\n  margin-bottom: 0.25rem;\n}\n.nav-group-children.collapsed { display: none; }\n#mobile-nav-overlay {\n  position: fixed; inset: 0; z-index: 100;\n  background: rgba(0,0,0,0.5); display: none;\n}\n#mobile-nav-overlay.open { display: block; }\n#mobile-nav-drawer {\n  position: fixed; top: 0; left: 0; bottom: 0;\n  width: min(85vw, 300px);\n  background: var(--background, #fff);\n  z-index: 101; overflow-y: auto;\n  padding: 1rem 0.5rem;\n  transform: translateX(-100%);\n  transition: transform 0.25s ease;\n  box-shadow: 4px 0 24px rgba(0,0,0,0.15);\n}\n#mobile-nav-overlay.open #mobile-nav-drawer { transform: translateX(0); }\n";
+  document.head.appendChild(style);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { injectDesktop(); injectMobile(); });
+  } else { injectDesktop(); injectMobile(); }
+})();
+</script>
+</body>
+</html>
