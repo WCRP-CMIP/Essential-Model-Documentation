@@ -14,4 +14,4 @@ Fundamental grid cell definitions (Stage 1).
 | **g105** | U-grid cells on ocean tripolar configuration (e... | tripolar | latitude_longitude | global | 105705 | ** | ** | ** | ** | ** | ** | ** | static |
 | **g106** | V-grid cells on ocean tripolar configuration (e... | tripolar | latitude_longitude | global | 105706 | ** | ** | ** | ** | ** | ** | ** | static |
 
-*Generated: 2026-02-24 02:49*
+*Generated: 2026-02-24 03:01*
