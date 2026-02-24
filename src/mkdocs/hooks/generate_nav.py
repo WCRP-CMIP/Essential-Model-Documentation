@@ -76,8 +76,9 @@ def on_files(files, config):
     if added:
         print(f"  [generate_nav] Added {added} generated files to MkDocs collection")
 
-    # Rebuild nav from current on-disk state
-    config['nav'] = _build_nav(docs_dir)
+    # Do NOT set config['nav'] here — shadcn would render its own sidebar nav
+    # from it, doubling up with our custom injected nav. Let shadcn's sidebar
+    # stay empty; our post_build injection is the sole nav.
 
     return files
 
