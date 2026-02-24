@@ -152,13 +152,7 @@ def _build_html(project_name: str, primary: str, primary_light: str,
 
         <!-- Project logo as spinner -->
         <div class="logo-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="80" height="80" aria-hidden="true">
-                <rect width="256" height="256" fill="none"/>
-                <line x1="208" y1="128" x2="128" y2="208" fill="none"
-                      stroke="{primary}" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-                <line x1="192" y1="40" x2="40" y2="192" fill="none"
-                      stroke="{primary}" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            </svg>
+            {logo_svg}
         </div>
 
         <h1>Redirecting to {project_name}</h1>
