@@ -36,15 +36,23 @@ EXCLUDE = {'scripts', 'assets', 'stylesheets', '__pycache__', 'Visualizations',
 
 def on_files(files, config):
     """
-    1. Scan all GENERATED_DIRS for .html and .md files not yet known to MkDocs.
-    2. Add missing files to the Files collection so they are copied to build.
-    3. Rebuild config['nav'] from the full on-disk state of docs/.
+    1. Remove any index.html that conflicts with index.md (shadcn theme artefact).
+    2. Scan all GENERATED_DIRS for .html and .md files not yet known to MkDocs.
+    3. Add missing files to the Files collection so they are copied to build.
+    4. Rebuild config['nav'] from the full on-disk state of docs/.
     """
     from mkdocs.structure.files import File
 
     docs_dir  = Path(config['docs_dir']).resolve()
     site_dir  = Path(config['site_dir']).resolve()
     use_dir   = config.get('use_directory_urls', True)
+
+    # Remove any bare index.html that conflicts with index.md
+    conflicting = [f for f in files
+                   if f.src_path == 'index.html' and
+                   (docs_dir / 'index.md').exists()]
+    for f in conflicting:
+        files._files.remove(f)  # type: ignore[attr-defined]
 
     # Index existing src paths so we don't double-add
     existing = {f.src_path for f in files}
