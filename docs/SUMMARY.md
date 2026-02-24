@@ -1,6 +1,0 @@
-- [Home](index.md)
-- [submission guide](submission-guide.md)
-- [Reviewer information](Reviewer_information.md)
-- [CMIP7 Guidance](https://guidance.mipcvs.dev/)
-- [CMIP Website](https://wcrp-cmip.org/)
-- [WCRP](https://www.wcrp-climate.org/)
