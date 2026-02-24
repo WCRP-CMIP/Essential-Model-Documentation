@@ -1,33 +1,121 @@
 [
   {
-    "@id": "h100",
+    "@id": "c100",
     "@type": [
       "emd",
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid"
     ],
     "arrangement": {
-      "@id": "arakawa-a",
+      "@id": "arakawa-c",
       "@type": [
         "universal",
         "wcrp:arrangement",
         "esgvoc:Arrangement",
         "constants"
       ],
-      "description": "The Arakawa A grid places mass- and velocity-related quantities at the same location on each grid cell.",
-      "ui_label": "Arakawa A-grid",
-      "validation_key": "arakawa-a"
+      "description": "The Arakawa C grid places velocity-related quantities at the centres of mass cell edges, such that each component is perpendicular to its edge.",
+      "ui_label": "Arakawa C-grid",
+      "validation_key": "arakawa-c"
     },
-    "description": "Arakawa-A spectral grid for atmospheric modelling (TL127 reduced Gaussian + regular output grid).",
+    "description": "Arakawa-C grid combining regular latitude-longitude and spectral Gaussian subgrids for atmospheric modelling.",
     "horizontal_subgrids": [
-      "s100",
-      "s101"
+      {
+        "@id": "s100",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_subgrid",
+          "esgvoc:HorizontalSubgrid"
+        ],
+        "cell_variable_type": {
+          "@id": "mass",
+          "@type": [
+            "universal",
+            "wcrp:cell_variable_type",
+            "esgvoc:CellVariableType",
+            "constants"
+          ],
+          "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+          "ui_label": "Mass",
+          "validation_key": "mass"
+        },
+        "description": "Mass variables on a regular latitude-longitude grid.",
+        "horizontal_grid_cells": {
+          "@id": "g100",
+          "@type": [
+            "emd",
+            "wcrp:horizontal_grid_cells",
+            "esgvoc:HorizontalGridCells"
+          ],
+          "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells.",
+          "grid_mapping": "latitude-longitude",
+          "grid_type": "regular-latitude-longitude",
+          "n_cells": 55296,
+          "region": "global",
+          "southernmost_latitude": -89.5,
+          "temporal_refinement": "static",
+          "ui_label": "",
+          "units": "degree",
+          "validation_key": "g100",
+          "westernmost_longitude": 0.5,
+          "x_resolution": 1.25,
+          "y_resolution": 0.9
+        },
+        "ui_label": "",
+        "validation_key": "s100"
+      },
+      {
+        "@id": "s101",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_subgrid",
+          "esgvoc:HorizontalSubgrid"
+        ],
+        "cell_variable_type": {
+          "@id": "mass",
+          "@type": [
+            "universal",
+            "wcrp:cell_variable_type",
+            "esgvoc:CellVariableType",
+            "constants"
+          ],
+          "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+          "ui_label": "Mass",
+          "validation_key": "mass"
+        },
+        "description": "Mass variables on a linear spectral Gaussian grid (TL127).",
+        "horizontal_grid_cells": {
+          "@id": "g101",
+          "@type": [
+            "emd",
+            "wcrp:horizontal_grid_cells",
+            "esgvoc:HorizontalGridCells"
+          ],
+          "description": "Linear spectral Gaussian grid (TL127) with 24572 cells.",
+          "grid_mapping": "latitude-longitude",
+          "grid_type": "linear-spectral-gaussian",
+          "n_cells": 24572,
+          "region": "global",
+          "southernmost_latitude": -88.9277353522076,
+          "temporal_refinement": "static",
+          "truncation_method": "triangular",
+          "truncation_number": 127,
+          "ui_label": "",
+          "units": "degree",
+          "validation_key": "g101",
+          "westernmost_longitude": 0,
+          "x_resolution": 1.4,
+          "y_resolution": 1.4
+        },
+        "ui_label": "",
+        "validation_key": "s101"
+      }
     ],
     "ui_label": "",
-    "validation_key": "h100"
+    "validation_key": "c100"
   },
   {
-    "@id": "h101",
+    "@id": "c101",
     "@type": [
       "emd",
       "wcrp:horizontal_computational_grid",
@@ -46,16 +134,50 @@
       "validation_key": "arakawa-c"
     },
     "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
-    "horizontal_subgrids": [
-      "s102",
-      "s105",
-      "s106"
-    ],
+    "horizontal_subgrids": {
+      "@id": "s102",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+      ],
+      "cell_variable_type": {
+        "@id": "mass",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+        "ui_label": "Mass",
+        "validation_key": "mass"
+      },
+      "description": "Mass variables on an ocean tripolar grid (eORCA1).",
+      "horizontal_grid_cells": {
+        "@id": "g102",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_grid_cells",
+          "esgvoc:HorizontalGridCells"
+        ],
+        "description": "Ocean tripolar grid (eORCA1) with 105704 cells.",
+        "grid_mapping": "latitude-longitude",
+        "grid_type": "tripolar",
+        "n_cells": 105704,
+        "region": "global",
+        "temporal_refinement": "static",
+        "ui_label": "",
+        "validation_key": "g102"
+      },
+      "ui_label": "",
+      "validation_key": "s102"
+    },
     "ui_label": "",
-    "validation_key": "h101"
+    "validation_key": "c101"
   },
   {
-    "@id": "h102",
+    "@id": "c102",
     "@type": [
       "emd",
       "wcrp:horizontal_computational_grid",
@@ -74,12 +196,78 @@
       "validation_key": "arakawa-c"
     },
     "description": "Arakawa-C grid with adaptive mesh refinement for ice sheet modelling.",
-    "horizontal_subgrids": "s103",
+    "horizontal_subgrids": {
+      "@id": "s103",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+      ],
+      "cell_variable_type": [
+        {
+          "@id": "mass",
+          "@type": [
+            "universal",
+            "wcrp:cell_variable_type",
+            "esgvoc:CellVariableType",
+            "constants"
+          ],
+          "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+          "ui_label": "Mass",
+          "validation_key": "mass"
+        },
+        {
+          "@id": "x-velocity",
+          "@type": [
+            "universal",
+            "wcrp:cell_variable_type",
+            "esgvoc:CellVariableType",
+            "constants"
+          ],
+          "description": "Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.",
+          "ui_label": "X Velocity",
+          "validation_key": "x-velocity"
+        },
+        {
+          "@id": "y-velocity",
+          "@type": [
+            "universal",
+            "wcrp:cell_variable_type",
+            "esgvoc:CellVariableType",
+            "constants"
+          ],
+          "description": "Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.",
+          "ui_label": "Y Velocity",
+          "validation_key": "y-velocity"
+        }
+      ],
+      "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
+      "horizontal_grid_cells": {
+        "@id": "g103",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_grid_cells",
+          "esgvoc:HorizontalGridCells"
+        ],
+        "description": "Adaptive polar stereographic mesh for ice sheets with variable resolution (9.6 km to 1.2 km for Greenland, 8 km to 2 km for Antarctica).",
+        "grid_mapping": "polar-stereographic",
+        "grid_type": "plane-projection",
+        "region": [
+          "greenland",
+          "antarctica"
+        ],
+        "temporal_refinement": "adaptive",
+        "ui_label": "",
+        "validation_key": "g103"
+      },
+      "ui_label": "",
+      "validation_key": "s103"
+    },
     "ui_label": "",
-    "validation_key": "h102"
+    "validation_key": "c102"
   },
   {
-    "@id": "h103",
+    "@id": "c103",
     "@type": [
       "emd",
       "wcrp:horizontal_computational_grid",
@@ -98,8 +286,51 @@
       "validation_key": "arakawa-a"
     },
     "description": "Arakawa-A grid on a regular latitude-longitude configuration for land surface modelling.",
-    "horizontal_subgrids": "s104",
+    "horizontal_subgrids": {
+      "@id": "s104",
+      "@type": [
+        "emd",
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid"
+      ],
+      "cell_variable_type": {
+        "@id": "mass",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+        "ui_label": "Mass",
+        "validation_key": "mass"
+      },
+      "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
+      "horizontal_grid_cells": {
+        "@id": "g104",
+        "@type": [
+          "emd",
+          "wcrp:horizontal_grid_cells",
+          "esgvoc:HorizontalGridCells"
+        ],
+        "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells, offset origin from g100.",
+        "grid_mapping": "latitude-longitude",
+        "grid_type": "regular-latitude-longitude",
+        "n_cells": 55296,
+        "region": "global",
+        "southernmost_latitude": -89.65,
+        "temporal_refinement": "static",
+        "ui_label": "",
+        "units": "degree",
+        "validation_key": "g104",
+        "westernmost_longitude": 0,
+        "x_resolution": 1.25,
+        "y_resolution": 0.9
+      },
+      "ui_label": "",
+      "validation_key": "s104"
+    },
     "ui_label": "",
-    "validation_key": "h103"
+    "validation_key": "c103"
   }
 ]

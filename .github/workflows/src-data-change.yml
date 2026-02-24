@@ -166,14 +166,13 @@ jobs:
           echo "## Pre-build diagnostics" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** $(git -C $GITHUB_WORKSPACE rev-parse --abbrev-ref HEAD)" >> $GITHUB_STEP_SUMMARY
 
-      - name: Start LDR server
+      - name: Build MkDocs site
         run: |
+
           ldr server stop 2>/dev/null || true
           ldr server start
           echo "LDR server started"
 
-      - name: Build MkDocs site
-        run: |
           # cd "$GITHUB_WORKSPACE"
           # ldr compact model_family/clm.json
           # python -c 'import cmipld; cmipld.map_current("emd");cmipld.get("emd:model_family/_graph.json")';
