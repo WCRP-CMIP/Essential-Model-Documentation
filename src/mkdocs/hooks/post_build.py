@@ -250,19 +250,27 @@ NAV_CSS = """
 
 NAV_JS_TEMPLATE = r"""
 (function() {
-  var BASE_URL = "%(base_url)s";
   var NAV = %(nav_json)s;
-  var chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  // NAV_PREFIX is injected per-page (e.g. '../../') so all links are relative
+  var PREFIX = (typeof NAV_PREFIX !== 'undefined') ? NAV_PREFIX : '';
 
+  function rel(url) {
+    // Convert root-relative nav URL to a path relative to this page
+    return PREFIX + (url || '').replace(/^\//, '');
+  }
   function currentPath() {
     return window.location.pathname.replace(/\/$/, '') || '/';
   }
   function isActive(url) {
+    if (!url) return false;
     var cp = currentPath();
-    var u = (url || '').replace(/\/$/, '');
-    if (!u) return cp === '' || cp === '/';
+    // Resolve the relative href to an absolute path for comparison
+    var a = document.createElement('a');
+    a.href = rel(url);
+    var u = a.pathname.replace(/\/$/, '');
     return cp === u || cp.startsWith(u + '/');
   }
+  var chevron = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
   function groupHasActive(group) {
     for (var i = 0; i < (group.children || []).length; i++) {
       var item = group.children[i];
@@ -276,7 +284,7 @@ NAV_JS_TEMPLATE = r"""
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
       if (item.type === 'link') {
-        html += '<a href="' + item.url + '"' + (isActive(item.url) ? ' class="active"' : '') + '>' + item.label + '</a>';
+        html += '<a href="' + rel(item.url) + '"' + (isActive(item.url) ? ' class="active"' : '') + '>' + item.label + '</a>';
       } else {
         var hasActive = groupHasActive(item);
         var collapsed = hasActive ? '' : ' collapsed';
@@ -284,7 +292,7 @@ NAV_JS_TEMPLATE = r"""
         html += '<div>';
         html += '<div class="nav-group-label' + collapsed + '" onclick="toggleNavGroup(this,\'' + id + '\')">' + chevron + item.label + '</div>';
         html += '<div id="' + id + '" class="nav-group-children' + collapsed + '">';
-        if (item.url) html += '<a href="' + item.url + '"' + (isActive(item.url) ? ' class="active"' : '') + '>Overview</a>';
+        if (item.url) html += '<a href="' + rel(item.url) + '"' + (isActive(item.url) ? ' class="active"' : '') + '>Overview</a>';
         html += renderItems(item.children || []);
         html += '</div></div>';
       }
@@ -423,19 +431,27 @@ def scan_site_for_nav(site_dir):
 
 
 def inject_custom_nav(site_dir, nav):
-    """Inject pre-built nav into every HTML file in site_dir."""
+    """Inject pre-built nav into every HTML file with per-file relative links."""
     site_path = Path(site_dir)
-    nav_json = json.dumps(nav)
-    css_json = json.dumps(NAV_CSS)
-
-    inline_js = NAV_JS_TEMPLATE % {'base_url': '', 'nav_json': nav_json, 'css_json': css_json}
-    inline_tag = f'<script>{inline_js}</script>'
+    nav_json  = json.dumps(nav)
+    css_json  = json.dumps(NAV_CSS)
 
     injected = 0
     for html_path in site_path.rglob('*.html'):
         content = html_path.read_text(encoding='utf-8')
         if 'custom-nav.js' in content or 'id="custom-nav"' in content or 'toggleNavGroup' in content:
             continue
+
+        # Compute relative prefix for this file (e.g. depth 2 → '../../')
+        depth  = len(html_path.relative_to(site_path).parts) - 1
+        prefix = ('../' * depth) if depth > 0 else './'
+
+        inline_js = (
+            f'var NAV_PREFIX = {json.dumps(prefix)};\n' +
+            (NAV_JS_TEMPLATE % {'base_url': '', 'nav_json': nav_json, 'css_json': css_json})
+        )
+        inline_tag = f'<script>{inline_js}</script>'
+
         new_content = content.replace('</body>', f'  {inline_tag}\n</body>')
         if new_content == content:
             new_content = content.replace('</html>', f'  {inline_tag}\n</html>')
