@@ -1,7 +1,7 @@
 - [Home](index.md)
 - submission guide:
-  - [index](submission-guide/index.html)
-- [submission guide](submission-guide.md)
+  - [index](01_submission-guide/index.html)
+- [submission guide](01_submission-guide.md)
 - EMD Repository:
   - Model Components:
     - [arpege climat version 6 3](10_EMD_Repository/02_Model_Components/arpege-climat_version_6_3.html)
@@ -70,8 +70,8 @@
   - [source family](110_Data_Summaries/source_family.md)
   - [vertical computational grid](110_Data_Summaries/vertical_computational_grid.md)
 - Reviewer information:
-  - [index](Reviewer_information/index.html)
-- [Reviewer information](Reviewer_information.md)
+  - [index](998_Reviewer_information/index.html)
+- [Reviewer information](998_Reviewer_information.md)
 - [Contributors](999_Contributors.md)
 - [index](index.html)
 - Reviewer information:
