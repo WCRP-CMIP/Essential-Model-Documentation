@@ -59,16 +59,37 @@ def generate_root_redirect(site_dir):
 
 
 def on_page_context(context, page, config, nav, **kwargs):
-    """Pre-create the directory that shadcn will try to copy the markdown file to.
-    
-    shadcn's MarkdownMixin copies source .md files to site_dir/page.file.src_path,
-    which still has the numeric prefix (e.g. build/10_EMD_Repository/02_.../index.md).
-    on_files() only cleans dest_uri, so that prefixed directory never gets created.
-    We create it here before shadcn's on_page_context runs.
+    """Fix dest_uri for .md pages:
+    - Strip numeric prefix from the path segment (01_Submission-Guide → Submission-Guide)
+    - Preserve original source casing so Linux CI doesn't create a second
+      lowercase duplicate alongside the one collect_renames would produce.
+    Also pre-creates the shadcn markdown-copy directory.
     """
+    import posixpath
     site_dir = Path(config['site_dir'])
-    src_path = page.file.src_path
-    dest = site_dir / src_path
+    src = page.file.src_path  # e.g. 01_Submission-Guide.md
+
+    # Build a corrected dest_uri that strips the numeric prefix and keeps casing
+    parts = src.replace('\\', '/').split('/')
+    clean_parts = [re.sub(r'^\d+[-_.]', '', p) for p in parts]
+    clean_src = '/'.join(clean_parts)  # e.g. Submission-Guide.md
+
+    use_dir = config.get('use_directory_urls', True)
+    parent, fname = posixpath.split(clean_src)
+    stem = posixpath.splitext(fname)[0]
+
+    if stem.lower() == 'index' or not use_dir:
+        correct_dest = posixpath.join(parent, stem + '.html') if stem.lower() != 'index' \
+                       else posixpath.join(parent, 'index.html')
+    else:
+        correct_dest = posixpath.join(parent, stem, 'index.html')
+
+    # Only patch if different (avoids touching files that are already correct)
+    if page.file.dest_uri != correct_dest:
+        page.file.dest_uri = correct_dest
+
+    # Pre-create the directory shadcn needs for its markdown copy
+    dest = site_dir / src
     dest.parent.mkdir(parents=True, exist_ok=True)
     return context
 
