@@ -327,7 +327,10 @@ NAV_JS_TEMPLATE = r"""
 """
 
 SKIP_NAMES = {'.DS_Store', '.gitignore', '.version', 'scripts', '__pycache__',
-              'assets', 'stylesheets', 'Visualizations', 'links.yml', 'json'}
+              'assets', 'stylesheets', 'Visualizations', 'links.yml', 'json',
+              # site_dir artefacts that shouldn't appear in nav
+              'css', 'js', 'fonts', 'icons', 'img', 'search', 'scripts',
+              '404.html', 'sitemap.xml', 'sitemap.xml.gz'}
 
 
 def strip_prefix(name):
@@ -341,8 +344,11 @@ def nice_label(name):
     return name[0].upper() + name[1:] if name else name
 
 
-def scan_docs_for_nav(docs_path):
-    """Recursively scan docs dir and build nav structure using site-root-relative paths."""
+def scan_site_for_nav(site_dir):
+    """
+    Build nav from the BUILT site_dir — always correct regardless of branch/CI.
+    Scans after prefix-stripping renames have run, so paths match final URLs.
+    """
     def scan(path):
         items = []
         try:
@@ -354,41 +360,71 @@ def scan_docs_for_nav(docs_path):
                 continue
             if entry.is_dir():
                 children = scan(entry)
-                label = nice_label(strip_prefix(entry.name))
-                rel_parts = [strip_prefix(p) for p in entry.relative_to(docs_path).parts]
-                # Root-relative path (no domain), e.g. /EMD_Repository/Models/
+                label = nice_label(entry.name)           # already stripped by rename
+                rel_parts = list(entry.relative_to(site_dir).parts)
                 url = '/' + '/'.join(rel_parts) + '/'
                 items.append({'type': 'group', 'label': label, 'url': url, 'children': children})
-            elif entry.suffix in ('.md', '.html'):
-                stem = strip_prefix(entry.stem)
-                if stem == 'index':
-                    continue
+            elif entry.suffix == '.html' and entry.name != 'index.html':
+                stem = entry.stem
                 label = nice_label(stem)
-                rel_parts = [strip_prefix(p) for p in entry.relative_to(docs_path).parts[:-1]]
-                if entry.suffix == '.html':
-                    # HTML files are served as bare .html files, not directory indexes
-                    url = '/' + '/'.join(rel_parts + [stem]) + '.html'
+                rel_parts = list(entry.relative_to(site_dir).parts[:-1])
+                url = '/' + '/'.join(rel_parts + [stem]) + '.html'
+                items.append({'type': 'link', 'label': label, 'url': url})
+            elif entry.is_dir():
+                # directory-URL pages: represented by index.html inside a folder
+                pass
+        return items
+
+    # Also pick up directory-URL pages (index.html inside named folders)
+    def scan_dir_urls(path):
+        items = []
+        try:
+            entries = sorted(path.iterdir(), key=lambda e: e.name)
+        except PermissionError:
+            return items
+        for entry in entries:
+            if entry.name in SKIP_NAMES or entry.name.startswith('.'):
+                continue
+            if entry.is_dir():
+                children = scan_dir_urls(entry)
+                index = entry / 'index.html'
+                label = nice_label(entry.name)
+                rel_parts = list(entry.relative_to(site_dir).parts)
+                url = '/' + '/'.join(rel_parts) + '/'
+                if index.exists():
+                    # This is a page (dir-URL style)
+                    items.append({'type': 'link', 'label': label, 'url': url})
+                    # But also recurse for children that are bare .html files
+                    html_children = [c for c in children if c['type'] == 'link' and c['url'].endswith('.html')]
+                    md_children   = [c for c in children if c not in html_children]
+                    if html_children or md_children:
+                        items[-1] = {'type': 'group', 'label': label, 'url': url,
+                                     'children': html_children + md_children}
                 else:
-                    # MD files become directory indexes via use_directory_urls
-                    url = '/' + '/'.join(rel_parts + [stem]) + '/'
+                    if children:
+                        items.append({'type': 'group', 'label': label, 'url': url, 'children': children})
+            elif entry.suffix == '.html' and entry.name != 'index.html':
+                stem = entry.stem
+                label = nice_label(stem)
+                rel_parts = list(entry.relative_to(site_dir).parts[:-1])
+                url = '/' + '/'.join(rel_parts + [stem]) + '.html'
                 items.append({'type': 'link', 'label': label, 'url': url})
         return items
 
     nav = [{'type': 'link', 'label': 'Home', 'url': '/'}]
-    nav += scan(docs_path)
+    nav += scan_dir_urls(site_dir)
     return nav
 
 
-def inject_custom_nav(site_dir, docs_dir):
-    """Inject an inline nav script into every HTML file using root-relative paths."""
-    docs_path = Path(docs_dir)
+def inject_custom_nav(site_dir, docs_dir=None):
+    """Inject an inline nav script into every HTML file.
+    Scans site_dir (the built output) — correct on both local and CI builds."""
     site_path = Path(site_dir)
 
-    nav = scan_docs_for_nav(docs_path)
+    nav = scan_site_for_nav(site_path)
     nav_json = json.dumps(nav)
     css_json = json.dumps(NAV_CSS)
 
-    # Build the inline script (no external file needed — avoids path depth issues)
     inline_js = NAV_JS_TEMPLATE % {'base_url': '', 'nav_json': nav_json, 'css_json': css_json}
     inline_tag = f'<script>{inline_js}</script>'
 
