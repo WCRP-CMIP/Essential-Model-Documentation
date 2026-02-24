@@ -90,9 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
   init();
   loadCustomLinks();
   initMermaid();
-  setTimeout(init, 300);
-  setTimeout(init, 1000);
 });
+
+// Prevent any nested nav building
+window.nestedNavBuilt = true;
 
 function init() {
   setupHeaderControls();
@@ -654,40 +655,16 @@ function setupTabbedContent() {
 // BUILD NESTED NAVIGATION FROM SUMMARY.MD (DISABLED)
 // ============================================
 // Disabled: literate-nav plugin handles navigation properly
+// This function is intentionally stubbed out
 
 async function buildNestedNavigation() {
-  return; // Disabled
-  if (window.nestedNavBuilt) return;
-  window.nestedNavBuilt = true;
+  return; // Completely disabled
 
-  // Clean up any previously added nested folders
-  document.querySelectorAll('.nested-folder-item').forEach(el => el.remove());
-  
-  try {
-    // Detect base URL dynamically
-    const baseUrl = detectBasePath();
-    const response = await fetch(baseUrl + 'SUMMARY.md');
-    
-    if (!response.ok) {
-      return;
-    }
-    
-    const summaryText = await response.text();
-    const navTree = parseSummary(summaryText);
-    
-    
-    // Process each top-level group
-    navTree.forEach(topItem => {
-      if (topItem.type === 'group') {
-        processGroupForNested(topItem, baseUrl);
-      }
-    });
-    
-  } catch (err) {
-    console.error('Error building nested nav:', err);
-  }
+}
 }
 
+// Disabled functions below - not used
+/*
 function parseSummary(text) {
   const lines = text.split('\n').filter(l => l.trim());
   const result = [];
@@ -726,7 +703,9 @@ function parseSummary(text) {
   
   return result;
 }
+*/
 
+/*
 function processGroupForNested(group, baseUrl) {
   const labels = document.querySelectorAll('[data-slot="sidebar-group-label"]');
   const matchingLabel = Array.from(labels).find(l => l.textContent.trim() === group.title + ':');
@@ -745,7 +724,9 @@ function processGroupForNested(group, baseUrl) {
     createNestedFolder(menu, folder, baseUrl);
   });
 }
+*/
 
+/*
 function createNestedFolder(parentMenu, folder, baseUrl) {
   const currentPath = window.location.pathname;
   
@@ -876,5 +857,5 @@ function createNestedFolder(parentMenu, folder, baseUrl) {
   li.appendChild(header);
   li.appendChild(container);
   parentMenu.appendChild(li);
-  
 }
+*/
