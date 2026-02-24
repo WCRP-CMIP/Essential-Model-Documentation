@@ -346,82 +346,85 @@ def nice_label(name):
 
 def scan_site_for_nav(site_dir):
     """
-    Build nav from the BUILT site_dir — always correct regardless of branch/CI.
-    Scans after prefix-stripping renames have run, so paths match final URLs.
+    Build ordered nav from site_dir while numeric prefixes are still present.
+    Prefixes define sort order; they are stripped from labels and URLs.
     """
+    site_path = Path(site_dir)
+
+    def _sort_key(name):
+        m = re.match(r'^(\d+)[-_.]', name)
+        return (int(m.group(1)), name.lower()) if m else (9999, name.lower())
+
+    def _strip(name):
+        return re.sub(r'^\d+[-_.]', '', name)
+
     def scan(path):
         items = []
         try:
-            entries = sorted(path.iterdir(), key=lambda e: e.name)
+            entries = sorted(path.iterdir(), key=lambda e: _sort_key(e.name))
         except PermissionError:
             return items
         for entry in entries:
             if entry.name in SKIP_NAMES or entry.name.startswith('.'):
                 continue
+            clean_name = _strip(entry.name)
             if entry.is_dir():
                 children = scan(entry)
-                label = nice_label(entry.name)           # already stripped by rename
-                rel_parts = list(entry.relative_to(site_dir).parts)
+                label = nice_label(clean_name)
+                # URL uses stripped parts of the full relative path
+                rel_parts = [_strip(p) for p in entry.relative_to(site_path).parts]
                 url = '/' + '/'.join(rel_parts) + '/'
                 items.append({'type': 'group', 'label': label, 'url': url, 'children': children})
             elif entry.suffix == '.html' and entry.name != 'index.html':
-                stem = entry.stem
+                stem = _strip(entry.stem)
                 label = nice_label(stem)
-                rel_parts = list(entry.relative_to(site_dir).parts[:-1])
+                rel_parts = [_strip(p) for p in entry.relative_to(site_path).parts[:-1]]
                 url = '/' + '/'.join(rel_parts + [stem]) + '.html'
                 items.append({'type': 'link', 'label': label, 'url': url})
             elif entry.is_dir():
-                # directory-URL pages: represented by index.html inside a folder
-                pass
+                pass  # already handled above
         return items
 
-    # Also pick up directory-URL pages (index.html inside named folders)
-    def scan_dir_urls(path):
+    # Also surface dir-URL pages (dirs containing index.html)
+    def scan_mixed(path):
         items = []
         try:
-            entries = sorted(path.iterdir(), key=lambda e: e.name)
+            entries = sorted(path.iterdir(), key=lambda e: _sort_key(e.name))
         except PermissionError:
             return items
         for entry in entries:
             if entry.name in SKIP_NAMES or entry.name.startswith('.'):
                 continue
+            clean_name = _strip(entry.name)
             if entry.is_dir():
-                children = scan_dir_urls(entry)
-                index = entry / 'index.html'
-                label = nice_label(entry.name)
-                rel_parts = list(entry.relative_to(site_dir).parts)
+                children = scan_mixed(entry)
+                label = nice_label(clean_name)
+                rel_parts = [_strip(p) for p in entry.relative_to(site_path).parts]
                 url = '/' + '/'.join(rel_parts) + '/'
-                if index.exists():
-                    # This is a page (dir-URL style)
+                index_exists = (entry / 'index.html').exists()
+                html_kids = [c for c in children if c['type'] == 'link' and c['url'].endswith('.html')]
+                dir_kids  = [c for c in children if c not in html_kids]
+                all_kids  = html_kids + dir_kids
+                if all_kids:
+                    items.append({'type': 'group', 'label': label, 'url': url if index_exists else None, 'children': all_kids})
+                elif index_exists:
                     items.append({'type': 'link', 'label': label, 'url': url})
-                    # But also recurse for children that are bare .html files
-                    html_children = [c for c in children if c['type'] == 'link' and c['url'].endswith('.html')]
-                    md_children   = [c for c in children if c not in html_children]
-                    if html_children or md_children:
-                        items[-1] = {'type': 'group', 'label': label, 'url': url,
-                                     'children': html_children + md_children}
-                else:
-                    if children:
-                        items.append({'type': 'group', 'label': label, 'url': url, 'children': children})
             elif entry.suffix == '.html' and entry.name != 'index.html':
-                stem = entry.stem
+                stem = _strip(entry.stem)
                 label = nice_label(stem)
-                rel_parts = list(entry.relative_to(site_dir).parts[:-1])
+                rel_parts = [_strip(p) for p in entry.relative_to(site_path).parts[:-1]]
                 url = '/' + '/'.join(rel_parts + [stem]) + '.html'
                 items.append({'type': 'link', 'label': label, 'url': url})
         return items
 
     nav = [{'type': 'link', 'label': 'Home', 'url': '/'}]
-    nav += scan_dir_urls(site_dir)
+    nav += scan_mixed(site_path)
     return nav
 
 
-def inject_custom_nav(site_dir, docs_dir=None):
-    """Inject an inline nav script into every HTML file.
-    Scans site_dir (the built output) — correct on both local and CI builds."""
+def inject_custom_nav(site_dir, nav):
+    """Inject pre-built nav into every HTML file in site_dir."""
     site_path = Path(site_dir)
-
-    nav = scan_site_for_nav(site_path)
     nav_json = json.dumps(nav)
     css_json = json.dumps(NAV_CSS)
 
@@ -448,18 +451,21 @@ def inject_custom_nav(site_dir, docs_dir=None):
 
 
 def on_post_build(config, **kwargs):
-    """Post-build hook: clean numeric prefixes from build folder and generate root redirect."""
     site_dir = Path(config['site_dir']).resolve()
-    
+
     name_replacements, rename_operations = collect_renames(site_dir)
-    
+
+    # ── 1. Build nav BEFORE renaming — prefixes still present for sort order ──
+    nav = scan_site_for_nav(site_dir)
+
+    # ── 2. Strip prefixes ──────────────────────────────────────────────────────
     if name_replacements:
         fix_html_links(site_dir, name_replacements)
         update_summary_file(site_dir, name_replacements)
         rename_all_items(rename_operations)
-    
-    # Generate root-level redirect
+
+    # ── 3. Root redirect ───────────────────────────────────────────────────────
     generate_root_redirect(site_dir)
 
-    # Inject custom nav sidebar into all HTML files
-    inject_custom_nav(site_dir, config['docs_dir'])
+    # ── 4. Inject nav (prefix-ordered, prefix-stripped URLs) ──────────────────
+    inject_custom_nav(site_dir, nav)
