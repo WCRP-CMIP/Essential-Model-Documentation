@@ -659,8 +659,6 @@ function setupTabbedContent() {
 
 async function buildNestedNavigation() {
   return; // Completely disabled
-
-}
 }
 
 // Disabled functions below - not used
