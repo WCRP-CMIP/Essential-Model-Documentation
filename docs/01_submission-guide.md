@@ -49,13 +49,13 @@ flowchart LR
     style Stage4 stroke:#333,stroke-width:2px,fill:none
 ```
 
-##lick any box to open the corresponding form.
+Click any box to open the corresponding form.
 
 ---
 
-## Stage 1: Grid Cells
+## Stage 1: Grid Cell
 
-**Form:** [Grid Cells](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml)
+**Form:** [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml)
 
 Register the fundamental grid cell geometry and coordinate systems.
 
@@ -67,7 +67,7 @@ Register the fundamental grid cell geometry and coordinate systems.
 
 **Forms:** [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) | [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml)
 
-Link subgrids into computational grids with specified staggering arrangements.
+Link grids into computational grids with specified staggering arrangements.
 
 **Output:** Horizontal grid ID (`h###`) and vertical grid ID (`v###`) for use in Stage 3.
 
@@ -124,7 +124,7 @@ Track your submissions: [My Issues](https://github.com/WCRP-CMIP/Essential-Model
 
 | Stage | Form | You Provide | You Receive |
 |-------|------|-------------|-------------|
-| 1 | Grid Cells | Grid geometry, coordinates | `g###` |
+| 1 | Grid Cell | Grid geometry, coordinates | `g###` |
 | 2a | Horizontal Grid | Subgrid IDs, arrangement | `h###` |
 | 2b | Vertical Grid | Coordinate type, levels | `v###` |
 | — | Model Family | Institution, scientific domains | Family ID |
