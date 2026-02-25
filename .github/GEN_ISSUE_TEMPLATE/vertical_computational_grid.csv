@@ -13,7 +13,7 @@ Defines the vertical level structure for a model component.
 2,textarea,description,Description,A brief characterization of this vertical grid including number of levels and coordinate type.,none,true,"1. Number of levels
 2. Coordinate type
 3. Vertical extent",,
-3,dropdown,vertical_coordinate,Coordinate Type,The vertical coordinate system used to define level positions.,vertical_coordinate,true,,list_with_na,0
+3,dropdown,vertical_coordinate,Coordinate Type,The vertical coordinate system used to define level positions.,vertical_coordinate,true,,list_with_na,
 4,input,n_z,Number of Levels,The total number of vertical levels in the grid.,none,false,91,,
 5,input,top_layer_thickness,Top Layer Thickness (m),The thickness of the uppermost layer in metres.,none,false,2.0,,
 6,input,bottom_layer_thickness,Bottom Layer Thickness (m),The thickness of the lowest layer in metres.,none,false,25.0,,

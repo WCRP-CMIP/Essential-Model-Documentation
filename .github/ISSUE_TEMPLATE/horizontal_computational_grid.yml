@@ -79,7 +79,6 @@ body:
         - "arakawa-c"
         - "arakawa-d"
         - "arakawa-e"
-      default: 0
     validations:
       required: true
 
@@ -126,7 +125,7 @@ body:
       value: |
         ---
         
-        ## Subgrid Configurations (Optional)
+        ## Subgrid Configurations
         
         Alternatively, define subgrids inline by specifying grid cells and variable types for each slot.
         
@@ -146,8 +145,6 @@ body:
         </details>
         
         ---
-        
-        ### Subgrid Slot 1
 
   - type: dropdown
     id: horizontal_grid_cells_1
@@ -163,7 +160,8 @@ body:
         - "g104"
         - "g105"
         - "g106"
-      default: 0
+    validations:
+      required: true
 
   - type: dropdown
     id: cell_variable_type_1
@@ -182,8 +180,6 @@ body:
     attributes:
       value: |
         ---
-        
-        ### Subgrid Slot 2
 
   - type: dropdown
     id: horizontal_grid_cells_2
@@ -199,7 +195,6 @@ body:
         - "g104"
         - "g105"
         - "g106"
-      default: 0
 
   - type: dropdown
     id: cell_variable_type_2
@@ -218,8 +213,6 @@ body:
     attributes:
       value: |
         ---
-        
-        ### Subgrid Slot 3
 
   - type: dropdown
     id: horizontal_grid_cells_3
@@ -235,7 +228,6 @@ body:
         - "g104"
         - "g105"
         - "g106"
-      default: 0
 
   - type: dropdown
     id: cell_variable_type_3
@@ -254,8 +246,6 @@ body:
     attributes:
       value: |
         ---
-        
-        ### Subgrid Slot 4
 
   - type: dropdown
     id: horizontal_grid_cells_4
@@ -271,7 +261,6 @@ body:
         - "g104"
         - "g105"
         - "g106"
-      default: 0
 
   - type: dropdown
     id: cell_variable_type_4
