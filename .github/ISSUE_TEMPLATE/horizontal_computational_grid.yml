@@ -1,6 +1,6 @@
 name: "Stage 2a: Horizontal Computational Grid"
 description: Register horizontal computational grid (Stage 2a of 4)
-title: "[EMD] Horizontal Grid:"
+title: "[EMD] Stage 2a: Horizontal Computational Grid: [do not edit]"
 labels: ['emd-submission', 'horizontal_computational_grid', 'Review']
 body:
   - type: markdown
@@ -120,6 +120,165 @@ body:
         - "s106"
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Subgrid Configurations (Optional)
+        
+        Alternatively, define subgrids inline by specifying grid cells and variable types for each slot.
+        
+        <details>
+        <summary>What are subgrids?</summary>
+        
+        A **horizontal subgrid** describes the grid cells at one of the stagger positions of a horizontal computational grid. 
+        
+        **Cell Variable Types** define what variables are stored at cells:
+        - **mass**: Mass-related variables (temperature, pressure, tracers)
+        - **x_velocity**: X-component velocity and related fluxes
+        - **y_velocity**: Y-component velocity and related fluxes  
+        - **velocity**: Velocity vector when not partitioned (unstructured grids)
+        
+        For staggered grids (Arakawa B/C/D/E), multiple subgrids with different variable types are needed.
+        
+        </details>
+        
+        ---
+        
+        ### Subgrid Slot 1
+
+  - type: dropdown
+    id: horizontal_grid_cells_1
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_1
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ### Subgrid Slot 2
+
+  - type: dropdown
+    id: horizontal_grid_cells_2
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_2
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ### Subgrid Slot 3
+
+  - type: dropdown
+    id: horizontal_grid_cells_3
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_3
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ### Subgrid Slot 4
+
+  - type: dropdown
+    id: horizontal_grid_cells_4
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_4
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
 
   - type: markdown
     attributes:
