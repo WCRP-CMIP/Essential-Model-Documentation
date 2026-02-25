@@ -1,5 +1,5 @@
-name: "Stage 2b: Vertical Grid"
-description: Register vertical grid (Stage 2b of 4)
+name: "Stage 2b: Vertical Computational Grid"
+description: Register vertical computational grid (Stage 2b of 4)
 title: "[EMD] Vertical Grid:"
 labels: ['emd-submission', 'vertical_computational_grid', 'Review']
 body:
@@ -211,3 +211,11 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: |
+        To add attribution to additional members include their GitHub usernames (only) separated by a comma.
+      placeholder: "username1"

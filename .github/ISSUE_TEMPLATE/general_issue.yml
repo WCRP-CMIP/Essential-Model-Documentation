@@ -179,3 +179,11 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: |
+        To add attribution to additional members include their GitHub usernames (only) separated by a comma.
+      placeholder: "username1"

@@ -1,5 +1,5 @@
-name: "Stage 2a: Horizontal Grid"
-description: Register horizontal grid (Stage 2a of 4)
+name: "Stage 2a: Horizontal Computational Grid"
+description: Register horizontal computational grid (Stage 2a of 4)
 title: "[EMD] Horizontal Grid:"
 labels: ['emd-submission', 'horizontal_computational_grid', 'Review']
 body:
@@ -116,6 +116,8 @@ body:
         - "s102"
         - "s103"
         - "s104"
+        - "s105"
+        - "s106"
     validations:
       required: true
 
@@ -142,3 +144,11 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: |
+        To add attribution to additional members include their GitHub usernames (only) separated by a comma.
+      placeholder: "username1"
