@@ -1,7 +1,7 @@
 name: General Issue
 description: Report bugs, ask questions, or suggest improvements
-title: "[EMD] Issue:"
-labels: ['question', 'general']
+title: "Describe your issue here."
+labels: ['question', 'general', 'pull_req', 'needs-review']
 body:
   - type: markdown
     attributes:
@@ -179,3 +179,11 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: |
+        To add attribution to additional members include their GitHub usernames (only) separated by a comma.
+      placeholder: "username1"

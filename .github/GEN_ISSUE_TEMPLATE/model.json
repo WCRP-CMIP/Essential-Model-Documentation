@@ -1,15 +1,37 @@
 {
   "name": "Stage 4: Model (source_id)",
   "description": "Register complete model configuration (Stage 4 of 4)",
-  "title": "[EMD] Model:",
-  "labels": ["emd-submission", "model", "Review"],
+  "title": "[EMD] Stage 4: Model (source_id): [do not edit]",
+  "labels": [
+    "emd-submission",
+    "model",
+    "Review",
+    "pull_req",
+    "needs-review"
+  ],
   "issue_category": "model",
   "dropdown_title": "Detailed Guidance",
   "prefill_sources": {
     "model": {
       "display_name": "name",
       "subtitle": "family",
-      "fields": ["name", "family", "description", "dynamic_components", "prescribed_components", "omitted_components", "embedded_components", "coupling_group_1", "coupling_group_2", "coupling_group_3", "coupling_group_4", "coupling_group_5", "calendar", "release_year", "reference_dois"],
+      "fields": [
+        "name",
+        "family",
+        "description",
+        "dynamic_components",
+        "prescribed_components",
+        "omitted_components",
+        "embedded_components",
+        "coupling_group_1",
+        "coupling_group_2",
+        "coupling_group_3",
+        "coupling_group_4",
+        "coupling_group_5",
+        "calendar",
+        "release_year",
+        "reference_dois"
+      ],
       "link_type": "prefill"
     }
   },
@@ -23,7 +45,7 @@
     "component_configs": "**Component configuration IDs**\n\nSelect the specific component configurations from Stage 3 that make up this model.\n\nMust have one config per dynamic component domain.",
     "embedded_components": "**Embedded relationships**\n\nComponents tightly integrated within a host (share integration loop, often share grid).\n\n**Format:** `embedded -> host`\n\n**Example:**\n- Aerosol -> Atmosphere\n- Atmospheric Chemistry -> Atmosphere\n- Sea Ice -> Ocean",
     "coupling_group_1": "**Coupling groups**\n\nGroups of mutually coupled superior hosts (non-embedded components).\n\nComponents in a group all exchange information directly.\n\n**Example:** Atmosphere, Land Surface, Ocean",
-    "calendar": "**Calendar types**\n\nPermitted calendar systems for this model.\n\n- **standard**: Gregorian with leap years\n- **proleptic-gregorian**: Gregorian extended to past\n- **365-day**: No leap years (noleap)\n- **360-day**: 12 months × 30 days",
+    "calendar": "**Calendar types**\n\nPermitted calendar systems for this model.\n\n- **standard**: Gregorian with leap years\n- **proleptic-gregorian**: Gregorian extended to past\n- **365-day**: No leap years (noleap)\n- **360-day**: 12 months \u00d7 30 days",
     "release_year": "**Release year**\n\nYear model was first released or used for published simulations.",
     "reference_dois": "**Model publications**\n\nDOIs for papers describing the complete model.\n\n**Format:** `https://doi.org/...` (one per line)\n\n**Do NOT include:** Component-specific papers (those belong in Stage 3)."
   }

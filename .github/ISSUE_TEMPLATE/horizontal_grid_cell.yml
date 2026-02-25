@@ -1,12 +1,12 @@
-name: "Stage 1: Grid Cells"
-description: Register grid cells (Stage 1 of 4)
-title: "[EMD] Grid Cells:"
-labels: ['emd-submission', 'c+s', 'Review']
+name: "Stage 1: Grid Cell"
+description: Register grid cell (Stage 1 of 4)
+title: "[EMD] Stage 1: Horizontal Grid Cell: [do not edit]"
+labels: ['emd-submission', 'horizontal_grid_cell', 'Review', 'pull_req', 'needs-review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Reusable Grid Cells
+        ## Reusable Grid Cell
         
         > [!TIP]
         > **Using a pre-registered grid cell?** Select from the list below to auto-populate fields.
@@ -16,19 +16,13 @@ body:
         <details>
         <summary>Pre-registered Grid Cells (must be opened in a new window)</summary>
         
-        - [g100 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g100&issue_kind=%22New%22&x_resolution=1.25&y_resolution=0.9&southernmost_latitude=-89.5&n_cells=55296&grid_mapping=%22latitude_longitude%22&westernmost_longitude=0.5&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&region=%22global%22&units=%22degree%22)
-        - [g101 (linear-spectral-gaussian)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g101&issue_kind=%22New%22&x_resolution=1.4&y_resolution=1.4&southernmost_latitude=-88.9277353522076&truncation_method=%22triangular%22&n_cells=24572&grid_mapping=%22latitude_longitude%22&westernmost_longitude=0.0&temporal_refinement=%22static%22&grid_type=%22linear_spectral_gaussian%22&region=%22global%22&units=%22degree%22&truncation_number=127)
-        - [g102 (tripolar)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g102&issue_kind=%22New%22&n_cells=105704&grid_mapping=%22latitude_longitude%22&temporal_refinement=%22static%22&grid_type=%22tripolar%22&region=%22global%22)
-        - [g103 (plane-projection)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g103&issue_kind=%22New%22&grid_mapping=%22polar_stereographic%22&temporal_refinement=%22adaptive%22&grid_type=%22plane_projection%22&region=%22greenland%22%2C%22antarctica%22)
-        - [g104 (regular-latitude-longitude)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml&title=Horizontal+Grid+Cells%3A+g104&issue_kind=%22New%22&x_resolution=1.25&y_resolution=0.9&southernmost_latitude=-89.65&n_cells=55296&grid_mapping=%22latitude_longitude%22&westernmost_longitude=0.0&temporal_refinement=%22static%22&grid_type=%22regular_latitude_longitude%22&region=%22global%22&units=%22degree%22)
+        
         
         </details>
         
-        ## Stage 1: Grid Cells & Subgrid
+        ## Stage 1: Horizontal Grid Cell
         
-        This form has two sections:
-        1. **Grid Cell Definition** — Defines the physical grid structure (cell arrangement, resolution, extent) that can be reused across multiple subgrid and component registrations
-        2. **Subgrid Definition** — Specifies where variables are stored on the grid for use in Stage 2a
+        Registers reusable grid cell definitions that can be referenced in Stage 2a.
         
         **Prerequisites:** None — this is the first step.
         
@@ -39,9 +33,9 @@ body:
         
         ---
         
-        ### Grid Cell Definition
+        ### Grid Cell Properties
         
-        This section defines the physical grid structure that can be reused across multiple subgrid registrations.
+        Define the physical grid structure that can be reused across multiple subgrid registrations in Stage 2a.
 
   - type: dropdown
     id: grid_type
@@ -359,67 +353,11 @@ body:
       value: |
         ---
         
-        ### Subgrid Definition
-        
-        This section specifies where variables are stored on the grid, generating a subgrid ID (s###) for use in Stage 2a: Horizontal Computational Grid.
-        
-        > [!NOTE]
-        > **Grid cells only?** If you only need a grid cell entry without a subgrid, select **'No subgrid (grid cells only)'** below and leave the Variable Types field empty.
-
-  - type: dropdown
-    id: subgrid_option
-    attributes:
-      label: Subgrid Option
-      description: Whether to create a subgrid entry alongside the grid cells.
-      options:
-        - "Not specified"
-        - "Create new subgrid"
-        - "No subgrid (grid cells only)"
-      default: 0
-    validations:
-      required: true
-
-  - type: dropdown
-    id: cell_variable_type
-    attributes:
-      multiple: true
-      label: Variable Types
-      description: |
-        The types of variables stored at this subgrid location. Leave empty if creating grid cells only. **Select multiple.**
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Variable types at this subgrid location**
-        
-        Defines what variables are stored at these cell positions.
-        
-        - **mass**: Scalars (temperature, pressure, tracers)
-        - **zonal-velocity**: U-component of velocity
-        - **meridional-velocity**: V-component of velocity
-        - **vorticity**: For spectral vorticity-divergence formulations
-        - **divergence**: For spectral vorticity-divergence formulations
-        
-        Staggered grids (Arakawa B/C/D/E) need multiple subgrids with different variable types.
-        
-        </details>
-      options:
-        - "mass"
-        - "velocity"
-        - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
-
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        
         ## Issue Handling
         
         **After submission:**
-        - Creates `horizontal_grid_cells` (g###) and optionally `horizontal_subgrid` (s###)
-        - Use the s### ID in Stage 2a (Horizontal Computational Grid)
+        - Creates `horizontal_grid_cell` (g###)
+        - Use g### IDs in Stage 2a (Horizontal Computational Grid) to build subgrids
         - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown
@@ -433,3 +371,11 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: |
+        To add attribution to additional members include their GitHub usernames (only) separated by a comma.
+      placeholder: "user1,user2,user3,..."

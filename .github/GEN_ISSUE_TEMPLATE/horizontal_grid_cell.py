@@ -10,7 +10,7 @@ DATA = {
     'units': graph_entry('constants:units/_graph.json'),
     'truncation_method': graph_entry('constants:truncation_method/_graph.json'),
     'cell_variable_type': graph_entry('constants:cell_variable_type/_graph.json'),
-    'subgrid_option': ['Create new subgrid', 'No subgrid (grid cells only)'],
+    'subgrid_option': ['Create new subgrid', 'No subgrid (grid cell only)'],
     'issue_kind': ['New', 'Modify'],
     'prefill_links': get_existing_entries_markdown('grid_cell_and_subgrid', issue_kind='New')
 }
