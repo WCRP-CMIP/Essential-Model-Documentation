@@ -20,11 +20,9 @@ body:
         
         </details>
         
-        ## Stage 1: Grid Cells & Subgrid
+        ## Stage 1: Horizontal Grid Cells
         
-        This form has two sections:
-        1. **Grid Cell Definition** — Defines the physical grid structure (cell arrangement, resolution, extent) that can be reused across multiple subgrid and component registrations
-        2. **Subgrid Definition** — Specifies where variables are stored on the grid for use in Stage 2a
+        Registers reusable grid cell definitions that can be referenced in Stage 2a.
         
         **Prerequisites:** None — this is the first step.
         
@@ -35,9 +33,9 @@ body:
         
         ---
         
-        ### Grid Cell Definition
+        ### Grid Cell Properties
         
-        This section defines the physical grid structure that can be reused across multiple subgrid registrations.
+        Define the physical grid structure that can be reused across multiple subgrid registrations in Stage 2a.
 
   - type: dropdown
     id: grid_type
@@ -354,67 +352,11 @@ body:
       value: |
         ---
         
-        ### Subgrid Definition
-        
-        This section specifies where variables are stored on the grid, generating a subgrid ID (s###) for use in Stage 2a: Horizontal Computational Grid.
-        
-        > [!NOTE]
-        > **Grid cells only?** If you only need a grid cell entry without a subgrid, select **'No subgrid (grid cells only)'** below and leave the Variable Types field empty.
-
-  - type: dropdown
-    id: subgrid_option
-    attributes:
-      label: Subgrid Option
-      description: Whether to create a subgrid entry alongside the grid cells.
-      options:
-        - "Not specified"
-        - "Create new subgrid"
-        - "No subgrid (grid cells only)"
-      default: 0
-    validations:
-      required: true
-
-  - type: dropdown
-    id: cell_variable_type
-    attributes:
-      multiple: true
-      label: Variable Types
-      description: |
-        The types of variables stored at this subgrid location. Leave empty if creating grid cells only. **Select multiple.**
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Variable types at this subgrid location**
-        
-        Defines what variables are stored at these cell positions.
-        
-        - **mass**: Scalars (temperature, pressure, tracers)
-        - **zonal-velocity**: U-component of velocity
-        - **meridional-velocity**: V-component of velocity
-        - **vorticity**: For spectral vorticity-divergence formulations
-        - **divergence**: For spectral vorticity-divergence formulations
-        
-        Staggered grids (Arakawa B/C/D/E) need multiple subgrids with different variable types.
-        
-        </details>
-      options:
-        - "mass"
-        - "velocity"
-        - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
-
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        
         ## Issue Handling
         
         **After submission:**
-        - Creates `horizontal_grid_cells` (g###) and optionally `horizontal_subgrid` (s###)
-        - Use the s### ID in Stage 2a (Horizontal Computational Grid)
+        - Creates `horizontal_grid_cells` (g###)
+        - Use g### IDs in Stage 2a (Horizontal Computational Grid) to build subgrids
         - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown
