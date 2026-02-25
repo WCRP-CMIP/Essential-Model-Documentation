@@ -149,8 +149,7 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_1
     attributes:
-      label: Grid Cells
-      description: Select or define horizontal grid cells for this subgrid.
+      label: 
       options:
         - "Not specified"
         - "g100"
@@ -167,8 +166,7 @@ body:
     id: cell_variable_type_1
     attributes:
       multiple: true
-      label: Variable Types
-      description: Variable types at this cell location. **Select multiple.**
+      label: 
       options:
         - "mass"
         - "velocity"
@@ -184,8 +182,7 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_2
     attributes:
-      label: Grid Cells
-      description: Select or define horizontal grid cells for this subgrid.
+      label: 
       options:
         - "Not specified"
         - "g100"
@@ -200,8 +197,7 @@ body:
     id: cell_variable_type_2
     attributes:
       multiple: true
-      label: Variable Types
-      description: Variable types at this cell location. **Select multiple.**
+      label: 
       options:
         - "mass"
         - "velocity"
@@ -217,8 +213,7 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_3
     attributes:
-      label: Grid Cells
-      description: Select or define horizontal grid cells for this subgrid.
+      label: 
       options:
         - "Not specified"
         - "g100"
@@ -233,8 +228,7 @@ body:
     id: cell_variable_type_3
     attributes:
       multiple: true
-      label: Variable Types
-      description: Variable types at this cell location. **Select multiple.**
+      label: 
       options:
         - "mass"
         - "velocity"
@@ -250,8 +244,7 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_4
     attributes:
-      label: Grid Cells
-      description: Select or define horizontal grid cells for this subgrid.
+      label: 
       options:
         - "Not specified"
         - "g100"
@@ -266,8 +259,7 @@ body:
     id: cell_variable_type_4
     attributes:
       multiple: true
-      label: Variable Types
-      description: Variable types at this cell location. **Select multiple.**
+      label: 
       options:
         - "mass"
         - "velocity"
