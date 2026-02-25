@@ -149,30 +149,19 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_1
     attributes:
-      label: 
+      label: ''
       options:
-        - "Not specified"
-        - "g100"
-        - "g101"
-        - "g102"
-        - "g103"
-        - "g104"
-        - "g105"
-        - "g106"
-    validations:
-      required: true
+        - "No options available"
+      default: list_with_na
 
   - type: dropdown
     id: cell_variable_type_1
     attributes:
       multiple: true
-      label: 
+      label: ''
       options:
-        - "mass"
-        - "velocity"
-        - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
+        - "No options available"
+      default: list
 
   - type: markdown
     attributes:
@@ -182,28 +171,19 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_2
     attributes:
-      label: 
+      label: ''
       options:
-        - "Not specified"
-        - "g100"
-        - "g101"
-        - "g102"
-        - "g103"
-        - "g104"
-        - "g105"
-        - "g106"
+        - "No options available"
+      default: list_with_na
 
   - type: dropdown
     id: cell_variable_type_2
     attributes:
       multiple: true
-      label: 
+      label: ''
       options:
-        - "mass"
-        - "velocity"
-        - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
+        - "No options available"
+      default: list
 
   - type: markdown
     attributes:
@@ -213,28 +193,19 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_3
     attributes:
-      label: 
+      label: ''
       options:
-        - "Not specified"
-        - "g100"
-        - "g101"
-        - "g102"
-        - "g103"
-        - "g104"
-        - "g105"
-        - "g106"
+        - "No options available"
+      default: list_with_na
 
   - type: dropdown
     id: cell_variable_type_3
     attributes:
       multiple: true
-      label: 
+      label: ''
       options:
-        - "mass"
-        - "velocity"
-        - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
+        - "No options available"
+      default: list
 
   - type: markdown
     attributes:
@@ -244,28 +215,19 @@ body:
   - type: dropdown
     id: horizontal_grid_cells_4
     attributes:
-      label: 
+      label: ''
       options:
-        - "Not specified"
-        - "g100"
-        - "g101"
-        - "g102"
-        - "g103"
-        - "g104"
-        - "g105"
-        - "g106"
+        - "No options available"
+      default: list_with_na
 
   - type: dropdown
     id: cell_variable_type_4
     attributes:
       multiple: true
-      label: 
+      label: ''
       options:
-        - "mass"
-        - "velocity"
-        - "vorticity"
-        - "x-velocity"
-        - "y-velocity"
+        - "No options available"
+      default: list
 
   - type: markdown
     attributes:
