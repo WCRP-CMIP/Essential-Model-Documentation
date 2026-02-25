@@ -4,7 +4,7 @@ This guide outlines how to submit Essential Model Documentation (EMD) for your c
 
 ## Overview
 
-EMD submission follows a **4-stage process**. If your grids and model/component families are already registered from previous projects, start at **Stage 3** (highlighted below). Otherwise, begin at Stage 1.
+EMD submission follows a **4-stage process**. If your grids and model/component families are already registered from previous EMD submission, start at **Stage 3** (highlighted below). Otherwise, begin at Stage 1.
 
 Subsequent submissions become faster as more shared information is registered.
 

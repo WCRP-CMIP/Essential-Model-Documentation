@@ -12,9 +12,9 @@ Registered model components (Stage 3 input).
 | **gelato** | GELATO | Global Experimental Leads and sea ice for ATmos... | sea_ice | gelato | private | ** |
 | **hadam3** | HadAM3 | HadAM3 is the atmospheric component of HadCM3, ... | atmosphere | hadam | ** | ** |
 | **nemo_v3_6** | NEMO v3.6 | Nucleus for European Modelling of the Ocean ver... | ocean | nemo | private | ** |
-| **piscesv2-gas** | PISCESv2-gas | Pelagic Interaction Scheme for Carbon and Ecosy... | ocean_biogeochemistry | pisces | https://gitlab.in2p3.fr/pisco/pisces-gas/pisces... | ** |
+| **piscesv2-gas** | PISCESv2-gas | Pelagic Interaction Scheme for Carbon and Ecosy... | ocean_biogeochemistry | pisces | https://gitlab.in2p3.fr/pisco/pisces-gas/pisces... | https://doi.org/10.5194/esd-14-399-2023 |
 | **reprobus-c_v2_0** | REPROBUS-C (v2.0) | The chemistry scheme of CNRM-ESM2 is an on-line... | atmospheric_chemistry | reprobus | private | ** |
-| **surfex_v8_modeling_platform** | SURFEX v8 modeling platform | SURFEXv8.0 encompasses several submodules for m... | land_surface | surfex | https://www.umr-cnrm.fr/surfex/spip.php?rubrique8 | https://doi.org/10.3402/tellusa.v68.31274 |
+| **surfex_v8_modeling_platform** | SURFEX v8 modeling platform | SURFEXv8.0 encompasses several submodules for m... | land_surface | surfex | https://www.umr-cnrm.fr/surfex/spip.php?rubrique8 | https://doi.org/10.1029/2019MS001886 |
 | **tactic** | TACTIC | TACTIC (Tropospheric Aerosols for ClimaTe In CN... | aerosol | tactic | private | ** |
 
-*Generated: 2026-02-24 23:37*
+*Generated: 2026-02-25 16:26*
