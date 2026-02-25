@@ -41,12 +41,13 @@ This section defines the model component that can be reused across multiple sour
 
 ### Grid Configuration
 
-This section links the component to computational grids, generating a composite configuration ID (e.g., `ocean_nemo-v3-6_c101_v103`) for use in Stage 4: Model (source_id) registration.
+This section links the component to computational grids, generating a composite configuration ID (e.g., `ocean_nemo-v3-6_h101_v103`) for use in Stage 4: Model (source_id) registration.
 
-**Prerequisites:** Horizontal grid ID (c###) from Stage 2a and/or Vertical grid ID (v###) from Stage 2b.",none,false,,,
+**Prerequisites:** Horizontal grid ID (h###) from Stage 2a and/or Vertical grid ID (v###) from Stage 2b.",none,false,,,
 9,dropdown,horizontal_computational_grid,Horizontal Grid,The horizontal computational grid that this component uses.,horizontal_grid,true,,list_with_na,0
 10,dropdown,vertical_computational_grid,Vertical Grid,The vertical computational grid that this component uses.,vertical_grid,true,,list_with_na,0
-11,markdown,metadata_header,,"---
+11,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
+12,markdown,metadata_header,,"---
 
 ## Issue Handling
 
@@ -55,5 +56,4 @@ This section links the component to computational grids, generating a composite 
 - Config ID format: `<domain>_<component>_<c###>_<v###>`
 - Use the config ID in Stage 4 (Model)
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
-12,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,username1, username2, username3,,
 13,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

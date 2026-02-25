@@ -18,7 +18,8 @@ Defines the vertical level structure for a model component.
 5,input,top_layer_thickness,Top Layer Thickness (m),The thickness of the uppermost layer in metres.,none,false,2.0,,
 6,input,bottom_layer_thickness,Bottom Layer Thickness (m),The thickness of the lowest layer in metres.,none,false,25.0,,
 7,input,total_thickness,Total Thickness (m),The total vertical extent of the grid in metres.,none,false,80000,,
-8,markdown,metadata_header,,"---
+8,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
+9,markdown,metadata_header,,"---
 
 ## Issue Handling
 
@@ -26,5 +27,4 @@ Defines the vertical level structure for a model component.
 - Creates `vertical_computational_grid` (v###)
 - Use this ID with a c### in Stage 3 (Model Component)
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
-9,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,username1, username2, username3,,
 10,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
