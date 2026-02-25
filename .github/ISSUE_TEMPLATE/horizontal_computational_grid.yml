@@ -1,0 +1,319 @@
+name: "Stage 2a: Horizontal Computational Grid"
+description: Register horizontal computational grid (Stage 2a of 4)
+title: "[EMD] Stage 2a: Horizontal Computational Grid: [do not edit]"
+labels: ['emd-submission', 'horizontal_computational_grid', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Stage 2a: Horizontal Computational Grid
+        
+        Links subgrids into a single computational grid with a specified staggering arrangement.
+        
+        **Prerequisites:** Subgrid IDs (s###) from Stage 1.
+        
+        > [!NOTE]
+        > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+        > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+        
+        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50-rNWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DZtA0dE_JAyXNNhid1rfIldq1mxrVaj1mpZLatp1VvAvITt2n6l5RzAqNkNp9k4aNwa-CrTUKvstxoGpuBPGQ_zdi3r2m5_Ayb4HJE)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A brief characterization of this computational grid including arrangement type and resolution.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid characterization**
+        
+        Brief description of this computational grid.
+        
+        **What to include:**
+        1. Arrangement type (e.g., Arakawa-C)
+        2. Key properties (resolution, spectral truncation)
+        3. Typical use (atmosphere, ocean, etc.)
+        
+        **Example:** 'Arakawa-C grid combining TL127 spectral Gaussian and 1.25°×0.9° regular lat-lon subgrids for atmospheric modelling.'
+        
+        </details>
+      placeholder: "1. Arrangement type
+2. Resolution or spectral truncation
+3. Typical use (atmosphere/ocean)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: arrangement
+    attributes:
+      label: Arrangement
+      description: |
+        The grid staggering pattern that defines how variables are positioned relative to cell centres.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid staggering pattern**
+        
+        Defines relative positions of mass and velocity variables.
+        
+        - **arakawa-a / unstaggered**: All variables at same location
+        - **arakawa-b**: Velocities at cell corners
+        - **arakawa-c**: U at east/west edges, V at north/south edges (common for ocean)
+        - **arakawa-d**: U at north/south edges, V at east/west edges
+        - **arakawa-e**: Mass at edge midpoints
+        
+        **Number of subgrids needed:**
+        - Unstaggered/A: 1 subgrid
+        - B: 2 subgrids (mass + corner velocity)
+        - C/D: 2-3 subgrids (mass + edge velocities)
+        
+        </details>
+      options:
+        - "Not specified"
+        - "arakawa-a"
+        - "arakawa-b"
+        - "arakawa-c"
+        - "arakawa-d"
+        - "arakawa-e"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: horizontal_subgrids
+    attributes:
+      multiple: true
+      label: Subgrid IDs
+      description: |
+        The subgrid IDs from Stage 1 that make up this computational grid. **Select multiple.**
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Subgrid references**
+        
+        List the s### IDs from Stage 1.
+        
+        **Format:** One ID per line
+        
+        **Example for Arakawa-C:**
+        ```
+        s100
+        s101
+        ```
+        Where s100 = mass variables, s101 = velocity variables.
+        
+        Number of subgrids must match your arrangement type.
+        
+        </details>
+      options:
+        - "s100"
+        - "s101"
+        - "s102"
+        - "s103"
+        - "s104"
+        - "s105"
+        - "s106"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Subgrid Configurations (Optional)
+        
+        Alternatively, define subgrids inline by specifying grid cells and variable types for each slot.
+        
+        <details>
+        <summary>What are subgrids?</summary>
+        
+        A **horizontal subgrid** describes the grid cells at one of the stagger positions of a horizontal computational grid. 
+        
+        **Cell Variable Types** define what variables are stored at cells:
+        - **mass**: Mass-related variables (temperature, pressure, tracers)
+        - **x_velocity**: X-component velocity and related fluxes
+        - **y_velocity**: Y-component velocity and related fluxes  
+        - **velocity**: Velocity vector when not partitioned (unstructured grids)
+        
+        For staggered grids (Arakawa B/C/D/E), multiple subgrids with different variable types are needed.
+        
+        </details>
+        
+        ---
+        
+        ### Subgrid Slot 1
+
+  - type: dropdown
+    id: horizontal_grid_cells_1
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_1
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Subgrid Slot 2
+
+  - type: dropdown
+    id: horizontal_grid_cells_2
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_2
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Subgrid Slot 3
+
+  - type: dropdown
+    id: horizontal_grid_cells_3
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_3
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### Subgrid Slot 4
+
+  - type: dropdown
+    id: horizontal_grid_cells_4
+    attributes:
+      label: Grid Cells
+      description: Select or define horizontal grid cells for this subgrid.
+      options:
+        - "Not specified"
+        - "g100"
+        - "g101"
+        - "g102"
+        - "g103"
+        - "g104"
+        - "g105"
+        - "g106"
+      default: 0
+
+  - type: dropdown
+    id: cell_variable_type_4
+    attributes:
+      multiple: true
+      label: Variable Types
+      description: Variable types at this cell location. **Select multiple.**
+      options:
+        - "mass"
+        - "velocity"
+        - "vorticity"
+        - "x-velocity"
+        - "y-velocity"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## Issue Handling
+        
+        **After submission:**
+        - Creates `horizontal_computational_grid` (h###)
+        - Use this ID with a v### in Stage 3 (Model Component)
+        - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
+
+  - type: dropdown
+    id: issue_kind
+    attributes:
+      label: Issue Kind
+      description: Whether this is a new submission or a modification to an existing entry.
+      options:
+        - "Modify"
+        - "New"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: |
+        To add attribution to additional members include their GitHub usernames (only) separated by a comma.
+      placeholder: "user1,user2,user3,..."

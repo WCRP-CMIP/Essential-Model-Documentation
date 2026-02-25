@@ -9,6 +9,7 @@ The following forms are available for this repository, and can be used to add or
 - [horizontal_grid_cells](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cells.yml)
 ### Stage 2 - Computational Grids
 
+- [horizontal_computational_grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml)
 - [vertical_computational_grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml)
 ### Stage 3 - Components
 
