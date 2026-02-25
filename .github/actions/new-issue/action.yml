@@ -1,0 +1,71 @@
+name: Process New Issue Submission
+description: Wrapper action for processing GitHub issue submissions locally
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: write
+
+inputs:
+  issue_number:
+    description: 'Issue number to process (for manual re-triggering)'
+    required: false
+    type: string
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Checkout src-data branch (for data files)
+      uses: actions/checkout@v4
+      with:
+        ref: src-data
+        fetch-depth: 0
+
+    - name: Get handler scripts from main branch
+      run: |
+        git fetch origin main
+        git checkout origin/main -- .github/ISSUE_SCRIPT
+        echo "✓ Fetched handler scripts from main branch"
+        ls -la .github/ISSUE_SCRIPT/
+      shell: bash
+
+    - name: Install CMIPLD
+      uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+    - name: Configure Git for simple push
+      run: git config --global push.default simple
+      shell: bash
+
+    - name: Determine issue number
+      id: issue-num
+      run: |
+        if [ -n "${{ inputs.issue_number }}" ]; then
+          ISSUE_NUM="${{ inputs.issue_number }}"
+          echo "Using manual issue number: $ISSUE_NUM"
+        else
+          ISSUE_NUM="${{ github.event.issue.number }}"
+          echo "Using automatic issue number: $ISSUE_NUM"
+        fi
+        
+        if [ -z "$ISSUE_NUM" ]; then
+          echo "❌ Error: Could not determine issue number"
+          exit 1
+        fi
+        
+        echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Run Python script
+      id: run_python
+      env:
+        ISSUE_NUMBER: ${{ steps.issue-num.outputs.issue_number }}
+        GH_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
+        PYTHONIOENCODING: utf-8
+        LC_ALL: C.UTF-8
+        LANG: C.UTF-8
+      run: |
+        new_issue --issue ${{ steps.issue-num.outputs.issue_number }}
+      shell: bash
+      continue-on-error: false

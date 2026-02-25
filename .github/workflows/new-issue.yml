@@ -1,0 +1,45 @@
+name: New Issue Processing
+description: Process new issue submissions and parse form data
+
+on:
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process (for manual re-triggering)'
+        required: false
+        type: string
+
+permissions:
+  issues: write
+  contents: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  new-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine Issue Number
+        id: issue-info
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            ISSUE_NUM="${{ github.event.inputs.issue_number }}"
+            if [ -z "$ISSUE_NUM" ]; then
+              echo "❌ Error: issue_number is required for manual workflow_dispatch"
+              exit 1
+            fi
+            echo "Manual re-trigger: Using issue #$ISSUE_NUM"
+          else
+            ISSUE_NUM="${{ github.event.issue.number }}"
+            echo "Automatic trigger: Processing issue #$ISSUE_NUM"
+          fi
+          echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Run New Issue Parser
+        id: new-issue-action
+        uses: ./.github/actions/new-issue
+        with:
+          issue_number: ${{ steps.issue-info.outputs.issue_number }}

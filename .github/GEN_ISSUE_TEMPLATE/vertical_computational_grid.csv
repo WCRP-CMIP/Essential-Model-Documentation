@@ -26,4 +26,5 @@ Defines the vertical level structure for a model component.
 - Creates `vertical_computational_grid` (v###)
 - Use this ID with a c### in Stage 3 (Model Component)
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
-9,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
+9,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,username1, username2, username3,,
+10,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

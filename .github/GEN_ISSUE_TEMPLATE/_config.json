@@ -1,7 +1,7 @@
 {
   "grouping": {
     "Stage 1 - Grid Cells": [
-      "grid_cell_and_subgrid"
+      "horizontal_grid_cells"
     ],
     "Stage 2 - Computational Grids": [
       "horizontal_computational_grid",
@@ -19,7 +19,7 @@
     ]
   },
   "template_order": [
-    "grid_cell_and_subgrid",
+    "horizontal_grid_cells",
     "horizontal_computational_grid",
     "vertical_computational_grid",
     "model_component",

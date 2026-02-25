@@ -23,4 +23,5 @@ Report bugs, ask questions, or suggest improvements to the EMD repository.
 - Issue will be triaged by maintainers
 - You may be asked for clarification
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
-8,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
+8,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,username1, username2, username3,,
+9,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0
