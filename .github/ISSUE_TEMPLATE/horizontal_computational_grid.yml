@@ -145,11 +145,13 @@ body:
         </details>
         
         ---
+        
+        ### Subgrid Slot 1
 
   - type: dropdown
     id: horizontal_grid_cells_1
     attributes:
-      label: Grid Cells
+      label: Grid Cells (select or define horizontal grid cells for this subgrid)
       options:
         - "Not specified"
         - "g100"
@@ -166,23 +168,27 @@ body:
     id: cell_variable_type_1
     attributes:
       multiple: true
-      label: Variable Types
+      label: Variable Types (variable types at this cell location)
       options:
         - "mass"
         - "velocity"
         - "vorticity"
         - "x-velocity"
         - "y-velocity"
+    validations:
+      required: true
 
   - type: markdown
     attributes:
       value: |
         ---
+        
+        ### Subgrid Slot 2
 
   - type: dropdown
     id: horizontal_grid_cells_2
     attributes:
-      label: Grid Cells
+      label: Grid Cells (select or define horizontal grid cells for this subgrid)
       options:
         - "Not specified"
         - "g100"
@@ -197,7 +203,7 @@ body:
     id: cell_variable_type_2
     attributes:
       multiple: true
-      label: Variable Types
+      label: Variable Types (variable types at this cell location)
       options:
         - "mass"
         - "velocity"
@@ -209,11 +215,13 @@ body:
     attributes:
       value: |
         ---
+        
+        ### Subgrid Slot 3
 
   - type: dropdown
     id: horizontal_grid_cells_3
     attributes:
-      label: Grid Cells
+      label: Grid Cells (select or define horizontal grid cells for this subgrid)
       options:
         - "Not specified"
         - "g100"
@@ -228,7 +236,7 @@ body:
     id: cell_variable_type_3
     attributes:
       multiple: true
-      label: Variable Types
+      label: Variable Types (variable types at this cell location)
       options:
         - "mass"
         - "velocity"
@@ -240,11 +248,13 @@ body:
     attributes:
       value: |
         ---
+        
+        ### Subgrid Slot 4
 
   - type: dropdown
     id: horizontal_grid_cells_4
     attributes:
-      label: Grid Cells
+      label: Grid Cells (select or define horizontal grid cells for this subgrid)
       options:
         - "Not specified"
         - "g100"
@@ -259,7 +269,7 @@ body:
     id: cell_variable_type_4
     attributes:
       multiple: true
-      label: Variable Types
+      label: Variable Types (variable types at this cell location)
       options:
         - "mass"
         - "velocity"
