@@ -79,6 +79,7 @@ body:
         - "arakawa-c"
         - "arakawa-d"
         - "arakawa-e"
+      default: 0
     validations:
       required: true
 
@@ -161,6 +162,7 @@ body:
         - "g104"
         - "g105"
         - "g106"
+      default: 0
     validations:
       required: true
 
@@ -198,6 +200,7 @@ body:
         - "g104"
         - "g105"
         - "g106"
+      default: 0
 
   - type: dropdown
     id: cell_variable_type_2
@@ -231,6 +234,7 @@ body:
         - "g104"
         - "g105"
         - "g106"
+      default: 0
 
   - type: dropdown
     id: cell_variable_type_3
@@ -264,6 +268,7 @@ body:
         - "g104"
         - "g105"
         - "g106"
+      default: 0
 
   - type: dropdown
     id: cell_variable_type_4

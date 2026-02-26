@@ -13,7 +13,7 @@ Links subgrids into a single computational grid with a specified staggering arra
 2,textarea,description,Description,A brief characterization of this computational grid including arrangement type and resolution.,none,true,"1. Arrangement type
 2. Resolution or spectral truncation
 3. Typical use (atmosphere/ocean)",,
-3,dropdown,arrangement,Arrangement,The grid staggering pattern that defines how variables are positioned relative to cell centres.,arrangement,true,,list_with_na,
+3,dropdown,arrangement,Arrangement,The grid staggering pattern that defines how variables are positioned relative to cell centres.,arrangement,true,,list_with_na,0
 4,multi-select,horizontal_subgrids,Subgrid IDs,The subgrid IDs from Stage 1 that make up this computational grid. **Select multiple.**,subgrids,true,,list,
 5,markdown,subgrid_config_header,,"---
 
@@ -39,22 +39,22 @@ For staggered grids (Arakawa B/C/D/E), multiple subgrids with different variable
 ---
 
 ### Subgrid Slot 1",none,false,,,
-6,dropdown,horizontal_grid_cells_1,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,true,,list_with_na,
+6,dropdown,horizontal_grid_cells_1,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,true,,list_with_na,0
 7,multi-select,cell_variable_type_1,Variable Types (variable types at this cell location),,cell_variable_type,true,,list,
 8,markdown,subgrid_2_header,,"---
 
 ### Subgrid Slot 2",none,false,,,
-9,dropdown,horizontal_grid_cells_2,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,
+9,dropdown,horizontal_grid_cells_2,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
 10,multi-select,cell_variable_type_2,Variable Types (variable types at this cell location),,cell_variable_type,false,,list,
 11,markdown,subgrid_3_header,,"---
 
 ### Subgrid Slot 3",none,false,,,
-12,dropdown,horizontal_grid_cells_3,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,
+12,dropdown,horizontal_grid_cells_3,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
 13,multi-select,cell_variable_type_3,Variable Types (variable types at this cell location),,cell_variable_type,false,,list,
 14,markdown,subgrid_4_header,,"---
 
 ### Subgrid Slot 4",none,false,,,
-15,dropdown,horizontal_grid_cells_4,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,
+15,dropdown,horizontal_grid_cells_4,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
 16,multi-select,cell_variable_type_4,Variable Types (variable types at this cell location),,cell_variable_type,false,,list,
 17,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
 18,markdown,metadata_header,,"---

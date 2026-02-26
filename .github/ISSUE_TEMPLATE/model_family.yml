@@ -76,6 +76,7 @@ body:
         - "Not specified"
         - "component"
         - "model"
+      default: 0
     validations:
       required: true
 
@@ -246,6 +247,7 @@ body:
         - "Wits"
         - "WSL"
         - "WWRP"
+      default: 0
     validations:
       required: true
 

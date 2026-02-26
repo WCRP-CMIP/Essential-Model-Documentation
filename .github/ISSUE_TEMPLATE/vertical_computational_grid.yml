@@ -101,6 +101,7 @@ body:
         - "sea_water_potential_temperature"
         - "sea_water_pressure"
         - "z*"
+      default: 0
     validations:
       required: true
 

@@ -87,6 +87,7 @@ body:
         - "unstructured_quadrilateral"
         - "unstructured_triangular"
         - "yin_yang"
+      default: 0
     validations:
       required: true
 
@@ -128,6 +129,7 @@ body:
         - "stereographic"
         - "transverse_mercator"
         - "vertical_perspective"
+      default: 0
     validations:
       required: true
 
@@ -189,6 +191,7 @@ body:
         - "adaptive"
         - "dynamically_stretched"
         - "static"
+      default: 0
     validations:
       required: true
 
@@ -241,6 +244,7 @@ body:
         - "k"
         - "meter"
         - "pa"
+      default: 0
 
   - type: input
     id: n_cells
@@ -322,6 +326,7 @@ body:
         - "Not specified"
         - "rhomboidal"
         - "triangular"
+      default: 0
 
   - type: input
     id: truncation_number

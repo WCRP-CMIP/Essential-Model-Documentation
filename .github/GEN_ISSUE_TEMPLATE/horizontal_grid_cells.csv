@@ -29,17 +29,17 @@ Registers reusable grid cell definitions that can be referenced in Stage 2a.
 ### Grid Cell Properties
 
 Define the physical grid structure that can be reused across multiple subgrid registrations in Stage 2a.",none,false,,,
-2,dropdown,grid_type,Grid Type,The cell distribution pattern that defines how grid cells are arranged across the domain.,grid_type,true,,list_with_na,
-3,dropdown,grid_mapping,Coordinate System,The reference coordinate system used for cell positions.,grid_mapping,true,,list_with_na,
+2,dropdown,grid_type,Grid Type,The cell distribution pattern that defines how grid cells are arranged across the domain.,grid_type,true,,list_with_na,0
+3,dropdown,grid_mapping,Coordinate System,The reference coordinate system used for cell positions.,grid_mapping,true,,list_with_na,0
 4,multi-select,region,Region,The geographic coverage area of the grid. **Select multiple.**,region,true,,list,
-5,dropdown,temporal_refinement,Temporal Refinement,Whether the grid changes over time during the simulation.,temporal_refinement,true,,list_with_na,
+5,dropdown,temporal_refinement,Temporal Refinement,Whether the grid changes over time during the simulation.,temporal_refinement,true,,list_with_na,0
 6,input,x_resolution,X Resolution,The nominal cell size in the x-direction.,none,false,1.25,,
 7,input,y_resolution,Y Resolution,The nominal cell size in the y-direction.,none,false,0.9,,
-8,dropdown,units,Units,The units used for resolution values.,units,false,,list_with_na,
+8,dropdown,units,Units,The units used for resolution values.,units,false,,list_with_na,0
 9,input,n_cells,Number of Cells,The total number of grid cells in the domain.,none,false,55296,,
 10,input,southernmost_latitude,Southernmost Latitude,The southern boundary of the grid in degrees north.,none,false,-89.5,,
 11,input,westernmost_longitude,Westernmost Longitude,The western boundary of the grid in degrees east.,none,false,0.5,,
-12,dropdown,truncation_method,Truncation Method,The spectral truncation type for spectral grids only.,truncation_method,false,,list_with_na,
+12,dropdown,truncation_method,Truncation Method,The spectral truncation type for spectral grids only.,truncation_method,false,,list_with_na,0
 13,input,truncation_number,Truncation Number,The maximum wavenumber retained for spectral grids only.,none,false,127,,
 14,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
 15,markdown,metadata_header,,"---

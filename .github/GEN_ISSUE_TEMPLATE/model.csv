@@ -31,7 +31,7 @@ This form has three sections:
 
 This section defines the model identity that becomes the CMIP source_id.",none,FALSE,,,
 2,input,name,Model Name,The full model name that becomes the CMIP source_id.,none,TRUE,CNRM-ESM2-1,,
-3,dropdown,family,Model Family,The Earth System family that this model belongs to.,model_family,FALSE,,dict_keys,
+3,dropdown,family,Model Family,The Earth System family that this model belongs to.,model_family,FALSE,,list_with_na,0
 4,textarea,description,Description,A scientific overview of the model mentioning all component types and their treatment.,none,TRUE,"1. Dynamic components (briefly)
 2. Prescribed components and their treatment
 3. Omitted components",,
