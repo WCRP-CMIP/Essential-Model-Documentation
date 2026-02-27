@@ -1,0 +1,21 @@
+{
+    "@context": "_context",
+    "@id": "tempgrid_sol1105-1772037325",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCells"
+    ],
+    "grid_type": "regular_latitude_longitude",
+    "coordinate_system": "latitude_longitude",
+    "region": "global",
+    "temporal_refinement": "static",
+    "x_resolution": "1.",
+    "y_resolution": "1.",
+    "units": "degree",
+    "number_of_cells": "64800",
+    "southernmost_latitude": "-89.5",
+    "westernmost_longitude": "0.5",
+    "truncation_method": "",
+    "truncation_number": "",
+    "issue_kind": "New"
+}

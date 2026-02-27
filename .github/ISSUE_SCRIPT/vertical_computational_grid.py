@@ -2,11 +2,42 @@
 Handler for Vertical Computational Grid registration (Stage 2b)
 """
 
+import os
+import sys
+
+# Import from cmipld utils
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'CMIP-LD'))
+from cmipld.utils.id_generation import generate_id_from_issue
+
+
 def run(parsed_issue, issue, dry_run=False):
     """
     Process vertical computational grid submission.
-    Returns None to let generic handler build initial data.
+    Generate @id from author + timestamp if not provided.
+    
+    Returns dict: {'path/to/file.json': data}
     """
+    # If no validation_key, generate @id from author + timestamp
+    if not parsed_issue.get('validation_key') and issue.get('author') and issue.get('created_at'):
+        id_result = generate_id_from_issue(issue.get('author'), issue.get('created_at'))
+        
+        data = {
+            "@context": "_context",
+            "@id": id_result['id'],
+            "@type": ["wcrp:vertical_computational_grid"],
+        }
+        
+        # Store submission metadata
+        if id_result['epoch']:
+            data['_submitted_by'] = id_result['author']
+            data['_submitted_at_epoch'] = id_result['epoch']
+        
+        # Return as dict with file path
+        file_path = os.path.join('vertical_computational_grid', f"{id_result['id']}.json")
+        
+        return {file_path: data}
+    
+    # Otherwise let generic handler build from validation_key
     return None
 
 

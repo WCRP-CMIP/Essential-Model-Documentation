@@ -1,0 +1,30 @@
+{
+  "name": "Stage 1: Grid Cell",
+  "description": "Register grid cell (Stage 1 of 4)",
+  "title": "[EMD] Stage 1: Horizontal Grid Cell: [do not edit]",
+  "labels": ["emd-submission", "horizontal_grid_cell", "Review"],
+  "issue_category": "horizontal_grid_cell",
+  "dropdown_title": "Detailed Guidance",
+  "prefill_sources": {
+    "horizontal_grid_cell": {
+      "display_name": "validation_key",
+      "subtitle": "grid_type",
+      "fields": "all",
+      "link_type": "prefill"
+    }
+  },
+  "field_guidance": {
+    "grid_type": "**Cell distribution pattern**\n\nDefines how grid cells are arranged across the domain.\n\n- **regular-latitude-longitude**: Uniform spacing in lat/lon\n- **reduced-gaussian**: Fewer points near poles (spectral models)\n- **tripolar**: North Pole singularity moved onto land (ocean models)\n- **displaced-pole**: Single rotated pole\n- **icosahedral**: Quasi-uniform spherical coverage\n- **cubed-sphere**: Six cube faces projected onto sphere\n- **adaptive-mesh**: Dynamically refined regions\n\nSee [CF Conventions grid mappings](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#appendix-grid-mappings) for details.",
+    "grid_mapping": "**Coordinate reference system**\n\nDefines how cell positions are located.\n\n- **latitude-longitude**: Standard geographic coordinates\n- **rotated-latitude-longitude**: Pole moved to reduce distortion over region of interest\n- **stereographic**: Polar projection (polar regions)\n- **lambert-conformal**: Mid-latitude regional projection",
+    "region": "**Geographic coverage**\n\n- **global**: Full Earth coverage\n- **regional**: Limited area domain\n- **arctic/antarctic**: Polar-focused domains\n- **tropical**: Equatorial band\n\nSelect multiple if the grid covers distinct regions.",
+    "temporal_refinement": "**Time variation of grid**\n\n- **static**: Grid remains fixed throughout simulation\n- **adaptive**: Grid changes during runtime (adaptive mesh refinement)\n\nMost grids are static.",
+    "x_resolution": "**Zonal (x-direction) resolution**\n\nNominal cell size. For spectral grids, use equivalent grid spacing.\n\n**Leave blank if:** Resolution varies by more than 25% across the domain.",
+    "y_resolution": "**Meridional (y-direction) resolution**\n\nNominal cell size.\n\n**Leave blank if:** Resolution varies by more than 25% across the domain.",
+    "n_cells": "**Total cell count**\n\nNumber of cells in the horizontal grid.\n\nFor reduced grids, count actual cells (not full Gaussian equivalent).",
+    "southernmost_latitude": "**Domain southern boundary**\n\nIn degrees north (-90 to 90).\n\nFor global grids with shifted pole, give latitude of southernmost cell center.",
+    "westernmost_longitude": "**Domain western boundary**\n\nIn degrees east (0 to 360).\n\nFor global grids, typically 0 or first cell center longitude.",
+    "truncation_method": "**Spectral truncation type** (spectral grids only)\n\n- **triangular**: T truncation (most common, e.g., T127)\n- **rhomboidal**: R truncation\n- **linear**: L truncation (linear grid)\n\n**Leave blank if:** Not a spectral grid.",
+    "truncation_number": "**Maximum wavenumber** (spectral grids only)\n\nExample: 127 for T127 truncation.\n\n**Leave blank if:** Not a spectral grid.",
+    "cell_variable_type": "**Variable types at this subgrid location**\n\nDefines what variables are stored at these cell positions.\n\n- **mass**: Scalars (temperature, pressure, tracers)\n- **zonal-velocity**: U-component of velocity\n- **meridional-velocity**: V-component of velocity\n- **vorticity**: For spectral vorticity-divergence formulations\n- **divergence**: For spectral vorticity-divergence formulations\n\nStaggered grids (Arakawa B/C/D/E) need multiple subgrids with different variable types."
+  }
+}
