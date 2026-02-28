@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "model": "all-MiniLM-L6-v2",
+    "n_files": 7,
+    "embedding_dim": 384,
+    "include_keys": false
+  },
+  "similar_pairs": {
+    "string_format": [
+      "g105 \u2194 g106 (87.5%)",
+      "g100 \u2194 g104 (95.2%)"
+    ],
+    "grouped": {
+      "0": [
+        "g100",
+        "g104"
+      ],
+      "1": [
+        "g105",
+        "g106"
+      ]
+    }
+  },
+  "clusters": {
+    "0": [
+      "g101"
+    ],
+    "1": [
+      "g100"
+    ],
+    "2": [
+      "g104"
+    ],
+    "3": [
+      "g102",
+      "g105",
+      "g106"
+    ],
+    "4": [
+      "g103"
+    ]
+  },
+  "outliers": [
+    "g103"
+  ]
+}
