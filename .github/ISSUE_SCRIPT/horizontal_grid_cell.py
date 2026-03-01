@@ -10,67 +10,30 @@ from typing import Any
 # Import from cmipld utils
 from cmipld.utils.id_generation import generate_id_from_issue
 from cmipld.utils.esgvoc import pycmipld, DATA_DESCRIPTOR_CLASS_MAPPING
+from cmipld.utils.similarity import ReportBuilder
 
 
 kind = __file__.split('/')[-1].replace('.py','')
 
-def generate_markdown_report(model_obj: pycmipld, data: dict) -> str:
 
-    md = ""
-    
-    # 1. Model Field Checks Section
-    if model_obj.model_class:
-        md += "## 📋 Model Field Validation Rules\n\n"
-        
-        # Get model fields and their constraints
-        if hasattr(model_obj.model_class, 'model_fields'):
-            fields = model_obj.model_class.model_fields
-            md += "| Field | Type | Required | Description |\n"
-            md += "| --- | --- | --- | --- |\n"
-            
-            for field_name, field_info in fields.items():
-                field_type = field_info.annotation if hasattr(field_info, 'annotation') else str(field_info.annotation)
-                required = "✅" if field_info.is_required() else "❌"
-                description = field_info.description or ""
-                md += f"| `{field_name}` | `{field_type.__name__ if hasattr(field_type, '__name__') else str(field_type)}` | {required} | {description} |\n"
-        
-        md += "\n"
-    
-    # 2. Validation Errors Section (if any)
-    if model_obj.validation_md:
-        md += "## ⚠️ Validation Errors\n\n"
-        md += "❌ **This submission has validation errors:**\n\n"
-        md += model_obj.validation_md
-        md += "\n"
-    else:
-        md += "## ✅ Validation Status\n\n"
-        md += "**All validation checks passed!**\n\n"
-    
-    # 3. JSON Data Section
-    md += "## 📄 Submitted Data\n\n"
-    md += "```json\n"
-    md += json.dumps(data, indent=2, ensure_ascii=False)
-    md += "\n```\n\n"
-    
-    # 4. Non-Empty Fields Checklist for Reviewer
-    md += "## ✏️ Fields Submitted (Reviewer Checklist)\n\n"
-    md += "Check each field for accuracy:\n\n"
-    
-    non_empty_fields = {k: v for k, v in data.items() if v and not k.startswith('@') and k != '_validation_report'}
-    
-    if non_empty_fields:
-        for field_name, value in non_empty_fields.items():
-            # Truncate long values for display
-            display_value = str(value)
-            if len(display_value) > 50:
-                display_value = display_value[:50] + "..."
-            md += f"- [ ] `{field_name}`: `{display_value}`\n"
-    else:
-        md += "- [ ] *No non-empty fields submitted*\n"
-    
-    md += "\n"
-    
-    return md
+def generate_markdown_report(data: dict, graph_data: dict | None = None) -> str:
+    """
+    Generate the full reviewer report using ReportBuilder.
+
+    Sections:
+      1. Field status table (pydantic model fields + icon + submitted value)
+      2. Pydantic validation errors in a warning admonition (if any)
+      3. Link similarity — Mermaid graph + list of >80% overlap items
+      4. Content (text) similarity on remaining fields
+    """
+    folder_url = f"emd:{kind}s"   # e.g. emd:horizontal_grid_cells
+    return ReportBuilder(
+        folder_url  = folder_url,
+        kind        = kind,
+        item        = data,
+        graph_data  = graph_data,
+        link_threshold = 80.0,
+    ).build()
 
 
 def run(parsed_issue, issue, dry_run=False):
@@ -134,8 +97,5 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         if file_path.startswith('_'):
             continue
         
-        # Validate with esgvoc pydantic model
-        model = pycmipld(DATA_DESCRIPTOR_CLASS_MAPPING.get(kind), **data)
-        
-        # Generate and store validation report
-        data['_validation_report'] = generate_markdown_report(model, data)
+        # Generate and store validation report using the full ReportBuilder pipeline
+        data['_validation_report'] = generate_markdown_report(data)
