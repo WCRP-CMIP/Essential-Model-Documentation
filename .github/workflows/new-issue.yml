@@ -29,6 +29,12 @@ jobs:
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
+      - name: Restore EMD repo after CMIPLD checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
       - name: Configure Git
         run: git config --global push.default simple
         shell: bash
