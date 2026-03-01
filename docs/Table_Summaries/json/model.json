@@ -1,0 +1,31 @@
+[
+  {
+    "@id": "land-ice",
+    "@type": [
+      "wcrp:scientific_domain",
+      "esgvoc:ScientificDomain",
+      "universal",
+      "constants"
+    ],
+    "alias": [
+      "landice",
+      "landIce"
+    ],
+    "description": "Land Ice",
+    "ui_label": "Land Ice",
+    "validation_key": "land_ice"
+  },
+  {
+    "@id": "standard",
+    "@type": [
+      "wcrp:calendar",
+      "esgvoc:Calendar",
+      "universal",
+      "constants"
+    ],
+    "alias": "gregorian",
+    "description": "Mixed Gregorian/Julian calendar as defined by UDUNITS. This is the default calendar assumed if no calendar attribute is specified. A deprecated alternative name for this calendar is 'gregorian'.",
+    "ui_label": "Standard (Gregorian)",
+    "validation_key": "standard"
+  }
+]

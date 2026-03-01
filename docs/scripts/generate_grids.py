@@ -28,8 +28,8 @@ from helpers.data_loader import init_loader, list_entries, fetch_entry
 
 
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR_H = SCRIPT_DIR.parent / "10_EMD_Repository" / "05_Horizontal_Computational_Grids"
-OUTPUT_DIR_V = SCRIPT_DIR.parent / "10_EMD_Repository" / "06_Vertical_Computational_Grids"
+OUTPUT_DIR_H = SCRIPT_DIR.parent / "EMD_Repository" / "Horizontal_Computational_Grids"
+OUTPUT_DIR_V = SCRIPT_DIR.parent / "EMD_Repository" / "Vertical_Computational_Grids"
 
 OLD_DIRS = [
     SCRIPT_DIR.parent / "horizontal_computational_grid",
@@ -37,6 +37,10 @@ OLD_DIRS = [
     SCRIPT_DIR.parent / "Horizontal Computational Grid",
     SCRIPT_DIR.parent / "Vertical Computational Grid",
     SCRIPT_DIR.parent / "Horizontal_Computational_Grid",
+    SCRIPT_DIR.parent / "10_EMD_Repository" / "05_Horizontal_Computational_Grids",
+    SCRIPT_DIR.parent / "EMD_Repository" / "Horizontal_Computational_Grids",
+    SCRIPT_DIR.parent / "10_EMD_Repository" / "06_Vertical_Computational_Grids",
+    SCRIPT_DIR.parent / "EMD_Repository" / "Vertical_Computational_Grids",
     SCRIPT_DIR.parent / "Vertical_Computational_Grid",
 ]
 

@@ -155,7 +155,7 @@ def generate_summary_page(data_type, type_config, fetch_func, output_dir, json_d
 def generate_index(stats, data_types, stages, output_dir):
     """Generate the index page for data summaries."""
     lines = [
-        "# Data Summaries",
+        "# Table Summaries",
         "",
         "Overview of all registered data.",
         "",

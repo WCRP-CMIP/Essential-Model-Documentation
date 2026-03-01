@@ -1,32 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <script>
-        window.addEventListener('load', function() {
-            var docsUrl = window.location.origin +
-                window.location.pathname.replace(/\/$/, '') + '/docs/';
-            window.location.href = docsUrl;
-        });
-        function redirectToDocs() {
-            var docsUrl = window.location.origin +
-                window.location.pathname.replace(/\/$/, '') + '/docs/';
-            window.location.href = docsUrl;
-        }
-    </script>
-    <style>
-        body { margin: 0; display: flex; align-items: center; justify-content: center;
-               min-height: 100vh; font-family: sans-serif; background: #f8fafc; color: #1e293b; }
-        a { margin-top: 1rem; display: inline-block; padding: 0.6rem 1.5rem;
-            background: #2563eb; color: #fff; border-radius: 6px; text-decoration: none; }
-    </style>
-</head>
-<body>
-    <div style="text-align:center">
-        <p>Redirecting to documentation&hellip;</p>
-        <a href="javascript:void(0)" onclick="redirectToDocs()">Go to Documentation</a>
-    </div>
-</body>
-</html>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><script>
+window.addEventListener("load",function(){
+  window.location.href=window.location.origin+window.location.pathname.replace(/\/$/,"")+"/docs/";
+});
+</script></head><body><p>Redirecting…</p></body></html>

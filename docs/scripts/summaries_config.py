@@ -145,5 +145,5 @@ STAGES = [
 # OUTPUT CONFIGURATION
 # =============================================================================
 
-OUTPUT_DIR = "110_Data_Summaries"
+OUTPUT_DIR = "Table_Summaries"
 EXPORT_JSON = True

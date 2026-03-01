@@ -29,11 +29,13 @@ from helpers.data_loader import init_loader, fetch_data
 
 
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR = SCRIPT_DIR.parent / "10_EMD_Repository" / "04_Earth_System_Model_Families"
+OUTPUT_DIR = SCRIPT_DIR.parent / "EMD_Repository" / "Earth_System_Model_Families"
 
 # Old directories to clean up
 OLD_DIRS = [
     SCRIPT_DIR.parent / "esm_family",
+    SCRIPT_DIR.parent / "10_EMD_Repository" / "04_Earth_System_Model_Families",
+    SCRIPT_DIR.parent / "EMD_Repository" / "Earth_System_Model_Families",
 ]
 
 

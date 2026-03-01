@@ -1,0 +1,100 @@
+[
+  {
+    "@id": "aerosol_tactic_h100_v100",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for aerosol with horizontal grid h100 and vertical grid v100.",
+    "horizontal_computational_grid": "h100",
+    "model_component": "tactic",
+    "ui_label": "Aerosol with h100 and v100",
+    "validation_key": "aerosol_tactic_h100_v100",
+    "vertical_computational_grid": "v100"
+  },
+  {
+    "@id": "atmosphere_arpege-climat-version-6-3_h100_v100",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for atmosphere with horizontal grid h100 and vertical grid v100.",
+    "horizontal_computational_grid": "h100",
+    "model_component": "arpege-climat-version-6-3",
+    "ui_label": "Atmosphere with h100 and v100",
+    "validation_key": "atmosphere_arpege-climat-version-6-3_h100_v100",
+    "vertical_computational_grid": "v100"
+  },
+  {
+    "@id": "atmospheric-chemistry_reprobus-c-v2-0_h100_v100",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for atmospheric-chemistry with horizontal grid h100 and vertical grid v100.",
+    "horizontal_computational_grid": "h100",
+    "model_component": "reprobus-c-v2-0",
+    "ui_label": "Atmospheric Chemistry with h100 and v100",
+    "validation_key": "atmospheric-chemistry_reprobus-c-v2-0_h100_v100",
+    "vertical_computational_grid": "v100"
+  },
+  {
+    "@id": "land-surface_surfex-v8-modeling-platform_h100_v102",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for land-surface with horizontal grid h100 and vertical grid v102.",
+    "horizontal_computational_grid": "h100",
+    "model_component": "surfex-v8-modeling-platform",
+    "ui_label": "Land Surface with h100 and v102",
+    "validation_key": "land-surface_surfex-v8-modeling-platform_h100_v102",
+    "vertical_computational_grid": "v102"
+  },
+  {
+    "@id": "ocean-biogeochemistry_piscesv2-gas_h101_v103",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for ocean-biogeochemistry with horizontal grid h101 and vertical grid v103.",
+    "horizontal_computational_grid": "h101",
+    "model_component": "piscesv2-gas",
+    "ui_label": "Ocean Biogeochemistry with h101 and v103",
+    "validation_key": "ocean-biogeochemistry_piscesv2-gas_h101_v103",
+    "vertical_computational_grid": "v103"
+  },
+  {
+    "@id": "ocean_nemo-v3-6_h101_v103",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for ocean with horizontal grid h101 and vertical grid v103.",
+    "horizontal_computational_grid": "h101",
+    "model_component": "nemo-v3-6",
+    "ui_label": "Ocean with h101 and v103",
+    "validation_key": "ocean_nemo-v3-6_h101_v103",
+    "vertical_computational_grid": "v103"
+  },
+  {
+    "@id": "sea-ice_gelato_h101_v104",
+    "@type": [
+      "emd",
+      "wcrp:component_config",
+      "esgvoc:ComponentConfig"
+    ],
+    "description": "Configuration for sea-ice with horizontal grid h101 and vertical grid v104.",
+    "horizontal_computational_grid": "h101",
+    "model_component": "gelato",
+    "ui_label": "Sea Ice with h101 and v104",
+    "validation_key": "sea-ice_gelato_h101_v104",
+    "vertical_computational_grid": "v104"
+  }
+]

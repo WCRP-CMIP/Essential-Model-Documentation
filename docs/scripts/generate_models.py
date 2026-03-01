@@ -28,12 +28,14 @@ from helpers.data_loader import init_loader, list_entries, fetch_entry
 
 
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR = SCRIPT_DIR.parent / "10_EMD_Repository" / "01_Models"
+OUTPUT_DIR = SCRIPT_DIR.parent / "EMD_Repository" / "Models"
 
 # Old directories to clean up
 OLD_DIRS = [
     SCRIPT_DIR.parent / "model",
     SCRIPT_DIR.parent / "Model",
+    SCRIPT_DIR.parent / "10_EMD_Repository" / "01_Models",
+    SCRIPT_DIR.parent / "EMD_Repository" / "Models",
 ]
 
 
