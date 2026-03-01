@@ -38,8 +38,8 @@ jobs:
           ISSUE_NUMBER:     ${{ github.event.inputs.issue_number || github.event.issue.number }}
           ISSUE_SUBMITTER:  ${{ github.event.issue.user.login }}
           ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
-          GH_TOKEN:         ${{ github.token }}
-          GITHUB_TOKEN:     ${{ github.token }}
+          GH_TOKEN:         ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          GITHUB_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           cd $GITHUB_WORKSPACE
