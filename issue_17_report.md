@@ -5,7 +5,7 @@
 | **Kind** | `horizontal_grid_cell` |
 | **Folder** | `emd:horizontal_grid_cells` |
 | **Type** | `wcrp:horizontal_grid_cell, esgvoc:HorizontalGridCells` |
-| **Generated** | 2026-03-01 15:30 UTC |
+| **Generated** | 2026-03-01 15:40 UTC |
 
 
 ---
@@ -19,13 +19,13 @@
 
 ### Schema fields
 
-- [-] `description` (_optional_)
-- [-] `grid_mapping` (_optional_)
+- [ ] `description` (_optional_)
+- [ ] `grid_mapping` (_optional_)
 - [x] `grid_type` (**required**): regular_latitude_longitude
-- [-] `n_cells` (_optional_)
+- [ ] `n_cells` (_optional_)
 - [x] `region` (**required**): global
 - [x] `southernmost_latitude` (_optional_): -89.5
-- [-] `spatial_refinement` (_optional_)
+- [ ] `spatial_refinement` (_optional_)
 - [x] `temporal_refinement` (**required**): static
 - [x] `truncation_method` (_optional_): null
 - [x] `truncation_number` (_optional_): null
