@@ -65,5 +65,5 @@ jobs:
           LANG:              C.UTF-8
         run: |
           cd $GITHUB_WORKSPACE
-          new_issue --issue ${{ steps.issue-num.outputs.issue_number }}
+          python .github/scripts/new_issue.py --issue ${{ steps.issue-num.outputs.issue_number }}
         shell: bash
