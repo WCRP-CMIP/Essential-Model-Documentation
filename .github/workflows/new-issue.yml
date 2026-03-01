@@ -50,7 +50,7 @@ jobs:
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Install CMIP-LD (EMD fork with validation improvements)
-        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@copier -q
+        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@main -q
         shell: bash
 
       - name: Run validation
@@ -68,6 +68,7 @@ jobs:
           # --validate-only: runs pycmipld + custom checks, posts warnings to
           # the issue if anything fails, exits 0 on pass / 1 on fail.
           # No files are written. No branch or PR is created.
+          cd $GITHUB_WORKSPACE
           if new_issue --issue ${{ steps.issue-num.outputs.issue_number }} --validate-only; then
             echo "passed=true"  >> $GITHUB_OUTPUT
           else
@@ -103,7 +104,7 @@ jobs:
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Install CMIP-LD (EMD fork with validation improvements)
-        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@copier -q
+        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@main -q
         shell: bash
 
       - name: Configure Git
@@ -121,5 +122,6 @@ jobs:
           LC_ALL:            C.UTF-8
           LANG:              C.UTF-8
         run: |
+          cd $GITHUB_WORKSPACE
           new_issue --issue ${{ needs.validate.outputs.issue_number }}
         shell: bash
