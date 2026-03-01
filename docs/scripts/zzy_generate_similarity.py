@@ -8,10 +8,31 @@ docs/EMD_Repository/.
 Endpoint overrides handle dirs whose name doesn't map cleanly to a cmipld
 endpoint.  Pre-filters remove irrelevant items before building the matrix
 (e.g. Component_Families only shows family_type=component).
+
+Dependencies (must be installed before this script runs):
+  numpy>=1.24.0   — matrix operations
+  cmipld          — data fetching
+  jinja2          — (used by other generators, installed alongside)
 """
 
 import sys
 from pathlib import Path
+
+# ── Early dependency check ──────────────────────────────────────────────────
+def _check_deps():
+    missing = []
+    for pkg in ('numpy', 'cmipld'):
+        try:
+            __import__(pkg)
+        except ImportError:
+            missing.append(pkg)
+    if missing:
+        print(f"  ⚠ Missing dependencies: {', '.join(missing)}", flush=True)
+        print(f"    Install with: pip install {' '.join(missing)}", flush=True)
+        print(f"    Or add to requirements.txt and re-run.", flush=True)
+        sys.exit(1)
+
+_check_deps()
 
 # ── paths ───────────────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent

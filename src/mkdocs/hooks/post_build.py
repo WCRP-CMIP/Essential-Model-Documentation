@@ -608,7 +608,7 @@ function render(items){
       var id='g'+Math.random().toString(36).slice(2);
       h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
       h+='<div id="'+id+'" class="nav-group-children'+col+'">';
-      if(it.url)h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>Overview</a>';
+      /* Overview link intentionally omitted — group URL is the section header */
       h+=render(it.children||[]);
       h+='</div></div>';
     }
