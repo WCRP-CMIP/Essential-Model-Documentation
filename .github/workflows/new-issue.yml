@@ -20,22 +20,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Determine issue number
-        id: issue-num
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            ISSUE_NUM="${{ github.event.inputs.issue_number }}"
-          else
-            ISSUE_NUM="${{ github.event.issue.number }}"
-          fi
-          echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
-          echo "Processing issue #$ISSUE_NUM"
-        shell: bash
-
-      - name: Checkout src-data branch
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
-          ref: src-data
+          ref: main
           fetch-depth: 0
 
       - name: Install CMIPLD
@@ -45,26 +33,13 @@ jobs:
         run: git config --global push.default simple
         shell: bash
 
-      - name: Fetch handler scripts and guidance from main
-        run: |
-          cd $GITHUB_WORKSPACE
-          git fetch origin main
-          git checkout origin/main -- .github/ISSUE_SCRIPT
-          git checkout origin/main -- .github/GEN_ISSUE_TEMPLATE
-          echo "✓ Fetched handler scripts and field guidance from main"
-        shell: bash
-
       - name: Process issue
         env:
-          ISSUE_NUMBER:      ${{ steps.issue-num.outputs.issue_number }}
-          GH_TOKEN:          ${{ github.token }}
-          GITHUB_TOKEN:      ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          GH_TOKEN:     ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_WORKSPACE:  ${{ github.workspace }}
-          PYTHONIOENCODING:  utf-8
-          LC_ALL:            C.UTF-8
-          LANG:              C.UTF-8
         run: |
           cd $GITHUB_WORKSPACE
-          python .github/scripts/new_issue.py --issue ${{ steps.issue-num.outputs.issue_number }}
+          new_issue --issue $ISSUE_NUMBER
         shell: bash
