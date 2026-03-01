@@ -16,10 +16,18 @@ permissions:
   pull-requests: write
 
 jobs:
-  process-issue:
-    runs-on: ubuntu-latest
-    steps:
 
+  # ── Job 1: Validate on main ─────────────────────────────────────────────────
+  # Checks out main, fetches handler scripts and guidance, runs pycmipld +
+  # custom validation. Posts warnings (with field guidance) to the issue on
+  # failure. Sets output `passed` for the write job to gate on.
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      passed:       ${{ steps.validate.outputs.passed }}
+      issue_number: ${{ steps.issue-num.outputs.issue_number }}
+
+    steps:
       - name: Determine issue number
         id: issue-num
         run: |
@@ -32,13 +40,53 @@ jobs:
           echo "Processing issue #$ISSUE_NUM"
         shell: bash
 
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Install CMIPLD
+        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+      - name: Run validation
+        id: validate
+        env:
+          ISSUE_NUMBER:      ${{ steps.issue-num.outputs.issue_number }}
+          GH_TOKEN:          ${{ github.token }}
+          GITHUB_TOKEN:      ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PYTHONIOENCODING:  utf-8
+          LC_ALL:            C.UTF-8
+          LANG:              C.UTF-8
+        run: |
+          # --validate-only: runs pycmipld + custom checks, posts warnings to
+          # the issue if anything fails, exits 0 on pass / 1 on fail.
+          # No files are written. No branch or PR is created.
+          if new_issue --issue ${{ steps.issue-num.outputs.issue_number }} --validate-only; then
+            echo "passed=true"  >> $GITHUB_OUTPUT
+          else
+            echo "passed=false" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+  # ── Job 2: Write on src-data ────────────────────────────────────────────────
+  # Only runs when validate passed. Checks out src-data, fetches handler
+  # scripts, writes files, creates branch + PR, posts data JSON + review
+  # report to the PR, updates the issue comment.
+  write:
+    needs: validate
+    if: needs.validate.outputs.passed == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout src-data branch
         uses: actions/checkout@v4
         with:
           ref: src-data
           fetch-depth: 0
 
-      - name: Get handler scripts and guidance from main
+      - name: Fetch handler scripts and guidance from main
         run: |
           git fetch origin main
           git checkout origin/main -- .github/ISSUE_SCRIPT
@@ -53,9 +101,9 @@ jobs:
         run: git config --global push.default simple
         shell: bash
 
-      - name: Process issue
+      - name: Write files, create branch and PR
         env:
-          ISSUE_NUMBER:      ${{ steps.issue-num.outputs.issue_number }}
+          ISSUE_NUMBER:      ${{ needs.validate.outputs.issue_number }}
           GH_TOKEN:          ${{ github.token }}
           GITHUB_TOKEN:      ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -63,5 +111,5 @@ jobs:
           LC_ALL:            C.UTF-8
           LANG:              C.UTF-8
         run: |
-          new_issue --issue ${{ steps.issue-num.outputs.issue_number }}
+          new_issue --issue ${{ needs.validate.outputs.issue_number }}
         shell: bash
