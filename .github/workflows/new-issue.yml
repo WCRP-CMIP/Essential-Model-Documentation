@@ -43,6 +43,7 @@ jobs:
           git fetch origin main
           git checkout origin/main -- .github/ISSUE_SCRIPT
           git checkout origin/main -- .github/GEN_ISSUE_TEMPLATE
+          git checkout origin/main -- .github/scripts
           echo "✓ Fetched handler scripts and field guidance from main"
         shell: bash
 
