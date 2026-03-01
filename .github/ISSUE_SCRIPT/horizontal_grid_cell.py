@@ -100,7 +100,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         if file_path.startswith('_'):
             continue
         
-        data['units'] = data.pop('horizontal_units', None)  # rename back for validation
-        
+
         # Generate and store validation report using the full ReportBuilder pipeline
         data['_validation_report'] = generate_markdown_report(data)
+        
+        # return the patch post validation. 
+        data['units'] = data.pop('horizontal_units', None)  # rename back for validation
