@@ -38,20 +38,20 @@ jobs:
           ref: src-data
           fetch-depth: 0
 
-      - name: Fetch handler scripts and guidance from main
-        run: |
-          git fetch origin main
-          git checkout origin/main -- .github/ISSUE_SCRIPT
-          git checkout origin/main -- .github/GEN_ISSUE_TEMPLATE
-          git checkout origin/main -- .github/scripts
-          echo "✓ Fetched handler scripts and field guidance from main"
-        shell: bash
-
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Configure Git
         run: git config --global push.default simple
+        shell: bash
+
+      - name: Fetch handler scripts and guidance from main
+        run: |
+          cd $GITHUB_WORKSPACE
+          git fetch origin main
+          git checkout origin/main -- .github/ISSUE_SCRIPT
+          git checkout origin/main -- .github/GEN_ISSUE_TEMPLATE
+          echo "✓ Fetched handler scripts and field guidance from main"
         shell: bash
 
       - name: Process issue
