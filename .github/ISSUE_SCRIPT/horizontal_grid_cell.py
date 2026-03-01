@@ -39,16 +39,17 @@ def generate_markdown_report(data: dict, graph_data: dict | None = None) -> str:
 def run(parsed_issue, issue, dry_run=False):
     """
     Process horizontal grid cell submission.
-    Generate @id from author + timestamp if not provided.
-    
-    Returns dict with:
-    - File path as key, data as value: {'path/to/file.json': data}
-    - Metadata keys starting with '_': _author, _contributors, _make_pull
+    Generate @id from author + timestamp if validation_key not provided.
     """
-    # If no validation_key, generate @id from author + timestamp
-    if not parsed_issue.get('validation_key') and issue.get('author') and issue.get('created_at'):
-        id_result = generate_id_from_issue(issue.get('author'), issue.get('created_at'))
-        atid = f"tempgrid_{id_result['id']}"
+    if not parsed_issue.get('validation_key'):
+        author     = issue.get('author') or 'unknown'
+        created_at = issue.get('created_at') or ''
+        if created_at:
+            id_result = generate_id_from_issue(author, created_at)
+            atid = f"tempgrid_{id_result['id']}"
+        else:
+            import time
+            atid = f"tempgrid_{author}_{int(time.time())}"
         data = {
             "@context": "_context",
             "@id": atid,
