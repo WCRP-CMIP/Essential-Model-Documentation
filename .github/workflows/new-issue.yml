@@ -1,5 +1,4 @@
 name: New Issue Processing
-description: Process new issue submissions and parse form data
 
 on:
   issues:
@@ -7,39 +6,62 @@ on:
   workflow_dispatch:
     inputs:
       issue_number:
-        description: 'Issue number to process (for manual re-triggering)'
-        required: false
+        description: 'Issue number to process'
+        required: true
         type: string
 
 permissions:
   issues: write
   contents: write
-  id-token: write
   pull-requests: write
 
 jobs:
-  new-issue:
+  process-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Determine Issue Number
-        id: issue-info
+
+      - name: Determine issue number
+        id: issue-num
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             ISSUE_NUM="${{ github.event.inputs.issue_number }}"
-            if [ -z "$ISSUE_NUM" ]; then
-              echo "❌ Error: issue_number is required for manual workflow_dispatch"
-              exit 1
-            fi
-            echo "Manual re-trigger: Using issue #$ISSUE_NUM"
           else
             ISSUE_NUM="${{ github.event.issue.number }}"
-            echo "Automatic trigger: Processing issue #$ISSUE_NUM"
           fi
           echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+          echo "Processing issue #$ISSUE_NUM"
         shell: bash
 
-      - name: Run New Issue Parser
-        id: new-issue-action
-        uses: ./.github/actions/new-issue
+      - name: Checkout src-data branch
+        uses: actions/checkout@v4
         with:
-          issue_number: ${{ steps.issue-info.outputs.issue_number }}
+          ref: src-data
+          fetch-depth: 0
+
+      - name: Get handler scripts and guidance from main
+        run: |
+          git fetch origin main
+          git checkout origin/main -- .github/ISSUE_SCRIPT
+          git checkout origin/main -- .github/GEN_ISSUE_TEMPLATE
+          echo "✓ Fetched handler scripts and field guidance from main"
+        shell: bash
+
+      - name: Install CMIPLD
+        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+      - name: Configure Git
+        run: git config --global push.default simple
+        shell: bash
+
+      - name: Process issue
+        env:
+          ISSUE_NUMBER:      ${{ steps.issue-num.outputs.issue_number }}
+          GH_TOKEN:          ${{ github.token }}
+          GITHUB_TOKEN:      ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PYTHONIOENCODING:  utf-8
+          LC_ALL:            C.UTF-8
+          LANG:              C.UTF-8
+        run: |
+          new_issue --issue ${{ steps.issue-num.outputs.issue_number }}
+        shell: bash
