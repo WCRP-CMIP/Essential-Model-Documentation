@@ -820,14 +820,18 @@ def inject_search(site_dir: Path):
         print('  [post_build] search block not found — skipping search injection')
         return
 
+    # Similarity pages are self-contained D3 visualisations — no search bar.
+    SEARCH_SKIP = {'Similarity.html'}
+
     patched = 0
     for html in site_dir.rglob('*.html'):
+        if html.name in SEARCH_SKIP:
+            continue
         content = html.read_text(encoding='utf-8')
         # Skip pages that already have the search dialog
         if 'search-dialog' in content:
             continue
         # Skip pages where the nav marker hasn't been written yet
-        # (shouldn't happen, but be safe)
         if _NAV_MARKER not in content:
             continue
 

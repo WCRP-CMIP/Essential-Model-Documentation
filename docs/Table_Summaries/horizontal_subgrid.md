@@ -14,4 +14,4 @@ Subgrid definitions linking cells to variable types (Stage 1).
 | **s105** | X-velocity (U-grid) on ocean tripolar grid (eOR... | g105 | x-velocity |
 | **s106** | Y-velocity (V-grid) on ocean tripolar grid (eOR... | g106 | y-velocity |
 
-*Generated: 2026-03-01 03:52*
+*Generated: 2026-03-01 12:23*
