@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Code Pro', monospace; background: #ffffff;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 24px 40px;
+  }
+  #filter-bar {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+    margin-bottom: 16px; min-height: 0;
+  }
+  .fbtn {
+    padding: 4px 11px; border-radius: 20px; border: 1.5px solid #ccc;
+    background: #fff; cursor: pointer; font-family: 'Source Code Pro', monospace;
+    font-size: 11px; color: #555; transition: all .15s;
+  }
+  .fbtn:hover  { border-color: #0d1035; color: #0d1035; }
+  .fbtn.active { background: #0d1035; border-color: #0d1035; color: #fff; font-weight: 600; }
+  #chart { position: relative; }
+  .tip {
+    position: fixed; background: #0d1035; color: #fff;
+    padding: 10px 14px; border-radius: 8px; font-size: 12px;
+    font-family: 'Source Code Pro', monospace; pointer-events: none;
+    opacity: 0; transition: opacity .12s; line-height: 1.9;
+    box-shadow: 0 6px 24px rgba(0,0,0,.25); max-width: 280px;
+  }
+  .tip .tip-link { color: #e8607e; font-weight: 600; }
+  .tip .tip-text { color: #f5c842; font-weight: 600; }
+  .tip .tip-head { font-weight: 700; font-size: 13px;
+                   border-bottom: 1px solid rgba(255,255,255,.2);
+                   padding-bottom: 5px; margin-bottom: 5px; }
+</style>
+</head>
+<body>
+<div id="filter-bar"></div>
+<div id="chart"></div>
+<div class="tip" id="tip"></div>
+<script>
+const D = {"ids": ["v102", "v106", "v105", "v104", "v103", "v100", "v101"], "link": [[0.0, 0.2875878220140515, 0.2537470725995316, 0.26237314597970335, 0.1451990632318501, 0.14473067915690868, 0.14473067915690868], [0.2875878220140515, 0.0, 0.2175675675675676, 0.3375706214689265, 0.16807909604519775, 0.14648910411622276, 0.1440677966101695], [0.2537470725995316, 0.2175675675675676, 0.0, 0.3027027027027027, 0.17783783783783783, 0.1579977937120794, 0.152397414025321], [0.26237314597970335, 0.3375706214689265, 0.3027027027027027, 0.0, 0.1869918699186992, 0.1573236889692586, 0.1604696673189824], [0.1451990632318501, 0.16807909604519775, 0.17783783783783783, 0.1869918699186992, 0.0, 0.3983739837398374, 0.2570969397401615], [0.14473067915690868, 0.14648910411622276, 0.1579977937120794, 0.1573236889692586, 0.3983739837398374, 0.0, 0.2991014480564083], [0.14473067915690868, 0.1440677966101695, 0.152397414025321, 0.1604696673189824, 0.2570969397401615, 0.2991014480564083, 0.0]], "text": [[0.0, 0.2875878220140515, 0.2537470725995316, 0.26237314597970335, 0.1451990632318501, 0.14473067915690868, 0.14473067915690868], [0.2875878220140515, 0.0, 0.2175675675675676, 0.3375706214689265, 0.16807909604519775, 0.14648910411622276, 0.1440677966101695], [0.2537470725995316, 0.2175675675675676, 0.0, 0.3027027027027027, 0.17783783783783783, 0.1579977937120794, 0.152397414025321], [0.26237314597970335, 0.3375706214689265, 0.3027027027027027, 0.0, 0.1869918699186992, 0.1573236889692586, 0.1604696673189824], [0.1451990632318501, 0.16807909604519775, 0.17783783783783783, 0.1869918699186992, 0.0, 0.3983739837398374, 0.2570969397401615], [0.14473067915690868, 0.14648910411622276, 0.1579977937120794, 0.1573236889692586, 0.3983739837398374, 0.0, 0.2991014480564083], [0.14473067915690868, 0.1440677966101695, 0.152397414025321, 0.1604696673189824, 0.2570969397401615, 0.2991014480564083, 0.0]], "method": "field-level | link: text (links uninformative)", "folder": "Vertical Computational Grids", "meta": [{"label": "v102", "tags": []}, {"label": "v106", "tags": []}, {"label": "v105", "tags": []}, {"label": "v104", "tags": []}, {"label": "v103", "tags": []}, {"label": "v100", "tags": []}, {"label": "v101", "tags": []}]};
+const { ids, link, text, method, folder, meta } = D;
+
+const n       = ids.length;
+const FONT    = "'Source Code Pro', monospace";
+const RED     = '#a40e4C';
+const MUSTARD = '#f2b30d';
+const NAVY    = '#0d1035';
+const WHITE   = '#ffffff';
+
+// ── Layout ────────────────────────────────────────────────────────────────
+const cellSize = Math.min(60, Math.floor(Math.min(window.innerWidth * 0.72, 480) / n));
+const gap      = Math.max(2, Math.round(cellSize * 0.055));
+const inner    = cellSize - gap;
+const radius   = Math.round(inner * 0.14);
+
+// x-axis height: rotated labels, max 50 chars, monospace ~0.61 * fontSize px wide
+const lblFs   = Math.max(8, Math.round(cellSize * 0.145));
+const maxLLen = Math.max(...meta.map(m => Math.min(m.label.length, 50)));
+// x-axis: rotated labels need XLBL_H vertical space (text length × char width)
+const XLBL_H  = Math.ceil(maxLLen * lblFs * 0.62) + 12;
+// y-axis: horizontal labels, left margin = longest label × char width
+const YLBL_W  = Math.ceil(maxLLen * lblFs * 0.62) + 16;
+const LEG_H   = 62;
+const TITLE_H = 54;
+const margin  = {
+  top:    TITLE_H,
+  right:  20,
+  bottom: XLBL_H + LEG_H + 16,
+  left:   YLBL_W,
+};
+const W = n * cellSize + margin.left + margin.right;
+const H = n * cellSize + margin.top  + margin.bottom;
+
+// ── Colour helpers ─────────────────────────────────────────────────────────
+function hexToRgb(h) {
+  return [parseInt(h.slice(1,3),16)/255, parseInt(h.slice(3,5),16)/255, parseInt(h.slice(5,7),16)/255];
+}
+function blend(hex, a) {
+  const [r,g,b] = hexToRgb(hex);
+  return `rgb(${Math.round((1-a+r*a)*255)},${Math.round((1-a+g*a)*255)},${Math.round((1-a+b*a)*255)})`;
+}
+
+// ── Filter ─────────────────────────────────────────────────────────────────
+// Collect all unique tags across items
+const allTags = [...new Set(meta.flatMap(m => m.tags || []))].sort();
+let activeFilter = null;
+
+function itemVisible(i) {
+  if (!activeFilter) return true;
+  return (meta[i].tags || []).includes(activeFilter);
+}
+
+function applyFilter() {
+  // Cells
+  g.selectAll('.cell').attr('opacity', d => {
+    if (d.i === d.j) return itemVisible(d.i) ? 1 : 0.08;
+    return (itemVisible(d.i) && itemVisible(d.j)) ? 1 : 0.06;
+  });
+  // Value labels
+  g.selectAll('.val').attr('opacity', d =>
+    (itemVisible(d.i) && itemVisible(d.j)) ? 1 : 0);
+  // Diagonal labels
+  g.selectAll('.diag').attr('opacity', (d, i) => itemVisible(i) ? 1 : 0.1);
+  // Axis labels
+  g.selectAll('.xlabel').attr('opacity', (d, i) => itemVisible(i) ? 1 : 0.1);
+  g.selectAll('.ylabel').attr('opacity', (d, i) => itemVisible(i) ? 1 : 0.1);
+}
+
+// Build filter buttons (only if there are tags)
+if (allTags.length > 0) {
+  const bar = document.getElementById('filter-bar');
+  const allBtn = document.createElement('button');
+  allBtn.className = 'fbtn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => {
+    activeFilter = null;
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    applyFilter();
+  };
+  bar.appendChild(allBtn);
+
+  allTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'fbtn';
+    btn.textContent = tag.replace(/-/g,' ').replace(/_/g,' ');
+    btn.dataset.tag = tag;
+    btn.onclick = () => {
+      activeFilter = tag;
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter();
+    };
+    bar.appendChild(btn);
+  });
+}
+
+// ── SVG ────────────────────────────────────────────────────────────────────
+const svg = d3.select('#chart').append('svg').attr('width', W).attr('height', H);
+const defs = svg.append('defs');
+[['leg-red', RED], ['leg-mustard', MUSTARD]].forEach(([id, col]) => {
+  const gr = defs.append('linearGradient').attr('id', id).attr('x1','0%').attr('x2','100%');
+  gr.append('stop').attr('offset','0%').attr('stop-color', WHITE);
+  gr.append('stop').attr('offset','100%').attr('stop-color', col);
+});
+
+// Title
+svg.append('text').attr('x', W/2).attr('y', 24)
+  .attr('text-anchor','middle').attr('font-family', FONT)
+  .attr('font-size', 17).attr('font-weight', 700).attr('fill', NAVY)
+  .text('Similarity Matrix — ' + folder);
+svg.append('text').attr('x', W/2).attr('y', 41)
+  .attr('text-anchor','middle').attr('font-family', FONT)
+  .attr('font-size', 9).attr('fill','#999')
+  .text(n + ' items  ·  spectrally ordered  ·  ' + method);
+
+const g   = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+const tip = d3.select('#tip');
+
+// ── Cells ──────────────────────────────────────────────────────────────────
+const cellData = [];
+for (let i=0;i<n;i++) for (let j=0;j<n;j++) cellData.push({i,j});
+
+g.selectAll('.cell').data(cellData).join('rect')
+  .attr('class','cell')
+  .attr('x',      d => d.j*cellSize + gap/2)
+  .attr('y',      d => d.i*cellSize + gap/2)
+  .attr('width',  inner).attr('height', inner).attr('rx', radius)
+  .attr('fill', d => {
+    if (d.i===d.j) return NAVY;
+    return d.i < d.j ? blend(RED, link[d.i][d.j]) : blend(MUSTARD, text[d.i][d.j]);
+  })
+  .style('cursor', d => d.i===d.j ? 'default' : 'pointer')
+  .on('mouseover', function(event, d) {
+    if (d.i===d.j) return;
+    const li=Math.min(d.i,d.j), lj=Math.max(d.i,d.j);
+    const lbl_i = meta[d.i].label, lbl_j = meta[d.j].label;
+    tip.style('opacity',1).html(
+      `<div class="tip-head">${lbl_i} ↔ ${lbl_j}</div>` +
+      `<span class="tip-link">▲ Link</span>&nbsp; ${(link[li][lj]*100).toFixed(1)}%<br>` +
+      `<span class="tip-text">▼ Content</span>&nbsp; ${(text[lj][li]*100).toFixed(1)}%`
+    );
+    d3.select(this).attr('stroke',NAVY).attr('stroke-width',2);
+    g.selectAll('.cell').filter(e => e.i!==d.i && e.j!==d.j).attr('opacity', e =>
+      (itemVisible(e.i) && itemVisible(e.j)) ? 0.35 : 0.04);
+  })
+  .on('mousemove', ev => tip.style('left',(ev.clientX+14)+'px').style('top',(ev.clientY-10)+'px'))
+  .on('mouseout', function() {
+    tip.style('opacity',0);
+    d3.select(this).attr('stroke','none');
+    applyFilter();
+  });
+
+// ── Value labels ───────────────────────────────────────────────────────────
+g.selectAll('.val').data(cellData.filter(d=>d.i!==d.j)).join('text')
+  .attr('class','val')
+  .attr('x', d => d.j*cellSize + cellSize/2)
+  .attr('y', d => d.i*cellSize + cellSize/2)
+  .attr('dy','0.35em').attr('text-anchor','middle')
+  .attr('font-family', FONT)
+  .attr('font-size', Math.max(8, Math.round(cellSize*0.16)))
+  .attr('font-weight',600).attr('pointer-events','none')
+  .attr('fill', d => {
+    const v = d.i<d.j ? link[d.i][d.j] : text[d.i][d.j];
+    if (v<0.08) return 'none';
+    const [r,gg,b] = hexToRgb(d.i<d.j ? RED : MUSTARD);
+    return (0.299*(1-v+r*v) + 0.587*(1-v+gg*v) + 0.114*(1-v+b*v)) < 0.55 ? WHITE : NAVY;
+  })
+  .text(d => { const v=d.i<d.j?link[d.i][d.j]:text[d.i][d.j]; return v>=0.08?Math.round(v*100)+'%':''; });
+
+// ── Diagonal labels (sized to fit within cell, truncated if needed) ─────────
+// monospace char width ≈ 0.58 * fontSize → max chars at size fs = inner / (0.58 * fs)
+const maxDiagFs = Math.max(9, Math.round(cellSize * 0.18));
+
+function diagText(label) {
+  // Find the largest font size that fits, down to min 6px
+  for (var fs = maxDiagFs; fs >= 6; fs--) {
+    var maxChars = Math.floor(inner / (0.58 * fs));
+    if (label.length <= maxChars) return { fs: fs, text: label };
+  }
+  // Even at 6px it's too long — truncate to fit
+  var maxChars = Math.floor(inner / (0.58 * 6));
+  return { fs: 6, text: label.slice(0, Math.max(1, maxChars - 1)) + '…' };
+}
+
+g.selectAll('.diag').data(meta).join('text')
+  .attr('class','diag')
+  .attr('x', (d,i) => i*cellSize + cellSize/2)
+  .attr('y', (d,i) => i*cellSize + cellSize/2)
+  .attr('dy','0.35em').attr('text-anchor','middle')
+  .attr('font-family', FONT)
+  .attr('font-size', d => diagText(d.label).fs)
+  .attr('font-weight',700).attr('fill',WHITE).attr('pointer-events','none')
+  .text(d => diagText(d.label).text);
+
+// ── Axis labels ────────────────────────────────────────────────────────────
+// X-axis: rotated -90°, truncated to 50 chars, reads bottom→top
+const pivotY = n * cellSize + 4;   // just below the matrix
+
+g.selectAll('.xlabel').data(meta).join('text')
+  .attr('class','xlabel')
+  .attr('transform', (d, i) =>
+    `translate(${i*cellSize + cellSize/2},${pivotY}) rotate(-90)`)
+  .attr('text-anchor','end')
+  .attr('dy','0.35em')
+  .attr('font-family', FONT)
+  .attr('font-size', lblFs)
+  .attr('font-weight', 600)
+  .attr('fill', NAVY)
+  .text(d => d.label.length > 50 ? d.label.slice(0, 50) + '…' : d.label);
+
+// Y-axis: horizontal labels, truncated to 50 chars
+g.selectAll('.ylabel').data(meta).join('text')
+  .attr('class','ylabel')
+  .attr('x', -8)   // 8px gap from left edge of matrix
+  .attr('y', (d, i) => i*cellSize + cellSize/2)
+  .attr('text-anchor','end').attr('dominant-baseline','middle')
+  .attr('font-family', FONT)
+  .attr('font-size', lblFs)
+  .attr('font-weight', 600)
+  .attr('fill', NAVY)
+  .text(d => d.label.length > 50 ? d.label.slice(0, 50) + '…' : d.label);
+
+// ── Diagonal divider ───────────────────────────────────────────────────────
+g.append('line')
+  .attr('x1',0).attr('y1',0).attr('x2',n*cellSize).attr('y2',n*cellSize)
+  .attr('stroke',NAVY).attr('stroke-width',1.5)
+  .attr('stroke-dasharray','5,4').attr('opacity',0.22);
+
+// ── Legend bars ────────────────────────────────────────────────────────────
+const legY  = n*cellSize + XLBL_H + 16;
+const barW  = Math.floor(n*cellSize * 0.43);
+const barH  = 13;
+const legFs = Math.max(9, Math.round(cellSize * 0.16));
+
+g.append('text').attr('x',0).attr('y', legY-8)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', legFs).attr('font-weight',700).attr('fill', RED)
+  .text('▲  link similarity');
+g.append('rect').attr('x',0).attr('y', legY)
+  .attr('width', barW).attr('height', barH).attr('rx',3).attr('fill','url(#leg-red)');
+g.append('text').attr('x',0).attr('y', legY+barH+9)
+  .attr('text-anchor','start').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('0%');
+g.append('text').attr('x', barW).attr('y', legY+barH+9)
+  .attr('text-anchor','end').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('100%');
+
+const mustX = n*cellSize - barW;
+g.append('text').attr('x', mustX).attr('y', legY-8)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', legFs).attr('font-weight',700).attr('fill','#c49000')
+  .text('▼  content similarity');
+g.append('rect').attr('x', mustX).attr('y', legY)
+  .attr('width', barW).attr('height', barH).attr('rx',3).attr('fill','url(#leg-mustard)');
+g.append('text').attr('x', mustX).attr('y', legY+barH+9)
+  .attr('text-anchor','start').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('0%');
+g.append('text').attr('x', mustX+barW).attr('y', legY+barH+9)
+  .attr('text-anchor','end').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('100%');
+
+g.append('text')
+  .attr('x', n*cellSize/2).attr('y', legY+barH+30)
+  .attr('text-anchor','middle').attr('font-size', 9)
+  .attr('font-family', FONT).attr('fill','#ccc')
+  .text('hover any cell for details · click filter buttons to highlight groups');
+</script>
+</body></html>

@@ -1,0 +1,299 @@
+{% extends "base.html.j2" %}
+
+{% block title %}{{ validation_key | e }} | Horizontal Grid Cells{% endblock %}
+
+{% block head_extra %}
+<style>
+/* ── Stat strip ─────────────────────────────────────────────── */
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.25rem 0 0.5rem;
+}
+.hero-stat {
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: var(--emd-radius);
+    padding: 0.85rem 1.25rem;
+    min-width: 120px;
+    text-align: center;
+}
+.hero-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--emd-primary);
+    font-family: 'SF Mono', Monaco, monospace;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+.hero-stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--emd-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+/* ── Plain-language callout ─────────────────────────────────── */
+.plain-summary {
+    background: rgba(37,99,235,0.05);
+    border-radius: var(--emd-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+.plain-summary strong { color: var(--emd-primary); }
+/* ── Property table ─────────────────────────────────────────── */
+.prop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+.prop-table tr { border-bottom: 1px solid var(--emd-border); }
+.prop-table tr:last-child { border-bottom: none; }
+.prop-table td {
+    padding: 0.6rem 0.75rem;
+    vertical-align: top;
+}
+.prop-table td:first-child {
+    font-weight: 600;
+    color: var(--emd-text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 34%;
+    white-space: nowrap;
+}
+.prop-table td:last-child {
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 0.875rem;
+    color: var(--emd-text);
+}
+/* ── CV tags ────────────────────────────────────────────────── */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.cv-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid var(--emd-border);
+    color: var(--emd-text-muted);
+    cursor: default;
+}
+.cv-tag.primary {
+    border-color: var(--emd-primary);
+    color: var(--emd-primary);
+    background: rgba(37,99,235,0.07);
+}
+</style>
+{% endblock %}
+
+{% block breadcrumb_extra %}
+<span>→</span>
+<a href="https://emd.mipcvs.dev/horizontal_grid_cells/" target="_blank">Horizontal Grid Cells</a>
+<span>→</span>
+<span>{{ validation_key | e }}</span>
+{% endblock %}
+
+{% block page_header %}
+<div class="emd-badge">Horizontal Grid Cells</div>
+<h1 class="emd-title">{{ validation_key | e }}</h1>
+<p class="emd-subtitle">{{ description | e }}</p>
+
+<div class="hero-stats">
+    {% if n_cells %}
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:1.4rem;">{{ "{:,}".format(n_cells) }}</div>
+        <div class="hero-stat-label">Cells</div>
+    </div>
+    {% endif %}
+    {% if x_resolution and y_resolution %}
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:1.2rem;">{{ x_resolution }}°×{{ y_resolution }}°</div>
+        <div class="hero-stat-label">Resolution{% if units %} ({{ units }}){% endif %}</div>
+    </div>
+    {% endif %}
+    {% if truncation_number %}
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:1.4rem;">T{{ truncation_number }}</div>
+        <div class="hero-stat-label">Truncation{% if truncation_method %} ({{ truncation_method.name }}){% endif %}</div>
+    </div>
+    {% endif %}
+    {% if grid_type %}
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:0.85rem;padding-top:0.3rem;">{{ grid_type.name | e }}</div>
+        <div class="hero-stat-label">Grid Type</div>
+    </div>
+    {% endif %}
+    {% if temporal_refinement %}
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:0.85rem;padding-top:0.3rem;">{{ temporal_refinement.name | e }}</div>
+        <div class="hero-stat-label">Temporal</div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="emd-header-meta">
+    {% if grid_mapping %}
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Projection</span>
+        <span class="emd-meta-value">{{ grid_mapping.name | e }}</span>
+    </div>
+    {% endif %}
+    {% if regions %}
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Region{{ 's' if regions|length > 1 }}</span>
+        <span class="emd-meta-value">{{ regions | map(attribute='name') | join(', ') }}</span>
+    </div>
+    {% endif %}
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Registry</span>
+        <span class="emd-meta-value"><a href="{{ id | e }}" target="_blank">JSON-LD →</a></span>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{# ── Plain-language summary ────────────────────────────────────── #}
+<div class="plain-summary">
+    <strong>What is this?</strong>
+    Grid cell set <strong>{{ validation_key | e }}</strong>
+    {% if grid_type %} uses a <strong>{{ grid_type.name | e }}</strong> grid{% endif %}
+    {% if grid_mapping %} with <strong>{{ grid_mapping.name | e }}</strong> mapping{% endif %}
+    {% if n_cells %}, containing <strong>{{ "{:,}".format(n_cells) }}</strong> cells{% endif %}.
+    {% if x_resolution and y_resolution %}
+    The horizontal resolution is <strong>{{ x_resolution }}°&nbsp;×&nbsp;{{ y_resolution }}°</strong>{% if units %} ({{ units }}){% endif %}.
+    {% elif truncation_number %}
+    It uses <strong>{{ truncation_method.name if truncation_method else 'spectral' }} truncation at T{{ truncation_number }}</strong>.
+    {% endif %}
+    {% if temporal_refinement %}
+    The grid is <strong>{{ temporal_refinement.name | e }}</strong> in time.
+    {% endif %}
+    {% if regions %}
+    {% if regions|length == 1 %}
+    It covers the <strong>{{ regions[0].name | e }}</strong> region.
+    {% else %}
+    It covers: <strong>{{ regions | map(attribute='name') | join(', ') }}</strong>.
+    {% endif %}
+    {% endif %}
+</div>
+
+{# ── Grid Properties ───────────────────────────────────────────── #}
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.grid | safe }}</div>
+            <h2 class="emd-section-title">Grid Properties</h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <table class="prop-table">
+                {% if grid_type %}
+                <tr>
+                    <td>Grid Type</td>
+                    <td>{{ grid_type.name | e }}</td>
+                </tr>
+                {% endif %}
+                {% if grid_mapping %}
+                <tr>
+                    <td>Grid Mapping</td>
+                    <td>{{ grid_mapping.name | e }}</td>
+                </tr>
+                {% endif %}
+                {% if temporal_refinement %}
+                <tr>
+                    <td>Temporal Refinement</td>
+                    <td>{{ temporal_refinement.name | e }}</td>
+                </tr>
+                {% endif %}
+                {% if n_cells %}
+                <tr>
+                    <td>Number of Cells</td>
+                    <td>{{ "{:,}".format(n_cells) }}</td>
+                </tr>
+                {% endif %}
+                {% if x_resolution is not none and y_resolution is not none %}
+                <tr>
+                    <td>Resolution (x × y)</td>
+                    <td>{{ x_resolution }}° × {{ y_resolution }}°{% if units %} ({{ units }}){% endif %}</td>
+                </tr>
+                {% endif %}
+                {% if truncation_method or truncation_number %}
+                <tr>
+                    <td>Truncation</td>
+                    <td>
+                        {% if truncation_method %}{{ truncation_method.name | e }}{% endif %}
+                        {% if truncation_number %} T{{ truncation_number }}{% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if southernmost_latitude is not none %}
+                <tr>
+                    <td>Southernmost Latitude</td>
+                    <td>{{ southernmost_latitude }}°</td>
+                </tr>
+                {% endif %}
+                {% if westernmost_longitude is not none %}
+                <tr>
+                    <td>Westernmost Longitude</td>
+                    <td>{{ westernmost_longitude }}°</td>
+                </tr>
+                {% endif %}
+            </table>
+            {% if regions %}
+            <div style="margin-top:1rem;">
+                <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--emd-text-muted);margin-bottom:0.4rem;">
+                    Region{{ 's' if regions|length > 1 }}
+                </div>
+                <div class="tag-row">
+                    {% for r in regions %}
+                    <span class="cv-tag primary">{{ r.name | e }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{# ── Technical Details ─────────────────────────────────────────── #}
+<section class="emd-section">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon">{{ icons.tech | safe }}</div>
+            <h2 class="emd-section-title">Technical Details</h2>
+        </div>
+        <div class="emd-section-toggle">{{ icons.chevron | safe }}</div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <div class="emd-tech-grid">
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Resource Identifier (@id)</div>
+                    <div class="emd-tech-value">{{ id | e }}</div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Validation Key</div>
+                    <div class="emd-tech-value">{{ validation_key | e }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+const sourceData = {{ raw_json | safe }};
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+    e.clipboardData.setData("text/plain",
+        "// JSON-LD: {{ validation_key | e }}\n// Generated: {{ generated_date }}\n\n" +
+        JSON.stringify(sourceData, null, 2));
+});
+{% endblock %}

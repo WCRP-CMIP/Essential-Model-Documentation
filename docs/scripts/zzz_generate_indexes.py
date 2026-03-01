@@ -70,6 +70,7 @@ def main():
     directories = [
         (explore_dir / "Horizontal_Computational_Grids", "Horizontal Computational Grids", "Horizontal grid configurations used by model components."),
         (explore_dir / "Vertical_Computational_Grids", "Vertical Computational Grids", "Vertical coordinate systems and layer structures."),
+        (explore_dir / "Horizontal_Grid_Cells", "Horizontal Grid Cells", "Fundamental grid cell geometries and coordinate systems."),
         (explore_dir / "Model_Components", "Model Components", "Individual model components (atmosphere, ocean, land, etc.)."),
         (explore_dir / "Component_Families", "Component Families", "Families of related model components sharing common code."),
         (explore_dir / "Earth_System_Model_Families", "ESM Families", "Earth System Model families and lineages."),

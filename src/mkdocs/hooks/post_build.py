@@ -20,30 +20,29 @@ Steps
 5.  Inject the nav into every built HTML file.
 6.  Generate the root-level index.html redirect.
 
-nav_order.json format
----------------------
-Each key is a section stem (the directory name, no prefix).
-"/" is the root level.
-Each value is a dict mapping child stem → order value.
+nav_order.json format  (nested)
+--------------------------------
+The JSON mirrors the file hierarchy.  The root object represents the site
+root.  Directory entries are dicts; file/leaf entries are int / null.
 
-Special key "."
-  A section dict may contain the key "." whose value sets the order of
-  *that directory itself* in its parent section.  This lets you control a
-  directory's position from within its own entry without editing the parent.
-  The "." value obeys the same rules: positive = ordered, null = unordered
-  alpha, negative = hidden.
+"." inside a dict sets that directory's own order in its parent.
+
+Value rules (same everywhere):
+  positive int → visible, ordered at that position
+  null         → visible, alphabetical after all numbered items
+  negative int → hidden from nav (tracked in JSON for reference)
 
 Example:
   {
-    "/": {
-      "Submission-Guide": 1,
-      "EMD_Repository":   2,
-      "old-draft":       -1    ← hidden
-    },
+    "Submission-Guide": 1,
     "EMD_Repository": {
-      ".": 2,                   ← sets this dir's own position in "/"
-      "Model_Components": 1,
-      "new-section":      null  ← unordered (appears after numbered)
+      ".": 2,
+      "Model_Components": {
+        ".": 1,
+        "Similarity": 1,
+        "gelato":     null
+      },
+      "old-section": -1
     }
   }
 """
@@ -167,14 +166,42 @@ def fix_html_links(site_dir: Path, renames: dict):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def load_nav_order(docs_dir: Path) -> dict:
-    """Load nav_order.json; return {} on missing/corrupt."""
+    """
+    Load nav_order.json.  Handles both the old flat format (with a "/" root
+    key) and the new nested format.  Old format is migrated on load so the
+    first save will upgrade the file.
+    """
     p = docs_dir / 'nav_order.json'
-    if p.exists():
-        try:
-            return json.loads(p.read_text(encoding='utf-8'))
-        except Exception:
-            pass
-    return {}
+    if not p.exists():
+        return {}
+    try:
+        raw = json.loads(p.read_text(encoding='utf-8'))
+    except Exception:
+        return {}
+
+    # Detect old flat format: has a "/" key with a dict value
+    if '/' not in raw:
+        return raw   # already nested
+
+    # ── Migrate flat → nested ─────────────────────────────────────────
+    def _nest(stem, parent_val):
+        section = raw.get(stem)
+        if not isinstance(section, dict):
+            return parent_val
+        entry = {}
+        dot = section.get('.')
+        if dot is not None:
+            entry['.'] = dot
+        for child_stem, child_val in section.items():
+            if child_stem == '.':
+                continue
+            entry[child_stem] = _nest(child_stem, child_val)
+        return entry
+
+    nested = {}
+    for stem, val in raw.get('/', {}).items():
+        nested[stem] = _nest(stem, val)
+    return nested
 
 
 def save_nav_order(docs_dir: Path, nav_order: dict):
@@ -184,17 +211,56 @@ def save_nav_order(docs_dir: Path, nav_order: dict):
     )
 
 
+# ── Entry helpers (nested format) ────────────────────────────────────────────
+
+def _entry_order(entry) -> 'int | None':
+    """Ordering value for sorting: from int/null directly, or from dict["."]."""
+    if entry is None:
+        return None
+    if isinstance(entry, int):
+        return entry
+    if isinstance(entry, dict):
+        return entry.get('.')   # may be None
+    return None
+
+
+def _is_hidden(entry) -> bool:
+    """True when the entry should be hidden from the nav."""
+    order = _entry_order(entry)
+    return isinstance(order, int) and order < 0
+
+
+def _entry_children(entry) -> dict:
+    """Return the children dict when entry represents a directory."""
+    return entry if isinstance(entry, dict) else {}
+
+
+def _sort_key(stem: str, entry) -> tuple:
+    """
+    Sort key respecting the unified value rules:
+      positive int → (0, value, stem)  shown, ordered first
+      None         → (1, 0,     stem)  shown, alpha after numbered
+      negative int → None              hidden (caller filters)
+    """
+    order = _entry_order(entry)
+    if order is None:
+        return (1, 0, stem.lower())
+    if order >= 0:
+        return (0, order, stem.lower())
+    return None   # sentinel: hidden
+
+
 def _scan_disk(path: Path) -> tuple[list[str], list[str]]:
     """
     Returns (visible_stems, hidden_stems) for children of *path*.
-    visible_stems  — pass _visible(), should appear in nav (value null / positive)
-    hidden_stems   — fail _visible() but exist on disk and aren't dot-files;
-                     recorded in nav_order.json as -1 so they're tracked.
+    visible_stems  — pass _visible()
+    hidden_stems   — exist on disk, not dot-files, but fail _visible();
+                     recorded as -1 so they are tracked.
     """
     visible, hidden = [], []
     for c in path.iterdir():
         if c.name.startswith('.'):
-            continue                      # ignore dot-files entirely
+            continue
         s = _stem(c.name)
         if _visible(c):
             visible.append(s)
@@ -205,54 +271,51 @@ def _scan_disk(path: Path) -> tuple[list[str], list[str]]:
 
 def merge_nav_order(site_dir: Path, docs_dir: Path, nav_order: dict) -> dict:
     """
-    Walk the full site_dir hierarchy and ensure every visible item is
-    represented in nav_order.json as {stem: null} (if new) or with its
-    existing value (if already set).
+    Walk the full site_dir hierarchy and ensure every item is represented in
+    the nested nav_order dict.
 
-    - New items → value null
-    - Existing values → preserved exactly
-    - nav_order is updated in-place and saved to docs/nav_order.json.
+    Nested format rules
+    -------------------
+    Directory  → dict entry.  "." key inside sets its order in parent.
+                 Children are nested inside the same dict.
+    File       → int / null / -1  (leaf value)
+    New dir    → {}  (empty dict, order = null = unordered)
+    New file   → null
+    Non-nav    → -1  (hidden, tracked)
     """
     changed = False
 
-    def _self_value(stem: str):
-        """Return the '.' self-key value from a stem's own section, or None."""
-        s = nav_order.get(stem)
-        return s.get('.') if isinstance(s, dict) else None
-
-    def _merge_level(section_dict: dict, disk_path: Path, section_key: str):
+    def _merge_level(section: dict, disk_path: Path):
         nonlocal changed
         visible_stems, hidden_stems = _scan_disk(disk_path)
 
         # ── visible items ─────────────────────────────────────────────
         for stem in visible_stems:
-            sv = _self_value(stem)
-            if stem not in section_dict:
-                section_dict[stem] = sv   # self-key value, or null
-                changed = True
-            elif sv is not None and section_dict[stem] != sv:
-                section_dict[stem] = sv   # '.' overrides parent value
-                changed = True
+            child_path = _find_child(disk_path, stem)
+            is_dir     = child_path is not None and child_path.is_dir()
+            has_kids   = is_dir and any(_visible(c) for c in child_path.iterdir())
 
-            # Recurse into dirs with visible children
-            child = _find_child(disk_path, stem)
-            if child is not None and child.is_dir():
-                has_children = any(_visible(c) for c in child.iterdir())
-                if has_children:
-                    if stem not in nav_order:
-                        nav_order[stem] = {}
-                        changed = True
-                    _merge_level(nav_order[stem], child, stem)
+            current = section.get(stem, _MISSING := object())
+            if current is _MISSING:
+                section[stem] = {} if has_kids else None
+                changed = True
+                current = section[stem]
+            elif has_kids and not isinstance(current, dict):
+                # Upgrade leaf to dir entry, preserving any numeric value as "."
+                section[stem] = {'.': current} if isinstance(current, int) else {}
+                changed = True
+                current = section[stem]
 
-        # ── hidden items (-1) ─────────────────────────────────────────
+            if has_kids and not _is_hidden(current):
+                _merge_level(current, child_path)
+
+        # ── hidden / non-nav items ─────────────────────────────────────
         for stem in hidden_stems:
-            if stem not in section_dict:
-                section_dict[stem] = -1   # exists on disk but not in nav
+            if stem not in section:
+                section[stem] = -1
                 changed = True
-            # Never overwrite a value already set by the user
 
-    root_section = nav_order.setdefault('/', {})
-    _merge_level(root_section, site_dir, '/')
+    _merge_level(nav_order, site_dir)
 
     if changed:
         save_nav_order(docs_dir, nav_order)
@@ -262,22 +325,8 @@ def merge_nav_order(site_dir: Path, docs_dir: Path, nav_order: dict) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 4 — build nav from nav_order.json
+# Step 4 — build nav from nested nav_order
 # ─────────────────────────────────────────────────────────────────────────────
-
-def _sort_key(stem: str, value) -> tuple:
-    """
-    Sort key for nav items:
-      positive int  → (0, value, stem)  — ordered first, ascending
-      null/None     → (1, 0,     stem)  — unordered, alpha after numbered
-      negative int  → None              — hidden (caller must filter)
-    """
-    if value is None:
-        return (1, 0, stem.lower())
-    if value >= 0:
-        return (0, value, stem.lower())
-    return None   # sentinel: hidden
-
 
 def _url(path: Path, site_dir: Path) -> str:
     parts = [_strip(p) for p in path.relative_to(site_dir).parts]
@@ -288,10 +337,7 @@ def _url(path: Path, site_dir: Path) -> str:
 
 
 def _find_child(parent: Path, wanted_stem: str) -> Path | None:
-    """
-    Find the child of *parent* whose stripped stem equals *wanted_stem*.
-    Prefers directories over same-stem files (directory URL wins).
-    """
+    """Prefer directories over same-stem files (directory URL wins)."""
     match_file = None
     for child in parent.iterdir():
         if _stem(child.name) == wanted_stem:
@@ -302,38 +348,24 @@ def _find_child(parent: Path, wanted_stem: str) -> Path | None:
 
 
 def _is_leaf_dir(path: Path) -> bool:
-    """Dir containing nothing visible beyond index.html → plain link."""
     return not any(_visible(c) for c in path.iterdir())
 
 
-def _build_items(parent: Path, site_dir: Path, section_key: str,
-                 nav_order: dict) -> list:
-    """
-    Build ordered nav items for a directory.
+def _build_items(parent: Path, site_dir: Path, section: dict) -> list:
+    """Build ordered nav items for directory *parent* using *section* dict."""
+    items = []
+    seen  = set()
 
-    Uses nav_order[section_key] for ordering/hiding.
-    Items not in the section dict appear last (alphabetical, value=null).
-    """
-    section = nav_order.get(section_key, {})
-    items   = []
-    seen    = set()
-
-    # Collect all visible stems from disk (".") is a JSON-only key, not a file)
     disk_stems = {_stem(c.name) for c in parent.iterdir() if _visible(c)}
+    # entry map: stem → entry from section (None if not yet recorded)
+    entries = {s: section.get(s) for s in disk_stems if s != '.'}
 
-    # Merge disk stems; skip the self-key "." — it is not a child item
-    all_items = {s: section.get(s) for s in disk_stems if s != '.'}
-
-    # Sort: positive-numbered → null/unordered → skip negative
     def _sk(pair):
         k = _sort_key(pair[0], pair[1])
-        return k if k is not None else (2, 0, pair[0].lower())   # temp bucket
+        return k if k is not None else (2, 0, pair[0].lower())
 
-    ordered = sorted(all_items.items(), key=_sk)
-
-    for stem, value in ordered:
-        # Skip hidden items
-        if value is not None and value < 0:
+    for stem, entry in sorted(entries.items(), key=_sk):
+        if _is_hidden(entry):
             continue
         if stem in seen:
             continue
@@ -346,33 +378,30 @@ def _build_items(parent: Path, site_dir: Path, section_key: str,
         lbl = _label(stem)
         if found.is_dir():
             if _is_leaf_dir(found):
-                items.append({'type': 'link', 'label': lbl,
-                              'url': _url(found, site_dir)})
+                items.append({'type': 'link', 'label': lbl, 'url': _url(found, site_dir)})
             else:
-                kids = _build_items(found, site_dir, stem, nav_order)
+                kids = _build_items(found, site_dir, _entry_children(entry))
                 items.append({'type': 'group', 'label': lbl,
                               'url': _url(found, site_dir), 'children': kids})
         else:
-            items.append({'type': 'link', 'label': lbl,
-                          'url': _url(found, site_dir)})
+            items.append({'type': 'link', 'label': lbl, 'url': _url(found, site_dir)})
 
     return items
 
 
 def build_nav(site_dir: Path, nav_order: dict) -> list:
-    """Build the full sidebar nav list from nav_order + disk state."""
-    nav         = [{'type': 'link', 'label': 'Home', 'url': '/'}]
-    root_section = nav_order.get('/', {})
+    """Build the full sidebar nav list from the nested nav_order."""
+    nav = [{'type': 'link', 'label': 'Home', 'url': '/'}]
 
     disk_stems = {_stem(c.name) for c in site_dir.iterdir() if _visible(c)}
-    all_root   = {s: root_section.get(s) for s in disk_stems if s != '.'}  # "." is not a file
+    entries    = {s: nav_order.get(s) for s in disk_stems if s != '.'}
 
     def _sk(pair):
         k = _sort_key(pair[0], pair[1])
         return k if k is not None else (2, 0, pair[0].lower())
 
-    for stem, value in sorted(all_root.items(), key=_sk):
-        if value is not None and value < 0:
+    for stem, entry in sorted(entries.items(), key=_sk):
+        if _is_hidden(entry):
             continue
 
         found = _find_child(site_dir, stem)
@@ -382,18 +411,15 @@ def build_nav(site_dir: Path, nav_order: dict) -> list:
         lbl = _label(stem)
         if found.is_dir():
             if _is_leaf_dir(found):
-                nav.append({'type': 'link', 'label': lbl,
-                            'url': _url(found, site_dir)})
+                nav.append({'type': 'link', 'label': lbl, 'url': _url(found, site_dir)})
             else:
-                kids = _build_items(found, site_dir, stem, nav_order)
+                kids = _build_items(found, site_dir, _entry_children(entry))
                 nav.append({'type': 'group', 'label': lbl,
                             'url': _url(found, site_dir), 'children': kids})
         else:
-            nav.append({'type': 'link', 'label': lbl,
-                        'url': _url(found, site_dir)})
+            nav.append({'type': 'link', 'label': lbl, 'url': _url(found, site_dir)})
 
     return nav
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Step 5 — inject nav into HTML
