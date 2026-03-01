@@ -2,7 +2,12 @@
   "name": "General Issue",
   "description": "Report bugs, ask questions, or suggest improvements",
   "title": "Describe your issue here.",
-  "labels": ["question", "general"],
+  "labels": [
+    "question",
+    "general",
+    "pull_req",
+    "needs-review"
+  ],
   "issue_category": "general_issue",
   "dropdown_title": "Guidance",
   "field_guidance": {
