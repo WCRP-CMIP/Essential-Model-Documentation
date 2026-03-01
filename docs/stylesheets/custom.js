@@ -881,3 +881,156 @@ function createNestedFolder(parentMenu, folder, baseUrl) {
   parentMenu.appendChild(li);
 }
 */
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SVG Save Buttons
+// Finds every <svg> element wider than 200px on the page and attaches a small
+// floppy-disk save button that downloads the SVG as a file.
+// ─────────────────────────────────────────────────────────────────────────────
+(function () {
+  const MIN_PX  = 200;   // ignore tiny inline icons
+  const BTN_CSS = [
+    'position:absolute',
+    'top:6px',
+    'right:6px',
+    'z-index:50',
+    'display:flex',
+    'align-items:center',
+    'gap:5px',
+    'padding:5px 10px',
+    'background:rgba(255,255,255,0.92)',
+    'border:1px solid rgba(0,0,0,0.15)',
+    'border-radius:6px',
+    'cursor:pointer',
+    'font-size:11px',
+    'font-family:monospace',
+    'color:#333',
+    'box-shadow:0 2px 8px rgba(0,0,0,0.12)',
+    'transition:box-shadow 0.15s,background 0.15s',
+    'backdrop-filter:blur(4px)',
+    'line-height:1',
+    'white-space:nowrap',
+  ].join(';');
+
+  // Floppy-disk SVG icon (16×16)
+  const ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round" style="flex-shrink:0">
+    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+    <polyline points="17 21 17 13 7 13 7 21"/>
+    <polyline points="7 3 7 8 15 8"/>
+  </svg>`;
+
+  function slugify(str) {
+    return (str || 'image')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 40) || 'svg-export';
+  }
+
+  function svgToBlob(svgEl) {
+    // Clone so we can safely add xmlns without mutating the live DOM
+    const clone = svgEl.cloneNode(true);
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+
+    // Inline all computed styles that live in external sheets
+    // (important for D3 charts that rely on CSS variables)
+    try {
+      const allEls = clone.querySelectorAll('*');
+      const liveEls = svgEl.querySelectorAll('*');
+      for (let i = 0; i < liveEls.length; i++) {
+        const cs = window.getComputedStyle(liveEls[i]);
+        const fill   = cs.getPropertyValue('fill');
+        const stroke = cs.getPropertyValue('stroke');
+        const font   = cs.getPropertyValue('font-family');
+        if (fill   && fill   !== 'none') allEls[i].style.fill   = fill;
+        if (stroke && stroke !== 'none') allEls[i].style.stroke = stroke;
+        if (font)                         allEls[i].style.fontFamily = font;
+      }
+    } catch (e) { /* cross-origin or security restriction — skip */ }
+
+    const serialised = new XMLSerializer().serializeToString(clone);
+    return new Blob([serialised], { type: 'image/svg+xml;charset=utf-8' });
+  }
+
+  function makeSaveButton(svgEl, name) {
+    const btn = document.createElement('button');
+    btn.setAttribute('type', 'button');
+    btn.setAttribute('title', 'Save as SVG');
+    btn.setAttribute('aria-label', 'Save SVG');
+    btn.style.cssText = BTN_CSS;
+    btn.innerHTML = ICON + '<span>Save SVG</span>';
+
+    btn.addEventListener('mouseenter', () => {
+      btn.style.background = 'rgba(255,255,255,1)';
+      btn.style.boxShadow  = '0 4px 14px rgba(0,0,0,0.18)';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.background = 'rgba(255,255,255,0.92)';
+      btn.style.boxShadow  = '0 2px 8px rgba(0,0,0,0.12)';
+    });
+
+    btn.addEventListener('click', () => {
+      const blob = svgToBlob(svgEl);
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = name + '.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 3000);
+    });
+
+    return btn;
+  }
+
+  function wrapSvg(svgEl, index) {
+    // Skip if already wrapped
+    if (svgEl.parentElement && svgEl.parentElement.dataset.svgWrap) return;
+
+    // Get rendered size
+    const rect = svgEl.getBoundingClientRect();
+    const w    = rect.width  || parseFloat(svgEl.getAttribute('width')  || '0');
+    const h    = rect.height || parseFloat(svgEl.getAttribute('height') || '0');
+    if (w < MIN_PX) return;
+
+    // Derive a filename from title text or page title
+    const titleEl = svgEl.querySelector('title') || svgEl.querySelector('text');
+    const pageName = document.title.replace(/\s*\|.*$/, '').trim();
+    const name     = slugify(
+      (titleEl && titleEl.textContent.trim()) || pageName || `chart-${index + 1}`
+    );
+
+    // Wrap in a relative-positioned container so the button can be absolute
+    const wrap = document.createElement('div');
+    wrap.dataset.svgWrap = '1';
+    wrap.style.cssText   = 'position:relative;display:inline-block;';
+
+    svgEl.parentNode.insertBefore(wrap, svgEl);
+    wrap.appendChild(svgEl);
+    wrap.appendChild(makeSaveButton(svgEl, name));
+  }
+
+  function attachToAllSvgs() {
+    const svgs = Array.from(document.querySelectorAll('svg'));
+    svgs.forEach((svg, i) => wrapSvg(svg, i));
+  }
+
+  // Run after DOM ready, then observe for dynamically added SVGs (D3 renders async)
+  function init() {
+    attachToAllSvgs();
+    // Watch for D3 / dynamic SVGs added after page load
+    const mo = new MutationObserver(() => attachToAllSvgs());
+    mo.observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

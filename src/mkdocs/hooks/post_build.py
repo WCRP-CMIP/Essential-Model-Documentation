@@ -399,48 +399,182 @@ def build_nav(site_dir: Path, nav_order: dict) -> list:
 # Step 5 — inject nav into HTML
 # ─────────────────────────────────────────────────────────────────────────────
 
+# CSS is written to a shared file (emd-nav.css) and linked from every page.
+# It is NOT inlined into each page.
+_NAV_CSS_FILENAME = 'emd-nav.css'
+
 _NAV_CSS = """
-#custom-nav { font-size: 0.85rem; padding: 0.5rem 0; }
+/* ── EMD nav — uses the shadcn/Geist CSS variables from base.css ─────────── */
+
+/* ── Nav tree shared by sidebar slot, standalone drawer, and mobile drawer ── */
+#custom-nav {
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  font-size: var(--text-sm, 0.875rem);
+  padding: 0.25rem 0;
+}
 #custom-nav a {
-  display: block; padding: 0.25rem 0.75rem; border-radius: 0.375rem;
-  color: inherit; text-decoration: none; white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis; transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0.625rem;
+  border-radius: var(--radius-md, 0.375rem);
+  color: var(--sidebar-foreground, inherit);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.15s, color 0.15s;
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.4;
 }
-#custom-nav a:hover { background: var(--accent, rgba(0,0,0,0.07)); }
+#custom-nav a:hover {
+  background: var(--sidebar-accent, rgba(0,0,0,0.06));
+  color: var(--sidebar-accent-foreground, inherit);
+}
 #custom-nav a.active {
-  background: var(--accent, rgba(0,0,0,0.10));
-  font-weight: 600; color: var(--accent-foreground, inherit);
+  background: var(--accent, rgba(0,0,0,0.09));
+  color: var(--foreground, inherit);
+  font-weight: var(--font-weight-medium, 500);
 }
+
+/* Group label row */
 .nav-group-label {
-  display: flex; align-items: center; gap: 0.35rem;
-  padding: 0.25rem 0.75rem; font-weight: 600; font-size: 0.85rem;
-  color: var(--muted-foreground, #888); cursor: pointer;
-  border-radius: 0.375rem; user-select: none; transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.625rem;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--muted-foreground, #888);
+  cursor: pointer;
+  border-radius: var(--radius-md, 0.375rem);
+  user-select: none;
+  transition: background 0.15s, color 0.15s;
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }
-.nav-group-label:hover { background: var(--accent, rgba(0,0,0,0.05)); }
-.nav-group-label svg { flex-shrink: 0; transition: transform 0.2s; }
+.nav-group-label:hover {
+  background: var(--sidebar-accent, rgba(0,0,0,0.06));
+  color: var(--sidebar-accent-foreground, inherit);
+}
+.nav-group-label svg {
+  flex-shrink: 0;
+  width: 12px; height: 12px;
+  transition: transform 0.2s var(--ease-in-out, ease);
+}
 .nav-group-label.collapsed svg { transform: rotate(-90deg); }
+
+/* Indented child group */
 .nav-group-children {
-  padding-left: 0.75rem;
-  border-left: 1px solid var(--border, rgba(0,0,0,0.1));
-  margin-left: 0.9rem; margin-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  margin-left: 1rem;
+  margin-bottom: 0.125rem;
+  border-left: 1px solid var(--sidebar-border, rgba(0,0,0,0.08));
 }
 .nav-group-children.collapsed { display: none; }
+
+/* ── Standalone page: slide-in drawer ────────────────────────────────────── */
+#emd-nav-drawer {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: var(--sidebar-width, 240px);
+  max-width: min(85vw, 280px);
+  background: var(--sidebar, #fafafa);
+  color: var(--sidebar-foreground, #111);
+  border-right: 1px solid var(--sidebar-border, rgba(0,0,0,0.08));
+  box-shadow: 2px 0 20px rgba(0,0,0,0.12);
+  padding: 0.75rem 0.5rem 1.5rem;
+  overflow-y: auto;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform 0.22s var(--ease-out, ease);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground, #aaa) transparent;
+}
+#emd-nav-drawer.open { transform: translateX(0); }
+
+/* Drawer header — mirrors the MkDocs site header height */
+#emd-nav-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--sidebar-border, rgba(0,0,0,0.08));
+  margin-bottom: 0.5rem;
+}
+#emd-nav-drawer-title {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--sidebar-foreground, #111);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  letter-spacing: var(--tracking-tight, -0.015em);
+}
+#emd-nav-drawer-close {
+  display: flex; align-items: center; justify-content: center;
+  width: 1.75rem; height: 1.75rem;
+  border: none; border-radius: var(--radius-md, 0.375rem);
+  background: transparent; cursor: pointer;
+  color: var(--muted-foreground, #888);
+  transition: background 0.15s, color 0.15s;
+}
+#emd-nav-drawer-close:hover {
+  background: var(--sidebar-accent, rgba(0,0,0,0.06));
+  color: var(--sidebar-accent-foreground, #111);
+}
+#emd-nav-drawer-close svg { width: 14px; height: 14px; }
+
+/* Scrim */
+#emd-nav-scrim {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 199; backdrop-filter: blur(1px);
+}
+#emd-nav-scrim.open { display: block; }
+
+/* Edge tab — hamburger handle */
+#emd-nav-tab {
+  position: fixed; top: 50%; left: 0;
+  transform: translateY(-50%);
+  z-index: 198;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 10px 6px;
+  background: var(--sidebar, #fafafa);
+  border: 1px solid var(--sidebar-border, rgba(0,0,0,0.08));
+  border-left: none;
+  border-radius: 0 var(--radius-md, 0.375rem) var(--radius-md, 0.375rem) 0;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+#emd-nav-tab:hover {
+  background: var(--sidebar-accent, #f3f3f3);
+  box-shadow: 2px 0 12px rgba(0,0,0,0.12);
+}
+#emd-nav-tab.hidden { display: none; }
+#emd-nav-tab svg {
+  width: 14px; height: 14px;
+  color: var(--muted-foreground, #666);
+  flex-shrink: 0;
+}
+
+/* ── Mobile drawer (MkDocs-themed pages) ─────────────────────────────────── */
 #mobile-nav-overlay {
   position: fixed; inset: 0; z-index: 100;
-  background: rgba(0,0,0,0.5); display: none;
+  background: rgba(0,0,0,0.4); display: none;
 }
 #mobile-nav-overlay.open { display: block; }
 #mobile-nav-drawer {
   position: fixed; top: 0; left: 0; bottom: 0;
-  width: min(85vw, 300px); background: var(--background, #fff);
-  z-index: 101; overflow-y: auto; padding: 1rem 0.5rem;
-  transform: translateX(-100%); transition: transform 0.25s ease;
+  width: min(85vw, 300px);
+  background: var(--sidebar, #fafafa);
+  color: var(--sidebar-foreground, #111);
+  z-index: 101; overflow-y: auto;
+  padding: 0.75rem 0.5rem;
+  transform: translateX(-100%);
+  transition: transform 0.22s var(--ease-out, ease);
   box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }
 #mobile-nav-overlay.open #mobile-nav-drawer { transform: translateX(0); }
 """
-
 _NAV_JS = r"""
 (function(){
 var NAV=%(nav_json)s;
@@ -486,69 +620,137 @@ window.toggleNav=function(el,id){
   document.getElementById(id).classList.toggle('collapsed');
 };
 function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
-function desk(){
-  var s=document.querySelector('[data-slot="sidebar-content"]');
-  if(s){
-    var old=s.querySelector('#custom-nav');if(old)old.remove();
-    var sp=s.querySelector('.h-\\(--top-spacing\\)');
-    var d=document.createElement('div');d.innerHTML=navHtml();
-    if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
-  } else {
-    /* Standalone page (e.g. Similarity.html) — inject a fixed sidebar */
-    if(document.getElementById('custom-nav'))return;
-    var sidebar=document.createElement('div');
-    sidebar.style.cssText='position:fixed;top:0;left:0;bottom:0;width:220px;overflow-y:auto;'
-      +'background:var(--background,#fff);border-right:1px solid var(--border,rgba(0,0,0,.1));'
-      +'padding:1rem 0;z-index:50;font-size:0.82rem;box-shadow:2px 0 8px rgba(0,0,0,.06);';
-    sidebar.innerHTML=navHtml();
-    document.body.style.marginLeft='220px';
-    document.body.appendChild(sidebar);
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
   }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
 }
-function mob(){
-  if(document.getElementById('mobile-nav-overlay'))return;
-  var o=document.createElement('div');
-  o.id='mobile-nav-overlay';
-  o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
-  o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
-  document.body.appendChild(o);
-  var b=document.getElementById('menu-button');
-  if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
 }
-var st=document.createElement('style');st.textContent=%(css_json)s;
-document.head.appendChild(st);
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
 if(document.readyState==='loading')
-  document.addEventListener('DOMContentLoaded',function(){desk();mob();});
-else{desk();mob();}
+  document.addEventListener('DOMContentLoaded',init);
+else init();
 })();
 """
 
-
-# Unique marker written into every page after nav injection.
-# Must NOT appear in any MkDocs theme file or generated content.
+# Unique marker — written once per page, never present in theme or generator output.
 _NAV_MARKER = '<!-- emd-nav-v1 -->'
 
 
 def inject_nav(site_dir: Path, nav: list):
-    nav_json = json.dumps(nav)
-    css_json = json.dumps(_NAV_CSS)
+    """
+    For every HTML file in site_dir:
+      1. Write emd-nav.css to site/stylesheets/ (once).
+      2. Inject a <link> to that CSS + the nav <script> into the page.
+
+    CSS is shared across all pages via a single file; only nav data + JS
+    is inlined per-page (because it contains per-page relative URL prefix).
+    """
+    nav_json  = json.dumps(nav)
+    css_path  = site_dir / 'stylesheets' / _NAV_CSS_FILENAME
+    css_path.parent.mkdir(parents=True, exist_ok=True)
+    css_path.write_text(_NAV_CSS, encoding='utf-8')
+
     injected = 0
     for html in site_dir.rglob('*.html'):
         content = html.read_text(encoding='utf-8')
-        if _NAV_MARKER in content:          # already injected this build
+        if _NAV_MARKER in content:
             continue
         depth  = len(html.relative_to(site_dir).parts) - 1
         prefix = '../' * depth if depth else './'
-        js = (f'var NAV_PREFIX={json.dumps(prefix)};\n'
-              + _NAV_JS % {'nav_json': nav_json, 'css_json': css_json})
-        # Marker + script injected just before </body>
-        tag = f'{_NAV_MARKER}<script>{js}</script>'
+        css_rel = f'{prefix}stylesheets/{_NAV_CSS_FILENAME}'
+
+        # On standalone pages (no base.css/geist.css), inject the theme
+        # CSS so all CSS variables resolve correctly.
+        theme_links = ''
+        if 'css/base.css' not in content:
+            base_rel  = f'{prefix}css/base.css'
+            geist_rel = f'{prefix}css/geist.css'
+            theme_links = (f'<link rel="stylesheet" href="{base_rel}">'
+                           f'<link rel="stylesheet" href="{geist_rel}">')
+
+        js  = f'var NAV_PREFIX={json.dumps(prefix)};\n' + (
+              _NAV_JS % {'nav_json': nav_json})
+        tag = (f'{_NAV_MARKER}'
+               f'{theme_links}'
+               f'<link rel="stylesheet" href="{css_rel}">'
+               f'<script>{js}</script>')
         new = content.replace('</body>', f'  {tag}\n</body>')
         if new == content:
             new = content.replace('</html>', f'  {tag}\n</html>')
         html.write_text(new, encoding='utf-8')
         injected += 1
-    print(f'  [post_build] Nav injected into {injected} HTML files')
+    print(f'  [post_build] Nav injected into {injected} HTML files + emd-nav.css written')
 
 
 # ─────────────────────────────────────────────────────────────────────────────

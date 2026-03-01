@@ -5,19 +5,15 @@ zzy_generate_similarity.py
 Generate Similarity.html for every content subdirectory under
 docs/EMD_Repository/.
 
-Runs after all content generators (zzy_) and before the index generator (zzz_).
-Dynamically discovers subdirs — no hardcoded list needed.
-
-Endpoint mapping
-----------------
-Directory name is lowercased with underscores to derive the cmipld endpoint.
-Override ENDPOINT_OVERRIDES for dirs whose name doesn't match their endpoint.
+Endpoint overrides handle dirs whose name doesn't map cleanly to a cmipld
+endpoint.  Pre-filters remove irrelevant items before building the matrix
+(e.g. Component_Families only shows family_type=component).
 """
 
 import sys
 from pathlib import Path
 
-# ── paths ──────────────────────────────────────────────────────────────────
+# ── paths ───────────────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
 DOCS_DIR   = SCRIPT_DIR.parent
 REPO_ROOT  = DOCS_DIR.parent
@@ -34,22 +30,24 @@ for candidate in [
         sys.path.insert(0, str(candidate))
         break
 
-# ── imports ────────────────────────────────────────────────────────────────
+# ── imports ─────────────────────────────────────────────────────────────────
 try:
     from helpers.data_loader import init_loader, fetch_data
 except ImportError as e:
     sys.exit(f"Cannot import helpers.data_loader: {e}")
 
 try:
-    from cmipld.utils.similarity.folder_similarity import FolderSimilarity
+    from cmipld.utils.similarity.folder_similarity import (
+        FolderSimilarity, _get_field_value,
+    )
 except ImportError as e:
     sys.exit(f"Cannot import FolderSimilarity: {e}")
 
-# ── endpoint overrides ─────────────────────────────────────────────────────
-# When a directory name doesn't match its cmipld endpoint, list it here.
-# Key = clean directory stem (e.g. "Component_Families")
-# Val = cmipld endpoint string (e.g. "model_family")
-ENDPOINT_OVERRIDES = {
+
+# ── per-directory configuration ─────────────────────────────────────────────
+
+# Maps directory stem → cmipld endpoint string.
+ENDPOINT_OVERRIDES: dict[str, str] = {
     "Component_Families":            "model_family",
     "Earth_System_Model_Families":   "model_family",
     "Models":                        "model",
@@ -58,10 +56,32 @@ ENDPOINT_OVERRIDES = {
     "Vertical_Computational_Grids":  "vertical_computational_grid",
 }
 
+# Pre-filter: keep only items where field == value.
+# Format: {dir_stem: (field_suffix, required_value)}
+PRE_FILTER: dict[str, tuple[str, str]] = {
+    "Component_Families":          ("family_type", "component"),
+    "Earth_System_Model_Families": ("family_type", "model"),
+}
+
+# Secondary client-side filter field (renders interactive buttons in HTML).
+# Format: {dir_stem: field_suffix}
+FILTER_FIELD: dict[str, str] = {
+    "Component_Families":          "scientific_domains",
+    "Earth_System_Model_Families": "scientific_domains",
+}
+
 
 def _endpoint(dir_stem: str) -> str:
-    """Derive the cmipld endpoint from a directory stem."""
     return ENDPOINT_OVERRIDES.get(dir_stem, dir_stem.lower())
+
+
+def _pre_filter(items: list, field_suffix: str, required_value: str) -> list:
+    """Keep only items where field_suffix == required_value."""
+    kept = [
+        item for item in items
+        if _get_field_value(item, field_suffix) == required_value
+    ]
+    return kept
 
 
 def run(use_embeddings: bool = True):
@@ -75,13 +95,12 @@ def run(use_embeddings: bool = True):
         d for d in EMD_DIR.iterdir()
         if d.is_dir() and not d.name.startswith('.')
     )
-
     if not subdirs:
         print("  No subdirectories found in EMD_Repository.", flush=True)
         return
 
     ok = skipped = failed = 0
-    _cache: dict[str, list] = {}   # endpoint → items (avoid refetching)
+    _cache: dict[str, list] = {}
 
     for out_dir in subdirs:
         stem     = out_dir.name
@@ -98,8 +117,15 @@ def run(use_embeddings: bool = True):
             print(f"  Fetching {endpoint}…", flush=True)
             _cache[endpoint] = fetch_data(endpoint, depth=2)
 
-        items = _cache[endpoint]
-        print(f"  Items    : {len(items)}", flush=True)
+        items = list(_cache[endpoint])  # copy so pre-filter doesn't mutate cache
+        print(f"  Fetched  : {len(items)} items", flush=True)
+
+        # Pre-filter
+        pf = PRE_FILTER.get(stem)
+        if pf:
+            field_suf, required = pf
+            items = _pre_filter(items, field_suf, required)
+            print(f"  Filtered : {len(items)} items (family_type={required})", flush=True)
 
         if len(items) < 2:
             print(f"  ⏭  Skipped — need ≥ 2 items (got {len(items)})", flush=True)
@@ -111,6 +137,7 @@ def run(use_embeddings: bool = True):
                 endpoint=endpoint,
                 items=items,
                 label=stem.replace("_", " "),
+                filter_field=FILTER_FIELD.get(stem),
                 use_embeddings=use_embeddings,
             )
             fs.save(str(dest))
