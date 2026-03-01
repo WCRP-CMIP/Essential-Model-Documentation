@@ -163,6 +163,15 @@ else:
                 spec.loader.exec_module(module)
                 print(f"Completed: {script_path.name}")
 
+            except SystemExit as e:
+                # Scripts may call sys.exit() — treat exit(0) as success,
+                # any other code as a warning but never abort the whole build.
+                code = e.code if e.code is not None else 0
+                if code == 0:
+                    print(f"Completed (skipped): {script_path.name}")
+                else:
+                    print(f"Warning: {script_path.name} exited with code {code} — continuing build", file=sys.stderr)
+
             except Exception as e:
                 print(f"Error in {script_path.name}: {e}", file=sys.stderr)
                 import traceback

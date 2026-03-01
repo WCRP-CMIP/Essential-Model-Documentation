@@ -12,27 +12,10 @@ endpoint.  Pre-filters remove irrelevant items before building the matrix
 Dependencies (must be installed before this script runs):
   numpy>=1.24.0   — matrix operations
   cmipld          — data fetching
-  jinja2          — (used by other generators, installed alongside)
 """
 
 import sys
 from pathlib import Path
-
-# ── Early dependency check ──────────────────────────────────────────────────
-def _check_deps():
-    missing = []
-    for pkg in ('numpy', 'cmipld'):
-        try:
-            __import__(pkg)
-        except ImportError:
-            missing.append(pkg)
-    if missing:
-        print(f"  ⚠ Missing dependencies: {', '.join(missing)}", flush=True)
-        print(f"    Install with: pip install {' '.join(missing)}", flush=True)
-        print(f"    Or add to requirements.txt and re-run.", flush=True)
-        sys.exit(1)
-
-_check_deps()
 
 # ── paths ───────────────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -51,23 +34,31 @@ for candidate in [
         sys.path.insert(0, str(candidate))
         break
 
-# ── imports ─────────────────────────────────────────────────────────────────
+# ── imports (non-fatal: warn and skip if unavailable) ───────────────────────
 try:
     from helpers.data_loader import init_loader, fetch_data
 except ImportError as e:
-    sys.exit(f"Cannot import helpers.data_loader: {e}")
+    print(f"  ⚠ zzy_generate_similarity: cannot import data_loader ({e}) — skipping.", flush=True)
+    raise SystemExit(0)   # exit 0: skip gracefully, don't break the build
+
+try:
+    import numpy  # noqa: F401 — confirm numpy is available before we start
+except ImportError:
+    print("  ⚠ zzy_generate_similarity: numpy not installed — skipping.", flush=True)
+    print("    Add 'numpy>=1.24.0' to requirements.txt.", flush=True)
+    raise SystemExit(0)
 
 try:
     from cmipld.utils.similarity.folder_similarity import (
         FolderSimilarity, _get_field_value,
     )
 except ImportError as e:
-    sys.exit(f"Cannot import FolderSimilarity: {e}")
+    print(f"  ⚠ zzy_generate_similarity: cannot import FolderSimilarity ({e}) — skipping.", flush=True)
+    raise SystemExit(0)
 
 
 # ── per-directory configuration ─────────────────────────────────────────────
 
-# Maps directory stem → cmipld endpoint string.
 ENDPOINT_OVERRIDES: dict[str, str] = {
     "Component_Families":            "model_family",
     "Earth_System_Model_Families":   "model_family",
@@ -77,15 +68,11 @@ ENDPOINT_OVERRIDES: dict[str, str] = {
     "Vertical_Computational_Grids":  "vertical_computational_grid",
 }
 
-# Pre-filter: keep only items where field == value.
-# Format: {dir_stem: (field_suffix, required_value)}
 PRE_FILTER: dict[str, tuple[str, str]] = {
     "Component_Families":          ("family_type", "component"),
     "Earth_System_Model_Families": ("family_type", "model"),
 }
 
-# Secondary client-side filter field (renders interactive buttons in HTML).
-# Format: {dir_stem: field_suffix}
 FILTER_FIELD: dict[str, str] = {
     "Component_Families":          "scientific_domains",
     "Earth_System_Model_Families": "scientific_domains",
@@ -97,12 +84,8 @@ def _endpoint(dir_stem: str) -> str:
 
 
 def _pre_filter(items: list, field_suffix: str, required_value: str) -> list:
-    """Keep only items where field_suffix == required_value."""
-    kept = [
-        item for item in items
-        if _get_field_value(item, field_suffix) == required_value
-    ]
-    return kept
+    return [item for item in items
+            if _get_field_value(item, field_suffix) == required_value]
 
 
 def run(use_embeddings: bool = True):
@@ -133,15 +116,13 @@ def run(use_embeddings: bool = True):
         print(f"  Endpoint : {endpoint}", flush=True)
         print(f"  Output   : {dest.relative_to(REPO_ROOT)}", flush=True)
 
-        # Fetch (cached per endpoint)
         if endpoint not in _cache:
             print(f"  Fetching {endpoint}…", flush=True)
             _cache[endpoint] = fetch_data(endpoint, depth=2)
 
-        items = list(_cache[endpoint])  # copy so pre-filter doesn't mutate cache
+        items = list(_cache[endpoint])
         print(f"  Fetched  : {len(items)} items", flush=True)
 
-        # Pre-filter
         pf = PRE_FILTER.get(stem)
         if pf:
             field_suf, required = pf
@@ -177,8 +158,9 @@ def run(use_embeddings: bool = True):
     print(f"  Similarity  ✅ {ok}  ⏭ {skipped}  ❌ {failed}", flush=True)
     print(f"{'='*60}\n", flush=True)
 
+    # Log failures but don't abort the build — other pages still render fine
     if failed:
-        sys.exit(1)
+        print(f"  ⚠ {failed} Similarity page(s) failed — build continues.", flush=True)
 
 
 run()
