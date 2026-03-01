@@ -50,7 +50,7 @@ jobs:
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Install CMIP-LD (EMD fork with validation improvements)
-        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@main -q
+        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@copier -q
         shell: bash
 
       - name: Run validation
@@ -103,7 +103,7 @@ jobs:
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Install CMIP-LD (EMD fork with validation improvements)
-        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@main -q
+        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@copier -q
         shell: bash
 
       - name: Configure Git
