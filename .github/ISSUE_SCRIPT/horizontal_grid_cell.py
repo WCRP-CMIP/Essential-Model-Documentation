@@ -58,6 +58,7 @@ def run(parsed_issue, issue, dry_run=False):
             **parsed_issue
         }
         
+        data['horizontal_units'] = data.pop('units', None)  # rename for validation
         # Return as dict with file path and metadata
         file_path = os.path.join('horizontal_grid_cell', f"{data['@id']}.json")
         
@@ -98,6 +99,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Skip metadata keys (starting with '_')
         if file_path.startswith('_'):
             continue
+        
+        data['units'] = data.pop('horizontal_units', None)  # rename back for validation
         
         # Generate and store validation report using the full ReportBuilder pipeline
         data['_validation_report'] = generate_markdown_report(data)
