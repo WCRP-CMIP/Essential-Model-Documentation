@@ -49,6 +49,10 @@ jobs:
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
+      - name: Install CMIP-LD (EMD fork with validation improvements)
+        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@main -q
+        shell: bash
+
       - name: Run validation
         id: validate
         env:
@@ -96,6 +100,10 @@ jobs:
 
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+      - name: Install CMIP-LD (EMD fork with validation improvements)
+        run: pip install git+https://github.com/WCRP-CMIP/CMIP-LD.git@main -q
+        shell: bash
 
       - name: Configure Git
         run: git config --global push.default simple
