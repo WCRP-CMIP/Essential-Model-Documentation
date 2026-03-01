@@ -58,6 +58,9 @@ def run(parsed_issue, issue, dry_run=False):
             **parsed_issue
         }
         
+    
+        data['description'] = f"Horizontal grid cell with a {data['grid_type'].replace('_', ' ')} grid type and {data['x_resolution']} x {data['y_resolution']} {data['units']} grid."
+        
         data['horizontal_units'] = data.pop('units', None)  # rename for validation
         # Return as dict with file path and metadata
         file_path = os.path.join('horizontal_grid_cell', f"{data['@id']}.json")
