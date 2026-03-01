@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """
-Generate contributors.md from git history.
+Generate Contributors.md from git history across all branches.
 
-This script runs during the MkDocs build process to create/update
-the contributors page with GitHub avatars, commit counts, and ORCID links.
-
+Runs during the MkDocs build via run_scripts.py.
 Requires: cmipld package (pip install cmipld)
 """
 
@@ -12,54 +10,42 @@ import subprocess
 import sys
 from pathlib import Path
 
-# Paths relative to this script's location (docs/scripts/)
 SCRIPT_DIR = Path(__file__).parent.resolve()
-DOCS_DIR = SCRIPT_DIR.parent
+DOCS_DIR   = SCRIPT_DIR.parent
+
+BRANCHES      = ["main", "src-data", "docs"]
+OUTPUT_PATH   = DOCS_DIR / "Contributors.md"   # no numeric prefix
 
 
 def main():
-    """Generate contributors.md using cmipld."""
-    output_path = DOCS_DIR / "999_Contributors.md"
-    
-    print(f"Generating contributors page: {output_path}")
-    
+    print(f"Generating contributors page: {OUTPUT_PATH}", flush=True)
+
     try:
         result = subprocess.run(
             [
                 sys.executable, "-m", "cmipld.generate.get_contributors",
-                "--md", str(output_path),
-                "--branches", "main", "src-data", "docs"
+                "--md", str(OUTPUT_PATH),
+                "--branches", *BRANCHES,
             ],
-            capture_output=True,
-            text=True,
-            cwd=str(DOCS_DIR.parent)
+            capture_output=False,   # let output stream to console in real time
+            cwd=str(DOCS_DIR.parent),
         )
-        
-        if result.returncode == 0:
-            print(f" Contributors page generated: {output_path}")
-            if result.stdout:
-                print(result.stdout)
-        else:
-            print(f"Warning: get_contributors returned {result.returncode}")
-            if result.stderr:
-                print(result.stderr)
-        
-        # The subprocess imports cmipld which takes over the LDR server.
-        # When the subprocess exits the server is killed. Restart it so
-        # subsequent scripts don't hit "Connection refused".
+
+        if result.returncode != 0:
+            print(f"  ⚠ get_contributors exited {result.returncode}", flush=True)
+
+    except FileNotFoundError:
+        print("  ⚠ cmipld not installed — skipping contributors generation.", flush=True)
+    except Exception as e:
+        print(f"  ⚠ contributors generation failed: {e}", flush=True)
+    finally:
+        # The subprocess kills the LDR server when it exits. Restart it so
+        # subsequent scripts (zzy_generate_similarity) can still fetch data.
         try:
-            subprocess.run(
-                ["ldr", "server", "start"],
-                capture_output=True, timeout=10
-            )
+            subprocess.run(["ldr", "server", "start"],
+                           capture_output=True, timeout=15)
         except Exception:
             pass
-                
-    except FileNotFoundError:
-        print("Warning: cmipld not installed. Skipping contributors generation.")
-        print("Install with: pip install cmipld")
-    except Exception as e:
-        print(f"Warning: Could not generate contributors: {e}")
 
 
 main()

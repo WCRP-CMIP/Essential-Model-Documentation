@@ -753,6 +753,75 @@ def inject_nav(site_dir: Path, nav: list):
     print(f'  [post_build] Nav injected into {injected} HTML files + emd-nav.css written')
 
 
+def _extract_search_block(site_dir: Path) -> str:
+    """
+    Pull the search button + dialog HTML from a built MkDocs index page.
+    Returns an empty string if not found.
+    """
+    for candidate in [site_dir / 'index.html',
+                      site_dir / 'Submission-Guide' / 'index.html']:
+        if not candidate.exists():
+            continue
+        text = candidate.read_text(encoding='utf-8')
+        if 'search-dialog' not in text:
+            continue
+        # Locate button that opens the dialog
+        btn_start = text.rfind('<button', 0, text.find('search-dialog'))
+        if btn_start < 0:
+            continue
+        # Locate end of the inline shortcut re-registration script
+        dialog_pos   = text.find('</dialog>')
+        script_end   = text.find('</script>', dialog_pos)
+        if script_end < 0:
+            continue
+        return text[btn_start: script_end + len('</script>')]
+    return ''
+
+
+def inject_search(site_dir: Path):
+    """
+    For every standalone .html page (i.e. pages that don't already have the
+    MkDocs theme search dialog), inject:
+      - the search button + dialog HTML extracted from index.html
+      - <script src="…/js/callbacks.js"> (defines onSearchBarClick etc.)
+      - <script src="…/search/main.js"> (starts the Lunr web worker)
+
+    MkDocs-built index pages already have all this — we only patch standalone
+    pages such as Similarity.html.
+    """
+    search_block = _extract_search_block(site_dir)
+    if not search_block:
+        print('  [post_build] search block not found — skipping search injection')
+        return
+
+    patched = 0
+    for html in site_dir.rglob('*.html'):
+        content = html.read_text(encoding='utf-8')
+        # Skip pages that already have the search dialog
+        if 'search-dialog' in content:
+            continue
+        # Skip pages where the nav marker hasn't been written yet
+        # (shouldn't happen, but be safe)
+        if _NAV_MARKER not in content:
+            continue
+
+        depth  = len(html.relative_to(site_dir).parts) - 1
+        prefix = '../' * depth if depth else './'
+
+        scripts = (
+            f'<script src="{prefix}js/callbacks.js"></script>'
+            f'<script src="{prefix}search/main.js"></script>'
+        )
+        # Insert right before </body> — after nav, before close
+        injection = f'{search_block}\n{scripts}'
+        new = content.replace('</body>', f'  {injection}\n</body>')
+        if new != content:
+            html.write_text(new, encoding='utf-8')
+            patched += 1
+
+    print(f'  [post_build] Search injected into {patched} standalone HTML files')
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Step 6 — root redirect
 # ─────────────────────────────────────────────────────────────────────────────
@@ -818,5 +887,8 @@ def on_post_build(config, **kwargs):
     # 4. Build nav (positive ordered first, null alpha after, negative hidden)
     nav = build_nav(site_dir, nav_order)
 
-    # 5. Inject into HTML
+    # 5. Inject nav into HTML
     inject_nav(site_dir, nav)
+
+    # 6. Inject search into standalone pages
+    inject_search(site_dir)

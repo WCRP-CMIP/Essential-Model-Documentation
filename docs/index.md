@@ -59,6 +59,34 @@ flowchart TD
 
 *The relationships between model components for a hypothetical top-level model. Coupling occurs between the four superior host components (atmosphere, ocean, land surface, and land ice). The other four components are each embedded in a host component, and are therefore not coupled with any other components. Based on the EMD specification, Figure 1.*
 
+## This site
+
+The EMD Repository contains five sections, each with individual entry pages and a [Similarity](EMD_Repository/Model_Components/Similarity.html) matrix showing content and structural similarity across registered entries:
+
+```mermaid
+flowchart LR
+    subgraph Repo["EMD Repository"]
+        MC["Model Components"]
+        CF["Component Families"]
+        ESM["Earth System\nModel Families"]
+        HG["Horizontal\nComputational Grids"]
+        VG["Vertical\nComputational Grids"]
+    end
+    TS["Table Summaries"]
+    CON["Contributors"]
+
+    MC --- CF
+    CF --- ESM
+    ESM --- HG
+    HG --- VG
+
+    style Repo stroke:#0066cc,stroke-width:2px,fill:none
+    style TS fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
+    style CON fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
+```
+
+**Table Summaries** provide aggregated statistics across all registered entries. **Contributors** lists everyone who has contributed entries across the `main`, `src-data`, and `docs` branches.
+
 ## Registration
 
 An on-line creation tool is used for CMIP7 model registration, and this tool collects the content that is recorded in the EMD. Submissions are validated against the EMD schema and reviewed by a domain scientist. When the EMD is accepted, the model registration is completed. The tool also enables those documenting a model to import documentation from earlier registered models, model components, and grids, which can then be edited if required.
