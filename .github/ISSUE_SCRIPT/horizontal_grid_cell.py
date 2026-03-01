@@ -48,11 +48,12 @@ def run(parsed_issue, issue, dry_run=False):
     # If no validation_key, generate @id from author + timestamp
     if not parsed_issue.get('validation_key') and issue.get('author') and issue.get('created_at'):
         id_result = generate_id_from_issue(issue.get('author'), issue.get('created_at'))
-        
+        atid = f"tempgrid_{id_result['id']}"
         data = {
             "@context": "_context",
-            "@id": f"tempgrid_{id_result['id']}",
+            "@id": atid,
             "@type": ["wcrp:horizontal_grid_cell", "esgvoc:HorizontalGridCells"],
+            "validation_key": atid,
             **parsed_issue
         }
         
