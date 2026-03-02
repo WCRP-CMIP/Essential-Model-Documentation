@@ -97,12 +97,15 @@ jobs:
             echo "Processing: $filepath  (dir=$dir)"
 
             # ── Determine the letter prefix used in this folder ──────────────
-            # Look for existing files matching (s|g|h)\d\d\d.json
+            # Glob directly for (s|g|h) followed by one-or-more digits, .json
             LETTER=""
             MAX_NUM=-1
 
-            while IFS= read -r existing; do
+            for existing in "$dir"/[sghSGH]*[0-9].json; do
+              # Skip if glob found nothing
+              [ -e "$existing" ] || continue
               base=$(basename "$existing" .json)
+              # Must be exactly letter + digits (no other chars)
               if [[ "$base" =~ ^([sghSGH])([0-9]+)$ ]]; then
                 L="${BASH_REMATCH[1],,}"   # lowercase
                 N="${BASH_REMATCH[2]}"
@@ -114,7 +117,7 @@ jobs:
                   MAX_NUM=$NUM
                 fi
               fi
-            done < <(find "$dir" -maxdepth 1 -name '[sghSGH][0-9][0-9][0-9].json' 2>/dev/null || true)
+            done
 
             # If the folder has no existing numbered files, skip and log
             if [ -z "$LETTER" ]; then
