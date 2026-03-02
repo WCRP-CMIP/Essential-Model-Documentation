@@ -1,0 +1,227 @@
+name: ⟳ Rename tempgrid files on PR merge
+description: |
+  On merge of a PR labelled 'pull_req', find any files containing 'tempgrid'
+  in their name, determine the next available (s|g|h)NNN id in that folder,
+  rename the file accordingly, commit to src-data, then comment on the PR
+  (and any linked issue) with the full rename mapping.
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  rename_tempgrid:
+    # Only run when the PR was actually merged AND carries the 'pull_req' label
+    if: >
+      github.event.pull_request.merged == true &&
+      contains(
+        toJSON(github.event.pull_request.labels.*.name),
+        'pull_req'
+      )
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Check out the src-data branch (where vocab files live) ─────────
+      - name: Checkout src-data branch
+        uses: actions/checkout@v4
+        with:
+          ref: src-data
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name  "cmip-ipo"
+          git config user.email "actions@wcrp-cmip.org"
+
+      # ── 2. Find every file that was added in this PR ──────────────────────
+      #    We diff the merge commit against its first parent to get only the
+      #    files that arrived via the PR, then filter for 'tempgrid' in the name.
+      - name: Identify added tempgrid files
+        id: find_tempgrid
+        run: |
+          # The merge commit on src-data is HEAD; its first parent is what
+          # src-data looked like before the merge.
+          ADDED=$(git diff --name-only --diff-filter=A HEAD^1 HEAD 2>/dev/null || true)
+
+          echo "All added files:"
+          echo "$ADDED"
+
+          TEMPGRID=$(echo "$ADDED" | grep -E '(^|/)([^/]*tempgrid[^/]*)$' || true)
+
+          echo "Tempgrid files:"
+          echo "$TEMPGRID"
+
+          # Store as newline-separated list in an output (safe for the next step)
+          # Use a heredoc so multiline content survives
+          {
+            echo "tempgrid_files<<EOF"
+            echo "$TEMPGRID"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      # ── 3. Rename each tempgrid file to the next available id ─────────────
+      - name: Rename tempgrid files
+        id: rename
+        run: |
+          MAPPING_MD=""   # accumulate markdown table rows
+          MAPPING_JSON="" # accumulate JSON array entries (for later comment)
+
+          FILES="${{ steps.find_tempgrid.outputs.tempgrid_files }}"
+
+          echo "## ⟳ Tempgrid rename summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Original filename | Renamed to |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$FILES" ]; then
+            echo "No tempgrid files found – nothing to do."
+            echo "| _(none)_ | – |" >> "$GITHUB_STEP_SUMMARY"
+            echo "mapping_md=" >> "$GITHUB_OUTPUT"
+            echo "mapping_json=[]" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          while IFS= read -r filepath; do
+            [ -z "$filepath" ] && continue
+
+            dir=$(dirname "$filepath")
+            filename=$(basename "$filepath")
+
+            echo "Processing: $filepath  (dir=$dir)"
+
+            # ── Determine the letter prefix used in this folder ──────────────
+            # Look for existing files matching (s|g|h)\d\d\d.json
+            LETTER=""
+            MAX_NUM=-1
+
+            while IFS= read -r existing; do
+              base=$(basename "$existing" .json)
+              if [[ "$base" =~ ^([sghSGH])([0-9]+)$ ]]; then
+                L="${BASH_REMATCH[1],,}"   # lowercase
+                N="${BASH_REMATCH[2]}"
+                NUM=$((10#$N))             # strip leading zeros → decimal
+                if [ -z "$LETTER" ]; then
+                  LETTER="$L"
+                fi
+                if [ $NUM -gt $MAX_NUM ]; then
+                  MAX_NUM=$NUM
+                fi
+              fi
+            done < <(find "$dir" -maxdepth 1 -name '[sghSGH][0-9][0-9][0-9].json' 2>/dev/null || true)
+
+            # If the folder has no existing numbered files, skip and log
+            if [ -z "$LETTER" ]; then
+              echo "  SKIP: no existing (s|g|h)NNN.json files found in $dir" 
+              echo "| \`${filepath}\` | ⚠️ skipped – no existing numbered files in \`${dir}\` |" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+
+            # Next id = MAX_NUM + 1  (start at 0 if folder was empty)
+            NEXT_NUM=$(( MAX_NUM + 1 ))
+
+            # Zero-pad to 3 digits
+            NEW_NAME=$(printf "%s%03d.json" "$LETTER" "$NEXT_NUM")
+            NEW_PATH="$dir/$NEW_NAME"
+
+            echo "  Renaming  $filepath  →  $NEW_PATH"
+            git mv "$filepath" "$NEW_PATH"
+            echo "| \`${filepath}\` | \`${NEW_PATH}\` |" >> "$GITHUB_STEP_SUMMARY"
+
+            # Build mapping entries
+            MAPPING_MD="${MAPPING_MD}| \`${filepath}\` | \`${NEW_PATH}\` |\n"
+            if [ -n "$MAPPING_JSON" ]; then
+              MAPPING_JSON="${MAPPING_JSON},"
+            fi
+            MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${NEW_PATH}\"}"
+
+          done <<< "$FILES"
+
+          # Write outputs
+          {
+            echo "mapping_md<<EOF"
+            printf "%b" "$MAPPING_MD"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
+
+      # ── 4. Commit renamed files to src-data ───────────────────────────────
+      - name: Commit renames to src-data
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit (no tempgrid renames were needed)."
+          else
+            git commit -m "Auto-rename tempgrid files with sequential ids"
+            git push origin src-data
+            echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # ── 5. Post a comment on the PR (and any linked issues) ───────────────
+      - name: Comment on PR and linked issues
+        if: steps.rename.outputs.mapping_json != '[]'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          MAPPING_MD: ${{ steps.rename.outputs.mapping_md }}
+          MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
+        run: |
+          # ── Build the comment body ─────────────────────────────────────────
+          COMMENT_BODY="## ⟳ Tempgrid file rename summary
+
+          The following temporary grid files were automatically renamed to their
+          permanent sequential identifiers and committed to the \`src-data\` branch.
+
+          | Original filename | Renamed to |
+          |---|---|
+          ${MAPPING_MD}
+
+          > Renames are based on the next available \`(s|g|h)NNN\` id in each folder."
+
+          # ── Comment on the PR ──────────────────────────────────────────────
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "$COMMENT_BODY"
+
+          echo "Commented on PR #${PR_NUMBER}"
+
+          # ── Find issues linked to this PR via the GitHub GraphQL API ───────
+          # GitHub doesn't expose linked issues in the REST payload, so we use
+          # GraphQL to retrieve the closing-issues references.
+          ISSUE_NUMBERS=$(gh api graphql \
+            --field owner="${REPO%/*}" \
+            --field repo="${REPO#*/}" \
+            --field pr="$PR_NUMBER" \
+            --raw-field query='
+              query($owner:String!, $repo:String!, $pr:Int!) {
+                repository(owner:$owner, name:$repo) {
+                  pullRequest(number:$pr) {
+                    closingIssuesReferences(first:10) {
+                      nodes { number }
+                    }
+                  }
+                }
+              }
+            ' \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number' \
+            2>/dev/null || true)
+
+          if [ -n "$ISSUE_NUMBERS" ]; then
+            while IFS= read -r issue_num; do
+              [ -z "$issue_num" ] && continue
+              echo "Commenting on linked issue #${issue_num}"
+              gh issue comment "$issue_num" \
+                --repo "$REPO" \
+                --body "$COMMENT_BODY"
+            done <<< "$ISSUE_NUMBERS"
+          else
+            echo "No linked issues found for PR #${PR_NUMBER}"
+          fi
