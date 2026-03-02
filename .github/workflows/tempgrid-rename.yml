@@ -218,13 +218,27 @@ jobs:
             2>/dev/null || true)
 
           if [ -n "$ISSUE_NUMBERS" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "## Linked issues" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Issue | Action |" >> "$GITHUB_STEP_SUMMARY"
+            echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
+
               echo "Commenting on linked issue #${issue_num}"
               gh issue comment "$issue_num" \
                 --repo "$REPO" \
                 --body "$COMMENT_BODY"
+
+              echo "Closing linked issue #${issue_num}"
+              gh issue close "$issue_num" \
+                --repo "$REPO" \
+                --comment "Closed automatically: PR #${PR_NUMBER} was merged and all tempgrid files have been assigned permanent identifiers."
+
+              echo "| #${issue_num} | commented + closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
             done <<< "$ISSUE_NUMBERS"
           else
             echo "No linked issues found for PR #${PR_NUMBER}"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "_No linked issues found to close._" >> "$GITHUB_STEP_SUMMARY"
           fi
