@@ -118,12 +118,12 @@ jobs:
 
             # If the folder has no existing numbered files, skip and log
             if [ -z "$LETTER" ]; then
-              echo "  SKIP: no existing (s|g|h)NNN.json files found in $dir" 
+              echo "  SKIP: no existing (s|g|h)NNN.json files found in $dir"
               echo "| \`${filepath}\` | ⚠️ skipped – no existing numbered files in \`${dir}\` |" >> "$GITHUB_STEP_SUMMARY"
               continue
             fi
 
-            # Next id = MAX_NUM + 1  (start at 0 if folder was empty)
+            # Next id = MAX_NUM + 1
             NEXT_NUM=$(( MAX_NUM + 1 ))
 
             # Zero-pad to 3 digits
