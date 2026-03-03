@@ -1,0 +1,24 @@
+{
+    "validation_key": "tempgrid_wolfiex-1772559913",
+    "ui_label": "",
+    "description": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree grid.",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "regular_latitude_longitude",
+    "number_of_cells": "27648",
+    "region": "global",
+    "southernmost_latitude": "-89.375",
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": "0",
+    "x_resolution": "1.875",
+    "y_resolution": "1.25",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1772559913"
+}
