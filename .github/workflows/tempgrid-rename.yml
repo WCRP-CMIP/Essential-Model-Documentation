@@ -155,7 +155,26 @@ jobs:
 
           echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
 
-      # ── 4. Commit renamed files to src-data ───────────────────────────────
+      # ── 4. Cancel any running src-data-change workflows ───────────────────
+      - name: Cancel running src-data-change workflows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          WORKFLOW_RUNS=$(gh run list --repo "$REPO" -w src-data-change.yml --status in_progress --json databaseId --jq '.[].databaseId')
+          
+          if [ -n "$WORKFLOW_RUNS" ]; then
+            echo "Cancelling running src-data-change workflows..."
+            while IFS= read -r run_id; do
+              [ -z "$run_id" ] && continue
+              echo "Cancelling run #$run_id"
+              gh run cancel "$run_id" --repo "$REPO"
+            done <<< "$WORKFLOW_RUNS"
+          else
+            echo "No running src-data-change workflows found."
+          fi
+
+      # ── 5. Commit renamed files to src-data ───────────────────────────────
       - name: Commit renames to src-data
         run: |
           git add -A
@@ -166,6 +185,16 @@ jobs:
             git push origin src-data
             echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
           fi
+
+      # ── 6. Trigger src-data-change workflow after rename commit ──────────
+      - name: Trigger src-data-change workflow
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "Triggering src-data-change workflow after rename commit..."
+          gh workflow run src-data-change.yml --repo "$REPO" --ref src-data
 
       # ── 5. Post a comment on the PR (and any linked issues) ───────────────
       - name: Comment on PR and close linked issues
