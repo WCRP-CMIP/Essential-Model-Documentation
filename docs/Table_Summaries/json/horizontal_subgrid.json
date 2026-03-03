@@ -1,0 +1,196 @@
+[
+  {
+    "@id": "s100",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "mass",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+      "ui_label": "Mass",
+      "validation_key": "mass"
+    },
+    "description": "Mass variables on a regular latitude-longitude grid.",
+    "horizontal_grid_cells": "g100",
+    "ui_label": "",
+    "validation_key": "s100"
+  },
+  {
+    "@id": "s101",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "mass",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+      "ui_label": "Mass",
+      "validation_key": "mass"
+    },
+    "description": "Mass variables on a linear spectral Gaussian grid (TL127).",
+    "horizontal_grid_cells": "g101",
+    "ui_label": "",
+    "validation_key": "s101"
+  },
+  {
+    "@id": "s102",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "mass",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+      "ui_label": "Mass",
+      "validation_key": "mass"
+    },
+    "description": "Mass variables on an ocean tripolar grid (eORCA1).",
+    "horizontal_grid_cells": "g102",
+    "ui_label": "",
+    "validation_key": "s102"
+  },
+  {
+    "@id": "s103",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": [
+      {
+        "@id": "mass",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+        "ui_label": "Mass",
+        "validation_key": "mass"
+      },
+      {
+        "@id": "x-velocity",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.",
+        "ui_label": "X Velocity",
+        "validation_key": "x-velocity"
+      },
+      {
+        "@id": "y-velocity",
+        "@type": [
+          "universal",
+          "wcrp:cell_variable_type",
+          "esgvoc:CellVariableType",
+          "constants"
+        ],
+        "description": "Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.",
+        "ui_label": "Y Velocity",
+        "validation_key": "y-velocity"
+      }
+    ],
+    "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
+    "horizontal_grid_cells": "g103",
+    "ui_label": "",
+    "validation_key": "s103"
+  },
+  {
+    "@id": "s104",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "mass",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
+      "ui_label": "Mass",
+      "validation_key": "mass"
+    },
+    "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
+    "horizontal_grid_cells": "g104",
+    "ui_label": "",
+    "validation_key": "s104"
+  },
+  {
+    "@id": "s105",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "x-velocity",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.",
+      "ui_label": "X Velocity",
+      "validation_key": "x-velocity"
+    },
+    "description": "X-velocity (U-grid) on ocean tripolar grid (eORCA1).",
+    "horizontal_grid_cells": "g105",
+    "ui_label": "",
+    "validation_key": "s105"
+  },
+  {
+    "@id": "s106",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_subgrid",
+      "esgvoc:HorizontalSubgrid"
+    ],
+    "cell_variable_type": {
+      "@id": "y-velocity",
+      "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+      ],
+      "description": "Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.",
+      "ui_label": "Y Velocity",
+      "validation_key": "y-velocity"
+    },
+    "description": "Y-velocity (V-grid) on ocean tripolar grid (eORCA1).",
+    "horizontal_grid_cells": "g106",
+    "ui_label": "",
+    "validation_key": "s106"
+  }
+]

@@ -1,0 +1,73 @@
+/* Scientific Domain Colours — left border accent only, minimal style
+   Class names match validation_key / @id slugs (e.g. "atmosphere", "ocean").
+   Applied to .emd-domain-card and .emd-domain-badge elements.
+*/
+
+/* ── Per-domain colour tokens ──────────────────────────────────────────────── */
+.sd-ocean                    { --sd-color: #264653; }
+.sd-ocean-biogeochemistry    { --sd-color: #287271; }
+.sd-sea-ice                  { --sd-color: #2a9d8f; }
+.sd-land-surface             { --sd-color: #8ab17d; }
+.sd-land-ice                 { --sd-color: #7cadbe; }
+.sd-aerosol                  { --sd-color: #e9c46a; }
+.sd-atmospheric-chemistry    { --sd-color: #f4a261; }
+.sd-atmosphere               { --sd-color: #e76f51; }
+
+/* ── Domain card: left border accent only, no background tint ──────────────── */
+.emd-domain-card[class*="sd-"] {
+    border-left: 4px solid var(--sd-color);
+    background: var(--emd-bg);
+    border-top-color: var(--emd-border);
+    border-right-color: var(--emd-border);
+    border-bottom-color: var(--emd-border);
+}
+.emd-domain-card[class*="sd-"] .emd-domain-card-title {
+    color: var(--emd-text);
+}
+.emd-domain-card[class*="sd-"] .emd-domain-card-type {
+    background: transparent;
+    color: var(--sd-color);
+    border: 1px solid var(--sd-color);
+    padding: 0.1rem 0.45rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* ── Domain pill in page header ────────────────────────────────────────────── */
+.emd-domain-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.18rem 0.6rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--sd-color, #64748b);
+    color: var(--sd-color, #64748b);
+    background: transparent;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ── Header left border accent ─────────────────────────────────────────────── */
+.emd-header.has-domain {
+    border-left: 4px solid var(--sd-color, var(--emd-primary));
+    background: var(--emd-surface);
+}
+
+/* ── Inline domain badge (e.g. <span class="emd-domain-badge sd-ocean">) ────── */
+.emd-domain-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid var(--sd-color, #94a3b8);
+    color: var(--sd-color, #64748b);
+    background: transparent;
+    cursor: default;
+    letter-spacing: 0.03em;
+}

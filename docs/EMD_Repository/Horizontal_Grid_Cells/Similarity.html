@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Code Pro', monospace; background: #ffffff;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 24px 40px;
+  }
+  #filter-bar {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+    margin-bottom: 16px; min-height: 0;
+  }
+  .fbtn {
+    padding: 4px 11px; border-radius: 20px; border: 1.5px solid #ccc;
+    background: #fff; cursor: pointer; font-family: 'Source Code Pro', monospace;
+    font-size: 11px; color: #555; transition: all .15s;
+  }
+  .fbtn:hover  { border-color: #0d1035; color: #0d1035; }
+  .fbtn.active { background: #0d1035; border-color: #0d1035; color: #fff; font-weight: 600; }
+  #chart { position: relative; }
+  .tip {
+    position: fixed; background: #0d1035; color: #fff;
+    padding: 10px 14px; border-radius: 8px; font-size: 12px;
+    font-family: 'Source Code Pro', monospace; pointer-events: none;
+    opacity: 0; transition: opacity .12s; line-height: 1.9;
+    box-shadow: 0 6px 24px rgba(0,0,0,.25); max-width: 280px;
+  }
+  .tip .tip-link { color: #e8607e; font-weight: 600; }
+  .tip .tip-text { color: #f5c842; font-weight: 600; }
+  .tip .tip-head { font-weight: 700; font-size: 13px;
+                   border-bottom: 1px solid rgba(255,255,255,.2);
+                   padding-bottom: 5px; margin-bottom: 5px; }
+</style>
+</head>
+<body>
+<div id="filter-bar"></div>
+<div id="chart"></div>
+<div class="tip" id="tip"></div>
+<script>
+const D = {"ids": ["g101", "g100", "g104", "g106", "g105", "g102", "g103"], "link": [[0.0, 0.45752916551235867, 0.5047581488488126, 0.31262939958592134, 0.31262939958592134, 0.3095238095238095, 0.08516696152145069], [0.45752916551235867, 0.0, 0.8967889908256882, 0.3353174603174603, 0.3353174603174603, 0.33928571428571425, 0.10501756370564419], [0.5047581488488126, 0.8967889908256882, 0.0, 0.33486238532110085, 0.33486238532110085, 0.3379204892966361, 0.10624305390172263], [0.31262939958592134, 0.3353174603174603, 0.33486238532110085, 0.0, 0.9720496894409939, 0.8333333333333334, 0.18136333480760727], [0.31262939958592134, 0.3353174603174603, 0.33486238532110085, 0.9720496894409939, 0.0, 0.8333333333333334, 0.18136333480760727], [0.3095238095238095, 0.33928571428571425, 0.3379204892966361, 0.8333333333333334, 0.8333333333333334, 0.0, 0.1866154356479434], [0.08516696152145069, 0.10501756370564419, 0.10624305390172263, 0.18136333480760727, 0.18136333480760727, 0.1866154356479434, 0.0]], "text": [[0.0, 0.45752916551235867, 0.5047581488488126, 0.31262939958592134, 0.31262939958592134, 0.3095238095238095, 0.08516696152145069], [0.45752916551235867, 0.0, 0.8967889908256882, 0.3353174603174603, 0.3353174603174603, 0.33928571428571425, 0.10501756370564419], [0.5047581488488126, 0.8967889908256882, 0.0, 0.33486238532110085, 0.33486238532110085, 0.3379204892966361, 0.10624305390172263], [0.31262939958592134, 0.3353174603174603, 0.33486238532110085, 0.0, 0.9720496894409939, 0.8333333333333334, 0.18136333480760727], [0.31262939958592134, 0.3353174603174603, 0.33486238532110085, 0.9720496894409939, 0.0, 0.8333333333333334, 0.18136333480760727], [0.3095238095238095, 0.33928571428571425, 0.3379204892966361, 0.8333333333333334, 0.8333333333333334, 0.0, 0.1866154356479434], [0.08516696152145069, 0.10501756370564419, 0.10624305390172263, 0.18136333480760727, 0.18136333480760727, 0.1866154356479434, 0.0]], "method": "field-level | link: text (links uninformative)", "folder": "Horizontal Grid Cells", "meta": [{"label": "g101", "tags": []}, {"label": "g100", "tags": []}, {"label": "g104", "tags": []}, {"label": "g106", "tags": []}, {"label": "g105", "tags": []}, {"label": "g102", "tags": []}, {"label": "g103", "tags": []}]};
+const { ids, link, text, method, folder, meta } = D;
+
+const n       = ids.length;
+const FONT    = "'Source Code Pro', monospace";
+const RED     = '#a40e4C';
+const MUSTARD = '#f2b30d';
+const NAVY    = '#0d1035';
+const WHITE   = '#ffffff';
+
+// ── Layout ────────────────────────────────────────────────────────────────
+const cellSize = Math.min(60, Math.floor(Math.min(window.innerWidth * 0.72, 480) / n));
+const gap      = Math.max(2, Math.round(cellSize * 0.055));
+const inner    = cellSize - gap;
+const radius   = Math.round(inner * 0.14);
+
+// x-axis height: rotated labels, max 50 chars, monospace ~0.61 * fontSize px wide
+const lblFs   = Math.max(8, Math.round(cellSize * 0.145));
+const maxLLen = Math.max(...meta.map(m => Math.min(m.label.length, 50)));
+// x-axis: rotated labels need XLBL_H vertical space (text length × char width)
+const XLBL_H  = Math.ceil(maxLLen * lblFs * 0.62) + 12;
+// y-axis: horizontal labels, left margin = longest label × char width
+const YLBL_W  = Math.ceil(maxLLen * lblFs * 0.62) + 16;
+const LEG_H   = 62;
+const TITLE_H = 54;
+const margin  = {
+  top:    TITLE_H,
+  right:  20,
+  bottom: XLBL_H + LEG_H + 16,
+  left:   YLBL_W,
+};
+const W = n * cellSize + margin.left + margin.right;
+const H = n * cellSize + margin.top  + margin.bottom;
+
+// ── Colour helpers ─────────────────────────────────────────────────────────
+function hexToRgb(h) {
+  return [parseInt(h.slice(1,3),16)/255, parseInt(h.slice(3,5),16)/255, parseInt(h.slice(5,7),16)/255];
+}
+function blend(hex, a) {
+  const [r,g,b] = hexToRgb(hex);
+  return `rgb(${Math.round((1-a+r*a)*255)},${Math.round((1-a+g*a)*255)},${Math.round((1-a+b*a)*255)})`;
+}
+
+// ── Filter ─────────────────────────────────────────────────────────────────
+// Collect all unique tags across items
+const allTags = [...new Set(meta.flatMap(m => m.tags || []))].sort();
+let activeFilter = null;
+
+function itemVisible(i) {
+  if (!activeFilter) return true;
+  return (meta[i].tags || []).includes(activeFilter);
+}
+
+function applyFilter() {
+  // Cells
+  g.selectAll('.cell').attr('opacity', d => {
+    if (d.i === d.j) return itemVisible(d.i) ? 1 : 0.08;
+    return (itemVisible(d.i) && itemVisible(d.j)) ? 1 : 0.06;
+  });
+  // Value labels
+  g.selectAll('.val').attr('opacity', d =>
+    (itemVisible(d.i) && itemVisible(d.j)) ? 1 : 0);
+  // Diagonal labels
+  g.selectAll('.diag').attr('opacity', (d, i) => itemVisible(i) ? 1 : 0.1);
+  // Axis labels
+  g.selectAll('.xlabel').attr('opacity', (d, i) => itemVisible(i) ? 1 : 0.1);
+  g.selectAll('.ylabel').attr('opacity', (d, i) => itemVisible(i) ? 1 : 0.1);
+}
+
+// Build filter buttons (only if there are tags)
+if (allTags.length > 0) {
+  const bar = document.getElementById('filter-bar');
+  const allBtn = document.createElement('button');
+  allBtn.className = 'fbtn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => {
+    activeFilter = null;
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    applyFilter();
+  };
+  bar.appendChild(allBtn);
+
+  allTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'fbtn';
+    btn.textContent = tag.replace(/-/g,' ').replace(/_/g,' ');
+    btn.dataset.tag = tag;
+    btn.onclick = () => {
+      activeFilter = tag;
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter();
+    };
+    bar.appendChild(btn);
+  });
+}
+
+// ── SVG ────────────────────────────────────────────────────────────────────
+const svg = d3.select('#chart').append('svg').attr('width', W).attr('height', H);
+const defs = svg.append('defs');
+[['leg-red', RED], ['leg-mustard', MUSTARD]].forEach(([id, col]) => {
+  const gr = defs.append('linearGradient').attr('id', id).attr('x1','0%').attr('x2','100%');
+  gr.append('stop').attr('offset','0%').attr('stop-color', WHITE);
+  gr.append('stop').attr('offset','100%').attr('stop-color', col);
+});
+
+// Title
+svg.append('text').attr('x', W/2).attr('y', 24)
+  .attr('text-anchor','middle').attr('font-family', FONT)
+  .attr('font-size', 17).attr('font-weight', 700).attr('fill', NAVY)
+  .text('Similarity Matrix — ' + folder);
+svg.append('text').attr('x', W/2).attr('y', 41)
+  .attr('text-anchor','middle').attr('font-family', FONT)
+  .attr('font-size', 9).attr('fill','#999')
+  .text(n + ' items  ·  spectrally ordered  ·  ' + method);
+
+const g   = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+const tip = d3.select('#tip');
+
+// ── Cells ──────────────────────────────────────────────────────────────────
+const cellData = [];
+for (let i=0;i<n;i++) for (let j=0;j<n;j++) cellData.push({i,j});
+
+g.selectAll('.cell').data(cellData).join('rect')
+  .attr('class','cell')
+  .attr('x',      d => d.j*cellSize + gap/2)
+  .attr('y',      d => d.i*cellSize + gap/2)
+  .attr('width',  inner).attr('height', inner).attr('rx', radius)
+  .attr('fill', d => {
+    if (d.i===d.j) return NAVY;
+    return d.i < d.j ? blend(RED, link[d.i][d.j]) : blend(MUSTARD, text[d.i][d.j]);
+  })
+  .style('cursor', d => d.i===d.j ? 'default' : 'pointer')
+  .on('mouseover', function(event, d) {
+    if (d.i===d.j) return;
+    const li=Math.min(d.i,d.j), lj=Math.max(d.i,d.j);
+    const lbl_i = meta[d.i].label, lbl_j = meta[d.j].label;
+    tip.style('opacity',1).html(
+      `<div class="tip-head">${lbl_i} ↔ ${lbl_j}</div>` +
+      `<span class="tip-link">▲ Link</span>&nbsp; ${(link[li][lj]*100).toFixed(1)}%<br>` +
+      `<span class="tip-text">▼ Content</span>&nbsp; ${(text[lj][li]*100).toFixed(1)}%`
+    );
+    d3.select(this).attr('stroke',NAVY).attr('stroke-width',2);
+    g.selectAll('.cell').filter(e => e.i!==d.i && e.j!==d.j).attr('opacity', e =>
+      (itemVisible(e.i) && itemVisible(e.j)) ? 0.35 : 0.04);
+  })
+  .on('mousemove', ev => tip.style('left',(ev.clientX+14)+'px').style('top',(ev.clientY-10)+'px'))
+  .on('mouseout', function() {
+    tip.style('opacity',0);
+    d3.select(this).attr('stroke','none');
+    applyFilter();
+  });
+
+// ── Value labels ───────────────────────────────────────────────────────────
+g.selectAll('.val').data(cellData.filter(d=>d.i!==d.j)).join('text')
+  .attr('class','val')
+  .attr('x', d => d.j*cellSize + cellSize/2)
+  .attr('y', d => d.i*cellSize + cellSize/2)
+  .attr('dy','0.35em').attr('text-anchor','middle')
+  .attr('font-family', FONT)
+  .attr('font-size', Math.max(8, Math.round(cellSize*0.16)))
+  .attr('font-weight',600).attr('pointer-events','none')
+  .attr('fill', d => {
+    const v = d.i<d.j ? link[d.i][d.j] : text[d.i][d.j];
+    if (v<0.08) return 'none';
+    const [r,gg,b] = hexToRgb(d.i<d.j ? RED : MUSTARD);
+    return (0.299*(1-v+r*v) + 0.587*(1-v+gg*v) + 0.114*(1-v+b*v)) < 0.55 ? WHITE : NAVY;
+  })
+  .text(d => { const v=d.i<d.j?link[d.i][d.j]:text[d.i][d.j]; return v>=0.08?Math.round(v*100)+'%':''; });
+
+// ── Diagonal labels (sized to fit within cell, truncated if needed) ─────────
+// monospace char width ≈ 0.58 * fontSize → max chars at size fs = inner / (0.58 * fs)
+const maxDiagFs = Math.max(9, Math.round(cellSize * 0.18));
+
+function diagText(label) {
+  // Find the largest font size that fits, down to min 6px
+  for (var fs = maxDiagFs; fs >= 6; fs--) {
+    var maxChars = Math.floor(inner / (0.58 * fs));
+    if (label.length <= maxChars) return { fs: fs, text: label };
+  }
+  // Even at 6px it's too long — truncate to fit
+  var maxChars = Math.floor(inner / (0.58 * 6));
+  return { fs: 6, text: label.slice(0, Math.max(1, maxChars - 1)) + '…' };
+}
+
+g.selectAll('.diag').data(meta).join('text')
+  .attr('class','diag')
+  .attr('x', (d,i) => i*cellSize + cellSize/2)
+  .attr('y', (d,i) => i*cellSize + cellSize/2)
+  .attr('dy','0.35em').attr('text-anchor','middle')
+  .attr('font-family', FONT)
+  .attr('font-size', d => diagText(d.label).fs)
+  .attr('font-weight',700).attr('fill',WHITE).attr('pointer-events','none')
+  .text(d => diagText(d.label).text);
+
+// ── Axis labels ────────────────────────────────────────────────────────────
+// X-axis: rotated -90°, truncated to 50 chars, reads bottom→top
+const pivotY = n * cellSize + 4;   // just below the matrix
+
+g.selectAll('.xlabel').data(meta).join('text')
+  .attr('class','xlabel')
+  .attr('transform', (d, i) =>
+    `translate(${i*cellSize + cellSize/2},${pivotY}) rotate(-90)`)
+  .attr('text-anchor','end')
+  .attr('dy','0.35em')
+  .attr('font-family', FONT)
+  .attr('font-size', lblFs)
+  .attr('font-weight', 600)
+  .attr('fill', NAVY)
+  .text(d => d.label.length > 50 ? d.label.slice(0, 50) + '…' : d.label);
+
+// Y-axis: horizontal labels, truncated to 50 chars
+g.selectAll('.ylabel').data(meta).join('text')
+  .attr('class','ylabel')
+  .attr('x', -8)   // 8px gap from left edge of matrix
+  .attr('y', (d, i) => i*cellSize + cellSize/2)
+  .attr('text-anchor','end').attr('dominant-baseline','middle')
+  .attr('font-family', FONT)
+  .attr('font-size', lblFs)
+  .attr('font-weight', 600)
+  .attr('fill', NAVY)
+  .text(d => d.label.length > 50 ? d.label.slice(0, 50) + '…' : d.label);
+
+// ── Diagonal divider ───────────────────────────────────────────────────────
+g.append('line')
+  .attr('x1',0).attr('y1',0).attr('x2',n*cellSize).attr('y2',n*cellSize)
+  .attr('stroke',NAVY).attr('stroke-width',1.5)
+  .attr('stroke-dasharray','5,4').attr('opacity',0.22);
+
+// ── Legend bars ────────────────────────────────────────────────────────────
+const legY  = n*cellSize + XLBL_H + 16;
+const barW  = Math.floor(n*cellSize * 0.43);
+const barH  = 13;
+const legFs = Math.max(9, Math.round(cellSize * 0.16));
+
+g.append('text').attr('x',0).attr('y', legY-8)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', legFs).attr('font-weight',700).attr('fill', RED)
+  .text('▲  link similarity');
+g.append('rect').attr('x',0).attr('y', legY)
+  .attr('width', barW).attr('height', barH).attr('rx',3).attr('fill','url(#leg-red)');
+g.append('text').attr('x',0).attr('y', legY+barH+9)
+  .attr('text-anchor','start').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('0%');
+g.append('text').attr('x', barW).attr('y', legY+barH+9)
+  .attr('text-anchor','end').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('100%');
+
+const mustX = n*cellSize - barW;
+g.append('text').attr('x', mustX).attr('y', legY-8)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', legFs).attr('font-weight',700).attr('fill','#c49000')
+  .text('▼  content similarity');
+g.append('rect').attr('x', mustX).attr('y', legY)
+  .attr('width', barW).attr('height', barH).attr('rx',3).attr('fill','url(#leg-mustard)');
+g.append('text').attr('x', mustX).attr('y', legY+barH+9)
+  .attr('text-anchor','start').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('0%');
+g.append('text').attr('x', mustX+barW).attr('y', legY+barH+9)
+  .attr('text-anchor','end').attr('font-size', legFs-1).attr('fill','#bbb').attr('font-family', FONT).text('100%');
+
+g.append('text')
+  .attr('x', n*cellSize/2).attr('y', legY+barH+30)
+  .attr('text-anchor','middle').attr('font-size', 9)
+  .attr('font-family', FONT).attr('fill','#ccc')
+  .text('hover any cell for details · click filter buttons to highlight groups');
+</script>
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../css/base.css"><link rel="stylesheet" href="../../css/geist.css"><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
+
+(function(){
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Submission Guide", "url": "/Submission-Guide/"}, {"type": "group", "label": "EMD Repository", "url": "/EMD_Repository/", "children": [{"type": "group", "label": "Model Components", "url": "/EMD_Repository/Model_Components/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Model_Components/Similarity.html"}, {"type": "link", "label": "Arpege climat version 6 3", "url": "/EMD_Repository/Model_Components/arpege-climat_version_6_3.html"}, {"type": "link", "label": "Bisicles ukesm ismip6 1 0", "url": "/EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html"}, {"type": "link", "label": "Clm4", "url": "/EMD_Repository/Model_Components/clm4.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Model_Components/gelato.html"}, {"type": "link", "label": "Hadam3", "url": "/EMD_Repository/Model_Components/hadam3.html"}, {"type": "link", "label": "Nemo v3 6", "url": "/EMD_Repository/Model_Components/nemo_v3_6.html"}, {"type": "link", "label": "Piscesv2 gas", "url": "/EMD_Repository/Model_Components/piscesv2-gas.html"}, {"type": "link", "label": "Reprobus c v2 0", "url": "/EMD_Repository/Model_Components/reprobus-c_v2_0.html"}, {"type": "link", "label": "Surfex v8 modeling platform", "url": "/EMD_Repository/Model_Components/surfex_v8_modeling_platform.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Model_Components/tactic.html"}]}, {"type": "group", "label": "Earth System Model Families", "url": "/EMD_Repository/Earth_System_Model_Families/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Earth_System_Model_Families/Similarity.html"}, {"type": "link", "label": "Access", "url": "/EMD_Repository/Earth_System_Model_Families/access.html"}, {"type": "link", "label": "Bcc csm", "url": "/EMD_Repository/Earth_System_Model_Families/bcc-csm.html"}, {"type": "link", "label": "Canesm", "url": "/EMD_Repository/Earth_System_Model_Families/canesm.html"}, {"type": "link", "label": "Cesm", "url": "/EMD_Repository/Earth_System_Model_Families/cesm.html"}, {"type": "link", "label": "Cnrm cm", "url": "/EMD_Repository/Earth_System_Model_Families/cnrm-cm.html"}, {"type": "link", "label": "Ec earth", "url": "/EMD_Repository/Earth_System_Model_Families/ec-earth.html"}, {"type": "link", "label": "Fgoals", "url": "/EMD_Repository/Earth_System_Model_Families/fgoals.html"}, {"type": "link", "label": "Gfdl cm4", "url": "/EMD_Repository/Earth_System_Model_Families/gfdl-cm4.html"}, {"type": "link", "label": "Giss e2", "url": "/EMD_Repository/Earth_System_Model_Families/giss-e2.html"}, {"type": "link", "label": "Hadcm2", "url": "/EMD_Repository/Earth_System_Model_Families/hadcm2.html"}, {"type": "link", "label": "Hadgem3", "url": "/EMD_Repository/Earth_System_Model_Families/hadgem3.html"}, {"type": "link", "label": "Icon", "url": "/EMD_Repository/Earth_System_Model_Families/icon.html"}, {"type": "link", "label": "Ipsl cm", "url": "/EMD_Repository/Earth_System_Model_Families/ipsl-cm.html"}, {"type": "link", "label": "Miroc", "url": "/EMD_Repository/Earth_System_Model_Families/miroc.html"}, {"type": "link", "label": "Mpi esm", "url": "/EMD_Repository/Earth_System_Model_Families/mpi-esm.html"}, {"type": "link", "label": "Ukesm1", "url": "/EMD_Repository/Earth_System_Model_Families/ukesm1.html"}]}, {"type": "group", "label": "Component Families", "url": "/EMD_Repository/Component_Families/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Component_Families/Similarity.html"}, {"type": "link", "label": "Arpege climat", "url": "/EMD_Repository/Component_Families/arpege-climat.html"}, {"type": "link", "label": "Bisicles", "url": "/EMD_Repository/Component_Families/bisicles.html"}, {"type": "link", "label": "Cam", "url": "/EMD_Repository/Component_Families/cam.html"}, {"type": "link", "label": "Clm", "url": "/EMD_Repository/Component_Families/clm.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Component_Families/gelato.html"}, {"type": "link", "label": "Geos", "url": "/EMD_Repository/Component_Families/geos.html"}, {"type": "link", "label": "Hadam", "url": "/EMD_Repository/Component_Families/hadam.html"}, {"type": "link", "label": "Ifs", "url": "/EMD_Repository/Component_Families/ifs.html"}, {"type": "link", "label": "Nemo", "url": "/EMD_Repository/Component_Families/nemo.html"}, {"type": "link", "label": "Nicam", "url": "/EMD_Repository/Component_Families/nicam.html"}, {"type": "link", "label": "Pisces", "url": "/EMD_Repository/Component_Families/pisces.html"}, {"type": "link", "label": "Reprobus", "url": "/EMD_Repository/Component_Families/reprobus.html"}, {"type": "link", "label": "Surfex", "url": "/EMD_Repository/Component_Families/surfex.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Component_Families/tactic.html"}]}, {"type": "group", "label": "Horizontal Computational Grids", "url": "/EMD_Repository/Horizontal_Computational_Grids/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Computational_Grids/Similarity.html"}, {"type": "link", "label": "H100", "url": "/EMD_Repository/Horizontal_Computational_Grids/h100.html"}, {"type": "link", "label": "H101", "url": "/EMD_Repository/Horizontal_Computational_Grids/h101.html"}, {"type": "link", "label": "H102", "url": "/EMD_Repository/Horizontal_Computational_Grids/h102.html"}, {"type": "link", "label": "H103", "url": "/EMD_Repository/Horizontal_Computational_Grids/h103.html"}]}, {"type": "group", "label": "Vertical Computational Grids", "url": "/EMD_Repository/Vertical_Computational_Grids/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Vertical_Computational_Grids/Similarity.html"}, {"type": "link", "label": "V100", "url": "/EMD_Repository/Vertical_Computational_Grids/v100.html"}, {"type": "link", "label": "V101", "url": "/EMD_Repository/Vertical_Computational_Grids/v101.html"}, {"type": "link", "label": "V102", "url": "/EMD_Repository/Vertical_Computational_Grids/v102.html"}, {"type": "link", "label": "V103", "url": "/EMD_Repository/Vertical_Computational_Grids/v103.html"}, {"type": "link", "label": "V104", "url": "/EMD_Repository/Vertical_Computational_Grids/v104.html"}, {"type": "link", "label": "V105", "url": "/EMD_Repository/Vertical_Computational_Grids/v105.html"}, {"type": "link", "label": "V106", "url": "/EMD_Repository/Vertical_Computational_Grids/v106.html"}]}, {"type": "group", "label": "Horizontal Grid Cells", "url": "/EMD_Repository/Horizontal_Grid_Cells/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Grid_Cells/Similarity.html"}, {"type": "link", "label": "G100", "url": "/EMD_Repository/Horizontal_Grid_Cells/g100.html"}, {"type": "link", "label": "G101", "url": "/EMD_Repository/Horizontal_Grid_Cells/g101.html"}, {"type": "link", "label": "G102", "url": "/EMD_Repository/Horizontal_Grid_Cells/g102.html"}, {"type": "link", "label": "G103", "url": "/EMD_Repository/Horizontal_Grid_Cells/g103.html"}, {"type": "link", "label": "G104", "url": "/EMD_Repository/Horizontal_Grid_Cells/g104.html"}, {"type": "link", "label": "G105", "url": "/EMD_Repository/Horizontal_Grid_Cells/g105.html"}, {"type": "link", "label": "G106", "url": "/EMD_Repository/Horizontal_Grid_Cells/g106.html"}]}]}, {"type": "group", "label": "Table Summaries", "url": "/Table_Summaries/", "children": [{"type": "link", "label": "Component config", "url": "/Table_Summaries/component_config/"}, {"type": "link", "label": "Component family", "url": "/Table_Summaries/component_family/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/Table_Summaries/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cells", "url": "/Table_Summaries/horizontal_grid_cells/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/Table_Summaries/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/Table_Summaries/model/"}, {"type": "link", "label": "Model component", "url": "/Table_Summaries/model_component/"}, {"type": "link", "label": "Source family", "url": "/Table_Summaries/source_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/Table_Summaries/vertical_computational_grid/"}]}, {"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Information/"}, {"type": "link", "label": "Contributors", "url": "/Contributors/"}, {"type": "group", "label": "Vocabularies", "url": "/vocabularies/", "children": [{"type": "link", "label": "Component config", "url": "/vocabularies/component_config/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/vocabularies/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cell", "url": "/vocabularies/horizontal_grid_cell/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/vocabularies/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/vocabularies/model/"}, {"type": "link", "label": "Model component", "url": "/vocabularies/model_component/"}, {"type": "link", "label": "Model family", "url": "/vocabularies/model_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/vocabularies/vertical_computational_grid/"}]}];
+var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
+function rel(u){return PFX+(u||'').replace(/^\//,'');}
+function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
+function active(u){
+  if(!u)return false;
+  var a=document.createElement('a');a.href=rel(u);
+  var p=a.pathname.replace(/\/$/,'');
+  return cur()===p||cur().startsWith(p+'/');
+}
+var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+function grpActive(g){
+  for(var i=0;i<(g.children||[]).length;i++){
+    var c=g.children[i];
+    if(c.type==='link'&&active(c.url))return true;
+    if(c.type==='group'&&grpActive(c))return true;
+  }
+  return g.url&&active(g.url);
+}
+function render(items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    if(it.type==='link'){
+      h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>'+it.label+'</a>';
+    } else {
+      var on=grpActive(it);
+      var col=on?'':' collapsed';
+      var id='g'+Math.random().toString(36).slice(2);
+      h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
+      h+='<div id="'+id+'" class="nav-group-children'+col+'">';
+      /* Overview link intentionally omitted — group URL is the section header */
+      h+=render(it.children||[]);
+      h+='</div></div>';
+    }
+  }
+  return h;
+}
+window.toggleNav=function(el,id){
+  el.classList.toggle('collapsed');
+  document.getElementById(id).classList.toggle('collapsed');
+};
+function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+}
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
+}
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
+if(document.readyState==='loading')
+  document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+</body></html>

@@ -1,0 +1,1726 @@
+[
+  {
+    "@id": "access",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "bom",
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Australian Community Climate and Earth System Simulator - a coupled climate and Earth system model developed by the Australian climate research community.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "csiro",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "CSIRO",
+      "aliases": [],
+      "description": "",
+      "established": 1926,
+      "kind": "funder",
+      "labels": "Commonwealth Scientific and Industrial Research Organisation",
+      "location": {
+        "@id": "universal:location/03qn8fb07",
+        "@type": "wcrp:location",
+        "continent_code": "OC",
+        "continent_name": "Oceania",
+        "country_code": "AU",
+        "country_name": "Australia",
+        "country_subdivision_code": "ACT",
+        "country_subdivision_name": "Australian Capital Territory",
+        "lat": -35.28346,
+        "lng": 149.12807,
+        "name": "Canberra"
+      },
+      "ror": "03qn8fb07",
+      "ui_label": "Commonwealth Scientific and Industrial Research Organisation",
+      "url": [
+        "http://www.csiro.au/",
+        "http://en.wikipedia.org/wiki/Commonwealth_Scientific_and_Industrial_Research_Organisation"
+      ],
+      "validation_key": "CSIRO"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "ACCESS",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "bcc-csm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Beijing Climate Center Climate System Model.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "bcc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": [],
+      "description": "",
+      "established": 2003,
+      "kind": "facility",
+      "labels": [
+        "Beijing Climate Center",
+        "\u56fd\u5bb6\u6c14\u5019\u4e2d\u5fc3"
+      ],
+      "location": {
+        "@id": "universal:location/03kb2jw75",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "CN",
+        "country_name": "China",
+        "country_subdivision_code": "BJ",
+        "country_subdivision_name": "Beijing",
+        "lat": 39.9075,
+        "lng": 116.39723,
+        "name": "Beijing"
+      },
+      "ror": "03kb2jw75",
+      "ui_label": "Beijing Climate Center",
+      "url": "http://bcc.ncc-cma.net",
+      "validation_key": "BCC"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "BCC-CSM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "canesm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Canadian Earth System Model - developed by the Canadian Centre for Climate Modelling and Analysis.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cccma",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": [],
+      "description": "",
+      "kind": "facility",
+      "labels": "Climate Modelling Laboratory",
+      "location": {
+        "@id": "universal:location/01ge8wp14",
+        "@type": "wcrp:location",
+        "continent_code": "OC",
+        "continent_name": "Oceania",
+        "country_code": "AU",
+        "country_name": "Australia",
+        "country_subdivision_code": "QLD",
+        "country_subdivision_name": "Queensland",
+        "lat": -26.39433,
+        "lng": 153.0901,
+        "name": "Noosa"
+      },
+      "ror": "01ge8wp14",
+      "ui_label": "Climate Modelling Laboratory",
+      "url": "https://climatelab.com.au/",
+      "validation_key": "CCCma"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CanESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "cesm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Community Earth System Model - a fully-coupled global climate model developed at NCAR providing simulations of the Earth's past, present, and future climate states.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ncar",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "NCAS",
+      "aliases": [],
+      "description": "",
+      "established": 2002,
+      "kind": "funder",
+      "labels": "National Centre for Atmospheric Science",
+      "location": {
+        "@id": "universal:location/01wwwe276",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "country_subdivision_code": "ENG",
+        "country_subdivision_name": "England",
+        "lat": 53.79648,
+        "lng": -1.54785,
+        "name": "Leeds"
+      },
+      "ror": "01wwwe276",
+      "ui_label": "National Centre for Atmospheric Science",
+      "url": [
+        "https://ncas.ac.uk/",
+        "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
+      ],
+      "validation_key": "NCAR"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "sea_ice",
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "cnrm-cm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cnrm-cerfacs",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": [],
+      "description": "",
+      "established": 1995,
+      "kind": "other",
+      "labels": "M\u00e9t\u00e9o-France",
+      "location": {
+        "@id": "universal:location/0233st365",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "FR",
+        "country_name": "France",
+        "country_subdivision_code": "OCC",
+        "country_subdivision_name": "Occitanie",
+        "lat": 43.60426,
+        "lng": 1.44367,
+        "name": "Toulouse"
+      },
+      "ror": "0233st365",
+      "ui_label": "M\u00e9t\u00e9o-France",
+      "url": [
+        "http://www.meteofrance.com/accueil",
+        "https://en.wikipedia.org/wiki/M%C3%A9t%C3%A9o-France"
+      ],
+      "validation_key": "CNRM-CERFACS"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      {
+        "@id": "land-surface",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "land",
+        "description": "Land Surface and Subsurface",
+        "ui_label": "Land Surface and Subsurface",
+        "validation_key": "land_surface"
+      },
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CNRM-CM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "ec-earth",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Community-developed Earth system model based on the ECMWF Integrated Forecasting System (IFS).",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ec-earth-consortium",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": "EC-Earth",
+      "description": "",
+      "established": 2006,
+      "kind": "other",
+      "labels": "EC-Earth Consortium",
+      "location": {
+        "@id": "universal:location/010bg5245",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "NL",
+        "country_name": "The Netherlands",
+        "country_subdivision_code": "UT",
+        "country_subdivision_name": "Utrecht",
+        "lat": 52.11,
+        "lng": 5.18056,
+        "name": "De Bilt"
+      },
+      "ror": "010bg5245",
+      "ui_label": "EC-Earth Consortium",
+      "url": "https://ec-earth.org",
+      "validation_key": "EC-Earth-Consortium"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "EC-Earth",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "fgoals",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Flexible Global Ocean-Atmosphere-Land System Model - developed by the Institute of Atmospheric Physics, Chinese Academy of Sciences.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "cas",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "IAP",
+      "aliases": "Institute of Meteorology of Academia Sinica",
+      "description": "",
+      "established": 1928,
+      "kind": "facility",
+      "labels": [
+        "Institute of Atmospheric Physics",
+        "\u4e2d\u56fd\u79d1\u5b66\u9662\u5927\u6c14\u7269\u7406\u7814\u7a76\u6240"
+      ],
+      "location": {
+        "@id": "universal:location/0424h4e32",
+        "@type": "wcrp:location",
+        "continent_code": "AS",
+        "continent_name": "Asia",
+        "country_code": "CN",
+        "country_name": "China",
+        "country_subdivision_code": "BJ",
+        "country_subdivision_name": "Beijing",
+        "lat": 39.9075,
+        "lng": 116.39723,
+        "name": "Beijing"
+      },
+      "ror": "0424h4e32",
+      "ui_label": "Institute of Atmospheric Physics",
+      "url": "http://english.iap.cas.cn/au",
+      "validation_key": "CAS"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "FGOALS",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "gfdl-cm4",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "NOAA Geophysical Fluid Dynamics Laboratory coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "noaa-gfdl",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [
+        "GFDL",
+        "NOAA GFDL"
+      ],
+      "aliases": [
+        "Department of Commerce Geophysical Fluid Dynamics Laboratory",
+        "Geophysical Fluid Dynamics Laboratory",
+        "National Oceanic and Atmospheric Administration Geophysical Fluid Dynamics Laboratory",
+        "Princeton University Geophysical Fluid Dynamics Laboratory",
+        "U.S. Department of Commerce Geophysical Fluid Dynamics Laboratory",
+        "U.S. Geophysical Fluid Dynamics Laboratory",
+        "U.S. National Oceanic and Atmospheric Administration Geophysical Fluid Dynamics Laboratory",
+        "United States Department of Commerce Geophysical Fluid Dynamics Laboratory",
+        "United States Geophysical Fluid Dynamics Laboratory",
+        "United States National Oceanic and Atmospheric Administration Geophysical Fluid Dynamics Laboratory"
+      ],
+      "description": "",
+      "established": 1955,
+      "kind": "government",
+      "labels": "NOAA Geophysical Fluid Dynamics Laboratory",
+      "location": {
+        "@id": "universal:location/03vmn1898",
+        "@type": "wcrp:location",
+        "continent_code": "NA",
+        "continent_name": "North America",
+        "country_code": "US",
+        "country_name": "United States",
+        "country_subdivision_code": "NJ",
+        "country_subdivision_name": "New Jersey",
+        "lat": 40.34872,
+        "lng": -74.65905,
+        "name": "Princeton"
+      },
+      "ror": "03vmn1898",
+      "ui_label": "NOAA Geophysical Fluid Dynamics Laboratory",
+      "url": [
+        "https://www.gfdl.noaa.gov",
+        "https://en.wikipedia.org/wiki/Geophysical_Fluid_Dynamics_Laboratory"
+      ],
+      "validation_key": "NOAA-GFDL"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "GFDL-CM4",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "giss-e2",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "NASA Goddard Institute for Space Studies Earth system model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "nasa-giss",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "GISS",
+      "aliases": [],
+      "description": "",
+      "established": 1961,
+      "kind": "Facility",
+      "labels": [],
+      "location": {
+        "@id": "universal:location/01cyfxe35",
+        "@type": "esgf:location",
+        "city": "New York",
+        "country": [
+          "United States",
+          "US"
+        ],
+        "lat": 40.71427,
+        "lon": -74.00597
+      },
+      "ror": "01cyfxe35",
+      "ui_label": "Goddard Institute for Space Studies",
+      "url": "http://www.giss.nasa.gov/",
+      "validation_key": "NASA-GISS"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "GISS-E2",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "hadcm2",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "Common scientific approach based on primitive equation atmospheric and oceanic dynamics.",
+    "computational_requirements": "10s to 100s of processors for climate simulations",
+    "description": "HadCM2 is an early family of Met Office Hadley Centre coupled climate models that established foundational approaches for UK climate modeling.",
+    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",
+    "established": "1995",
+    "evolution": "HadCM2 developed in the mid-1990s, served as foundation for HadCM3 and HadGEM families.",
+    "family_type": "model",
+    "license": "Proprietary",
+    "primary_institution": {
+      "@id": "mohc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": "Meteorological Office",
+      "description": "",
+      "established": 1854,
+      "kind": "Funder",
+      "labels": [],
+      "location": {
+        "@id": "universal:location/01ch2yn61",
+        "@type": "esgf:location",
+        "city": "Exeter",
+        "country": [
+          "United Kingdom",
+          "GB"
+        ],
+        "lat": 50.7236,
+        "lon": -3.52751
+      },
+      "ror": "01ch2yn61",
+      "ui_label": "Met Office",
+      "url": "http://www.metoffice.gov.uk/",
+      "validation_key": "MOHC"
+    },
+    "programming_languages": [
+      "Fortran 77",
+      "Fortran 90"
+    ],
+    "references": "REF014",
+    "representative_member": "HadCM2",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "HadCM2 family members share common atmospheric and oceanic model components developed at the Met Office.",
+    "software_dependencies": "Standard numerical libraries, basic I/O libraries, message passing libraries",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "HadCM2",
+    "variation_dimensions": "Resolution configurations, parameter tuning, physics parameterization choices, domain configurations.",
+    "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models"
+  },
+  {
+    "@id": "hadgem3",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      {
+        "@id": "ncas",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "NCAS",
+        "aliases": [],
+        "description": "",
+        "established": 2002,
+        "kind": "funder",
+        "labels": "National Centre for Atmospheric Science",
+        "location": {
+          "@id": "universal:location/01wwwe276",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 53.79648,
+          "lng": -1.54785,
+          "name": "Leeds"
+        },
+        "ror": "01wwwe276",
+        "ui_label": "National Centre for Atmospheric Science",
+        "url": [
+          "https://ncas.ac.uk/",
+          "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
+        ],
+        "validation_key": "NCAS"
+      },
+      {
+        "@id": "noc",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "NOC",
+        "aliases": [],
+        "description": "",
+        "established": 2010,
+        "kind": "facility",
+        "labels": "National Oceanography Centre",
+        "location": {
+          "@id": "universal:location/00874hx02",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 50.90395,
+          "lng": -1.40428,
+          "name": "Southampton"
+        },
+        "ror": "00874hx02",
+        "ui_label": "National Oceanography Centre",
+        "url": [
+          "https://noc.ac.uk",
+          "http://en.wikipedia.org/wiki/National_Oceanography_Centre"
+        ],
+        "validation_key": "NOC"
+      },
+      {
+        "@id": "bas",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "BAS",
+        "aliases": [],
+        "description": "",
+        "established": 1962,
+        "kind": "funder",
+        "labels": "British Antarctic Survey",
+        "location": {
+          "@id": "universal:location/01rhff309",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 52.2,
+          "lng": 0.11667,
+          "name": "Cambridge"
+        },
+        "ror": "01rhff309",
+        "ui_label": "British Antarctic Survey",
+        "url": [
+          "https://www.bas.ac.uk/",
+          "https://en.wikipedia.org/wiki/British_Antarctic_Survey"
+        ],
+        "validation_key": "BAS"
+      }
+    ],
+    "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
+    "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
+    "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
+    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+    "established": "2009",
+    "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
+    "family_type": "model",
+    "license": "Registration Required",
+    "primary_institution": {
+      "@id": "mohc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": "Meteorological Office",
+      "description": "",
+      "established": 1854,
+      "kind": "Funder",
+      "labels": [],
+      "location": {
+        "@id": "universal:location/01ch2yn61",
+        "@type": "esgf:location",
+        "city": "Exeter",
+        "country": [
+          "United Kingdom",
+          "GB"
+        ],
+        "lat": 50.7236,
+        "lon": -3.52751
+      },
+      "ror": "01ch2yn61",
+      "ui_label": "Met Office",
+      "url": "http://www.metoffice.gov.uk/",
+      "validation_key": "MOHC"
+    },
+    "programming_languages": [
+      "Fortran 90",
+      "Fortran 95",
+      "C"
+    ],
+    "references": "REF015",
+    "representative_member": "HadGEM3-GC31-LL",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "land_surface",
+      "sea_ice",
+      "ocean_biogeochemistry",
+      "atmospheric_chemistry"
+    ],
+    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
+    "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
+    "source_code_repository": "https://code.metoffice.gov.uk/",
+    "ui_label": "",
+    "validation_key": "HadGEM3",
+    "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
+    "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model"
+  },
+  {
+    "@id": "icon",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": {
+      "@id": "mpi-m",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "MPI-M",
+      "aliases": [],
+      "description": "",
+      "established": 1975,
+      "kind": "facility",
+      "labels": [
+        "Max Planck Institute for Meteorology",
+        "Max-Planck-Institut f\u00fcr Meteorologie"
+      ],
+      "location": {
+        "@id": "universal:location/05esem239",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "country_subdivision_code": "HH",
+        "country_subdivision_name": "Hamburg",
+        "lat": 53.55073,
+        "lng": 9.99302,
+        "name": "Hamburg"
+      },
+      "ror": "05esem239",
+      "ui_label": "Max Planck Institute for Meteorology",
+      "url": [
+        "http://www.mpimet.mpg.de/en/home.html",
+        "https://en.wikipedia.org/wiki/Max_Planck_Institute_for_Meteorology"
+      ],
+      "validation_key": "MPI-M"
+    },
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "dwd",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "DWD",
+      "aliases": "German Meteorological Service",
+      "description": "",
+      "established": 1952,
+      "kind": "facility",
+      "labels": "Deutscher Wetterdienst",
+      "location": {
+        "@id": "universal:location/02nrqs528",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "country_subdivision_code": "HE",
+        "country_subdivision_name": "Hesse",
+        "lat": 50.10061,
+        "lng": 8.76647,
+        "name": "Offenbach"
+      },
+      "ror": "02nrqs528",
+      "ui_label": "Deutscher Wetterdienst",
+      "url": [
+        "https://www.dwd.de",
+        "http://en.wikipedia.org/wiki/Deutscher_Wetterdienst"
+      ],
+      "validation_key": "DWD"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      }
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "ICON",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "ipsl-cm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Institut Pierre-Simon Laplace coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "ipsl",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "IPSL",
+      "aliases": [],
+      "description": "",
+      "established": 1991,
+      "kind": "facility",
+      "labels": "Institut Pierre-Simon Laplace",
+      "location": {
+        "@id": "universal:location/02haar591",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "FR",
+        "country_name": "France",
+        "country_subdivision_code": "IDF",
+        "country_subdivision_name": "\u00cele-de-France",
+        "lat": 48.85341,
+        "lng": 2.3488,
+        "name": "Paris"
+      },
+      "ror": "02haar591",
+      "ui_label": "Institut Pierre-Simon Laplace",
+      "url": [
+        "https://www.ipsl.fr/en/",
+        "https://en.wikipedia.org/wiki/Institut_Pierre_Simon_Laplace"
+      ],
+      "validation_key": "IPSL"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "IPSL-CM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "miroc",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Model for Interdisciplinary Research on Climate - jointly developed by JAMSTEC, AORI, and NIES.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "miroc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "changes": "",
+      "description": "",
+      "members": {
+        "aori": {
+          "from": 2016,
+          "to": 2022
+        },
+        "jamstec": {
+          "from": 2016,
+          "to": 2022
+        },
+        "nies": {
+          "from": 2016,
+          "to": 2022
+        },
+        "r-ccs": {
+          "from": 2016,
+          "to": 2022
+        }
+      },
+      "status": "active",
+      "ui_label": "MIROC Consortium",
+      "url": "",
+      "validation_key": "MIROC"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "MIROC",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "mpi-esm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Max Planck Institute Earth System Model.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "mpi-m",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": "MPI-M",
+      "aliases": [],
+      "description": "",
+      "established": 1975,
+      "kind": "facility",
+      "labels": [
+        "Max Planck Institute for Meteorology",
+        "Max-Planck-Institut f\u00fcr Meteorologie"
+      ],
+      "location": {
+        "@id": "universal:location/05esem239",
+        "@type": "wcrp:location",
+        "continent_code": "EU",
+        "continent_name": "Europe",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "country_subdivision_code": "HH",
+        "country_subdivision_name": "Hamburg",
+        "lat": 53.55073,
+        "lng": 9.99302,
+        "name": "Hamburg"
+      },
+      "ror": "05esem239",
+      "ui_label": "Max Planck Institute for Meteorology",
+      "url": [
+        "http://www.mpimet.mpg.de/en/home.html",
+        "https://en.wikipedia.org/wiki/Max_Planck_Institute_for_Meteorology"
+      ],
+      "validation_key": "MPI-M"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "MPI-ESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "ukesm1",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      {
+        "@id": "ncas",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "NCAS",
+        "aliases": [],
+        "description": "",
+        "established": 2002,
+        "kind": "funder",
+        "labels": "National Centre for Atmospheric Science",
+        "location": {
+          "@id": "universal:location/01wwwe276",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 53.79648,
+          "lng": -1.54785,
+          "name": "Leeds"
+        },
+        "ror": "01wwwe276",
+        "ui_label": "National Centre for Atmospheric Science",
+        "url": [
+          "https://ncas.ac.uk/",
+          "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
+        ],
+        "validation_key": "NCAS"
+      },
+      {
+        "@id": "noc",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "NOC",
+        "aliases": [],
+        "description": "",
+        "established": 2010,
+        "kind": "facility",
+        "labels": "National Oceanography Centre",
+        "location": {
+          "@id": "universal:location/00874hx02",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 50.90395,
+          "lng": -1.40428,
+          "name": "Southampton"
+        },
+        "ror": "00874hx02",
+        "ui_label": "National Oceanography Centre",
+        "url": [
+          "https://noc.ac.uk",
+          "http://en.wikipedia.org/wiki/National_Oceanography_Centre"
+        ],
+        "validation_key": "NOC"
+      },
+      {
+        "@id": "bas",
+        "@type": [
+          "wcrp:organisation",
+          "esgvoc:Organisation",
+          "universal",
+          "constants"
+        ],
+        "acronyms": "BAS",
+        "aliases": [],
+        "description": "",
+        "established": 1962,
+        "kind": "funder",
+        "labels": "British Antarctic Survey",
+        "location": {
+          "@id": "universal:location/01rhff309",
+          "@type": "wcrp:location",
+          "continent_code": "EU",
+          "continent_name": "Europe",
+          "country_code": "GB",
+          "country_name": "United Kingdom",
+          "country_subdivision_code": "ENG",
+          "country_subdivision_name": "England",
+          "lat": 52.2,
+          "lng": 0.11667,
+          "name": "Cambridge"
+        },
+        "ror": "01rhff309",
+        "ui_label": "British Antarctic Survey",
+        "url": [
+          "https://www.bas.ac.uk/",
+          "https://en.wikipedia.org/wiki/British_Antarctic_Survey"
+        ],
+        "validation_key": "BAS"
+      }
+    ],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "UK Earth System Model - based on HadGEM3 with additional Earth system components including interactive atmospheric chemistry and ocean biogeochemistry.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": {
+      "@id": "mohc",
+      "@type": [
+        "wcrp:organisation",
+        "esgvoc:Organisation",
+        "universal",
+        "constants"
+      ],
+      "acronyms": [],
+      "aliases": "Meteorological Office",
+      "description": "",
+      "established": 1854,
+      "kind": "Funder",
+      "labels": [],
+      "location": {
+        "@id": "universal:location/01ch2yn61",
+        "@type": "esgf:location",
+        "city": "Exeter",
+        "country": [
+          "United Kingdom",
+          "GB"
+        ],
+        "lat": 50.7236,
+        "lon": -3.52751
+      },
+      "ror": "01ch2yn61",
+      "ui_label": "Met Office",
+      "url": "http://www.metoffice.gov.uk/",
+      "validation_key": "MOHC"
+    },
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      {
+        "@id": "atmosphere",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "atmos",
+        "description": "Atmosphere",
+        "ui_label": "Atmosphere",
+        "validation_key": "atmosphere"
+      },
+      "land_surface",
+      {
+        "@id": "ocean",
+        "@type": [
+          "wcrp:scientific_domain",
+          "esgvoc:ScientificDomain",
+          "universal",
+          "constants"
+        ],
+        "alias": "ocean",
+        "description": "Ocean",
+        "ui_label": "Ocean",
+        "validation_key": "ocean"
+      },
+      "ocean_biogeochemistry",
+      "atmospheric_chemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "UKESM1",
+    "variation_dimensions": "none",
+    "website": "none"
+  }
+]
