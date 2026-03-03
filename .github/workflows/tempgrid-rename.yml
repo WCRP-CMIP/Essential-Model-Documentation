@@ -276,13 +276,6 @@ jobs:
 
           > Renames are based on the next available \`(s|g|h)NNN\` id in each folder."
 
-          # ── Comment on the PR ──────────────────────────────────────────────
-          gh pr comment "$PR_NUMBER" \
-            --repo "$REPO" \
-            --body "$COMMENT_BODY"
-
-          echo "✅ Commented on PR #${PR_NUMBER}"
-
           # ── Find and close linked issues by parsing PR description ────────
           # Extract issue numbers from "Resolves #NNN" / "Fixes #NNN" / "Closes #NNN"
           # Use tr to handle newlines in PR body
@@ -302,17 +295,13 @@ jobs:
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
 
-              echo "Commenting on linked issue #${issue_num}"
-              gh issue comment "$issue_num" \
-                --repo "$REPO" \
-                --body "$COMMENT_BODY"
-
-              echo "Closing linked issue #${issue_num}"
+              echo "Closing linked issue #${issue_num} with rename summary comment"
+              # Close with the rename summary comment (single comment, not duplicate)
               gh issue close "$issue_num" \
                 --repo "$REPO" \
                 --comment "$COMMENT_BODY"
 
-              echo "| #${issue_num} | commented + closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
+              echo "| #${issue_num} | closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
             done <<< "$ISSUE_NUMBERS"
           else
             echo "No linked issues found for PR #${PR_NUMBER}"
