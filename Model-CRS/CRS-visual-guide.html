@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRS Construction Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0f0f13;
+    --surface:  #17171e;
+    --border:   #2a2a38;
+    --text:     #d4d4e8;
+    --muted:    #6b6b88;
+    --accent:   #f0883e;
+    --teal:     #4ecdc4;
+    --A:  #e76f51; --Ac: #f4a261; --Ae: #e9c46a;
+    --L:  #8ab17d; --Li: #7cadbe;
+    --O:  #3a6b7a; --Ob: #287271; --Si: #2a9d8f;
+    --cycle:  #f0883e;
+    --chain:  #4ecdc4;
+    --embed:  #6e7681;
+    --clique: #a78bfa;
+    --chord:  #f43f5e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* ── Layout ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 60px 32px 120px; }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+    margin-bottom: 56px;
+  }
+  header .eyebrow {
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  header h1 em { font-style: italic; color: var(--accent); }
+  header p { color: var(--muted); max-width: 560px; font-size: 12px; }
+
+  /* ── Section ── */
+  .step {
+    margin-bottom: 72px;
+    padding-bottom: 72px;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-label {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px;
+  }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 300; color: #fff;
+  }
+  .step-sub { color: var(--muted); font-size: 11px; margin-top: -18px; margin-bottom: 24px; padding-left: 42px; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 18px;
+  }
+
+  /* ── Two-col ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .three-col { grid-template-columns: 1fr; } }
+
+  /* ── CRS string display ── */
+  .crs {
+    font-size: 20px; font-weight: 600; letter-spacing: .02em;
+    line-height: 1.5; word-break: break-all;
+    padding: 16px 20px;
+    background: #0a0a0e;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-top: 12px;
+  }
+  .crs .r-A  { color: var(--A); }
+  .crs .r-Ac { color: var(--Ac); }
+  .crs .r-Ae { color: var(--Ae); }
+  .crs .r-L  { color: var(--L); }
+  .crs .r-Li { color: var(--Li); }
+  .crs .r-O  { color: var(--O); }
+  .crs .r-Ob { color: var(--Ob); }
+  .crs .r-Si { color: var(--Si); }
+  .crs .brace  { color: var(--cycle); font-weight: 900; }
+  .crs .star   { color: var(--clique); font-weight: 900; }
+  .crs .bracket { color: var(--embed); }
+  .crs .paren  { color: var(--teal); }
+  .crs .dim    { color: #333; }
+
+  /* ── Build steps ── */
+  .build-steps { display: flex; flex-direction: column; gap: 10px; }
+  .build-row {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 16px; align-items: start;
+    padding: 10px 14px;
+    border-radius: 5px;
+    border-left: 2px solid var(--border);
+    transition: border-color .15s;
+  }
+  .build-row:hover { border-left-color: var(--accent); background: #1a1a22; }
+  .build-label { font-size: 10px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; padding-top: 2px; }
+  .build-label strong { display: block; color: var(--accent); font-size: 11px; }
+
+  /* ── Inline pill ── */
+  .pill {
+    display: inline-block;
+    padding: 1px 7px; border-radius: 3px;
+    font-size: 11px; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  /* ── Realm order strip ── */
+  .realm-strip {
+    display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0;
+  }
+  .realm-chip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 4px;
+    border: 1px solid;
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* ── SVG diagrams ── */
+  .diagram-wrap {
+    background: #0a0a0e;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .diagram-wrap svg { display: block; margin: 0 auto; overflow: visible; }
+
+  /* ── Rule badge ── */
+  .rule-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #1a1a22; border: 1px solid var(--border);
+    border-radius: 4px; padding: 4px 10px;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .rule-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* ── Note ── */
+  .note {
+    border-left: 2px solid var(--muted);
+    padding: 8px 14px;
+    color: var(--muted);
+    font-size: 11px;
+    margin: 14px 0;
+  }
+  .note strong { color: var(--text); }
+
+  /* ── Divider ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+  /* ── Realm order reference ── */
+  .order-ref {
+    display: flex; align-items: center; gap: 0;
+    font-size: 11px;
+  }
+  .order-item {
+    padding: 5px 10px; border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
+    font-weight: 700;
+  }
+  .order-item:first-child { border-left: 1px solid var(--border); border-radius: 4px 0 0 4px; }
+  .order-item:last-child  { border-radius: 0 4px 4px 0; }
+  .order-arrow { color: var(--muted); padding: 0 2px; font-size: 9px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="eyebrow">Earth System Model Documentation</div>
+    <h1>CRS <em>Construction</em><br>Guide</h1>
+    <p>Step-by-step rules for building a Canonical Realm String from an earth system model's embedding and coupling graph.</p>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- REALM ORDER -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <div class="step">
+    <div class="step-label">
+      <div class="step-num">0</div>
+      <div class="step-title">Realm order — always this sequence</div>
+    </div>
+    <p class="step-sub">Every sort, every tiebreak, uses this fixed order.</p>
+
+    <div class="card">
+      <div class="card-title">Fixed realm ordering</div>
+      <div class="realm-strip">
+        <div class="realm-chip" style="color:var(--A);border-color:var(--A)44;background:var(--A)11">A <span style="font-weight:300;font-size:10px">atmosphere</span></div>
+        <div class="realm-chip" style="color:var(--Ac);border-color:var(--Ac)44;background:var(--Ac)11">Ac <span style="font-weight:300;font-size:10px">atmos-chem</span></div>
+        <div class="realm-chip" style="color:var(--Ae);border-color:var(--Ae)44;background:var(--Ae)11">Ae <span style="font-weight:300;font-size:10px">aerosol</span></div>
+        <div class="realm-chip" style="color:var(--L);border-color:var(--L)44;background:var(--L)11">L <span style="font-weight:300;font-size:10px">land</span></div>
+        <div class="realm-chip" style="color:var(--Li);border-color:var(--Li)44;background:var(--Li)11">Li <span style="font-weight:300;font-size:10px">land-ice</span></div>
+        <div class="realm-chip" style="color:var(--O);border-color:var(--O)55;background:var(--O)22">O <span style="font-weight:300;font-size:10px">ocean</span></div>
+        <div class="realm-chip" style="color:var(--Ob);border-color:var(--Ob)44;background:var(--Ob)11">Ob <span style="font-weight:300;font-size:10px">ocean-biogeo</span></div>
+        <div class="realm-chip" style="color:var(--Si);border-color:var(--Si)44;background:var(--Si)11">Si <span style="font-weight:300;font-size:10px">sea-ice</span></div>
+      </div>
+      <div class="note"><strong>Index:</strong> A=0, Ac=1, Ae=2, L=3, Li=4, O=5, Ob=6, Si=7. Lower index = earlier.</div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- STEP 1 — EMBEDDING STRING -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <div class="step">
+    <div class="step-label">
+      <div class="step-num">1</div>
+      <div class="step-title">Build the embedding string</div>
+    </div>
+    <p class="step-sub">Do this first for every superior host. The result is used in all later steps.</p>
+
+    <div class="card">
+      <div class="card-title">Rule — write node + [children] recursively, realm order</div>
+      <div class="build-steps">
+        <div class="build-row">
+          <div class="build-label"><strong>Given</strong>Ae embedded in Ac,<br>Ac embedded in A</div>
+          <div>
+            <div class="diagram-wrap" style="padding:16px 20px">
+              <svg width="300" height="70" viewBox="0 0 300 70">
+                <circle cx="30" cy="35" r="22" fill="var(--A)" opacity=".9"/>
+                <text x="30" y="39" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="120" cy="35" r="18" fill="var(--Ac)" opacity=".9"/>
+                <text x="120" y="39" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">Ac</text>
+                <circle cx="200" cy="35" r="14" fill="var(--Ae)" opacity=".9"/>
+                <text x="200" y="39" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">Ae</text>
+                <line x1="52" y1="35" x2="102" y2="35" stroke="#444" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="77" y="29" text-anchor="middle" fill="#555" font-size="9" font-family="JetBrains Mono">in</text>
+                <line x1="138" y1="35" x2="186" y2="35" stroke="#444" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="162" y="29" text-anchor="middle" fill="#555" font-size="9" font-family="JetBrains Mono">in</text>
+              </svg>
+            </div>
+            <div class="crs"><span class="r-A">A</span><span class="bracket">[</span><span class="r-Ac">Ac</span><span class="bracket">[</span><span class="r-Ae">Ae</span><span class="bracket">]]</span></div>
+          </div>
+        </div>
+        <div class="build-row">
+          <div class="build-label"><strong>Given</strong>Ob and Si<br>both in O</div>
+          <div>
+            <div class="diagram-wrap" style="padding:16px 20px">
+              <svg width="280" height="90" viewBox="0 0 280 90">
+                <circle cx="140" cy="50" r="26" fill="var(--O)" opacity=".9"/>
+                <text x="140" y="54" text-anchor="middle" fill="#fff" font-size="14" font-family="JetBrains Mono" font-weight="700">O</text>
+                <circle cx="60" cy="30" r="18" fill="var(--Ob)" opacity=".9"/>
+                <text x="60" y="34" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">Ob</text>
+                <circle cx="60" cy="68" r="18" fill="var(--Si)" opacity=".9"/>
+                <text x="60" y="72" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">Si</text>
+                <line x1="78" y1="34" x2="116" y2="46" stroke="#444" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <line x1="78" y1="64" x2="116" y2="54" stroke="#444" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="175" y="34" fill="#555" font-size="9" font-family="JetBrains Mono">children sorted</text>
+                <text x="175" y="46" fill="#555" font-size="9" font-family="JetBrains Mono">Ob before Si</text>
+                <text x="175" y="58" fill="#555" font-size="9" font-family="JetBrains Mono">(realm order)</text>
+              </svg>
+            </div>
+            <div class="crs"><span class="r-O">O</span><span class="bracket">[</span><span class="r-Ob">Ob</span><span class="bracket">][</span><span class="r-Si">Si</span><span class="bracket">]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- STEP 2 — COUPLING TOPOLOGY -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <div class="step">
+    <div class="step-label">
+      <div class="step-num">2</div>
+      <div class="step-title">Identify the coupling graph topology</div>
+    </div>
+    <p class="step-sub">Apply the first rule that matches. Use embedding strings from Step 1 wherever a node appears.</p>
+
+    <!-- RULE A -->
+    <div class="rule-badge"><span class="dot" style="background:var(--muted)"></span>Rule A</div>
+    <div class="card">
+      <div class="card-title">Single superior host — no couplings</div>
+      <div class="build-steps">
+        <div class="build-row">
+          <div class="build-label"><strong>Graph</strong>One node, nothing to couple with</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="160" height="70" viewBox="0 0 160 70">
+                <circle cx="80" cy="35" r="26" fill="var(--A)" opacity=".9"/>
+                <text x="80" y="33" text-anchor="middle" fill="#fff" font-size="10" font-family="JetBrains Mono" font-weight="700">A[Ac[Ae]]</text>
+                <text x="80" y="47" text-anchor="middle" fill="#ffffffaa" font-size="9" font-family="JetBrains Mono">host</text>
+              </svg>
+            </div>
+            <div class="crs"><span class="r-A">A</span><span class="bracket">[</span><span class="r-Ac">Ac</span><span class="bracket">[</span><span class="r-Ae">Ae</span><span class="bracket">]]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- RULE B -->
+    <div class="rule-badge"><span class="dot" style="background:var(--clique)"></span>Rule B</div>
+    <div class="card">
+      <div class="card-title">Full clique — 4 or more hosts, every pair coupled → <span style="color:var(--clique)">*{ }</span></div>
+      <div class="note"><strong>Only for 4+ nodes.</strong> A 3-node clique is just a triangle — use Rule C.</div>
+      <div class="build-steps">
+        <div class="build-row">
+          <div class="build-label"><strong>Graph</strong>A, L, Li, O all coupled to each other (6 pairs)</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="280" height="160" viewBox="0 0 280 160">
+                <defs>
+                  <marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <polygon points="0,0 6,3 0,6" fill="#335"/>
+                  </marker>
+                </defs>
+                <!-- edges -->
+                <line x1="80" y1="40" x2="200" y2="40" stroke="#335" stroke-width="1.5"/>
+                <line x1="80" y1="40" x2="40" y2="120" stroke="#335" stroke-width="1.5"/>
+                <line x1="80" y1="40" x2="240" y2="120" stroke="#335" stroke-width="1.5"/>
+                <line x1="200" y1="40" x2="40" y2="120" stroke="#335" stroke-width="1.5"/>
+                <line x1="200" y1="40" x2="240" y2="120" stroke="#335" stroke-width="1.5"/>
+                <line x1="40" y1="120" x2="240" y2="120" stroke="#335" stroke-width="1.5"/>
+                <!-- nodes -->
+                <circle cx="80" cy="40" r="22" fill="var(--A)" opacity=".9"/>
+                <text x="80" y="44" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="200" cy="40" r="22" fill="var(--L)" opacity=".9"/>
+                <text x="200" y="44" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="40" cy="120" r="22" fill="var(--Li)" opacity=".9"/>
+                <text x="40" y="124" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">Li</text>
+                <circle cx="240" cy="120" r="22" fill="var(--O)" opacity=".9"/>
+                <text x="240" y="124" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">O</text>
+              </svg>
+            </div>
+            <div class="build-steps" style="margin-top:8px">
+              <div class="build-row">
+                <div class="build-label"><strong>All pairs?</strong>Yes — 6/6</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">A-L ✓ &nbsp; A-Li ✓ &nbsp; A-O ✓ &nbsp; L-Li ✓ &nbsp; L-O ✓ &nbsp; Li-O ✓</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Write</strong>*{ hosts in realm order }</div>
+                <div class="crs" style="font-size:17px"><span class="star">*{</span><span class="r-A">A</span><span class="r-L">L</span><span class="r-Li">Li</span><span class="r-O">O</span><span class="star">}</span></div>
+              </div>
+            </div>
+            <div class="note">With embeddings inserted: <span style="font-family:monospace;color:var(--clique)">*{</span><span style="font-family:monospace;color:var(--A)">A[Ac[Ae]]</span><span style="font-family:monospace;color:var(--L)">L</span><span style="font-family:monospace;color:var(--Li)">Li</span><span style="font-family:monospace;color:var(--O)">O[Ob][Si]</span><span style="font-family:monospace;color:var(--clique)">}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- RULE C -->
+    <div class="rule-badge"><span class="dot" style="background:var(--cycle)"></span>Rule C</div>
+    <div class="card">
+      <div class="card-title">Cycle exists — find the longest, write <span style="color:var(--cycle)">{ }</span></div>
+
+      <div class="build-steps">
+
+        <!-- Simple triangle -->
+        <div class="build-row">
+          <div class="build-label"><strong>Example 1</strong>Triangle<br>A–L–O all coupled</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="240" height="140" viewBox="0 0 240 140">
+                <polygon points="120,18 218,128 22,128" fill="none" stroke="var(--cycle)" stroke-width="1.5" opacity=".3"/>
+                <line x1="120" y1="18" x2="218" y2="128" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="218" y1="128" x2="22" y2="128" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="22" y1="128" x2="120" y2="18" stroke="var(--teal)" stroke-width="2"/>
+                <circle cx="120" cy="18" r="18" fill="var(--A)" opacity=".9"/>
+                <text x="120" y="22" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="218" cy="128" r="18" fill="var(--L)" opacity=".9"/>
+                <text x="218" y="132" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="22" cy="128" r="18" fill="var(--O)" opacity=".9"/>
+                <text x="22" y="132" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">O</text>
+                <text x="120" y="80" text-anchor="middle" fill="var(--muted)" font-size="9" font-family="JetBrains Mono">cycle A→L→O→A</text>
+              </svg>
+            </div>
+            <div class="build-steps" style="margin-top:4px">
+              <div class="build-row">
+                <div class="build-label"><strong>Start node</strong>A (lowest realm index)</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">A=0, L=3, O=5 → start at A</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Result</strong></div>
+                <div class="crs" style="font-size:17px"><span class="brace">{</span><span class="r-A">A</span><span class="r-L">L</span><span class="r-O">O</span><span class="brace">}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-cycle -->
+        <div class="build-row">
+          <div class="build-label"><strong>Example 2</strong>4-cycle<br>A–L–O–Li–A</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="220" height="160" viewBox="0 0 220 160">
+                <line x1="110" y1="22" x2="198" y2="80" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="198" y1="80" x2="110" y2="138" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="110" y1="138" x2="22" y2="80" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="22" y1="80" x2="110" y2="22" stroke="var(--teal)" stroke-width="2"/>
+                <circle cx="110" cy="22" r="18" fill="var(--A)" opacity=".9"/>
+                <text x="110" y="26" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="198" cy="80" r="18" fill="var(--L)" opacity=".9"/>
+                <text x="198" y="84" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="110" cy="138" r="18" fill="var(--O)" opacity=".9"/>
+                <text x="110" y="142" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">O</text>
+                <circle cx="22" cy="80" r="18" fill="var(--Li)" opacity=".9"/>
+                <text x="22" y="84" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">Li</text>
+                <path d="M 110 40 Q 170 80 110 120" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3,3" opacity=".3"/>
+                <text x="160" y="83" fill="var(--muted)" font-size="8" font-family="JetBrains Mono">no diagonal</text>
+              </svg>
+            </div>
+            <div class="crs" style="font-size:17px"><span class="brace">{</span><span class="r-A">A</span><span class="r-L">L</span><span class="r-O">O</span><span class="r-Li">Li</span><span class="brace">}</span></div>
+          </div>
+        </div>
+
+        <!-- Chord -->
+        <div class="build-row">
+          <div class="build-label"><strong>Example 3</strong>4-cycle<br>+ chord A–O</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="260" height="180" viewBox="0 0 260 180">
+                <!-- cycle edges -->
+                <line x1="130" y1="24" x2="218" y2="90" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="218" y1="90" x2="130" y2="155" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="130" y1="155" x2="42" y2="90" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="42" y1="90" x2="130" y2="24" stroke="var(--teal)" stroke-width="2"/>
+                <!-- chord -->
+                <line x1="130" y1="24" x2="130" y2="155" stroke="var(--chord)" stroke-width="1.8" stroke-dasharray="5,3"/>
+                <text x="148" y="94" fill="var(--chord)" font-size="9" font-family="JetBrains Mono">chord</text>
+                <!-- nodes -->
+                <circle cx="130" cy="24" r="20" fill="var(--A)" opacity=".9"/>
+                <text x="130" y="28" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="218" cy="90" r="20" fill="var(--L)" opacity=".9"/>
+                <text x="218" y="94" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="130" cy="155" r="20" fill="var(--O)" opacity=".9"/>
+                <text x="130" y="159" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">O</text>
+                <circle cx="42" cy="90" r="20" fill="var(--Li)" opacity=".9"/>
+                <text x="42" y="94" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">Li</text>
+              </svg>
+            </div>
+            <div class="build-steps" style="margin-top:4px">
+              <div class="build-row">
+                <div class="build-label"><strong>Cycle</strong>A–L–O–Li</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">Cycle order: A(pos 0), L(1), O(2), Li(3)</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Chord</strong>A–O</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">A is at position 0, O is at position 2. A is earlier → write <span style="color:var(--teal)">(O)</span> <em>after</em> A. O is bare code — no re-expansion.</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Result</strong></div>
+                <div class="crs" style="font-size:17px"><span class="brace">{</span><span class="r-A">A</span><span class="paren">(</span><span class="r-O">O</span><span class="paren">)</span><span class="r-L">L</span><span class="r-O">O</span><span class="r-Li">Li</span><span class="brace">}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Off-cycle branch -->
+        <div class="build-row">
+          <div class="build-label"><strong>Example 4</strong>Cycle {A L O}<br>+ Si branches off O</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="260" height="160" viewBox="0 0 260 160">
+                <line x1="130" y1="22" x2="210" y2="118" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="210" y1="118" x2="50" y2="118" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="50" y1="118" x2="130" y2="22" stroke="var(--teal)" stroke-width="2"/>
+                <!-- branch edge -->
+                <line x1="210" y1="118" x2="248" y2="60" stroke="#4ecdc488" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="238" y="98" fill="var(--muted)" font-size="9" font-family="JetBrains Mono">branch</text>
+                <!-- nodes -->
+                <circle cx="130" cy="22" r="18" fill="var(--A)" opacity=".9"/>
+                <text x="130" y="26" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="210" cy="118" r="18" fill="var(--L)" opacity=".9"/>
+                <text x="210" y="122" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="50" cy="118" r="18" fill="var(--O)" opacity=".9"/>
+                <text x="50" y="122" text-anchor="middle" fill="#fff" font-size="12" font-family="JetBrains Mono" font-weight="700">O</text>
+                <circle cx="248" cy="50" r="16" fill="var(--Si)" opacity=".9"/>
+                <text x="248" y="54" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">Si</text>
+              </svg>
+            </div>
+            <div class="build-steps" style="margin-top:4px">
+              <div class="build-row">
+                <div class="build-label"><strong>Branch</strong>Si → connects to L</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">Si is not in the cycle. First cycle neighbour = L. Write <span style="color:var(--teal)">(Si)</span> after L. Full embStr expansion since Si appears nowhere else.</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Result</strong></div>
+                <div class="crs" style="font-size:17px"><span class="brace">{</span><span class="r-A">A</span><span class="r-L">L</span><span class="paren">(</span><span class="r-Si">Si</span><span class="paren">)</span><span class="r-O">O</span><span class="brace">}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- RULE D -->
+    <div class="rule-badge"><span class="dot" style="background:var(--chain)"></span>Rule D</div>
+    <div class="card">
+      <div class="card-title">No cycle — find the longest canonical chain</div>
+      <div class="build-steps">
+
+        <div class="build-row">
+          <div class="build-label"><strong>Example 1</strong>Chain<br>A–L–O</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="260" height="70" viewBox="0 0 260 70">
+                <line x1="50" y1="35" x2="130" y2="35" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="130" y1="35" x2="210" y2="35" stroke="var(--teal)" stroke-width="2"/>
+                <circle cx="50" cy="35" r="20" fill="var(--A)" opacity=".9"/>
+                <text x="50" y="39" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="130" cy="35" r="20" fill="var(--L)" opacity=".9"/>
+                <text x="130" y="39" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="210" cy="35" r="20" fill="var(--O)" opacity=".9"/>
+                <text x="210" y="39" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">O</text>
+              </svg>
+            </div>
+            <div class="crs" style="font-size:17px"><span class="r-A">A</span><span class="r-L">L</span><span class="r-O">O</span></div>
+          </div>
+        </div>
+
+        <div class="build-row">
+          <div class="build-label"><strong>Example 2</strong>Star<br>A couples L, O, Li<br>no cross-links</div>
+          <div>
+            <div class="diagram-wrap">
+              <svg width="240" height="160" viewBox="0 0 240 160">
+                <line x1="120" y1="80" x2="120" y2="20" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="120" y1="80" x2="40" y2="140" stroke="var(--teal)" stroke-width="2"/>
+                <line x1="120" y1="80" x2="200" y2="140" stroke="var(--teal)" stroke-width="2"/>
+                <circle cx="120" cy="80" r="22" fill="var(--A)" opacity=".9"/>
+                <text x="120" y="84" text-anchor="middle" fill="#fff" font-size="13" font-family="JetBrains Mono" font-weight="700">A</text>
+                <circle cx="120" cy="20" r="16" fill="var(--L)" opacity=".9"/>
+                <text x="120" y="24" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">L</text>
+                <circle cx="40" cy="140" r="16" fill="var(--Li)" opacity=".9"/>
+                <text x="40" y="144" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">Li</text>
+                <circle cx="200" cy="140" r="16" fill="var(--O)" opacity=".9"/>
+                <text x="200" y="144" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono" font-weight="700">O</text>
+              </svg>
+            </div>
+            <div class="build-steps" style="margin-top:4px">
+              <div class="build-row">
+                <div class="build-label"><strong>Longest chain</strong>L–A–Li (or L–A–O)</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">Both length 2. Tiebreak: L–A–Li reads index 3,0,4 vs L–A–O reads 3,0,5. At pos 3: Li(4) &lt; O(5). Pick L–A–Li.</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Branch</strong>O off A</div>
+                <div style="color:var(--muted);font-size:11px;padding-top:3px">O is not on the chain. Connects to A. Write <span style="color:var(--teal)">(O)</span> after A.</div>
+              </div>
+              <div class="build-row">
+                <div class="build-label"><strong>Result</strong></div>
+                <div class="crs" style="font-size:17px"><span class="r-L">L</span><span class="r-A">A</span><span class="paren">(</span><span class="r-O">O</span><span class="paren">)</span><span class="r-Li">Li</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- FULL WORKED EXAMPLES -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <div class="step">
+    <div class="step-label">
+      <div class="step-num">3</div>
+      <div class="step-title">Full worked examples</div>
+    </div>
+    <p class="step-sub">Embeddings and coupling combined. Embedding strings slot directly into the coupling pattern.</p>
+
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-title">CNRM-ESM2-1e</div>
+        <div class="build-steps">
+          <div class="build-row">
+            <div class="build-label"><strong>Embeddings</strong></div>
+            <div style="font-size:11px;color:var(--muted)">Ae→A, Ac→A, Ob→O, Si→O</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Embed strings</strong></div>
+            <div style="font-size:11px;color:var(--muted)">
+              A→ <span style="color:var(--A)">A</span><span style="color:var(--embed)">[</span><span style="color:var(--Ac)">Ac</span><span style="color:var(--embed)">][</span><span style="color:var(--Ae)">Ae</span><span style="color:var(--embed)">]</span><br>
+              O→ <span style="color:var(--O)">O</span><span style="color:var(--embed)">[</span><span style="color:var(--Ob)">Ob</span><span style="color:var(--embed)">][</span><span style="color:var(--Si)">Si</span><span style="color:var(--embed)">]</span>
+            </div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Coupling</strong></div>
+            <div style="font-size:11px;color:var(--muted)">A–L, A–O, L–O → triangle → Rule C</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Cycle</strong></div>
+            <div style="font-size:11px;color:var(--muted)">{A L O}</div>
+          </div>
+        </div>
+        <div class="crs">{<span class="r-A">A</span><span class="bracket">[</span><span class="r-Ac">Ac</span><span class="bracket">][</span><span class="r-Ae">Ae</span><span class="bracket">]</span><span class="r-L">L</span><span class="r-O">O</span><span class="bracket">[</span><span class="r-Ob">Ob</span><span class="bracket">][</span><span class="r-Si">Si</span><span class="bracket">]</span>}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">UKESM1</div>
+        <div class="build-steps">
+          <div class="build-row">
+            <div class="build-label"><strong>Embeddings</strong></div>
+            <div style="font-size:11px;color:var(--muted)">Ac→A, Ae→Ac, Ob→O, Si→O</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Embed strings</strong></div>
+            <div style="font-size:11px;color:var(--muted)">
+              A→ <span style="color:var(--A)">A</span><span style="color:var(--embed)">[</span><span style="color:var(--Ac)">Ac</span><span style="color:var(--embed)">[</span><span style="color:var(--Ae)">Ae</span><span style="color:var(--embed)">]]</span><br>
+              O→ <span style="color:var(--O)">O</span><span style="color:var(--embed)">[</span><span style="color:var(--Ob)">Ob</span><span style="color:var(--embed)">][</span><span style="color:var(--Si)">Si</span><span style="color:var(--embed)">]</span>
+            </div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Coupling</strong></div>
+            <div style="font-size:11px;color:var(--muted)">A,L,Li,O all coupled → K4 → Rule B</div>
+          </div>
+        </div>
+        <div class="crs"><span class="star">*{</span><span class="r-A">A</span><span class="bracket">[</span><span class="r-Ac">Ac</span><span class="bracket">[</span><span class="r-Ae">Ae</span><span class="bracket">]]</span><span class="r-L">L</span><span class="r-Li">Li</span><span class="r-O">O</span><span class="bracket">[</span><span class="r-Ob">Ob</span><span class="bracket">][</span><span class="r-Si">Si</span><span class="bracket">]</span><span class="star">}</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">4-cycle + chord</div>
+        <div class="build-steps">
+          <div class="build-row">
+            <div class="build-label"><strong>Coupling</strong></div>
+            <div style="font-size:11px;color:var(--muted)">A–L, L–O, O–Li, Li–A (ring)<br>+ A–O (chord)</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Cycle</strong></div>
+            <div style="font-size:11px;color:var(--muted)">{A L O Li} — all 4 form the ring</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Chord A–O</strong></div>
+            <div style="font-size:11px;color:var(--muted)">A at pos 0, O at pos 2. Write (O) after A.</div>
+          </div>
+        </div>
+        <div class="crs"><span class="brace">{</span><span class="r-A">A</span><span class="paren">(</span><span class="r-O">O</span><span class="paren">)</span><span class="r-L">L</span><span class="r-O">O</span><span class="r-Li">Li</span><span class="brace">}</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Chain with deep embedding</div>
+        <div class="build-steps">
+          <div class="build-row">
+            <div class="build-label"><strong>Embeddings</strong></div>
+            <div style="font-size:11px;color:var(--muted)">Ac→A, Ae→Ac, Ob→O, Si→O</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Coupling</strong></div>
+            <div style="font-size:11px;color:var(--muted)">A–L, L–O only → chain, no cycle</div>
+          </div>
+          <div class="build-row">
+            <div class="build-label"><strong>Chain</strong></div>
+            <div style="font-size:11px;color:var(--muted)">A–L–O (longest, starts at A)</div>
+          </div>
+        </div>
+        <div class="crs"><span class="r-A">A</span><span class="bracket">[</span><span class="r-Ac">Ac</span><span class="bracket">[</span><span class="r-Ae">Ae</span><span class="bracket">]]</span><span class="r-L">L</span><span class="r-O">O</span><span class="bracket">[</span><span class="r-Ob">Ob</span><span class="bracket">][</span><span class="r-Si">Si</span><span class="bracket">]</span></div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- QUICK REFERENCE -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <div class="step">
+    <div class="step-label">
+      <div class="step-num">↗</div>
+      <div class="step-title">Quick reference</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Notation symbols</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border)">
+            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:400;font-size:10px;letter-spacing:.08em;text-transform:uppercase">Symbol</th>
+            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:400;font-size:10px;letter-spacing:.08em;text-transform:uppercase">Meaning</th>
+            <th style="text-align:left;padding:8px 12px;color:var(--muted);font-weight:400;font-size:10px;letter-spacing:.08em;text-transform:uppercase">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)22">
+            <td style="padding:9px 12px"><span style="color:var(--embed);font-weight:700">[ ]</span></td>
+            <td style="padding:9px 12px;color:var(--muted)">embedded child</td>
+            <td style="padding:9px 12px"><span style="color:var(--A)">A</span><span style="color:var(--embed)">[</span><span style="color:var(--Ac)">Ac</span><span style="color:var(--embed)">]</span> — Ac inside A</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)22">
+            <td style="padding:9px 12px"><span style="color:var(--cycle);font-weight:700">{ }</span></td>
+            <td style="padding:9px 12px;color:var(--muted)">cycle (endpoints coupled)</td>
+            <td style="padding:9px 12px"><span style="color:var(--cycle)">{</span><span style="color:var(--A)">A</span><span style="color:var(--L)">L</span><span style="color:var(--O)">O</span><span style="color:var(--cycle)">}</span> — triangle</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)22">
+            <td style="padding:9px 12px"><span style="color:var(--clique);font-weight:700">*{ }</span></td>
+            <td style="padding:9px 12px;color:var(--muted)">full clique, 4+ nodes</td>
+            <td style="padding:9px 12px"><span style="color:var(--clique)">*{</span><span style="color:var(--A)">A</span><span style="color:var(--L)">L</span><span style="color:var(--Li)">Li</span><span style="color:var(--O)">O</span><span style="color:var(--clique)">}</span> — K4</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)22">
+            <td style="padding:9px 12px"><span style="color:var(--teal);font-weight:700">( )</span> on cycle</td>
+            <td style="padding:9px 12px;color:var(--muted)">chord — bare code, no re-expansion</td>
+            <td style="padding:9px 12px"><span style="color:var(--A)">A</span><span style="color:var(--teal)">(</span><span style="color:var(--O)">O</span><span style="color:var(--teal)">)</span> — A shortcuts to O</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 12px"><span style="color:var(--teal);font-weight:700">( )</span> new node</td>
+            <td style="padding:9px 12px;color:var(--muted)">branch — full embedding expansion</td>
+            <td style="padding:9px 12px"><span style="color:var(--L)">L</span><span style="color:var(--teal)">(</span><span style="color:var(--Si)">Si</span><span style="color:var(--teal)">)</span> — Si branches off L</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Decision flowchart</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;align-items:stretch;gap:0">
+          <div style="width:4px;background:var(--muted);margin-right:16px;border-radius:2px;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="padding:10px 0;border-bottom:1px solid var(--border)22">
+              <span style="color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Start</span>
+              <div style="color:var(--muted);font-size:11px;margin-top:3px">Build embedding string for every superior host.</div>
+            </div>
+            <div style="padding:10px 0;border-bottom:1px solid var(--border)22">
+              <span style="color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Is there only 1 superior host?</span>
+              <div style="color:var(--text);font-size:11px;margin-top:3px">→ Yes: write its embedding string. <strong>Done.</strong></div>
+            </div>
+            <div style="padding:10px 0;border-bottom:1px solid var(--border)22">
+              <span style="color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Are all pairs coupled AND 4+ nodes?</span>
+              <div style="color:var(--text);font-size:11px;margin-top:3px">→ Yes: write <span style="color:var(--clique)">*{hosts in realm order}</span>. <strong>Done.</strong></div>
+            </div>
+            <div style="padding:10px 0;border-bottom:1px solid var(--border)22">
+              <span style="color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Does a cycle exist?</span>
+              <div style="color:var(--text);font-size:11px;margin-top:3px">→ Yes: find longest canonical cycle → write <span style="color:var(--cycle)">{cycle}</span> with inline chords <span style="color:var(--teal)">(X)</span> and branches <span style="color:var(--teal)">(embStr)</span>. <strong>Done.</strong></div>
+            </div>
+            <div style="padding:10px 0">
+              <span style="color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">No cycle</span>
+              <div style="color:var(--text);font-size:11px;margin-top:3px">→ Find longest canonical chain → write nodes with branches <span style="color:var(--teal)">(embStr)</span>. <strong>Done.</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

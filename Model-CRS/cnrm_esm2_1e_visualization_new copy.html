@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNRM-ESM2-1e Model Structure</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0; padding: 20px; background: #f5f5f5; font-size: 13px;
+        }
+        .container {
+            max-width: 1300px; margin: 0 auto; background: white;
+            border-radius: 8px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { margin: 0 0 4px; color: #1a1a1a; font-size: 20px; }
+        .page-sub { color: #888; font-size: 13px; margin: 0 0 20px; }
+
+        /* ── CRS banner ── */
+        .crs-banner {
+            background: #f0f7ff; border-left: 4px solid #0066cc;
+            padding: 12px 16px; margin-bottom: 20px; border-radius: 4px;
+        }
+        .crs-banner strong { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: #0066cc; }
+        .crs-string {
+            margin: 6px 0 0; padding: 10px 14px; background: #fff;
+            border: 1px solid #d0e4f7; border-radius: 4px;
+            font-family: 'Monaco','Courier New',monospace;
+            font-size: 17px; line-height: 1.8; word-break: break-all;
+        }
+        .crs-code { font-weight: bold; padding: 0 1px; transition: background .12s; }
+        .crs-code.hl { background: #fff176; border-radius: 2px; }
+        .crs-bracket { font-weight: normal; }
+        .crs-brace { color: #0066cc; font-weight: bold; }
+        .crs-paren { color: #999; }
+
+        /* ── main two-col layout ── */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 16px;
+            align-items: start;
+        }
+
+        /* ── graph panel ── */
+        .graph-panel {
+            border: 1px solid #ddd; border-radius: 6px;
+            background: #fafafa; overflow: hidden;
+        }
+        .graph-header {
+            padding: 10px 14px; border-bottom: 1px solid #eee;
+            background: white;
+        }
+        .graph-title { font-weight: 700; font-size: 14px; color: #1a1a1a; }
+        .graph-sub   { font-size: 11px; color: #999; margin-top: 1px; }
+        .graph-body  { position: relative; }
+        svg { display: block; width: 100%; aspect-ratio: 1 / 1; }
+
+        /* ── stats + info pane ── */
+        .info-pane {
+            display: flex; flex-direction: column; gap: 12px;
+        }
+
+        .pane-card {
+            border: 1px solid #ddd; border-radius: 6px;
+            background: white; overflow: hidden;
+        }
+        .pane-card-header {
+            padding: 8px 14px; background: #f7f7f7;
+            border-bottom: 1px solid #eee;
+            font-size: 11px; font-weight: 700; color: #555;
+            text-transform: uppercase; letter-spacing: .06em;
+        }
+        .pane-card-body { padding: 10px 14px; }
+
+        /* stats grid */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+            background: #eee; border-radius: 2px; overflow: hidden;
+        }
+        .stat-cell {
+            background: white; padding: 10px 8px; text-align: center;
+        }
+        .stat-num   { font-size: 22px; font-weight: 700; color: #0066cc; line-height: 1; }
+        .stat-label { font-size: 10px; color: #999; margin-top: 3px; text-transform: uppercase; letter-spacing: .04em; }
+
+        /* coupling / embedding lists */
+        .rel-list { display: flex; flex-direction: column; gap: 5px; }
+        .rel-row {
+            display: flex; align-items: center; gap: 6px;
+            padding: 5px 8px; border-radius: 4px; background: #f9f9f9;
+            border: 1px solid #efefef;
+        }
+        .realm-pill {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 30px; height: 20px; border-radius: 3px;
+            font-size: 11px; font-weight: 700; color: white; flex-shrink: 0;
+        }
+        .rel-arrow { color: #aaa; font-size: 13px; flex-shrink: 0; }
+        .rel-name  { font-size: 11px; color: #666; }
+
+        /* ── component cards ── */
+        .summary-section { margin-top: 20px; }
+        .summary-section h4 { margin: 0 0 10px; color: #0066cc; font-size: 13px; }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+            gap: 10px;
+        }
+        .component-card {
+            background: white; padding: 10px 12px; border-radius: 5px;
+            border: 1px solid #e8e8e8; border-left: 4px solid #999;
+            cursor: pointer; transition: box-shadow .15s, transform .15s;
+        }
+        .component-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.12); transform: translateY(-1px); }
+        .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+        .card-code { font-weight: 700; font-size: 14px; }
+        .badge-row { display: flex; gap: 3px; }
+        .badge {
+            padding: 2px 5px; border-radius: 2px;
+            font-size: 8px; font-weight: 700; white-space: nowrap;
+        }
+        .badge-dynamic  { background: #d4edda; color: #155724; }
+        .badge-parent   { background: #0066cc; color: white; }
+        .badge-embedded { background: #ff6b6b; color: white; }
+        .card-name  { font-size: 11px; color: #777; margin-bottom: 5px; }
+        .card-model {
+            font-family: 'Monaco','Courier New',monospace;
+            font-size: 10px; color: #0066cc; background: #f0f7ff;
+            padding: 2px 6px; border-radius: 2px; display: inline-block;
+            margin-bottom: 4px;
+        }
+        .card-grids { display: flex; gap: 4px; }
+        .grid-badge { background: #fff3cd; color: #856404; padding: 2px 4px; border-radius: 2px; font-size: 8px; font-weight: 700; }
+
+        /* node styles */
+        .node-circle {
+            stroke: rgba(255,255,255,0.8); stroke-width: 2px; cursor: pointer;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+            transition: stroke .15s, stroke-width .15s;
+        }
+        .node-circle:hover, .node-circle.hl {
+            stroke: #ffff00; stroke-width: 3px;
+            filter: drop-shadow(0 2px 8px rgba(255,255,0,0.5));
+        }
+        .embedded-circle {
+            stroke: rgba(255,255,255,0.45); stroke-width: 1.5px;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+            cursor: pointer; transition: stroke .15s;
+        }
+        .embedded-circle:hover, .embedded-circle.hl {
+            stroke: #ffff00; stroke-width: 2px;
+        }
+        .node-label {
+            font-weight: 700; text-anchor: middle; dominant-baseline: middle;
+            pointer-events: none; fill: white;
+        }
+
+        /* tooltip */
+        .tooltip {
+            position: fixed; background: rgba(20,20,20,0.95); color: #eee;
+            padding: 10px 13px; border-radius: 5px; font-size: 11px;
+            pointer-events: none; z-index: 9999; max-width: 260px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.35); display: none; line-height: 1.5;
+        }
+        .tooltip.show { display: block; }
+        .tt-title { font-weight: 700; font-size: 12px; border-bottom: 1px solid #444; padding-bottom: 5px; margin-bottom: 5px; }
+        .tt-row   { display: flex; gap: 6px; margin: 3px 0; }
+        .tt-label { color: #888; min-width: 44px; text-transform: uppercase; font-size: 10px; }
+        .tt-val   { color: #4ecdc4; font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>CNRM-ESM2-1e</h1>
+    <p class="page-sub">Earth System Model — Component Structure</p>
+
+    <!-- CRS banner -->
+    <div class="crs-banner">
+        <strong>Canonical Realm String</strong>
+        <div class="crs-string" id="crs-output"></div>
+    </div>
+
+    <!-- Graph + info pane -->
+    <div class="main-layout">
+
+        <!-- Graph -->
+        <div class="graph-panel">
+            <div class="graph-header">
+                <div class="graph-title">CNRM-ESM2-1e</div>
+                <div class="graph-sub">Model Structure</div>
+            </div>
+            <div class="graph-body">
+                <div id="tooltip" class="tooltip"></div>
+                <svg id="force-graph"></svg>
+            </div>
+        </div>
+
+        <!-- Info pane -->
+        <div class="info-pane">
+
+            <!-- Stats -->
+            <div class="pane-card">
+                <div class="pane-card-header">Statistics</div>
+                <div class="pane-card-body">
+                    <div class="stats-grid" id="stats-grid"></div>
+                </div>
+            </div>
+
+            <!-- Couplings -->
+            <div class="pane-card">
+                <div class="pane-card-header">Coupled Pairs</div>
+                <div class="pane-card-body">
+                    <div class="rel-list" id="coupling-list"></div>
+                </div>
+            </div>
+
+            <!-- Embeddings -->
+            <div class="pane-card">
+                <div class="pane-card-header">Embedded Components</div>
+                <div class="pane-card-body">
+                    <div class="rel-list" id="embedding-list"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Component cards -->
+    <div class="summary-section">
+        <h4>Component Configurations</h4>
+        <div class="summary-grid" id="components-summary"></div>
+    </div>
+
+</div>
+
+<script>
+    const REALM_ORDER = ['A','Ac','Ae','L','Li','O','Ob','Si'];
+    const RC = {
+        A:'#e76f51', Ac:'#f4a261', Ae:'#e9c46a',
+        L:'#8ab17d', Li:'#7cadbe',
+        O:'#264653', Ob:'#287271', Si:'#2a9d8f'
+    };
+    const NM = {
+        A:'atmosphere', Ac:'atmospheric-chemistry', Ae:'aerosol',
+        L:'land-surface', Li:'land-ice',
+        O:'ocean', Ob:'ocean-biogeochemistry', Si:'sea-ice'
+    };
+    const cfgs = [
+        {realm:'A',  model:'arpege-climat-v6.3', h:'h100', v:'v100'},
+        {realm:'L',  model:'surfex-v8',           h:'h100', v:'v102'},
+        {realm:'O',  model:'nemo-v3.6',           h:'h101', v:'v103'},
+        {realm:'Ae', model:'tactic',              h:'h100', v:'v100'},
+        {realm:'Ac', model:'reprobus-c-v2.0',     h:'h100', v:'v100'},
+        {realm:'Si', model:'gelato',              h:'h101', v:'v104'},
+        {realm:'Ob', model:'pisces-v2-gas',       h:'h101', v:'v103'}
+    ];
+    const cfgMap = new Map(cfgs.map(c=>[c.realm,c]));
+
+    const embeddings = [['Ac','A'],['Ae','A'],['Ob','O'],['Si','O']];
+    const couplings  = [['A','L'],['A','O'],['L','O']];
+
+    const pMap = new Map(embeddings);
+    const cMap = new Map();
+    embeddings.forEach(([c,p])=>{ if(!cMap.has(p))cMap.set(p,[]); cMap.get(p).push(c); });
+    cMap.forEach(arr=>arr.sort((a,b)=>REALM_ORDER.indexOf(a)-REALM_ORDER.indexOf(b)));
+
+    const allC   = new Set([...embeddings.flat(),...couplings.flat()]);
+    const roots  = [...allC].filter(c=>!pMap.has(c)).sort((a,b)=>REALM_ORDER.indexOf(a)-REALM_ORDER.indexOf(b));
+    const embeds = [...allC].filter(c=> pMap.has(c)).sort((a,b)=>REALM_ORDER.indexOf(a)-REALM_ORDER.indexOf(b));
+
+    // ── CRS ───────────────────────────────────────────────────────────────
+    function buildCRS(){
+        const by=(a,b)=>REALM_ORDER.indexOf(a)-REALM_ORDER.indexOf(b);
+        function e(r){ return r+(cMap.get(r)||[]).slice().sort(by).map(c=>'['+e(c)+']').join(''); }
+        return '{'+roots.map(e).join('')+'}';
+    }
+
+    function renderCRS(crs){
+        const tok=[];
+        let i=0;
+        while(i<crs.length){
+            if(i+1<crs.length&&RC[crs.slice(i,i+2)]){tok.push({t:'r',c:crs.slice(i,i+2)});i+=2;}
+            else if(RC[crs[i]]){tok.push({t:'r',c:crs[i]});i++;}
+            else{
+                const ch=crs[i];
+                if(ch==='[')tok.push({t:'['});
+                else if(ch===']')tok.push({t:']'});
+                else if(ch==='{')tok.push({t:'{'});
+                else if(ch==='}')tok.push({t:'}'});
+                else if(ch==='(')tok.push({t:'('});
+                else if(ch===')')tok.push({t:')'});
+                else tok.push({t:'x',ch});
+                i++;
+            }
+        }
+        // assign bracket owner = realm immediately before '['
+        const stk=[]; let last=null;
+        tok.forEach(t=>{
+            if(t.t==='r'){last=t.c;}
+            else if(t.t==='['){t.own=last||(stk.length?stk[stk.length-1]:null);stk.push(t.own);last=null;}
+            else if(t.t===']'){t.own=stk.pop()||null;last=null;}
+        });
+        return tok.map(t=>{
+            if(t.t==='r') return `<span class="crs-code" style="color:${RC[t.c]}" data-code="${t.c}">${t.c}</span>`;
+            if(t.t==='['||t.t===']'){const col=(t.own&&RC[t.own])||'#999';return `<span class="crs-bracket" style="color:${col}">${t.t}</span>`;}
+            if(t.t==='{'||t.t==='}') return `<span class="crs-brace">${t.t}</span>`;
+            if(t.t==='('||t.t===')') return `<span class="crs-paren">${t.t}</span>`;
+            return t.ch||'';
+        }).join('');
+    }
+
+    const crsStr = buildCRS();
+    document.getElementById('crs-output').innerHTML = renderCRS(crsStr);
+
+    // ── stats ─────────────────────────────────────────────────────────────
+    [
+        [couplings.length,  'Coupled<br>pairs'],
+        [embeddings.length, 'Embedded<br>components'],
+        [cMap.size,         'Parent<br>components']
+    ].forEach(([n,label])=>{
+        document.getElementById('stats-grid').innerHTML +=
+            `<div class="stat-cell"><div class="stat-num">${n}</div><div class="stat-label">${label}</div></div>`;
+    });
+
+    // ── coupling list ─────────────────────────────────────────────────────
+    const cl = document.getElementById('coupling-list');
+    couplings.forEach(([a,b])=>{
+        cl.innerHTML+=`
+        <div class="rel-row">
+            <span class="realm-pill" style="background:${RC[a]}">${a}</span>
+            <span class="rel-arrow">⟷</span>
+            <span class="realm-pill" style="background:${RC[b]}">${b}</span>
+            <span class="rel-name">${NM[a]} &amp; ${NM[b]}</span>
+        </div>`;
+    });
+
+    // ── embedding list ────────────────────────────────────────────────────
+    const el = document.getElementById('embedding-list');
+    embeddings.forEach(([c,p])=>{
+        el.innerHTML+=`
+        <div class="rel-row">
+            <span class="realm-pill" style="background:${RC[c]}">${c}</span>
+            <span class="rel-arrow" style="font-size:10px">inside</span>
+            <span class="realm-pill" style="background:${RC[p]}">${p}</span>
+            <span class="rel-name">${NM[c]}</span>
+        </div>`;
+    });
+
+    // ── highlight ─────────────────────────────────────────────────────────
+    function hl(code, on){
+        d3.selectAll('.node-circle').classed('hl', d=>on&&d.id===code);
+        d3.selectAll('.embedded-circle').classed('hl', d=>on&&d.id===code);
+        document.querySelectorAll('.crs-code').forEach(el=>el.classList.toggle('hl',on&&el.dataset.code===code));
+    }
+
+    // ── component cards ───────────────────────────────────────────────────
+    cfgs.forEach(cfg=>{
+        const isP=cMap.has(cfg.realm), isE=pMap.has(cfg.realm);
+        const card=document.createElement('div');
+        card.className='component-card'; card.dataset.code=cfg.realm;
+        card.style.borderLeftColor=RC[cfg.realm];
+        card.innerHTML=`
+            <div class="card-top">
+                <span class="card-code" style="color:${RC[cfg.realm]}">${cfg.realm}</span>
+                <div class="badge-row">
+                    <span class="badge badge-dynamic">DYNAMIC</span>
+                    ${isP?'<span class="badge badge-parent">P</span>':''}
+                    ${isE?'<span class="badge badge-embedded">E</span>':''}
+                </div>
+            </div>
+            <div class="card-name">${NM[cfg.realm]}</div>
+            <div class="card-model">${cfg.model}</div>
+            <div class="card-grids">
+                <span class="grid-badge">H: ${cfg.h}</span>
+                <span class="grid-badge">V: ${cfg.v}</span>
+            </div>`;
+        card.addEventListener('mouseenter',()=>hl(cfg.realm,true));
+        card.addEventListener('mouseleave',()=>hl(cfg.realm,false));
+        document.getElementById('components-summary').appendChild(card);
+    });
+
+    // ── D3 graph ──────────────────────────────────────────────────────────
+    const SZ = 560;   // square viewBox size
+    const PR = 76;    // parent radius
+    const CR = Math.round((PR - 7) * 0.47);  // child radius ≈ 32
+
+    const rNodes = roots.map(id=>({id,x:SZ/2+(Math.random()-.5)*150,y:SZ/2+(Math.random()-.5)*150}));
+    const eNodes = embeds.map(id=>({id,x:0,y:0}));
+    const links  = couplings.map(([s,t])=>({source:s,target:t}));
+
+    const svg = d3.select('#force-graph').attr('viewBox',`0 0 ${SZ} ${SZ}`).style('background','#f8f8f8');
+
+    const defs = svg.append('defs');
+    // arrowhead pointing right (for fwd half-line toward target)
+    defs.append('marker').attr('id','ah-fwd')
+        .attr('markerWidth',5).attr('markerHeight',5)
+        .attr('refX',4.5).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','0,0 5,2.5 0,5').attr('fill','#4ecdc4');
+    // arrowhead pointing left (for rev half-line toward source) — same shape, rotated
+    defs.append('marker').attr('id','ah-rev')
+        .attr('markerWidth',5).attr('markerHeight',5)
+        .attr('refX',0.5).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','5,0 0,2.5 5,5').attr('fill','#4ecdc4');
+
+    const sim = d3.forceSimulation(rNodes)
+        .force('link',      d3.forceLink(links).id(d=>d.id).distance(220))
+        .force('charge',    d3.forceManyBody().strength(-1200))
+        .force('center',    d3.forceCenter(SZ/2,SZ/2))
+        .force('collision', d3.forceCollide(PR+24));
+
+    // dashed track (no markers)
+    const track = svg.selectAll('.track')
+        .data(links).enter().append('line')
+        .attr('stroke','#4ecdc4').attr('stroke-width',1.8).attr('stroke-dasharray','5,4').attr('opacity',0.7);
+
+    // forward half-line: from midpoint toward target, with fwd arrowhead
+    const aFwd = svg.selectAll('.afwd')
+        .data(links).enter().append('line')
+        .attr('stroke','#4ecdc4').attr('stroke-width',1.8)
+        .attr('marker-end','url(#ah-fwd)');
+
+    // reverse half-line: from midpoint toward source, with rev arrowhead
+    const aRev = svg.selectAll('.arev')
+        .data(links).enter().append('line')
+        .attr('stroke','#4ecdc4').attr('stroke-width',1.8)
+        .attr('marker-end','url(#ah-rev)');
+
+    const tip = d3.select('#tooltip');
+    function showTip(ev,d){
+        const c=cfgMap.get(d.id);
+        tip.html(`
+            <div class="tt-title">${d.id} — ${NM[d.id]}</div>
+            <div class="tt-row"><span class="tt-label">Model</span><span class="tt-val">${c?.model||'—'}</span></div>
+            <div class="tt-row"><span class="tt-label">Grids</span><span class="tt-val">H:${c?.h||'—'} V:${c?.v||'—'}</span></div>
+            ${pMap.has(d.id)?`<div class="tt-row"><span class="tt-label">Inside</span><span style="color:#ff8a80">${pMap.get(d.id)}</span></div>`:''}
+            ${cMap.has(d.id)?`<div class="tt-row"><span class="tt-label">Contains</span><span style="color:#80cbc4">${cMap.get(d.id).join(', ')}</span></div>`:''}
+        `).classed('show',true)
+          .style('left',(ev.clientX+14)+'px').style('top',(ev.clientY-14)+'px');
+    }
+    function hideTip(){ tip.classed('show',false); }
+
+    // parent groups
+    const pg = svg.selectAll('.pg').data(rNodes).enter().append('g');
+    pg.append('circle').attr('class','node-circle').attr('r',PR).attr('fill',d=>RC[d.id])
+      .on('mouseover',(ev,d)=>{showTip(ev,d);hl(d.id,true);})
+      .on('mouseout', (ev,d)=>{hideTip();    hl(d.id,false);})
+      .call(d3.drag()
+        .on('start',(ev,d)=>{if(!ev.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
+        .on('drag', (ev,d)=>{d.fx=ev.x;d.fy=ev.y;})
+        .on('end',  (ev,d)=>{if(!ev.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
+    pg.append('text').attr('class','node-label').attr('font-size','15px').text(d=>d.id);
+
+    // embedded groups
+    const eg = svg.selectAll('.eg').data(eNodes).enter().append('g');
+    eg.append('circle').attr('class','embedded-circle').attr('r',CR).attr('fill',d=>RC[d.id])
+      .on('mouseover',(ev,d)=>{showTip(ev,d);hl(d.id,true);})
+      .on('mouseout', (ev,d)=>{hideTip();    hl(d.id,false);});
+    eg.append('text').attr('class','node-label').attr('font-size','11px').text(d=>d.id);
+
+    const HALF = 13; // length of each arrowhead half-line from midpoint
+
+    sim.on('tick',()=>{
+        rNodes.forEach(d=>{
+            d.x=Math.max(PR+4,Math.min(SZ-PR-4,d.x));
+            d.y=Math.max(PR+4,Math.min(SZ-PR-4,d.y));
+        });
+
+        // full track
+        track.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+             .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+
+        // arrowhead half-lines
+        aFwd.each(function(d){
+            const dx=d.target.x-d.source.x, dy=d.target.y-d.source.y;
+            const len=Math.sqrt(dx*dx+dy*dy)||1;
+            const ux=dx/len, uy=dy/len;
+            const mx=(d.source.x+d.target.x)/2, my=(d.source.y+d.target.y)/2;
+            // fwd: starts at midpoint, points toward target
+            d3.select(this)
+              .attr('x1', mx).attr('y1', my)
+              .attr('x2', mx + ux*HALF).attr('y2', my + uy*HALF);
+        });
+        aRev.each(function(d){
+            const dx=d.target.x-d.source.x, dy=d.target.y-d.source.y;
+            const len=Math.sqrt(dx*dx+dy*dy)||1;
+            const ux=dx/len, uy=dy/len;
+            const mx=(d.source.x+d.target.x)/2, my=(d.source.y+d.target.y)/2;
+            // rev: starts at midpoint, points toward source (opposite direction)
+            d3.select(this)
+              .attr('x1', mx).attr('y1', my)
+              .attr('x2', mx - ux*HALF).attr('y2', my - uy*HALF);
+        });
+
+        pg.attr('transform',d=>`translate(${d.x},${d.y})`);
+        pg.selectAll('.node-label').attr('x',0).attr('y',d=>cMap.has(d.id)?-(PR*0.42):0);
+
+        // pack embedded children inside parent
+        const safeR = PR - CR - 6;
+        eNodes.forEach(en=>{
+            const par=rNodes.find(n=>n.id===pMap.get(en.id));
+            if(!par) return;
+            const sibs=cMap.get(par.id)||[], n=sibs.length, idx=sibs.indexOf(en.id);
+            const yOff = PR * 0.27;
+            let xOff;
+            if(n===1){ xOff=0; }
+            else {
+                const step = Math.min(CR*2+4, safeR*2/(n-1));
+                xOff = -step*(n-1)/2 + idx*step;
+            }
+            en.x=par.x+xOff; en.y=par.y+yOff;
+        });
+        eg.attr('transform',d=>`translate(${d.x},${d.y})`);
+        eg.selectAll('.node-label').attr('x',0).attr('y',0);
+    });
+    rNodes.forEach(n=>{n.children=cMap.get(n.id)||[];});
+</script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Read and Write a CRS</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f5f5f5;
+    color: #333;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  h1 { margin-top: 0; color: #333; font-size: 26px; }
+  h2 { color: #333; font-size: 18px; margin: 40px 0 12px; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; }
+  h3 { color: #555; font-size: 14px; margin: 24px 0 8px; }
+  p  { color: #555; line-height: 1.7; margin: 8px 0 16px; }
+
+  .intro {
+    background: #f0f7ff;
+    border-left: 4px solid #0066cc;
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 20px 0 32px;
+  }
+  .intro p { margin: 0; color: #333; }
+
+  /* ── CRS string display ── */
+  .crs-string {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 18px;
+    line-height: 1.8;
+    word-break: break-all;
+  }
+  .crs-string.large { font-size: 22px; }
+
+  /* realm colours */
+  .rA  { color: #e76f51; font-weight: bold; }
+  .rAc { color: #f4a261; font-weight: bold; }
+  .rAe { color: #e9c46a; font-weight: bold; }
+  .rL  { color: #5a9e6f; font-weight: bold; }
+  .rLi { color: #5b9dbf; font-weight: bold; }
+  .rO  { color: #264653; font-weight: bold; }
+  .rOb { color: #287271; font-weight: bold; }
+  .rSi { color: #2a9d8f; font-weight: bold; }
+
+  /* bracket colour matches its HOST realm */
+  .brA  { color: #e76f51; }
+  .brAc { color: #f4a261; }
+  .brL  { color: #5a9e6f; }
+  .brO  { color: #264653; }
+  .brSi { color: #2a9d8f; }
+
+  .brace  { color: #0066cc; font-weight: bold; }
+  .star   { color: #8b5cf6; font-weight: bold; }
+  .paren  { color: #888; }
+  .dim    { color: #bbb; }
+
+  /* ── Step cards ── */
+  .step-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 24px;
+    margin: 20px 0;
+    background: #fafafa;
+  }
+  .step-card.highlight {
+    border-color: #0066cc;
+    background: #f0f7ff;
+  }
+  .step-num {
+    display: inline-block;
+    background: #0066cc;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 9px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+  .step-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 6px;
+  }
+
+  /* ── Two-col ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 680px) { .three-col { grid-template-columns: 1fr; } }
+
+  /* ── Example card ── */
+  .example {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 16px;
+    background: white;
+  }
+  .example-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  /* ── Realm chip ── */
+  .realm-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .realm-chip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 20px; border: 2px solid;
+    font-size: 13px; font-weight: bold;
+  }
+
+  /* ── SVG diagrams ── */
+  .diagram {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0;
+  }
+
+  /* ── Build trace ── */
+  .build-trace {
+    border-left: 3px solid #0066cc;
+    margin: 14px 0;
+    padding: 0;
+  }
+  .trace-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 12px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #eee;
+    align-items: start;
+  }
+  .trace-row:last-child { border-bottom: none; }
+  .trace-key {
+    font-size: 11px;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 2px;
+  }
+  .trace-val { font-size: 13px; color: #444; line-height: 1.6; }
+
+  /* ── Note box ── */
+  .note {
+    background: #fff8e1;
+    border-left: 4px solid #f4a261;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #555;
+    margin: 16px 0;
+  }
+
+  /* ── Summary table ── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  th { text-align: left; padding: 8px 12px; background: #f0f0f0; color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid #ddd; }
+  td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  /* ── Final examples ── */
+  .model-row {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .model-row:last-child { border-bottom: none; }
+  .model-name { font-size: 12px; color: #888; min-width: 160px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>CRS — Canonical Realm String</h1>
+  <div class="intro">
+    <p>A CRS is a short text string that uniquely describes how the components of an earth system model fit together. Two models with the same structure will always produce the same CRS. This page explains how to read one, and how to build one from scratch.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- REALM CODES -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <h2>The eight component codes</h2>
+  <p>Each part of a model gets a short code. Codes are always sorted in this order when constructing a string:</p>
+
+  <div class="realm-chips">
+    <div class="realm-chip" style="color:#e76f51;border-color:#e76f51;background:#fff5f2">A <span style="font-weight:300;font-size:11px">atmosphere</span></div>
+    <div class="realm-chip" style="color:#f4a261;border-color:#f4a261;background:#fff8f2">Ac <span style="font-weight:300;font-size:11px">atmos. chemistry</span></div>
+    <div class="realm-chip" style="color:#e9c46a;border-color:#e9c46a;background:#fffdf0">Ae <span style="font-weight:300;font-size:11px">aerosol</span></div>
+    <div class="realm-chip" style="color:#5a9e6f;border-color:#5a9e6f;background:#f2faf4">L <span style="font-weight:300;font-size:11px">land surface</span></div>
+    <div class="realm-chip" style="color:#5b9dbf;border-color:#5b9dbf;background:#f0f7fb">Li <span style="font-weight:300;font-size:11px">land ice</span></div>
+    <div class="realm-chip" style="color:#264653;border-color:#264653;background:#f0f4f5">O <span style="font-weight:300;font-size:11px">ocean</span></div>
+    <div class="realm-chip" style="color:#287271;border-color:#287271;background:#f0f6f6">Ob <span style="font-weight:300;font-size:11px">ocean biogeochem.</span></div>
+    <div class="realm-chip" style="color:#2a9d8f;border-color:#2a9d8f;background:#f0faf8">Si <span style="font-weight:300;font-size:11px">sea ice</span></div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STEP 1 — EMBEDDING -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <h2>Step 1 — Show which components live inside others</h2>
+  <p>Some components are built directly into a host component and can't be separated from it — like aerosol physics coded into the atmosphere model. We call this <strong>embedding</strong>. In the CRS, an embedded component is written in square brackets immediately after its host, like a nested set of boxes.</p>
+
+  <p>The bracket colour matches the host. The code inside uses its own colour.</p>
+
+  <div class="two-col">
+
+    <div class="step-card">
+      <div class="step-title">Ac embedded inside A</div>
+      <p style="font-size:13px;margin-bottom:12px">Atmospheric chemistry lives inside the atmosphere model.</p>
+
+      <!-- nested sphere diagram -->
+      <div class="diagram">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <circle cx="90" cy="60" r="52" fill="#e76f51" opacity="0.15" stroke="#e76f51" stroke-width="2"/>
+          <text x="90" y="22" text-anchor="middle" fill="#e76f51" font-size="12" font-family="Monaco,monospace" font-weight="bold">A</text>
+          <circle cx="90" cy="65" r="30" fill="#f4a261" opacity="0.25" stroke="#f4a261" stroke-width="1.5"/>
+          <text x="90" y="69" text-anchor="middle" fill="#f4a261" font-size="11" font-family="Monaco,monospace" font-weight="bold">Ac</text>
+        </svg>
+      </div>
+
+      <div class="crs-string large">
+        <span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brA">]</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">Ae inside Ac, Ac inside A</div>
+      <p style="font-size:13px;margin-bottom:12px">Aerosol lives inside atmospheric chemistry, which lives inside atmosphere. Three levels of nesting.</p>
+
+      <div class="diagram">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <circle cx="90" cy="60" r="52" fill="#e76f51" opacity="0.12" stroke="#e76f51" stroke-width="2"/>
+          <text x="90" y="18" text-anchor="middle" fill="#e76f51" font-size="12" font-family="Monaco,monospace" font-weight="bold">A</text>
+          <circle cx="90" cy="63" r="33" fill="#f4a261" opacity="0.18" stroke="#f4a261" stroke-width="1.5"/>
+          <text x="90" y="36" text-anchor="middle" fill="#f4a261" font-size="11" font-family="Monaco,monospace" font-weight="bold">Ac</text>
+          <circle cx="90" cy="67" r="16" fill="#e9c46a" opacity="0.35" stroke="#e9c46a" stroke-width="1.5"/>
+          <text x="90" y="71" text-anchor="middle" fill="#c8922a" font-size="10" font-family="Monaco,monospace" font-weight="bold">Ae</text>
+        </svg>
+      </div>
+
+      <div class="crs-string large">
+        <span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brAc">[</span><span class="rAe">Ae</span><span class="brAc">]</span><span class="brA">]</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">Ob and Si both inside O</div>
+      <p style="font-size:13px;margin-bottom:12px">Two components embedded in the same host. Both sit at the same level — listed in code order.</p>
+
+      <div class="diagram">
+        <svg width="200" height="120" viewBox="0 0 200 120">
+          <circle cx="100" cy="60" r="52" fill="#264653" opacity="0.12" stroke="#264653" stroke-width="2"/>
+          <text x="100" y="18" text-anchor="middle" fill="#264653" font-size="12" font-family="Monaco,monospace" font-weight="bold">O</text>
+          <circle cx="72" cy="65" r="26" fill="#287271" opacity="0.3" stroke="#287271" stroke-width="1.5"/>
+          <text x="72" y="69" text-anchor="middle" fill="#287271" font-size="10" font-family="Monaco,monospace" font-weight="bold">Ob</text>
+          <circle cx="130" cy="65" r="26" fill="#2a9d8f" opacity="0.3" stroke="#2a9d8f" stroke-width="1.5"/>
+          <text x="130" y="69" text-anchor="middle" fill="#2a9d8f" font-size="10" font-family="Monaco,monospace" font-weight="bold">Si</text>
+        </svg>
+      </div>
+
+      <div class="crs-string large">
+        <span class="rO">O</span><span class="brO">[</span><span class="rOb">Ob</span><span class="brO">][</span><span class="rSi">Si</span><span class="brO">]</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-title">No embeddings</div>
+      <p style="font-size:13px;margin-bottom:12px">Some components stand alone — nothing inside them. The code is just written as-is.</p>
+
+      <div class="diagram">
+        <svg width="200" height="120" viewBox="0 0 200 120">
+          <circle cx="60" cy="60" r="38" fill="#5a9e6f" opacity="0.15" stroke="#5a9e6f" stroke-width="2"/>
+          <text x="60" y="64" text-anchor="middle" fill="#5a9e6f" font-size="13" font-family="Monaco,monospace" font-weight="bold">L</text>
+          <circle cx="145" cy="60" r="38" fill="#5b9dbf" opacity="0.15" stroke="#5b9dbf" stroke-width="2"/>
+          <text x="145" y="64" text-anchor="middle" fill="#5b9dbf" font-size="13" font-family="Monaco,monospace" font-weight="bold">Li</text>
+        </svg>
+      </div>
+
+      <div class="crs-string large">
+        <span class="rL">L</span> &nbsp; <span class="rLi">Li</span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STEP 2 — COUPLING -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <h2>Step 2 — Show how the top-level components are connected</h2>
+  <p>Components that exchange information with each other — passing heat, moisture, fluxes — are called <strong>coupled</strong>. Only the top-level "host" components can be coupled (not the ones embedded inside others). We use the coupling graph to determine the CRS coupling string, applying the first rule below that fits.</p>
+
+  <!-- RULE A -->
+  <div class="step-card highlight">
+    <div class="step-num">RULE A</div>
+    <div class="step-title">One component, no coupling</div>
+    <p>If there is only one top-level component, just write its embedding string. Nothing else to do.</p>
+    <div class="two-col">
+      <div>
+        <div class="example-label">Example</div>
+        <div class="diagram">
+          <svg width="160" height="100" viewBox="0 0 160 100">
+            <circle cx="80" cy="50" r="42" fill="#e76f51" opacity="0.15" stroke="#e76f51" stroke-width="2"/>
+            <text x="80" y="42" text-anchor="middle" fill="#e76f51" font-size="11" font-family="Monaco,monospace" font-weight="bold">A</text>
+            <circle cx="80" cy="56" r="24" fill="#f4a261" opacity="0.25" stroke="#f4a261" stroke-width="1.5"/>
+            <text x="80" y="60" text-anchor="middle" fill="#f4a261" font-size="10" font-family="Monaco,monospace" font-weight="bold">Ac</text>
+          </svg>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <div class="example-label">CRS</div>
+        <div class="crs-string large"><span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brA">]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULE B -->
+  <div class="step-card highlight">
+    <div class="step-num">RULE B</div>
+    <div class="step-title">A cycle — three or more components forming a ring</div>
+    <p>If the coupled components form a closed loop (every component passes to the next, and the last passes back to the first), wrap the whole sequence in curly braces <strong style="color:#0066cc">{ }</strong>. Use the longest loop you can find. Start from the component with the lowest code number (A before L before O, etc).</p>
+
+    <div class="two-col">
+      <div>
+        <div class="example-label">Triangle — A, L and O all coupled to each other</div>
+        <div class="diagram">
+          <svg width="200" height="150" viewBox="0 0 200 150">
+            <defs>
+              <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                <polygon points="0,0 7,3.5 0,7" fill="#4ecdc4" opacity="0.7"/>
+              </marker>
+            </defs>
+            <line x1="100" y1="20" x2="178" y2="128" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+            <line x1="178" y1="128" x2="22" y2="128" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+            <line x1="22" y1="128" x2="100" y2="20" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+            <circle cx="100" cy="20" r="18" fill="#e76f51" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="100" y="24" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">A</text>
+            <circle cx="178" cy="128" r="18" fill="#5a9e6f" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="178" y="132" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">L</text>
+            <circle cx="22" cy="128" r="18" fill="#264653" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="22" y="132" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">O</text>
+          </svg>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:16px">
+        <div>
+          <div class="example-label">CRS — coupling only</div>
+          <div class="crs-string large"><span class="brace">{</span><span class="rA">A</span><span class="rL">L</span><span class="rO">O</span><span class="brace">}</span></div>
+        </div>
+        <div>
+          <div class="example-label">CRS — with embeddings (CNRM-ESM2-1e)</div>
+          <div class="crs-string"><span class="brace">{</span><span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brA">][</span><span class="rAe">Ae</span><span class="brA">]</span><span class="rL">L</span><span class="rO">O</span><span class="brO">[</span><span class="rOb">Ob</span><span class="brO">][</span><span class="rSi">Si</span><span class="brO">]</span><span class="brace">}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px">
+      <div class="example-label">Chord — an extra direct link across the ring</div>
+      <p style="font-size:13px">Sometimes two components in a cycle are also directly connected, creating a shortcut. Write the shortcut target in <strong>(round brackets)</strong> immediately after the earlier component. Use only the bare code — no brackets needed since that component is already shown in full elsewhere in the string.</p>
+
+      <div class="two-col" style="margin-top:4px">
+        <div>
+          <div class="diagram">
+            <svg width="210" height="170" viewBox="0 0 210 170">
+              <!-- cycle edges -->
+              <line x1="105" y1="22" x2="190" y2="130" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <line x1="190" y1="130" x2="105" y2="148" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <line x1="105" y1="148" x2="20"  y2="90"  stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <line x1="20"  y1="90"  x2="105" y2="22"  stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <!-- chord A→O -->
+              <line x1="105" y1="40" x2="105" y2="130" stroke="#e76f51" stroke-width="1.8" stroke-dasharray="3,3" opacity="0.7"/>
+              <text x="118" y="92" fill="#e76f51" font-size="9" font-family="Monaco,monospace" opacity="0.8">chord</text>
+              <!-- nodes -->
+              <circle cx="105" cy="22" r="18" fill="#e76f51" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="105" y="26" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">A</text>
+              <circle cx="190" cy="130" r="18" fill="#5a9e6f" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="190" y="134" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">L</text>
+              <circle cx="105" cy="148" r="18" fill="#264653" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="105" y="152" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">O</text>
+              <circle cx="20" cy="90" r="18" fill="#5b9dbf" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="20" y="94" text-anchor="middle" fill="white" font-size="11" font-family="Monaco,monospace" font-weight="bold">Li</text>
+            </svg>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;gap:10px">
+          <div class="build-trace">
+            <div class="trace-row">
+              <div class="trace-key">Cycle</div>
+              <div class="trace-val">A – L – O – Li – back to A</div>
+            </div>
+            <div class="trace-row">
+              <div class="trace-key">Extra edge</div>
+              <div class="trace-val">A and O are also directly linked</div>
+            </div>
+            <div class="trace-row">
+              <div class="trace-key">Position</div>
+              <div class="trace-val">A is at position 1 in the cycle, O is at position 3. Write <span style="font-family:monospace;color:#264653;font-weight:bold">(O)</span> right after <span style="font-family:monospace;color:#e76f51;font-weight:bold">A</span></div>
+            </div>
+          </div>
+          <div class="crs-string large"><span class="brace">{</span><span class="rA">A</span><span class="paren">(</span><span class="rO">O</span><span class="paren">)</span><span class="rL">L</span><span class="rO">O</span><span class="rLi">Li</span><span class="brace">}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULE C -->
+  <div class="step-card highlight">
+    <div class="step-num">RULE C</div>
+    <div class="step-title">No cycle — a chain</div>
+    <p>If the coupled components don't form a closed loop, find the longest chain and write it in order. Any component connected to the chain but not part of it is written in <strong>(round brackets)</strong> after the chain node it connects to — with its full embedding string, since it only appears once.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="example-label">Chain A – L – O, with Li branching off A</div>
+        <div class="diagram">
+          <svg width="220" height="130" viewBox="0 0 220 130">
+            <line x1="44" y1="65" x2="108" y2="65" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+            <line x1="128" y1="65" x2="192" y2="65" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+            <!-- branch -->
+            <line x1="63" y1="48" x2="63" y2="18" stroke="#4ecdc488" stroke-width="1.8" stroke-dasharray="4,3"/>
+            <text x="74" y="36" fill="#888" font-size="9" font-family="Monaco,monospace">branch</text>
+            <!-- nodes -->
+            <circle cx="44" cy="65" r="20" fill="#e76f51" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="44" y="69" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">A</text>
+            <circle cx="118" cy="65" r="20" fill="#5a9e6f" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="118" y="69" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">L</text>
+            <circle cx="192" cy="65" r="20" fill="#264653" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="192" y="69" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">O</text>
+            <circle cx="44" cy="14" r="14" fill="#5b9dbf" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="44" y="18" text-anchor="middle" fill="white" font-size="10" font-family="Monaco,monospace" font-weight="bold">Li</text>
+          </svg>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div class="build-trace">
+          <div class="trace-row">
+            <div class="trace-key">Chain</div>
+            <div class="trace-val">A – L – O (longest path)</div>
+          </div>
+          <div class="trace-row">
+            <div class="trace-key">Branch</div>
+            <div class="trace-val">Li connects to A → write (Li) after A</div>
+          </div>
+        </div>
+        <div class="crs-string large"><span class="rA">A</span><span class="paren">(</span><span class="rLi">Li</span><span class="paren">)</span><span class="rL">L</span><span class="rO">O</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="example-label">Star — A connects to L, O and Li, but they don't connect to each other</div>
+      <div class="two-col">
+        <div>
+          <div class="diagram">
+            <svg width="200" height="150" viewBox="0 0 200 150">
+              <line x1="100" y1="72" x2="100" y2="22" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <line x1="100" y1="72" x2="30"  y2="130" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <line x1="100" y1="72" x2="170" y2="130" stroke="#4ecdc4" stroke-width="2" stroke-dasharray="5,4"/>
+              <circle cx="100" cy="72" r="22" fill="#e76f51" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="100" y="76" text-anchor="middle" fill="white" font-size="13" font-family="Monaco,monospace" font-weight="bold">A</text>
+              <circle cx="100" cy="20" r="14" fill="#5a9e6f" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="100" y="24" text-anchor="middle" fill="white" font-size="10" font-family="Monaco,monospace" font-weight="bold">L</text>
+              <circle cx="30" cy="132" r="14" fill="#5b9dbf" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="30" y="136" text-anchor="middle" fill="white" font-size="10" font-family="Monaco,monospace" font-weight="bold">Li</text>
+              <circle cx="170" cy="132" r="14" fill="#264653" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+              <text x="170" y="136" text-anchor="middle" fill="white" font-size="10" font-family="Monaco,monospace" font-weight="bold">O</text>
+            </svg>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;gap:12px">
+          <div class="build-trace">
+            <div class="trace-row">
+              <div class="trace-key">Chain</div>
+              <div class="trace-val">L – A – Li (longest, chosen by code order)</div>
+            </div>
+            <div class="trace-row">
+              <div class="trace-key">Branch</div>
+              <div class="trace-val">O connects to A → write (O) after A</div>
+            </div>
+          </div>
+          <div class="crs-string large"><span class="rL">L</span><span class="rA">A</span><span class="paren">(</span><span class="rO">O</span><span class="paren">)</span><span class="rLi">Li</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULE D (rare) -->
+  <div class="step-card">
+    <div class="step-num">RULE D — RARE</div>
+    <div class="step-title">Full clique — every component coupled to every other (4 or more)</div>
+    <p>In practice this is very unlikely. If four or more components are all directly coupled to every other one, use an asterisk and curly braces: <strong style="color:#8b5cf6">*{ }</strong>. A triangle (3 nodes, all connected) is handled by Rule B — only use <strong style="color:#8b5cf6">*{ }</strong> for 4 or more nodes.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="diagram">
+          <svg width="200" height="160" viewBox="0 0 200 160">
+            <line x1="60" y1="36" x2="140" y2="36" stroke="#8b5cf6" stroke-width="1.5" opacity="0.5"/>
+            <line x1="60" y1="36" x2="30"  y2="120" stroke="#8b5cf6" stroke-width="1.5" opacity="0.5"/>
+            <line x1="60" y1="36" x2="170" y2="120" stroke="#8b5cf6" stroke-width="1.5" opacity="0.5"/>
+            <line x1="140" y1="36" x2="30"  y2="120" stroke="#8b5cf6" stroke-width="1.5" opacity="0.5"/>
+            <line x1="140" y1="36" x2="170" y2="120" stroke="#8b5cf6" stroke-width="1.5" opacity="0.5"/>
+            <line x1="30"  y1="120" x2="170" y2="120" stroke="#8b5cf6" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="60"  cy="36"  r="20" fill="#e76f51" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="60"  y="40"  text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">A</text>
+            <circle cx="140" cy="36"  r="20" fill="#5a9e6f" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="140" y="40"  text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">L</text>
+            <circle cx="30"  cy="120" r="20" fill="#5b9dbf" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="30"  y="124" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">Li</text>
+            <circle cx="170" cy="120" r="20" fill="#264653" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+            <text x="170" y="124" text-anchor="middle" fill="white" font-size="12" font-family="Monaco,monospace" font-weight="bold">O</text>
+          </svg>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <p style="font-size:13px">All 6 pairs coupled. List all components in code order.</p>
+        <div class="crs-string large"><span class="star">*{</span><span class="rA">A</span><span class="rL">L</span><span class="rLi">Li</span><span class="rO">O</span><span class="star">}</span></div>
+        <div class="crs-string" style="font-size:14px;margin-top:4px"><span class="star">*{</span><span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brAc">[</span><span class="rAe">Ae</span><span class="brAc">]</span><span class="brA">]</span><span class="rL">L</span><span class="rLi">Li</span><span class="rO">O</span><span class="brO">[</span><span class="rOb">Ob</span><span class="brO">][</span><span class="rSi">Si</span><span class="brO">]</span><span class="star">}</span></div>
+        <div style="font-size:11px;color:#888">↑ with embeddings added in</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- NOTATION SUMMARY -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <h2>Notation at a glance</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>What it means</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span style="font-family:monospace;font-size:15px"><span style="color:#264653;font-weight:bold">O</span><span style="color:#264653">[</span><span style="color:#287271;font-weight:bold">Ob</span><span style="color:#264653">]</span></span></td>
+        <td>Ob is embedded inside O. Bracket colour = host colour.</td>
+        <td>Ocean biogeochemistry lives inside the ocean model</td>
+      </tr>
+      <tr>
+        <td><span style="font-family:monospace;font-size:15px;color:#0066cc;font-weight:bold">{ }</span></td>
+        <td>Cycle — the listed components form a closed ring of couplings</td>
+        <td><span class="crs-string" style="font-size:14px;display:inline-block;padding:4px 8px"><span class="brace">{</span><span class="rA">A</span><span class="rL">L</span><span class="rO">O</span><span class="brace">}</span></span></td>
+      </tr>
+      <tr>
+        <td><span style="font-family:monospace;font-size:15px;color:#888">(X)</span></td>
+        <td>After a cycle node: a shortcut chord to X. After a chain node: X branches off here.</td>
+        <td><span class="crs-string" style="font-size:14px;display:inline-block;padding:4px 8px"><span class="brace">{</span><span class="rA">A</span><span class="paren">(</span><span class="rO">O</span><span class="paren">)</span><span class="rL">L</span><span class="rO">O</span><span class="rLi">Li</span><span class="brace">}</span></span></td>
+      </tr>
+      <tr>
+        <td><span style="font-family:monospace;font-size:15px;color:#8b5cf6;font-weight:bold">*{ }</span></td>
+        <td>Every component in the list is directly coupled to every other (4+ only)</td>
+        <td><span class="crs-string" style="font-size:14px;display:inline-block;padding:4px 8px"><span class="star">*{</span><span class="rA">A</span><span class="rL">L</span><span class="rLi">Li</span><span class="rO">O</span><span class="star">}</span></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- REAL EXAMPLES -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <h2>Real model examples</h2>
+
+  <div class="model-row">
+    <div class="model-name">CNRM-ESM2-1e</div>
+    <div class="crs-string" style="font-size:15px;flex:1"><span class="brace">{</span><span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brA">][</span><span class="rAe">Ae</span><span class="brA">]</span><span class="rL">L</span><span class="rO">O</span><span class="brO">[</span><span class="rOb">Ob</span><span class="brO">][</span><span class="rSi">Si</span><span class="brO">]</span><span class="brace">}</span></div>
+  </div>
+  <div class="model-row">
+    <div class="model-name">UKESM1 (K4 coupling)</div>
+    <div class="crs-string" style="font-size:15px;flex:1"><span class="star">*{</span><span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brAc">[</span><span class="rAe">Ae</span><span class="brAc">]</span><span class="brA">]</span><span class="rL">L</span><span class="rLi">Li</span><span class="rO">O</span><span class="brO">[</span><span class="rOb">Ob</span><span class="brO">][</span><span class="rSi">Si</span><span class="brO">]</span><span class="star">}</span></div>
+  </div>
+  <div class="model-row">
+    <div class="model-name">HadGEM3-GC31</div>
+    <div class="crs-string" style="font-size:15px;flex:1"><span class="brace">{</span><span class="rA">A</span><span class="rL">L</span><span class="rO">O</span><span class="brO">[</span><span class="rSi">Si</span><span class="brO">]</span><span class="brace">}</span></div>
+  </div>
+  <div class="model-row">
+    <div class="model-name">4-cycle + chord</div>
+    <div class="crs-string" style="font-size:15px;flex:1"><span class="brace">{</span><span class="rA">A</span><span class="paren">(</span><span class="rO">O</span><span class="paren">)</span><span class="rL">L</span><span class="rO">O</span><span class="brO">[</span><span class="rOb">Ob</span><span class="brO">][</span><span class="rSi">Si</span><span class="brO">]</span><span class="rLi">Li</span><span class="brace">}</span></div>
+  </div>
+  <div class="model-row">
+    <div class="model-name">Atmosphere only</div>
+    <div class="crs-string" style="font-size:15px;flex:1"><span class="rA">A</span><span class="brA">[</span><span class="rAc">Ac</span><span class="brAc">[</span><span class="rAe">Ae</span><span class="brAc">]</span><span class="brA">]</span></div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <strong>Canonicality:</strong> because codes are always sorted in the fixed realm order and rules are applied in the same sequence, the same model structure always produces the same CRS string — regardless of the order you supply the embeddings and couplings.
+  </div>
+
+</div>
+</body>
+</html>
