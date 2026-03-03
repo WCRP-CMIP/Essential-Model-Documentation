@@ -285,8 +285,10 @@ jobs:
 
           # ── Find and close linked issues by parsing PR description ────────
           # Extract issue numbers from "Resolves #NNN" / "Fixes #NNN" / "Closes #NNN"
+          # Use tr to handle newlines in PR body
           ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' | \
-            grep -oE '[Rr]esolves?|[Ff]ixes?|[Cc]loses?\s+#[0-9]+' | \
+            tr '\n' ' ' | \
+            grep -oE '[Rr]esolves?[^#]*#[0-9]+' | \
             grep -oE '#[0-9]+' | \
             grep -oE '[0-9]+' || true)
 
