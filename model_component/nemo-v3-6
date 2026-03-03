@@ -1,0 +1,19 @@
+{
+  "validation_key": "nemo_v3_6",
+  "ui_label": "",
+  "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
+  "code_base": "private",
+  "component": "ocean",
+  "family": "nemo",
+  "name": "NEMO v3.6",
+  "references": [
+    "https://doi.org/10.1029/2019MS001791"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "nemo-v3-6"
+}

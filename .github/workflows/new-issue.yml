@@ -1,0 +1,47 @@
+name: New Issue Processing
+
+on:
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: string
+
+permissions:
+  issues: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  process-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install CMIPLD
+        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+      - name: Configure Git
+        run: git config --global push.default simple
+        shell: bash
+
+      - name: Process issue
+        env:
+          ISSUE_NUMBER:     ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          ISSUE_SUBMITTER:  ${{ github.event.issue.user.login }}
+          ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
+          GH_TOKEN:         ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          GITHUB_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          cd $GITHUB_WORKSPACE
+          new_issue --issue $ISSUE_NUMBER
+        shell: bash
