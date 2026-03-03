@@ -9,23 +9,36 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+  actions: write
 
 on:
   pull_request:
     types:
       - closed
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request number to process (for manual trigger)'
+        required: false
+        type: string
 
 jobs:
   rename_tempgrid:
     # Only run when the PR was actually merged AND carries the 'pull_req' label
+    # OR when manually triggered with a PR number
     if: >
-      github.event.pull_request.merged == true &&
-      contains(
-        toJSON(github.event.pull_request.labels.*.name),
-        'pull_req'
-      )
+      (github.event_name == 'pull_request' && 
+       github.event.pull_request.merged == true &&
+       contains(
+         toJSON(github.event.pull_request.labels.*.name),
+         'pull_req'
+       )) ||
+      github.event_name == 'workflow_dispatch'
 
     runs-on: ubuntu-latest
+    
+    env:
+      MANUAL_PR_NUMBER: ${{ github.event.inputs.pr_number }}
 
     steps:
       # ── 1. Check out the src-data branch (where vocab files live) ─────────
@@ -34,6 +47,17 @@ jobs:
         with:
           ref: src-data
           fetch-depth: 0
+
+      - name: Set PR number
+        id: set_pr
+        run: |
+          if [ -z "$MANUAL_PR_NUMBER" ]; then
+            PR_NUM="${{ github.event.pull_request.number }}"
+          else
+            PR_NUM="$MANUAL_PR_NUMBER"
+          fi
+          echo "pr_number=$PR_NUM" >> "$GITHUB_OUTPUT"
+          echo "Using PR #$PR_NUM"
 
       - name: Configure Git
         run: |
@@ -201,7 +225,7 @@ jobs:
         if: steps.rename.outputs.mapping_json != '[]'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
           REPO: ${{ github.repository }}
           MAPPING_MD: ${{ steps.rename.outputs.mapping_md }}
           MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
