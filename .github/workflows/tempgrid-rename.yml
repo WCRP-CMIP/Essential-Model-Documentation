@@ -179,21 +179,38 @@ jobs:
 
           echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
 
-      # ── 3b. Update file contents (rename references inside JSON files) ────
-      - name: Update tempgrid references inside renamed files
+      # ── 3b. Update @id field in renamed JSON files ────
+      - name: Update @id field in renamed JSON files
         if: steps.rename.outputs.mapping_json != '[]'
         run: |
           MAPPING_JSON='${{ steps.rename.outputs.mapping_json }}'
           
-          echo "$MAPPING_JSON" | jq -r '.[] | "\(.old)\t\(.new)"' | while IFS=$'\t' read -r old_path new_path; do
+          echo "Processing JSON @id fields with mapping: $MAPPING_JSON"
+          
+          echo "$MAPPING_JSON" | jq -r '.[] | "\(.old)|\(.new)"' | while IFS='|' read -r old_path new_path; do
+            [ -z "$old_path" ] || [ -z "$new_path" ] && continue
+            
             old_base=$(basename "$old_path" .json)
             new_base=$(basename "$new_path" .json)
             
-            echo "Updating contents: $old_base → $new_base in $new_path"
+            echo "Updating @id in: $new_path"
+            echo "  Replacing: '$old_base' → '$new_base'"
             
-            # Use Perl to update the file contents
-            # Replace old tempgrid name with new ID in all fields
-            perl -i -pe "s/\Q$old_base\E/$new_base/g" "$new_path"
+            # Use Perl to replace @id field value(s)
+            perl -pi -e "s/(\"\@id\"\s*:\s*\")[^\"]*tempgrid[^\"]*(\")/$1$ENV{new_base}$2/g" "$new_path" 2>/dev/null || true
+            
+            # Fallback: also replace validation_key field
+            perl -pi -e "s/(\"\validation_key\"\s*:\s*\")[^\"]*tempgrid[^\"]*(\")/$1$ENV{new_base}$2/g" "$new_path" 2>/dev/null || true
+            
+            # And any other field containing the old tempgrid name
+            perl -pi -e "s/$old_base/$new_base/g" "$new_path"
+            
+            # Verify the change
+            if grep -q "$new_base" "$new_path"; then
+              echo "✅ Successfully updated $new_path"
+            else
+              echo "⚠️ Warning: Could not verify update in $new_path"
+            fi
           done
 
       # ── 4. Cancel any running src-data-change workflows ───────────────────
