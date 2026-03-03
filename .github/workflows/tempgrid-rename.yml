@@ -168,7 +168,7 @@ jobs:
           fi
 
       # ── 5. Post a comment on the PR (and any linked issues) ───────────────
-      - name: Comment on PR and linked issues
+      - name: Comment on PR and close linked issues
         if: steps.rename.outputs.mapping_json != '[]'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -194,28 +194,15 @@ jobs:
             --repo "$REPO" \
             --body "$COMMENT_BODY"
 
-          echo "Commented on PR #${PR_NUMBER}"
+          echo "✅ Commented on PR #${PR_NUMBER}"
 
-          # ── Find issues linked to this PR via the GitHub GraphQL API ───────
-          # GitHub doesn't expose linked issues in the REST payload, so we use
-          # GraphQL to retrieve the closing-issues references.
-          ISSUE_NUMBERS=$(gh api graphql \
-            --field owner="${REPO%/*}" \
-            --field repo="${REPO#*/}" \
-            --field pr="$PR_NUMBER" \
-            --raw-field query='
-              query($owner:String!, $repo:String!, $pr:Int!) {
-                repository(owner:$owner, name:$repo) {
-                  pullRequest(number:$pr) {
-                    closingIssuesReferences(first:10) {
-                      nodes { number }
-                    }
-                  }
-                }
-              }
-            ' \
-            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number' \
-            2>/dev/null || true)
+          # ── Find and close linked issues by parsing PR description ────────
+          # Extract issue numbers from "Resolves #NNN" / "Fixes #NNN" / "Closes #NNN"
+          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' | \
+            grep -oP '(?<=[Rr]esolves?|[Ff]ixes?|[Cc]loses?)\s+#\d+' | \
+            grep -oP '\d+' || true)
+
+          echo "Found linked issues: $ISSUE_NUMBERS"
 
           if [ -n "$ISSUE_NUMBERS" ]; then
             echo "" >> "$GITHUB_STEP_SUMMARY"
@@ -233,7 +220,7 @@ jobs:
               echo "Closing linked issue #${issue_num}"
               gh issue close "$issue_num" \
                 --repo "$REPO" \
-                --comment "Closed automatically: PR #${PR_NUMBER} was merged and all tempgrid files have been assigned permanent identifiers."
+                --comment "$COMMENT_BODY"
 
               echo "| #${issue_num} | commented + closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
             done <<< "$ISSUE_NUMBERS"
