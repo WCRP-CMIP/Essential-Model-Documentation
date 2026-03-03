@@ -252,8 +252,9 @@ jobs:
           # ── Find and close linked issues by parsing PR description ────────
           # Extract issue numbers from "Resolves #NNN" / "Fixes #NNN" / "Closes #NNN"
           ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' | \
-            grep -oP '(?<=[Rr]esolves?|[Ff]ixes?|[Cc]loses?)\s+#\d+' | \
-            grep -oP '\d+' || true)
+            grep -oE '[Rr]esolves?|[Ff]ixes?|[Cc]loses?\s+#[0-9]+' | \
+            grep -oE '#[0-9]+' | \
+            grep -oE '[0-9]+' || true)
 
           echo "Found linked issues: $ISSUE_NUMBERS"
 
