@@ -7,7 +7,7 @@ Overview of all registered data.
 | Category | Description | Records |
 |----------|-------------|--------:|
 | **Stage 1: Grid Foundations** | | |
-| [Grid Cells](horizontal_grid_cells.md) | Fundamental grid cell definitions (Stage 1). | 7 |
+| [Grid Cells](horizontal_grid_cell.md) | Fundamental grid cell definitions (Stage 1). | 7 |
 | [Horizontal Subgrids](horizontal_subgrid.md) | Subgrid definitions linking cells to variable type... | 7 |
 | **Stage 2: Computational Grids** | | |
 | [Horizontal Computational Grids](horizontal_computational_grid.md) | Computational grid configurations (Stage 2a). | 4 |

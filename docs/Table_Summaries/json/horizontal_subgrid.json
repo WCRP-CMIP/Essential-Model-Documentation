@@ -19,7 +19,7 @@
       "validation_key": "mass"
     },
     "description": "Mass variables on a regular latitude-longitude grid.",
-    "horizontal_grid_cells": "g100",
+    "horizontal_grid_cell": "g100",
     "ui_label": "",
     "validation_key": "s100"
   },
@@ -43,7 +43,7 @@
       "validation_key": "mass"
     },
     "description": "Mass variables on a linear spectral Gaussian grid (TL127).",
-    "horizontal_grid_cells": "g101",
+    "horizontal_grid_cell": "g101",
     "ui_label": "",
     "validation_key": "s101"
   },
@@ -67,7 +67,7 @@
       "validation_key": "mass"
     },
     "description": "Mass variables on an ocean tripolar grid (eORCA1).",
-    "horizontal_grid_cells": "g102",
+    "horizontal_grid_cell": "g102",
     "ui_label": "",
     "validation_key": "s102"
   },
@@ -117,7 +117,7 @@
       }
     ],
     "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
-    "horizontal_grid_cells": "g103",
+    "horizontal_grid_cell": "g103",
     "ui_label": "",
     "validation_key": "s103"
   },
@@ -141,7 +141,7 @@
       "validation_key": "mass"
     },
     "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
-    "horizontal_grid_cells": "g104",
+    "horizontal_grid_cell": "g104",
     "ui_label": "",
     "validation_key": "s104"
   },
@@ -165,7 +165,7 @@
       "validation_key": "x-velocity"
     },
     "description": "X-velocity (U-grid) on ocean tripolar grid (eORCA1).",
-    "horizontal_grid_cells": "g105",
+    "horizontal_grid_cell": "g105",
     "ui_label": "",
     "validation_key": "s105"
   },
@@ -189,7 +189,7 @@
       "validation_key": "y-velocity"
     },
     "description": "Y-velocity (V-grid) on ocean tripolar grid (eORCA1).",
-    "horizontal_grid_cells": "g106",
+    "horizontal_grid_cell": "g106",
     "ui_label": "",
     "validation_key": "s106"
   }
