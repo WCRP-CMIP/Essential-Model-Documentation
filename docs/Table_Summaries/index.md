@@ -7,6 +7,7 @@ Overview of all registered data.
 | Category | Description | Records |
 |----------|-------------|--------:|
 | **Stage 1: Grid Foundations** | | |
+| [Grid Cell](horizontal_grid_cell.md) | Fundamental grid cell definitions (Stage 1). | 11 |
 | [Horizontal Subgrids](horizontal_subgrid.md) | Subgrid definitions linking cells to variable type... | 7 |
 | **Stage 2: Computational Grids** | | |
 | [Horizontal Computational Grids](horizontal_computational_grid.md) | Computational grid configurations (Stage 2a). | 4 |
@@ -21,4 +22,4 @@ Overview of all registered data.
 | [Models (source_id)](model.md) | Registered CMIP models (Stage 4 output). | 2 |
 
 ---
-*Generated: 2026-03-03 23:15*
+*Generated: 2026-03-03 23:53*

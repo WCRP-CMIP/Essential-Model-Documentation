@@ -3,7 +3,7 @@
     "@id": "g100",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells.",
@@ -84,7 +84,7 @@
     "@id": "g101",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "Linear spectral Gaussian grid (TL127) with 24572 cells.",
@@ -179,7 +179,7 @@
     "@id": "g102",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "Ocean tripolar grid (eORCA1) with 105704 cells.",
@@ -240,7 +240,7 @@
     "@id": "g103",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "Adaptive polar stereographic mesh for ice sheets with variable resolution (9.6 km to 1.2 km for Greenland, 8 km to 2 km for Antarctica).",
@@ -315,7 +315,7 @@
     "@id": "g104",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "Global regular latitude-longitude grid with 1.25\u00b0 x 0.9\u00b0 resolution and 55296 cells, offset origin from g100.",
@@ -396,7 +396,7 @@
     "@id": "g105",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "U-grid cells on ocean tripolar configuration (eORCA1) for x-velocity.",
@@ -457,7 +457,7 @@
     "@id": "g106",
     "@type": [
       "emd",
-      "wcrp:horizontal_grid_cells",
+      "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCells"
     ],
     "description": "V-grid cells on ocean tripolar configuration (eORCA1) for y-velocity.",

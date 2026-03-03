@@ -37,9 +37,9 @@ def fetch_data_for_endpoint(endpoint):
 # =============================================================================
 
 DATA_TYPES = {
-    "horizontal_grid_cells": {
-        "title": "Grid Cells",
-        "endpoint": "horizontal_grid_cells",
+    "horizontal_grid_cell": {
+        "title": "Grid Cell",
+        "endpoint": "horizontal_grid_cell",
         "columns": [
             "id", "description", "grid_type", "grid_mapping", "region", 
             "n_cells", "x_resolution", "y_resolution", "units",
@@ -52,7 +52,7 @@ DATA_TYPES = {
         "title": "Horizontal Subgrids", 
         "endpoint": "horizontal_subgrid",
         "columns": [
-            "id", "description", "horizontal_grid_cells", "cell_variable_type"
+            "id", "description", "horizontal_grid_cell", "cell_variable_type"
         ],
         "description": "Subgrid definitions linking cells to variable types (Stage 1)."
     },
@@ -133,7 +133,7 @@ DATA_TYPES = {
 # =============================================================================
 
 STAGES = [
-    ("Stage 1: Grid Foundations", ["horizontal_grid_cells", "horizontal_subgrid"]),
+    ("Stage 1: Grid Foundations", ["horizontal_grid_cell", "horizontal_subgrid"]),
     ("Stage 2: Computational Grids", ["horizontal_computational_grid", "vertical_computational_grid"]),
     ("Model/Component Families", ["component_family", "source_family"]),
     ("Stage 3: Model Components", ["model_component", "component_config"]),
