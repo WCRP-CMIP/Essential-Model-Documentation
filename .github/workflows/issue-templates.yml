@@ -33,9 +33,31 @@ jobs:
 
       - name: Generate templates
         continue-on-error: true
+        env:
+          CMIPLD_TIMEOUT: 30
+          LDR_TIMEOUT: 30
         run: |
           echo "Generating issue templates..."
-          template_generate
+          
+          # Start LDR server with better wait
+          echo "Starting LDR server..."
+          ldr server start &
+          SERVER_PID=$!
+          
+          # Wait for server to be ready with health check
+          echo "Waiting for LDR server to be ready..."
+          for i in {1..30}; do
+            if curl -s http://localhost:3333/health >/dev/null 2>&1; then
+              echo "✅ LDR server is ready"
+              break
+            fi
+            echo "  Attempt $i/30 - server not ready yet, waiting..."
+            sleep 2
+          done
+          
+          # Run template generator with increased timeout
+          echo "Running template generator (timeout: 30s)..."
+          template_generate --timeout 30 || template_generate
 
           echo "Updating modification links..."
           template_update || echo "template_update not available"
