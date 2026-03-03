@@ -32,6 +32,7 @@ jobs:
           python-version: '3.11'
 
       - name: Generate templates
+        continue-on-error: true
         run: |
           echo "Generating issue templates..."
           template_generate
@@ -47,3 +48,4 @@ jobs:
           author_email: 'actions@wcrp-cmip.org'
           message: 'Auto-update issue templates'
           push: true
+
