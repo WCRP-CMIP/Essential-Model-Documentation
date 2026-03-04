@@ -87,7 +87,7 @@ def safe_filename(name):
 # ── context builder ───────────────────────────────────────────────────────────
 
 def prepare_context(data):
-    """Build the Jinja2 template context for one horizontal_grid_cells entry."""
+    """Build the Jinja2 template context for one horizontal_grid_cell entry."""
     entry_id = data.get("@id", "")
     vk       = _val(data.get("validation_key"), entry_id.split("/")[-1])
     name     = _val(data.get("ui_label")) or vk
@@ -150,7 +150,7 @@ def process_entry(env, template, entry_id, pbar=None):
         (pbar.write if pbar else print)(msg)
 
     try:
-        data = fetch_entry("horizontal_grid_cells", entry_id)
+        data = fetch_entry("horizontal_grid_cell", entry_id)
         if not data:
             _log(f"  No data for {entry_id}")
             return False
@@ -190,7 +190,7 @@ def main():
     env      = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)), autoescape=False)
     template = env.get_template("grid_cells.html.j2")
 
-    entries = list_entries("horizontal_grid_cells")
+    entries = list_entries("horizontal_grid_cell")
     print(f"\nHorizontal Grid Cells: {len(entries)}")
     if not entries:
         print("  No entries found.")
