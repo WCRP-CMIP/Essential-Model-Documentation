@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tactic | Component Family | Essential Model Documentation</title>
+    <title>g108 | Horizontal Grid Cells | Essential Model Documentation</title>
     <link rel="stylesheet" href="../../stylesheets/emd-page.css">
     <style>
     /* ── Collapsible nav bar ─────────────────────────────────────────── */
@@ -104,11 +104,36 @@
     }
     </style>
     
-<link rel="stylesheet" href="../../stylesheets/scientific_domains.css">
 <style>
-/* ── Domain accent header ───────────────────────────────────── */
-.emd-header.has-domain {
-    border-left: 4px solid var(--sd-color, var(--emd-primary));
+/* ── Stat strip ─────────────────────────────────────────────── */
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.25rem 0 0.5rem;
+}
+.hero-stat {
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: var(--emd-radius);
+    padding: 0.85rem 1.25rem;
+    min-width: 120px;
+    text-align: center;
+}
+.hero-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--emd-primary);
+    font-family: 'SF Mono', Monaco, monospace;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+.hero-stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--emd-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
 }
 /* ── Plain-language callout ─────────────────────────────────── */
 .plain-summary {
@@ -120,101 +145,47 @@
     line-height: 1.7;
 }
 .plain-summary strong { color: var(--emd-primary); }
-/* ── Domain pills row ───────────────────────────────────────── */
-.domain-pills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 0.75rem;
+/* ── Property table ─────────────────────────────────────────── */
+.prop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
 }
-.emd-domain-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.2rem 0.65rem;
-    border-radius: 9999px;
-    border: 1.5px solid var(--sd-color, var(--emd-primary));
-    background: var(--sd-bg, #eff6ff);
-    color: var(--sd-color, var(--emd-primary));
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+.prop-table tr { border-bottom: 1px solid var(--emd-border); }
+.prop-table tr:last-child { border-bottom: none; }
+.prop-table td {
+    padding: 0.6rem 0.75rem;
+    vertical-align: top;
 }
-/* ── Scientific info card ───────────────────────────────────── */
-.sci-info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-top: 0.5rem;
-}
-.sci-info-card {
-    background: var(--emd-bg);
-    border: 1px solid var(--emd-border);
-    border-radius: var(--emd-radius);
-    padding: 1rem 1.1rem;
-}
-.sci-info-card-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--emd-text-muted);
-    margin-bottom: 0.4rem;
-}
-.sci-info-card-value {
-    font-size: 0.9rem;
-    color: var(--emd-text);
-    line-height: 1.55;
-}
-/* ── Scientific domain chips (small squares) ────────────────── */
-.domain-chips-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-}
-.domain-chip {
-    width: 120px;
-    height: 120px;
-    border-left: 4px solid var(--sd-color, var(--emd-border));
-    border-top: 1px solid var(--emd-border);
-    border-right: 1px solid var(--emd-border);
-    border-bottom: 1px solid var(--emd-border);
-    border-radius: var(--emd-radius);
-    background: var(--emd-bg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0.5rem 0.6rem;
-    gap: 0.2rem;
-}
-.domain-chip-name {
-    font-size: 0.75rem;
+.prop-table td:first-child {
     font-weight: 600;
-    color: var(--emd-text);
-    line-height: 1.2;
+    color: var(--emd-text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 34%;
+    white-space: nowrap;
 }
-.domain-chip-id {
-    font-size: 0.65rem;
-    color: var(--sd-color, var(--emd-text-muted));
+.prop-table td:last-child {
     font-family: 'SF Mono', Monaco, monospace;
-    opacity: 0.8;
-}
-.family-link-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.85rem 1.1rem;
-    background: var(--emd-bg);
-    border: 1px solid var(--emd-border);
-    border-radius: var(--emd-radius);
-    text-decoration: none;
+    font-size: 0.875rem;
     color: var(--emd-text);
-    transition: box-shadow 0.2s, border-color 0.2s;
-    margin-bottom: 0.5rem;
 }
-.family-link-card:hover { box-shadow: var(--emd-shadow); border-color: var(--emd-primary); }
+/* ── CV tags ────────────────────────────────────────────────── */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.cv-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid var(--emd-border);
+    color: var(--emd-text-muted);
+    cursor: default;
+}
+.cv-tag.primary {
+    border-color: var(--emd-primary);
+    color: var(--emd-primary);
+    background: rgba(37,99,235,0.07);
+}
 </style>
 
 </head>
@@ -267,39 +238,50 @@
                 <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
                 
 <span>→</span>
-<span>Component Family</span>
+<a href="https://emd.mipcvs.dev/horizontal_grid_cells/" target="_blank">Horizontal Grid Cells</a>
 <span>→</span>
-<span>tactic</span>
+<span>g108</span>
 
             </nav>
             
-<div class="emd-badge">Component Family</div>
-<h1 class="emd-title">tactic</h1>
+<div class="emd-badge">Horizontal Grid Cells</div>
+<h1 class="emd-title">g108</h1>
+<p class="emd-subtitle">Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree grid.</p>
 
-<p class="emd-subtitle">TACTIC tropospheric aerosol scheme developed by CNRM.</p>
+<div class="hero-stats">
+    
+    
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:1.2rem;">1.875°×1.25°</div>
+        <div class="hero-stat-label">Resolution (Degrees)</div>
+    </div>
+    
+    
+    
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:0.85rem;padding-top:0.3rem;">Regular Latitude Longitude</div>
+        <div class="hero-stat-label">Grid Type</div>
+    </div>
+    
+    
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:0.85rem;padding-top:0.3rem;">Static</div>
+        <div class="hero-stat-label">Temporal</div>
+    </div>
+    
+</div>
+
 <div class="emd-header-meta">
     
-    <div class="emd-meta-item">
-        <span class="emd-meta-label">Primary Institution</span>
-        <span class="emd-meta-value">
-            
-            <a href="https://nmsc.kma.go.kr" target="_blank">National Meteorological Satellite Center</a>
-            
-        </span>
-    </div>
-    
     
     <div class="emd-meta-item">
-        <span class="emd-meta-label">Scientific Domains</span>
-        <span class="emd-meta-value">Aerosol</span>
+        <span class="emd-meta-label">Region</span>
+        <span class="emd-meta-value">Global</span>
     </div>
-    
-    
-    
     
     <div class="emd-meta-item">
         <span class="emd-meta-label">Registry</span>
-        <span class="emd-meta-value"><a href="" target="_blank">JSON-LD →</a></span>
+        <span class="emd-meta-value"><a href="g108" target="_blank">JSON-LD →</a></span>
     </div>
 </div>
 
@@ -312,174 +294,89 @@
 
 <div class="plain-summary">
     <strong>What is this?</strong>
-    tactic is an <strong>component family</strong>
-    developed by <strong>National Meteorological Satellite Center</strong>
+    Grid cell set <strong>g108</strong>
+     uses a <strong>Regular Latitude Longitude</strong> grid
+    
     .
     
-    It covers the
-    <strong>Aerosol</strong>
-    domain of Earth system science.
+    The horizontal resolution is <strong>1.875°&nbsp;×&nbsp;1.25°</strong> (Degrees).
+    
+    
+    The grid is <strong>Static</strong> in time.
+    
+    
+    
+    It covers the <strong>Global</strong> region.
     
     
 </div>
-
 
 
 <section class="emd-section expanded">
     <div class="emd-section-header" onclick="toggleSection(this)">
         <div class="emd-section-title-wrapper">
             <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
-            <h2 class="emd-section-title">Scientific Domains <span class="emd-section-count">(1)</span></h2>
+            <h2 class="emd-section-title">Grid Properties</h2>
         </div>
         <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
     </div>
     <div class="emd-section-content">
         <div class="emd-section-body">
             <div class="emd-section-divider"></div>
-            <div class="domain-chips-grid">
-            
-            <div class="domain-chip sd-aerosol">
-                <span class="domain-chip-name">Aerosol</span>
-                <span class="domain-chip-id">aerosol</span>
-            </div>
-            
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<section class="emd-section expanded">
-    <div class="emd-section-header" onclick="toggleSection(this)">
-        <div class="emd-section-title-wrapper">
-            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
-            <h2 class="emd-section-title">Description</h2>
-        </div>
-        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
-    </div>
-    <div class="emd-section-content">
-        <div class="emd-section-body">
-            <div class="emd-section-divider"></div>
-            <p class="emd-description-text"><strong>TACTIC</strong> <strong>tropospheric</strong> <strong>aerosol</strong> <strong>scheme</strong> developed by <strong>CNRM</strong>.</p>
-            
-            
-        </div>
-    </div>
-</section>
-
-
-
-<section class="emd-section expanded">
-    <div class="emd-section-header" onclick="toggleSection(this)">
-        <div class="emd-section-title-wrapper">
-            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-            <h2 class="emd-section-title">Institutions</h2>
-        </div>
-        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
-    </div>
-    <div class="emd-section-content">
-        <div class="emd-section-body">
-            <div class="emd-section-divider"></div>
-            <div class="emd-domains-grid">
-            
-            <div class="emd-domain-card">
-                <div class="emd-domain-card-header">
-                    <span class="emd-domain-card-title">
-                        <a href="https://nmsc.kma.go.kr" target="_blank" style="color:inherit;text-decoration:none;">National Meteorological Satellite Center</a>
+            <table class="prop-table">
+                
+                <tr>
+                    <td>Grid Type</td>
+                    <td>Regular Latitude Longitude</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Temporal Refinement</td>
+                    <td>Static</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Resolution (x × y)</td>
+                    <td>1.875° × 1.25° (Degrees)</td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Truncation</td>
+                    <td>
+                        ./
                         
-                    </span>
-                    <span class="emd-domain-card-type">Primary</span>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Southernmost Latitude</td>
+                    <td>-89.375°</td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Westernmost Longitude</td>
+                    <td>0.9375°</td>
+                </tr>
+                
+            </table>
+            
+            <div style="margin-top:1rem;">
+                <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--emd-text-muted);margin-bottom:0.4rem;">
+                    Region
                 </div>
-                
-                <div class="emd-domain-card-id">NMSC</div>
-                
-                
-                <p class="emd-domain-card-description">
-                    Chinch&#39;ŏn, South Korea
-                     · Asia
-                </p>
-                
-                <div class="emd-domain-card-meta">
-                    <span class="emd-meta-tag">Est. 2009</span>
-                    <a href="https://ror.org/043zvrs33" target="_blank" class="emd-meta-tag">ROR ↗</a>
+                <div class="tag-row">
+                    
+                    <span class="cv-tag primary">Global</span>
+                    
                 </div>
             </div>
-            
-            
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-<section class="emd-section expanded">
-    <div class="emd-section-header" onclick="toggleSection(this)">
-        <div class="emd-section-title-wrapper">
-            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
-            <h2 class="emd-section-title">Code &amp; Development</h2>
-        </div>
-        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
-    </div>
-    <div class="emd-section-content">
-        <div class="emd-section-body">
-            <div class="emd-section-divider"></div>
-            <div class="emd-tech-grid">
-                
-                <div class="emd-tech-item">
-                    <div class="emd-tech-label">Source Code Repository</div>
-                    <div class="emd-tech-value">
-                        none
-                    </div>
-                </div>
-                
-                
-                <div class="emd-tech-item">
-                    <div class="emd-tech-label">Shared Code Base</div>
-                    <div class="emd-tech-value">none</div>
-                </div>
-                
-                
-                <div class="emd-tech-item">
-                    <div class="emd-tech-label">Programming Languages</div>
-                    <div class="emd-type-badges">
-                        <span class="emd-type-badge">none</span>
-                    </div>
-                </div>
-                
-                
-                <div class="emd-tech-item">
-                    <div class="emd-tech-label">License</div>
-                    <div class="emd-tech-value">none</div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-<section class="emd-section">
-    <div class="emd-section-header" onclick="toggleSection(this)">
-        <div class="emd-section-title-wrapper">
-            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
-            <h2 class="emd-section-title">References <span class="emd-section-count">(0)</span></h2>
-        </div>
-        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
-    </div>
-    <div class="emd-section-content">
-        <div class="emd-section-body">
-            <div class="emd-section-divider"></div>
-            
-            <p class="emd-description-text">No references available.</p>
             
         </div>
     </div>
@@ -500,21 +397,11 @@
             <div class="emd-tech-grid">
                 <div class="emd-tech-item">
                     <div class="emd-tech-label">Resource Identifier (@id)</div>
-                    <div class="emd-tech-value">tactic</div>
+                    <div class="emd-tech-value">g108</div>
                 </div>
                 <div class="emd-tech-item">
                     <div class="emd-tech-label">Validation Key</div>
-                    <div class="emd-tech-value">tactic</div>
-                </div>
-                <div class="emd-tech-item">
-                    <div class="emd-tech-label">JSON-LD Context</div>
-                    <div class="emd-tech-value"><a href="" target="_blank"></a></div>
-                </div>
-                <div class="emd-tech-item">
-                    <div class="emd-tech-label">Resource Types</div>
-                    <div class="emd-type-badges">
-                        <span class="emd-type-badge">emd</span><span class="emd-type-badge">wcrp:model_family</span><span class="emd-type-badge">esgvoc:ModelFamily</span>
-                    </div>
+                    <div class="emd-tech-value">g108</div>
                 </div>
             </div>
         </div>
@@ -573,97 +460,72 @@
     });
 
     
-// Apply domain colour to header left border
-(function() {
-    const pill = document.querySelector('.emd-domain-pill');
-    const header = document.querySelector('.emd-header');
-    if (pill && header) {
-        const color = getComputedStyle(pill).getPropertyValue('--sd-color').trim();
-        if (color) { header.classList.add('has-domain'); header.style.setProperty('--sd-color', color); }
-    }
-})();
 const sourceData = {
-  "@id": "tactic",
+  "@context": "emd:horizontal_grid_cell/g108",
+  "@id": "g108",
   "@type": [
-    "emd",
-    "wcrp:model_family",
-    "esgvoc:ModelFamily"
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell",
+    "emd"
   ],
-  "collaborative_institutions": [],
-  "common_scientific_basis": "none",
-  "computational_requirements": "none",
-  "description": "TACTIC tropospheric aerosol scheme developed by CNRM.",
-  "documentation": "none",
-  "established": "none",
-  "evolution": "none",
-  "family_type": "component",
-  "license": "none",
-  "primary_institution": {
-    "@id": "cnrm",
+  "coordinate_system": "latitude_longitude",
+  "description": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree grid.",
+  "grid_type": "regular_latitude_longitude",
+  "number_of_cells": "27648",
+  "region": {
+    "@id": "global",
     "@type": [
-      "wcrp:organisation",
-      "esgvoc:Organisation",
       "universal",
+      "wcrp:region",
+      "esgvoc:Region",
       "constants"
     ],
-    "acronyms": "NMSC",
-    "aliases": "\uae30\uc0c1\uccad \uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130",
-    "description": "",
-    "established": 2009,
-    "kind": "facility",
-    "labels": [
-      "National Meteorological Satellite Center",
-      "\uad6d\uac00\uae30\uc0c1\uc704\uc131\uc13c\ud130"
-    ],
-    "location": {
-      "@id": "universal:location/043zvrs33",
-      "@type": "wcrp:location",
-      "continent_code": "AS",
-      "continent_name": "Asia",
-      "country_code": "KR",
-      "country_name": "South Korea",
-      "country_subdivision_code": "43",
-      "country_subdivision_name": "North Chungcheong",
-      "lat": 36.85667,
-      "lng": 127.44333,
-      "name": "Chinch'\u014fn"
-    },
-    "ror": "043zvrs33",
-    "ui_label": "National Meteorological Satellite Center",
-    "url": [
-      "https://nmsc.kma.go.kr",
-      "https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EA%B8%B0%EC%83%81%EC%9C%84%EC%84%B1%EC%84%BC%ED%84%B0"
-    ],
-    "validation_key": "CNRM"
+    "alias": "glb",
+    "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+    "ui_label": "Global",
+    "validation_key": "global"
   },
-  "programming_languages": "none",
-  "references": [],
-  "representative_member": "none",
-  "scientific_domains": {
-    "@id": "aerosol",
+  "southernmost_latitude": "-89.375",
+  "temporal_refinement": {
+    "@id": "static",
     "@type": [
-      "wcrp:scientific_domain",
-      "esgvoc:ScientificDomain",
       "universal",
+      "wcrp:temporal_refinement",
+      "esgvoc:TemporalRefinement",
       "constants"
     ],
-    "alias": "aerosol",
-    "description": "Aerosol",
-    "ui_label": "Aerosol",
-    "validation_key": "aerosol"
+    "description": "Grid resolution remains constant throughout the simulation.",
+    "ui_label": "Static",
+    "validation_key": "static"
   },
-  "shared_code_base": "none",
-  "software_dependencies": "none",
-  "source_code_repository": "none",
+  "truncation_method": "./",
+  "truncation_number": "",
   "ui_label": "",
-  "validation_key": "tactic",
-  "variation_dimensions": "none",
-  "website": "none"
+  "units": {
+    "@id": "degree",
+    "@type": [
+      "universal",
+      "wcrp:units",
+      "esgvoc:Units",
+      "constants"
+    ],
+    "alias": [
+      "deg",
+      "degrees"
+    ],
+    "description": "Angular measurement in degrees for latitude/longitude coordinates.",
+    "ui_label": "Degrees",
+    "validation_key": "degree"
+  },
+  "validation_key": "g108",
+  "westernmost_longitude": "0.9375",
+  "x_resolution": "1.875",
+  "y_resolution": "1.25"
 };
 document.addEventListener("copy", function(e) {
     e.preventDefault();
     e.clipboardData.setData("text/plain",
-        "// JSON-LD: tactic\n// Generated: 2026-03-04 00:08 UTC\n\n" +
+        "// JSON-LD: g108\n// Generated: 2026-03-04 00:08 UTC\n\n" +
         JSON.stringify(sourceData, null, 2));
 });
 

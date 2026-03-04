@@ -82,7 +82,7 @@
     "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
     "family": "clm",
     "name": "CLM4",
-    "references": [],
+    "references": "https://doi.org/10.5194/gmd-5-1341-2012",
     "ui_label": "",
     "validation_key": "clm4"
   },
@@ -153,12 +153,12 @@
         "validation_key": "gelato"
       },
       "name": "GELATO",
-      "references": [],
+      "references": "https://doi.org/10.1029/2019MS001683",
       "ui_label": "",
       "validation_key": "gelato"
     },
     "name": "GELATO",
-    "references": [],
+    "references": "https://doi.org/10.1029/2019MS001683",
     "ui_label": "",
     "validation_key": "gelato"
   },
@@ -245,7 +245,7 @@
     "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies model volume 2 version trace gases.",
     "family": "pisces",
     "name": "PISCESv2-gas",
-    "references": "https://doi.org/10.1029/2019MS001791",
+    "references": [],
     "ui_label": "",
     "validation_key": "piscesv2-gas"
   },
@@ -305,8 +305,8 @@
     "family": "surfex",
     "name": "SURFEX v8 modeling platform",
     "references": [
-      "https://doi.org/10.1029/2018MS001545",
-      "https://doi.org/10.5194/gmd-10-4207-2017"
+      "https://doi.org/10.1029/2019MS001886",
+      "https://doi.org/10.3402/tellusa.v68.31274"
     ],
     "ui_label": "",
     "validation_key": "surfex_v8_modeling_platform"
@@ -372,7 +372,7 @@
         "validation_key": "tactic"
       },
       "name": "TACTIC",
-      "references": "https://doi.org/10.1029/2019MS001816",
+      "references": [],
       "ui_label": "",
       "validation_key": "tactic"
     },
