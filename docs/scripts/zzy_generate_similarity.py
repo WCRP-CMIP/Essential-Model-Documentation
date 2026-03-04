@@ -66,7 +66,7 @@ ENDPOINT_OVERRIDES: dict[str, str] = {
     "Model_Components":              "model_component",
     "Horizontal_Computational_Grids": "horizontal_computational_grid",
     "Vertical_Computational_Grids":  "vertical_computational_grid",
-    "Horizontal_Grid_Cells":         "horizontal_grid_cells",
+    "Horizontal_Grid_Cell":         "horizontal_grid_cell",
 }
 
 PRE_FILTER: dict[str, tuple[str, str]] = {

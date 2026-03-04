@@ -23,7 +23,7 @@
     "description": "ARPEGE-Climat Version 6.3 is the atmospheric component of the CNRM climate and Earth System models (CNRM-CM6-1 and CNRM-ESM2-1).",
     "family": "arpege-climat",
     "name": "Arpege-Climat Version 6.3",
-    "references": "https://doi.org/10.1029/2020MS002075",
+    "references": [],
     "ui_label": "",
     "validation_key": "arpege-climat_version_6_3"
   },
@@ -54,7 +54,7 @@
     "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
     "family": "bisicles",
     "name": "BISICLES-UKESM-ISMIP6-1.0",
-    "references": [],
+    "references": "https://doi.org/10.1029/2021MS002520",
     "ui_label": "",
     "validation_key": "bisicles-ukesm-ismip6-1_0"
   },
@@ -153,12 +153,12 @@
         "validation_key": "gelato"
       },
       "name": "GELATO",
-      "references": "https://doi.org/10.1029/2019MS001683",
+      "references": [],
       "ui_label": "",
       "validation_key": "gelato"
     },
     "name": "GELATO",
-    "references": "https://doi.org/10.1029/2019MS001683",
+    "references": [],
     "ui_label": "",
     "validation_key": "gelato"
   },
@@ -245,7 +245,10 @@
     "description": "Pelagic Interaction Scheme for Carbon and Ecosystem Studies model volume 2 version trace gases.",
     "family": "pisces",
     "name": "PISCESv2-gas",
-    "references": [],
+    "references": [
+      "https://doi.org/10.5194/bg-18-3823-2021",
+      "https://doi.org/10.5194/esd-14-399-2023"
+    ],
     "ui_label": "",
     "validation_key": "piscesv2-gas"
   },
@@ -276,7 +279,7 @@
     "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
     "family": "reprobus",
     "name": "REPROBUS-C (v2.0)",
-    "references": "https://doi.org/10.1029/2019MS001816",
+    "references": [],
     "ui_label": "",
     "validation_key": "reprobus-c_v2_0"
   },
@@ -305,8 +308,9 @@
     "family": "surfex",
     "name": "SURFEX v8 modeling platform",
     "references": [
-      "https://doi.org/10.1029/2019MS001886",
-      "https://doi.org/10.3402/tellusa.v68.31274"
+      "https://doi.org/10.1029/2018MS001545",
+      "https://doi.org/10.3402/tellusa.v68.31274",
+      "https://doi.org/10.5194/gmd-10-4207-2017"
     ],
     "ui_label": "",
     "validation_key": "surfex_v8_modeling_platform"
@@ -372,7 +376,7 @@
         "validation_key": "tactic"
       },
       "name": "TACTIC",
-      "references": [],
+      "references": "https://doi.org/10.1029/2019MS001816",
       "ui_label": "",
       "validation_key": "tactic"
     },

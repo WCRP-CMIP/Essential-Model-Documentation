@@ -18,4 +18,4 @@ Fundamental grid cell definitions (Stage 1).
 | **g109** | Horizontal grid cell with a regular latitude lo... | regular_latitude_longitude | ** | global | ** | 1.875 | 1.25 | degree | -89.375 | 0 | ./ | ** | static |
 | **g110** | Horizontal grid cell with a tripolar grid type ... | tripolar | ** | global | ** | ** | ** | ./ | ** | ** | ./ | ** | static |
 
-*Generated: 2026-03-04 00:08*
+*Generated: 2026-03-04 00:18*
