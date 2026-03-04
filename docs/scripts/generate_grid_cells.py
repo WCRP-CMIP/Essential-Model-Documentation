@@ -27,11 +27,11 @@ from helpers.data_loader import init_loader, list_entries, fetch_entry
 
 
 TEMPLATE_DIR = SCRIPT_DIR / "helpers" / "templates"
-OUTPUT_DIR   = SCRIPT_DIR.parent / "EMD_Repository" / "Horizontal_Grid_Cells"
+OUTPUT_DIR   = SCRIPT_DIR.parent / "EMD_Repository" / "Horizontal_Grid_Cell"
 
 OLD_DIRS = [
-    SCRIPT_DIR.parent / "horizontal_grid_cells",
-    SCRIPT_DIR.parent / "Horizontal_Grid_Cells",
+    SCRIPT_DIR.parent / "horizontal_grid_cell",
+    SCRIPT_DIR.parent / "Horizontal_Grid_Cell",
     SCRIPT_DIR.parent / "10_EMD_Repository" / "07_Horizontal_Grid_Cells",
     SCRIPT_DIR.parent / "EMD_Repository" / "07_Horizontal_Grid_Cells",
 ]
@@ -118,7 +118,7 @@ def prepare_context(data):
         "validation_key": vk,
         "name":         name,
         "description":  escape_html(desc),
-        "page_type":    "Horizontal Grid Cells",
+        "page_type":    "Horizontal Grid Cell",
         # resolution
         "x_resolution":           x_res,
         "y_resolution":           y_res,
@@ -191,7 +191,7 @@ def main():
     template = env.get_template("grid_cells.html.j2")
 
     entries = list_entries("horizontal_grid_cell")
-    print(f"\nHorizontal Grid Cells: {len(entries)}")
+    print(f"\nHorizontal Grid Cell: {len(entries)}")
     if not entries:
         print("  No entries found.")
         return 0
