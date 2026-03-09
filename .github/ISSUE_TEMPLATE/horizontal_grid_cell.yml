@@ -348,6 +348,14 @@ body:
         </details>
       placeholder: "127"
 
+  - type: textarea
+    id: description
+    attributes:
+      label: Additional Information
+      description: |
+        Any additional information that may distinguish this specific grid from others with the same properties.
+      placeholder: "Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None"
+
   - type: markdown
     attributes:
       value: |

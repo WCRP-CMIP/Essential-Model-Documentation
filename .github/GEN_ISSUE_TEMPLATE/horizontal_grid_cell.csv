@@ -41,8 +41,8 @@ Define the physical grid structure that can be reused across multiple subgrid re
 11,input,westernmost_longitude,Westernmost Longitude,The western boundary of the grid in degrees east.,none,false,0.5,,
 12,dropdown,truncation_method,Truncation Method,The spectral truncation type for spectral grids only.,truncation_method,false,,list_with_na,0
 13,input,truncation_number,Truncation Number,The maximum wavenumber retained for spectral grids only.,none,false,127,,
-14,textarea,description,Additional Notes,Any additional information that characterises this grid differently from others with the same configuration.,none,false,Add any additional information which characterises this grid differently from others with the same configuration. If none please leave blank.,,
-15,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
+14,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
+15,textarea,description,Additional Information,Any additional information that may distinguish this specific grid from others with the same properties.,none,false,"Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None",,
 16,markdown,metadata_header,,"---
 
 ## Issue Handling
