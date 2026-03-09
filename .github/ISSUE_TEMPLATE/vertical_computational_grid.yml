@@ -1,12 +1,16 @@
 name: "Stage 2b: Vertical Computational Grid"
 description: Register vertical computational grid (Stage 2b of 4)
 title: "[EMD] Stage 2b: Vertical Computational Grid: [do not edit]"
-labels: ['emd-submission', 'vertical_computational_grid', 'Review', 'pull_req', 'needs-review']
+labels: ['emd-submission', 'vertical_computational_grid', 'Review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Stage 2b: Vertical Computational Grid
+        | Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+        |:---:|:---:|:---:|:---:|
+        | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / **🟢 Vertical Grid** | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
+        
+        # Stage 2b: Vertical Computational Grid
         
         Defines the vertical level structure for a model component.
         
@@ -15,44 +19,11 @@ body:
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
         > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
-        
-        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50-rNWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHCzq_8aG36oPjRuy1Qo7DZtA0dE_JAyXNNhid1rfIldq1mxrVaj1mpZLatp1VvAvITt2n6l5RzAqNkNp9k4aNwa-CrTUKvstxoGpuBPGQ_zdi3r2m5_Ayb4HJE)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
-
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-      description: |
-        A brief characterization of this vertical grid including number of levels and coordinate type.
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Grid characterization**
-        
-        Brief description of this vertical grid.
-        
-        **What to include:**
-        1. Number of levels
-        2. Coordinate type
-        3. Vertical extent
-        
-        **Examples:**
-        - '91-level hybrid sigma-pressure coordinate extending to 0.01 hPa'
-        - '75-level z-coordinate ocean grid from surface to 6000m'
-        - '14 soil layers from 0.01m to 12m depth'
-        
-        </details>
-      placeholder: "1. Number of levels
-2. Coordinate type
-3. Vertical extent"
-    validations:
-      required: true
 
   - type: dropdown
     id: vertical_coordinate
     attributes:
-      label: Coordinate Type
+      label: Vertical Coordinate
       description: |
         The vertical coordinate system used to define level positions.
         
@@ -108,7 +79,7 @@ body:
   - type: input
     id: n_z
     attributes:
-      label: Number of Levels
+      label: n_z
       description: |
         The total number of vertical levels in the grid.
         
@@ -123,6 +94,14 @@ body:
         
         </details>
       placeholder: "91"
+
+  - type: input
+    id: n_z_range
+    attributes:
+      label: n_z_range
+      description: |
+        The minimum and maximum number of vertical levels where the number varies in time or across the horizontal grid. Only provide if n_z is not set.
+      placeholder: "5, 15"
 
   - type: input
     id: top_layer_thickness
@@ -143,7 +122,7 @@ body:
         Provide nominal value if thickness varies.
         
         </details>
-      placeholder: "2.0"
+      placeholder: "2"
 
   - type: input
     id: bottom_layer_thickness
@@ -164,7 +143,7 @@ body:
         **Leave blank if:** Layer is expandable (e.g., ice accumulation).
         
         </details>
-      placeholder: "25.0"
+      placeholder: "25"
 
   - type: input
     id: total_thickness
@@ -187,6 +166,27 @@ body:
         
         </details>
       placeholder: "80000"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Additional Information
+      description: |
+        Any additional information that may distinguish this specific grid from others with the same properties.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Additional characterization**
+        
+        A description is automatically generated from the structured fields above (number of levels, coordinate type, thickness, extent).
+        
+        Use this field only to add context that distinguishes this grid from others with the same configuration — for example, a non-standard top-of-atmosphere or an unusual layer distribution.
+        
+        **Leave blank if** the structured fields fully describe the grid.
+        
+        </details>
+      placeholder: "Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None"
 
   - type: markdown
     attributes:

@@ -1,78 +1,125 @@
 """
-Handler for Model Family registration (Stage 2, supporting)
+Handler for Model Family registration (Supporting stage)
+
+Handles both:
+  - Earth System / coupled model families  (family_type = "model")
+  - Single-domain component families       (family_type = "component")
 """
 
+import os
+from cmipld.utils.similarity import ReportBuilder
+
+kind = __file__.split('/')[-1].replace('.py', '')
+
+# Fields that come in as comma- or newline-separated strings → lists
+LIST_FIELDS = {'collaborative_institutions', 'scientific_domains', 'reference_dois'}
+
+# Fields to drop from the final JSON (also strip any bare id/type that validators add)
+IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+          'family_type', 'family_name', 'name'}
+
+# Non-@ prefixed bare keys that JSONValidator may inject and must not appear in output
+BAD_KEYS = {'id', 'type', 'context'}
+
+
+def _clean_id(s: str) -> str:
+    return s.strip().lower().replace(' ', '-')
+
+
+def _parse_list(value) -> list:
+    """Split comma- or newline-separated string into a cleaned list.
+    Also handles lists directly (GitHub returns multi-select fields as lists)."""
+    if isinstance(value, list):
+        return [str(v).strip() for v in value if str(v).strip()]
+    delim = '\n' if '\n' in str(value) else ','
+    return [v.strip() for v in str(value).split(delim) if v.strip()]
+
+
 def run(parsed_issue, issue, dry_run=False):
-    """
-    Process model family submission.
-    Returns None to let generic handler build initial data.
-    """
-    return None
+    # 'Family Name' label → parsed key 'family_name' (field_id is 'name')
+    family_name = parsed_issue.get('family_name') or parsed_issue.get('name') or ''
+    if not family_name:
+        return None  # fall back to generic handler
 
+    atid         = _clean_id(family_name)     # lowercased slug for @id / filename
+    validation_key = family_name.strip()      # original case for validation_key
+    family_type  = (parsed_issue.get('family_type') or '').strip().lower()
 
-def update(data, parsed_issue, issue, dry_run=False):
-    """
-    Enrich model family data with computed fields and validation.
-    
-    Args:
-        data: Initial JSON-LD data built from issue
-        parsed_issue: Parsed issue body sections
-        issue: Full issue metadata
-        dry_run: If True, don't perform side effects
-    
-    Returns:
-        Enriched data dict
-    """
-    
-    # Determine family type
-    family_type = parsed_issue.get('family_type', '').lower()
-    if 'component' in family_type:
-        data['@type'] = ['wcrp:model_family_component']
-    elif 'earth' in family_type or 'coupled' in family_type:
-        data['@type'] = ['wcrp:model_family_earth_system']
+    # Set @type based on family_type dropdown value
+    if family_type == 'component':
+        wcrp_type  = 'wcrp:component_family'
+        esgvoc_type = 'esgvoc:component_family'
     else:
-        data['@type'] = ['wcrp:model_family']
-    
-    # Parse institution references (should link to existing organisations)
-    if 'primary_institution' in data:
-        inst = data['primary_institution']
-        if isinstance(inst, str):
-            # Store for validation - should reference valid institution
-            data['primary_institution_ref'] = inst.strip()
-    
-    if 'collaborative_institutions' in data:
-        collab = data['collaborative_institutions']
-        if isinstance(collab, str):
-            collab = [c.strip() for c in collab.split(',')]
-            data['collaborative_institutions'] = collab
-    
-    # Parse scientific domains
-    if 'scientific_domains' in data:
-        domains = data['scientific_domains']
-        if isinstance(domains, str):
-            domains = [d.strip() for d in domains.split(',')]
-            data['scientific_domains'] = domains
-    
-    # Parse DOI references
-    if 'reference_dois' in data:
-        dois = data['reference_dois']
-        if isinstance(dois, str):
-            dois = [d.strip() for d in dois.split('\n') if d.strip()]
-            data['reference_dois'] = dois
-    
-    # Validate year format
-    if 'established' in data:
-        try:
-            year = int(data['established'])
-            if 1950 <= year <= 2100:  # Reasonable range
-                data['year_valid'] = True
-        except (ValueError, TypeError):
-            pass
-    
-    # Ensure website format
-    if 'website' in data:
-        url = data['website'].strip()
-        if url and not url.startswith(('http://', 'https://')):
+        # "model" or anything else → coupled ESM family
+        wcrp_type  = 'wcrp:model_family'
+        esgvoc_type = 'esgvoc:model_family'
+
+    # Build data from remaining parsed fields
+    data = {
+        "@context":       "_context",
+        "@id":            atid,
+        "@type":          [wcrp_type, esgvoc_type],
+        "validation_key": validation_key,
+        "family_type":    family_type or 'model',
+        "name":           family_name.strip(),
+    }
+
+    for k, v in parsed_issue.items():
+        if k in IGNORE or not v:
+            continue
+        if k in LIST_FIELDS:
+            data[k] = _parse_list(v)
+        else:
+            data[k] = v.strip() if isinstance(v, str) else v
+
+    # Normalise website: ensure https:// prefix
+    if 'website' in data and data['website']:
+        url = data['website']
+        if not url.startswith(('http://', 'https://')):
             data['website'] = f"https://{url}"
-    
-    return data
+
+    # 'Year Established' label → parsed key 'year_established'; store as 'established'
+    year_val = data.pop('year_established', None) or data.pop('established', None)
+    if year_val:
+        try:
+            year = int(year_val)
+            data['established'] = year if 1900 <= year <= 2100 else None
+        except (ValueError, TypeError):
+            data['established'] = None
+
+    # 'Reference DOIs' label → parsed key 'reference_dois'; store as 'references'
+    refs = data.pop('reference_dois', None) or data.pop('references', None)
+    if refs:
+        data['references'] = _parse_list(refs)
+
+    collab_str   = parsed_issue.get('additional_collaborators',
+                                    parsed_issue.get('collaborators', ''))
+    contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
+                   if collab_str else []
+    file_path    = os.path.join(kind, f"{atid}.json")
+
+    # Strip any bare (non-@) id/type/context keys and other unwanted fields
+    for key in BAD_KEYS:
+        data.pop(key, None)
+
+    return {file_path: data, '_author': issue.get('author'),
+            '_contributors': contributors, '_make_pull': True}
+
+
+def update(files_to_write, parsed_issue, issue, dry_run=False):
+    for file_path, data in files_to_write.items():
+        if file_path.startswith('_'):
+            continue
+
+        # Re-strip bad keys in case JSONValidator re-introduced them
+        for key in BAD_KEYS:
+            data.pop(key, None)
+
+        print(f"  Generating review report for {file_path} …", flush=True)
+        try:
+            data['_validation_report'] = ReportBuilder(
+                folder_url=f"emd:{kind}", kind=kind, item=data, link_threshold=80.0
+            ).build()
+        except Exception as e:
+            print(f"  ⚠ Report generation failed: {e}", flush=True)
+            data['_validation_report'] = ''

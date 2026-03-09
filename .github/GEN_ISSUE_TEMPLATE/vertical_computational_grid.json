@@ -5,14 +5,12 @@
   "labels": [
     "emd-submission",
     "vertical_computational_grid",
-    "Review",
-    "pull_req",
-    "needs-review"
+    "Review"
   ],
   "issue_category": "vertical_computational_grid",
   "dropdown_title": "Detailed Guidance",
   "field_guidance": {
-    "description": "**Grid characterization**\n\nBrief description of this vertical grid.\n\n**What to include:**\n1. Number of levels\n2. Coordinate type\n3. Vertical extent\n\n**Examples:**\n- '91-level hybrid sigma-pressure coordinate extending to 0.01 hPa'\n- '75-level z-coordinate ocean grid from surface to 6000m'\n- '14 soil layers from 0.01m to 12m depth'",
+    "description": "**Additional characterization**\n\nA description is automatically generated from the structured fields above (number of levels, coordinate type, thickness, extent).\n\nUse this field only to add context that distinguishes this grid from others with the same configuration \u2014 for example, a non-standard top-of-atmosphere or an unusual layer distribution.\n\n**Leave blank if** the structured fields fully describe the grid.",
     "vertical_coordinate": "**Coordinate system**\n\n**Atmosphere:**\n- **atmosphere-hybrid-height-coordinate**: Height-based with terrain following near surface\n- **atmosphere-hybrid-sigma-pressure-coordinate**: Pressure-based with terrain following (most common)\n- **atmosphere-sigma-coordinate**: Pure terrain-following\n\n**Ocean:**\n- **depth**: Fixed depth levels (z-coordinate)\n- **ocean-s-coordinate**: Stretched terrain-following\n- **ocean-sigma-coordinate**: Pure terrain-following\n- **ocean-sigma-z-coordinate**: Hybrid sigma near coast, z in deep ocean\n\n**Other:**\n- **height**: Simple height coordinate (ice, snow)\n- **land-ice-sigma-coordinate**: Ice sheet terrain-following\n\nSee [CF Conventions](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#dimensionless-v-coord) for details.",
     "n_z": "**Number of vertical levels**\n\nTotal grid cells in vertical.\n\n**Leave blank if:** Number varies (e.g., adaptive snow layers).",
     "top_layer_thickness": "**Uppermost layer thickness** (metres)\n\nTypical values:\n- Atmosphere: 10-100m\n- Ocean surface: 1-10m\n\nProvide nominal value if thickness varies.",

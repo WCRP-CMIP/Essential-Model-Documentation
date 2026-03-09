@@ -1,12 +1,16 @@
 name: "Stage 3: Model Component"
 description: Register model component and grid configuration (Stage 3 of 4)
 title: "[EMD] Stage 3: Model Component: [do not edit]"
-labels: ['emd-submission', 'model_component', 'Review', 'pull_req', 'needs-review']
+labels: ['emd-submission', 'model_component', 'Review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Reusable Components
+        | Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+        |:---:|:---:|:---:|:---:|
+        | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | **🟢 Model Component** | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
+        
+        # Reusable Components
         
         > [!TIP]
         > **Using a pre-registered component?** Select from the list below to auto-populate fields.
@@ -16,33 +20,31 @@ body:
         <details>
         <summary>Pre-registered Model Components (must be opened in a new window)</summary>
         
-        - [Arpege-Climat Version 6.3 (atmosphere)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+arpege-climat_version_6_3&issue_kind=%22New%22&description=ARPEGE-Climat+Version+6.3+is+the+atmospheric+component+of+the+CNRM+climate+and+Earth+System+models+%28CNRM-CM6-1+and+CNRM-ESM2-1%29.&component=%22atmosphere%22&code_base=private&family=%22arpege-climat%22&name=Arpege-Climat+Version+6.3)
-        - [BISICLES-UKESM-ISMIP6-1.0 (land-ice)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+bisicles-ukesm-ismip6-1_0&issue_kind=%22New%22&description=UniCiCles+%28Unified+Model-CISM-BISICLES%29+is+a+package+combining+BISICLES+with+an+interface+that+obtains+boundary+conditions+from+Unified+Model+or+JULES+data.&component=%22land_ice%22&code_base=none&family=%22BISICLES%22&name=BISICLES-UKESM-ISMIP6-1.0)
-        - [CLM4 (land-surface)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+clm4&issue_kind=%22New%22&description=The+Community+Land+Model+represents+several+aspects+of+the+land+surface+including+surface+heterogeneity+through+a+nested+subgrid+hierarchy.&component=%22land_surface%22&code_base=none&family=%22CLM%22&name=CLM4)
-        - [GELATO (sea-ice)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+gelato&issue_kind=%22New%22&description=Global+Experimental+Leads+and+sea+ice+for+ATmosphere+and+Ocean.&component=%22sea_ice%22&code_base=private&family=%22gelato%22&name=GELATO)
-        - [HadAM3 (atmosphere)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+hadam3&issue_kind=%22New%22&description=HadAM3+is+the+atmospheric+component+of+HadCM3%2C+a+coupled+atmosphere-ocean+general+circulation+model+developed+at+the+UK+Met+Office+Hadley+Centre.&component=%22atmosphere%22&code_base=none&family=%22hadam%22&name=HadAM3)
-        - [NEMO v3.6 (ocean)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+nemo_v3_6&issue_kind=%22New%22&description=Nucleus+for+European+Modelling+of+the+Ocean+version+3.6+%28OPA%29.&component=%22ocean%22&code_base=private&family=%22nemo%22&name=NEMO+v3.6)
-        - [PISCESv2-gas (ocean-biogeochemistry)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+piscesv2-gas&issue_kind=%22New%22&description=Pelagic+Interaction+Scheme+for+Carbon+and+Ecosystem+Studies+model+volume+2+version+trace+gases.&component=%22ocean_biogeochemistry%22&code_base=https%3A%2F%2Fgitlab.in2p3.fr%2Fpisco%2Fpisces-gas%2Fpisces-gas&family=%22pisces%22&name=PISCESv2-gas)
-        - [REPROBUS-C (v2.0) (atmospheric-chemistry)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+reprobus-c_v2_0&issue_kind=%22New%22&description=The+chemistry+scheme+of+CNRM-ESM2+is+an+on-line+scheme+whereby+the+chemistry+routines+are+part+of+the+physics+of+the+atmospheric+climate+model.&component=%22atmospheric_chemistry%22&code_base=private&family=%22reprobus%22&name=REPROBUS-C+%28v2.0%29)
-        - [SURFEX v8 modeling platform (land-surface)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+surfex_v8_modeling_platform&issue_kind=%22New%22&description=SURFEXv8.0+encompasses+several+submodules+for+modeling+the+interactions+between+the+atmosphere%2C+the+ocean%2C+the+lakes+and+the+land+surface.&component=%22land_surface%22&code_base=https%3A%2F%2Fwww.umr-cnrm.fr%2Fsurfex%2Fspip.php%3Frubrique8&family=%22surfex%22&name=SURFEX+v8+modeling+platform)
-        - [TACTIC (aerosol)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+tactic&issue_kind=%22New%22&description=TACTIC+%28Tropospheric+Aerosols+for+ClimaTe+In+CNRM%29+is+an+interactive+tropospheric+aerosol+scheme%2C+able+to+represent+the+main+anthropogenic+and+natural+aerosol+types+in+the+troposphere.&component=%22aerosol%22&code_base=private&family=%22tactic%22&name=TACTIC)
+        - [Arpege-Climat Version 6.3 (atmosphere)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+arpege-climat_version_6_3&issue_kind=%22New%22&description=ARPEGE-Climat+Version+6.3+is+the+atmospheric+component+of+the+CNRM+climate+and+Earth+System+models+%28CNRM-CM6-1+and+CNRM-ESM2-1%29.&family=%22arpege-climat%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2020MS002075&name=Arpege-Climat+Version+6.3&component=%22atmosphere%22&code_base=private)
+        - [BISICLES-UKESM-ISMIP6-1.0 (land-ice)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+bisicles-ukesm-ismip6-1_0&issue_kind=%22New%22&description=UniCiCles+%28Unified+Model-CISM-BISICLES%29+is+a+package+combining+BISICLES+with+an+interface+that+obtains+boundary+conditions+from+Unified+Model+or+JULES+data.&family=%22BISICLES%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2021MS002520&name=BISICLES-UKESM-ISMIP6-1.0&component=%22land_ice%22&code_base=none)
+        - [CLM4 (land-surface)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+clm4&issue_kind=%22New%22&description=The+Community+Land+Model+represents+several+aspects+of+the+land+surface+including+surface+heterogeneity+through+a+nested+subgrid+hierarchy.&family=%22CLM%22&references=https%3A%2F%2Fdoi.org%2F10.5194%2Fgmd-5-1341-2012&name=CLM4&component=%22land_surface%22&code_base=none)
+        - [GELATO (sea-ice)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+gelato&issue_kind=%22New%22&description=Global+Experimental+Leads+and+sea+ice+for+ATmosphere+and+Ocean.&family=%22gelato%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2019MS001683&name=GELATO&component=%22sea_ice%22&code_base=private)
+        - [HadAM3 (atmosphere)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+hadam3&issue_kind=%22New%22&description=HadAM3+is+the+atmospheric+component+of+HadCM3%2C+a+coupled+atmosphere-ocean+general+circulation+model+developed+at+the+UK+Met+Office+Hadley+Centre.&family=%22hadam%22&references=&name=HadAM3&component=%22atmosphere%22&code_base=none)
+        - [NEMO v3.6 (ocean)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+nemo_v3_6&issue_kind=%22New%22&description=Nucleus+for+European+Modelling+of+the+Ocean+version+3.6+%28OPA%29.&family=%22nemo%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2019MS001791&name=NEMO+v3.6&component=%22ocean%22&code_base=private)
+        - [PISCESv2-gas (ocean-biogeochemistry)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+piscesv2-gas&issue_kind=%22New%22&description=Pelagic+Interaction+Scheme+for+Carbon+and+Ecosystem+Studies+model+volume+2+version+trace+gases.&family=%22pisces%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2019MS001791%2C+https%3A%2F%2Fdoi.org%2F10.5194%2Fbg-18-3823-2021%2C+https%3A%2F%2Fdoi.org%2F10.5194%2Fesd-14-399-2023&name=PISCESv2-gas&component=%22ocean_biogeochemistry%22&code_base=https%3A%2F%2Fgitlab.in2p3.fr%2Fpisco%2Fpisces-gas%2Fpisces-gas)
+        - [REPROBUS-C (v2.0) (atmospheric-chemistry)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+reprobus-c_v2_0&issue_kind=%22New%22&description=The+chemistry+scheme+of+CNRM-ESM2+is+an+on-line+scheme+whereby+the+chemistry+routines+are+part+of+the+physics+of+the+atmospheric+climate+model.&family=%22reprobus%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2019MS001816&name=REPROBUS-C+%28v2.0%29&component=%22atmospheric_chemistry%22&code_base=private)
+        - [SURFEX v8 modeling platform (land-surface)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+surfex_v8_modeling_platform&issue_kind=%22New%22&description=SURFEXv8.0+encompasses+several+submodules+for+modeling+the+interactions+between+the+atmosphere%2C+the+ocean%2C+the+lakes+and+the+land+surface.&family=%22surfex%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2018MS001545%2C+https%3A%2F%2Fdoi.org%2F10.1029%2F2019MS001886%2C+https%3A%2F%2Fdoi.org%2F10.3402%2Ftellusa.v68.31274%2C+https%3A%2F%2Fdoi.org%2F10.5194%2Fgmd-10-4207-2017&name=SURFEX+v8+modeling+platform&component=%22land_surface%22&code_base=https%3A%2F%2Fwww.umr-cnrm.fr%2Fsurfex%2Fspip.php%3Frubrique8)
+        - [TACTIC (aerosol)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml&title=Model+Component%3A+tactic&issue_kind=%22New%22&description=TACTIC+%28Tropospheric+Aerosols+for+ClimaTe+In+CNRM%29+is+an+interactive+tropospheric+aerosol+scheme%2C+able+to+represent+the+main+anthropogenic+and+natural+aerosol+types+in+the+troposphere.&family=%22tactic%22&references=https%3A%2F%2Fdoi.org%2F10.1029%2F2019MS001816&name=TACTIC&component=%22aerosol%22&code_base=private)
         
         </details>
         
-        ## Stage 3: Model Component
+        # Stage 3: Model Component
         
         This form has two sections:
         1. **Component Definition** — Registers the model component itself (name, type, description)
         2. **Grid Configuration** — Links the component to computational grids for use in a source_id registration
-        
-        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du50nqtWaTc-7i8wuIsMGDmkcEuZDd3Od4cTQpoR0gl2Y-nROUg71aCJugZWkSo6WwsOuilNq4FimiwC7c8ITWKWRD7eowwhUqHDNon8aG3YoPjRuy1Qo7LYMHBHxQ8oNKyyxe40vsWs1K7bVatRaLatlNa16yzbwErZr-5WWcwCjZjecZuOgcWvgq0xDrbLfahiYgjdlPMybtaxnu_0N9sUcFQ)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
         
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
         
         ---
         
-        ### Component Definition
+        ## Component Definition
         
         This section defines the model component that can be reused across multiple source_id and component-grid registrations.
 
@@ -203,24 +205,10 @@ body:
       placeholder: "https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6"
 
   - type: textarea
-    id: reference_dois
+    id: references
     attributes:
       label: Reference DOIs
-      description: |
-        The DOI URLs for publications describing this component.
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Component publications**
-        
-        DOI URLs for papers describing this component.
-        
-        **Format:** `https://doi.org/...` (one per line)
-        
-        At least one reference required for traceability.
-        
-        </details>
+      description: The DOI URLs for publications describing this component.
       placeholder: "https://doi.org/10.5194/gmd-8-1547-2015"
     validations:
       required: true
@@ -230,7 +218,7 @@ body:
       value: |
         ---
         
-        ### Grid Configuration
+        ## Grid Configuration
         
         This section links the component to computational grids, generating a composite configuration ID (e.g., `ocean_nemo-v3-6_h101_v103`) for use in Stage 4: Model (source_id) registration.
         

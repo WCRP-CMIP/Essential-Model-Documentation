@@ -1,5 +1,9 @@
 field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
-1,markdown,header,,"## Registered Models
+1,markdown,header,,"| Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+|:---:|:---:|:---:|:---:|
+| [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | **🟢 Model** |
+
+# Registered Models
 
 > [!TIP]
 > **Using a pre-registered model?** Select from the list below to auto-populate fields.
@@ -13,21 +17,19 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 
 </details>
 
-## Stage 4: Model (source_id)
+# Stage 4: Model (source_id)
 
 This form has three sections:
 1. **Model Definition** — Registers the model identity and component coverage
 2. **Component Configuration** — Links to specific component configs from Stage 3
 3. **Coupling Configuration** — Defines how components interact
 
-[![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
-
 > [!NOTE]
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
 
 ---
 
-### Model Definition
+## Model Definition
 
 This section defines the model identity that becomes the CMIP source_id.",none,FALSE,,,
 2,input,name,Model Name,The full model name that becomes the CMIP source_id.,none,TRUE,CNRM-ESM2-1,,
@@ -40,10 +42,10 @@ This section defines the model identity that becomes the CMIP source_id.",none,F
 7,multi-select,omitted_components,Omitted Components,The components that are not represented in this model. **Select multiple.**,component,FALSE,,list,
 8,multi-select,calendar,Calendar(s),The permitted calendar types for this model. **Select multiple.**,calendar,TRUE,,list,
 9,input,release_year,Release Year,The year when this model was released.,none,TRUE,2019,,
-10,textarea,reference_dois,Reference DOIs,The DOI URLs for model description papers.,none,TRUE,https://doi.org/10.1029/2019MS001791,,
+10,textarea,references,Reference DOIs,The DOI URLs for model description papers.,none,TRUE,https://doi.org/10.1029/2019MS001791,,
 11,markdown,config_section,,"---
 
-### Component Configuration
+## Component Configuration
 
 This section links the model to specific component configurations from Stage 3.
 
@@ -51,7 +53,7 @@ This section links the model to specific component configurations from Stage 3.
 12,multi-select,component_configs,Component Config IDs,The component configuration IDs from Stage 3 that make up this model. **Select multiple.**,component_configs,TRUE,,list,
 13,markdown,coupling_section,,"---
 
-### Coupling Configuration
+## Coupling Configuration
 
 This section defines how components interact within the model.
 

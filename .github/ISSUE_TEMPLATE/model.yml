@@ -1,12 +1,16 @@
 name: "Stage 4: Model (source_id)"
 description: Register complete model configuration (Stage 4 of 4)
 title: "[EMD] Stage 4: Model (source_id): [do not edit]"
-labels: ['emd-submission', 'model', 'Review', 'pull_req', 'needs-review']
+labels: ['emd-submission', 'model', 'Review']
 body:
   - type: markdown
     attributes:
       value: |
-        ## Registered Models
+        | Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+        |:---:|:---:|:---:|:---:|
+        | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | **🟢 Model** |
+        
+        # Registered Models
         
         > [!TIP]
         > **Using a pre-registered model?** Select from the list below to auto-populate fields.
@@ -16,25 +20,23 @@ body:
         <details>
         <summary>Pre-registered Models (must be opened in a new window)</summary>
         
-        - [CNRM-ESM2-1e (cnrm-cm)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml&title=Model%3A+cnrm-esm2-1e&issue_kind=%22New%22&prescribed_components=&description=CNRM-ESM2-1e+is+the+CNRM+Earth+System+model+version+2+designed+for+CMIP6+on+the+basis+of+the+physical+core+CNRM-CM6-1+%28Voldoire+et+al.+2019%29.+In+concentration+mode%2C+it+is+the+same+model+as+CNRM-ESM2-1+%28S%C3%A9f%C3%A9rian+et+al.+2019%29%2C+it+only+differs+from+CNRM-ESM2-1+in+emission-driven+mode+%28see+Bossert+et+al.+2026%29.+The+main+adaptations+consist+in+a+better+conservation+of+the+carbon+in+all+the+components+leading+to+a+more+consistent%2Frealistic+carbon+flux+evolution+in+historical+simulations.&dynamic_components=%22Aerosol%22%2C%22Atmosphere%22%2C%22Atmospheric+Chemistry%22%2C%22land-surface%22%2C%22Ocean%22%2C%22Ocean+Biogeochemistry%22%2C%22Sea+Ice%22&embedded_components=%22%5B%27atmosphere%27%2C+%27aerosol%27%5D%22%2C%22%5B%27atmosphere%27%2C+%27atmospheric-chemistry%27%5D%22%2C%22%5B%27ocean%27%2C+%27sea-ice%27%5D%22%2C%22%5B%27ocean%27%2C+%27ocean-biogeochemistry%27%5D%22&release_year=2018&family=%22CNRM-CM%22&calendar=%22standard%22&omitted_components=%22Land+Ice%22&name=CNRM-ESM2-1e)
+        - [CNRM-ESM2-1e (cnrm-cm)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml&title=Model%3A+cnrm-esm2-1e&issue_kind=%22New%22&description=CNRM-ESM2-1e+is+the+CNRM+Earth+System+model+version+2+designed+for+CMIP6+on+the+basis+of+the+physical+core+CNRM-CM6-1+%28Voldoire+et+al.+2019%29.+In+concentration+mode%2C+it+is+the+same+model+as+CNRM-ESM2-1+%28S%C3%A9f%C3%A9rian+et+al.+2019%29%2C+it+only+differs+from+CNRM-ESM2-1+in+emission-driven+mode+%28see+Bossert+et+al.+2026%29.+The+main+adaptations+consist+in+a+better+conservation+of+the+carbon+in+all+the+components+leading+to+a+more+consistent%2Frealistic+carbon+flux+evolution+in+historical+simulations.&dynamic_components=%22Aerosol%22%2C%22Atmosphere%22%2C%22Atmospheric+Chemistry%22%2C%22land-surface%22%2C%22Ocean%22%2C%22Ocean+Biogeochemistry%22%2C%22Sea+Ice%22&omitted_components=%22Land+Ice%22&embedded_components=%22%5B%27atmosphere%27%2C+%27aerosol%27%5D%22%2C%22%5B%27atmosphere%27%2C+%27atmospheric-chemistry%27%5D%22%2C%22%5B%27ocean%27%2C+%27sea-ice%27%5D%22%2C%22%5B%27ocean%27%2C+%27ocean-biogeochemistry%27%5D%22&release_year=2018&family=%22CNRM-CM%22&calendar=%22standard%22&name=CNRM-ESM2-1e&prescribed_components=)
         
         </details>
         
-        ## Stage 4: Model (source_id)
+        # Stage 4: Model (source_id)
         
         This form has three sections:
         1. **Model Definition** — Registers the model identity and component coverage
         2. **Component Configuration** — Links to specific component configs from Stage 3
         3. **Coupling Configuration** — Defines how components interact
         
-        [![Workflow](https://mermaid.ink/svg/pako:eNq9Vgtv2jAQ_iuWUacNJTySAG2kbep4tRJoVWGbtjEhkxhi1bGjxGlLH_995wRYWlrWVt0sJbF9r893vtxdY0_6FLt4zuWFF5BYocHpRKBs7O2ho-P-0QCeMTpEo_Fhv-uidkDEgiIVUJSoJaeIqGwxk0rJECmJArYIODyqoOhzpJgUiYtGiixo3ci_loGGvdXcXn0dLbWWTNLZIiZRsBL7OcHlcjZF9XJ5gn-t-fQYaXI_Zj5qU84T9AaNtDTzC3xU-I-rtwrqrS31Pouppw-Bxp_umLUIyB3JmF1JoQhH_bsmc54Z8HylsWLeNsdjoIa9DNAQIsRRj4SML5-MqjsagnAXAgqHWyaKhisN9-Tb2kZbhpEUVKhtnp0OswsOs7fjock5-I2Bp2p2Cpqdbc3OWvPj-kZ1ZJofbhalUslACbxvdKQ2VItkZC8n2H_2Z9n--f19O2eXYs4W6LgDNGdNA1cjswLUeeY8k_lFaru3TbSLQD3OvDMNd4IDpaLErVYXTAXprOLJsPqtfXpitofHJ9VukoADGeFmdnKzI700hB2io19lSZLSpCroxUeIdcSJou_13Z96kAtTIvxpkidDZRmC19B0xok4u4cBnPLqIIJNYkxBVZTmrLD6K5jZ64M5X2XgM6HYr48k1HwZjCwvdll3_pH1HTb1lf5HR87zYIdtSJj_a7pQpTrd3uGXwRhK3fdBd7T5NWVlLq9AsIjlGXVLtm0b-dy8YL4KXCu6NOaMc1dARB8QtV4kOuy93KL9clHnGaIPtgsm6vpMNwYsQZwJqvsCL-8cNu0Begtx1YFDMlVoLmMkCs3Du52warVm0_PuIrOLyLCBQxqHhPnQ3VxnODG0KSGdYBemPp2TlEM9mohbYCWpkqOl8LCr4pQaOJbpIsDunPAEVmnkwy3qMAIVKtzs6r_Ghh-qD43bMhUKu_aBgSMifkgZrumwxO41vsSu1azYVqtRa7WsltW06i3bwEvYru1XWs4BjJrdcJqNg8atga8yDbXKfqthYAr-lPEwb9eyru32NypLHJY)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main?tab=readme-ov-file#submitting-emd)
-        
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
         
         ---
         
-        ### Model Definition
+        ## Model Definition
         
         This section defines the model identity that becomes the CMIP source_id.
 
@@ -119,8 +121,6 @@ body:
         2. Prescribed components (explain treatment)
         3. Omitted components (note absence)
         
-        **Example:** 'CNRM-ESM2-1 includes atmosphere (ARPEGE-Climat), ocean (NEMO), land surface (SURFEX), with embedded aerosols, atmospheric chemistry, sea ice, and ocean biogeochemistry. Land ice is omitted.'
-        
         </details>
       placeholder: "1. Dynamic components (briefly)
 2. Prescribed components and their treatment
@@ -173,8 +173,6 @@ body:
         
         Domains where values are provided as boundary conditions.
         
-        **Example:** Sea ice extent prescribed from observations.
-        
         </details>
       options:
         - "Aerosol"
@@ -201,8 +199,6 @@ body:
         
         Domains not represented at all.
         
-        **Example:** Land-ice often omitted from atmosphere-ocean climate models.
-        
         </details>
       options:
         - "Aerosol"
@@ -226,8 +222,6 @@ body:
         <summary>Detailed Guidance</summary>
         
         **Calendar types**
-        
-        Permitted calendar systems for this model.
         
         - **standard**: Gregorian with leap years
         - **proleptic-gregorian**: Gregorian extended to past
@@ -268,24 +262,10 @@ body:
       required: true
 
   - type: textarea
-    id: reference_dois
+    id: references
     attributes:
       label: Reference DOIs
-      description: |
-        The DOI URLs for model description papers.
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Model publications**
-        
-        DOIs for papers describing the complete model.
-        
-        **Format:** `https://doi.org/...` (one per line)
-        
-        **Do NOT include:** Component-specific papers (those belong in Stage 3).
-        
-        </details>
+      description: The DOI URLs for model description papers.
       placeholder: "https://doi.org/10.1029/2019MS001791"
     validations:
       required: true
@@ -295,7 +275,7 @@ body:
       value: |
         ---
         
-        ### Component Configuration
+        ## Component Configuration
         
         This section links the model to specific component configurations from Stage 3.
         
@@ -335,7 +315,7 @@ body:
       value: |
         ---
         
-        ### Coupling Configuration
+        ## Coupling Configuration
         
         This section defines how components interact within the model.
         
@@ -368,14 +348,9 @@ body:
         
         **Embedded relationships**
         
-        Components tightly integrated within a host (share integration loop, often share grid).
+        Components tightly integrated within a host.
         
         **Format:** `embedded -> host`
-        
-        **Example:**
-        - Aerosol -> Atmosphere
-        - Atmospheric Chemistry -> Atmosphere
-        - Sea Ice -> Ocean
         
         </details>
       options:
@@ -449,11 +424,9 @@ body:
         
         **Coupling groups**
         
-        Groups of mutually coupled superior hosts (non-embedded components).
+        Groups of mutually coupled superior hosts.
         
         Components in a group all exchange information directly.
-        
-        **Example:** Atmosphere, Land Surface, Ocean
         
         </details>
       options:
