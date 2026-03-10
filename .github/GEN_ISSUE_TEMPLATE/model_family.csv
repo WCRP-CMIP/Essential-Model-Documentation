@@ -21,7 +21,7 @@ Registers a family of related models or components that share code.
 8,input,established,Year Established,The year when this family was first developed.,none,false,2009,,
 9,input,representative_member,Representative Member,A well-known configuration from this family that serves as a representative example.,none,false,HadGEM3-GC31-LL,,
 10,input,website,Website,The official documentation URL for this family.,none,false,https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model,,
-11,textarea,reference_dois,Reference DOIs,The DOI URLs for family-level publications.,none,false,https://doi.org/10.1029/2019MS001995,,
+11,textarea,references,Reference DOIs,The DOI URLs for family-level publications.,none,false,https://doi.org/10.1029/2019MS001995,,
 12,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
 13,markdown,metadata_header,,"---
 

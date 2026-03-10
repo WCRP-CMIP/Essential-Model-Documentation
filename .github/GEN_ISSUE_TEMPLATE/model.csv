@@ -40,7 +40,7 @@ This section defines the model identity that becomes the CMIP source_id.",none,F
 7,multi-select,omitted_components,Omitted Components,The components that are not represented in this model. **Select multiple.**,component,FALSE,,list,
 8,multi-select,calendar,Calendar(s),The permitted calendar types for this model. **Select multiple.**,calendar,TRUE,,list,
 9,input,release_year,Release Year,The year when this model was released.,none,TRUE,2019,,
-10,textarea,reference_dois,Reference DOIs,The DOI URLs for model description papers.,none,TRUE,https://doi.org/10.1029/2019MS001791,,
+10,textarea,references,Reference DOIs,The DOI URLs for model description papers.,none,TRUE,https://doi.org/10.1029/2019MS001791,,
 11,markdown,config_section,,"---
 
 ### Component Configuration
