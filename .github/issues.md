@@ -8,18 +8,18 @@ The following forms are available for this repository, and can be used to add or
 
 ### Stage 2 - Computational Grids
 
-- [horizontal_computational_grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml)
-- [vertical_computational_grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml)
+- [horizontal_computational_grid](https://github.com/EXAMPLE/REPO/issues/new?template=horizontal_computational_grid.yml)
+- [vertical_computational_grid](https://github.com/EXAMPLE/REPO/issues/new?template=vertical_computational_grid.yml)
 ### Stage 3 - Components
 
-- [model_component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml)
+- [model_component](https://github.com/EXAMPLE/REPO/issues/new?template=model_component.yml)
 ### Stage 4 - Model
 
-- [model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml)
+- [model](https://github.com/EXAMPLE/REPO/issues/new?template=model.yml)
 ### Supporting
 
-- [model_family](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml)
-- [general_issue](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=general_issue.yml)
+- [model_family](https://github.com/EXAMPLE/REPO/issues/new?template=model_family.yml)
+- [general_issue](https://github.com/EXAMPLE/REPO/issues/new?template=general_issue.yml)
 ### Ungrouped Forms
 
-- [horizontal_grid_cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml)
+- [horizontal_grid_cell](https://github.com/EXAMPLE/REPO/issues/new?template=horizontal_grid_cell.yml)
