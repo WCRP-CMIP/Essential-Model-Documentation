@@ -94,6 +94,14 @@ body:
       placeholder: "91"
 
   - type: input
+    id: n_z_range
+    attributes:
+      label: Number of Levels (range)
+      description: |
+        The minimum and maximum number of vertical levels where the number varies in time or across the horizontal grid. Only provide if n_z is not set.
+      placeholder: "5, 15"
+
+  - type: input
     id: top_layer_thickness
     attributes:
       label: Top Layer Thickness (m)

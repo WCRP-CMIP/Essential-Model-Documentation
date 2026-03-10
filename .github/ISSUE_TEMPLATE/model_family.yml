@@ -875,24 +875,10 @@ body:
       placeholder: "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model"
 
   - type: textarea
-    id: reference_dois
+    id: references
     attributes:
       label: Reference DOIs
-      description: |
-        The DOI URLs for family-level publications.
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Family-level publications**
-        
-        DOIs for papers describing the family as a whole.
-        
-        **Format:** `https://doi.org/...` (one per line)
-        
-        **Do NOT include:** Model-specific or component-specific papers.
-        
-        </details>
+      description: The DOI URLs for family-level publications.
       placeholder: "https://doi.org/10.1029/2019MS001995"
 
   - type: markdown
