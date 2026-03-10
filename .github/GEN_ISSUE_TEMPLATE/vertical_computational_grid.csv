@@ -9,7 +9,9 @@ Defines the vertical level structure for a model component.
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
 > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
 
-[Step 1: Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) → Step 2: [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) | **Vertical Grid** → [Step 3: Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) → [Step 4: Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml)",none,false,,,
+| Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+|:---:|:---:|:---:|:---:|
+| [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / **🔵 Vertical Grid** | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |",none,false,,,
 2,dropdown,vertical_coordinate,Coordinate Type,The vertical coordinate system used to define level positions.,vertical_coordinate,true,,list_with_na,0
 3,input,n_z,Number of Levels,The total number of vertical levels in the grid.,none,false,91,,
 4,input,n_z_range,Number of Levels (range),The minimum and maximum number of vertical levels where the number varies in time or across the horizontal grid. Only provide if n_z is not set.,none,false,"5, 15",,

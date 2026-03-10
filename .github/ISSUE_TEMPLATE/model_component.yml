@@ -26,7 +26,9 @@ body:
         1. **Component Definition** — Registers the model component itself (name, type, description)
         2. **Grid Configuration** — Links the component to computational grids for use in a source_id registration
         
-        [Step 1: Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) → Step 2: [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) | [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) → **Step 3: Model Component** → [Step 4: Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml)
+        | Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+        |:---:|:---:|:---:|:---:|
+        | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | **🔵 Model Component** | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
         
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
