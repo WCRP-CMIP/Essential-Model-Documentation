@@ -10,7 +10,7 @@ body:
         |:---:|:---:|:---:|:---:|
         | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / **🟢 Vertical Grid** | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
         
-        ## Stage 2b: Vertical Computational Grid
+        # Stage 2b: Vertical Computational Grid
         
         Defines the vertical level structure for a model component.
         
@@ -206,8 +206,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true

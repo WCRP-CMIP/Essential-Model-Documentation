@@ -10,7 +10,7 @@ body:
         |:---:|:---:|:---:|:---:|
         | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | **🟢 Model** |
         
-        ## Registered Models
+        # Registered Models
         
         > [!TIP]
         > **Using a pre-registered model?** Select from the list below to auto-populate fields.
@@ -20,11 +20,11 @@ body:
         <details>
         <summary>Pre-registered Models (must be opened in a new window)</summary>
         
-        - [CNRM-ESM2-1e (cnrm-cm)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml&title=Model%3A+cnrm-esm2-1e&issue_kind=%22New%22&omitted_components=%22Land+Ice%22&family=%22CNRM-CM%22&prescribed_components=&dynamic_components=%22Aerosol%22%2C%22Atmosphere%22%2C%22Atmospheric+Chemistry%22%2C%22land-surface%22%2C%22Ocean%22%2C%22Ocean+Biogeochemistry%22%2C%22Sea+Ice%22&calendar=%22standard%22&description=CNRM-ESM2-1e+is+the+CNRM+Earth+System+model+version+2+designed+for+CMIP6+on+the+basis+of+the+physical+core+CNRM-CM6-1+%28Voldoire+et+al.+2019%29.+In+concentration+mode%2C+it+is+the+same+model+as+CNRM-ESM2-1+%28S%C3%A9f%C3%A9rian+et+al.+2019%29%2C+it+only+differs+from+CNRM-ESM2-1+in+emission-driven+mode+%28see+Bossert+et+al.+2026%29.+The+main+adaptations+consist+in+a+better+conservation+of+the+carbon+in+all+the+components+leading+to+a+more+consistent%2Frealistic+carbon+flux+evolution+in+historical+simulations.&release_year=2018&name=CNRM-ESM2-1e&embedded_components=%22%5B%27atmosphere%27%2C+%27aerosol%27%5D%22%2C%22%5B%27atmosphere%27%2C+%27atmospheric-chemistry%27%5D%22%2C%22%5B%27ocean%27%2C+%27sea-ice%27%5D%22%2C%22%5B%27ocean%27%2C+%27ocean-biogeochemistry%27%5D%22)
+        - [CNRM-ESM2-1e (cnrm-cm)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml&title=Model%3A+cnrm-esm2-1e&issue_kind=%22New%22&prescribed_components=&family=%22CNRM-CM%22&release_year=2018&omitted_components=%22Land+Ice%22&calendar=%22standard%22&name=CNRM-ESM2-1e&dynamic_components=%22Aerosol%22%2C%22Atmosphere%22%2C%22Atmospheric+Chemistry%22%2C%22land-surface%22%2C%22Ocean%22%2C%22Ocean+Biogeochemistry%22%2C%22Sea+Ice%22&embedded_components=%22%5B%27atmosphere%27%2C+%27aerosol%27%5D%22%2C%22%5B%27atmosphere%27%2C+%27atmospheric-chemistry%27%5D%22%2C%22%5B%27ocean%27%2C+%27sea-ice%27%5D%22%2C%22%5B%27ocean%27%2C+%27ocean-biogeochemistry%27%5D%22&description=CNRM-ESM2-1e+is+the+CNRM+Earth+System+model+version+2+designed+for+CMIP6+on+the+basis+of+the+physical+core+CNRM-CM6-1+%28Voldoire+et+al.+2019%29.+In+concentration+mode%2C+it+is+the+same+model+as+CNRM-ESM2-1+%28S%C3%A9f%C3%A9rian+et+al.+2019%29%2C+it+only+differs+from+CNRM-ESM2-1+in+emission-driven+mode+%28see+Bossert+et+al.+2026%29.+The+main+adaptations+consist+in+a+better+conservation+of+the+carbon+in+all+the+components+leading+to+a+more+consistent%2Frealistic+carbon+flux+evolution+in+historical+simulations.)
         
         </details>
         
-        ## Stage 4: Model (source_id)
+        # Stage 4: Model (source_id)
         
         This form has three sections:
         1. **Model Definition** — Registers the model identity and component coverage
@@ -36,7 +36,7 @@ body:
         
         ---
         
-        ### Model Definition
+        ## Model Definition
         
         This section defines the model identity that becomes the CMIP source_id.
 
@@ -283,7 +283,7 @@ body:
       value: |
         ---
         
-        ### Component Configuration
+        ## Component Configuration
         
         This section links the model to specific component configurations from Stage 3.
         
@@ -323,7 +323,7 @@ body:
       value: |
         ---
         
-        ### Coupling Configuration
+        ## Coupling Configuration
         
         This section defines how components interact within the model.
         
@@ -536,8 +536,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true

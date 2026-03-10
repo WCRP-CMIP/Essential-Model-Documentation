@@ -10,7 +10,7 @@ body:
         |:---:|:---:|:---:|:---:|
         | **🟢 Grid Cell** | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
         
-        ## Reusable Grid Cell
+        # Reusable Grid Cell
         
         > [!TIP]
         > **Using a pre-registered grid cell?** Select from the list below to auto-populate fields.
@@ -24,7 +24,7 @@ body:
         
         </details>
         
-        ## Stage 1: Horizontal Grid Cell
+        # Stage 1: Horizontal Grid Cell
         
         Registers reusable grid cell definitions that can be referenced in Stage 2a.
         
@@ -35,7 +35,7 @@ body:
         
         ---
         
-        ### Grid Cell Properties
+        ## Grid Cell Properties
         
         Define the physical grid structure that can be reused across multiple subgrid registrations in Stage 2a.
 
@@ -376,8 +376,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true

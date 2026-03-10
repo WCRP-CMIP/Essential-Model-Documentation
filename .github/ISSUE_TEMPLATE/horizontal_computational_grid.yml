@@ -10,7 +10,7 @@ body:
         |:---:|:---:|:---:|:---:|
         | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | **🟢 Horizontal Grid** / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
         
-        ## Stage 2a: Horizontal Computational Grid
+        # Stage 2a: Horizontal Computational Grid
         
         Links subgrids into a single computational grid with a specified staggering arrangement.
         
@@ -100,7 +100,7 @@ body:
       value: |
         ---
         
-        ## Subgrid Configurations
+        # Subgrid Configurations
         
         Alternatively, define subgrids inline by specifying grid cells and variable types for each slot.
         
@@ -121,7 +121,7 @@ body:
         
         ---
         
-        ### Subgrid Slot 1
+        ## Subgrid Slot 1
 
   - type: dropdown
     id: horizontal_grid_cells_1
@@ -163,7 +163,7 @@ body:
       value: |
         ---
         
-        ### Subgrid Slot 2
+        ## Subgrid Slot 2
 
   - type: dropdown
     id: horizontal_grid_cells_2
@@ -201,7 +201,7 @@ body:
       value: |
         ---
         
-        ### Subgrid Slot 3
+        ## Subgrid Slot 3
 
   - type: dropdown
     id: horizontal_grid_cells_3
@@ -239,7 +239,7 @@ body:
       value: |
         ---
         
-        ### Subgrid Slot 4
+        ## Subgrid Slot 4
 
   - type: dropdown
     id: horizontal_grid_cells_4
@@ -314,8 +314,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "New"
         - "Modify"
+        - "New"
       default: 0
     validations:
       required: true
