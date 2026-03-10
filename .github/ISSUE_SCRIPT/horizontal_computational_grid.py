@@ -24,7 +24,7 @@ def run(parsed_issue, issue, dry_run=False):
         data = {
             "@context": "_context",
             "@id": id_result['id'],
-            "@type": ["wcrp:horizontal_computational_grid"],
+            "@type": ["wcrp:horizontal_computational_grid","esgvoc:horizontal_computational_grid" ],
         }
         
         # Store submission metadata

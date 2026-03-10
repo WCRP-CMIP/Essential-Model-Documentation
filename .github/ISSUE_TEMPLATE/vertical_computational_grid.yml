@@ -23,7 +23,7 @@ body:
   - type: dropdown
     id: vertical_coordinate
     attributes:
-      label: Coordinate Type
+      label: Vertical Coordinate
       description: |
         The vertical coordinate system used to define level positions.
         
@@ -206,8 +206,8 @@ body:
       label: Issue Kind
       description: Whether this is a new submission or a modification to an existing entry.
       options:
-        - "Modify"
         - "New"
+        - "Modify"
       default: 0
     validations:
       required: true

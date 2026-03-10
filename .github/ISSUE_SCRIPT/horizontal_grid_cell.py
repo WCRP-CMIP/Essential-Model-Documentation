@@ -53,7 +53,7 @@ def run(parsed_issue, issue, dry_run=False):
         data = {
             "@context": "_context",
             "@id": atid,
-            "@type": ["wcrp:horizontal_grid_cell", "esgvoc:HorizontalGridCells"],
+            "@type": ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
             "validation_key": atid,
             **parsed_issue
         }
