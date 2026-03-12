@@ -2,6 +2,7 @@
 Handler for Vertical Computational Grid registration (Stage 2b)
 """
 
+import json
 import os
 import time
 
@@ -51,6 +52,9 @@ def run(parsed_issue, issue, dry_run=False):
         if additional_collaborators else []
 
     file_path = os.path.join('vertical_computational_grid', f"{atid}.json")
+    
+    
+    print(json.dumps(data, indent=2))
 
     return {
         file_path:       data,
