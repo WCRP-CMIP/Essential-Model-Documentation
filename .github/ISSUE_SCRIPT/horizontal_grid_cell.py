@@ -104,8 +104,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         
 
-        # Generate and store validation report using the full ReportBuilder pipeline
-        data['_validation_report'] = generate_markdown_report(data)
+        try:
+            data['_validation_report'] = generate_markdown_report(data)
+        except Exception as e:
+            print(f"  ⚠ Report generation failed: {e}", flush=True)
+            data['_validation_report'] = ''
         
         # return the patch post validation. 
         data['units'] = data.pop('horizontal_units', None)  # rename back for validation

@@ -2,7 +2,6 @@
 Handler for Vertical Computational Grid registration (Stage 2b)
 """
 
-import json
 import os
 import time
 
@@ -38,12 +37,32 @@ def run(parsed_issue, issue, dry_run=False):
     else:
         atid = f"{author}_{int(time.time())}"
 
+    # Map parsed label keys → canonical field_ids
+    FIELD_MAP = {
+        'vertical_coordinate':          'vertical_coordinate',
+        'number_of_levels':             'n_z',
+        'number_of_levels_(range)':     'n_z_range',
+        'top_layer_thickness_(m)':      'top_layer_thickness',
+        'bottom_layer_thickness_(m)':   'bottom_layer_thickness',
+        'total_thickness_(m)':          'total_thickness',
+        'additional_information':       'description',
+        'additional_collaborators':     'collaborators',
+        'issue_kind':                   'issue_kind',
+    }
+    IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category'}
+
+    remapped = {}
+    for k, v in parsed_issue.items():
+        canonical = FIELD_MAP.get(k, k)
+        if canonical not in IGNORE and v:
+            remapped[canonical] = v
+
     data = {
         "@context":       "_context",
         "@id":            atid,
         "@type":          ["wcrp:vertical_computational_grid", "esgvoc:vertical_computational_grid"],
         "validation_key": atid,
-        **parsed_issue,
+        **remapped,
     }
 
     additional_collaborators = parsed_issue.get('additional_collaborators',
@@ -52,9 +71,6 @@ def run(parsed_issue, issue, dry_run=False):
         if additional_collaborators else []
 
     file_path = os.path.join('vertical_computational_grid', f"{atid}.json")
-    
-    
-    print(json.dumps(data, indent=2))
 
     return {
         file_path:       data,
@@ -68,4 +84,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
-        data['_validation_report'] = generate_markdown_report(data)
+        try:
+            data['_validation_report'] = generate_markdown_report(data)
+        except Exception as e:
+            print(f"  ⚠ Report generation failed: {e}", flush=True)
+            data['_validation_report'] = ''
