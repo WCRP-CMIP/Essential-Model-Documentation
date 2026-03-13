@@ -79,7 +79,7 @@ body:
   - type: input
     id: n_z
     attributes:
-      label: Number of Levels
+      label: n_z
       description: |
         The total number of vertical levels in the grid.
         
@@ -98,7 +98,7 @@ body:
   - type: input
     id: n_z_range
     attributes:
-      label: Number of Levels (range)
+      label: n_z_range
       description: |
         The minimum and maximum number of vertical levels where the number varies in time or across the horizontal grid. Only provide if n_z is not set.
       placeholder: "5, 15"

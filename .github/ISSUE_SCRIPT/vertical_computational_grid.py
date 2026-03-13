@@ -40,8 +40,8 @@ def run(parsed_issue, issue, dry_run=False):
     # Map parsed label keys → canonical field_ids
     FIELD_MAP = {
         'vertical_coordinate':          'vertical_coordinate',
-        'number_of_levels':             'n_z',
-        'number_of_levels_(range)':     'n_z_range',
+        'n_z':                          'n_z',
+        'n_z_range':                    'n_z_range',
         'top_layer_thickness_(m)':      'top_layer_thickness',
         'bottom_layer_thickness_(m)':   'bottom_layer_thickness',
         'total_thickness_(m)':          'total_thickness',
