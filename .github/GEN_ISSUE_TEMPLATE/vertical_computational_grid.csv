@@ -19,7 +19,7 @@ Defines the vertical level structure for a model component.
 7,input,bottom_layer_thickness,Bottom Layer Thickness (m),The thickness of the lowest layer in metres.,none,FALSE,25,,
 8,input,total_thickness,Total Thickness (m),The total vertical extent of the grid in metres.,none,FALSE,80000,,
 9,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,FALSE,"user1,user2,user3,...",,
-10,textarea,description,Additional Information,Any additional information that may distinguish this specific grid from others with the same properties.,none,FALSE,Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None,,
+10,textarea,description,Description,Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.,none,FALSE,,,
 11,markdown,metadata_header,,"---
 
 ## Issue Handling

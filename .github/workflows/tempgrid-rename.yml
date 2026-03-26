@@ -1,9 +1,9 @@
 name: ⟳ Rename tempgrid files on PR merge
 description: |
-  On merge of a PR labelled 'pull_req', find any files containing 'tempgrid'
-  in their name, determine the next available (s|g|h)NNN id in that folder,
-  rename the file accordingly, commit to src-data, then comment on the PR
-  (and any linked issue) with the full rename mapping.
+  On merge of a PR, find any files containing 'tempgrid' in their name,
+  determine the next available (g|v|h)NNN id in that folder, rename the file
+  accordingly, commit to src-data, then comment on the PR and any linked issue
+  with the permanent ID mapping.
 
 permissions:
   contents: write
@@ -24,24 +24,20 @@ on:
 
 jobs:
   rename_tempgrid:
-    # Only run when the PR was actually merged AND carries the 'pull_req' label
-    # OR when manually triggered with a PR number
+    # Run on any merged PR, or when manually triggered.
+    # If there are no tempgrid files the identify step exits cleanly.
     if: >
-      (github.event_name == 'pull_request' && 
-       github.event.pull_request.merged == true &&
-       contains(
-         toJSON(github.event.pull_request.labels.*.name),
-         'pull_req'
-       )) ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.merged == true) ||
       github.event_name == 'workflow_dispatch'
 
     runs-on: ubuntu-latest
-    
+
     env:
       MANUAL_PR_NUMBER: ${{ github.event.inputs.pr_number }}
 
     steps:
-      # ── 1. Check out the src-data branch (where vocab files live) ─────────
+      # ── 1. Check out the src-data branch ──────────────────────────────────
       - name: Checkout src-data branch
         uses: actions/checkout@v4
         with:
@@ -64,26 +60,18 @@ jobs:
           git config user.name  "cmip-ipo"
           git config user.email "actions@wcrp-cmip.org"
 
-      # ── 2. Find every file that was added in this PR ──────────────────────
-      #    We diff the merge commit against its first parent to get only the
-      #    files that arrived via the PR, then filter for 'tempgrid' in the name.
+      # ── 2. Find tempgrid files added by this PR ────────────────────────────
       - name: Identify added tempgrid files
         id: find_tempgrid
         run: |
-          # The merge commit on src-data is HEAD; its first parent is what
-          # src-data looked like before the merge.
           ADDED=$(git diff --name-only --diff-filter=A HEAD^1 HEAD 2>/dev/null || true)
-
           echo "All added files:"
           echo "$ADDED"
 
           TEMPGRID=$(echo "$ADDED" | grep -E '(^|/)([^/]*tempgrid[^/]*)$' || true)
-
           echo "Tempgrid files:"
           echo "$TEMPGRID"
 
-          # Store as newline-separated list in an output (safe for the next step)
-          # Use a heredoc so multiline content survives
           {
             echo "tempgrid_files<<EOF"
             echo "$TEMPGRID"
@@ -94,8 +82,8 @@ jobs:
       - name: Rename tempgrid files
         id: rename
         run: |
-          MAPPING_MD=""   # accumulate markdown table rows
-          MAPPING_JSON="" # accumulate JSON array entries (for later comment)
+          MAPPING_MD=""
+          MAPPING_JSON=""
 
           FILES="${{ steps.find_tempgrid.outputs.tempgrid_files }}"
 
@@ -116,24 +104,18 @@ jobs:
             [ -z "$filepath" ] && continue
 
             dir=$(dirname "$filepath")
-            filename=$(basename "$filepath")
-
             echo "Processing: $filepath  (dir=$dir)"
 
-            # ── Determine the letter prefix used in this folder ──────────────
-            # Glob directly for (s|g|h) followed by one-or-more digits, .json
             LETTER=""
             MAX_NUM=-1
 
-            for existing in "$dir"/[sghSGH]*[0-9].json; do
-              # Skip if glob found nothing
+            for existing in "$dir"/[sghvSGHV]*[0-9].json; do
               [ -e "$existing" ] || continue
               base=$(basename "$existing" .json)
-              # Must be exactly letter + digits (no other chars)
-              if [[ "$base" =~ ^([sghSGH])([0-9]+)$ ]]; then
-                L="${BASH_REMATCH[1],,}"   # lowercase
+              if [[ "$base" =~ ^([sghvSGHV])([0-9]+)$ ]]; then
+                L="${BASH_REMATCH[1],,}"
                 N="${BASH_REMATCH[2]}"
-                NUM=$((10#$N))             # strip leading zeros → decimal
+                NUM=$((10#$N))
                 if [ -z "$LETTER" ]; then
                   LETTER="$L"
                 fi
@@ -143,17 +125,13 @@ jobs:
               fi
             done
 
-            # If the folder has no existing numbered files, skip and log
             if [ -z "$LETTER" ]; then
-              echo "  SKIP: no existing (s|g|h)NNN.json files found in $dir"
+              echo "  SKIP: no existing numbered files found in $dir"
               echo "| \`${filepath}\` | ⚠️ skipped – no existing numbered files in \`${dir}\` |" >> "$GITHUB_STEP_SUMMARY"
               continue
             fi
 
-            # Next id = MAX_NUM + 1
             NEXT_NUM=$(( MAX_NUM + 1 ))
-
-            # Zero-pad to 3 digits
             NEW_NAME=$(printf "%s%03d.json" "$LETTER" "$NEXT_NUM")
             NEW_PATH="$dir/$NEW_NAME"
 
@@ -161,7 +139,6 @@ jobs:
             git mv "$filepath" "$NEW_PATH"
             echo "| \`${filepath}\` | \`${NEW_PATH}\` |" >> "$GITHUB_STEP_SUMMARY"
 
-            # Build mapping entries
             MAPPING_MD="${MAPPING_MD}| \`${filepath}\` | \`${NEW_PATH}\` |\n"
             if [ -n "$MAPPING_JSON" ]; then
               MAPPING_JSON="${MAPPING_JSON},"
@@ -170,7 +147,6 @@ jobs:
 
           done <<< "$FILES"
 
-          # Write outputs
           {
             echo "mapping_md<<EOF"
             printf "%b" "$MAPPING_MD"
@@ -179,38 +155,26 @@ jobs:
 
           echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
 
-      # ── 3b. Update @id field in renamed JSON files ────
+      # ── 3b. Update @id and validation_key in renamed JSON files ────────────
       - name: Update @id field in renamed JSON files
         if: steps.rename.outputs.mapping_json != '[]'
         run: |
           MAPPING_JSON='${{ steps.rename.outputs.mapping_json }}'
-          
-          echo "Processing JSON @id fields with mapping: $MAPPING_JSON"
-          
+
           echo "$MAPPING_JSON" | jq -r '.[] | "\(.old)|\(.new)"' | while IFS='|' read -r old_path new_path; do
             [ -z "$old_path" ] || [ -z "$new_path" ] && continue
-            
+
             old_base=$(basename "$old_path" .json)
             new_base=$(basename "$new_path" .json)
-            
-            echo "Updating @id in: $new_path"
-            echo "  Replacing: '$old_base' → '$new_base'"
-            
-            # Use Perl to replace @id field value(s)
-            perl -pi -e "s/(\"\@id\"\s*:\s*\")[^\"]*tempgrid[^\"]*(\")/$1$ENV{new_base}$2/g" "$new_path" 2>/dev/null || true
-            
-            # Fallback: also replace validation_key field
-            perl -pi -e "s/(\"\validation_key\"\s*:\s*\")[^\"]*tempgrid[^\"]*(\")/$1$ENV{new_base}$2/g" "$new_path" 2>/dev/null || true
-            
-            # And any other field containing the old tempgrid name
-            perl -pi -e "s/$old_base/$new_base/g" "$new_path"
-            
-            # Verify the change
-            if grep -q "$new_base" "$new_path"; then
-              echo "✅ Successfully updated $new_path"
-            else
-              echo "⚠️ Warning: Could not verify update in $new_path"
-            fi
+
+            echo "Updating '$old_base' → '$new_base' in $new_path"
+
+            tmp=$(mktemp)
+            jq --arg old "$old_base" --arg new "$new_base" \
+              'walk(if type == "string" and . == $old then $new else . end)' \
+              "$new_path" > "$tmp" && mv "$tmp" "$new_path" || rm -f "$tmp"
+
+            echo "  ✅ Updated $new_path"
           done
 
       # ── 4. Cancel any running src-data-change workflows ───────────────────
@@ -219,92 +183,115 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          WORKFLOW_RUNS=$(gh run list --repo "$REPO" -w src-data-change.yml --status in_progress --json databaseId --jq '.[].databaseId')
-          
+          WORKFLOW_RUNS=$(gh run list --repo "$REPO" -w src-data-change.yml \
+            --status in_progress --json databaseId --jq '.[].databaseId')
+
           if [ -n "$WORKFLOW_RUNS" ]; then
             echo "Cancelling running src-data-change workflows..."
             while IFS= read -r run_id; do
               [ -z "$run_id" ] && continue
-              echo "Cancelling run #$run_id"
               gh run cancel "$run_id" --repo "$REPO"
             done <<< "$WORKFLOW_RUNS"
           else
             echo "No running src-data-change workflows found."
           fi
 
-      # ── 5. Commit renamed files to src-data ───────────────────────────────
+      # ── 5. Commit renamed files to src-data with all human authors ─────────
       - name: Commit renames to src-data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
         run: |
           git add -A
           if git diff --cached --quiet; then
             echo "Nothing to commit (no tempgrid renames were needed)."
-          else
-            git commit -m "Auto-rename tempgrid files with sequential ids"
-            git push origin src-data
-            echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
 
-      # ── 6. Trigger src-data-change workflow after rename commit ──────────
+          ALL=$(mktemp)
+
+          # Source 1: commit authors — jq only emits lines with a real @ in email
+          gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
+            --jq '.commits[].authors[] | select(.email | test("@")) | "\(.name) <\(.email)>"' \
+            2>/dev/null >> "$ALL" || true
+
+          # Source 2: Co-authored-by trailers in commit messages — strict pattern only
+          gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
+            --jq '.commits[].messageBody' 2>/dev/null \
+            | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
+            | sed 's/Co-authored-by: //' \
+            >> "$ALL" || true
+
+          # Source 3: PR opener — skip bot logins ([bot], app/, -bot suffix)
+          PR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json author --jq '.author.login' 2>/dev/null || true)
+          if [ -n "$PR_LOGIN" ] && ! echo "$PR_LOGIN" | grep -qE '(\[bot\]|^app/|-bot$)'; then
+            PR_NAME=$(gh api "users/$PR_LOGIN" --jq '.name // .login' 2>/dev/null || true)
+            # Validate PR_NAME is a simple name (no JSON, no special chars)
+            if echo "$PR_NAME" | grep -qE '^[A-Za-z0-9 _.@-]+$'; then
+              echo "${PR_NAME} <${PR_LOGIN}@users.noreply.github.com>" >> "$ALL"
+            fi
+          fi
+
+          # Deduplicate, remove bots and GitHub noreply addresses, prefix trailers
+          TRAILERS=$(sort -u "$ALL" \
+            | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
+            | grep -E '^[A-Za-z0-9]' \
+            | sed 's/^/Co-authored-by: /')
+          rm -f "$ALL"
+
+          if [ -n "$TRAILERS" ]; then
+            git commit -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]" \
+              -m "$TRAILERS"
+          else
+            git commit -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]"
+          fi
+          git push origin src-data
+          echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 6. Trigger src-data-change workflow ───────────────────────────────
       - name: Trigger src-data-change workflow
         if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          echo "Triggering src-data-change workflow after rename commit..."
           gh workflow run src-data-change.yml --repo "$REPO" --ref src-data
 
-      # ── 5. Post a comment on the PR (and any linked issues) ───────────────
-      - name: Comment on PR and close linked issues
+      # ── 7. Post rename summary to PR and any linked issues ─────────────────
+      - name: Comment on PR and linked issues
         if: steps.rename.outputs.mapping_json != '[]'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
           REPO: ${{ github.repository }}
           MAPPING_MD: ${{ steps.rename.outputs.mapping_md }}
-          MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
         run: |
-          # ── Build the comment body ─────────────────────────────────────────
-          COMMENT_BODY="## ⟳ Tempgrid file rename summary
+          TABLE=$(printf "%b" "$MAPPING_MD")
 
-          The following temporary grid files were automatically renamed to their
-          permanent sequential identifiers and committed to the \`src-data\` branch.
+          COMMENT_BODY=$(printf '## \u2705 Grid IDs assigned\n\nThe following temporary grid files have been renamed to their permanent sequential IDs and committed to `src-data`.\n\n| Temporary filename | Permanent ID |\n|---|---|\n%s\n> IDs are the next available sequential number in each folder (`g###`, `v###`, `h###`).\n> Use the permanent ID in subsequent registration steps.' "$TABLE")
 
-          | Original filename | Renamed to |
-          |---|---|
-          ${MAPPING_MD}
+          # Post to the PR
+          gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
+          echo "Posted comment to PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
 
-          > Renames are based on the next available \`(s|g|h)NNN\` id in each folder."
-
-          # ── Find and close linked issues by parsing PR description ────────
-          # Extract issue numbers from "Resolves #NNN" / "Fixes #NNN" / "Closes #NNN"
-          # Use tr to handle newlines in PR body
-          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' | \
-            tr '\n' ' ' | \
-            grep -oE '[Rr]esolves?[^#]*#[0-9]+' | \
-            grep -oE '#[0-9]+' | \
+          # Find linked issues (Resolves/Fixes/Closes #NNN) — comment and close each
+          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body \
+            --jq '.body' | tr '\n' ' ' | \
+            grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' | \
             grep -oE '[0-9]+' || true)
 
-          echo "Found linked issues: $ISSUE_NUMBERS"
-
           if [ -n "$ISSUE_NUMBERS" ]; then
-            echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "## Linked issues" >> "$GITHUB_STEP_SUMMARY"
             echo "| Issue | Action |" >> "$GITHUB_STEP_SUMMARY"
             echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
-
-              echo "Closing linked issue #${issue_num} with rename summary comment"
-              # Close with the rename summary comment (single comment, not duplicate)
-              gh issue close "$issue_num" \
-                --repo "$REPO" \
-                --comment "$COMMENT_BODY"
-
-              echo "| #${issue_num} | closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
+              gh issue comment "$issue_num" --repo "$REPO" --body "$COMMENT_BODY"
+              gh issue close   "$issue_num" --repo "$REPO" || true
+              echo "| #${issue_num} | commented + closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
             done <<< "$ISSUE_NUMBERS"
           else
-            echo "No linked issues found for PR #${PR_NUMBER}"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "_No linked issues found to close._" >> "$GITHUB_STEP_SUMMARY"
+            echo "_No linked issues found._" >> "$GITHUB_STEP_SUMMARY"
           fi
