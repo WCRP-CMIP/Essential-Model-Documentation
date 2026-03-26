@@ -2,19 +2,19 @@
 Handler for Horizontal Computational Grid registration (Stage 2a)
 
 Produces N+1 files per submission:
-  horizontal_subgrid/{atid}_s{N}.json         — one per NEW slot (s### equivalent)
-  horizontal_computational_grid/{atid}.json   — groups all subgrids (h### equivalent)
+  horizontal_subgrid/{cell}-{vtype}.json               — one per slot, e.g. g100-mass
+  horizontal_computational_grid/{subgrid1}--{subgrid2}.json — groups all subgrids
 
-Before creating a new subgrid, checks the remote src-data _graph.json for an
-existing subgrid with identical grid_cells + cell_variable_type. If found,
-links to that instead of creating a duplicate.
+Subgrid and comp grid IDs are derived from content, not timestamps, so identical
+grids submitted by different users produce the same ID and are deduplicated.
+Before writing a subgrid, checks the remote src-data graph for an existing match.
 """
 
 import os
 import json
 import time
 
-from cmipld.utils.id_generation import generate_id_from_issue
+from cmipld.utils.id_generation import generate_id_from_issue  # fallback only
 from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
@@ -86,8 +86,58 @@ def _find_matching_subgrid(existing: list[dict], cells: list[str], vtypes: list[
     return None
 
 
-def _slot_fields(parsed_issue: dict) -> list[dict]:
+def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
+    """
+    Extract subgrid slots by walking the raw issue body.
+
+    The form repeats identical ### headers for each slot, which parse_issue_body
+    collapses to a single key (last value wins). We must parse the raw body to
+    recover all occurrences in order.
+    """
     slots = []
+
+    if issue_body:
+        # Walk raw body — pair each 'Grid Cells' header with the next 'Variable Types'
+        CELL_HEADER  = 'grid cells'
+        VTYPE_HEADER = 'variable types'
+        PLACEHOLDER  = {'not specified', 'none', '_no response_', ''}
+
+        lines       = issue_body.split('\n')
+        current_key = None
+        current_val = []
+        sections    = []   # [(normalised_header, value_str), ...]
+
+        for line in lines:
+            if line.startswith('### '):
+                if current_key is not None:
+                    sections.append((current_key, ' '.join(current_val).strip()))
+                current_key = line[4:].strip().lower()
+                current_val = []
+            elif current_key is not None:
+                current_val.append(line.strip())
+        if current_key is not None:
+            sections.append((current_key, ' '.join(current_val).strip()))
+
+        # Pair consecutive cell/vtype headers
+        n = 0
+        i = 0
+        while i < len(sections):
+            key, val = sections[i]
+            if CELL_HEADER in key:
+                cell = val.strip()
+                vtypes = ''
+                # Look ahead for the immediately following variable types header
+                if i + 1 < len(sections) and VTYPE_HEADER in sections[i + 1][0]:
+                    vtypes = sections[i + 1][1].strip()
+                    i += 1  # consume the vtype section too
+                if cell and cell.lower() not in PLACEHOLDER:
+                    n += 1
+                    vtype_list = [v.strip() for v in vtypes.split(',') if v.strip()] if vtypes else []
+                    slots.append({'cell': cell, 'variable_types': vtype_list, 'n': n})
+            i += 1
+        return slots
+
+    # Fallback: numbered keys from parsed_issue (works if field_ids are numbered)
     for n in range(1, 5):
         cell = (
             parsed_issue.get(f'horizontal_grid_cells_{n}') or
@@ -114,7 +164,7 @@ def run(parsed_issue, issue, dry_run=False):
     arrangement = (parsed_issue.get('arrangement') or '').strip().lower()
     description = parsed_issue.get('additional_information') or parsed_issue.get('description') or ''
 
-    slots        = _slot_fields(parsed_issue)
+    slots        = _slot_fields(parsed_issue, issue.get('body', ''))
     existing     = _fetch_existing_subgrids()
 
     files       = {}
@@ -126,9 +176,11 @@ def run(parsed_issue, issue, dry_run=False):
         norm_vtypes = _normalise_vtypes(slot['variable_types'])
         match       = _find_matching_subgrid(existing, norm_cells, norm_vtypes)
 
-        # Use existing ID if matched, otherwise generate a new one
-        sid    = match if match else f"{atid}_s{slot['n']}"
-        reused = match is not None
+        # Build ID from cell + variable types, e.g. g100-mass or g100-x_velocity-y_velocity
+        vtype_slug = '-'.join(sorted(slot['variable_types'])) if slot['variable_types'] else 'untyped'
+        new_sid    = f"{slot['cell']}-{vtype_slug}"
+        sid        = match if match else new_sid
+        reused     = match is not None
 
         subgrid_data = {
             "@context":              "_context",
@@ -146,12 +198,22 @@ def run(parsed_issue, issue, dry_run=False):
         tag = '♻ matched' if reused else '+ new'
         print(f"  [{tag}] Slot {slot['n']}: subgrid '{sid}'", flush=True)
 
+    # Comp grid ID built deterministically from sorted subgrid IDs
+    # e.g. g100-mass--g101-x_velocity-y_velocity
+    hgrid_id = '--'.join(sorted(subgrid_ids)) if subgrid_ids else atid
+
+    # Collect paths of matched subgrids so new_issue.py skips the 'file exists' check
+    force_modify = {
+        os.path.join('horizontal_subgrid', f"{s['sid']}.json")
+        for s in slot_report if s['reused']
+    }
+
     hgrid_data = {
         "@context":            "_context",
-        "@id":                 atid,
+        "@id":                 hgrid_id,
         "@type":               ["wcrp:horizontal_computational_grid",
                                 "esgvoc:horizontal_computational_grid"],
-        "validation_key":      atid,
+        "validation_key":      hgrid_id,
         "horizontal_subgrids": subgrid_ids,
     }
     if arrangement:
@@ -159,7 +221,7 @@ def run(parsed_issue, issue, dry_run=False):
     if description:
         hgrid_data['description'] = description
 
-    files[os.path.join('horizontal_computational_grid', f"{atid}.json")] = hgrid_data
+    files[os.path.join('horizontal_computational_grid', f"{hgrid_id}.json")] = hgrid_data
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
@@ -168,12 +230,13 @@ def run(parsed_issue, issue, dry_run=False):
 
     return {
         **files,
-        '_author':       issue.get('author'),
-        '_contributors': contributors,
-        '_make_pull':    True,
-        '_atid':         atid,
-        '_slot_report':  slot_report,
-        '_subgrid_ids':  subgrid_ids,
+        '_author':        issue.get('author'),
+        '_contributors':  contributors,
+        '_make_pull':     True,
+        '_atid':          hgrid_id,
+        '_slot_report':   slot_report,
+        '_subgrid_ids':   subgrid_ids,
+        '_force_modify':  force_modify,
     }
 
 
