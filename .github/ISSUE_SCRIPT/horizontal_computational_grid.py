@@ -5,16 +5,14 @@ Produces N+1 files per submission:
   horizontal_subgrid/{cell}-{vtype}.json               — one per slot, e.g. g100-mass
   horizontal_computational_grid/{subgrid1}--{subgrid2}.json — groups all subgrids
 
-Subgrid and comp grid IDs are derived from content, not timestamps, so identical
-grids submitted by different users produce the same ID and are deduplicated.
-Before writing a subgrid, checks the remote src-data graph for an existing match.
+Subgrid and comp grid IDs are derived entirely from content — no timestamps.
+The same grid cells + variable types always produce the same IDs, so submissions
+from different users are automatically deduplicated by file existence check.
 """
 
 import os
 import json
-import time
 
-from cmipld.utils.id_generation import generate_id_from_issue  # fallback for empty slots
 from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
@@ -93,16 +91,15 @@ def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
 
 
 def run(parsed_issue, issue, dry_run=False):
-    author     = issue.get('author') or 'unknown'
-    created_at = issue.get('created_at') or ''
-    atid       = generate_id_from_issue(author, created_at)['id'] \
-                 if created_at else f"{author}_{int(time.time())}"
-
     arrangement = (parsed_issue.get('arrangement') or '').strip().lower()
     description = parsed_issue.get('additional_information') or parsed_issue.get('description') or ''
 
     slots       = _slot_fields(parsed_issue, issue.get('body', ''))
     repo_root   = os.environ.get('GITHUB_WORKSPACE', os.getcwd())
+
+    if not slots:
+        print('  ❌ No subgrid slots found — cannot build a computational grid ID.', flush=True)
+        return None
 
     files       = {}
     subgrid_ids = []
@@ -133,7 +130,7 @@ def run(parsed_issue, issue, dry_run=False):
 
     # Comp grid ID built deterministically from sorted subgrid IDs
     # e.g. g100-mass--g101-x_velocity-y_velocity
-    hgrid_id = '--'.join(sorted(subgrid_ids)) if subgrid_ids else atid
+    hgrid_id = '--'.join(sorted(subgrid_ids))
 
     # Collect paths of matched subgrids so new_issue.py skips the 'file exists' check
     force_modify = {
