@@ -183,9 +183,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             'horizontal_subgrid' if 'horizontal_subgrid' in file_path
             else 'horizontal_computational_grid'
         )
+        # folder names are singular — do not pluralise
+        folder_url = f"emd:{report_kind}"
         try:
             data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{report_kind}s", kind=report_kind,
+                folder_url=folder_url, kind=report_kind,
                 item=data, link_threshold=80.0,
             ).build()
         except Exception as e:
@@ -217,7 +219,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print("=" * 60, flush=True)
         print(
             f"\n  ✅ Computational Grid ID: '{atid}'\n"
+            f" Wait for the pull request to be merged, then use this ID in Stage 3 (Model Component) to build model components\n"
             f"     Use this ID with a v### in Stage 3 (Model Component):\n"
-            f"     e.g.  atmosphere_arpege-v6_{atid}_<v###>",
+            f"     e.g.  atmosphere_arpege-v6_h###_<v###>",
             flush=True,
         )

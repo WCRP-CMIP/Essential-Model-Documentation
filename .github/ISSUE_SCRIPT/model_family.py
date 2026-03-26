@@ -114,7 +114,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(f"  Generating review report for {file_path} …", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{kind}s", kind=kind, item=data, link_threshold=80.0
+                folder_url=f"emd:{kind}", kind=kind, item=data, link_threshold=80.0
             ).build()
         except Exception as e:
             print(f"  ⚠ Report generation failed: {e}", flush=True)

@@ -119,7 +119,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         report_kind = 'component_config' if 'component_config' in file_path else 'model_component'
         try:
             data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{report_kind}s", kind=report_kind,
+                folder_url=f"emd:{report_kind}", kind=report_kind,
                 item=data, link_threshold=80.0,
             ).build()
         except Exception as e:
