@@ -103,6 +103,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         if file_path.startswith('_'):
             continue
         
+        print(data.keys(), flush=True)
 
         try:
             data['_validation_report'] = generate_markdown_report(data)
