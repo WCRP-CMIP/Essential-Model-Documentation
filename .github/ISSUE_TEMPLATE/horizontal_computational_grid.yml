@@ -12,9 +12,9 @@ body:
         
         # Stage 2a: Horizontal Computational Grid
         
-        Links subgrids into a single computational grid with a specified staggering arrangement.
+        Links grid cells into subgrids and groups them into a single computational grid with a specified staggering arrangement.
         
-        **Prerequisites:** Subgrid IDs (s###) from Stage 1.
+        **Prerequisites:** Grid Cell IDs (g###) from Stage 1.
         
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
@@ -40,10 +40,10 @@ body:
         - **arakawa-d**: U at north/south edges, V at east/west edges
         - **arakawa-e**: Mass at edge midpoints
         
-        **Number of subgrids needed:**
-        - Unstaggered/A: 1 subgrid
-        - B: 2 subgrids (mass + corner velocity)
-        - C/D: 2-3 subgrids (mass + edge velocities)
+        **Number of subgrid slots needed:**
+        - Unstaggered/A: 1 slot
+        - B: 2 slots (mass + corner velocity)
+        - C/D: 2–3 slots (mass + edge velocities)
         
         </details>
       options:
@@ -57,52 +57,14 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: horizontal_subgrids
-    attributes:
-      multiple: true
-      label: Subgrid IDs
-      description: |
-        The subgrid IDs from Stage 1 that make up this computational grid. **Select multiple.**
-        
-        <details markdown="1">
-        <summary>Detailed Guidance</summary>
-        
-        **Subgrid references**
-        
-        List the s### IDs from Stage 1.
-        
-        **Format:** One ID per line
-        
-        **Example for Arakawa-C:**
-        ```
-        s100
-        s101
-        ```
-        Where s100 = mass variables, s101 = velocity variables.
-        
-        Number of subgrids must match your arrangement type.
-        
-        </details>
-      options:
-        - "s100"
-        - "s101"
-        - "s102"
-        - "s103"
-        - "s104"
-        - "s105"
-        - "s106"
-    validations:
-      required: true
-
   - type: markdown
     attributes:
       value: |
         ---
         
-        # Subgrid Configurations
+        # Subgrid Slots
         
-        Alternatively, define subgrids inline by specifying grid cells and variable types for each slot.
+        Each slot defines a subgrid by linking an existing grid cell (g###) with the variable types stored at that stagger position. The submission will automatically create one `horizontal_subgrid` per filled slot and link them all into the `horizontal_computational_grid`.
         
         <details>
         <summary>What are subgrids?</summary>
@@ -127,6 +89,15 @@ body:
     id: horizontal_grid_cells_1
     attributes:
       label: Grid Cells (select or define horizontal grid cells for this subgrid)
+      description: |
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid cell for slot 1**
+        
+        Select the g### ID from Stage 1 that defines the cell geometry for this stagger position.
+        
+        </details>
       options:
         - "Not specified"
         - "g100"
@@ -149,6 +120,20 @@ body:
     attributes:
       multiple: true
       label: Variable Types (variable types at this cell location)
+      description: |
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Variable types at slot 1**
+        
+        What variables are stored at this stagger position.
+        
+        - **mass**: Temperature, pressure, tracers
+        - **x_velocity**: U-component and related fluxes
+        - **y_velocity**: V-component and related fluxes
+        - **velocity**: Full velocity vector (unstructured grids)
+        
+        </details>
       options:
         - "mass"
         - "velocity"
@@ -169,6 +154,15 @@ body:
     id: horizontal_grid_cells_2
     attributes:
       label: Grid Cells (select or define horizontal grid cells for this subgrid)
+      description: |
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid cell for slot 2**
+        
+        Select a g### if this arrangement requires a second stagger position (e.g., Arakawa-B corner velocities, Arakawa-C edge velocities).
+        
+        </details>
       options:
         - "Not specified"
         - "g100"
@@ -207,6 +201,15 @@ body:
     id: horizontal_grid_cells_3
     attributes:
       label: Grid Cells (select or define horizontal grid cells for this subgrid)
+      description: |
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid cell for slot 3**
+        
+        Optional third stagger position.
+        
+        </details>
       options:
         - "Not specified"
         - "g100"
@@ -245,6 +248,15 @@ body:
     id: horizontal_grid_cells_4
     attributes:
       label: Grid Cells (select or define horizontal grid cells for this subgrid)
+      description: |
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Grid cell for slot 4**
+        
+        Optional fourth stagger position.
+        
+        </details>
       options:
         - "Not specified"
         - "g100"
@@ -304,8 +316,9 @@ body:
         ## Issue Handling
         
         **After submission:**
-        - Creates `horizontal_computational_grid` (h###)
-        - Use this ID with a v### in Stage 3 (Model Component)
+        - Creates one `horizontal_subgrid` (s###) per filled slot
+        - Creates `horizontal_computational_grid` (h###) linking all subgrids
+        - Use the h### ID with a v### in Stage 3 (Model Component)
         - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown
