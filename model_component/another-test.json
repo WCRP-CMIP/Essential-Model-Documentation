@@ -1,0 +1,22 @@
+{
+    "id": "another-test",
+    "validation-key": "",
+    "ui-label": "",
+    "description": "",
+    "@id": "another-test",
+    "@type": [
+        "wcrp:model_component",
+        "esgvoc:model_component"
+    ],
+    "component": "land_surface",
+    "family": "CLM",
+    "name": "another_test",
+    "references": [
+        "doisl"
+    ],
+    "validation_key": "another-test",
+    "@context": "_context",
+    "type": [
+        "wcrp:model_component"
+    ]
+}
