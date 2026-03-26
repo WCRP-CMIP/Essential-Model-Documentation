@@ -16,6 +16,8 @@ FIELD_MAP = {
     'bottom_layer_thickness_(m)': 'bottom_layer_thickness',
     'total_thickness_(m)':        'total_thickness',
     'additional_information':     'description',
+    'number_of_levels':           'n_z',
+    'number_of_levels_(range)':   'n_z_range',
 }
 IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category'}
 
