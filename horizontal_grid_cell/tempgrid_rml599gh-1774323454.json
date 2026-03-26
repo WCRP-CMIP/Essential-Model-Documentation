@@ -1,0 +1,29 @@
+{
+    "id": "tempgrid_rml599gh-1774323454",
+    "validation-key": "",
+    "ui-label": "",
+    "description": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree grid.",
+    "@id": "tempgrid_rml599gh-1774323454",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:horizontal_grid_cell"
+    ],
+    "additional_information": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "regular_latitude_longitude",
+    "number_of_cells": "27648",
+    "region": "global",
+    "southernmost_latitude": "-89.375",
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "validation_key": "tempgrid_rml599gh-1774323454",
+    "westernmost_longitude": "0.0",
+    "x_resolution": "1.875",
+    "y_resolution": "1.25",
+    "@context": "_context",
+    "type": [
+        "wcrp:horizontal_grid_cell"
+    ]
+}
