@@ -41,7 +41,8 @@ def run(parsed_issue, issue, dry_run=False):
     if not family_name:
         return None  # fall back to generic handler
 
-    atid         = _clean_id(family_name)
+    atid         = _clean_id(family_name)     # lowercased slug for @id / filename
+    validation_key = family_name.strip()      # original case for validation_key
     family_type  = (parsed_issue.get('family_type') or '').strip().lower()
 
     # Set @type based on family_type dropdown value
@@ -58,7 +59,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@context":       "_context",
         "@id":            atid,
         "@type":          [wcrp_type, esgvoc_type],
-        "validation_key": atid,
+        "validation_key": validation_key,
         "family_type":    family_type or 'model',
         "name":           family_name.strip(),
     }
