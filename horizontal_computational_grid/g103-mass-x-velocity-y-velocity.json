@@ -1,0 +1,9 @@
+{
+  "validation_key": "g103-mass-x-velocity-y-velocity",
+  "description": "Arakawa-C grid with adaptive mesh refinement for ice sheet modelling.",
+  "arrangement": "arakawa-c",
+  "horizontal_subgrids": ["g103-mass-x-velocity-y-velocity"],
+  "@context": "_context",
+  "@type": ["wcrp:horizontal_computational_grid", "esgvoc:horizontal_computational_grid"],
+  "@id": "g103-mass-x-velocity-y-velocity"
+}

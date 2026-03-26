@@ -1,0 +1,9 @@
+{
+  "validation_key": "g105-x-velocity",
+  "description": "X-velocity (U-grid) on ocean tripolar grid (eORCA1).",
+  "cell_variable_type": ["x-velocity"],
+  "horizontal_grid_cells": ["g105"],
+  "@context": "_context",
+  "@type": ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+  "@id": "g105-x-velocity"
+}
