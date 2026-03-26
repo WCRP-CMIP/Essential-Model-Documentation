@@ -1,0 +1,72 @@
+name: Process New Issue Submission
+description: Wrapper action for processing GitHub issue submissions locally
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: write
+
+inputs:
+  issue_number:
+    description: 'Issue number to process (for manual re-triggering)'
+    required: false
+    type: string
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Checkout src-data branch (for data files)
+      uses: actions/checkout@v4
+      with:
+        ref: src-data
+        fetch-depth: 0
+
+    - name: Get handler scripts from main branch
+      run: |
+        git fetch origin main
+        git checkout origin/main -- .github/ISSUE_SCRIPT
+        git checkout origin/main -- .github/GEN_ISSUE_TEMPLATE
+        echo "✓ Fetched handler scripts and guidance from main branch"
+      shell: bash
+
+    - name: Install CMIPLD
+      uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
+    - name: Configure Git
+      run: git config --global push.default simple
+      shell: bash
+
+    - name: Determine issue number
+      id: issue-num
+      run: |
+        if [ -n "${{ inputs.issue_number }}" ]; then
+          ISSUE_NUM="${{ inputs.issue_number }}"
+        else
+          ISSUE_NUM="${{ github.event.issue.number }}"
+        fi
+        if [ -z "$ISSUE_NUM" ]; then
+          echo "❌ Could not determine issue number"
+          exit 1
+        fi
+        echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Process issue
+      id: process
+      env:
+        ISSUE_NUMBER:    ${{ steps.issue-num.outputs.issue_number }}
+        GH_TOKEN:        ${{ github.token }}
+        GITHUB_TOKEN:    ${{ github.token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PYTHONIOENCODING: utf-8
+        LC_ALL:          C.UTF-8
+        LANG:            C.UTF-8
+      run: |
+        # new_issue handles everything:
+        #   - pycmipld + custom handler validation
+        #   - on failure: posts warning + field guidance to issue, stops
+        #   - on success: writes files, creates branch+PR, posts data JSON
+        #     + full review report to PR, updates issue comment
+        new_issue --issue ${{ steps.issue-num.outputs.issue_number }}
+      shell: bash

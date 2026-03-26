@@ -1,0 +1,35 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"## Model Family Registration
+
+Registers a family of related models or components that share code.
+
+**Prerequisites:** None — submit before Stage 3 or 4 if needed.
+
+> [!NOTE]
+> Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+> To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
+
+_Optional — submit at any time. Referenced in [Step 3: Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) and [Step 4: Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml)._",none,false,,,
+2,input,name,Family Name,The short identifier for this model family.,none,true,HadGEM3,,
+3,dropdown,family_type,Family Type,Whether this is a coupled Earth System family or a single-domain Component family.,family_type,true,,list_with_na,0
+4,textarea,description,Description,A description of what characterizes this model family including scientific focus and common code.,none,true,"1. Scientific focus and approach
+2. Common code base and physics
+3. How family members differ",,
+5,dropdown,primary_institution,Primary Institution,The lead institution responsible for development of this family.,institution,true,,list_with_na,0
+6,multi-select,collaborative_institutions,Collaborative Institutions,Other institutions contributing to the development of this family. **Select multiple.**,institution,false,,list,
+7,multi-select,scientific_domains,Scientific Domains,All scientific domains covered by any member of this family. **Select multiple.**,component,true,,list,
+8,input,established,Year Established,The year when this family was first developed.,none,false,2009,,
+9,input,representative_member,Representative Member,A well-known configuration from this family that serves as a representative example.,none,false,HadGEM3-GC31-LL,,
+10,input,website,Website,The official documentation URL for this family.,none,false,https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model,,
+11,textarea,references,Reference DOIs,The DOI URLs for family-level publications.,none,false,https://doi.org/10.1029/2019MS001995,,
+12,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
+13,markdown,metadata_header,,"---
+
+## Issue Handling
+
+**After submission:**
+- Creates `model_family` entry
+- Earth System Families can be referenced in Stage 4 (Model)
+- Component Families can be referenced in Stage 3 (Model Component)
+- [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
+14,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list_with_na,0

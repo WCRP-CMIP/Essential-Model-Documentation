@@ -1,0 +1,34 @@
+{
+  "grouping": {
+    "Stage 1 - Grid Cells": [
+      "horizontal_grid_cells"
+    ],
+    "Stage 2 - Computational Grids": [
+      "horizontal_computational_grid",
+      "vertical_computational_grid"
+    ],
+    "Stage 3 - Components": [
+      "model_component"
+    ],
+    "Stage 4 - Model": [
+      "model"
+    ],
+    "Supporting": [
+      "model_family",
+      "general_issue"
+    ]
+  },
+  "template_order": [
+    "horizontal_grid_cells",
+    "horizontal_computational_grid",
+    "vertical_computational_grid",
+    "model_component",
+    "model",
+    "model_family",
+    "general_issue"
+  ],
+  "deprecated": [
+    "horizontal_grid_cells",
+    "horizontal_subgrid"
+  ]
+}

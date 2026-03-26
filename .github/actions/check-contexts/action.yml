@@ -1,0 +1,145 @@
+name: 'Check Context URLs'
+description: 'Validate that all @context URLs in _context files are accessible'
+inputs:
+  create-issue:
+    description: 'Create an issue if context URLs fail (default: false)'
+    required: false
+    default: 'false'
+  github-token:
+    description: 'GitHub token for creating issues (required if create-issue is true)'
+    required: false
+
+outputs:
+  status:
+    description: 'Overall status (success/failure)'
+    value: ${{ steps.check.outputs.status }}
+  failed-count:
+    description: 'Number of failed context URLs'
+    value: ${{ steps.check.outputs.failed_count }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check context URLs
+      id: check
+      shell: bash
+      run: |
+        echo "## 🔗 Context URL Validation" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Find all context files
+        CONTEXT_FILES=$(find . -name "_context" -o -name "_context.json" 2>/dev/null | grep -v node_modules | grep -v .git)
+        
+        if [ -z "$CONTEXT_FILES" ]; then
+          echo "No _context files found" >> $GITHUB_STEP_SUMMARY
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "failed_count=0" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        # Extract unique URLs
+        URLS=""
+        for file in $CONTEXT_FILES; do
+          FILE_URLS=$(cat "$file" | python3 -c "
+        import json, sys
+        try:
+            data = json.load(sys.stdin)
+            ctx = data.get('@context', [])
+            if isinstance(ctx, str):
+                if ctx.startswith('http'):
+                    print(ctx)
+            elif isinstance(ctx, list):
+                for item in ctx:
+                    if isinstance(item, str) and item.startswith('http'):
+                        print(item)
+        except:
+            pass
+        " 2>/dev/null)
+          URLS="$URLS $FILE_URLS"
+        done
+        
+        # Get unique URLs
+        UNIQUE_URLS=$(echo $URLS | tr ' ' '\n' | sort -u | grep -v '^$')
+        
+        if [ -z "$UNIQUE_URLS" ]; then
+          echo "No external context URLs found" >> $GITHUB_STEP_SUMMARY
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "failed_count=0" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        # Check each URL
+        echo "| URL | Status |" >> $GITHUB_STEP_SUMMARY
+        echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+        
+        FAILED=0
+        FAILED_URLS=""
+        
+        for url in $UNIQUE_URLS; do
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$url" 2>/dev/null || echo "000")
+          
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "301" ] || [ "$HTTP_CODE" = "302" ]; then
+            echo "| \`$url\` | ✅ $HTTP_CODE |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| \`$url\` | ❌ $HTTP_CODE |" >> $GITHUB_STEP_SUMMARY
+            FAILED=$((FAILED + 1))
+            FAILED_URLS="$FAILED_URLS- $url (HTTP $HTTP_CODE)\n"
+          fi
+        done
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ $FAILED -gt 0 ]; then
+          echo "### ⚠️ Warning" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**$FAILED context URL(s) failed validation.**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Files in this repository that depend on these contexts will not resolve correctly." >> $GITHUB_STEP_SUMMARY
+          echo "status=failure" >> $GITHUB_OUTPUT
+          echo "failed_count=$FAILED" >> $GITHUB_OUTPUT
+          printf '%s' "$FAILED_URLS" > /tmp/failed_urls.txt
+        else
+          echo "✅ All context URLs are accessible" >> $GITHUB_STEP_SUMMARY
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "failed_count=0" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create issue for failed contexts
+      if: inputs.create-issue == 'true' && steps.check.outputs.status == 'failure'
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        FAILED_COUNT: ${{ steps.check.outputs.failed_count }}
+      run: |
+        FAILED_URLS=$(cat /tmp/failed_urls.txt 2>/dev/null || echo "Unknown")
+        
+        # Check if issue already exists
+        EXISTING=$(gh issue list --label "context-validation" --state open --json number --jq '.[0].number' 2>/dev/null || echo "")
+        
+        BODY="## Context URL Validation Failed
+
+        **$FAILED_COUNT context URL(s) are not accessible:**
+
+        $FAILED_URLS
+
+        ### Impact
+        Files in this repository that depend on these contexts will not resolve correctly until these URLs become available.
+
+        ### Action Required
+        - Check if the upstream context servers are available
+        - Verify the URLs are correct in the \`_context\` files
+        - Contact the maintainers of the external contexts if needed
+
+        ---
+        *This issue was automatically created by the context validation workflow.*"
+
+        if [ -n "$EXISTING" ]; then
+          gh issue comment "$EXISTING" --body "$BODY"
+          echo "Updated existing issue #$EXISTING"
+        else
+          gh issue create \
+            --title "⚠️ Context URL Validation Failed" \
+            --body "$BODY" \
+            --label "context-validation,automated" || echo "Could not create issue"
+          echo "Created new issue"
+        fi
