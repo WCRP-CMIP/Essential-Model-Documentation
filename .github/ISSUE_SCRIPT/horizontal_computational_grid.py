@@ -14,76 +14,13 @@ import os
 import json
 import time
 
-from cmipld.utils.id_generation import generate_id_from_issue  # fallback only
+from cmipld.utils.id_generation import generate_id_from_issue  # fallback for empty slots
 from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-SUBGRID_GRAPH = 'emd:horizontal_subgrid/_graph.json'
-
 IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
           'arrangement', 'additional_information', 'description'}
-
-def _fetch_existing_subgrids() -> list[dict]:
-    """Fetch all existing horizontal_subgrid entries via cmipld using the emd: prefix."""
-    try:
-        import cmipld
-        graph = cmipld.get(SUBGRID_GRAPH, depth=2)
-        if isinstance(graph, list):
-            return graph
-        for key in graph:
-            if 'contents' in key.lower() or 'items' in key.lower():
-                val = graph[key]
-                return val if isinstance(val, list) else [val]
-        return [graph]
-    except Exception as e:
-        print(f"  ⚠ Could not fetch existing subgrids: {e}", flush=True)
-        return []
-
-
-def _normalise_cells(val) -> list[str]:
-    """Return sorted list of short IDs from a cell reference value."""
-    if not val:
-        return []
-    if isinstance(val, str):
-        return sorted(v.strip().split('/')[-1] for v in val.split(',') if v.strip())
-    if isinstance(val, list):
-        items = []
-        for v in val:
-            if isinstance(v, dict):
-                items.append(v.get('@id', '').split('/')[-1])
-            else:
-                items.append(str(v).split('/')[-1])
-        return sorted(items)
-    return []
-
-
-def _normalise_vtypes(val) -> list[str]:
-    if not val:
-        return []
-    if isinstance(val, str):
-        return sorted(v.strip() for v in val.split(',') if v.strip())
-    if isinstance(val, list):
-        items = []
-        for v in val:
-            if isinstance(v, dict):
-                items.append(v.get('@id', '').split('/')[-1])
-            else:
-                items.append(str(v))
-        return sorted(items)
-    return []
-
-
-def _find_matching_subgrid(existing: list[dict], cells: list[str], vtypes: list[str]) -> str | None:
-    """Return the short @id of an existing subgrid that matches cells+vtypes, or None."""
-    for item in existing:
-        ex_cells  = _normalise_cells(
-            item.get('horizontal_grid_cells') or item.get('esgvoc:horizontal_grid_cells'))
-        ex_vtypes = _normalise_vtypes(
-            item.get('cell_variable_type') or item.get('esgvoc:cell_variable_type'))
-        if ex_cells == cells and ex_vtypes == vtypes:
-            return item.get('@id', '').split('/')[-1]
-    return None
 
 
 def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
@@ -164,23 +101,19 @@ def run(parsed_issue, issue, dry_run=False):
     arrangement = (parsed_issue.get('arrangement') or '').strip().lower()
     description = parsed_issue.get('additional_information') or parsed_issue.get('description') or ''
 
-    slots        = _slot_fields(parsed_issue, issue.get('body', ''))
-    existing     = _fetch_existing_subgrids()
+    slots       = _slot_fields(parsed_issue, issue.get('body', ''))
+    repo_root   = os.environ.get('GITHUB_WORKSPACE', os.getcwd())
 
     files       = {}
     subgrid_ids = []
     slot_report = []   # for update() summary
 
     for slot in slots:
-        norm_cells  = _normalise_cells(slot['cell'])
-        norm_vtypes = _normalise_vtypes(slot['variable_types'])
-        match       = _find_matching_subgrid(existing, norm_cells, norm_vtypes)
-
-        # Build ID from cell + variable types, e.g. g100-mass or g100-x_velocity-y_velocity
+        # Build deterministic ID from cell + variable types, e.g. g100-mass
         vtype_slug = '-'.join(sorted(slot['variable_types'])) if slot['variable_types'] else 'untyped'
-        new_sid    = f"{slot['cell']}-{vtype_slug}"
-        sid        = match if match else new_sid
-        reused     = match is not None
+        sid        = f"{slot['cell']}-{vtype_slug}"
+        file_path  = os.path.join('horizontal_subgrid', f"{sid}.json")
+        reused     = os.path.exists(os.path.join(repo_root, file_path))
 
         subgrid_data = {
             "@context":              "_context",
@@ -192,7 +125,7 @@ def run(parsed_issue, issue, dry_run=False):
         if slot['variable_types']:
             subgrid_data['cell_variable_type'] = slot['variable_types']
 
-        files[os.path.join('horizontal_subgrid', f"{sid}.json")] = subgrid_data
+        files[file_path] = subgrid_data
         subgrid_ids.append(sid)
         slot_report.append({**slot, 'sid': sid, 'reused': reused})
         tag = '♻ matched' if reused else '+ new'
