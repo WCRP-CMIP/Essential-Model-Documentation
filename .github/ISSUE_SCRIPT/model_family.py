@@ -26,10 +26,13 @@ def _clean_id(s: str) -> str:
     return s.strip().lower().replace(' ', '-')
 
 
-def _parse_list(value: str) -> list:
-    """Split comma- or newline-separated string into a cleaned list."""
-    delim = '\n' if '\n' in value else ','
-    return [v.strip() for v in value.split(delim) if v.strip()]
+def _parse_list(value) -> list:
+    """Split comma- or newline-separated string into a cleaned list.
+    Also handles lists directly (GitHub returns multi-select fields as lists)."""
+    if isinstance(value, list):
+        return [str(v).strip() for v in value if str(v).strip()]
+    delim = '\n' if '\n' in str(value) else ','
+    return [v.strip() for v in str(value).split(delim) if v.strip()]
 
 
 def run(parsed_issue, issue, dry_run=False):
