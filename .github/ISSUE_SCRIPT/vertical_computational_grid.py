@@ -61,6 +61,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
+        print(f"  Generating review report for {file_path} …", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
                 folder_url=f"emd:{kind}s", kind=kind, item=data, link_threshold=80.0
