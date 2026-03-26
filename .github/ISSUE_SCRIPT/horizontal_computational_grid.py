@@ -200,16 +200,27 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             data['_validation_report'] = ''
 
     if atid:
+        import json as _json
+
+        # Print each subgrid file
         print("\n" + "=" * 60, flush=True)
-        print("Stage 2a files:", flush=True)
+        print("Stage 2a — Subgrid files:", flush=True)
         print("=" * 60, flush=True)
         for s in slot_report:
-            vtypes = ', '.join(s['variable_types']) or '(not specified)'
-            tag    = '♻ reused' if s['reused'] else '+ new'
-            print(f"  [{tag}] horizontal_subgrid/ {s['sid']}.json", flush=True)
-            print(f"    ↳ grid cell: {s['cell']}  |  variable types: {vtypes}", flush=True)
-        print(f"  [+ new] horizontal_computational_grid/ {atid}.json", flush=True)
-        print(f"    ↳ subgrids: {', '.join(subgrid_ids)}", flush=True)
+            tag         = '♻ matched' if s['reused'] else '+ new'
+            subgrid_key = os.path.join('horizontal_subgrid', f"{s['sid']}.json")
+            subgrid_obj = files_to_write.get(subgrid_key, {})
+            clean       = {k: v for k, v in subgrid_obj.items() if not k.startswith('_')}
+            print(f"\n  [{tag}] horizontal_subgrid/{s['sid']}.json", flush=True)
+            print(_json.dumps(clean, indent=4), flush=True)
+
+        # Print the computational grid file
+        hgrid_key = os.path.join('horizontal_computational_grid', f"{atid}.json")
+        hgrid_obj = files_to_write.get(hgrid_key, {})
+        clean     = {k: v for k, v in hgrid_obj.items() if not k.startswith('_')}
+        print("\n" + "=" * 60, flush=True)
+        print(f"  [+ new] horizontal_computational_grid/{atid}.json", flush=True)
+        print(_json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
         print(
             f"\n  ✅ Computational Grid ID: '{atid}'\n"
