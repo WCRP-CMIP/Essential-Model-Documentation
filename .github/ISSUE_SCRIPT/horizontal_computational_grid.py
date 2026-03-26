@@ -126,27 +126,25 @@ def run(parsed_issue, issue, dry_run=False):
         norm_vtypes = _normalise_vtypes(slot['variable_types'])
         match       = _find_matching_subgrid(existing, norm_cells, norm_vtypes)
 
-        if match:
-            # Reuse existing subgrid — no new file
-            subgrid_ids.append(match)
-            slot_report.append({**slot, 'sid': match, 'reused': True})
-            print(f"  ✓ Slot {slot['n']}: reusing existing subgrid '{match}'", flush=True)
-        else:
-            # Create new subgrid
-            sid = f"{atid}_s{slot['n']}"
-            subgrid_data = {
-                "@context":              "_context",
-                "@id":                   sid,
-                "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
-                "validation_key":        sid,
-                "horizontal_grid_cells": [slot['cell']],
-            }
-            if slot['variable_types']:
-                subgrid_data['cell_variable_type'] = slot['variable_types']
-            files[os.path.join('horizontal_subgrid', f"{sid}.json")] = subgrid_data
-            subgrid_ids.append(sid)
-            slot_report.append({**slot, 'sid': sid, 'reused': False})
-            print(f"  + Slot {slot['n']}: creating new subgrid '{sid}'", flush=True)
+        # Use existing ID if matched, otherwise generate a new one
+        sid    = match if match else f"{atid}_s{slot['n']}"
+        reused = match is not None
+
+        subgrid_data = {
+            "@context":              "_context",
+            "@id":                   sid,
+            "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+            "validation_key":        sid,
+            "horizontal_grid_cells": [slot['cell']],
+        }
+        if slot['variable_types']:
+            subgrid_data['cell_variable_type'] = slot['variable_types']
+
+        files[os.path.join('horizontal_subgrid', f"{sid}.json")] = subgrid_data
+        subgrid_ids.append(sid)
+        slot_report.append({**slot, 'sid': sid, 'reused': reused})
+        tag = '♻ matched' if reused else '+ new'
+        print(f"  [{tag}] Slot {slot['n']}: subgrid '{sid}'", flush=True)
 
     hgrid_data = {
         "@context":            "_context",
