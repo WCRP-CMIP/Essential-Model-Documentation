@@ -5,20 +5,19 @@ field_order,field_type,field_id,label,description,data_source,required,placehold
 
 # Stage 2a: Horizontal Computational Grid
 
-Links subgrids into a single computational grid with a specified staggering arrangement.
+Links grid cells into subgrids and groups them into a single computational grid with a specified staggering arrangement.
 
-**Prerequisites:** Subgrid IDs (s###) from Stage 1.
+**Prerequisites:** Grid Cell IDs (g###) from Stage 1.
 
 > [!NOTE]
 > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
 > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.",none,false,,,
 2,dropdown,arrangement,Arrangement,The grid staggering pattern that defines how variables are positioned relative to cell centres.,arrangement,true,,list_with_na,0
-3,multi-select,horizontal_subgrids,Subgrid IDs,The subgrid IDs from Stage 1 that make up this computational grid. **Select multiple.**,subgrids,true,,list,
 5,markdown,subgrid_config_header,,"---
 
-# Subgrid Configurations
+# Subgrid Slots
 
-Alternatively, define subgrids inline by specifying grid cells and variable types for each slot.
+Each slot defines a subgrid by linking an existing grid cell (g###) with the variable types stored at that stagger position. The submission will automatically create one `horizontal_subgrid` per filled slot and link them all into the `horizontal_computational_grid`.
 
 <details>
 <summary>What are subgrids?</summary>
@@ -62,7 +61,8 @@ For staggered grids (Arakawa B/C/D/E), multiple subgrids with different variable
 ## Issue Handling
 
 **After submission:**
-- Creates `horizontal_computational_grid` (h###)
-- Use this ID with a v### in Stage 3 (Model Component)
+- Creates one `horizontal_subgrid` (s###) per filled slot
+- Creates `horizontal_computational_grid` (h###) linking all subgrids
+- Use the h### ID with a v### in Stage 3 (Model Component)
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
 20,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,true,,list,0

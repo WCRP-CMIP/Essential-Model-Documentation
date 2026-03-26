@@ -2,14 +2,16 @@
 Handler for Horizontal Computational Grid registration (Stage 2a)
 
 Produces N+1 files per submission:
-  horizontal_subgrid/{atid}_s{N}.json         — one per filled slot (s### equivalent)
+  horizontal_subgrid/{atid}_s{N}.json         — one per NEW slot (s### equivalent)
   horizontal_computational_grid/{atid}.json   — groups all subgrids (h### equivalent)
 
-Each slot links an existing grid cell (g###) with its cell_variable_type(s).
-The arrangement (Arakawa type) is set on the computational grid.
+Before creating a new subgrid, checks the remote src-data _graph.json for an
+existing subgrid with identical grid_cells + cell_variable_type. If found,
+links to that instead of creating a duplicate.
 """
 
 import os
+import json
 import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
@@ -17,23 +19,76 @@ from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
-          'arrangement', 'additional_information', 'horizontal_subgrids',
-          'description'}
+SUBGRID_GRAPH = 'emd:horizontal_subgrid/_graph.json'
 
-# Parsed label → canonical key for slot fields
-# "Grid Cells (select...)" → horizontal_grid_cells_1 etc. (spaces → _, lowercased)
-# "Variable Types (variable types...)" → variable_types__variable_types_at_this_cell_location__1
-# The actual parsed key depends on how parse_issue_body handles the label.
-# CSV field_ids are: horizontal_grid_cells_1, cell_variable_type_1 etc.
-# but labels are long strings. We match by checking for the slot number suffix.
+IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+          'arrangement', 'additional_information', 'description'}
+
+def _fetch_existing_subgrids() -> list[dict]:
+    """Fetch all existing horizontal_subgrid entries via cmipld using the emd: prefix."""
+    try:
+        import cmipld
+        graph = cmipld.get(SUBGRID_GRAPH, depth=2)
+        if isinstance(graph, list):
+            return graph
+        for key in graph:
+            if 'contents' in key.lower() or 'items' in key.lower():
+                val = graph[key]
+                return val if isinstance(val, list) else [val]
+        return [graph]
+    except Exception as e:
+        print(f"  ⚠ Could not fetch existing subgrids: {e}", flush=True)
+        return []
+
+
+def _normalise_cells(val) -> list[str]:
+    """Return sorted list of short IDs from a cell reference value."""
+    if not val:
+        return []
+    if isinstance(val, str):
+        return sorted(v.strip().split('/')[-1] for v in val.split(',') if v.strip())
+    if isinstance(val, list):
+        items = []
+        for v in val:
+            if isinstance(v, dict):
+                items.append(v.get('@id', '').split('/')[-1])
+            else:
+                items.append(str(v).split('/')[-1])
+        return sorted(items)
+    return []
+
+
+def _normalise_vtypes(val) -> list[str]:
+    if not val:
+        return []
+    if isinstance(val, str):
+        return sorted(v.strip() for v in val.split(',') if v.strip())
+    if isinstance(val, list):
+        items = []
+        for v in val:
+            if isinstance(v, dict):
+                items.append(v.get('@id', '').split('/')[-1])
+            else:
+                items.append(str(v))
+        return sorted(items)
+    return []
+
+
+def _find_matching_subgrid(existing: list[dict], cells: list[str], vtypes: list[str]) -> str | None:
+    """Return the short @id of an existing subgrid that matches cells+vtypes, or None."""
+    for item in existing:
+        ex_cells  = _normalise_cells(
+            item.get('horizontal_grid_cells') or item.get('esgvoc:horizontal_grid_cells'))
+        ex_vtypes = _normalise_vtypes(
+            item.get('cell_variable_type') or item.get('esgvoc:cell_variable_type'))
+        if ex_cells == cells and ex_vtypes == vtypes:
+            return item.get('@id', '').split('/')[-1]
+    return None
 
 
 def _slot_fields(parsed_issue: dict) -> list[dict]:
-    """Extract per-slot {grid_cell, variable_types} from parsed issue."""
     slots = []
     for n in range(1, 5):
-        # Try both field_id form and parsed-label form
         cell = (
             parsed_issue.get(f'horizontal_grid_cells_{n}') or
             parsed_issue.get(f'grid_cells_(select_or_define_horizontal_grid_cells_for_this_subgrid)_{n}') or
@@ -59,33 +114,40 @@ def run(parsed_issue, issue, dry_run=False):
     arrangement = (parsed_issue.get('arrangement') or '').strip().lower()
     description = parsed_issue.get('additional_information') or parsed_issue.get('description') or ''
 
-    slots = _slot_fields(parsed_issue)
+    slots        = _slot_fields(parsed_issue)
+    existing     = _fetch_existing_subgrids()
 
-    # If no inline slots, check for pre-existing s### references
-    existing_subgrids = []
-    raw_subgrids = parsed_issue.get('horizontal_subgrids') or parsed_issue.get('subgrid_ids') or ''
-    if raw_subgrids:
-        existing_subgrids = [s.strip() for s in raw_subgrids.split(',') if s.strip()]
+    files       = {}
+    subgrid_ids = []
+    slot_report = []   # for update() summary
 
-    files = {}
-
-    # ── One horizontal_subgrid per inline slot ────────────────────────────────
-    subgrid_ids = list(existing_subgrids)  # start with any pre-existing ones
     for slot in slots:
-        sid = f"{atid}_s{slot['n']}"
-        subgrid_data = {
-            "@context":              "_context",
-            "@id":                   sid,
-            "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
-            "validation_key":        sid,
-            "horizontal_grid_cells": [slot['cell']],
-        }
-        if slot['variable_types']:
-            subgrid_data['cell_variable_type'] = slot['variable_types']
-        files[os.path.join('horizontal_subgrid', f"{sid}.json")] = subgrid_data
-        subgrid_ids.append(sid)
+        norm_cells  = _normalise_cells(slot['cell'])
+        norm_vtypes = _normalise_vtypes(slot['variable_types'])
+        match       = _find_matching_subgrid(existing, norm_cells, norm_vtypes)
 
-    # ── horizontal_computational_grid ─────────────────────────────────────────
+        if match:
+            # Reuse existing subgrid — no new file
+            subgrid_ids.append(match)
+            slot_report.append({**slot, 'sid': match, 'reused': True})
+            print(f"  ✓ Slot {slot['n']}: reusing existing subgrid '{match}'", flush=True)
+        else:
+            # Create new subgrid
+            sid = f"{atid}_s{slot['n']}"
+            subgrid_data = {
+                "@context":              "_context",
+                "@id":                   sid,
+                "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+                "validation_key":        sid,
+                "horizontal_grid_cells": [slot['cell']],
+            }
+            if slot['variable_types']:
+                subgrid_data['cell_variable_type'] = slot['variable_types']
+            files[os.path.join('horizontal_subgrid', f"{sid}.json")] = subgrid_data
+            subgrid_ids.append(sid)
+            slot_report.append({**slot, 'sid': sid, 'reused': False})
+            print(f"  + Slot {slot['n']}: creating new subgrid '{sid}'", flush=True)
+
     hgrid_data = {
         "@context":            "_context",
         "@id":                 atid,
@@ -112,14 +174,14 @@ def run(parsed_issue, issue, dry_run=False):
         '_contributors': contributors,
         '_make_pull':    True,
         '_atid':         atid,
-        '_slots':        slots,
+        '_slot_report':  slot_report,
         '_subgrid_ids':  subgrid_ids,
     }
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     atid        = files_to_write.get('_atid', '')
-    slots       = files_to_write.get('_slots', [])
+    slot_report = files_to_write.get('_slot_report', [])
     subgrid_ids = files_to_write.get('_subgrid_ids', [])
 
     for file_path, data in files_to_write.items():
@@ -141,20 +203,19 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
 
     if atid:
         print("\n" + "=" * 60, flush=True)
-        print(f"Stage 2a files created:", flush=True)
+        print("Stage 2a files:", flush=True)
         print("=" * 60, flush=True)
-        for slot in slots:
-            sid = f"{atid}_s{slot['n']}"
-            vtypes = ', '.join(slot['variable_types']) or '(not specified)'
-            print(f"  horizontal_subgrid/            {sid}.json", flush=True)
-            print(f"    ↳ grid cell: {slot['cell']}  |  variable types: {vtypes}", flush=True)
-        print(f"  horizontal_computational_grid/ {atid}.json", flush=True)
+        for s in slot_report:
+            vtypes = ', '.join(s['variable_types']) or '(not specified)'
+            tag    = '♻ reused' if s['reused'] else '+ new'
+            print(f"  [{tag}] horizontal_subgrid/ {s['sid']}.json", flush=True)
+            print(f"    ↳ grid cell: {s['cell']}  |  variable types: {vtypes}", flush=True)
+        print(f"  [+ new] horizontal_computational_grid/ {atid}.json", flush=True)
         print(f"    ↳ subgrids: {', '.join(subgrid_ids)}", flush=True)
         print("=" * 60, flush=True)
         print(
             f"\n  ✅ Computational Grid ID: '{atid}'\n"
-            f"     Use this ID together with a v### (vertical grid) in\n"
-            f"     Stage 3 (Model Component) to form a component config ID:\n"
-            f"     e.g.  atmosphere_arpege-v6_<{atid}>_<v###>",
+            f"     Use this ID with a v### in Stage 3 (Model Component):\n"
+            f"     e.g.  atmosphere_arpege-v6_{atid}_<v###>",
             flush=True,
         )
