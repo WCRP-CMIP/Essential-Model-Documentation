@@ -73,6 +73,12 @@ jobs:
           ls "$GITHUB_WORKSPACE"
 
 
+      - name: Start LDR server
+        run: |
+          ldr server stop 2>/dev/null || true
+          ldr server start
+          echo "LDR server started"
+
       - name: Generate graphs (graphify)
         run: |
           cd "$GITHUB_WORKSPACE"
