@@ -37,6 +37,15 @@ def run(parsed_issue, issue, dry_run=False):
     region = (parsed_issue.get('region') or '').strip()
     units  = parsed_issue.get('units', parsed_issue.get('horizontal_units', ''))
 
+    grid_type = parsed_issue.get('grid_type', '')
+    x_res     = parsed_issue.get('x_resolution', '')
+    y_res     = parsed_issue.get('y_resolution', '')
+    ui_label  = (
+        f"Horizontal grid cell with a {grid_type.replace('_', ' ')} grid type"
+        + (f" and {x_res} x {y_res} {units} resolution" if x_res and y_res else "")
+        + "."
+    )
+
     description = (parsed_issue.get('description') or '').strip()
     if not description or description.lower() in ('_no response_', 'none', 'not specified'):
         description = ''
@@ -46,6 +55,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@id":            temp_id,
         "@type":          ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
         "validation_key": temp_id,
+        "ui_label":       ui_label,
     }
     if description:
         data['description'] = description

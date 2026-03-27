@@ -44,12 +44,21 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
     file_path  = os.path.join(kind, f"{temp_id}.json")
 
+    coord   = parsed_issue.get('vertical_coordinate', '')
+    n_z     = parsed_issue.get('n_z', parsed_issue.get('number_of_levels', ''))
+    ui_label = (
+        f"{coord.replace('_', ' ')} grid"
+        + (f" with {n_z} levels" if n_z else "")
+        + "."
+    )
+
     data = {
         "@context":       "_context",
         "@id":            temp_id,
         "@type":          ["wcrp:vertical_computational_grid",
                            "esgvoc:vertical_computational_grid"],
         "validation_key": temp_id,
+        "ui_label":       ui_label,
     }
 
     # Only set description if user explicitly entered something
