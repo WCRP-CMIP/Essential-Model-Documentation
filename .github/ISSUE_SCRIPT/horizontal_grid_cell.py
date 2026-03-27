@@ -19,6 +19,10 @@ kind = __file__.split('/')[-1].replace('.py', '')
 IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
           'additional_information'}
 
+FIELD_MAP = {
+    'number_of_cells': 'n_cells',
+}
+
 
 def run(parsed_issue, issue, dry_run=False):
     if parsed_issue.get('validation_key'):
@@ -60,6 +64,7 @@ def run(parsed_issue, issue, dry_run=False):
             continue
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
             continue
+        key = FIELD_MAP.get(key, key)
         data[key] = val.strip() if isinstance(val, str) else val
     if region and region.lower() not in ('_no response_', 'none', 'not specified'):
         data['region'] = region
