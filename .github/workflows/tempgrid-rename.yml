@@ -24,15 +24,11 @@ on:
 
 jobs:
   rename_tempgrid:
-    # Only run when the PR was actually merged AND carries the 'pull_req' label
-    # OR when manually triggered with a PR number
+    # Run on any merged PR, or when manually triggered.
+    # If there are no tempgrid files the identify step exits cleanly.
     if: >
-      (github.event_name == 'pull_request' && 
-       github.event.pull_request.merged == true &&
-       contains(
-         toJSON(github.event.pull_request.labels.*.name),
-         'pull_req'
-       )) ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.merged == true) ||
       github.event_name == 'workflow_dispatch'
 
     runs-on: ubuntu-latest
