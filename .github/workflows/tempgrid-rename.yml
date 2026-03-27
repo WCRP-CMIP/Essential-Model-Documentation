@@ -232,7 +232,7 @@ jobs:
             echo "No running src-data-change workflows found."
           fi
 
-      # ── 5. Commit renamed files to src-data ───────────────────────────────
+      # ── 5. Commit renamed files to src-data with all authors as coauthors ─
       - name: Commit renames to src-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -245,34 +245,41 @@ jobs:
             exit 0
           fi
 
-          # Collect all unique commit authors from the PR's commits
-          COAUTHOR_LINES=""
-          while IFS= read -r line; do
-            [ -z "$line" ] && continue
-            COAUTHOR_LINES="${COAUTHOR_LINES}Co-authored-by: ${line}\n"
-          done < <(
-            gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
-              --jq '.commits[].authors[] | "\(.name) <\(.email)>"' \
-              2>/dev/null | sort -u || true
-          )
+          # Collect authors from three sources into a temp file:
+          # 1. git commit authors (name <email> from the commit itself)
+          # 2. Co-authored-by: trailers already in commit messages (added by new_issue.py bot)
+          # 3. PR opener (may not appear in commits if they used the GitHub UI)
+          ALL=$(mktemp)
 
-          # Also include the PR opener in case they didn't push commits directly
-          PR_AUTHOR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+          # Sources 1 + 2: jq outputs one line per author, then raw messageBody lines
+          gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
+            --jq '.commits[] | (.authors[] | "\(.name) <\(.email)>"), .messageBody' \
+            2>/dev/null | grep -oiE '(Co-authored-by: )?[^<>]+<[^>]+@[^>]+>' \
+            | sed 's/[Cc][Oo]-[Aa][Uu][Tt][Hh][Oo][Rr][Ee][Dd]-[Bb][Yy]: //' \
+            | grep -vE '^(cmip-ipo|github-actions)' \
+            >> "$ALL" || true
+
+          # Source 3: PR opener
+          PR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
             --json author --jq '.author.login' 2>/dev/null || true)
-          if [ -n "$PR_AUTHOR_LOGIN" ]; then
-            PR_AUTHOR_NAME=$(gh api "users/$PR_AUTHOR_LOGIN" \
-              --jq '.name // .login' 2>/dev/null || echo "$PR_AUTHOR_LOGIN")
-            COAUTHOR_LINES="${COAUTHOR_LINES}Co-authored-by: ${PR_AUTHOR_NAME} <${PR_AUTHOR_LOGIN}@users.noreply.github.com>\n"
+          if [ -n "$PR_LOGIN" ]; then
+            PR_NAME=$(gh api "users/$PR_LOGIN" --jq '.name // .login' 2>/dev/null \
+              || echo "$PR_LOGIN")
+            echo "${PR_NAME} <${PR_LOGIN}@users.noreply.github.com>" >> "$ALL"
           fi
 
-          # Deduplicate and build final commit message with trailers
-          COMMIT_MSG="Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]"
-          if [ -n "$COAUTHOR_LINES" ]; then
-            UNIQUE_COAUTHORS=$(printf '%b' "$COAUTHOR_LINES" | sort -u)
-            COMMIT_MSG="${COMMIT_MSG}\n\n${UNIQUE_COAUTHORS}"
-          fi
+          # Deduplicate and prefix with Co-authored-by:
+          TRAILERS=$(sort -u "$ALL" | sed 's/^/Co-authored-by: /')
+          rm -f "$ALL"
 
-          git commit -m "$(printf '%b' "$COMMIT_MSG")"
+          # Build commit message — git requires a blank line before trailers
+          # Using two -m flags achieves this automatically
+          if [ -n "$TRAILERS" ]; then
+            git commit -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]" \
+              -m "$TRAILERS"
+          else
+            git commit -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]"
+          fi
           git push origin src-data
           echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
 
