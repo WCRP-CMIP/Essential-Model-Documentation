@@ -16,6 +16,8 @@ body:
         
         **Prerequisites:** Grid Cell IDs (g###) from Stage 1.
         
+        **Generated IDs:** Subgrids are named `{cell}-{vtype}` (e.g. `g100-mass`). The computational grid ID is derived from its subgrids (e.g. `g100-mass--g101-x-velocity`).
+        
         > [!NOTE]
         > Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
         > To modify an existing entry, see __[modifying entries](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/production?tab=contributing-ov-file#2-modifying-or-reusing-existing-entries)__.
@@ -316,9 +318,10 @@ body:
         ## Issue Handling
         
         **After submission:**
-        - Creates one `horizontal_subgrid` (s###) per filled slot
-        - Creates `horizontal_computational_grid` (h###) linking all subgrids
-        - Use the h### ID with a v### in Stage 3 (Model Component)
+        - Creates one `horizontal_subgrid` per filled slot, named `{cell}-{vtype}` (e.g. `g100-mass`)
+        - If a subgrid with those exact properties already exists it is reused — no duplicate is created
+        - Creates `horizontal_computational_grid` named from its sorted subgrids (e.g. `g100-mass--g101-x-velocity`)
+        - Use the computational grid ID with a v### in Stage 3 (Model Component)
         - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 
   - type: dropdown

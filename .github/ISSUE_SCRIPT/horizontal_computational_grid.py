@@ -117,7 +117,7 @@ def run(parsed_issue, issue, dry_run=False):
             "@id":                   sid,
             "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
             "validation_key":        sid,
-            "horizontal_grid_cells": [slot['cell']],
+            "horizontal_grid_cells": [{"@id": slot['cell']}],
         }
         if slot['variable_types']:
             subgrid_data['cell_variable_type'] = slot['variable_types']
@@ -178,7 +178,6 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
-        print(f"  Generating review report for {file_path} …", flush=True)
         report_kind = (
             'horizontal_subgrid' if 'horizontal_subgrid' in file_path
             else 'horizontal_computational_grid'
@@ -186,13 +185,17 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # folder names are singular — do not pluralise
         folder_url = f"emd:{report_kind}"
         try:
-            data['_validation_report'] = ReportBuilder(
+            report = ReportBuilder(
                 folder_url=folder_url, kind=report_kind,
                 item=data, link_threshold=80.0,
             ).build()
+            data['_validation_report'] = report
+            status = '✓' if report else '(empty)'
         except Exception as e:
-            print(f"  ⚠ Report generation failed: {e}", flush=True)
+            print(f"  ⚠ Report generation failed for {file_path}: {e}", flush=True)
             data['_validation_report'] = ''
+            status = '⚠ failed'
+        print(f"  Report {status}: {file_path}", flush=True)
 
     if atid:
         import json as _json
