@@ -1,0 +1,16 @@
+{
+    "validation_key": "g108-mass",
+    "ui_label": "",
+    "description": "Arakawa-A (unstaggered) regular lat-lon grid, 1.875x1.25 degree.",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g108-mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "g108-mass"
+}
