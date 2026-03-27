@@ -33,7 +33,7 @@ Registers reusable grid cell definitions that can be referenced in Stage 2a.
 Define the physical grid structure that can be reused across multiple subgrid registrations in Stage 2a.",none,false,,,
 2,dropdown,grid_type,Grid Type,The cell distribution pattern that defines how grid cells are arranged across the domain.,grid_type,true,,list_with_na,0
 3,dropdown,grid_mapping,Coordinate System,The reference coordinate system used for cell positions.,grid_mapping,true,,list_with_na,0
-4,multi-select,region,Region,The geographic coverage area of the grid. **Select multiple.**,region,true,,list,
+4,dropdown,region,Region,The geographic coverage area of the grid.,region,true,,list_with_na,0
 5,dropdown,temporal_refinement,Temporal Refinement,Whether the grid changes over time during the simulation.,temporal_refinement,true,,list_with_na,0
 6,input,x_resolution,X Resolution,The nominal cell size in the x-direction.,none,false,1.25,,
 7,input,y_resolution,Y Resolution,The nominal cell size in the y-direction.,none,false,0.9,,

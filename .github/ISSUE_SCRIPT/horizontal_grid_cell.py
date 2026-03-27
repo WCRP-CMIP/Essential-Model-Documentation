@@ -30,8 +30,7 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
     file_path  = os.path.join('horizontal_grid_cell', f"{temp_id}.json")
 
-    region = parsed_issue.get('region', '')
-    region_list = [r.strip() for r in region.split(',') if r.strip()] if region else []
+    region = (parsed_issue.get('region') or '').strip()
 
     grid_type = parsed_issue.get('grid_type', '')
     x_res     = parsed_issue.get('x_resolution', '')
@@ -62,8 +61,8 @@ def run(parsed_issue, issue, dry_run=False):
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
             continue
         data[key] = val.strip() if isinstance(val, str) else val
-    if region_list:
-        data['region'] = region_list
+    if region and region.lower() not in ('_no response_', 'none', 'not specified'):
+        data['region'] = region
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
