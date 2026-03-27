@@ -234,15 +234,47 @@ jobs:
 
       # ── 5. Commit renamed files to src-data ───────────────────────────────
       - name: Commit renames to src-data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
         run: |
           git add -A
           if git diff --cached --quiet; then
             echo "Nothing to commit (no tempgrid renames were needed)."
-          else
-            git commit -m "Auto-rename tempgrid files with sequential ids"
-            git push origin src-data
-            echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
+
+          # Collect all unique commit authors from the PR's commits
+          COAUTHOR_LINES=""
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            COAUTHOR_LINES="${COAUTHOR_LINES}Co-authored-by: ${line}\n"
+          done < <(
+            gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
+              --jq '.commits[].authors[] | "\(.name) <\(.email)>"' \
+              2>/dev/null | sort -u || true
+          )
+
+          # Also include the PR opener in case they didn't push commits directly
+          PR_AUTHOR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json author --jq '.author.login' 2>/dev/null || true)
+          if [ -n "$PR_AUTHOR_LOGIN" ]; then
+            PR_AUTHOR_NAME=$(gh api "users/$PR_AUTHOR_LOGIN" \
+              --jq '.name // .login' 2>/dev/null || echo "$PR_AUTHOR_LOGIN")
+            COAUTHOR_LINES="${COAUTHOR_LINES}Co-authored-by: ${PR_AUTHOR_NAME} <${PR_AUTHOR_LOGIN}@users.noreply.github.com>\n"
+          fi
+
+          # Deduplicate and build final commit message with trailers
+          COMMIT_MSG="Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]"
+          if [ -n "$COAUTHOR_LINES" ]; then
+            UNIQUE_COAUTHORS=$(printf '%b' "$COAUTHOR_LINES" | sort -u)
+            COMMIT_MSG="${COMMIT_MSG}\n\n${UNIQUE_COAUTHORS}"
+          fi
+
+          git commit -m "$(printf '%b' "$COMMIT_MSG")"
+          git push origin src-data
+          echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
 
       # ── 6. Trigger src-data-change workflow after rename commit ──────────
       - name: Trigger src-data-change workflow
