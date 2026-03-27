@@ -1,16 +1,19 @@
 """
 Handler for Vertical Computational Grid registration (Stage 2b)
+
+Produces one file:
+  vertical_computational_grid/v{NNN}.json
+
+The @id is the next available v### based on existing files in the repo.
+The permanent v### ID is assigned here; no tempgrid renaming needed.
 """
 
 import os
-import time
 
-from cmipld.utils.id_generation import generate_id_from_issue
 from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-# Keys in the parsed issue that need renaming to canonical field names
 FIELD_MAP = {
     'top_layer_thickness_(m)':    'top_layer_thickness',
     'bottom_layer_thickness_(m)': 'bottom_layer_thickness',
@@ -22,42 +25,81 @@ FIELD_MAP = {
 IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category'}
 
 
+def _next_vid(repo_root: str) -> str:
+    """Return the next available v### ID by scanning existing files."""
+    vert_dir = os.path.join(repo_root, 'vertical_computational_grid')
+    existing = []
+    if os.path.isdir(vert_dir):
+        for f in os.listdir(vert_dir):
+            if f.startswith('v') and f[1:-5].isdigit() and f.endswith('.json'):
+                existing.append(int(f[1:-5]))
+    return f"v{max(existing, default=99) + 1}"
+
+
+def _parse_list(value) -> list:
+    if isinstance(value, list):
+        return [str(v).strip() for v in value if str(v).strip()]
+    delim = '\n' if '\n' in str(value) else ','
+    return [v.strip() for v in str(value).split(delim) if v.strip()]
+
+
 def run(parsed_issue, issue, dry_run=False):
     if parsed_issue.get('validation_key'):
         return None
 
-    author     = issue.get('author') or 'unknown'
-    created_at = issue.get('created_at') or ''
-    atid       = generate_id_from_issue(author, created_at)['id'] if created_at \
-                 else f"{author}_{int(time.time())}"
-
-    remapped = {
-        FIELD_MAP.get(k, k): v
-        for k, v in parsed_issue.items()
-        if FIELD_MAP.get(k, k) not in IGNORE and v
-    }
+    repo_root = os.environ.get('GITHUB_WORKSPACE', os.getcwd())
+    vid       = _next_vid(repo_root)
 
     data = {
         "@context":       "_context",
-        "@id":            atid,
-        "@type":          ["wcrp:vertical_computational_grid", "esgvoc:vertical_computational_grid"],
-        "validation_key": atid,
-        **remapped,
+        "@id":            vid,
+        "@type":          ["wcrp:vertical_computational_grid",
+                           "esgvoc:vertical_computational_grid"],
+        "validation_key": vid,
     }
 
-    # Remove any old field names that were renamed via FIELD_MAP
+    skip = IGNORE | {'issue_kind', 'issue_type'}
+    for raw_key, val in parsed_issue.items():
+        if raw_key in skip or not val:
+            continue
+        if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
+            continue
+        key = FIELD_MAP.get(raw_key, raw_key)
+        if key in ('n_z', 'top_layer_thickness', 'bottom_layer_thickness',
+                   'total_thickness', 'truncation_number'):
+            try:
+                data[key] = float(val) if '.' in str(val) else int(val)
+            except (ValueError, TypeError):
+                data[key] = val
+        elif key == 'n_z_range':
+            data[key] = _parse_list(val)
+        else:
+            data[key] = val
+
+    # Remove any stale original keys that were remapped
     for old_key in FIELD_MAP:
         data.pop(old_key, None)
 
-    collab_str   = parsed_issue.get('additional_collaborators', parsed_issue.get('collaborators', ''))
-    contributors = [c.strip() for c in collab_str.split(',') if c.strip()] if collab_str else []
-    file_path    = os.path.join(kind, f"{atid}.json")
+    collab_str   = parsed_issue.get('additional_collaborators',
+                                    parsed_issue.get('collaborators', ''))
+    contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
+                   if collab_str else []
+    file_path    = os.path.join(kind, f"{vid}.json")
 
-    return {file_path: data, '_author': issue.get('author'),
-            '_contributors': contributors, '_make_pull': True}
+    print(f"  [+ new] Vertical grid '{vid}'", flush=True)
+
+    return {
+        file_path:       data,
+        '_author':       issue.get('author'),
+        '_contributors': contributors,
+        '_make_pull':    True,
+        '_atid':         vid,
+    }
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
+    atid = files_to_write.get('_atid', '')
+
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
@@ -69,3 +111,18 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         except Exception as e:
             print(f"  ⚠ Report generation failed: {e}", flush=True)
             data['_validation_report'] = ''
+
+    if atid:
+        import json as _json
+        file_path = os.path.join(kind, f"{atid}.json")
+        clean     = {k: v for k, v in files_to_write.get(file_path, {}).items()
+                     if not k.startswith('_')}
+        print("\n" + "=" * 60, flush=True)
+        print(f"Stage 2b — Vertical grid '{atid}' created:", flush=True)
+        print(_json.dumps(clean, indent=4), flush=True)
+        print("=" * 60, flush=True)
+        print(
+            f"\n  ✅ Vertical Grid ID: '{atid}'\n"
+            f"     Use this v### in Stage 3 (Model Component)",
+            flush=True,
+        )
