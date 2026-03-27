@@ -65,12 +65,10 @@ jobs:
         id: find_tempgrid
         run: |
           ADDED=$(git diff --name-only --diff-filter=A HEAD^1 HEAD 2>/dev/null || true)
-
           echo "All added files:"
           echo "$ADDED"
 
           TEMPGRID=$(echo "$ADDED" | grep -E '(^|/)([^/]*tempgrid[^/]*)$' || true)
-
           echo "Tempgrid files:"
           echo "$TEMPGRID"
 
@@ -106,7 +104,6 @@ jobs:
             [ -z "$filepath" ] && continue
 
             dir=$(dirname "$filepath")
-
             echo "Processing: $filepath  (dir=$dir)"
 
             LETTER=""
@@ -172,7 +169,6 @@ jobs:
 
             echo "Updating '$old_base' → '$new_base' in $new_path"
 
-            # jq safely rewrites any string field whose value exactly matches the old tempgrid id
             tmp=$(mktemp)
             jq --arg old "$old_base" --arg new "$new_base" \
               'walk(if type == "string" and . == $old then $new else . end)' \
@@ -200,7 +196,7 @@ jobs:
             echo "No running src-data-change workflows found."
           fi
 
-      # ── 5. Commit renamed files to src-data with all authors as coauthors ─
+      # ── 5. Commit renamed files to src-data with all human authors ─────────
       - name: Commit renames to src-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -215,22 +211,34 @@ jobs:
 
           ALL=$(mktemp)
 
+          # Source 1: commit authors — jq only emits lines with a real @ in email
           gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
-            --jq '.commits[] | (.authors[] | "\(.name) <\(.email)>"), .messageBody' \
-            2>/dev/null | grep -oiE '(Co-authored-by: )?[^<>]+<[^>]+@[^>]+>' \
-            | sed 's/[Cc][Oo]-[Aa][Uu][Tt][Hh][Oo][Rr][Ee][Dd]-[Bb][Yy]: //' \
-            | grep -vE '^(cmip-ipo|github-actions)' \
+            --jq '.commits[].authors[] | select(.email | test("@")) | "\(.name) <\(.email)>"' \
+            2>/dev/null >> "$ALL" || true
+
+          # Source 2: Co-authored-by trailers in commit messages — strict pattern only
+          gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
+            --jq '.commits[].messageBody' 2>/dev/null \
+            | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
+            | sed 's/Co-authored-by: //' \
             >> "$ALL" || true
 
+          # Source 3: PR opener — skip bot logins ([bot], app/, -bot suffix)
           PR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
             --json author --jq '.author.login' 2>/dev/null || true)
-          if [ -n "$PR_LOGIN" ]; then
-            PR_NAME=$(gh api "users/$PR_LOGIN" --jq '.name // .login' 2>/dev/null \
-              || echo "$PR_LOGIN")
-            echo "${PR_NAME} <${PR_LOGIN}@users.noreply.github.com>" >> "$ALL"
+          if [ -n "$PR_LOGIN" ] && ! echo "$PR_LOGIN" | grep -qE '(\[bot\]|^app/|-bot$)'; then
+            PR_NAME=$(gh api "users/$PR_LOGIN" --jq '.name // .login' 2>/dev/null || true)
+            # Validate PR_NAME is a simple name (no JSON, no special chars)
+            if echo "$PR_NAME" | grep -qE '^[A-Za-z0-9 _.@-]+$'; then
+              echo "${PR_NAME} <${PR_LOGIN}@users.noreply.github.com>" >> "$ALL"
+            fi
           fi
 
-          TRAILERS=$(sort -u "$ALL" | sed 's/^/Co-authored-by: /')
+          # Deduplicate, remove bots and GitHub noreply addresses, prefix trailers
+          TRAILERS=$(sort -u "$ALL" \
+            | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
+            | grep -E '^[A-Za-z0-9]' \
+            | sed 's/^/Co-authored-by: /')
           rm -f "$ALL"
 
           if [ -n "$TRAILERS" ]; then
@@ -242,7 +250,7 @@ jobs:
           git push origin src-data
           echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
 
-      # ── 6. Trigger src-data-change workflow ──────────────────────────────
+      # ── 6. Trigger src-data-change workflow ───────────────────────────────
       - name: Trigger src-data-change workflow
         if: ${{ !cancelled() }}
         env:
@@ -262,16 +270,7 @@ jobs:
         run: |
           TABLE=$(printf "%b" "$MAPPING_MD")
 
-          COMMENT_BODY="## ✅ Grid IDs assigned
-
-The following temporary grid files have been renamed to their permanent sequential IDs and committed to \`src-data\`.
-
-| Temporary filename | Permanent ID |
-|---|---|
-${TABLE}
-
-> IDs are the next available sequential number in each folder (\`g###\`, \`v###\`, \`h###\`).
-> Use the permanent ID in subsequent registration steps."
+          COMMENT_BODY=$(printf '## \u2705 Grid IDs assigned\n\nThe following temporary grid files have been renamed to their permanent sequential IDs and committed to `src-data`.\n\n| Temporary filename | Permanent ID |\n|---|---|\n%s\n> IDs are the next available sequential number in each folder (`g###`, `v###`, `h###`).\n> Use the permanent ID in subsequent registration steps.' "$TABLE")
 
           # Post to the PR
           gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
