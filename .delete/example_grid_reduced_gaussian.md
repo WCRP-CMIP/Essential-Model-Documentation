@@ -1,0 +1,37 @@
+## Grid: Reduced Gaussian
+
+- **horizontal_computational_grid**
+  - **arrangement**: arakawa_b
+  - **horizontal_subgrid**
+    - **cell_variable_type**: mass
+    - **horizontal_grid_cells**
+      - **description**: T127. Gaussian Reduced with 256 grid points per latitude circle between 30 degrees north and 30 degrees south, reducing to 20 grid points per latitude circle at 88.9 degrees north and 88.9 degrees south.
+      - **grid_type**: reduced_gaussian
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **temporal_refinement**: static
+      - **y_resolution**: 1.40625
+      - **horizontal_units**: degree
+      - **southernmost_latitude**: -89.296875
+      - **westernmost_longitude**: 0.9
+      - **n_cells**: 24572
+  - **horizontal_subgrid**
+    - **cell_variable_type**: x_velocity, y_velocity
+    - **horizontal_grid_cells**
+      - **description**: T127. Gaussian Reduced with 256 grid points per latitude circle between 30 degrees north and 30 degrees south, reducing to 20 grid points per latitude circle at 88.9 degrees north and 88.9 degrees south.
+      - **grid_type**: reduced_gaussian
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **temporal_refinement**: static
+      - **y_resolution**: 1.40625
+      - **horizontal_units**: degree
+      - **southernmost_latitude**: -90
+      - **westernmost_longitude**: 0.45
+      - **n_cells**: 24572
+
+- **vertical_computational_grid**
+  - **vertical_coordinate**: atmosphere_hybrid_sigma_pressure_coordinate
+  - **n_z**: 91
+  - **bottom_layer_thickness**: 5
+  - **top_layer_thickness**: 550
+  - **total_thickness**: 61000

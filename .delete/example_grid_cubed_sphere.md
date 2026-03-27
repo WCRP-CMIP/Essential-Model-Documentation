@@ -1,0 +1,46 @@
+## Grid: Cubed sphere
+
+- **horizontal_computational_grid**
+  - **arrangement**: arakawa_c
+  - **horizontal_subgrid**
+    - **cell_variable_type**: mass
+    - **horizontal_grid_cells**
+      - **description**: Grid cell edges vary in size between 100 and 111 km
+      - **grid_type**: cubed_sphere
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **x_resolution**: 105
+      - **y_resolution**: 105
+      - **horizontal_units**: km
+      - **southernmost_latitude**: -89.5
+      - **westernmost_longitude**: 45
+      - **temporal_refinement**: static
+      - **n_cells**: 60000
+  - **horizontal_subgrid**
+    - **cell_variable_type**: x_velocity
+    - **horizontal_grid_cells**
+      - **description**: Grid cell edges vary in size between 100 and 111 km
+      - **grid_type**: cubed_sphere
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **x_resolution**: 105
+      - **y_resolution**: 105
+      - **horizontal_units**: km
+      - **southernmost_latitude**: -89.5
+      - **westernmost_longitude**: 45
+      - **temporal_refinement**: static
+      - **n_cells**: 60000
+  - **horizontal_subgrid**
+    - **cell_variable_type**: y_velocity
+    - **horizontal_grid_cells**
+      - **description**: Grid cell edges vary in size between 100 and 111 km
+      - **grid_type**: cubed_sphere
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **x_resolution**: 105
+      - **y_resolution**: 105
+      - **horizontal_units**: km
+      - **southernmost_latitude**: -89.8
+      - **westernmost_longitude**: 43.1
+      - **temporal_refinement**: static
+      - **n_cells**: 60000

@@ -1,0 +1,26 @@
+## Grid: Unstructured grid with two subgrids
+
+- **horizontal_computational_grid**
+  - **arrangement**: arakawa_c
+  - **horizontal_subgrid**
+    - **cell_variable_type**: mass
+    - **horizontal_grid_cells**
+      - **description**: oEC60to30. Unstructured mesh created using Spherical Centroidal Voronoi Tessellations.
+      - **grid_type**: unstructured_polygon
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **southernmost_latitude**: -90.0
+      - **westernmost_longitude**: 0.435
+      - **temporal_refinement**: static
+      - **n_cells**: 235160
+  - **horizontal_subgrid**
+    - **cell_variable_type**: velocity
+    - **horizontal_grid_cells**
+      - **description**: oEC60to30. Unstructured mesh created using Spherical Centroidal Voronoi Tessellations.
+      - **grid_type**: unstructured_polygon
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **southernmost_latitude**: -89.9956
+      - **westernmost_longitude**: 0.32
+      - **temporal_refinement**: static
+      - **n_cells**: 714274
