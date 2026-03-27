@@ -1,26 +1,17 @@
 {
     "validation_key": "g105",
-    "ui_label": "",
-    "description": "U-grid cells on ocean tripolar configuration (eORCA1) for x-velocity.",
+    "description": "Regular latitude-longitude output grid for atmosphere (based on TL127 spectral grid), 1.4 x 1.4 degree resolution.",
     "grid_mapping": "latitude-longitude",
-    "grid_type": "tripolar",
-    "n_cells": 105705,
-    "region": [
-        "global"
-    ],
-    "southernmost_latitude": null,
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 32768,
+    "region": ["global"],
+    "southernmost_latitude": -88.9277353522076,
+    "westernmost_longitude": 0.0,
     "temporal_refinement": "static",
-    "truncation_method": null,
-    "truncation_number": null,
-    "units": null,
-    "westernmost_longitude": null,
-    "x_resolution": null,
-    "y_resolution": null,
+    "horizontal_units": "degree",
+    "x_resolution": 1.4,
+    "y_resolution": 1.4,
     "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:horizontal_grid_cell",
-        "esgvoc:HorizontalGridCell"
-    ],
+    "@type": ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
     "@id": "g105"
 }

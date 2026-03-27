@@ -1,0 +1,9 @@
+{
+  "validation_key": "g107-mass",
+  "description": "Mass variables on regular latitude-longitude output grid for atmosphere (TL127 equivalent, 1.4 x 1.4 degree).",
+  "cell_variable_type": ["mass"],
+  "horizontal_grid_cells": [{"@id": "g107"}],
+  "@context": "_context",
+  "@type": ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+  "@id": "g107-mass"
+}
