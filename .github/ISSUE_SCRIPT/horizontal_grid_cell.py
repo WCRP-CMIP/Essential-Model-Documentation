@@ -35,30 +35,24 @@ def run(parsed_issue, issue, dry_run=False):
     file_path  = os.path.join('horizontal_grid_cell', f"{temp_id}.json")
 
     region = (parsed_issue.get('region') or '').strip()
+    units  = parsed_issue.get('units', parsed_issue.get('horizontal_units', ''))
 
-    grid_type = parsed_issue.get('grid_type', '')
-    x_res     = parsed_issue.get('x_resolution', '')
-    y_res     = parsed_issue.get('y_resolution', '')
-    units     = parsed_issue.get('units', parsed_issue.get('horizontal_units', ''))
-
-    description = (
-        parsed_issue.get('additional_information') or
-        f"Horizontal grid cell with a {grid_type.replace('_', ' ')} grid type"
-        + (f" and {x_res} x {y_res} {units} resolution" if x_res and y_res else "")
-        + "."
-    )
+    description = (parsed_issue.get('description') or '').strip()
+    if not description or description.lower() in ('_no response_', 'none', 'not specified'):
+        description = ''
 
     data = {
         "@context":       "_context",
         "@id":            temp_id,
         "@type":          ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
         "validation_key": temp_id,
-        "description":    description,
     }
+    if description:
+        data['description'] = description
     if units:
         data['horizontal_units'] = units
 
-    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units'}
+    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description'}
     for key, val in parsed_issue.items():
         if key in skip or not val or key in data:
             continue

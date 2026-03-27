@@ -20,11 +20,11 @@ FIELD_MAP = {
     'top_layer_thickness_(m)':    'top_layer_thickness',
     'bottom_layer_thickness_(m)': 'bottom_layer_thickness',
     'total_thickness_(m)':        'total_thickness',
-    'additional_information':     'description',
     'number_of_levels':           'n_z',
     'number_of_levels_(range)':   'n_z_range',
 }
-IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category'}
+IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category',
+          'additional_information', 'description'}
 
 
 def _parse_list(value) -> list:
@@ -51,6 +51,12 @@ def run(parsed_issue, issue, dry_run=False):
                            "esgvoc:vertical_computational_grid"],
         "validation_key": temp_id,
     }
+
+    # Only set description if user explicitly entered something
+    description = (parsed_issue.get('description') or
+                   parsed_issue.get('additional_information') or '').strip()
+    if description and description.lower() not in ('_no response_', 'none', 'not specified'):
+        data['description'] = description
 
     skip = IGNORE | {'issue_kind', 'issue_type'}
     for raw_key, val in parsed_issue.items():
