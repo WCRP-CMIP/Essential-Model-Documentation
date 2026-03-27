@@ -1,0 +1,18 @@
+{
+    "validation_key": "g110-mass--g110-x-velocity--g110-y-velocity",
+    "ui_label": "",
+    "description": "Arakawa-C tripolar ocean grid (eORCA1), 120184 cells.",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g110-mass",
+        "g110-x-velocity",
+        "g110-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "g110-mass--g110-x-velocity--g110-y-velocity"
+}
