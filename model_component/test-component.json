@@ -1,0 +1,19 @@
+{
+    "validation_key": "test-component",
+    "ui_label": "",
+    "description": "This is not real",
+    "code_base": "wcrp-cmip.org",
+    "component": "land_ice",
+    "family": "GEOS",
+    "name": "test component",
+    "references": [
+        "wcrp-cmip.org/doi"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:model_component",
+        "esgvoc:ModelComponent",
+        "emd"
+    ],
+    "@id": "test-component"
+}
