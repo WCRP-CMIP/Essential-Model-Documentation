@@ -1,17 +1,24 @@
 {
     "validation_key": "g105",
+    "ui_label": "",
     "description": "Regular latitude-longitude output grid for atmosphere (based on TL127 spectral grid), 1.4 x 1.4 degree resolution.",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
-    "n_cells": 32768,
-    "region": ["global"],
-    "southernmost_latitude": -88.9277353522076,
-    "westernmost_longitude": 0.0,
-    "temporal_refinement": "static",
     "horizontal_units": "degree",
+    "n_cells": 32768,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -88.9277353522076,
+    "temporal_refinement": "static",
+    "westernmost_longitude": 0.0,
     "x_resolution": 1.4,
     "y_resolution": 1.4,
     "@context": "_context",
-    "@type": ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
     "@id": "g105"
 }
