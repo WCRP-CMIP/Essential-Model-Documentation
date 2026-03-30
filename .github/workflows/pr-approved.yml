@@ -1,0 +1,149 @@
+name: ✓ PR approved — remove needs-review label and set status Done
+
+# When a PR is approved:
+#   1. Remove the 'needs-review' label from the linked issue
+#   2. Set the PR's project board status to 'Done'
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  on_approved:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN:   ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:       ${{ github.repository }}
+      PR_NUMBER:  ${{ github.event.pull_request.number }}
+      PR_NODE_ID: ${{ github.event.pull_request.node_id }}
+      REPO_OWNER: ${{ github.repository_owner }}
+
+    steps:
+      # ── 1. Remove needs-review label from linked issue ─────────────────────
+      - name: Remove needs-review from linked issue
+        run: |
+          PR_BODY=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' || true)
+
+          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          echo "## PR approval — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Item | Action |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            echo "No linked issues found in PR #${PR_NUMBER} body."
+            echo "| issues | none found |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            while IFS= read -r issue_num; do
+              [ -z "$issue_num" ] && continue
+              gh issue edit "$issue_num" --repo "$REPO" \
+                --remove-label "needs-review" 2>/dev/null || true
+              echo "| #${issue_num} | needs-review removed |" >> "$GITHUB_STEP_SUMMARY"
+            done <<< "$ISSUE_NUMBERS"
+          fi
+
+      # ── 2. Set project item status to Done (GraphQL) ───────────────────────
+      - name: Set project status to Done
+        run: |
+          PROJECT_NUMBER="${{ vars.PROJECT_NUMBER }}"
+
+          if [ -z "$PROJECT_NUMBER" ]; then
+            PROJECT_NUMBER=$(gh project list --owner "$REPO_OWNER" --format json \
+              --jq '[.projects[] | select(.title | test("EMD|Essential|Model|Documentation"; "i"))] | .[0].number // .projects[0].number' \
+              2>/dev/null || true)
+          fi
+
+          if [ -z "$PROJECT_NUMBER" ] || [ "$PROJECT_NUMBER" = "null" ]; then
+            echo "! No project found — skipping status update."
+            echo "| project status | skipped (no project found) |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Get the project node ID
+          PROJECT_ID=$(gh api graphql -f query='
+            query($owner: String!, $number: Int!) {
+              repositoryOwner(login: $owner) {
+                projectV2(number: $number) { id }
+              }
+            }' \
+            -F owner="$REPO_OWNER" -F number="$PROJECT_NUMBER" \
+            --jq '.data.repositoryOwner.projectV2.id' 2>/dev/null || true)
+
+          if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "null" ]; then
+            echo "! Could not resolve project node ID."
+            echo "| project status | skipped (project node ID not found) |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Find the project item for this PR and the Status field + Done option
+          FIELD_DATA=$(gh api graphql -f query='
+            query($projectId: ID!, $prNodeId: ID!) {
+              node(id: $projectId) {
+                ... on ProjectV2 {
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content { ... on PullRequest { id } }
+                    }
+                  }
+                  fields(first: 20) {
+                    nodes {
+                      ... on ProjectV2SingleSelectField {
+                        id
+                        name
+                        options { id name }
+                      }
+                    }
+                  }
+                }
+              }
+            }' \
+            -F projectId="$PROJECT_ID" -F prNodeId="$PR_NODE_ID" 2>/dev/null || true)
+
+          ITEM_ID=$(echo "$FIELD_DATA" | jq -r \
+            --arg pr "$PR_NODE_ID" \
+            '.data.node.items.nodes[] | select(.content.id == $pr) | .id' 2>/dev/null || true)
+
+          STATUS_FIELD_ID=$(echo "$FIELD_DATA" | jq -r \
+            '.data.node.fields.nodes[] | select(.name == "Status") | .id' 2>/dev/null || true)
+
+          DONE_OPTION_ID=$(echo "$FIELD_DATA" | jq -r \
+            '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Done") | .id' \
+            2>/dev/null || true)
+
+          if [ -z "$ITEM_ID" ] || [ "$ITEM_ID" = "null" ]; then
+            echo "! PR not found on project board — was it added?"
+            echo "| project status | skipped (PR not on board) |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          if [ -z "$STATUS_FIELD_ID" ] || [ -z "$DONE_OPTION_ID" ]; then
+            echo "! Could not find Status field or Done option on project."
+            echo "| project status | skipped (Status/Done not found) |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Update the item status to Done
+          gh api graphql -f query='
+            mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+              updateProjectV2ItemFieldValue(input: {
+                projectId:  $projectId
+                itemId:     $itemId
+                fieldId:    $fieldId
+                value:      { singleSelectOptionId: $optionId }
+              }) { projectV2Item { id } }
+            }' \
+            -F projectId="$PROJECT_ID" \
+            -F itemId="$ITEM_ID" \
+            -F fieldId="$STATUS_FIELD_ID" \
+            -F optionId="$DONE_OPTION_ID" 2>/dev/null
+
+          echo "| project status | set to Done |" >> "$GITHUB_STEP_SUMMARY"
+          echo "-> PR #${PR_NUMBER} status set to Done on project #${PROJECT_NUMBER}"

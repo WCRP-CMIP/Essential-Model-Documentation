@@ -54,7 +54,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@context":       "_context",
         "@id":            temp_id,
         "@type":          ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
-        "validation_key": temp_id,
+        "validation_key": ui_label,
         "ui_label":       ui_label,
     }
     if description:

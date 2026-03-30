@@ -1,4 +1,4 @@
-name: New Issue Processing
+name: ⟳ New Issue Processing
 
 on:
   issues:
@@ -35,14 +35,100 @@ jobs:
 
       - name: Process issue
         env:
-          ISSUE_NUMBER:     ${{ github.event.inputs.issue_number || github.event.issue.number }}
-          ISSUE_SUBMITTER:  ${{ github.event.issue.user.login }}
-          ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
-          GH_TOKEN:         ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-          GITHUB_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          ISSUE_NUMBER:      ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          ISSUE_SUBMITTER:   ${{ github.event.issue.user.login }}
+          ISSUE_CREATED_AT:  ${{ github.event.issue.created_at }}
+          GH_TOKEN:          ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          GITHUB_TOKEN:      ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           cd $GITHUB_WORKSPACE
+
+          # Populate a temp dir with src-data so the LDR server serves
+          # the live graph files rather than the main-branch stubs.
+          LDR_DATA=$(mktemp -d)
+          git fetch origin src-data
+          git --work-tree="$LDR_DATA" checkout origin/src-data -- .
+
+          # ldr server start already daemonizes itself — do not add &
+          ldr server stop 2>/dev/null || true
+          cd "$LDR_DATA"
           ldr server start
+          cd "$GITHUB_WORKSPACE"
+
+          # Wait until port 3333 accepts TCP connections.
+          # Uses bash built-in /dev/tcp — no nc or curl needed.
+          echo "Waiting for LDR server on port 3333..."
+          for i in $(seq 1 30); do
+            if timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
+              echo "LDR server ready (attempt $i)"
+              break
+            fi
+            sleep 1
+          done
+
+          if ! timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
+            echo "ERROR: LDR server did not start within 30 s"
+            exit 1
+          fi
+
           new_issue --issue $ISSUE_NUMBER
+        shell: bash
+
+      - name: Find PR for this issue
+        id: find_pr
+        env:
+          GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          REPO:        ${{ github.repository }}
+        run: |
+          PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
+            --json number,headRefName \
+            --jq "[.[] | select(.headRefName | test(\"_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}$\"))] | .[0].number" \
+            2>/dev/null || true)
+
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
+            echo "No open PR found for issue #${ISSUE_NUMBER}."
+            echo "pr_number=" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found PR #${PR_NUMBER}"
+            echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+            PR_URL=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json url --jq '.url')
+            echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+      - name: Add PR to project board
+        if: steps.find_pr.outputs.pr_number != ''
+        env:
+          GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_URL:       ${{ steps.find_pr.outputs.pr_url }}
+          REPO_OWNER:   ${{ github.repository_owner }}
+        run: |
+          PROJECT_NUMBER="${{ vars.PROJECT_NUMBER }}"
+
+          if [ -z "$PROJECT_NUMBER" ]; then
+            PROJECT_NUMBER=$(gh project list --owner "$REPO_OWNER" --format json \
+              --jq '[.projects[] | select(.title | test("EMD|Essential|Model|Documentation"; "i"))] | .[0].number // .projects[0].number' \
+              2>/dev/null || true)
+          fi
+
+          if [ -z "$PROJECT_NUMBER" ] || [ "$PROJECT_NUMBER" = "null" ]; then
+            echo "! No project found. Set the PROJECT_NUMBER repository variable to enable linking."
+            exit 0
+          fi
+
+          gh project item-add "$PROJECT_NUMBER" --owner "$REPO_OWNER" --url "$PR_URL"
+          echo "-> PR linked to project #${PROJECT_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+        shell: bash
+
+      - name: Request Copilot review
+        if: steps.find_pr.outputs.pr_number != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN:  ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_NUMBER: ${{ steps.find_pr.outputs.pr_number }}
+          REPO:      ${{ github.repository }}
+        run: |
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer @copilot
         shell: bash
