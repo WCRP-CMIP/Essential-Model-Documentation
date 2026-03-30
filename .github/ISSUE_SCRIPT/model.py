@@ -5,56 +5,90 @@ Produces one file:
   model/{source_id}.json  — the complete CMIP source_id record
 
 The source_id references component_config IDs from Stage 3 under
-'dynamic_components' and 'prescribed_components'.
+'component_configs', and records coupling/embedding topology as a
+Canonical Realm String (CRS) via cmipld.utils.crs.
 """
 
 import os
-import re
+import json
 from cmipld.utils.similarity import ReportBuilder
+from cmipld.utils import crs as _crs
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-# Parsed label keys → canonical field names where they differ
 FIELD_MAP = {
-    'model_name':    'name',
-    'model_family':  'family',
-    'release_year':  'release_year',
+    'model_name':     'name',
+    'model_family':   'family',
+    'release_year':   'release_year',
     'reference_dois': 'references',
-    'calendar_s_':   'calendar',   # "Calendar(s)" → calendar(s) → calendar_s_ after parse
-    'calendar(s)':   'calendar',   # fallback if parens preserved
+    'calendar_s_':    'calendar',
+    'calendar(s)':    'calendar',
 }
 
-# Multi-select fields that arrive as comma-separated strings → lists
 LIST_FIELDS = {
     'dynamic_components', 'prescribed_components', 'omitted_components',
     'calendar', 'calendar_s_', 'calendar(s)',
     'component_config_ids', 'component_configs',
-    'embedded_components',
-    'coupling_group_1', 'coupling_group_2', 'coupling_group_3',
-    'coupling_group_4', 'coupling_group_5',
 }
 
 IGNORE = {
     'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
     'model_name', 'model_family',
+    # handled explicitly below
+    'embedded_components',
+    'coupling_group_1', 'coupling_group_2', 'coupling_group_3',
+    'coupling_group_4', 'coupling_group_5',
 }
-
-def _slugify(s: str) -> str:
-    return s.strip().lower().replace(' ', '-').replace('_', '-')
 
 
 def _parse_list(value) -> list:
     if isinstance(value, list):
-        return [v.strip() for v in value if v.strip()]
+        return [v.strip() for v in value if str(v).strip()]
     delim = '\n' if '\n' in str(value) else ','
     return [v.strip() for v in str(value).split(delim) if v.strip()]
 
 
+def _parse_embedded(raw) -> list:
+    """
+    Parse embedded_components field into [[parent, child], ...] pairs.
+
+    Accepts any of:
+      "atmosphere=aerosol, atmosphere=atmospheric-chemistry"
+      "atmosphere>aerosol\natmosphere>atmospheric-chemistry"
+      [["atmosphere","aerosol"], ...]
+    """
+    if isinstance(raw, list):
+        result = []
+        for item in raw:
+            if isinstance(item, list) and len(item) >= 2:
+                result.append([item[0].strip(), item[1].strip()])
+            elif isinstance(item, str) and ('=' in item or '>' in item or ':' in item):
+                sep = '=' if '=' in item else ('>' if '>' in item else ':')
+                parts = item.split(sep, 1)
+                result.append([parts[0].strip(), parts[1].strip()])
+        return result
+
+    if not raw:
+        return []
+
+    lines = str(raw).replace('\n', ',').split(',')
+    result = []
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        for sep in ('=', '>', ':'):
+            if sep in line:
+                parts = line.split(sep, 1)
+                result.append([parts[0].strip(), parts[1].strip()])
+                break
+    return result
+
+
 def run(parsed_issue, issue, dry_run=False):
-    # "Model Name" → parsed key 'model_name'; field_id is 'name'
     source_id = (parsed_issue.get('model_name') or parsed_issue.get('name') or '').strip()
     if not source_id:
-        return None  # fall back to generic handler
+        return None
 
     family = (parsed_issue.get('model_family') or parsed_issue.get('family') or '').strip()
 
@@ -69,7 +103,7 @@ def run(parsed_issue, issue, dry_run=False):
     if family and family.lower() not in ('not specified', 'none', ''):
         data['family'] = family
 
-    # Consolidate coupling groups into a single list-of-lists
+    # ── Coupling groups ───────────────────────────────────────────────────────
     coupling_groups = []
     for i in range(1, 6):
         raw = parsed_issue.get(f'coupling_group_{i}', '')
@@ -78,24 +112,25 @@ def run(parsed_issue, issue, dry_run=False):
             if group:
                 coupling_groups.append(group)
 
-    # Map and copy remaining fields
+    # ── Embedding pairs ───────────────────────────────────────────────────────
+    embedded_raw = parsed_issue.get('embedded_components', '')
+    embedded_pairs = _parse_embedded(embedded_raw)
+
+    # ── Remaining scalar / list fields ────────────────────────────────────────
     for k, v in parsed_issue.items():
         if not v or k in IGNORE:
             continue
         canonical = FIELD_MAP.get(k, k)
-        if canonical.startswith('coupling_group_'):
-            continue  # handled above
         if canonical in LIST_FIELDS or k in LIST_FIELDS:
             data[canonical] = _parse_list(v)
         else:
-            data[canonical] = v.strip() if isinstance(v, str) else v
+            val = v.strip() if isinstance(v, str) else v
+            if val and str(val).lower() not in ('_no response_', 'none', 'not specified'):
+                data[canonical] = val
 
-    # Rename component_config_ids → component_configs if needed
+    # Rename component_config_ids → component_configs
     if 'component_config_ids' in data:
         data['component_configs'] = data.pop('component_config_ids')
-
-    if coupling_groups:
-        data['coupling_groups'] = coupling_groups
 
     # Normalise release_year to int
     if 'release_year' in data:
@@ -103,6 +138,25 @@ def run(parsed_issue, issue, dry_run=False):
             data['release_year'] = int(data['release_year'])
         except (ValueError, TypeError):
             pass
+
+    # ── Store structured coupling/embedding fields ────────────────────────────
+    if embedded_pairs:
+        data['embedded_components'] = embedded_pairs
+    if coupling_groups:
+        data['coupling_groups'] = coupling_groups
+
+    # ── Build and validate CRS ────────────────────────────────────────────────
+    dynamic = (data.get('dynamic_components', []) +
+               data.get('prescribed_components', []))
+
+    crs_errors = _crs.validate(dynamic, embedded_pairs, coupling_groups)
+    if crs_errors:
+        for e in crs_errors:
+            print(f"  ⚠ CRS validation: {e}", flush=True)
+        data['_crs_errors'] = crs_errors
+    else:
+        data['crs'] = _crs.build(dynamic, embedded_pairs, coupling_groups)
+        print(f"  ✓ CRS: {data['crs']}", flush=True)
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
@@ -120,10 +174,41 @@ def run(parsed_issue, issue, dry_run=False):
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
-    source_id   = files_to_write.get('_source_id', '')
-    model_path  = next((p for p in files_to_write if not p.startswith('_')), None)
-    model_data  = files_to_write.get(model_path, {}) if model_path else {}
+    source_id  = files_to_write.get('_source_id', '')
+    model_path = next((p for p in files_to_write if not p.startswith('_')), None)
+    model_data = files_to_write.get(model_path, {}) if model_path else {}
 
+    # Report any CRS errors prominently before generating the review report
+    crs_errors = model_data.pop('_crs_errors', [])
+    if crs_errors:
+        print("\n⚠  CRS validation errors — coupling/embedding structure is invalid:", flush=True)
+        for e in crs_errors:
+            print(f"    • {e}", flush=True)
+        crs_note = (
+            "\n> [!WARNING]\n"
+            "> **Coupling/embedding errors** — `crs` field was not generated:\n"
+            + "\n".join(f"> - {e}" for e in crs_errors)
+        )
+        model_data['_crs_note'] = crs_note
+    else:
+        crs_val = model_data.get('crs', '')
+        if crs_val:
+            print(f"\n  CRS: {crs_val}", flush=True)
+            # Show human-readable expansion of the CRS
+            try:
+                parsed = _crs.parse(crs_val)
+                if parsed['embeddings']:
+                    print("  Embeddings:", flush=True)
+                    for parent, child in parsed['embeddings']:
+                        print(f"    {_crs.to_name(child)} → embedded in {_crs.to_name(parent)}", flush=True)
+                if parsed['coupling_pairs']:
+                    print("  Couplings:", flush=True)
+                    for a, b in parsed['coupling_pairs']:
+                        print(f"    {_crs.to_name(a)} ↔ {_crs.to_name(b)}", flush=True)
+            except Exception:
+                pass
+
+    # Generate similarity/review report
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
@@ -137,39 +222,37 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             print(f"  ⚠ Report generation failed: {e}", flush=True)
             data['_validation_report'] = ''
 
-    # Print the completed source_id record and explain its role
+    # Print the completed model record
     if model_data and source_id:
-        import json
         clean = {k: v for k, v in model_data.items() if not k.startswith('_')}
-        configs = clean.get('component_configs', [])
 
         print("\n" + "=" * 60, flush=True)
-        print(f"Model (source_id) record created: {source_id}", flush=True)
+        print(f"Model record: {source_id}", flush=True)
         print("=" * 60, flush=True)
         print(json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
-        print(
-            f"\n✅ source_id: '{source_id}'\n"
-            f"   This is your CMIP source_id — the complete model identifier\n"
-            f"   used in all CMIP data and metadata submissions.\n",
-            flush=True,
-        )
+
+        configs = clean.get('component_configs', [])
+        crs_val = clean.get('crs', '')
+
+        print(f"\n  ✅ source_id: '{source_id}'", flush=True)
+        if crs_val:
+            print(f"  CRS fingerprint: {crs_val}", flush=True)
         if configs:
-            print(
-                f"   Component configs linked ({len(configs)}):",
-                flush=True,
-            )
+            print(f"\n  Component configs ({len(configs)}):", flush=True)
             for c in configs:
-                print(f"     • {c}", flush=True)
-            print(
-                f"\n   Each config ID encodes the component, its name, and its grids\n"
-                f"   (format: <domain>_<component>_<h###>_<v###>).\n"
-                f"   These were registered in Stage 3 and are now bound to this model.",
-                flush=True,
-            )
+                print(f"    • {c}", flush=True)
         else:
             print(
-                "   ⚠ No component_configs linked — add Stage 3 config IDs\n"
-                "     under 'component_configs' to complete the registration.",
+                "\n  ⚠ No component_configs linked.\n"
+                "    Add Stage 3 config IDs to complete registration.",
                 flush=True,
             )
+
+        if crs_errors:
+            print(
+                "\n  ⚠ Fix the coupling/embedding errors above before merging.\n"
+                "    The 'crs' field will be generated automatically once resolved.",
+                flush=True,
+            )
+

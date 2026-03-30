@@ -11,7 +11,6 @@ by tempgrid-rename.yml, which scans existing h### files on src-data.
 """
 
 import os
-import json
 import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
