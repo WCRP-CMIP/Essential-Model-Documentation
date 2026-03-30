@@ -1,9 +1,4 @@
 name: ⟳ Rename tempgrid files on PR merge
-description: |
-  On merge of a PR, find any files containing 'tempgrid' in their name,
-  determine the next available (g|v|h)NNN id in that folder, rename the file
-  accordingly, commit to src-data, then comment on the PR and any linked issue
-  with the permanent ID mapping.
 
 permissions:
   contents: write
@@ -24,8 +19,6 @@ on:
 
 jobs:
   rename_tempgrid:
-    # Run on any merged PR, or when manually triggered.
-    # If there are no tempgrid files the identify step exits cleanly.
     if: >
       (github.event_name == 'pull_request' &&
        github.event.pull_request.merged == true) ||
@@ -37,7 +30,7 @@ jobs:
       MANUAL_PR_NUMBER: ${{ github.event.inputs.pr_number }}
 
     steps:
-      # ── 1. Check out the src-data branch ──────────────────────────────────
+      # ── 1. Checkout src-data ───────────────────────────────────────────────
       - name: Checkout src-data branch
         uses: actions/checkout@v4
         with:
@@ -65,50 +58,88 @@ jobs:
         id: find_tempgrid
         run: |
           ADDED=$(git diff --name-only --diff-filter=A HEAD^1 HEAD 2>/dev/null || true)
-          echo "All added files:"
-          echo "$ADDED"
-
           TEMPGRID=$(echo "$ADDED" | grep -E '(^|/)([^/]*tempgrid[^/]*)$' || true)
-          echo "Tempgrid files:"
+          echo "Tempgrid files found:"
           echo "$TEMPGRID"
-
           {
             echo "tempgrid_files<<EOF"
             echo "$TEMPGRID"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      # ── 3. Rename each tempgrid file to the next available id ─────────────
-      - name: Rename tempgrid files
+      # ── 3. Process each tempgrid file ─────────────────────────────────────
+      - name: Process and rename tempgrid files
         id: rename
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
         run: |
-          MAPPING_MD=""
+          FILES="${{ steps.find_tempgrid.outputs.tempgrid_files }}"
           MAPPING_JSON=""
 
-          FILES="${{ steps.find_tempgrid.outputs.tempgrid_files }}"
-
           echo "## ⟳ Tempgrid rename summary" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Original filename | Renamed to |" >> "$GITHUB_STEP_SUMMARY"
-          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Original | Renamed to | Authors |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
 
           if [ -z "$FILES" ]; then
             echo "No tempgrid files found – nothing to do."
-            echo "| _(none)_ | – |" >> "$GITHUB_STEP_SUMMARY"
-            echo "mapping_md=" >> "$GITHUB_OUTPUT"
+            echo "| _(none)_ | – | – |" >> "$GITHUB_STEP_SUMMARY"
             echo "mapping_json=[]" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           while IFS= read -r filepath; do
             [ -z "$filepath" ] && continue
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "Processing: $filepath"
 
             dir=$(dirname "$filepath")
-            echo "Processing: $filepath  (dir=$dir)"
 
+            # ── a. Collect authors from git log for this specific file ────────
+            AUTHORS_FILE=$(mktemp)
+
+            # Commit author who added the file
+            git log --follow --diff-filter=A \
+              --format="%an <%ae>" -- "$filepath" \
+              2>/dev/null >> "$AUTHORS_FILE" || true
+
+            # Co-authored-by trailers from all commits touching this file
+            git log --follow --format="%B" -- "$filepath" 2>/dev/null \
+              | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
+              | sed 's/Co-authored-by: //' \
+              >> "$AUTHORS_FILE" || true
+
+            # PR opener (human logins only)
+            PR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+              --json author --jq '.author.login' 2>/dev/null || true)
+            if [ -n "$PR_LOGIN" ] && \
+               ! echo "$PR_LOGIN" | grep -qE '(\[bot\]|^app/|-bot$)'; then
+              PR_NAME=$(gh api "users/$PR_LOGIN" \
+                --jq '.name // .login' 2>/dev/null || true)
+              if echo "$PR_NAME" | grep -qE '^[A-Za-z0-9 _.@-]+$'; then
+                echo "${PR_NAME} <${PR_LOGIN}@users.noreply.github.com>" \
+                  >> "$AUTHORS_FILE"
+              fi
+            fi
+
+            # Deduplicate — clean human authors only
+            AUTHOR_NAMES=$(sort -u "$AUTHORS_FILE" \
+              | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
+              | grep -E '^[A-Za-z0-9]' \
+              | sed 's/ <.*//' | paste -sd ', ')
+            TRAILERS=$(sort -u "$AUTHORS_FILE" \
+              | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
+              | grep -E '^[A-Za-z0-9]' \
+              | sed 's/^/Co-authored-by: /')
+            rm -f "$AUTHORS_FILE"
+
+            # ── b. Get last commit message for this file ──────────────────────
+            LAST_MSG=$(git log --follow -1 --format="%s" -- "$filepath" 2>/dev/null || true)
+
+            # ── c. Find the next sequential ID for this folder ───────────────
             LETTER=""
             MAX_NUM=-1
-
             for existing in "$dir"/[sghvSGHV]*[0-9].json; do
               [ -e "$existing" ] || continue
               base=$(basename "$existing" .json)
@@ -116,87 +147,47 @@ jobs:
                 L="${BASH_REMATCH[1],,}"
                 N="${BASH_REMATCH[2]}"
                 NUM=$((10#$N))
-                if [ -z "$LETTER" ]; then
-                  LETTER="$L"
-                fi
-                if [ $NUM -gt $MAX_NUM ]; then
-                  MAX_NUM=$NUM
-                fi
+                [ -z "$LETTER" ] && LETTER="$L"
+                [ $NUM -gt $MAX_NUM ] && MAX_NUM=$NUM
               fi
             done
 
             if [ -z "$LETTER" ]; then
-              echo "  SKIP: no existing numbered files found in $dir"
-              echo "| \`${filepath}\` | ⚠️ skipped – no existing numbered files in \`${dir}\` |" >> "$GITHUB_STEP_SUMMARY"
+              echo "  SKIP: no existing numbered files in $dir"
+              echo "| \`$filepath\` | skipped | – |" >> "$GITHUB_STEP_SUMMARY"
               continue
             fi
 
             NEXT_NUM=$(( MAX_NUM + 1 ))
             NEW_NAME=$(printf "%s%03d.json" "$LETTER" "$NEXT_NUM")
             NEW_PATH="$dir/$NEW_NAME"
+            NEW_ID=$(basename "$NEW_PATH" .json)
+            OLD_ID=$(basename "$filepath" .json)
 
-            echo "  Renaming  $filepath  →  $NEW_PATH"
+            echo "  Renaming: $filepath -> $NEW_PATH"
+
+            # ── d. Rename file ────────────────────────────────────────────────
             git mv "$filepath" "$NEW_PATH"
-            echo "| \`${filepath}\` | \`${NEW_PATH}\` |" >> "$GITHUB_STEP_SUMMARY"
 
-            MAPPING_MD="${MAPPING_MD}| \`${filepath}\` | \`${NEW_PATH}\` |\n"
-            if [ -n "$MAPPING_JSON" ]; then
-              MAPPING_JSON="${MAPPING_JSON},"
-            fi
-            MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${NEW_PATH}\"}"
+            # ── e. Update @id / validation_key inside the JSON ────────────────
+            tmp=$(mktemp)
+            jq --arg old "$OLD_ID" --arg new "$NEW_ID" \
+              'walk(if type == "string" and . == $old then $new else . end)' \
+              "$NEW_PATH" > "$tmp" && mv "$tmp" "$NEW_PATH" || rm -f "$tmp"
+
+            echo "  Updated JSON: $OLD_ID -> $NEW_ID"
+            echo "| \`$filepath\` | \`$NEW_PATH\` | $AUTHOR_NAMES |" >> "$GITHUB_STEP_SUMMARY"
+
+            # Accumulate mapping JSON for later steps
+            [ -n "$MAPPING_JSON" ] && MAPPING_JSON="${MAPPING_JSON},"
+            LAST_MSG_JSON=$(echo "$LAST_MSG" | jq -Rs .)
+            MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${NEW_PATH}\",\"old_id\":\"${OLD_ID}\",\"new_id\":\"${NEW_ID}\",\"authors\":\"${AUTHOR_NAMES}\",\"last_msg\":${LAST_MSG_JSON}}"
 
           done <<< "$FILES"
 
-          {
-            echo "mapping_md<<EOF"
-            printf "%b" "$MAPPING_MD"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
           echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
 
-      # ── 3b. Update @id and validation_key in renamed JSON files ────────────
-      - name: Update @id field in renamed JSON files
-        if: steps.rename.outputs.mapping_json != '[]'
-        run: |
-          MAPPING_JSON='${{ steps.rename.outputs.mapping_json }}'
-
-          echo "$MAPPING_JSON" | jq -r '.[] | "\(.old)|\(.new)"' | while IFS='|' read -r old_path new_path; do
-            [ -z "$old_path" ] || [ -z "$new_path" ] && continue
-
-            old_base=$(basename "$old_path" .json)
-            new_base=$(basename "$new_path" .json)
-
-            echo "Updating '$old_base' → '$new_base' in $new_path"
-
-            tmp=$(mktemp)
-            jq --arg old "$old_base" --arg new "$new_base" \
-              'walk(if type == "string" and . == $old then $new else . end)' \
-              "$new_path" > "$tmp" && mv "$tmp" "$new_path" || rm -f "$tmp"
-
-            echo "  ✅ Updated $new_path"
-          done
-
-      # ── 4. Cancel any running src-data-change workflows ───────────────────
-      - name: Cancel running src-data-change workflows
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          WORKFLOW_RUNS=$(gh run list --repo "$REPO" -w src-data-change.yml \
-            --status in_progress --json databaseId --jq '.[].databaseId')
-
-          if [ -n "$WORKFLOW_RUNS" ]; then
-            echo "Cancelling running src-data-change workflows..."
-            while IFS= read -r run_id; do
-              [ -z "$run_id" ] && continue
-              gh run cancel "$run_id" --repo "$REPO"
-            done <<< "$WORKFLOW_RUNS"
-          else
-            echo "No running src-data-change workflows found."
-          fi
-
-      # ── 5. Commit renamed files to src-data with all human authors ─────────
+      # ── 4. Commit to src-data ──────────────────────────────────────────────
       - name: Commit renames to src-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -205,36 +196,19 @@ jobs:
         run: |
           git add -A
           if git diff --cached --quiet; then
-            echo "Nothing to commit (no tempgrid renames were needed)."
+            echo "Nothing to commit."
             exit 0
           fi
 
           ALL=$(mktemp)
-
-          # Source 1: commit authors — jq only emits lines with a real @ in email
           gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
             --jq '.commits[].authors[] | select(.email | test("@")) | "\(.name) <\(.email)>"' \
             2>/dev/null >> "$ALL" || true
-
-          # Source 2: Co-authored-by trailers in commit messages — strict pattern only
           gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
             --jq '.commits[].messageBody' 2>/dev/null \
             | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
-            | sed 's/Co-authored-by: //' \
-            >> "$ALL" || true
+            | sed 's/Co-authored-by: //' >> "$ALL" || true
 
-          # Source 3: PR opener — skip bot logins ([bot], app/, -bot suffix)
-          PR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
-            --json author --jq '.author.login' 2>/dev/null || true)
-          if [ -n "$PR_LOGIN" ] && ! echo "$PR_LOGIN" | grep -qE '(\[bot\]|^app/|-bot$)'; then
-            PR_NAME=$(gh api "users/$PR_LOGIN" --jq '.name // .login' 2>/dev/null || true)
-            # Validate PR_NAME is a simple name (no JSON, no special chars)
-            if echo "$PR_NAME" | grep -qE '^[A-Za-z0-9 _.@-]+$'; then
-              echo "${PR_NAME} <${PR_LOGIN}@users.noreply.github.com>" >> "$ALL"
-            fi
-          fi
-
-          # Deduplicate, remove bots and GitHub noreply addresses, prefix trailers
           TRAILERS=$(sort -u "$ALL" \
             | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
             | grep -E '^[A-Za-z0-9]' \
@@ -242,45 +216,71 @@ jobs:
           rm -f "$ALL"
 
           if [ -n "$TRAILERS" ]; then
-            git commit -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]" \
+            git commit \
+              -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]" \
               -m "$TRAILERS"
           else
-            git commit -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]"
+            git commit \
+              -m "Rename tempgrid files with sequential ids [PR #${PR_NUMBER}]"
           fi
           git push origin src-data
-          echo "## Tempgrid renames committed to src-data" >> "$GITHUB_STEP_SUMMARY"
 
-      # ── 6. Trigger src-data-change workflow ───────────────────────────────
-      - name: Trigger src-data-change workflow
+      # ── 5. Cancel stale src-data-change runs then retrigger ───────────────
+      - name: Cancel and retrigger src-data-change
         if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
+          RUNS=$(gh run list --repo "$REPO" -w src-data-change.yml \
+            --status in_progress --json databaseId --jq '.[].databaseId')
+          for run_id in $RUNS; do
+            gh run cancel "$run_id" --repo "$REPO" || true
+          done
           gh workflow run src-data-change.yml --repo "$REPO" --ref src-data
 
-      # ── 7. Post rename summary to PR and any linked issues ─────────────────
-      - name: Comment on PR and linked issues
+      # ── 6. Update PR + issues: comment and retitle ────────────────────────
+      - name: Update PR and linked issues
         if: steps.rename.outputs.mapping_json != '[]'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
           REPO: ${{ github.repository }}
-          MAPPING_MD: ${{ steps.rename.outputs.mapping_md }}
+          MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
         run: |
-          TABLE=$(printf "%b" "$MAPPING_MD")
+          TABLE_ROWS=$(echo "$MAPPING_JSON" | jq -r \
+            '.[] | "| `\(.old_id)` | `\(.new_id)` | \(.authors) |"')
+          NEW_IDS=$(echo "$MAPPING_JSON" | jq -r '[.[].new_id] | join(", ")')
 
-          COMMENT_BODY=$(printf '## \u2705 Grid IDs assigned\n\nThe following temporary grid files have been renamed to their permanent sequential IDs and committed to `src-data`.\n\n| Temporary filename | Permanent ID |\n|---|---|\n%s\n> IDs are the next available sequential number in each folder (`g###`, `v###`, `h###`).\n> Use the permanent ID in subsequent registration steps.' "$TABLE")
+          BODY_FILE=$(mktemp)
+          echo "## Grid IDs assigned" >> "$BODY_FILE"
+          echo "" >> "$BODY_FILE"
+          echo "Temporary grid files renamed to permanent sequential IDs on \`src-data\`." >> "$BODY_FILE"
+          echo "" >> "$BODY_FILE"
+          echo "| Temporary ID | Permanent ID | Authors |" >> "$BODY_FILE"
+          echo "|---|---|---|" >> "$BODY_FILE"
+          printf "%s\n" "$TABLE_ROWS" >> "$BODY_FILE"
+          echo "" >> "$BODY_FILE"
+          echo "> Use the permanent ID in subsequent registration steps." >> "$BODY_FILE"
+          COMMENT_BODY=$(cat "$BODY_FILE")
+          rm -f "$BODY_FILE"
 
-          # Post to the PR
+          # ── Update PR title: | new_id | old title ─────────────────────────
+          OLD_PR_TITLE=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json title --jq '.title')
+          CLEAN_PR_TITLE=$(echo "$OLD_PR_TITLE" | sed 's/^|[^|]*| *//')
+          gh pr edit "$PR_NUMBER" --repo "$REPO" \
+            --title "| ${NEW_IDS} | ${CLEAN_PR_TITLE}"
+
+          # ── Comment on PR ─────────────────────────────────────────────────
           gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
-          echo "Posted comment to PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Updated and commented on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
 
-          # Find linked issues (Resolves/Fixes/Closes #NNN) — comment and close each
-          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body \
-            --jq '.body' | tr '\n' ' ' | \
-            grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' | \
-            grep -oE '[0-9]+' || true)
+          # ── Find linked issues and update each ────────────────────────────
+          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json body --jq '.body' | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
 
           if [ -n "$ISSUE_NUMBERS" ]; then
             echo "## Linked issues" >> "$GITHUB_STEP_SUMMARY"
@@ -288,9 +288,18 @@ jobs:
             echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
+
               gh issue comment "$issue_num" --repo "$REPO" --body "$COMMENT_BODY"
-              gh issue close   "$issue_num" --repo "$REPO" || true
-              echo "| #${issue_num} | commented + closed ✅ |" >> "$GITHUB_STEP_SUMMARY"
+
+              OLD_ISSUE_TITLE=$(gh issue view "$issue_num" --repo "$REPO" \
+                --json title --jq '.title')
+              CLEAN_ISSUE_TITLE=$(echo "$OLD_ISSUE_TITLE" | sed 's/^|[^|]*| *//')
+              gh issue edit "$issue_num" --repo "$REPO" \
+                --title "| ${NEW_IDS} | ${CLEAN_ISSUE_TITLE}"
+
+              gh issue close "$issue_num" --repo "$REPO" || true
+
+              echo "| #${issue_num} | updated + closed |" >> "$GITHUB_STEP_SUMMARY"
             done <<< "$ISSUE_NUMBERS"
           else
             echo "_No linked issues found._" >> "$GITHUB_STEP_SUMMARY"
