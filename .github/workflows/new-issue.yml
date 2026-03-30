@@ -43,6 +43,15 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           cd $GITHUB_WORKSPACE
-          ldr server start
+
+          # ldr server must serve src-data graph files (not main branch).
+          # Fetch src-data content into a temp dir, start the server from
+          # there, then return to GITHUB_WORKSPACE for the new_issue run.
+          LDR_DATA=$(mktemp -d)
+          git fetch origin src-data
+          git --work-tree="$LDR_DATA" checkout origin/src-data -- .
+          ldr server stop 2>/dev/null || true
+          cd "$LDR_DATA" && ldr server start && cd $GITHUB_WORKSPACE
+
           new_issue --issue $ISSUE_NUMBER
         shell: bash
