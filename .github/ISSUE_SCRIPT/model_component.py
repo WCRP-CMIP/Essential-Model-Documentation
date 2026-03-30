@@ -79,14 +79,13 @@ def run(parsed_issue, issue, dry_run=False):
 
     # ── 2. component_config record ────────────────────────────────────────────
     config_data = {
-        "@context":       "_context",
-        "@id":            config_id,
-        "@type":          ["wcrp:component_config", "esgvoc:component_config"],
-        "validation_key": config_id,
-        "component":      name_slug,
-        "component_type": component_type,
-        "horizontal_grid": h_grid,
-        "vertical_grid":   v_grid,
+        "@context":                    "_context",
+        "@id":                         config_id,
+        "@type":                       ["wcrp:component_config", "esgvoc:component_config"],
+        "validation_key":              config_id,
+        "model_component":             name_slug,
+        "horizontal_computational_grid": h_grid,
+        "vertical_computational_grid":   v_grid,
     }
 
     collab_str   = parsed_issue.get('additional_collaborators',
@@ -138,9 +137,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(
             f"\n✅ Config ID: '{config_id}'\n"
             f"   This ID is used in Stage 4 (Model / source_id) registration\n"
-            f"   under 'dynamic_components' or 'prescribed_components' to link\n"
-            f"   this component and its grids to a specific model configuration.\n"
+            f"   under 'component_configs' to link this component and its grids\n"
+            f"   to a specific model configuration.\n"
             f"\n   Example Stage 4 usage:\n"
-            f"     \"dynamic_components\": [\"{config_id}\", ...]",
+            f"     \"component_configs\": [\"{config_id}\", ...]",
             flush=True,
         )

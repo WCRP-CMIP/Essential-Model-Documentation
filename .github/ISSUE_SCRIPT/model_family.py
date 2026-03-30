@@ -42,7 +42,7 @@ def run(parsed_issue, issue, dry_run=False):
         return None  # fall back to generic handler
 
     atid         = _clean_id(family_name)     # lowercased slug for @id / filename
-    validation_key = family_name.strip()      # original case for validation_key
+    validation_key = atid                     # must match @id
     family_type  = (parsed_issue.get('family_type') or '').strip().lower()
 
     # Set @type based on family_type dropdown value
