@@ -9,6 +9,7 @@ scanning existing v### files and assigning max+1.
 """
 
 import os
+import re
 import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
@@ -57,7 +58,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@id":            temp_id,
         "@type":          ["wcrp:vertical_computational_grid",
                            "esgvoc:vertical_computational_grid"],
-        "validation_key": temp_id,
+        "validation_key": ui_label,
         "ui_label":       ui_label,
     }
 
@@ -81,7 +82,10 @@ def run(parsed_issue, issue, dry_run=False):
             except (ValueError, TypeError):
                 data[key] = val
         elif key == 'n_z_range':
-            data[key] = _parse_list(val)
+            # Split on whitespace/commas, convert to int, sort ascending, keep exactly 2
+            parts = [v.strip() for v in re.split(r'\s*,\s*|\s+', str(val)) if v.strip()]
+            nums = sorted(int(float(p)) for p in parts if p)
+            data[key] = nums[:2]  # schema: min_length=2, max_length=2
         else:
             data[key] = val
 
