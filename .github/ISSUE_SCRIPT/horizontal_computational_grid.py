@@ -2,17 +2,19 @@
 Handler for Horizontal Computational Grid registration (Stage 2a)
 
 Produces N+1 files per submission:
-  horizontal_subgrid/{cell}-{vtype}.json               — one per slot, e.g. g100-mass
-  horizontal_computational_grid/{subgrid1}--{subgrid2}.json — groups all subgrids
+  horizontal_subgrid/{cell}-{vtype}.json               — one per slot (content-addressed, e.g. g100-mass)
+  horizontal_computational_grid/tempgrid_{author}-{timestamp}.json — temporary comp grid file
 
-Subgrid and comp grid IDs are derived entirely from content — no timestamps.
-The same grid cells + variable types always produce the same IDs, so submissions
-from different users are automatically deduplicated by file existence check.
+Subgrid IDs remain content-addressed for deduplication.
+The comp grid file gets a tempgrid_ prefix and is renamed to h### on PR merge
+by tempgrid-rename.yml, which scans existing h### files on src-data.
 """
 
 import os
 import json
+import time
 
+from cmipld.utils.id_generation import generate_id_from_issue
 from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
@@ -97,6 +99,12 @@ def run(parsed_issue, issue, dry_run=False):
     slots       = _slot_fields(parsed_issue, issue.get('body', ''))
     repo_root   = os.environ.get('GITHUB_WORKSPACE', os.getcwd())
 
+    # Temp ID for the comp grid file — renamed to h### on PR merge
+    author     = issue.get('author') or 'unknown'
+    created_at = issue.get('created_at') or ''
+    temp_id    = f"tempgrid_{generate_id_from_issue(author, created_at)['id']}" \
+                 if created_at else f"tempgrid_{author}_{int(time.time())}"
+
     if not slots:
         print('  ❌ No subgrid slots found — cannot build a computational grid ID.', flush=True)
         return None
@@ -128,10 +136,6 @@ def run(parsed_issue, issue, dry_run=False):
         tag = '♻ matched' if reused else '+ new'
         print(f"  [{tag}] Slot {slot['n']}: subgrid '{sid}'", flush=True)
 
-    # Comp grid ID built deterministically from sorted subgrid IDs
-    # e.g. g100-mass--g101-x_velocity-y_velocity
-    hgrid_id = '--'.join(sorted(subgrid_ids))
-
     # Collect paths of matched subgrids so new_issue.py skips the 'file exists' check
     force_modify = {
         os.path.join('horizontal_subgrid', f"{s['sid']}.json")
@@ -140,10 +144,10 @@ def run(parsed_issue, issue, dry_run=False):
 
     hgrid_data = {
         "@context":            "_context",
-        "@id":                 hgrid_id,
+        "@id":                 temp_id,
         "@type":               ["wcrp:horizontal_computational_grid",
                                 "esgvoc:horizontal_computational_grid"],
-        "validation_key":      hgrid_id,
+        "validation_key":      temp_id,
         "horizontal_subgrids": subgrid_ids,
     }
     if arrangement:
@@ -151,7 +155,7 @@ def run(parsed_issue, issue, dry_run=False):
     if description:
         hgrid_data['description'] = description
 
-    files[os.path.join('horizontal_computational_grid', f"{hgrid_id}.json")] = hgrid_data
+    files[os.path.join('horizontal_computational_grid', f"{temp_id}.json")] = hgrid_data
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
@@ -163,7 +167,7 @@ def run(parsed_issue, issue, dry_run=False):
         '_author':        issue.get('author'),
         '_contributors':  contributors,
         '_make_pull':     True,
-        '_atid':          hgrid_id,
+        '_atid':          temp_id,
         '_slot_report':   slot_report,
         '_subgrid_ids':   subgrid_ids,
         '_force_modify':  force_modify,
@@ -221,9 +225,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(_json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
         print(
-            f"\n  ✅ Computational Grid ID: '{atid}'\n"
-            f" Wait for the pull request to be merged, then use this ID in Stage 3 (Model Component) to build model components\n"
-            f"     Use this ID with a v### in Stage 3 (Model Component):\n"
-            f"     e.g.  atmosphere_arpege-v6_h###_<v###>",
+            f"\n  ✅ Temporary ID: '{atid}'\n"
+            f"     Will be renamed to h### on PR merge.\n"
+            f"     Use the final h### with a v### in Stage 3 (Model Component).\n"
+            f"     e.g.  atmosphere_arpege-v6_<h###>_<v###>",
             flush=True,
         )
