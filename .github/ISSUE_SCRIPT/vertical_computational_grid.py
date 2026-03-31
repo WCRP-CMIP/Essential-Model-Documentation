@@ -83,9 +83,12 @@ def run(parsed_issue, issue, dry_run=False):
                 data[key] = val
         elif key == 'n_z_range':
             # Split on whitespace/commas, convert to int, sort ascending, keep exactly 2
-            parts = [v.strip() for v in re.split(r'\s*,\s*|\s+', str(val)) if v.strip()]
-            nums = sorted(int(float(p)) for p in parts if p)
-            data[key] = nums[:2]  # schema: min_length=2, max_length=2
+            if 'No response' in val or not val:
+                continue
+            else:
+                parts = [v.strip() for v in re.split(r'\s*,\s*|\s+', str(val)) if v.strip()]
+                nums = sorted(int(float(p)) for p in parts if p)
+                data[key] = nums[:2]  # schema: min_length=2, max_length=2
         else:
             data[key] = val
 
