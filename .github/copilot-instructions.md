@@ -111,7 +111,21 @@ For `model` files, check:
 
 ---
 
-### 4. Obvious input errors in free-text fields
+### 4. Linked entries and their suitability
+
+Each file links to other registered entries via JSON-LD references. Use the `@context`
+to resolve what those links point to, then assess whether the combination makes scientific
+sense — not whether the link syntax is correct.
+
+Ask: given what the linked entry actually describes, is it an appropriate choice for this
+component or configuration? Flag cases where the linked entry is scientifically
+incompatible with the file that references it.
+
+Flag as: `[Links] field — reason the linked entry is scientifically unsuitable here`
+
+---
+
+### 5. Obvious input errors in free-text fields
 
 Check `name`, `description`, and `references` fields only:
 
