@@ -1,4 +1,4 @@
-name: ✅ PR approved — remove needs-review label
+name: ✓ PR approved — remove needs-review label
 
 # When a PR is approved, find the issue it was created for and remove
 # the 'needs-review' label so the project board reflects the new state.
@@ -35,7 +35,7 @@ jobs:
             exit 0
           fi
 
-          echo "## ✅ Approval processed for PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "## PR approval — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
           echo "| Issue | Action |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
 
@@ -43,5 +43,5 @@ jobs:
             [ -z "$issue_num" ] && continue
             echo "Removing 'needs-review' from issue #${issue_num}..."
             gh issue edit "$issue_num" --repo "$REPO" --remove-label "needs-review" 2>/dev/null || true
-            echo "| #${issue_num} | removed needs-review ✅ |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| #${issue_num} | needs-review removed |" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$ISSUE_NUMBERS"
