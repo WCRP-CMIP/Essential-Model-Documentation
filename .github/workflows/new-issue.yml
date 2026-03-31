@@ -1,4 +1,4 @@
-name: New Issue Processing
+name: ⟳ New Issue Processing
 
 on:
   issues:
@@ -35,18 +35,16 @@ jobs:
 
       - name: Process issue
         env:
-          ISSUE_NUMBER:     ${{ github.event.inputs.issue_number || github.event.issue.number }}
-          ISSUE_SUBMITTER:  ${{ github.event.issue.user.login }}
-          ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
-          GH_TOKEN:         ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-          GITHUB_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          ISSUE_NUMBER:      ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          ISSUE_SUBMITTER:   ${{ github.event.issue.user.login }}
+          ISSUE_CREATED_AT:  ${{ github.event.issue.created_at }}
+          GH_TOKEN:          ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          GITHUB_TOKEN:      ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           cd $GITHUB_WORKSPACE
 
           # ldr server must serve src-data graph files (not main branch).
-          # Fetch src-data content into a temp dir, start the server from
-          # there, then return to GITHUB_WORKSPACE for the new_issue run.
           LDR_DATA=$(mktemp -d)
           git fetch origin src-data
           git --work-tree="$LDR_DATA" checkout origin/src-data -- .
@@ -56,24 +54,61 @@ jobs:
           new_issue --issue $ISSUE_NUMBER
         shell: bash
 
-      - name: Request Copilot review on new PR
+      - name: Find PR for this issue
+        id: find_pr
         env:
-          GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
           ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
-          REPO: ${{ github.repository }}
+          REPO:        ${{ github.repository }}
         run: |
-          # Find the PR associated with this issue (branch name contains issue number)
-          PR_NUMBER=$(gh pr list --repo "$REPO" --state open --json number,headRefName \
+          PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
+            --json number,headRefName \
             --jq "[.[] | select(.headRefName | test(\"_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}$\"))] | .[0].number" \
             2>/dev/null || true)
 
           if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
-            echo "No open PR found for issue #${ISSUE_NUMBER} — skipping Copilot review request."
+            echo "No open PR found for issue #${ISSUE_NUMBER}."
+            echo "pr_number=" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found PR #${PR_NUMBER}"
+            echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+            PR_URL=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json url --jq '.url')
+            echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+      - name: Add PR to project board
+        if: steps.find_pr.outputs.pr_number != ''
+        env:
+          GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_URL:       ${{ steps.find_pr.outputs.pr_url }}
+          REPO_OWNER:   ${{ github.repository_owner }}
+        run: |
+          PROJECT_NUMBER="${{ vars.PROJECT_NUMBER }}"
+
+          if [ -z "$PROJECT_NUMBER" ]; then
+            PROJECT_NUMBER=$(gh project list --owner "$REPO_OWNER" --format json \
+              --jq '[.projects[] | select(.title | test("EMD|Essential|Model|Documentation"; "i"))] | .[0].number // .projects[0].number' \
+              2>/dev/null || true)
+          fi
+
+          if [ -z "$PROJECT_NUMBER" ] || [ "$PROJECT_NUMBER" = "null" ]; then
+            echo "! No project found. Set the PROJECT_NUMBER repository variable to enable linking."
             exit 0
           fi
 
-          echo "Requesting Copilot review on PR #${PR_NUMBER}..."
+          gh project item-add "$PROJECT_NUMBER" --owner "$REPO_OWNER" --url "$PR_URL"
+          echo "-> PR linked to project #${PROJECT_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+        shell: bash
+
+      - name: Request Copilot review
+        if: steps.find_pr.outputs.pr_number != ''
+        env:
+          GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_NUMBER:   ${{ steps.find_pr.outputs.pr_number }}
+          REPO:        ${{ github.repository }}
+        run: |
           gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer "copilot" 2>/dev/null \
-            && echo "✅ Copilot review requested on PR #${PR_NUMBER}" \
-            || echo "⚠ Could not add Copilot reviewer (may not be enabled on this repo)"
+            && echo "-> Copilot review requested on PR #${PR_NUMBER}" \
+            || echo "! Could not add Copilot reviewer (may not be enabled on this repo)"
         shell: bash

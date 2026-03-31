@@ -14,11 +14,12 @@ on:
       - '.github/prepublish/**'
 
       - '.github/CONTRIBUTING.md'
+      - '.github/copilot-instructions.md'
   workflow_dispatch:
 
 env:
   SYNC_FOLDERS: "workflows prepublish"
-  SYNC_FILES: "CONTRIBUTING.md"
+  SYNC_FILES: "CONTRIBUTING.md copilot-instructions.md"
 
 jobs:
   sync:
