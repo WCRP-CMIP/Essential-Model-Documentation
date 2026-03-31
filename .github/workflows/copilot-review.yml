@@ -1,0 +1,42 @@
+name: ⟳ Request Copilot review on new PR
+
+# Triggered when a PR is opened — at this point the PR is fully registered
+# and the reviewer request API call will succeed immediately.
+# Targets src-data only (all EMD submission PRs go there).
+
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - src-data
+
+permissions:
+  pull-requests: write
+
+jobs:
+  copilot_review:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:     ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+
+    steps:
+      - name: Request Copilot review
+        run: |
+          RESPONSE=$(gh api \
+            repos/$REPO/pulls/$PR_NUMBER/requested_reviewers \
+            --method POST \
+            --field 'reviewers[]=copilot' \
+            --include 2>&1)
+
+          HTTP=$(echo "$RESPONSE" | head -1 | grep -oE 'HTTP/[0-9.]+ [0-9]+' | grep -oE '[0-9]+$')
+
+          if [ "$HTTP" = "201" ] || [ "$HTTP" = "200" ]; then
+            echo "-> Copilot review requested on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "! Could not request Copilot review (HTTP ${HTTP})" >> "$GITHUB_STEP_SUMMARY"
+            echo "  Copilot code review may not be enabled on this repository."
+            echo "$RESPONSE"
+          fi
+        shell: bash
