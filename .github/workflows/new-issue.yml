@@ -56,10 +56,11 @@ jobs:
           ldr server start &
           cd "$GITHUB_WORKSPACE"
 
-          # Wait until the server is accepting connections (up to 30 s)
+          # Wait until the server is accepting TCP connections on port 3333 (up to 30 s).
+          # curl -f would fail on non-2xx responses (the LDR root returns 404); use nc instead.
           echo "Waiting for LDR server on port 3333..."
           for i in $(seq 1 30); do
-            if curl -fsS "http://localhost:3333/" >/dev/null 2>&1; then
+            if nc -z localhost 3333 2>/dev/null; then
               echo "LDR server ready (attempt $i)"
               break
             fi
@@ -67,7 +68,7 @@ jobs:
           done
 
           # Hard-fail if still not up — don't silently run against a dead server
-          if ! curl -fsS "http://localhost:3333/" >/dev/null 2>&1; then
+          if ! nc -z localhost 3333 2>/dev/null; then
             echo "ERROR: LDR server did not start within 30 s"
             exit 1
           fi
