@@ -133,7 +133,7 @@ jobs:
             repos/$REPO/pulls/$PR_NUMBER/requested_reviewers \
             --method POST \
             --field 'reviewers[]=copilot' \
-            --include 2>&1)
+            --include 2>&1) || true
           HTTP=$(echo "$RESPONSE" | head -1 | grep -oE '[0-9]{3}$')
           if [ "$HTTP" = "201" ] || [ "$HTTP" = "200" ]; then
             echo "-> Copilot review requested on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
