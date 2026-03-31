@@ -101,25 +101,12 @@ jobs:
       - name: Add PR to project board
         if: steps.find_pr.outputs.pr_number != ''
         env:
-          GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-          PR_URL:       ${{ steps.find_pr.outputs.pr_url }}
-          REPO_OWNER:   ${{ github.repository_owner }}
+          GH_TOKEN:   ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_URL:     ${{ steps.find_pr.outputs.pr_url }}
+          REPO_OWNER: ${{ github.repository_owner }}
         run: |
-          PROJECT_NUMBER="${{ vars.PROJECT_NUMBER }}"
-
-          if [ -z "$PROJECT_NUMBER" ]; then
-            PROJECT_NUMBER=$(gh project list --owner "$REPO_OWNER" --format json \
-              --jq '[.projects[] | select(.title | test("EMD|Essential|Model|Documentation"; "i"))] | .[0].number // .projects[0].number' \
-              2>/dev/null || true)
-          fi
-
-          if [ -z "$PROJECT_NUMBER" ] || [ "$PROJECT_NUMBER" = "null" ]; then
-            echo "! No project found. Set the PROJECT_NUMBER repository variable to enable linking."
-            exit 0
-          fi
-
-          gh project item-add "$PROJECT_NUMBER" --owner "$REPO_OWNER" --url "$PR_URL"
-          echo "-> PR linked to project #${PROJECT_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          gh project item-add 8 --owner "$REPO_OWNER" --url "$PR_URL"
+          echo "-> PR linked to project #8" >> "$GITHUB_STEP_SUMMARY"
         shell: bash
 
       - name: Request Copilot review
