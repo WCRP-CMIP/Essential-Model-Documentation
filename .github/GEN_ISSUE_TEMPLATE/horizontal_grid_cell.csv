@@ -44,7 +44,7 @@ Define the physical grid structure that can be reused across multiple subgrid re
 12,dropdown,truncation_method,Truncation Method,The spectral truncation type for spectral grids only.,truncation_method,false,,list_with_na,0
 13,input,truncation_number,Truncation Number,The maximum wavenumber retained for spectral grids only.,none,false,127,,
 14,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
-15,textarea,description,Description,Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.,none,false,,,
+15,textarea,description,Description,Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.,none,false,"COMPLETE ONLY IF YOUR GRID APPEARS IDENTICAL TO ANOTHER AND THE DIFFERENCES CANNOT BE CAPTURED BY ANY OTHER PART OF THIS FORM.",,
 16,markdown,metadata_header,,"---
 
 ## Issue Handling

@@ -66,29 +66,29 @@ body:
         </details>
       options:
         - "Not specified"
-        - "cubed_sphere"
-        - "cubic_octahedral_spectral_reduced_gaussian"
-        - "displaced_pole"
-        - "hierarchical_discrete_global_grid"
-        - "icosahedral"
-        - "icosahedral_geodesic"
-        - "icosahedral_geodesic_dual"
-        - "linear_spectral_gaussian"
-        - "plane_projection"
-        - "quadratic_spectral_gaussian"
-        - "reduced_gaussian"
-        - "regular_gaussian"
-        - "regular_latitude_longitude"
-        - "rotated_pole"
-        - "spectral_gaussian"
-        - "spectral_reduced_gaussian"
-        - "stretched"
-        - "tripolar"
-        - "unstructured"
-        - "unstructured_polygonal"
-        - "unstructured_quadrilateral"
-        - "unstructured_triangular"
-        - "yin_yang"
+        - "Cubed Sphere"
+        - "Cubic Octahedral Spectral Reduced Gaussian"
+        - "Displaced Pole"
+        - "Hierarchical Discrete Global Grid"
+        - "Icosahedral"
+        - "Icosahedral Geodesic"
+        - "Icosahedral Geodesic Dual"
+        - "Linear Spectral Gaussian"
+        - "Plane Projection"
+        - "Quadratic Spectral Gaussian"
+        - "Reduced Gaussian"
+        - "Regular Gaussian"
+        - "Regular Latitude-Longitude"
+        - "Rotated Pole"
+        - "Spectral Gaussian"
+        - "Spectral Reduced Gaussian"
+        - "Stretched"
+        - "Tripolar"
+        - "Unstructured"
+        - "Unstructured Polygonal"
+        - "Unstructured Quadrilateral"
+        - "Unstructured Triangular"
+        - "Yin-Yang"
       default: 0
     validations:
       required: true
@@ -115,22 +115,22 @@ body:
         </details>
       options:
         - "Not specified"
-        - "albers_conical_equal_area"
-        - "azimuthal_equidistant"
-        - "geostationary"
-        - "healpix"
-        - "lambert_azimuthal_equal_area"
-        - "lambert_conformal_conic"
-        - "lambert_cylindrical_equal_area"
-        - "latitude_longitude"
-        - "mercator"
-        - "orthographic"
-        - "polar_stereographic"
-        - "rotated_latitude_longitude"
-        - "sinusoidal"
-        - "stereographic"
-        - "transverse_mercator"
-        - "vertical_perspective"
+        - "Albers Conical Equal Area"
+        - "Azimuthal Equidistant"
+        - "Geostationary"
+        - "HEALPix"
+        - "Lambert Azimuthal Equal Area"
+        - "Lambert Conformal Conic"
+        - "Lambert Cylindrical Equal Area"
+        - "Latitude-Longitude"
+        - "Mercator"
+        - "Orthographic"
+        - "Polar Stereographic"
+        - "Rotated Latitude-Longitude"
+        - "Sinusoidal"
+        - "Stereographic"
+        - "Transverse Mercator"
+        - "Vertical Perspective"
       default: 0
     validations:
       required: true
@@ -138,10 +138,9 @@ body:
   - type: dropdown
     id: region
     attributes:
-      multiple: true
       label: Region
       description: |
-        The geographic coverage area of the grid. **Select multiple.**
+        The geographic coverage area of the grid.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -157,16 +156,17 @@ body:
         
         </details>
       options:
-        - "30s-90s"
-        - "antarctica"
-        - "arctic"
-        - "global"
-        - "greenland"
-        - "limited-area"
-        - "northern_hemisphere"
-        - "shem"
-        - "southern_hemisphere"
-        - "tropics"
+        - "Not specified"
+        - "30S-90S"
+        - "Antarctica"
+        - "Arctic"
+        - "Global"
+        - "Greenland"
+        - "Limited Area"
+        - "Northern Hemisphere"
+        - "Southern Hemisphere"
+        - "Tropics"
+      default: 0
     validations:
       required: true
 
@@ -190,9 +190,9 @@ body:
         </details>
       options:
         - "Not specified"
-        - "adaptive"
-        - "dynamically_stretched"
-        - "static"
+        - "Adaptive"
+        - "Dynamically Stretched"
+        - "Static"
       default: 0
     validations:
       required: true
@@ -242,11 +242,11 @@ body:
       description: The units used for resolution values.
       options:
         - "Not specified"
-        - "degree"
-        - "k"
-        - "km"
-        - "meter"
-        - "pa"
+        - "Degrees"
+        - "Kelvin"
+        - "Kilometre"
+        - "Meters"
+        - "Pascal"
       default: 0
 
   - type: input
@@ -327,8 +327,8 @@ body:
         </details>
       options:
         - "Not specified"
-        - "rhomboidal"
-        - "triangular"
+        - "Rhomboidal Truncation"
+        - "Triangular Truncation"
       default: 0
 
   - type: input
@@ -353,10 +353,10 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Additional Information
+      label: Description
       description: |
-        Any additional information that may distinguish this specific grid from others with the same properties.
-      placeholder: "Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None"
+        Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.
+      placeholder: "COMPLETE ONLY IF YOUR GRID APPEARS IDENTICAL TO ANOTHER AND THE DIFFERENCES CANNOT BE CAPTURED BY ANY OTHER PART OF THIS FORM."
 
   - type: markdown
     attributes:

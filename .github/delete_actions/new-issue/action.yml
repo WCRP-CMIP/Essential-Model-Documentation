@@ -52,6 +52,24 @@ runs:
         echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
       shell: bash
 
+    - name: Start LDR server
+      run: |
+        ldr server stop 2>/dev/null || true
+        ldr server start
+        echo "Waiting for LDR server on port 3333..."
+        for i in $(seq 1 30); do
+          if timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
+            echo "LDR server ready (attempt $i)"
+            break
+          fi
+          sleep 1
+        done
+        if ! timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
+          echo "ERROR: LDR server did not start within 30s"
+          exit 1
+        fi
+      shell: bash
+
     - name: Process issue
       id: process
       env:

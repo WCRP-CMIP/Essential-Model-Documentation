@@ -52,26 +52,26 @@ body:
         </details>
       options:
         - "Not specified"
-        - "air_potential_temperature"
-        - "air_pressure"
-        - "atmosphere_hybrid_height_coordinate"
-        - "atmosphere_hybrid_sigma_pressure_coordinate"
-        - "atmosphere_ln_pressure_coordinate"
-        - "atmosphere_sigma_coordinate"
-        - "atmosphere_sleve_coordinate"
+        - "air-potential-temperature"
+        - "air-pressure"
+        - "atmosphere-hybrid-height-coordinate"
+        - "atmosphere-hybrid-sigma-pressure-coordinate"
+        - "atmosphere-ln-pressure-coordinate"
+        - "atmosphere-sigma-coordinate"
+        - "atmosphere-sleve-coordinate"
         - "depth"
-        - "geopotential_height"
+        - "geopotential-height"
         - "height"
-        - "land_ice_sigma_coordinate"
-        - "ocean_double_sigma_coordinate"
-        - "ocean_s_coordinate"
-        - "ocean_s_coordinate_g1"
-        - "ocean_s_coordinate_g2"
-        - "ocean_sigma_coordinate"
-        - "ocean_sigma_z_coordinate"
-        - "sea_water_potential_temperature"
-        - "sea_water_pressure"
-        - "z*"
+        - "land-ice-sigma-coordinate"
+        - "ocean-double-sigma-coordinate"
+        - "ocean-s-coordinate"
+        - "ocean-s-coordinate-g1"
+        - "ocean-s-coordinate-g2"
+        - "ocean-sigma-coordinate"
+        - "ocean-sigma-z-coordinate"
+        - "sea-water-potential-temperature"
+        - "sea-water-pressure"
+        - "z-star"
       default: 0
     validations:
       required: true
@@ -170,9 +170,9 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Additional Information
+      label: Description
       description: |
-        Any additional information that may distinguish this specific grid from others with the same properties.
+        Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -186,7 +186,6 @@ body:
         **Leave blank if** the structured fields fully describe the grid.
         
         </details>
-      placeholder: "Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None"
 
   - type: markdown
     attributes:

@@ -810,11 +810,11 @@ body:
       options:
         - "aerosol"
         - "atmosphere"
-        - "atmospheric_chemistry"
-        - "land_ice"
+        - "atmospheric-chemistry"
+        - "land-ice"
         - "land_surface"
         - "ocean"
-        - "ocean_biogeochemistry"
+        - "ocean-biogeochemistry"
         - "sea_ice"
     validations:
       required: true

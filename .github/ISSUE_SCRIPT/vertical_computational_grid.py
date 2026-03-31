@@ -45,7 +45,7 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
     file_path  = os.path.join(kind, f"{temp_id}.json")
 
-    coord   = parsed_issue.get('vertical_coordinate', '')
+    coord   = parsed_issue.get('vertical_coordinate', '').strip().lower()
     n_z     = parsed_issue.get('n_z', parsed_issue.get('number_of_levels', ''))
     ui_label = (
         f"{coord.replace('_', ' ')} grid"
@@ -58,11 +58,10 @@ def run(parsed_issue, issue, dry_run=False):
         "@id":            temp_id,
         "@type":          ["wcrp:vertical_computational_grid",
                            "esgvoc:vertical_computational_grid"],
-        "validation_key": ui_label,
+        "validation_key": temp_id,   # must match @id so rename workflow can update it
         "ui_label":       ui_label,
     }
 
-    # Only set description if user explicitly entered something
     description = (parsed_issue.get('description') or
                    parsed_issue.get('additional_information') or '').strip()
     if description and description.lower() not in ('_no response_', 'none', 'not specified'):
@@ -82,13 +81,12 @@ def run(parsed_issue, issue, dry_run=False):
             except (ValueError, TypeError):
                 data[key] = val
         elif key == 'n_z_range':
-            # Split on whitespace/commas, convert to int, sort ascending, keep exactly 2
             if 'No response' in val or not val:
                 continue
             else:
                 parts = [v.strip() for v in re.split(r'\s*,\s*|\s+', str(val)) if v.strip()]
                 nums = sorted(int(float(p)) for p in parts if p)
-                data[key] = nums[:2]  # schema: min_length=2, max_length=2
+                data[key] = nums[:2]
         else:
             data[key] = val
 
