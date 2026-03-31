@@ -50,25 +50,24 @@ jobs:
           git fetch origin src-data
           git --work-tree="$LDR_DATA" checkout origin/src-data -- .
 
-          # Stop any stale server, then start from the src-data content
+          # ldr server start already daemonizes itself — do not add &
           ldr server stop 2>/dev/null || true
           cd "$LDR_DATA"
-          ldr server start &
+          ldr server start
           cd "$GITHUB_WORKSPACE"
 
-          # Wait until the server is accepting TCP connections on port 3333 (up to 30 s).
-          # curl -f would fail on non-2xx responses (the LDR root returns 404); use nc instead.
+          # Wait until port 3333 accepts TCP connections.
+          # Uses bash built-in /dev/tcp — no nc or curl needed.
           echo "Waiting for LDR server on port 3333..."
           for i in $(seq 1 30); do
-            if nc -z localhost 3333 2>/dev/null; then
+            if timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
               echo "LDR server ready (attempt $i)"
               break
             fi
             sleep 1
           done
 
-          # Hard-fail if still not up — don't silently run against a dead server
-          if ! nc -z localhost 3333 2>/dev/null; then
+          if ! timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
             echo "ERROR: LDR server did not start within 30 s"
             exit 1
           fi
