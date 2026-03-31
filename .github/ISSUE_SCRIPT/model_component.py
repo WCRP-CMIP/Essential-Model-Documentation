@@ -47,7 +47,8 @@ def run(parsed_issue, issue, dry_run=False):
     component_name = (parsed_issue.get('component_name') or '').strip()
     h_grid         = (parsed_issue.get('horizontal_grid') or '').strip().lower()
     v_grid         = (parsed_issue.get('vertical_grid') or '').strip().lower()
-    family         = (parsed_issue.get('component_family') or '').strip()
+    family         = (parsed_issue.get('component_family') or '').strip().lower()
+    description      = (parsed_issue.get('description') or '').strip()
 
     if not component_name:
         return None  # fall back to generic handler
@@ -86,6 +87,7 @@ def run(parsed_issue, issue, dry_run=False):
         "model_component":             name_slug,
         "horizontal_computational_grid": h_grid,
         "vertical_computational_grid":   v_grid,
+        "description":                description if description and description.lower() not in ('none', 'not specified') else '',
     }
 
     collab_str   = parsed_issue.get('additional_collaborators',
