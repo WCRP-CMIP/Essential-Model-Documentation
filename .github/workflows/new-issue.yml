@@ -55,3 +55,25 @@ jobs:
 
           new_issue --issue $ISSUE_NUMBER
         shell: bash
+
+      - name: Request Copilot review on new PR
+        env:
+          GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Find the PR associated with this issue (branch name contains issue number)
+          PR_NUMBER=$(gh pr list --repo "$REPO" --state open --json number,headRefName \
+            --jq "[.[] | select(.headRefName | test(\"_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}$\"))] | .[0].number" \
+            2>/dev/null || true)
+
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
+            echo "No open PR found for issue #${ISSUE_NUMBER} — skipping Copilot review request."
+            exit 0
+          fi
+
+          echo "Requesting Copilot review on PR #${PR_NUMBER}..."
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer "copilot" 2>/dev/null \
+            && echo "✅ Copilot review requested on PR #${PR_NUMBER}" \
+            || echo "⚠ Could not add Copilot reviewer (may not be enabled on this repo)"
+        shell: bash
