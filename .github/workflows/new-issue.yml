@@ -104,11 +104,31 @@ jobs:
       - name: Request Copilot review
         if: steps.find_pr.outputs.pr_number != ''
         env:
-          GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-          PR_NUMBER:   ${{ steps.find_pr.outputs.pr_number }}
-          REPO:        ${{ github.repository }}
+          GH_TOKEN:  ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_NUMBER: ${{ steps.find_pr.outputs.pr_number }}
+          REPO:      ${{ github.repository }}
         run: |
-          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer "copilot" 2>/dev/null \
-            && echo "-> Copilot review requested on PR #${PR_NUMBER}" \
-            || echo "! Could not add Copilot reviewer (may not be enabled on this repo)"
+          # Use the REST API directly — gh pr edit --add-reviewer does not
+          # trigger a Copilot review request; only the reviewers endpoint does.
+          # Retry a few times in case the PR is not yet fully indexed.
+          for attempt in 1 2 3; do
+            HTTP=$(gh api \
+              repos/$REPO/pulls/$PR_NUMBER/requested_reviewers \
+              --method POST \
+              --field 'reviewers[]=copilot' \
+              --include 2>&1 | head -1 | grep -oE 'HTTP/[0-9.]+ [0-9]+' | grep -oE '[0-9]+$')
+
+            if [ "$HTTP" = "201" ] || [ "$HTTP" = "200" ]; then
+              echo "-> Copilot review requested on PR #${PR_NUMBER}" \
+                >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+
+            echo "  attempt $attempt failed (HTTP $HTTP) — retrying in 5s..."
+            sleep 5
+          done
+
+          echo "! Could not request Copilot review on PR #${PR_NUMBER}" \
+            " (HTTP $HTTP — Copilot code review may not be enabled on this repo)" \
+            >> "$GITHUB_STEP_SUMMARY"
         shell: bash
