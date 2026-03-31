@@ -1,0 +1,17 @@
+{
+    "validation_key": "depth grid with 75 levels.",
+    "ui_label": "depth grid with 75 levels.",
+    "description": "",
+    "bottom_layer_thickness": 204.229,
+    "n_z": 75,
+    "top_layer_thickness": 1.023907,
+    "total_thickness": 6004.229,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1774628608"
+}
