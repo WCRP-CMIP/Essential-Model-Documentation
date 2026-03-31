@@ -114,10 +114,18 @@ Flag as: `[Format] field: description of the problem`
 
 ## Output format
 
-Structure your review as a flat numbered list. One item per finding. Use the prefix tags defined above. If you find nothing wrong, say: "No issues found."
+Begin every review with the heading:
+
+**EMD Copilot Review:**
+
+Then list findings as a flat numbered list. Use the prefix tags defined above. If you find nothing wrong, write:
+
+**EMD Copilot Review:** No issues found.
 
 Example:
 ```
+**EMD Copilot Review:**
+
 1. [Spelling/Input] name: "NEMO v3-6" — version separator should be "." not "-" to match standard naming
 2. [Science] n_z: 9999 — unrealistically high level count for an ocean model; typical range is 30–75
 3. [Format] validation_key: "ocean-nemo-v3-6" — identical to @id; validation_key should be a human-readable label such as "NEMO v3.6"
