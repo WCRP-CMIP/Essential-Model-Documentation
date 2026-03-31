@@ -1,0 +1,21 @@
+{
+    "validation_key": "tempgrid_treerink-1773672118",
+    "ui_label": "Horizontal grid cell with a reduced gaussian grid type.",
+    "description": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "reduced_gaussian",
+    "n_cells": "92000",
+    "region": "global",
+    "southernmost_latitude": "-90",
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": "255",
+    "westernmost_longitude": "0",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-treerink-1773672118"
+}
