@@ -1,0 +1,19 @@
+{
+    "validation_key": "test-component-0",
+    "ui_label": "",
+    "description": "This is not real. At awll. (spelling to see if auto review catches it).",
+    "code_base": "wcrp-cmip.org",
+    "component": "land_ice",
+    "family": "GEOS",
+    "name": "test component 0",
+    "references": [
+        "wcrp-cmip.org/doi"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:model_component",
+        "esgvoc:ModelComponent",
+        "emd"
+    ],
+    "@id": "test-component-0"
+}
