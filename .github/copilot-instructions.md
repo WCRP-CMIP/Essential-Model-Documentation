@@ -144,8 +144,6 @@ Check `name`, `description`, and `references` fields only:
 - `@context`, `@type`, field names, JSON structure, bracket matching, trailing commas —
   these are syntax issues outside the scope of this review.
 - `ui_label` fields — auto-generated, not authored by the submitter.
-- The PR targeting `src-data` instead of `main` — this is the correct workflow.
-- Missing `crs` field — it may be intentionally absent if validation errors were reported.
 - `tempgrid_*` values anywhere — temporary, will be renamed on merge.
 
 ---

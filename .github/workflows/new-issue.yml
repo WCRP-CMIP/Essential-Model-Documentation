@@ -44,12 +44,33 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
 
-          # ldr server must serve src-data graph files (not main branch).
+          # Populate a temp dir with src-data so the LDR server serves
+          # the live graph files rather than the main-branch stubs.
           LDR_DATA=$(mktemp -d)
           git fetch origin src-data
           git --work-tree="$LDR_DATA" checkout origin/src-data -- .
+
+          # Stop any stale server, then start from the src-data content
           ldr server stop 2>/dev/null || true
-          cd "$LDR_DATA" && ldr server start && cd $GITHUB_WORKSPACE
+          cd "$LDR_DATA"
+          ldr server start &
+          cd "$GITHUB_WORKSPACE"
+
+          # Wait until the server is accepting connections (up to 30 s)
+          echo "Waiting for LDR server on port 3333..."
+          for i in $(seq 1 30); do
+            if curl -fsS "http://localhost:3333/" >/dev/null 2>&1; then
+              echo "LDR server ready (attempt $i)"
+              break
+            fi
+            sleep 1
+          done
+
+          # Hard-fail if still not up — don't silently run against a dead server
+          if ! curl -fsS "http://localhost:3333/" >/dev/null 2>&1; then
+            echo "ERROR: LDR server did not start within 30 s"
+            exit 1
+          fi
 
           new_issue --issue $ISSUE_NUMBER
         shell: bash
