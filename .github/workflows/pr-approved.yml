@@ -1,0 +1,47 @@
+name: ✅ PR approved — remove needs-review label
+
+# When a PR is approved, find the issue it was created for and remove
+# the 'needs-review' label so the project board reflects the new state.
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  remove_needs_review:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO: ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+
+    steps:
+      - name: Remove needs-review from linked issue
+        run: |
+          # Extract issue numbers from PR body (Resolves/Fixes/Closes #NNN)
+          PR_BODY=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' || true)
+
+          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            echo "No linked issues found in PR #${PR_NUMBER} body."
+            exit 0
+          fi
+
+          echo "## ✅ Approval processed for PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Issue | Action |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+
+          while IFS= read -r issue_num; do
+            [ -z "$issue_num" ] && continue
+            echo "Removing 'needs-review' from issue #${issue_num}..."
+            gh issue edit "$issue_num" --repo "$REPO" --remove-label "needs-review" 2>/dev/null || true
+            echo "| #${issue_num} | removed needs-review ✅ |" >> "$GITHUB_STEP_SUMMARY"
+          done <<< "$ISSUE_NUMBERS"
