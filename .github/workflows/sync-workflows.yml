@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 env:
-  SYNC_FOLDERS: "workflows prepublish"
+  SYNC_FOLDERS: "prepublish"
   SYNC_FILES: "CONTRIBUTING.md copilot-instructions.md"
 
 jobs:
@@ -43,13 +43,15 @@ jobs:
       - name: Fetch main branch
         run: git fetch origin main --depth=1
 
-      - name: Clean .github folder on target branch
+      - name: Replace .github/workflows from main
         run: |
-          echo "Cleaning .github/ on ${{ matrix.branch }}..."
-          rm -rf .github/*
-          echo "Cleaned all contents of .github/"
+          echo "Replacing .github/workflows on ${{ matrix.branch }} with main..."
+          rm -rf .github/workflows
+          mkdir -p .github/workflows
+          git checkout origin/main -- ".github/workflows/"
+          echo "Workflows replaced."
 
-      - name: Sync folders from main
+      - name: Sync other folders from main
         run: |
           for folder in $SYNC_FOLDERS; do
             echo "Syncing folder: .github/$folder"

@@ -69,7 +69,7 @@ def run(parsed_issue, issue, dry_run=False):
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
             continue
         key = FIELD_MAP.get(key, key)
-        data[key] = val.strip() if isinstance(val, str) else val
+        data[key] = val.strip().lower() if isinstance(val, str) else val
     if region and region.lower() not in ('_no response_', 'none', 'not specified'):
         data['region'] = region
 

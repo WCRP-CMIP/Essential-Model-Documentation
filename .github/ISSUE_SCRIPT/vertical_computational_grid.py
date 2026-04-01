@@ -45,7 +45,7 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
     file_path  = os.path.join(kind, f"{temp_id}.json")
 
-    coord   = parsed_issue.get('vertical_coordinate', '')
+    coord   = parsed_issue.get('vertical_coordinate', '').strip().lower()
     n_z     = parsed_issue.get('n_z', parsed_issue.get('number_of_levels', ''))
     ui_label = (
         f"{coord.replace('_', ' ')} grid"

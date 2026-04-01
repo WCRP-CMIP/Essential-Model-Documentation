@@ -128,7 +128,7 @@ def run(parsed_issue, issue, dry_run=False):
     }
 
     if family and family.lower() not in ('not specified', 'none', ''):
-        data['family'] = family
+        data['family'] = family.lower()
 
     # References — split on any delimiter into a list
     refs_raw = parsed_issue.get('reference_dois') or parsed_issue.get('references') or ''
