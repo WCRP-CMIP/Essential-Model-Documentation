@@ -100,13 +100,15 @@ jobs:
 
       - name: Add PR to project board
         if: steps.find_pr.outputs.pr_number != ''
+        continue-on-error: true
         env:
           GH_TOKEN:   ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
           PR_URL:     ${{ steps.find_pr.outputs.pr_url }}
           REPO_OWNER: ${{ github.repository_owner }}
         run: |
-          gh project item-add 8 --owner "$REPO_OWNER" --url "$PR_URL"
-          echo "-> PR linked to project #8" >> "$GITHUB_STEP_SUMMARY"
+          gh project item-add 8 --owner "$REPO_OWNER" --url "$PR_URL" \
+            && echo "-> PR linked to project #8" >> "$GITHUB_STEP_SUMMARY" \
+            || echo "! Could not add PR to project #8 (check project number, owner, and token 'project' scope)" >> "$GITHUB_STEP_SUMMARY"
         shell: bash
 
       # Copilot code review has no stable public API — request it manually

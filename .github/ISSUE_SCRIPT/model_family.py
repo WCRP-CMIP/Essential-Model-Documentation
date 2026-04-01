@@ -14,6 +14,9 @@ kind = __file__.split('/')[-1].replace('.py', '')
 # Fields that come in as comma- or newline-separated strings → lists
 LIST_FIELDS = {'collaborative_institutions', 'scientific_domains', 'reference_dois'}
 
+# Fields whose values are @type:@id links — must be lowercased
+LINKED_FIELDS = {'collaborative_institutions', 'scientific_domains', 'primary_institution'}
+
 # Fields to drop from the final JSON (also strip any bare id/type that validators add)
 IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
           'family_type', 'family_name', 'name'}
@@ -67,8 +70,13 @@ def run(parsed_issue, issue, dry_run=False):
     for k, v in parsed_issue.items():
         if k in IGNORE or not v:
             continue
+        if isinstance(v, str) and v.lower() in ('_no response_', 'none', 'not specified', ''):
+            continue
         if k in LIST_FIELDS:
-            data[k] = _parse_list(v)
+            items = _parse_list(v)
+            data[k] = [i.lower() for i in items] if k in LINKED_FIELDS else items
+        elif k in LINKED_FIELDS:
+            data[k] = v.strip().lower()
         else:
             data[k] = v.strip() if isinstance(v, str) else v
 
