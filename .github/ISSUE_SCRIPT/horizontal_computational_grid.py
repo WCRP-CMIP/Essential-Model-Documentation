@@ -113,9 +113,11 @@ def run(parsed_issue, issue, dry_run=False):
     slot_report = []   # for update() summary
 
     for slot in slots:
-        # Build deterministic ID from cell + variable types, e.g. g100-mass
-        vtype_slug = '-'.join(sorted(slot['variable_types'])) if slot['variable_types'] else 'untyped'
-        sid        = f"{slot['cell']}-{vtype_slug}"
+        # Lowercase the cell ID and variable types — these are links to other entries
+        cell       = slot['cell'].strip().lower()
+        vtypes     = [v.strip().lower() for v in slot['variable_types']]
+        vtype_slug = '-'.join(sorted(vtypes)) if vtypes else 'untyped'
+        sid        = f"{cell}-{vtype_slug}"
         file_path  = os.path.join('horizontal_subgrid', f"{sid}.json")
         reused     = os.path.exists(os.path.join(repo_root, file_path))
 
@@ -124,8 +126,10 @@ def run(parsed_issue, issue, dry_run=False):
             "@id":                   sid,
             "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
             "validation_key":        sid,
-            "horizontal_grid_cells": [{"@id": slot['cell']}],
+            "horizontal_grid_cells": [{"@id": cell}],
         }
+        # Update slot so slot_report and subgrid_ids use the normalised values
+        slot = {**slot, 'cell': cell, 'variable_types': vtypes}
         if slot['variable_types']:
             subgrid_data['cell_variable_type'] = slot['variable_types']
 

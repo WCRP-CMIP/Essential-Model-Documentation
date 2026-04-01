@@ -109,13 +109,5 @@ jobs:
           echo "-> PR linked to project #8" >> "$GITHUB_STEP_SUMMARY"
         shell: bash
 
-      - name: Request Copilot review
-        if: steps.find_pr.outputs.pr_number != ''
-        continue-on-error: true
-        env:
-          GH_TOKEN:  ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-          PR_NUMBER: ${{ steps.find_pr.outputs.pr_number }}
-          REPO:      ${{ github.repository }}
-        run: |
-          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer @copilot
-        shell: bash
+      # Copilot code review has no stable public API — request it manually
+      # via the "Request review from Copilot" button in the PR UI.

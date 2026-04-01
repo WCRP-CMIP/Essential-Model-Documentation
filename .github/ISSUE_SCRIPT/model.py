@@ -4,14 +4,10 @@ Handler for Model (source_id) registration (Stage 4)
 Produces one file:
   model/{source_id}.json  — the complete CMIP source_id record
 
-The source_id references model_component config IDs from Stage 3 under
-'model_components', and records coupling/embedding topology as a
-Canonical Realm String (CRS) via cmipld.utils.crs.
-
 Schema field names (from esgvoc):
-  model_components  — list of component_config IDs (was: component_configs)
-  coupled_components — list of coupling groups    (was: coupling_groups)
-  references        — list of DOI strings
+  model_components   — list of component_config IDs
+  coupled_components — list of coupling groups
+  references         — list of DOI strings
 """
 
 import os
@@ -22,7 +18,6 @@ from cmipld.utils import crs as _crs
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-# Parsed issue key → canonical JSON field name
 FIELD_MAP = {
     'model_name':           'name',
     'model_family':         'family',
@@ -34,32 +29,30 @@ FIELD_MAP = {
     'component_config_ids': 'model_components',
 }
 
-# Fields that should always become lists
 LIST_FIELDS = {
     'dynamic_components', 'prescribed_components', 'omitted_components',
     'calendar', 'calendar_s_', 'calendar(s)',
     'component_config_ids', 'component_configs', 'model_components',
 }
 
-# Keys handled explicitly — skip in the generic loop
 IGNORE = {
     'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
     'model_name', 'model_family',
-    'references', 'reference_dois',   # handled explicitly (needs DOI splitting)
-    'embedded_components',            # handled explicitly
+    'references', 'reference_dois',
+    'embedded_components',
     'coupling_group_1', 'coupling_group_2', 'coupling_group_3',
     'coupling_group_4', 'coupling_group_5',
 }
 
 
-# ── Parsing helpers ────────────────────────────────────────────────────────────
-
-def _parse_list(value) -> list:
+def _parse_list(value, lowercase=False) -> list:
     """Split a comma- or newline-delimited string into a clean list."""
     if isinstance(value, list):
-        return [str(v).strip() for v in value if str(v).strip()]
-    delim = '\n' if '\n' in str(value) else ','
-    return [v.strip() for v in str(value).split(delim) if v.strip()]
+        items = [str(v).strip() for v in value if str(v).strip()]
+    else:
+        delim = '\n' if '\n' in str(value) else ','
+        items = [v.strip() for v in str(value).split(delim) if v.strip()]
+    return [i.lower() for i in items] if lowercase else items
 
 
 def _parse_refs(value) -> list:
@@ -71,16 +64,16 @@ def _parse_refs(value) -> list:
 
 def _parse_embedded(raw) -> list:
     """
-    Parse embedded_components into [[parent, child], ...] pairs.
+    Parse embedded_components into [[parent, child], ...] pairs, lowercased.
 
-    Handles all formats:
-      "Atmosphere - Aerosol"          GitHub multi-select " - " separator
-      "atmosphere=aerosol"            = separator
-      "atmosphere>aerosol"            > separator
+    Handles:
+      "Atmosphere - Aerosol"           GitHub multi-select " - " separator
+      "atmosphere=aerosol"             = separator
+      "atmosphere>aerosol"             > separator
       [["atmosphere", "aerosol"], ...]  already structured
     """
     def _clean(s: str) -> str:
-        return re.sub(r'\s*-\s*$', '', s.strip()).strip()
+        return re.sub(r'\s*-\s*$', '', s.strip()).strip().lower()
 
     if isinstance(raw, list):
         result = []
@@ -119,8 +112,6 @@ def _parse_embedded(raw) -> list:
     return result
 
 
-# ── run ────────────────────────────────────────────────────────────────────────
-
 def run(parsed_issue, issue, dry_run=False):
     source_id = (parsed_issue.get('model_name') or parsed_issue.get('name') or '').strip()
     if not source_id:
@@ -144,16 +135,16 @@ def run(parsed_issue, issue, dry_run=False):
     if refs_raw:
         data['references'] = _parse_refs(refs_raw)
 
-    # Coupling groups (coupling_group_1 … coupling_group_5) → coupled_components
+    # Coupling groups — realm names must be lowercase for CRS
     coupling_groups = []
     for i in range(1, 6):
         raw = parsed_issue.get(f'coupling_group_{i}', '')
         if raw:
-            group = _parse_list(raw)
+            group = _parse_list(raw, lowercase=True)
             if group:
                 coupling_groups.append(group)
 
-    # Embedded component pairs → embedded_components
+    # Embedded component pairs — lowercased inside _parse_embedded
     embedded_pairs = _parse_embedded(parsed_issue.get('embedded_components', ''))
 
     # Generic remaining fields
@@ -161,8 +152,9 @@ def run(parsed_issue, issue, dry_run=False):
         if not v or k in IGNORE:
             continue
         canonical = FIELD_MAP.get(k, k)
+        # component IDs and realm lists must be lowercase
         if canonical in LIST_FIELDS or k in LIST_FIELDS:
-            data[canonical] = _parse_list(v)
+            data[canonical] = _parse_list(v, lowercase=True)
         else:
             val = v.strip() if isinstance(v, str) else v
             if val and str(val).lower() not in ('_no response_', 'none', 'not specified'):
@@ -206,8 +198,6 @@ def run(parsed_issue, issue, dry_run=False):
         '_source_id':    source_id,
     }
 
-
-# ── update ─────────────────────────────────────────────────────────────────────
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     source_id  = files_to_write.get('_source_id', '')
