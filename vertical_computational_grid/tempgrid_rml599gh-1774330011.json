@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_rml599gh-1774330011",
+    "ui_label": "atmosphere hybrid height coordinate grid with 38 levels.",
+    "description": "",
+    "bottom_layer_thickness": 50,
+    "n_z": 38,
+    "top_layer_thickness": 3173,
+    "total_thickness": 39254.8,
+    "vertical_coordinate": "atmosphere_hybrid_height_coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-rml599gh-1774330011"
+}
