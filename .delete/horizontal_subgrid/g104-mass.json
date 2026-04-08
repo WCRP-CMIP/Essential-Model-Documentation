@@ -1,0 +1,9 @@
+{
+  "validation_key": "g104-mass",
+  "description": "Mass variables on a regular latitude-longitude grid for land surface modelling.",
+  "cell_variable_type": ["mass"],
+  "horizontal_grid_cells": ["g104"],
+  "@context": "_context",
+  "@type": ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+  "@id": "g104-mass"
+}

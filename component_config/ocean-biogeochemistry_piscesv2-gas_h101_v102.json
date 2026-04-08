@@ -1,0 +1,15 @@
+{
+    "validation_key": "ocean-biogeochemistry_piscesv2-gas_h101_v102",
+    "ui_label": "Ocean Biogeochemistry with h101 and v102",
+    "description": "Configuration for ocean-biogeochemistry with horizontal grid h101 and vertical grid v102.",
+    "horizontal_computational_grid": "h101",
+    "model_component": "piscesv2-gas",
+    "vertical_computational_grid": "v102",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "ocean-biogeochemistry-piscesv2-gas-h101-v102"
+}

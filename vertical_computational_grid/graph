@@ -6,23 +6,17 @@
     "@vocab": "https://emd.mipcvs.dev/docs/contents/VerticalComputationalGrid/",
     "vertical_coordinate": {
       "@context": "https://constants.mipcvs.dev/vertical_coordinate/_context",
-      "@type": "@id",
-      "@id": "vertical_coordinate"
-    },
-    "Collection": {
-      "@container": "@list"
+      "@type": "@id"
     }
   },
   "@type": [
     "Collection"
   ],
   "contents": [
+    {"@id": "v101"},
     {"@id": "v102"},
     {"@id": "v100"},
-    {"@id": "v104"},
-    {"@id": "v106"},
-    {"@id": "v101"},
     {"@id": "v103"},
-    {"@id": "v105"}
+    {"@id": "v104"}
   ]
 }

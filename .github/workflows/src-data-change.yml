@@ -48,9 +48,8 @@ jobs:
         run: git fetch origin src-data:src-data
 
       - name: Install CMIPLD
-        run: |
-          npm i -g jsonld-recursive
-          pip install git+https://github.com/WCRP-CMIP/CMIPLD.git
+        uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
+
 
       - name: Configure Git
         run: |
@@ -76,6 +75,9 @@ jobs:
 
       - name: Generate graphs (graphify)
         run: |
+          ldr server stop 2>/dev/null || true
+          ldr server start
+          echo "LDR server started"
           cd "$GITHUB_WORKSPACE"
           graphify --all --output-summary
 

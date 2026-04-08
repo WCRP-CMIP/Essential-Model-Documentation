@@ -6,59 +6,53 @@
     "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
     "collaborative_institutions": {
       "@context": "https://constants.mipcvs.dev/organisation/_context",
-      "@type": "@id",
-      "@id": "collaborative_institutions"
+      "@type": "@id"
     },
     "primary_institution": {
       "@context": "https://constants.mipcvs.dev/organisation/_context",
-      "@type": "@id",
-      "@id": "primary_institution"
+      "@type": "@id"
     },
     "references": {
       "@type": "@id"
     },
     "scientific_domains": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-      "@type": "@id",
-      "@id": "scientific_domains"
-    },
-    "Collection": {
-      "@container": "@list"
+      "@type": "@id"
     }
   },
   "@type": [
     "Collection"
   ],
   "contents": [
-    {"@id": "icon"},
-    {"@id": "ifs"},
+    {"@id": "mpi-esm"},
+    {"@id": "cnrm-cm"},
+    {"@id": "bcc-csm"},
     {"@id": "ipsl-cm"},
+    {"@id": "gfdl-cm4"},
     {"@id": "nicam"},
-    {"@id": "gelato"},
+    {"@id": "ifs"},
+    {"@id": "canesm"},
+    {"@id": "arpege-climat"},
+    {"@id": "clm"},
+    {"@id": "bisicles"},
     {"@id": "giss-e2"},
+    {"@id": "fgoals"},
+    {"@id": "cam"},
+    {"@id": "ec-earth"},
+    {"@id": "gelato"},
+    {"@id": "access"},
+    {"@id": "surfex"},
+    {"@id": "nemo"},
+    {"@id": "miroc"},
     {"@id": "reprobus"},
     {"@id": "pisces"},
-    {"@id": "canesm"},
-    {"@id": "gfdl-cm4"},
-    {"@id": "tactic"},
-    {"@id": "cnrm-cm"},
-    {"@id": "cam"},
-    {"@id": "surfex"},
     {"@id": "cesm"},
-    {"@id": "arpege-climat"},
-    {"@id": "ec-earth"},
-    {"@id": "access"},
-    {"@id": "miroc"},
     {"@id": "hadgem3"},
-    {"@id": "hadcm2"},
-    {"@id": "clm"},
-    {"@id": "nemo"},
-    {"@id": "mpi-esm"},
-    {"@id": "hadam"},
-    {"@id": "bcc-csm"},
-    {"@id": "bisicles"},
     {"@id": "geos"},
-    {"@id": "fgoals"},
+    {"@id": "hadcm2"},
+    {"@id": "tactic"},
+    {"@id": "icon"},
+    {"@id": "hadam"},
     {"@id": "ukesm1"}
   ]
 }

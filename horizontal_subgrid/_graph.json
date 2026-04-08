@@ -6,26 +6,21 @@
     "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalSubgrid/",
     "cell_variable_type": {
       "@context": "https://constants.mipcvs.dev/cell_variable_type/_context",
-      "@type": "@id",
-      "@id": "cell_variable_type"
+      "@type": "@id"
     },
     "horizontal_grid_cells": {
       "@type": "@id"
-    },
-    "Collection": {
-      "@container": "@list"
     }
   },
   "@type": [
     "Collection"
   ],
   "contents": [
-    {"@id": "s103"},
-    {"@id": "s106"},
-    {"@id": "s101"},
-    {"@id": "s100"},
-    {"@id": "s104"},
-    {"@id": "s105"},
-    {"@id": "s102"}
+    {"@id": "g105-mass"},
+    {"@id": "g103-x-velocity"},
+    {"@id": "g102-mass"},
+    {"@id": "g100-mass"},
+    {"@id": "g101-mass"},
+    {"@id": "g104-y-velocity"}
   ]
 }

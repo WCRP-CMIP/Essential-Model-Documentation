@@ -6,21 +6,18 @@
     "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
     "collaborative_institutions": {
       "@context": "https://constants.mipcvs.dev/organisation/_context",
-      "@type": "@id",
-      "@id": "collaborative_institutions"
+      "@type": "@id"
     },
     "primary_institution": {
       "@context": "https://constants.mipcvs.dev/organisation/_context",
-      "@type": "@id",
-      "@id": "primary_institution"
+      "@type": "@id"
     },
     "references": {
       "@type": "@id"
     },
     "scientific_domains": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-      "@type": "@id",
-      "@id": "scientific_domains"
+      "@type": "@id"
     }
   }
 }

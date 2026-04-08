@@ -1,0 +1,9 @@
+{
+  "validation_key": "g103-mass-x-velocity-y-velocity",
+  "description": "Mass and velocity variables on an adaptive polar stereographic mesh for ice sheets.",
+  "cell_variable_type": ["mass", "x-velocity", "y-velocity"],
+  "horizontal_grid_cells": ["g103"],
+  "@context": "_context",
+  "@type": ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+  "@id": "g103-mass-x-velocity-y-velocity"
+}

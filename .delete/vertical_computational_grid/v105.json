@@ -1,0 +1,12 @@
+{
+  "validation_key": "v105",
+  "description": "91-level atmospheric hybrid sigma-pressure coordinate.",
+  "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+  "n_z": 91,
+  "bottom_layer_thickness": 20.0,
+  "top_layer_thickness": 14000.0,
+  "total_thickness": 79536.54,
+  "@context": "_context",
+  "@type": ["wcrp:vertical_computational_grid", "esgvoc:vertical_computational_grid"],
+  "@id": "v105"
+}

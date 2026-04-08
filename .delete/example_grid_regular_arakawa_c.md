@@ -1,0 +1,50 @@
+## Grid: Regular Arakawa C grid/atmosphere_hybrid_height_coordinate
+
+- **horizontal_computational_grid**
+  - **arrangement**: arakawa_c
+  - **horizontal_subgrid**
+    - **cell_variable_type**: mass
+    - **horizontal_grid_cells**
+      - **grid_type**: regular_latitude_longitude
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **temporal_refinement**: static
+      - **x_resolution**: 1.0
+      - **y_resolution**: 2.0
+      - **horizontal_units**: degree
+      - **southernmost_latitude**: -89.5
+      - **westernmost_longitude**: 1.0
+      - **n_cells**: 32400
+  - **horizontal_subgrid**
+    - **cell_variable_type**: x_velocity
+    - **horizontal_grid_cells**
+      - **grid_type**: regular_latitude_longitude
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **temporal_refinement**: static
+      - **x_resolution**: 1.0
+      - **y_resolution**: 2.0
+      - **horizontal_units**: degree
+      - **southernmost_latitude**: -89.5
+      - **westernmost_longitude**: 0.0
+      - **n_cells**: 32400
+  - **horizontal_subgrid**
+    - **cell_variable_type**: x_velocity
+    - **horizontal_grid_cells**
+      - **grid_type**: regular_latitude_longitude
+      - **grid_mapping**: latitude_longitude
+      - **region**: global
+      - **temporal_refinement**: static
+      - **x_resolution**: 1.0
+      - **y_resolution**: 2.0
+      - **horizontal_units**: degree
+      - **southernmost_latitude**: -90.0
+      - **westernmost_longitude**: 1.0
+      - **n_cells**: 32580
+
+- **vertical_computational_grid**
+  - **vertical_coordinate**: atmosphere_hybrid_height_coordinate
+  - **n_z**: 85
+  - **bottom_layer_thickness**: 10
+  - **top_layer_thickness**: 810
+  - **total_thickness**: 84763.34

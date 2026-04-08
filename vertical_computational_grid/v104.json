@@ -1,17 +1,17 @@
 {
-  "validation_key": "v104",
-  "ui_label": "",
-  "description": "10-level height coordinate for sea ice thermodynamics.",
-  "bottom_layer_thickness": null,
-  "n_z": 10,
-  "top_layer_thickness": null,
-  "total_thickness": null,
-  "vertical_coordinate": "height",
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:vertical_computational_grid",
-    "esgvoc:VerticalComputationalGrid"
-  ],
-  "@id": "v104"
+    "validation_key": "v104",
+    "ui_label": "",
+    "description": "91-level atmospheric hybrid sigma-pressure coordinate.",
+    "bottom_layer_thickness": 20.0,
+    "n_z": 91,
+    "top_layer_thickness": 14000.0,
+    "total_thickness": 79536.54,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "v104"
 }

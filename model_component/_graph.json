@@ -6,32 +6,28 @@
     "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelComponent/",
     "component": {
       "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
-      "@type": "@id",
-      "@id": "component"
+      "@type": "@id"
     },
     "family": {
       "@type": "@id"
     },
     "references": {
       "@type": "@id"
-    },
-    "Collection": {
-      "@container": "@list"
     }
   },
   "@type": [
     "Collection"
   ],
   "contents": [
+    {"@id": "clm4"},
     {"@id": "surfex-v8-modeling-platform"},
-    {"@id": "gelato"},
-    {"@id": "tactic"},
-    {"@id": "hadam3"},
-    {"@id": "nemo-v3-6"},
     {"@id": "piscesv2-gas"},
     {"@id": "bisicles-ukesm-ismip6-1.0"},
-    {"@id": "clm4"},
-    {"@id": "reprobus-c-v2-0"},
-    {"@id": "arpege-climat-version-6-3"}
+    {"@id": "arpege-climat-version-6-3"},
+    {"@id": "gelato"},
+    {"@id": "hadam3"},
+    {"@id": "nemo-v3-6"},
+    {"@id": "tactic"},
+    {"@id": "reprobus-c-v2-0"}
   ]
 }
