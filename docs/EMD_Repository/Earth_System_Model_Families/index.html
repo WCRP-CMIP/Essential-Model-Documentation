@@ -3,8 +3,7 @@
 
 <head>
     <script>
-        // for search plugin notably
-        const base_url = "https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/";
+        const base_url = "https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/"; /* for search plugin notably */
     </script>
     <script>
     const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -36,7 +35,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index - Essential Model Documentation</title>
+
     
 
 
@@ -47,6 +46,8 @@
 
 
 
+
+<meta name="author" content="WCRP-CMIP">
 
 
 
@@ -100,6 +101,27 @@
 
     
 
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("a.headerlink").forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                // Build the full URL with the anchor fragment
+                const url = window.location.origin + window.location.pathname + this.getAttribute("href");
+
+                navigator.clipboard.writeText(url).then(function () {
+                    // Optional: brief visual feedback
+                });
+            });
+        });
+    });
+</script>
+    
+
+    
+    
 </head>
 
 <body
@@ -146,17 +168,12 @@
             
             <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
                 <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-                    <button data-slot="dialog-trigger" onclick="onSearchBarClick(event)"
-    class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-secondary/80 px-4 py-2 has-[&gt;svg]:px-3 bg-surface text-surface-foreground/60 dark:bg-card relative h-8 w-full justify-start pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
-    type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-«R66plb»" data-state="closed">
-    <span class="text-muted-foreground hidden lg:inline-flex">Search documentation...</span>
-    <span class="text-muted-foreground inline-flex lg:hidden">Search...</span>
-    <div class="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
-        <kbd
-            class="bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&amp;_svg:not([class*='size-'])]:size-3">Ctrl</kbd><kbd
-            class="bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&amp;_svg:not([class*='size-'])]:size-3 aspect-square">K</kbd>
-    </div>
-</button>
+                    <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
+    <button onclick="onSearchBarClick(event)" data-slot="dialog-trigger" data-variant="outline" data-size="default" class="inline-flex shrink-0 items-center gap-2 text-sm whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4 border bg-background hover:text-accent-foreground dark:border-input dark:hover:bg-input/50 px-4 py-2 has-[&gt;svg]:px-3 relative h-8 w-full justify-start rounded-lg pl-3 font-normal text-foreground shadow-none hover:bg-muted/50 sm:pr-12 md:w-48 lg:w-56 xl:w-64 dark:bg-card" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-_r_1_" data-state="closed">
+        <span class="hidden lg:inline-flex">Search documentation...</span>
+        <span class="inline-flex lg:hidden">Search...</span>
+    </button>
+</div>
 <dialog id="search-dialog" onclick="onSearchDialogClick(event)"
     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-lg shadow-lg border overflow-hidden p-0">
     <div class="w-lg gap-4">
@@ -186,6 +203,7 @@
     document.addEventListener("keydown", searchShortcutHandler);
 </script>
                 </div>
+                
                 <div data-orientation="vertical" role="none" data-slot="separator"
                     class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px ml-2 hidden lg:block">
                 </div>
@@ -199,6 +217,7 @@
                     </svg>
                     
                 </a>
+                
                 <div data-orientation="vertical" role="none" data-slot="separator"
                     class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px 3xl:flex hidden">
                 </div>
@@ -238,13 +257,20 @@
 </header>
         <main class="flex flex-1 flex-col">
             <div class="container-wrapper flex flex-1 flex-col px-2">
-                <div data-slot="sidebar-wrapper" style="--sidebar-width: 16rem; --sidebar-width-icon: 3rem;"
+                <div data-slot="sidebar-wrapper"
+                    style="--sidebar-width:calc(var(--spacing) * 72);--sidebar-width-icon:3rem;"
                     class="group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex w-full 3xl:fixed:container 3xl:fixed:px-3 min-h-min flex-1 items-start px-0 [--sidebar-width:220px] [--top-spacing:0] lg:grid lg:grid-cols-[var(--sidebar-width)_minmax(0,1fr)] lg:[--sidebar-width:240px] lg:[--top-spacing:calc(var(--spacing)*4)]">
                     <div data-slot="sidebar"
-                        class="text-sidebar-foreground w-(--sidebar-width) flex-col sticky top-[calc(var(--header-height)+1px)] z-30 hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] bg-transparent lg:flex">
-                        <div data-slot="sidebar-content" data-sidebar="content"
-                            class="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden no-scrollbar px-2 pb-12">
-                            <div class="h-(--top-spacing) shrink-0"></div>
+                        class="w-(--sidebar-width) flex-col text-sidebar-foreground sticky top-[calc(var(--header-height)+0.6rem)] z-30 hidden h-[calc(100svh-10rem)] overscroll-none bg-transparent [--sidebar-menu-width:--spacing(56)] lg:flex">
+                        <div class="h-9"></div>
+                        <div
+                            class="absolute top-8 z-10 h-8 w-(--sidebar-menu-width) shrink-0 bg-gradient-to-b from-background via-background/80 to-background/50 blur-xs">
+                        </div>
+                        <div
+                            class="absolute top-12 right-2 bottom-0 hidden h-full w-px bg-gradient-to-b from-transparent via-border to-transparent lg:flex">
+                        </div>
+                        <div data-slot="sidebar-content" data-sidebar="content" view-transition-name="sidebar"
+                            class="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden mx-auto no-scrollbar w-(--sidebar-menu-width) overflow-x-hidden px-2">
                             
                         </div>
                     </div>
@@ -264,13 +290,17 @@
 
         <div class="flex items-center gap-2 pt-1.5">
           
-<button onclick="fetch(`https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/EMD_Repository/Earth_System_Model_Families/index.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))" 
-        data-slot="button" 
-        class="cursor-pointer inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md gap-1.5 px-3 has-[&>svg]:px-2.5 h-8 shadow-none md:h-7 md:text-[0.8rem]">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
-    <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"></path><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"></path>
-</svg>
-<span class="max-md:hidden">Copy Page</span>
+<button
+    onclick="fetch(`https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/EMD_Repository/Earth_System_Model_Families/index.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
+    data-slot="button" class="secondary cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
+        <path
+            d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z">
+        </path>
+        <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"></path>
+    </svg>
+    <span class="max-md:hidden">Copy Page</span>
 </button> 
           
           <a
@@ -356,7 +386,7 @@
 <li><a href="ukesm1.html">Ukesm1</a></li>
 </ul>
 <hr />
-<p><em>Generated: 2026-03-04 00:30 UTC</em></p>
+<p><em>Generated: 2026-04-08 22:40 UTC</em></p>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
@@ -461,12 +491,6 @@
                         <a class="text-2xl font-medium" href="../../Table_Summaries/horizontal_computational_grid/">
                             
                             Horizontal computational grid
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="../../Table_Summaries/horizontal_grid_cell/">
-                            
-                            Horizontal grid cell
                             
                         </a>
                         
@@ -586,13 +610,14 @@
                             <div
                                 class="sticky top-[calc(var(--header-height)+1px)] ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
                                 <div class="h-(--top-spacing) shrink-0"></div>
-                                <div view-transition-name="toc" class="no-scrollbar overflow-y-auto px-8">
+                                <div id="toc" view-transition-name="toc" class="no-scrollbar overflow-y-auto px-8">
     <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
         <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">On This Page</p>
         
 
     </div>
     <div class="h-12"></div>
+
 </div>
                             </div>
                         </div>
@@ -635,6 +660,8 @@
     
 
     <script src="../../js/copy-button.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script src="../../js/slider.js"></script>
     <script>updatePygmentsStylesheet();</script>
     
     
@@ -644,7 +671,7 @@
   "prerender": [
     {
       "where": {
-          "selector_matches": ["#next-button", "#previous-button"],
+          "selector_matches": ["#next-button", "#previous-button"]
       }
     }
   ]
@@ -653,7 +680,7 @@
   <!-- emd-nav-v1 --><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
 
 (function(){
-var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Submission Guide", "url": "/Submission-Guide/"}, {"type": "group", "label": "EMD Repository", "url": "/EMD_Repository/", "children": [{"type": "group", "label": "Model Components", "url": "/EMD_Repository/Model_Components/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Model_Components/Similarity.html"}, {"type": "link", "label": "Arpege climat version 6 3", "url": "/EMD_Repository/Model_Components/arpege-climat_version_6_3.html"}, {"type": "link", "label": "Bisicles ukesm ismip6 1 0", "url": "/EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html"}, {"type": "link", "label": "Clm4", "url": "/EMD_Repository/Model_Components/clm4.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Model_Components/gelato.html"}, {"type": "link", "label": "Hadam3", "url": "/EMD_Repository/Model_Components/hadam3.html"}, {"type": "link", "label": "Nemo v3 6", "url": "/EMD_Repository/Model_Components/nemo_v3_6.html"}, {"type": "link", "label": "Piscesv2 gas", "url": "/EMD_Repository/Model_Components/piscesv2-gas.html"}, {"type": "link", "label": "Reprobus c v2 0", "url": "/EMD_Repository/Model_Components/reprobus-c_v2_0.html"}, {"type": "link", "label": "Surfex v8 modeling platform", "url": "/EMD_Repository/Model_Components/surfex_v8_modeling_platform.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Model_Components/tactic.html"}]}, {"type": "group", "label": "Earth System Model Families", "url": "/EMD_Repository/Earth_System_Model_Families/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Earth_System_Model_Families/Similarity.html"}, {"type": "link", "label": "Access", "url": "/EMD_Repository/Earth_System_Model_Families/access.html"}, {"type": "link", "label": "Bcc csm", "url": "/EMD_Repository/Earth_System_Model_Families/bcc-csm.html"}, {"type": "link", "label": "Canesm", "url": "/EMD_Repository/Earth_System_Model_Families/canesm.html"}, {"type": "link", "label": "Cesm", "url": "/EMD_Repository/Earth_System_Model_Families/cesm.html"}, {"type": "link", "label": "Cnrm cm", "url": "/EMD_Repository/Earth_System_Model_Families/cnrm-cm.html"}, {"type": "link", "label": "Ec earth", "url": "/EMD_Repository/Earth_System_Model_Families/ec-earth.html"}, {"type": "link", "label": "Fgoals", "url": "/EMD_Repository/Earth_System_Model_Families/fgoals.html"}, {"type": "link", "label": "Gfdl cm4", "url": "/EMD_Repository/Earth_System_Model_Families/gfdl-cm4.html"}, {"type": "link", "label": "Giss e2", "url": "/EMD_Repository/Earth_System_Model_Families/giss-e2.html"}, {"type": "link", "label": "Hadcm2", "url": "/EMD_Repository/Earth_System_Model_Families/hadcm2.html"}, {"type": "link", "label": "Hadgem3", "url": "/EMD_Repository/Earth_System_Model_Families/hadgem3.html"}, {"type": "link", "label": "Icon", "url": "/EMD_Repository/Earth_System_Model_Families/icon.html"}, {"type": "link", "label": "Ipsl cm", "url": "/EMD_Repository/Earth_System_Model_Families/ipsl-cm.html"}, {"type": "link", "label": "Miroc", "url": "/EMD_Repository/Earth_System_Model_Families/miroc.html"}, {"type": "link", "label": "Mpi esm", "url": "/EMD_Repository/Earth_System_Model_Families/mpi-esm.html"}, {"type": "link", "label": "Ukesm1", "url": "/EMD_Repository/Earth_System_Model_Families/ukesm1.html"}]}, {"type": "group", "label": "Component Families", "url": "/EMD_Repository/Component_Families/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Component_Families/Similarity.html"}, {"type": "link", "label": "Arpege climat", "url": "/EMD_Repository/Component_Families/arpege-climat.html"}, {"type": "link", "label": "Bisicles", "url": "/EMD_Repository/Component_Families/bisicles.html"}, {"type": "link", "label": "Cam", "url": "/EMD_Repository/Component_Families/cam.html"}, {"type": "link", "label": "Clm", "url": "/EMD_Repository/Component_Families/clm.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Component_Families/gelato.html"}, {"type": "link", "label": "Geos", "url": "/EMD_Repository/Component_Families/geos.html"}, {"type": "link", "label": "Hadam", "url": "/EMD_Repository/Component_Families/hadam.html"}, {"type": "link", "label": "Ifs", "url": "/EMD_Repository/Component_Families/ifs.html"}, {"type": "link", "label": "Nemo", "url": "/EMD_Repository/Component_Families/nemo.html"}, {"type": "link", "label": "Nicam", "url": "/EMD_Repository/Component_Families/nicam.html"}, {"type": "link", "label": "Pisces", "url": "/EMD_Repository/Component_Families/pisces.html"}, {"type": "link", "label": "Reprobus", "url": "/EMD_Repository/Component_Families/reprobus.html"}, {"type": "link", "label": "Surfex", "url": "/EMD_Repository/Component_Families/surfex.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Component_Families/tactic.html"}]}, {"type": "group", "label": "Horizontal Computational Grids", "url": "/EMD_Repository/Horizontal_Computational_Grids/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Computational_Grids/Similarity.html"}, {"type": "link", "label": "H100", "url": "/EMD_Repository/Horizontal_Computational_Grids/h100.html"}, {"type": "link", "label": "H101", "url": "/EMD_Repository/Horizontal_Computational_Grids/h101.html"}, {"type": "link", "label": "H102", "url": "/EMD_Repository/Horizontal_Computational_Grids/h102.html"}, {"type": "link", "label": "H103", "url": "/EMD_Repository/Horizontal_Computational_Grids/h103.html"}]}, {"type": "group", "label": "Vertical Computational Grids", "url": "/EMD_Repository/Vertical_Computational_Grids/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Vertical_Computational_Grids/Similarity.html"}, {"type": "link", "label": "V100", "url": "/EMD_Repository/Vertical_Computational_Grids/v100.html"}, {"type": "link", "label": "V101", "url": "/EMD_Repository/Vertical_Computational_Grids/v101.html"}, {"type": "link", "label": "V102", "url": "/EMD_Repository/Vertical_Computational_Grids/v102.html"}, {"type": "link", "label": "V103", "url": "/EMD_Repository/Vertical_Computational_Grids/v103.html"}, {"type": "link", "label": "V104", "url": "/EMD_Repository/Vertical_Computational_Grids/v104.html"}, {"type": "link", "label": "V105", "url": "/EMD_Repository/Vertical_Computational_Grids/v105.html"}, {"type": "link", "label": "V106", "url": "/EMD_Repository/Vertical_Computational_Grids/v106.html"}]}, {"type": "group", "label": "Horizontal Grid Cells", "url": "/EMD_Repository/Horizontal_Grid_Cells/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Grid_Cells/Similarity.html"}, {"type": "link", "label": "G100", "url": "/EMD_Repository/Horizontal_Grid_Cells/g100.html"}, {"type": "link", "label": "G101", "url": "/EMD_Repository/Horizontal_Grid_Cells/g101.html"}, {"type": "link", "label": "G102", "url": "/EMD_Repository/Horizontal_Grid_Cells/g102.html"}, {"type": "link", "label": "G103", "url": "/EMD_Repository/Horizontal_Grid_Cells/g103.html"}, {"type": "link", "label": "G104", "url": "/EMD_Repository/Horizontal_Grid_Cells/g104.html"}, {"type": "link", "label": "G105", "url": "/EMD_Repository/Horizontal_Grid_Cells/g105.html"}, {"type": "link", "label": "G106", "url": "/EMD_Repository/Horizontal_Grid_Cells/g106.html"}]}, {"type": "group", "label": "Horizontal Grid Cell", "url": "/EMD_Repository/Horizontal_Grid_Cell/", "children": [{"type": "link", "label": "G100", "url": "/EMD_Repository/Horizontal_Grid_Cell/g100.html"}, {"type": "link", "label": "G101", "url": "/EMD_Repository/Horizontal_Grid_Cell/g101.html"}, {"type": "link", "label": "G102", "url": "/EMD_Repository/Horizontal_Grid_Cell/g102.html"}, {"type": "link", "label": "G103", "url": "/EMD_Repository/Horizontal_Grid_Cell/g103.html"}, {"type": "link", "label": "G104", "url": "/EMD_Repository/Horizontal_Grid_Cell/g104.html"}, {"type": "link", "label": "G105", "url": "/EMD_Repository/Horizontal_Grid_Cell/g105.html"}, {"type": "link", "label": "G106", "url": "/EMD_Repository/Horizontal_Grid_Cell/g106.html"}, {"type": "link", "label": "G107", "url": "/EMD_Repository/Horizontal_Grid_Cell/g107.html"}, {"type": "link", "label": "G108", "url": "/EMD_Repository/Horizontal_Grid_Cell/g108.html"}, {"type": "link", "label": "G109", "url": "/EMD_Repository/Horizontal_Grid_Cell/g109.html"}, {"type": "link", "label": "G110", "url": "/EMD_Repository/Horizontal_Grid_Cell/g110.html"}, {"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Grid_Cell/Similarity.html"}]}]}, {"type": "group", "label": "Table Summaries", "url": "/Table_Summaries/", "children": [{"type": "link", "label": "Component config", "url": "/Table_Summaries/component_config/"}, {"type": "link", "label": "Component family", "url": "/Table_Summaries/component_family/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/Table_Summaries/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cell", "url": "/Table_Summaries/horizontal_grid_cell/"}, {"type": "link", "label": "Horizontal grid cells", "url": "/Table_Summaries/horizontal_grid_cells/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/Table_Summaries/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/Table_Summaries/model/"}, {"type": "link", "label": "Model component", "url": "/Table_Summaries/model_component/"}, {"type": "link", "label": "Source family", "url": "/Table_Summaries/source_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/Table_Summaries/vertical_computational_grid/"}]}, {"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Information/"}, {"type": "group", "label": "Vocabularies", "url": "/vocabularies/", "children": [{"type": "link", "label": "Component config", "url": "/vocabularies/component_config/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/vocabularies/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cell", "url": "/vocabularies/horizontal_grid_cell/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/vocabularies/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/vocabularies/model/"}, {"type": "link", "label": "Model component", "url": "/vocabularies/model_component/"}, {"type": "link", "label": "Model family", "url": "/vocabularies/model_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/vocabularies/vertical_computational_grid/"}]}];
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Submission Guide", "url": "/Submission-Guide/"}, {"type": "group", "label": "EMD Repository", "url": "/EMD_Repository/", "children": [{"type": "group", "label": "Model Components", "url": "/EMD_Repository/Model_Components/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Model_Components/Similarity.html"}, {"type": "link", "label": "Arpege climat version 6 3", "url": "/EMD_Repository/Model_Components/arpege-climat_version_6_3.html"}, {"type": "link", "label": "Bisicles ukesm ismip6 1 0", "url": "/EMD_Repository/Model_Components/bisicles-ukesm-ismip6-1_0.html"}, {"type": "link", "label": "Clm4", "url": "/EMD_Repository/Model_Components/clm4.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Model_Components/gelato.html"}, {"type": "link", "label": "Hadam3", "url": "/EMD_Repository/Model_Components/hadam3.html"}, {"type": "link", "label": "Nemo v3 6", "url": "/EMD_Repository/Model_Components/nemo_v3_6.html"}, {"type": "link", "label": "Piscesv2 gas", "url": "/EMD_Repository/Model_Components/piscesv2-gas.html"}, {"type": "link", "label": "Reprobus c v2 0", "url": "/EMD_Repository/Model_Components/reprobus-c_v2_0.html"}, {"type": "link", "label": "Surfex v8 modeling platform", "url": "/EMD_Repository/Model_Components/surfex_v8_modeling_platform.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Model_Components/tactic.html"}]}, {"type": "group", "label": "Earth System Model Families", "url": "/EMD_Repository/Earth_System_Model_Families/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Earth_System_Model_Families/Similarity.html"}, {"type": "link", "label": "Access", "url": "/EMD_Repository/Earth_System_Model_Families/access.html"}, {"type": "link", "label": "Bcc csm", "url": "/EMD_Repository/Earth_System_Model_Families/bcc-csm.html"}, {"type": "link", "label": "Canesm", "url": "/EMD_Repository/Earth_System_Model_Families/canesm.html"}, {"type": "link", "label": "Cesm", "url": "/EMD_Repository/Earth_System_Model_Families/cesm.html"}, {"type": "link", "label": "Cnrm cm", "url": "/EMD_Repository/Earth_System_Model_Families/cnrm-cm.html"}, {"type": "link", "label": "Ec earth", "url": "/EMD_Repository/Earth_System_Model_Families/ec-earth.html"}, {"type": "link", "label": "Fgoals", "url": "/EMD_Repository/Earth_System_Model_Families/fgoals.html"}, {"type": "link", "label": "Gfdl cm4", "url": "/EMD_Repository/Earth_System_Model_Families/gfdl-cm4.html"}, {"type": "link", "label": "Giss e2", "url": "/EMD_Repository/Earth_System_Model_Families/giss-e2.html"}, {"type": "link", "label": "Hadcm2", "url": "/EMD_Repository/Earth_System_Model_Families/hadcm2.html"}, {"type": "link", "label": "Hadgem3", "url": "/EMD_Repository/Earth_System_Model_Families/hadgem3.html"}, {"type": "link", "label": "Icon", "url": "/EMD_Repository/Earth_System_Model_Families/icon.html"}, {"type": "link", "label": "Ipsl cm", "url": "/EMD_Repository/Earth_System_Model_Families/ipsl-cm.html"}, {"type": "link", "label": "Miroc", "url": "/EMD_Repository/Earth_System_Model_Families/miroc.html"}, {"type": "link", "label": "Mpi esm", "url": "/EMD_Repository/Earth_System_Model_Families/mpi-esm.html"}, {"type": "link", "label": "Ukesm1", "url": "/EMD_Repository/Earth_System_Model_Families/ukesm1.html"}]}, {"type": "group", "label": "Component Families", "url": "/EMD_Repository/Component_Families/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Component_Families/Similarity.html"}, {"type": "link", "label": "Arpege climat", "url": "/EMD_Repository/Component_Families/arpege-climat.html"}, {"type": "link", "label": "Bisicles", "url": "/EMD_Repository/Component_Families/bisicles.html"}, {"type": "link", "label": "Cam", "url": "/EMD_Repository/Component_Families/cam.html"}, {"type": "link", "label": "Clm", "url": "/EMD_Repository/Component_Families/clm.html"}, {"type": "link", "label": "Gelato", "url": "/EMD_Repository/Component_Families/gelato.html"}, {"type": "link", "label": "Geos", "url": "/EMD_Repository/Component_Families/geos.html"}, {"type": "link", "label": "Hadam", "url": "/EMD_Repository/Component_Families/hadam.html"}, {"type": "link", "label": "Ifs", "url": "/EMD_Repository/Component_Families/ifs.html"}, {"type": "link", "label": "Nemo", "url": "/EMD_Repository/Component_Families/nemo.html"}, {"type": "link", "label": "Nicam", "url": "/EMD_Repository/Component_Families/nicam.html"}, {"type": "link", "label": "Pisces", "url": "/EMD_Repository/Component_Families/pisces.html"}, {"type": "link", "label": "Reprobus", "url": "/EMD_Repository/Component_Families/reprobus.html"}, {"type": "link", "label": "Surfex", "url": "/EMD_Repository/Component_Families/surfex.html"}, {"type": "link", "label": "Tactic", "url": "/EMD_Repository/Component_Families/tactic.html"}]}, {"type": "group", "label": "Horizontal Computational Grids", "url": "/EMD_Repository/Horizontal_Computational_Grids/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Computational_Grids/Similarity.html"}, {"type": "link", "label": "H100", "url": "/EMD_Repository/Horizontal_Computational_Grids/h100.html"}, {"type": "link", "label": "H101", "url": "/EMD_Repository/Horizontal_Computational_Grids/h101.html"}, {"type": "link", "label": "H102", "url": "/EMD_Repository/Horizontal_Computational_Grids/h102.html"}, {"type": "link", "label": "H103", "url": "/EMD_Repository/Horizontal_Computational_Grids/h103.html"}]}, {"type": "group", "label": "Vertical Computational Grids", "url": "/EMD_Repository/Vertical_Computational_Grids/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Vertical_Computational_Grids/Similarity.html"}, {"type": "link", "label": "V100", "url": "/EMD_Repository/Vertical_Computational_Grids/v100.html"}, {"type": "link", "label": "V101", "url": "/EMD_Repository/Vertical_Computational_Grids/v101.html"}, {"type": "link", "label": "V102", "url": "/EMD_Repository/Vertical_Computational_Grids/v102.html"}, {"type": "link", "label": "V103", "url": "/EMD_Repository/Vertical_Computational_Grids/v103.html"}, {"type": "link", "label": "V104", "url": "/EMD_Repository/Vertical_Computational_Grids/v104.html"}, {"type": "link", "label": "V105", "url": "/EMD_Repository/Vertical_Computational_Grids/v105.html"}, {"type": "link", "label": "V106", "url": "/EMD_Repository/Vertical_Computational_Grids/v106.html"}]}, {"type": "group", "label": "Horizontal Grid Cells", "url": "/EMD_Repository/Horizontal_Grid_Cells/", "children": [{"type": "link", "label": "Similarity", "url": "/EMD_Repository/Horizontal_Grid_Cells/Similarity.html"}, {"type": "link", "label": "G100", "url": "/EMD_Repository/Horizontal_Grid_Cells/g100.html"}, {"type": "link", "label": "G101", "url": "/EMD_Repository/Horizontal_Grid_Cells/g101.html"}, {"type": "link", "label": "G102", "url": "/EMD_Repository/Horizontal_Grid_Cells/g102.html"}, {"type": "link", "label": "G103", "url": "/EMD_Repository/Horizontal_Grid_Cells/g103.html"}, {"type": "link", "label": "G104", "url": "/EMD_Repository/Horizontal_Grid_Cells/g104.html"}, {"type": "link", "label": "G105", "url": "/EMD_Repository/Horizontal_Grid_Cells/g105.html"}, {"type": "link", "label": "G106", "url": "/EMD_Repository/Horizontal_Grid_Cells/g106.html"}]}]}, {"type": "group", "label": "Table Summaries", "url": "/Table_Summaries/", "children": [{"type": "link", "label": "Component config", "url": "/Table_Summaries/component_config/"}, {"type": "link", "label": "Component family", "url": "/Table_Summaries/component_family/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/Table_Summaries/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cells", "url": "/Table_Summaries/horizontal_grid_cells/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/Table_Summaries/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/Table_Summaries/model/"}, {"type": "link", "label": "Model component", "url": "/Table_Summaries/model_component/"}, {"type": "link", "label": "Source family", "url": "/Table_Summaries/source_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/Table_Summaries/vertical_computational_grid/"}]}, {"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Information/"}, {"type": "group", "label": "Vocabularies", "url": "/vocabularies/", "children": [{"type": "link", "label": "Component config", "url": "/vocabularies/component_config/"}, {"type": "link", "label": "Horizontal computational grid", "url": "/vocabularies/horizontal_computational_grid/"}, {"type": "link", "label": "Horizontal grid cell", "url": "/vocabularies/horizontal_grid_cell/"}, {"type": "link", "label": "Horizontal subgrid", "url": "/vocabularies/horizontal_subgrid/"}, {"type": "link", "label": "Model", "url": "/vocabularies/model/"}, {"type": "link", "label": "Model component", "url": "/vocabularies/model_component/"}, {"type": "link", "label": "Model family", "url": "/vocabularies/model_family/"}, {"type": "link", "label": "Vertical computational grid", "url": "/vocabularies/vertical_computational_grid/"}]}];
 var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
 function rel(u){return PFX+(u||'').replace(/^\//,'');}
 function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
