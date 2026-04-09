@@ -67,7 +67,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@context":       "_context",
         "@id":            temp_id,
         "@type":          ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
-        "validation_key": ui_label,
+        "validation_key": temp_id,   # must match @id so rename workflow can update it
         "ui_label":       ui_label,
     }
     if description:
