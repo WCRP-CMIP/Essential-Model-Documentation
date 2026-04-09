@@ -1,0 +1,22 @@
+{
+    "validation_key": "Horizontal grid cell with a unstructured triangular grid type and 9 x 9 km resolution.",
+    "ui_label": "Horizontal grid cell with a unstructured triangular grid type and 9 x 9 km resolution.",
+    "description": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "unstructured_triangular",
+    "horizontal_units": "km",
+    "n_cells": 3146761,
+    "region": "global",
+    "southernmost_latitude": -78.626,
+    "temporal_refinement": "static",
+    "westernmost_longitude": 0,
+    "x_resolution": 9,
+    "y_resolution": 9,
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-janstreffing-1775067331"
+}
