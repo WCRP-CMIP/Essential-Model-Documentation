@@ -1,0 +1,17 @@
+{
+  "validation_key": "v105",
+  "ui_label": "depth grid with 6 levels.",
+  "description": "All land tiles have a 6-layer soil column and up to 3 snow layers",
+  "bottom_layer_thickness": 2.872,
+  "n_z": 6,
+  "top_layer_thickness": 0.022,
+  "total_thickness": 4.6,
+  "vertical_coordinate": "depth",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v105"
+}
