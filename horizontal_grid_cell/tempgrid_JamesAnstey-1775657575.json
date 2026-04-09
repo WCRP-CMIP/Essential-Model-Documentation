@@ -1,0 +1,24 @@
+{
+    "validation_key": "Horizontal grid cell with a spectral gaussian grid type and 2.8 x 2.8 degree resolution.",
+    "ui_label": "Horizontal grid cell with a spectral gaussian grid type and 2.8 x 2.8 degree resolution.",
+    "description": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "spectral_gaussian",
+    "horizontal_units": "degree",
+    "n_cells": 8192,
+    "region": "global",
+    "southernmost_latitude": -87.86379884,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 63,
+    "westernmost_longitude": 0,
+    "x_resolution": 2.8,
+    "y_resolution": 2.8,
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-jamesanstey-1775657575"
+}
