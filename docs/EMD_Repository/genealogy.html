@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Genealogy | Essential Model Documentation</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <style>
+    /* ── Collapsible nav bar ─────────────────────────────────────────── */
+    .emd-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--emd-surface);
+        border-bottom: 1px solid var(--emd-border);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .emd-nav-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 0 1.25rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .emd-nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--emd-text);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    .emd-nav-brand svg {
+        flex-shrink: 0;
+    }
+    .emd-nav-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--emd-text-muted);
+        padding: 0.25rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        transition: color 0.15s, background 0.15s;
+    }
+    .emd-nav-toggle:hover { color: var(--emd-primary); background: var(--emd-bg); }
+    .emd-nav-links {
+        display: none;
+        border-top: 1px solid var(--emd-border);
+        background: var(--emd-surface);
+    }
+    .emd-nav-links.open { display: block; }
+    .emd-nav-links-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.5rem 1.25rem;
+    }
+    .emd-nav-links a {
+        font-size: 0.825rem;
+        color: var(--emd-text-muted);
+        text-decoration: none;
+        padding: 0.3rem 0.75rem;
+        border-radius: 5px;
+        transition: color 0.15s, background 0.15s;
+    }
+    .emd-nav-links a:hover { color: var(--emd-primary); background: var(--emd-bg); }
+
+    /* ── MkDocs-style footer ─────────────────────────────────────────── */
+    .emd-site-footer {
+        margin-top: 3rem;
+        border-top: 1px solid var(--emd-border);
+        background: var(--emd-surface);
+    }
+    .emd-site-footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .emd-site-footer p {
+        font-size: 0.75rem;
+        color: var(--emd-text-muted);
+        margin: 0;
+    }
+    .emd-site-footer a {
+        color: var(--emd-primary);
+        text-decoration: none;
+    }
+    .emd-site-footer a:hover { text-decoration: underline; }
+    .emd-site-footer-right {
+        font-size: 0.75rem;
+        color: var(--emd-text-muted);
+    }
+    </style>
+    
+<style>
+  body { overflow: hidden; }
+  #chart { width: 100%; height: calc(100vh - 120px); position: relative; }
+
+  .link  { fill: none; stroke: var(--emd-border, #ddd); stroke-width: 1px; }
+  .node circle { stroke-width: 1.5px; cursor: pointer; }
+  .node text   { font-size: 9px; fill: var(--emd-text, #333); pointer-events: none; }
+
+  /* depth colours — realm nodes (d1) get their colour inline from REALM_COLORS */
+  .d0 { fill: #58a6ff; stroke: #1f6feb; }
+  .d2 { fill: #d29922; stroke: #9e6a03; }
+  .d3 { fill: #f78166; stroke: #da3633; }
+  .d4 { fill: #bc8cff; stroke: #8957e5; }
+  .d5 { fill: #39d353; stroke: #26a641; }
+
+  .grid-arc { opacity: .14; }
+
+  .genealogy-legend {
+    position: absolute; bottom: 14px; left: 16px;
+    background: var(--emd-surface, #fff);
+    border: 1px solid var(--emd-border, #ddd);
+    border-radius: 6px; padding: 7px 12px; font-size: 10px;
+    color: var(--emd-text, #333);
+    pointer-events: none;
+  }
+  .genealogy-legend span {
+    display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; margin-right: 4px; vertical-align: middle;
+  }
+  .emd-tooltip {
+    position: absolute; pointer-events: none;
+    background: var(--emd-surface, #fff);
+    border: 1px solid var(--emd-border, #ddd);
+    border-radius: 6px; padding: 6px 10px;
+    font-size: 11px; color: var(--emd-text, #333);
+    opacity: 0; transition: opacity .15s; max-width: 240px;
+    z-index: 10;
+  }
+</style>
+
+</head>
+<body class="emd-page">
+
+    <!-- ── Hidden nav bar ────────────────────────────────────────────── -->
+    <nav class="emd-nav" aria-label="Site navigation">
+        <div class="emd-nav-bar">
+            <a class="emd-nav-brand" href="../../index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20" aria-hidden="true">
+                    <rect width="256" height="256" fill="none"/>
+                    <line x1="208" y1="128" x2="128" y2="208" fill="none"
+                          stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                    <line x1="192" y1="40" x2="40" y2="192" fill="none"
+                          stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                </svg>
+                Essential Model Documentation
+            </a>
+            <button class="emd-nav-toggle" onclick="toggleNav(this)" aria-label="Toggle navigation" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="emd-nav-links" id="emd-nav-links">
+            <div class="emd-nav-links-inner">
+                <a href="../../index.html">Home</a>
+                <a href="../../01_submission-guide.html">Submission Guide</a>
+                <a href="../../1_Explore_The_EMD/Models/">Models</a>
+                <a href="../../1_Explore_The_EMD/Earth_System_Model_Families/">Earth System Model Families</a>
+                <a href="../../1_Explore_The_EMD/Component_Families/">Component Families</a>
+                <a href="../../1_Explore_The_EMD/Model_Components/">Model Components</a>
+                <a href="../../1_Explore_The_EMD/Horizontal_Computational_Grids/">Horizontal Grids</a>
+                <a href="../../1_Explore_The_EMD/Vertical_Computational_Grids/">Vertical Grids</a>
+                <a href="../../110_Data_Summaries/">Data Summaries</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="emd-container">
+
+        <!-- ── Page header ───────────────────────────────────────────── -->
+        <header class="emd-header">
+            <nav class="emd-breadcrumb" aria-label="Breadcrumb">
+                <a href="../../index.html">Back to Documentation</a>
+                <span>|</span>
+                <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
+                
+  <span>|</span>
+  <span>Model Genealogy</span>
+
+            </nav>
+            
+<div class="emd-header-content">
+  <h1 class="emd-title">Model Genealogy</h1>
+  <p class="emd-subtitle">
+    realm &rarr; model family &rarr; model &rarr; component config &rarr; grids
+    &nbsp;&middot;&nbsp; arcs connect shared grids
+  </p>
+</div>
+
+        </header>
+
+        <!-- ── Main content ──────────────────────────────────────────── -->
+        <main>
+            
+<div id="chart">
+  <div class="genealogy-legend">
+    <span style="background:#888"></span>realm &nbsp;
+    <span style="background:#d29922"></span>family &nbsp;
+    <span style="background:#f78166"></span>model &nbsp;
+    <span style="background:#bc8cff"></span>config &nbsp;
+    <span style="background:#39d353"></span>grid
+  </div>
+  <div class="emd-tooltip" id="emd-tip"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const DATA = {
+  "name": "EMD Models",
+  "depth": 0,
+  "children": [
+    {
+      "name": "unknown",
+      "depth": 1,
+      "color": "#94a3b8",
+      "children": [
+        {
+          "name": "ungrouped",
+          "depth": 2,
+          "children": [
+            {
+              "name": "Standard (Gregorian)",
+              "depth": 3
+            },
+            {
+              "name": "Land Ice",
+              "depth": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+const el     = document.getElementById('chart');
+const W      = el.clientWidth  || window.innerWidth;
+const H      = el.clientHeight || (window.innerHeight - 120);
+const cx     = W / 2, cy = H / 2;
+const radius = Math.min(W, H) / 2 - 90;
+
+const tree = d3.cluster().size([2 * Math.PI, radius]);
+const root = tree(
+  d3.hierarchy(DATA)
+    .sort((a, b) => d3.ascending(a.data.name, b.data.name))
+);
+
+const svg = d3.select('#chart').append('svg')
+  .attr('width', W).attr('height', H)
+  .attr('viewBox', [-cx, -cy, W, H]);
+
+// ── links ─────────────────────────────────────────────────────────────────
+svg.append('g')
+  .selectAll('path')
+  .data(root.links())
+  .join('path')
+    .attr('class', 'link')
+    .attr('d', d3.linkRadial().angle(d => d.x).radius(d => d.y));
+
+// ── shared-grid arcs ──────────────────────────────────────────────────────
+const gridNodes  = root.descendants().filter(d => d.depth === 5);
+const gridGroups = d3.group(gridNodes, d => d.data.name);
+const arcG = svg.append('g');
+
+for (const [, nodes] of gridGroups) {
+  if (nodes.length < 2) continue;
+  const angles = nodes.map(d => d.x).sort(d3.ascending);
+  const r = nodes[0].y;
+  arcG.append('path')
+    .attr('class', 'grid-arc')
+    .attr('fill', '#39d353')
+    .attr('d', d3.arc()
+      .innerRadius(r - 10).outerRadius(r + 10)
+      .startAngle(angles[0]).endAngle(angles[angles.length - 1])());
+}
+
+// ── nodes ─────────────────────────────────────────────────────────────────
+const tip = d3.select('#emd-tip');
+
+const node = svg.append('g')
+  .selectAll('g')
+  .data(root.descendants())
+  .join('g')
+    .attr('class', 'node')
+    .attr('transform', d =>
+      `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
+    .on('mouseover', (event, d) => {
+      const m = d.data.meta || {};
+      let html = `<strong>${d.data.name}</strong>`;
+      if (m.h_grid) html += `<br/>H: ${m.h_grid}`;
+      if (m.v_grid) html += `<br/>V: ${m.v_grid}`;
+      tip.style('opacity', 1).html(html);
+    })
+    .on('mousemove', e =>
+      tip.style('left', (e.pageX + 14) + 'px').style('top', (e.pageY - 20) + 'px'))
+    .on('mouseout', () => tip.style('opacity', 0));
+
+node.append('circle')
+  .attr('r', d => [6, 5, 4, 3.5, 3, 2.5][d.depth] ?? 2.5)
+  .attr('class', d => d.depth === 1 ? '' : `d${d.depth}`)
+  .style('fill',   d => d.depth === 1 ? (d.data.color || '#888') : null)
+  .style('stroke', d => d.depth === 1 ? (d.data.color || '#888') : null);
+
+node.append('text')
+  .attr('dy', '0.31em')
+  .attr('x', d => d.x < Math.PI === !d.children ? 8 : -8)
+  .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+  .attr('transform', d => d.x >= Math.PI ? 'rotate(180)' : null)
+  .text(d => {
+    const n = d.data.name;
+    return n.length > 24 ? n.slice(0, 22) + '…' : n;
+  });
+</script>
+
+        </main>
+
+    </div>
+
+    <!-- ── MkDocs-style site footer ──────────────────────────────────── -->
+    <footer class="emd-site-footer">
+        <div class="emd-site-footer-inner">
+            <p>
+                Data sourced from <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
+                &nbsp;&middot;&nbsp;
+                Part of the <a href="https://wcrp-cmip.org/" target="_blank" rel="noopener">WCRP CMIP</a> initiative
+                &nbsp;&middot;&nbsp;
+                Generated 2026-04-08 22:29 UTC
+            </p>
+            <p class="emd-site-footer-right">
+                <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation" target="_blank" rel="noopener">
+                    WCRP-CMIP/Essential-Model-Documentation
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    // ── Nav toggle ────────────────────────────────────────────────────
+    function toggleNav(btn) {
+        const links = document.getElementById('emd-nav-links');
+        const open = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+    }
+    // Close nav when clicking outside
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.emd-nav');
+        if (!nav.contains(e.target)) {
+            document.getElementById('emd-nav-links').classList.remove('open');
+            document.querySelector('.emd-nav-toggle').setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // ── Section toggle ────────────────────────────────────────────────
+    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
+
+    // ── Breadcrumb depth fix ──────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+        const parts = window.location.pathname.split('/').filter(p => p && !p.endsWith('.html'));
+        const depth = '../'.repeat(Math.max(parts.length - 1, 2));
+        document.querySelectorAll('a[data-depth]').forEach(a => {
+            a.href = depth + a.getAttribute('data-depth');
+        });
+    });
+
+    
+    </script>
+</body>
+</html>

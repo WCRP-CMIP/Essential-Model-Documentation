@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>g108 | Horizontal Grid Cells | Essential Model Documentation</title>
+    <link rel="stylesheet" href="../../stylesheets/emd-page.css">
+    <style>
+    /* ── Collapsible nav bar ─────────────────────────────────────────── */
+    .emd-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--emd-surface);
+        border-bottom: 1px solid var(--emd-border);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .emd-nav-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 0 1.25rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .emd-nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--emd-text);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    .emd-nav-brand svg {
+        flex-shrink: 0;
+    }
+    .emd-nav-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--emd-text-muted);
+        padding: 0.25rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        transition: color 0.15s, background 0.15s;
+    }
+    .emd-nav-toggle:hover { color: var(--emd-primary); background: var(--emd-bg); }
+    .emd-nav-links {
+        display: none;
+        border-top: 1px solid var(--emd-border);
+        background: var(--emd-surface);
+    }
+    .emd-nav-links.open { display: block; }
+    .emd-nav-links-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.5rem 1.25rem;
+    }
+    .emd-nav-links a {
+        font-size: 0.825rem;
+        color: var(--emd-text-muted);
+        text-decoration: none;
+        padding: 0.3rem 0.75rem;
+        border-radius: 5px;
+        transition: color 0.15s, background 0.15s;
+    }
+    .emd-nav-links a:hover { color: var(--emd-primary); background: var(--emd-bg); }
+
+    /* ── MkDocs-style footer ─────────────────────────────────────────── */
+    .emd-site-footer {
+        margin-top: 3rem;
+        border-top: 1px solid var(--emd-border);
+        background: var(--emd-surface);
+    }
+    .emd-site-footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .emd-site-footer p {
+        font-size: 0.75rem;
+        color: var(--emd-text-muted);
+        margin: 0;
+    }
+    .emd-site-footer a {
+        color: var(--emd-primary);
+        text-decoration: none;
+    }
+    .emd-site-footer a:hover { text-decoration: underline; }
+    .emd-site-footer-right {
+        font-size: 0.75rem;
+        color: var(--emd-text-muted);
+    }
+    </style>
+    
+<style>
+/* ── Stat strip ─────────────────────────────────────────────── */
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.25rem 0 0.5rem;
+}
+.hero-stat {
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: var(--emd-radius);
+    padding: 0.85rem 1.25rem;
+    min-width: 120px;
+    text-align: center;
+}
+.hero-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--emd-primary);
+    font-family: 'SF Mono', Monaco, monospace;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+.hero-stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--emd-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+/* ── Plain-language callout ─────────────────────────────────── */
+.plain-summary {
+    background: rgba(37,99,235,0.05);
+    border-radius: var(--emd-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+.plain-summary strong { color: var(--emd-primary); }
+/* ── Property table ─────────────────────────────────────────── */
+.prop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+.prop-table tr { border-bottom: 1px solid var(--emd-border); }
+.prop-table tr:last-child { border-bottom: none; }
+.prop-table td {
+    padding: 0.6rem 0.75rem;
+    vertical-align: top;
+}
+.prop-table td:first-child {
+    font-weight: 600;
+    color: var(--emd-text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 34%;
+    white-space: nowrap;
+}
+.prop-table td:last-child {
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 0.875rem;
+    color: var(--emd-text);
+}
+/* ── CV tags ────────────────────────────────────────────────── */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.cv-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid var(--emd-border);
+    color: var(--emd-text-muted);
+    cursor: default;
+}
+.cv-tag.primary {
+    border-color: var(--emd-primary);
+    color: var(--emd-primary);
+    background: rgba(37,99,235,0.07);
+}
+</style>
+
+</head>
+<body class="emd-page">
+
+    <!-- ── Hidden nav bar ────────────────────────────────────────────── -->
+    <nav class="emd-nav" aria-label="Site navigation">
+        <div class="emd-nav-bar">
+            <a class="emd-nav-brand" href="../../index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20" aria-hidden="true">
+                    <rect width="256" height="256" fill="none"/>
+                    <line x1="208" y1="128" x2="128" y2="208" fill="none"
+                          stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                    <line x1="192" y1="40" x2="40" y2="192" fill="none"
+                          stroke="#2196f3" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                </svg>
+                Essential Model Documentation
+            </a>
+            <button class="emd-nav-toggle" onclick="toggleNav(this)" aria-label="Toggle navigation" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="emd-nav-links" id="emd-nav-links">
+            <div class="emd-nav-links-inner">
+                <a href="../../index.html">Home</a>
+                <a href="../../01_submission-guide.html">Submission Guide</a>
+                <a href="../../1_Explore_The_EMD/Models/">Models</a>
+                <a href="../../1_Explore_The_EMD/Earth_System_Model_Families/">Earth System Model Families</a>
+                <a href="../../1_Explore_The_EMD/Component_Families/">Component Families</a>
+                <a href="../../1_Explore_The_EMD/Model_Components/">Model Components</a>
+                <a href="../../1_Explore_The_EMD/Horizontal_Computational_Grids/">Horizontal Grids</a>
+                <a href="../../1_Explore_The_EMD/Vertical_Computational_Grids/">Vertical Grids</a>
+                <a href="../../110_Data_Summaries/">Data Summaries</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="emd-container">
+
+        <!-- ── Page header ───────────────────────────────────────────── -->
+        <header class="emd-header">
+            <nav class="emd-breadcrumb" aria-label="Breadcrumb">
+                <a href="../../index.html">Back to Documentation</a>
+                <span>|</span>
+                <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
+                
+<span>→</span>
+<a href="https://emd.mipcvs.dev/horizontal_grid_cells/" target="_blank">Horizontal Grid Cells</a>
+<span>→</span>
+<span>g108</span>
+
+            </nav>
+            
+<div class="emd-badge">Horizontal Grid Cells</div>
+<h1 class="emd-title">g108</h1>
+<p class="emd-subtitle">Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree grid.</p>
+
+<div class="hero-stats">
+    
+    
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:1.2rem;">1.875°×1.25°</div>
+        <div class="hero-stat-label">Resolution (Degrees)</div>
+    </div>
+    
+    
+    
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:0.85rem;padding-top:0.3rem;">Regular Latitude Longitude</div>
+        <div class="hero-stat-label">Grid Type</div>
+    </div>
+    
+    
+    <div class="hero-stat">
+        <div class="hero-stat-value" style="font-size:0.85rem;padding-top:0.3rem;">Static</div>
+        <div class="hero-stat-label">Temporal</div>
+    </div>
+    
+</div>
+
+<div class="emd-header-meta">
+    
+    
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Region</span>
+        <span class="emd-meta-value">Global</span>
+    </div>
+    
+    <div class="emd-meta-item">
+        <span class="emd-meta-label">Registry</span>
+        <span class="emd-meta-value"><a href="g108" target="_blank">JSON-LD →</a></span>
+    </div>
+</div>
+
+        </header>
+
+        <!-- ── Main content ──────────────────────────────────────────── -->
+        <main>
+            
+
+
+<div class="plain-summary">
+    <strong>What is this?</strong>
+    Grid cell set <strong>g108</strong>
+     uses a <strong>Regular Latitude Longitude</strong> grid
+    
+    .
+    
+    The horizontal resolution is <strong>1.875°&nbsp;×&nbsp;1.25°</strong> (Degrees).
+    
+    
+    The grid is <strong>Static</strong> in time.
+    
+    
+    
+    It covers the <strong>Global</strong> region.
+    
+    
+</div>
+
+
+<section class="emd-section expanded">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div>
+            <h2 class="emd-section-title">Grid Properties</h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <table class="prop-table">
+                
+                <tr>
+                    <td>Grid Type</td>
+                    <td>Regular Latitude Longitude</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Temporal Refinement</td>
+                    <td>Static</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Resolution (x × y)</td>
+                    <td>1.875° × 1.25° (Degrees)</td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Truncation</td>
+                    <td>
+                        ./
+                        
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Southernmost Latitude</td>
+                    <td>-89.375°</td>
+                </tr>
+                
+                
+                <tr>
+                    <td>Westernmost Longitude</td>
+                    <td>0.9375°</td>
+                </tr>
+                
+            </table>
+            
+            <div style="margin-top:1rem;">
+                <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--emd-text-muted);margin-bottom:0.4rem;">
+                    Region
+                </div>
+                <div class="tag-row">
+                    
+                    <span class="cv-tag primary">Global</span>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<section class="emd-section">
+    <div class="emd-section-header" onclick="toggleSection(this)">
+        <div class="emd-section-title-wrapper">
+            <div class="emd-section-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+            <h2 class="emd-section-title">Technical Details</h2>
+        </div>
+        <div class="emd-section-toggle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></div>
+    </div>
+    <div class="emd-section-content">
+        <div class="emd-section-body">
+            <div class="emd-section-divider"></div>
+            <div class="emd-tech-grid">
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Resource Identifier (@id)</div>
+                    <div class="emd-tech-value">g108</div>
+                </div>
+                <div class="emd-tech-item">
+                    <div class="emd-tech-label">Validation Key</div>
+                    <div class="emd-tech-value">g108</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        </main>
+
+    </div>
+
+    <!-- ── MkDocs-style site footer ──────────────────────────────────── -->
+    <footer class="emd-site-footer">
+        <div class="emd-site-footer-inner">
+            <p>
+                Data sourced from <a href="https://emd.mipcvs.dev/" target="_blank" rel="noopener">EMD Registry</a>
+                &nbsp;&middot;&nbsp;
+                Part of the <a href="https://wcrp-cmip.org/" target="_blank" rel="noopener">WCRP CMIP</a> initiative
+                &nbsp;&middot;&nbsp;
+                Generated 2026-04-08 22:29 UTC
+            </p>
+            <p class="emd-site-footer-right">
+                <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation" target="_blank" rel="noopener">
+                    WCRP-CMIP/Essential-Model-Documentation
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    // ── Nav toggle ────────────────────────────────────────────────────
+    function toggleNav(btn) {
+        const links = document.getElementById('emd-nav-links');
+        const open = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+    }
+    // Close nav when clicking outside
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.emd-nav');
+        if (!nav.contains(e.target)) {
+            document.getElementById('emd-nav-links').classList.remove('open');
+            document.querySelector('.emd-nav-toggle').setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // ── Section toggle ────────────────────────────────────────────────
+    function toggleSection(header) { header.parentElement.classList.toggle('expanded'); }
+
+    // ── Breadcrumb depth fix ──────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+        const parts = window.location.pathname.split('/').filter(p => p && !p.endsWith('.html'));
+        const depth = '../'.repeat(Math.max(parts.length - 1, 2));
+        document.querySelectorAll('a[data-depth]').forEach(a => {
+            a.href = depth + a.getAttribute('data-depth');
+        });
+    });
+
+    
+const sourceData = {
+  "@context": "emd:horizontal_grid_cell/g108",
+  "@id": "g108",
+  "@type": [
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell",
+    "emd"
+  ],
+  "coordinate_system": "latitude_longitude",
+  "description": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree grid.",
+  "grid_type": "regular_latitude_longitude",
+  "number_of_cells": "27648",
+  "region": {
+    "@id": "global",
+    "@type": [
+      "universal",
+      "wcrp:region",
+      "esgvoc:Region",
+      "constants"
+    ],
+    "alias": "glb",
+    "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+    "ui_label": "Global",
+    "validation_key": "global"
+  },
+  "southernmost_latitude": "-89.375",
+  "temporal_refinement": {
+    "@id": "static",
+    "@type": [
+      "universal",
+      "wcrp:temporal_refinement",
+      "esgvoc:TemporalRefinement",
+      "constants"
+    ],
+    "description": "Grid resolution remains constant throughout the simulation.",
+    "ui_label": "Static",
+    "validation_key": "static"
+  },
+  "truncation_method": "./",
+  "truncation_number": "",
+  "ui_label": "",
+  "units": {
+    "@id": "degree",
+    "@type": [
+      "universal",
+      "wcrp:units",
+      "esgvoc:Units",
+      "constants"
+    ],
+    "alias": [
+      "deg",
+      "degrees"
+    ],
+    "description": "Angular measurement in degrees for latitude/longitude coordinates.",
+    "ui_label": "Degrees",
+    "validation_key": "degree"
+  },
+  "validation_key": "g108",
+  "westernmost_longitude": "0.9375",
+  "x_resolution": "1.875",
+  "y_resolution": "1.25"
+};
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+    e.clipboardData.setData("text/plain",
+        "// JSON-LD: g108\n// Generated: 2026-04-08 22:29 UTC\n\n" +
+        JSON.stringify(sourceData, null, 2));
+});
+
+    </script>
+</body>
+</html>

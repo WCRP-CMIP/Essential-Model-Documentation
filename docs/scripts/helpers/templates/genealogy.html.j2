@@ -1,0 +1,156 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Model Genealogy{% endblock %}
+
+{% block head_extra %}
+<style>
+  body { overflow: hidden; }
+  #chart { width: 100%; height: calc(100vh - 120px); position: relative; }
+
+  .link  { fill: none; stroke: var(--emd-border, #ddd); stroke-width: 1px; }
+  .node circle { stroke-width: 1.5px; cursor: pointer; }
+  .node text   { font-size: 9px; fill: var(--emd-text, #333); pointer-events: none; }
+
+  /* depth colours — realm nodes (d1) get their colour inline from REALM_COLORS */
+  .d0 { fill: #58a6ff; stroke: #1f6feb; }
+  .d2 { fill: #d29922; stroke: #9e6a03; }
+  .d3 { fill: #f78166; stroke: #da3633; }
+  .d4 { fill: #bc8cff; stroke: #8957e5; }
+  .d5 { fill: #39d353; stroke: #26a641; }
+
+  .grid-arc { opacity: .14; }
+
+  .genealogy-legend {
+    position: absolute; bottom: 14px; left: 16px;
+    background: var(--emd-surface, #fff);
+    border: 1px solid var(--emd-border, #ddd);
+    border-radius: 6px; padding: 7px 12px; font-size: 10px;
+    color: var(--emd-text, #333);
+    pointer-events: none;
+  }
+  .genealogy-legend span {
+    display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; margin-right: 4px; vertical-align: middle;
+  }
+  .emd-tooltip {
+    position: absolute; pointer-events: none;
+    background: var(--emd-surface, #fff);
+    border: 1px solid var(--emd-border, #ddd);
+    border-radius: 6px; padding: 6px 10px;
+    font-size: 11px; color: var(--emd-text, #333);
+    opacity: 0; transition: opacity .15s; max-width: 240px;
+    z-index: 10;
+  }
+</style>
+{% endblock %}
+
+{% block breadcrumb_extra %}
+  <span>|</span>
+  <span>Model Genealogy</span>
+{% endblock %}
+
+{% block page_header %}
+<div class="emd-header-content">
+  <h1 class="emd-title">Model Genealogy</h1>
+  <p class="emd-subtitle">
+    realm &rarr; model family &rarr; model &rarr; component config &rarr; grids
+    &nbsp;&middot;&nbsp; arcs connect shared grids
+  </p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="chart">
+  <div class="genealogy-legend">
+    <span style="background:#888"></span>realm &nbsp;
+    <span style="background:#d29922"></span>family &nbsp;
+    <span style="background:#f78166"></span>model &nbsp;
+    <span style="background:#bc8cff"></span>config &nbsp;
+    <span style="background:#39d353"></span>grid
+  </div>
+  <div class="emd-tooltip" id="emd-tip"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const DATA = {{ tree_json }};
+
+const el     = document.getElementById('chart');
+const W      = el.clientWidth  || window.innerWidth;
+const H      = el.clientHeight || (window.innerHeight - 120);
+const cx     = W / 2, cy = H / 2;
+const radius = Math.min(W, H) / 2 - 90;
+
+const tree = d3.cluster().size([2 * Math.PI, radius]);
+const root = tree(
+  d3.hierarchy(DATA)
+    .sort((a, b) => d3.ascending(a.data.name, b.data.name))
+);
+
+const svg = d3.select('#chart').append('svg')
+  .attr('width', W).attr('height', H)
+  .attr('viewBox', [-cx, -cy, W, H]);
+
+// ── links ─────────────────────────────────────────────────────────────────
+svg.append('g')
+  .selectAll('path')
+  .data(root.links())
+  .join('path')
+    .attr('class', 'link')
+    .attr('d', d3.linkRadial().angle(d => d.x).radius(d => d.y));
+
+// ── shared-grid arcs ──────────────────────────────────────────────────────
+const gridNodes  = root.descendants().filter(d => d.depth === 5);
+const gridGroups = d3.group(gridNodes, d => d.data.name);
+const arcG = svg.append('g');
+
+for (const [, nodes] of gridGroups) {
+  if (nodes.length < 2) continue;
+  const angles = nodes.map(d => d.x).sort(d3.ascending);
+  const r = nodes[0].y;
+  arcG.append('path')
+    .attr('class', 'grid-arc')
+    .attr('fill', '#39d353')
+    .attr('d', d3.arc()
+      .innerRadius(r - 10).outerRadius(r + 10)
+      .startAngle(angles[0]).endAngle(angles[angles.length - 1])());
+}
+
+// ── nodes ─────────────────────────────────────────────────────────────────
+const tip = d3.select('#emd-tip');
+
+const node = svg.append('g')
+  .selectAll('g')
+  .data(root.descendants())
+  .join('g')
+    .attr('class', 'node')
+    .attr('transform', d =>
+      `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
+    .on('mouseover', (event, d) => {
+      const m = d.data.meta || {};
+      let html = `<strong>${d.data.name}</strong>`;
+      if (m.h_grid) html += `<br/>H: ${m.h_grid}`;
+      if (m.v_grid) html += `<br/>V: ${m.v_grid}`;
+      tip.style('opacity', 1).html(html);
+    })
+    .on('mousemove', e =>
+      tip.style('left', (e.pageX + 14) + 'px').style('top', (e.pageY - 20) + 'px'))
+    .on('mouseout', () => tip.style('opacity', 0));
+
+node.append('circle')
+  .attr('r', d => [6, 5, 4, 3.5, 3, 2.5][d.depth] ?? 2.5)
+  .attr('class', d => d.depth === 1 ? '' : `d${d.depth}`)
+  .style('fill',   d => d.depth === 1 ? (d.data.color || '#888') : null)
+  .style('stroke', d => d.depth === 1 ? (d.data.color || '#888') : null);
+
+node.append('text')
+  .attr('dy', '0.31em')
+  .attr('x', d => d.x < Math.PI === !d.children ? 8 : -8)
+  .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+  .attr('transform', d => d.x >= Math.PI ? 'rotate(180)' : null)
+  .text(d => {
+    const n = d.data.name;
+    return n.length > 24 ? n.slice(0, 22) + '…' : n;
+  });
+</script>
+{% endblock %}
