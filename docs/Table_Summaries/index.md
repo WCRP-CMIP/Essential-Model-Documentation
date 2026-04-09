@@ -10,8 +10,7 @@ Overview of all registered data.
 | **Stage 2: Computational Grids** | | |
 | **Model/Component Families** | | |
 | **Stage 3: Model Components** | | |
-| [Component Configurations](component_config.md) | Component-grid configurations (Stage 3 output). | 14 |
 | **Stage 4: Models** | | |
 
 ---
-*Generated: 2026-04-08 22:54*
+*Generated: 2026-04-09 15:31*
