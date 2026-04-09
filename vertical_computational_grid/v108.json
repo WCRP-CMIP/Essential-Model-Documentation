@@ -1,0 +1,17 @@
+{
+  "validation_key": "v108",
+  "ui_label": "depth grid with 4 levels.",
+  "description": "",
+  "bottom_layer_thickness": 0.05,
+  "n_z": 4,
+  "top_layer_thickness": 1.325,
+  "total_thickness": 2,
+  "vertical_coordinate": "depth",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v108"
+}
