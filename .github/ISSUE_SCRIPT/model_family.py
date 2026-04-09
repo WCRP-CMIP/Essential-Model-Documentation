@@ -17,11 +17,11 @@ LIST_FIELDS = {'collaborative_institutions', 'scientific_domains', 'reference_do
 # Fields whose values are @type:@id links — must be lowercased
 LINKED_FIELDS = {'collaborative_institutions', 'scientific_domains', 'primary_institution'}
 
-# Fields to drop from the final JSON (also strip any bare id/type that validators add)
+# Fields to drop entirely from the final JSON
 IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
           'family_type', 'family_name', 'name'}
 
-# Non-@ prefixed bare keys that JSONValidator may inject and must not appear in output
+# Bare (non-@) keys that JSONValidator may inject — must not appear in output
 BAD_KEYS = {'id', 'type', 'context'}
 
 
@@ -30,8 +30,6 @@ def _clean_id(s: str) -> str:
 
 
 def _parse_list(value) -> list:
-    """Split comma- or newline-separated string into a cleaned list.
-    Also handles lists directly (GitHub returns multi-select fields as lists)."""
     if isinstance(value, list):
         return [str(v).strip() for v in value if str(v).strip()]
     delim = '\n' if '\n' in str(value) else ','
@@ -39,32 +37,28 @@ def _parse_list(value) -> list:
 
 
 def run(parsed_issue, issue, dry_run=False):
-    # 'Family Name' label → parsed key 'family_name' (field_id is 'name')
     family_name = parsed_issue.get('family_name') or parsed_issue.get('name') or ''
     if not family_name:
         return None  # fall back to generic handler
 
-    atid         = _clean_id(family_name)     # lowercased slug for @id / filename
-    validation_key = atid                     # must match @id
-    family_type  = (parsed_issue.get('family_type') or '').strip().lower()
+    atid           = _clean_id(family_name)
+    family_type    = (parsed_issue.get('family_type') or '').strip().lower() or 'model'
 
-    # Set @type based on family_type dropdown value
+    # @type based on family_type
     if family_type == 'component':
-        wcrp_type  = 'wcrp:component_family'
-        esgvoc_type = 'esgvoc:component_family'
+        wcrp_type   = 'wcrp:model_family'
+        esgvoc_type = 'esgvoc:ModelFamily'
     else:
-        # "model" or anything else → coupled ESM family
-        wcrp_type  = 'wcrp:model_family'
-        esgvoc_type = 'esgvoc:model_family'
+        wcrp_type   = 'wcrp:model_family'
+        esgvoc_type = 'esgvoc:ModelFamily'
 
-    # Build data from remaining parsed fields
     data = {
         "@context":       "_context",
         "@id":            atid,
-        "@type":          [wcrp_type, esgvoc_type],
-        "validation_key": validation_key,
-        "family_type":    family_type or 'model',
-        "name":           family_name.strip(),
+        "@type":          ["emd", wcrp_type, esgvoc_type],
+        "validation_key": atid,
+        "ui_label":       family_name.strip(),
+        "family_type":    family_type,
     }
 
     for k, v in parsed_issue.items():
@@ -80,13 +74,11 @@ def run(parsed_issue, issue, dry_run=False):
         else:
             data[k] = v.strip() if isinstance(v, str) else v
 
-    # Normalise website: ensure https:// prefix
-    if 'website' in data and data['website']:
-        url = data['website']
-        if not url.startswith(('http://', 'https://')):
-            data['website'] = f"https://{url}"
+    # Normalise website
+    if data.get('website') and not str(data['website']).startswith(('http://', 'https://')):
+        data['website'] = f"https://{data['website']}"
 
-    # 'Year Established' label → parsed key 'year_established'; store as 'established'
+    # 'Year Established' → 'established' as int
     year_val = data.pop('year_established', None) or data.pop('established', None)
     if year_val:
         try:
@@ -95,10 +87,14 @@ def run(parsed_issue, issue, dry_run=False):
         except (ValueError, TypeError):
             data['established'] = None
 
-    # 'Reference DOIs' label → parsed key 'reference_dois'; store as 'references'
+    # 'Reference DOIs' → 'references' as list
     refs = data.pop('reference_dois', None) or data.pop('references', None)
     if refs:
         data['references'] = _parse_list(refs)
+
+    # Strip bad bare keys
+    for key in BAD_KEYS:
+        data.pop(key, None)
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
@@ -106,12 +102,12 @@ def run(parsed_issue, issue, dry_run=False):
                    if collab_str else []
     file_path    = os.path.join(kind, f"{atid}.json")
 
-    # Strip any bare (non-@) id/type/context keys and other unwanted fields
-    for key in BAD_KEYS:
-        data.pop(key, None)
-
-    return {file_path: data, '_author': issue.get('author'),
-            '_contributors': contributors, '_make_pull': True}
+    return {
+        file_path:       data,
+        '_author':       issue.get('author'),
+        '_contributors': contributors,
+        '_make_pull':    True,
+    }
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
@@ -120,7 +116,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
 
         # Re-strip bad keys in case JSONValidator re-introduced them
-        for key in BAD_KEYS:
+        for key in BAD_KEYS | {'name'}:
             data.pop(key, None)
 
         print(f"  Generating review report for {file_path} …", flush=True)

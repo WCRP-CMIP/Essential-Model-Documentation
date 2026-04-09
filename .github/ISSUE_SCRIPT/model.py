@@ -19,7 +19,7 @@ from cmipld.utils import crs as _crs
 kind = __file__.split('/')[-1].replace('.py', '')
 
 FIELD_MAP = {
-    'model_name':           'name',
+    'model_name':           None,           # handled explicitly → validation_key + ui_label
     'model_family':         'family',
     'release_year':         'release_year',
     'reference_dois':       'references',
@@ -37,7 +37,7 @@ LIST_FIELDS = {
 
 IGNORE = {
     'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
-    'model_name', 'model_family',
+    'model_name', 'model_family', 'name',
     'references', 'reference_dois',
     'embedded_components',
     'coupling_group_1', 'coupling_group_2', 'coupling_group_3',
@@ -46,7 +46,6 @@ IGNORE = {
 
 
 def _parse_list(value, lowercase=False) -> list:
-    """Split a comma- or newline-delimited string into a clean list."""
     if isinstance(value, list):
         items = [str(v).strip() for v in value if str(v).strip()]
     else:
@@ -56,22 +55,12 @@ def _parse_list(value, lowercase=False) -> list:
 
 
 def _parse_refs(value) -> list:
-    """Split DOIs on any combination of commas, whitespace, or newlines."""
     if isinstance(value, list):
         return [str(v).strip() for v in value if str(v).strip()]
     return [v.strip() for v in re.split(r'[,\s]+', str(value)) if v.strip()]
 
 
 def _parse_embedded(raw) -> list:
-    """
-    Parse embedded_components into [[parent, child], ...] pairs, lowercased.
-
-    Handles:
-      "Atmosphere - Aerosol"           GitHub multi-select " - " separator
-      "atmosphere=aerosol"             = separator
-      "atmosphere>aerosol"             > separator
-      [["atmosphere", "aerosol"], ...]  already structured
-    """
     def _clean(s: str) -> str:
         return re.sub(r'\s*-\s*$', '', s.strip()).strip().lower()
 
@@ -122,20 +111,20 @@ def run(parsed_issue, issue, dry_run=False):
     data = {
         "@context":       "_context",
         "@id":            source_id,
-        "@type":          ["wcrp:model", "esgvoc:model"],
+        "@type":          ["emd", "wcrp:model", "esgvoc:Model"],
         "validation_key": source_id,
-        "name":           source_id,
+        "ui_label":       source_id,
     }
 
     if family and family.lower() not in ('not specified', 'none', ''):
         data['family'] = family.lower()
 
-    # References — split on any delimiter into a list
+    # References
     refs_raw = parsed_issue.get('reference_dois') or parsed_issue.get('references') or ''
     if refs_raw:
         data['references'] = _parse_refs(refs_raw)
 
-    # Coupling groups — realm names must be lowercase for CRS
+    # Coupling groups
     coupling_groups = []
     for i in range(1, 6):
         raw = parsed_issue.get(f'coupling_group_{i}', '')
@@ -144,7 +133,7 @@ def run(parsed_issue, issue, dry_run=False):
             if group:
                 coupling_groups.append(group)
 
-    # Embedded component pairs — lowercased inside _parse_embedded
+    # Embedded component pairs
     embedded_pairs = _parse_embedded(parsed_issue.get('embedded_components', ''))
 
     # Generic remaining fields
@@ -152,13 +141,15 @@ def run(parsed_issue, issue, dry_run=False):
         if not v or k in IGNORE:
             continue
         canonical = FIELD_MAP.get(k, k)
-        # component IDs and realm lists must be lowercase
+        if canonical is None:
+            continue  # explicitly suppressed (e.g. model_name)
+        if isinstance(v, str) and v.lower() in ('_no response_', 'none', 'not specified', ''):
+            continue
         if canonical in LIST_FIELDS or k in LIST_FIELDS:
             data[canonical] = _parse_list(v, lowercase=True)
         else:
             val = v.strip() if isinstance(v, str) else v
-            if val and str(val).lower() not in ('_no response_', 'none', 'not specified'):
-                data[canonical] = val
+            data[canonical] = val
 
     # Normalise release_year to int
     if 'release_year' in data:
@@ -167,7 +158,6 @@ def run(parsed_issue, issue, dry_run=False):
         except (ValueError, TypeError):
             pass
 
-    # Store structured fields
     if embedded_pairs:
         data['embedded_components'] = embedded_pairs
     if coupling_groups:
@@ -206,7 +196,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
 
     crs_errors = model_data.pop('_crs_errors', [])
     if crs_errors:
-        print("\n⚠  CRS validation errors — coupling/embedding structure is invalid:", flush=True)
+        print("\n⚠  CRS validation errors:", flush=True)
         for e in crs_errors:
             print(f"    • {e}", flush=True)
         model_data['_crs_note'] = (
@@ -234,6 +224,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
+        # Strip name if JSONValidator re-injected it
+        data.pop('name', None)
         print(f"  Generating review report for {file_path} …", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
@@ -252,11 +244,6 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
 
-        print(f"\n  ✅ source_id: '{source_id}'", flush=True)
-        crs_val = clean.get('crs', '')
-        if crs_val:
-            print(f"  CRS fingerprint: {crs_val}", flush=True)
-
         configs = clean.get('model_components', [])
         if configs:
             print(f"\n  Component configs ({len(configs)}):", flush=True)
@@ -266,8 +253,4 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             print("\n  ⚠ No model_components linked — add Stage 3 config IDs.", flush=True)
 
         if crs_errors:
-            print(
-                "\n  ⚠ Fix coupling/embedding errors above before merging.\n"
-                "    The 'crs' field will be generated once resolved.",
-                flush=True,
-            )
+            print("\n  ⚠ Fix coupling/embedding errors above before merging.", flush=True)
