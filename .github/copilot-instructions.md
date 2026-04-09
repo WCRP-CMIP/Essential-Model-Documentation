@@ -37,6 +37,8 @@ For possible issues or values that are unusual but not definitively wrong:
 ## Description field — rewrites
 
 When flagging a `description` field:
+- If the description is **empty, blank, or missing** — do not flag it, do not suggest filling
+  it in, ignore it entirely.
 - If it contains **typos or minor clarity issues**, suggest a minimal correction that
   preserves the original meaning and length. Do not expand or enrich the content.
   - Acceptable: `"A new version of Hadgema version 5. Same code. Noo changes."` →
@@ -45,7 +47,7 @@ When flagging a `description` field:
     overview the submitter did not write.
 - If the description appears to describe the **wrong component type entirely**, flag it as
   a WARNING and suggest the submitter rewrites it — do not provide a replacement.
-- If the description is **blank or a single word**, note it as a NOTE — do not fill it in.
+- If the description is **a single word**, note it as a NOTE — do not fill it in.
 
 The rule: suggest corrections to what was written. Never add content that was not there.
 
@@ -135,7 +137,7 @@ incompatible with the file referencing it.
 
 ### 5. Free-text field errors
 
-Check `name`, `description`, and `references` only:
+Check `description` and `references` only:
 
 - Typos in component or model names — suggest minimal correction
 - Description clearly describing a different component type — flag as WARNING, do not rewrite
@@ -146,10 +148,14 @@ Check `name`, `description`, and `references` only:
 
 ## What NOT to flag
 
-- `@id`, `validation_key`, filenames — temporary placeholders, renamed on merge
-- `@context`, `@type`, field names, JSON structure — syntax, out of scope
-- `ui_label` fields — auto-generated
+- `@id` — auto-generated identifier, renamed on merge
+- `@type` — controlled vocabulary, not for review
+- `@context` — infrastructure field, out of scope
+- `validation_key` — internal identifier, auto-managed
+- `ui_label` — auto-generated display label
+- `description` when empty or blank — intentionally optional, do not flag
 - `tempgrid_*` values — temporary, renamed on merge
+- Filenames, field names, JSON structure — syntax, out of scope
 - The PR targeting `src-data` — correct workflow
 - Missing `crs` — may be intentionally absent
 
