@@ -1,0 +1,22 @@
+{
+    "validation_key": "Horizontal grid cell with a regular latitude longitude grid type and 31 x 31 km resolution.",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 31 x 31 km resolution.",
+    "description": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "regular_latitude_longitude",
+    "horizontal_units": "km",
+    "n_cells": 829440,
+    "region": "global",
+    "southernmost_latitude": -89.859375,
+    "temporal_refinement": "static",
+    "westernmost_longitude": 0.1389,
+    "x_resolution": 31,
+    "y_resolution": 31,
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-janstreffing-1775549240"
+}
