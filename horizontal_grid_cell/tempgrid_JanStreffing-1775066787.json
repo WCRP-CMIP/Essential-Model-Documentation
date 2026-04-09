@@ -1,0 +1,24 @@
+{
+    "validation_key": "Horizontal grid cell with a reduced gaussian grid type and 36 x 36 km resolution.",
+    "ui_label": "Horizontal grid cell with a reduced gaussian grid type and 36 x 36 km resolution.",
+    "description": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "reduced_gaussian",
+    "horizontal_units": "km",
+    "n_cells": 421120,
+    "region": "global",
+    "southernmost_latitude": -89.785,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 319,
+    "westernmost_longitude": 0,
+    "x_resolution": 36,
+    "y_resolution": 36,
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-janstreffing-1775066787"
+}
