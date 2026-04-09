@@ -99,18 +99,15 @@ jobs:
             # ── a. Collect authors from git log for this specific file ────────
             AUTHORS_FILE=$(mktemp)
 
-            # Commit author who added the file
             git log --follow --diff-filter=A \
               --format="%an <%ae>" -- "$filepath" \
               2>/dev/null >> "$AUTHORS_FILE" || true
 
-            # Co-authored-by trailers from all commits touching this file
             git log --follow --format="%B" -- "$filepath" 2>/dev/null \
               | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
               | sed 's/Co-authored-by: //' \
               >> "$AUTHORS_FILE" || true
 
-            # PR opener (human logins only)
             PR_LOGIN=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
               --json author --jq '.author.login' 2>/dev/null || true)
             if [ -n "$PR_LOGIN" ] && \
@@ -123,7 +120,6 @@ jobs:
               fi
             fi
 
-            # Deduplicate — clean human authors only
             AUTHOR_NAMES=$(sort -u "$AUTHORS_FILE" \
               | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
               | grep -E '^[A-Za-z0-9]' \
@@ -169,16 +165,21 @@ jobs:
             # ── d. Rename file ────────────────────────────────────────────────
             git mv "$filepath" "$NEW_PATH"
 
-            # ── e. Update @id / validation_key inside the JSON ────────────────
+            # ── e. Update @id and validation_key inside the JSON ─────────────
+            # Explicitly set @id and validation_key to NEW_ID, then also do a
+            # walk() to catch the old tempgrid ID anywhere else in the document.
             tmp=$(mktemp)
-            jq --arg old "$OLD_ID" --arg new "$NEW_ID" \
-              'walk(if type == "string" and . == $old then $new else . end)' \
-              "$NEW_PATH" > "$tmp" && mv "$tmp" "$NEW_PATH" || rm -f "$tmp"
+            jq --arg old "$OLD_ID" --arg new "$NEW_ID" '
+              . as $doc |
+              $doc
+              | .["@id"] = $new
+              | .["validation_key"] = $new
+              | walk(if type == "string" and . == $old then $new else . end)
+            ' "$NEW_PATH" > "$tmp" && mv "$tmp" "$NEW_PATH" || rm -f "$tmp"
 
-            echo "  Updated JSON: $OLD_ID -> $NEW_ID"
+            echo "  Updated @id and validation_key: $OLD_ID -> $NEW_ID"
             echo "| \`$filepath\` | \`$NEW_PATH\` | $AUTHOR_NAMES |" >> "$GITHUB_STEP_SUMMARY"
 
-            # Accumulate mapping JSON for later steps
             [ -n "$MAPPING_JSON" ] && MAPPING_JSON="${MAPPING_JSON},"
             LAST_MSG_JSON=$(echo "$LAST_MSG" | jq -Rs .)
             MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${NEW_PATH}\",\"old_id\":\"${OLD_ID}\",\"new_id\":\"${NEW_ID}\",\"authors\":\"${AUTHOR_NAMES}\",\"last_msg\":${LAST_MSG_JSON}}"
@@ -265,18 +266,15 @@ jobs:
           COMMENT_BODY=$(cat "$BODY_FILE")
           rm -f "$BODY_FILE"
 
-          # ── Update PR title: | new_id | old title ─────────────────────────
           OLD_PR_TITLE=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
             --json title --jq '.title')
           CLEAN_PR_TITLE=$(echo "$OLD_PR_TITLE" | sed 's/^|[^|]*| *//')
           gh pr edit "$PR_NUMBER" --repo "$REPO" \
             --title "| ${NEW_IDS} | ${CLEAN_PR_TITLE}"
 
-          # ── Comment on PR ─────────────────────────────────────────────────
           gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
           echo "Updated and commented on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
 
-          # ── Find linked issues and update each ────────────────────────────
           ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
             --json body --jq '.body' | tr '\n' ' ' \
             | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \

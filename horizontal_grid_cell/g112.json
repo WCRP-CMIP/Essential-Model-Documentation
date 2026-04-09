@@ -1,22 +1,22 @@
 {
-  "validation_key": "Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution.",
+  "validation_key": "g112",
   "ui_label": "Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution.",
   "description": "",
   "coordinate_system": "latitude_longitude",
   "grid_type": "tripolar",
   "horizontal_units": "degree",
-  "n_cells": "120184",
+  "n_cells": 120184,
   "region": "global",
-  "southernmost_latitude": "-85.789",
+  "southernmost_latitude": -85.789,
   "temporal_refinement": "static",
-  "westernmost_longitude": "180",
-  "x_resolution": "1",
-  "y_resolution": "1",
+  "westernmost_longitude": 180,
+  "x_resolution": 1,
+  "y_resolution": 1,
   "@context": "_context",
   "@type": [
     "wcrp:horizontal_grid_cell",
     "esgvoc:HorizontalGridCell",
     "emd"
   ],
-  "@id": "tempgrid-ltroussellier-1774874217"
+  "@id": "g112"
 }
