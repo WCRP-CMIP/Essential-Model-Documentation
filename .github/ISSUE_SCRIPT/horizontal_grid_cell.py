@@ -9,6 +9,7 @@ scanning existing g### files and assigning max+1.
 """
 
 import os
+import re
 import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
@@ -22,6 +23,18 @@ IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collabora
 FIELD_MAP = {
     'number_of_cells': 'n_cells',
 }
+
+_NUMERIC_KEYS = re.compile(r'_(resolution|number|longitude|latitude|cells|truncation)')
+
+def to_num(key, val):
+    """Coerce val to int or float if the key matches a numeric field pattern."""
+    if not _NUMERIC_KEYS.search(key):
+        return val
+    try:
+        f = float(val)
+        return int(f) if f == int(f) else f
+    except (ValueError, TypeError):
+        return val
 
 
 def run(parsed_issue, issue, dry_run=False):
@@ -69,7 +82,8 @@ def run(parsed_issue, issue, dry_run=False):
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
             continue
         key = FIELD_MAP.get(key, key)
-        data[key] = val.strip().lower() if isinstance(val, str) else val
+        val = val.strip().lower() if isinstance(val, str) else val
+        data[key] = to_num(key, val)
     if region and region.lower() not in ('_no response_', 'none', 'not specified'):
         data['region'] = region
 
