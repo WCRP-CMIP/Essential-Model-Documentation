@@ -1,0 +1,22 @@
+{
+    "validation_key": "Horizontal grid cell with a regular gaussian grid type and 0.7 x 0.7 degree resolution.",
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 0.7 x 0.7 degree resolution.",
+    "description": "",
+    "coordinate_system": "latitude_longitude",
+    "grid_type": "regular_gaussian",
+    "horizontal_units": "degree",
+    "n_cells": 131072,
+    "region": "global",
+    "southernmost_latitude": -89.4628215685774,
+    "temporal_refinement": "static",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.7,
+    "y_resolution": 0.7,
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "tempgrid-treerink-1775724911"
+}
