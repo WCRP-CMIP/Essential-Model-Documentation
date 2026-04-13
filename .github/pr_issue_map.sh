@@ -3,18 +3,22 @@
 #
 # Lists open PRs, the issues they reference, and their review status.
 # Usage:
-#   .github/pr_issue_map.sh              # open PRs, pretty print
-#   .github/pr_issue_map.sh --all        # all PRs, pretty print
-#   .github/pr_issue_map.sh --json       # open PRs, JSON output
-#   .github/pr_issue_map.sh --all --json # all PRs, JSON output
+#   .github/pr_issue_map.sh                  # all open PRs
+#   .github/pr_issue_map.sh --approved       # only approved PRs
+#   .github/pr_issue_map.sh --needs-review   # only unapproved PRs
+#   .github/pr_issue_map.sh --all            # include closed PRs
+#   .github/pr_issue_map.sh --json           # JSON output
 
 set -euo pipefail
 
 JSON=false
 PR_STATE="open"
+APPROVAL_FILTER="all"   # all | approved | needs-review
 for arg in "$@"; do
-    [[ "$arg" == "--json" ]] && JSON=true
-    [[ "$arg" == "--all" ]]  && PR_STATE="all"
+    [[ "$arg" == "--json" ]]         && JSON=true
+    [[ "$arg" == "--all" ]]          && PR_STATE="all"
+    [[ "$arg" == "--approved" ]]     && APPROVAL_FILTER="approved"
+    [[ "$arg" == "--needs-review" ]] && APPROVAL_FILTER="needs-review"
 done
 
 REPO=$(gh repo view --json nameWithOwner --jq '.nameWithOwner')
@@ -67,24 +71,35 @@ done | jq -s '.')
 
 
 if [[ "$JSON" == "true" ]]; then
-    echo "$MAPPING" | jq '.'
+    case "$APPROVAL_FILTER" in
+        approved)     echo "$MAPPING" | jq '[.[] | select(.reviews.approved != "")]' ;;
+        needs-review) echo "$MAPPING" | jq '[.[] | select(.reviews.approved == "")]' ;;
+        *)            echo "$MAPPING" | jq '.' ;;
+    esac
     exit 0
 fi
 
+# Apply approval filter
+case "$APPROVAL_FILTER" in
+    approved)     FILTER='select(.reviews.approved != "")' ;;
+    needs-review) FILTER='select(.reviews.approved == "")' ;;
+    *)            FILTER='.' ;;
+esac
+
 # Pretty print
 echo ""
-echo "$MAPPING" | jq -r '[.[] | select(.reviews.approved == "")] |  .[] |
-    "PR #\(.pr) [\(.pr_state | ascii_upcase)] — \(.pr_title)",
-    (if .reviews.approved != "" then "  ✓ Approved : \(.reviews.approved)" else "  ✓ Approved : —" end),
-    (if .reviews.engaged  != "" then "  💬 Engaged : \(.reviews.engaged)"  else "  💬 Engaged : —" end),
+echo "$MAPPING" | jq -r "[.[] | $FILTER] | .[] |
+    \"PR #\(.pr) [\(.pr_state | ascii_upcase)] — \(.pr_title)\",
+    (if .reviews.approved != \"\" then \"  ✓ Approved : \(.reviews.approved)\" else \"  ✓ Approved : —\" end),
+    (if .reviews.engaged  != \"\" then \"  💬 Engaged : \(.reviews.engaged)\"  else \"  💬 Engaged : —\" end),
     (if (.linked_issues | length) > 0 then
-        (.linked_issues[] | "  └─ Issue #\(.number) [\(.state)] — \(.title)")
+        (.linked_issues[] | \"  └─ Issue #\(.number) [\(.state)] — \(.title)\")
     else
-        "  └─ (no linked issues)"
+        \"  └─ (no linked issues)\"
     end),
-    ""'
+    \"\""
 
 TOTAL=$(echo "$MAPPING" | jq 'length')
-REVIEWED=$(echo "$MAPPING" | jq '[.[] | select(.reviews.engaged != "")] | length')
+NAPPROVED=$(echo "$MAPPING" | jq '[.[] | select(.reviews.approved != "")] | length')
 echo "---"
-echo "$TOTAL PR(s) shown — $REVIEWED with reviews."
+echo "$TOTAL PR(s) total — $NAPPROVED approved, $(($(echo $TOTAL | tr -d ' ') - $(echo $NAPPROVED | tr -d ' '))) needs review."
