@@ -36,14 +36,11 @@ MAPPING=$(echo "$ALL_PRS" | jq -c '.[]' | while IFS= read -r pr; do
     pr_body=$(echo "$pr"  | jq -r '.body // ""')
     reviews=$(echo "$pr"  | jq -c '.reviews // []')
 
-    # Summarise reviews: approved / commented / changes_requested
-    approved=$(echo "$reviews"  | jq '[.[] | select(.state=="APPROVED")]  | length')
-    commented=$(echo "$reviews" | jq '[.[] | select(.state=="COMMENTED")] | length')
-    changes=$(echo "$reviews"   | jq '[.[] | select(.state=="CHANGES_REQUESTED")] | length')
+    # Approved: anyone with APPROVED state
+    approved=$(echo "$reviews" | jq -r '[.[] | select(.state=="APPROVED") | .author.login] | unique | join(", ")')
 
-    # Unique reviewers per state
-    approvers=$(echo "$reviews"  | jq -r '[.[] | select(.state=="APPROVED")  | .author.login] | unique | join(", ")')
-    commenters=$(echo "$reviews" | jq -r '[.[] | select(.state=="COMMENTED") | .author.login] | unique | join(", ")')
+    # Engaged: anyone who reviewed or commented (deduplicated)
+    engaged=$(echo "$reviews" | jq -r '[.[].author.login] | unique | join(", ")')
 
     # Extract referenced issue numbers from PR body
     issue_nums=$(echo "$pr_body" | grep -oiE '(resolves|fixes|closes)[[:space:]]+#[0-9]+' \
@@ -60,16 +57,11 @@ MAPPING=$(echo "$ALL_PRS" | jq -c '.[]' | while IFS= read -r pr; do
         --argjson pr_num "$pr_num" \
         --arg     pr_title "$pr_title" \
         --arg     pr_state "$pr_state" \
-        --argjson approved "$approved" \
-        --argjson commented "$commented" \
-        --argjson changes "$changes" \
-        --arg     approvers "$approvers" \
-        --arg     commenters "$commenters" \
+        --arg     approved "$approved" \
+        --arg     engaged "$engaged" \
         --argjson linked_issues "$linked_issues" \
         '{pr: $pr_num, pr_title: $pr_title, pr_state: $pr_state,
-          reviews: {approved: $approved, commented: $commented,
-                    changes_requested: $changes,
-                    approvers: $approvers, commenters: $commenters},
+          reviews: {approved: $approved, engaged: $engaged},
           linked_issues: $linked_issues}'
 done | jq -s '.')
 
@@ -83,9 +75,8 @@ fi
 echo ""
 echo "$MAPPING" | jq -r '.[] |
     "PR #\(.pr) [\(.pr_state | ascii_upcase)] — \(.pr_title)",
-    "  Reviews : ✓ \(.reviews.approved) approved  💬 \(.reviews.commented) commented  ✗ \(.reviews.changes_requested) changes requested",
-    (if .reviews.approvers   != "" then "  Approved by  : \(.reviews.approvers)"   else empty end),
-    (if .reviews.commenters  != "" then "  Commented by : \(.reviews.commenters)"  else empty end),
+    (if .reviews.approved != "" then "  ✓ Approved : \(.reviews.approved)" else "  ✓ Approved : —" end),
+    (if .reviews.engaged  != "" then "  💬 Engaged : \(.reviews.engaged)"  else "  💬 Engaged : —" end),
     (if (.linked_issues | length) > 0 then
         (.linked_issues[] | "  └─ Issue #\(.number) [\(.state)] — \(.title)")
     else
@@ -94,6 +85,6 @@ echo "$MAPPING" | jq -r '.[] |
     ""'
 
 TOTAL=$(echo "$MAPPING" | jq 'length')
-REVIEWED=$(echo "$MAPPING" | jq '[.[] | select(.reviews.approved > 0 or .reviews.commented > 0)] | length')
+REVIEWED=$(echo "$MAPPING" | jq '[.[] | select(.reviews.engaged != "")] | length')
 echo "---"
 echo "$TOTAL PR(s) shown — $REVIEWED with reviews."
