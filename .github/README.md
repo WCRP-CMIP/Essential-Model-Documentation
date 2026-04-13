@@ -1,5 +1,7 @@
 # Essential-Model-Documentation
-TESTING ONLY: Development repository for the EMD. This will link into the CVs and Universe Repos. 
+Development repository for the EMD. This will link into the CVs and Universe Repos. 
+
+
 
 
 [![Update Issue Templates](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/issue-templates.yml/badge.svg)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/issue-templates.yml) [![∆ src-data](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/src-data-change.yml/badge.svg?branch=src-data)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/src-data-change.yml)
@@ -7,8 +9,9 @@ TESTING ONLY: Development repository for the EMD. This will link into the CVs an
 
 -------
 
-> [!CAUTION]
-> ### THIS REPOSITORY IS CURRENTLY UNDER ACTIVE DEVELOPMENT
+> [!NOTE]
+> FULL Documentation can be found at https://emd.mipcvs.dev/docs
+> #### THIS REPOSITORY IS CURRENTLY UNDER ACTIVE DEVELOPMENT
 
 --------
 
