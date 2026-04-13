@@ -1,30 +1,33 @@
 #!/usr/bin/env python3
 """
 Pre-build hook: clean build directory.
-Includes an on_page_content hook that rewrites SVG font URLs to be relative
-to the site root, so they work in any deployment environment.
+Includes an on_page_content hook that rewrites the SVG Virgil font URL to be
+relative to each page's location, so it works on any deployment (mipcvs.dev,
+GitHub Pages, local dev) without hardcoding a base URL.
 """
 
 import shutil
 from pathlib import Path
 
-# Placeholder used in source markdown; replaced at build time with the real URL.
+# Placeholder used in source markdown — replaced at build time.
 _FONT_PLACEHOLDER = "https://emd.mipcvs.dev/docs/assets/Virgil.woff2"
 
 
-def on_config(config, **kwargs):
-    """Store the resolved font URL on the config object for later hooks."""
-    site_url = config.get("site_url", "/").rstrip("/")
-    config["_virgil_font_url"] = f"{site_url}/assets/Virgil.woff2"
-    return config
-
-
 def on_page_content(html, page, config, **kwargs):
-    """Replace the hardcoded font URL with one derived from site_url."""
-    font_url = config.get("_virgil_font_url", _FONT_PLACEHOLDER)
-    if _FONT_PLACEHOLDER in html:
-        html = html.replace(_FONT_PLACEHOLDER, font_url)
-    return html
+    """
+    Replace the hardcoded font URL with a relative path based on page depth.
+    e.g. a page at docs/Submission-Guide/index.html is 1 level deep,
+    so the font URL becomes ../assets/Virgil.woff2
+    """
+    if _FONT_PLACEHOLDER not in html:
+        return html
+
+    # page.url is like '' (root), 'Submission-Guide/', 'Table_Summaries/model/'
+    depth = len([p for p in page.url.split("/") if p])
+    prefix = "../" * depth if depth else ""
+    relative_url = f"{prefix}assets/Virgil.woff2"
+
+    return html.replace(_FONT_PLACEHOLDER, relative_url)
 
 
 def on_pre_build(config, **kwargs):
