@@ -1,5 +1,6 @@
 site_name: Essential Model Documentation
-site_url: https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/
+site_url: https://emd.mipcvs.dev/
+# do not use a site url that has an extention e.g. github.io, as this will cause mkdocs to generate links with the extention in them which will break the links when deployed to github pages
 repo_url: https://github.com/WCRP-CMIP/Essential-Model-Documentation
 repo_name: WCRP-CMIP/Essential-Model-Documentation
 site_description: Development repository for the EMD. This will link into the CVs and Constants Repos.

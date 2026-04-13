@@ -1,99 +1,162 @@
-# Essential Model Documentation
-
-The Essential Model Documentation (EMD) is a high-level description of an earth system model. It is intended to contain information about model configuration that may be helpful to the communities who expect to make use of the model output, whilst not imposing burdensome requirements on those providing the data.
-
-It is not intended to contain all information about a model. More detailed model documentation than that provided by the EMD should be found in the references cited as part of the EMD, or from other external sources.
-
-The EMD has been designed to be applicable to any earth system model. It was originally developed for use within the [CMIP7](https://wcrp-cmip.org) project ([Dunne et al., 2025](https://doi.org/10.5194/gmd-18-6671-2025)), for which EMD registration is a mandatory requirement for model participation. A model cannot be assigned a CMIP7 `source_id` unless its EMD has been provided and accepted.
-
-The EMD is defined by a versioned [specification document](https://doi.org/10.5281/zenodo.17853724) maintained by the [CMIP7 MIP Controlled Vocabularies Task Team](https://wcrp-cmip.org/cmip7-task-teams/cvs/).
-
-## Structure
-
-The EMD is collected for the model as a whole (the top-level model), and for each of the model's dynamically simulated components.
-
-A **top-level model** is described by its name, model family, calendar, release year, references to published work, and the classification of its components as dynamically simulated, prescribed, or omitted. For CMIP7, the model name is registered as the `source_id`.
-
-A **model component** describes an individual part of the top-level model that dynamically simulates a set of physical processes. Eight component types are defined: aerosol, atmosphere, atmospheric chemistry, land surface, land ice, ocean, ocean biogeochemistry, and sea ice. Each dynamic component is described by its name, family, scientific overview, references, code location, and its relationships with other components.
-
-A **computational grid** describes the mesh on which a model component is integrated. The horizontal grid records the staggering arrangement, grid type, resolution, region, and coordinate reference system. The vertical grid records the coordinate type, number of layers, and layer thicknesses.
-
-## Component relationships
-
-All dynamically simulated components within a top-level model interact with each other either directly or indirectly. The EMD identifies which components directly interact, characterising each as either "embedded in" or "coupled with" other components.
-
-An **embedded** component is tightly integrated within a host component, typically sharing its grid and code base. An embedded component has a single host, which may itself be embedded in another host, forming a hierarchy. An embedded component cannot also be coupled with any other components.
-
-A **coupled** component exchanges quantities with other components at regular intervals, such as fluxes of mass, energy, and momentum. Coupling is symmetrical: if component A is coupled with component B, then B is also coupled with A. Only superior host components — those at the top of an embedding hierarchy — may be coupled with each other.
-
-```mermaid
-flowchart TD
-  ATM["Atmosphere"]
-  CHEM["Atmos. Chemistry"]
-  AER["Aerosol"]
-  OCN["Ocean"]
-  SEAICE["Sea Ice"]
-  OBGC["Ocean Biogeochem."]
-  LAND["Land Surface"]
-  ICE["Land Ice"]
-
-  CHEM -.->|embedded in| ATM
-  AER -.->|embedded in| CHEM
-  SEAICE -.->|embedded in| OCN
-  OBGC -.->|embedded in| OCN
-
-  ATM <-->|coupled| OCN
-  ATM <-->|coupled| LAND
-  ATM <-->|coupled| ICE
-  OCN <-->|coupled| ICE
-
-  style ATM fill:#e3f2fd,stroke:#2196f3,color:#1e293b
-  style OCN fill:#e3f2fd,stroke:#2196f3,color:#1e293b
-  style LAND fill:#e3f2fd,stroke:#2196f3,color:#1e293b
-  style ICE fill:#e3f2fd,stroke:#2196f3,color:#1e293b
-  style CHEM fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
-  style AER fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
-  style SEAICE fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
-  style OBGC fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
-```
-
-*The relationships between model components for a hypothetical top-level model. Coupling occurs between the four superior host components (atmosphere, ocean, land surface, and land ice). The other four components are each embedded in a host component, and are therefore not coupled with any other components. Based on the EMD specification, Figure 1.*
-
-## This site
-
-The EMD Repository contains five sections, each with individual entry pages and a [Similarity](EMD_Repository/Model_Components/Similarity.html) matrix showing content and structural similarity across registered entries:
-
-```mermaid
-flowchart LR
-    subgraph Repo["EMD Repository"]
-        MC["Model Components"]
-        CF["Component Families"]
-        ESM["Earth System\nModel Families"]
-        HG["Horizontal\nComputational Grids"]
-        VG["Vertical\nComputational Grids"]
-    end
-    TS["Table Summaries"]
-    CON["Contributors"]
-
-    MC --- CF
-    CF --- ESM
-    ESM --- HG
-    HG --- VG
-
-    style Repo stroke:#0066cc,stroke-width:2px,fill:none
-    style TS fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
-    style CON fill:#f5f5f5,stroke:#9e9e9e,color:#1e293b
-```
-
-**Table Summaries** provide aggregated statistics across all registered entries. **Contributors** lists everyone who has contributed entries across the `main`, `src-data`, and `docs` branches.
+# Essential Model Documentation (EMD)
 
 ## Registration
-
-An on-line creation tool is used for CMIP7 model registration, and this tool collects the content that is recorded in the EMD. Submissions are validated against the EMD schema and reviewed by a domain scientist. When the EMD is accepted, the model registration is completed. The tool also enables those documenting a model to import documentation from earlier registered models, model components, and grids, which can then be edited if required.
+Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
+Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. 
 
 Full instructions are given in the [submission guide](Submission-Guide/).
 
-## References
+#### EMD Structure Diagram
+
+*This is a representation of the back-end file structure. You will only be required to fill in one form per stage. Click on any box to be taken to the GitHub submission inputs.*
+<!-- Note: asterisks (*) in the SVG below are SVG text elements, not markdown -->
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1131.8521456731507 744.0435253901935"><!-- svg-source:excalidraw --><metadata/><defs><style class="style-fonts">
+      @font-face { font-family: Virgil!important; src: url(/assets/Virgil.woff2) }</style></defs><rect x="0" y="0" width="1131.8521456731507" height="744.0435253901935" fill="#ffffff"/><g transform="translate(10 28.00212703339041) rotate(0 60.007090111301366 14.401701626712331)"><text x="0" y="18.395773544520548" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.601843428938356px" fill="#868e96" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Stage 1</text></g><g transform="translate(10 155.2171580693493) rotate(0 60.007090111301366 14.401701626712324)"><text x="0" y="18.395773544520548" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.601843428938356px" fill="#868e96" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Stage 2</text></g><g transform="translate(10 299.23417433647256) rotate(0 60.007090111301366 14.401701626712338)"><text x="0" y="18.395773544520548" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.601843428938356px" fill="#868e96" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Optional</text></g><g transform="translate(10 443.25119060359583) rotate(0 60.007090111301366 14.40170162671231)"><text x="0" y="18.395773544520548" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.601843428938356px" fill="#868e96" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Stage 3</text></g><g transform="translate(10 587.2682068707192) rotate(0 60.007090111301366 14.401701626712338)"><text x="0" y="18.395773544520548" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.601843428938356px" fill="#868e96" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Stage 4</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml"><g stroke-linecap="round" transform="translate(142.015598244863 13.561067708333333) rotate(0 128.75529751712327 30.04290275399543)"><rect x="0" y="0" width="257.51059503424653" height="60.08580550799086" fill="transparent" pointer-events="all"/><path d="M15.02 0 C60.52 0, 106.01 0, 242.49 0 M15.02 0 C76.89 0, 138.76 0, 242.49 0 M242.49 0 C252.5 0, 257.51 5.01, 257.51 15.02 M242.49 0 C252.5 0, 257.51 5.01, 257.51 15.02 M257.51 15.02 C257.51 21.56, 257.51 28.09, 257.51 45.06 M257.51 15.02 C257.51 26.72, 257.51 38.43, 257.51 45.06 M257.51 45.06 C257.51 55.08, 252.5 60.09, 242.49 60.09 M257.51 45.06 C257.51 55.08, 252.5 60.09, 242.49 60.09 M242.49 60.09 C193.43 60.09, 144.37 60.09, 15.02 60.09 M242.49 60.09 C193.4 60.09, 144.3 60.09, 15.02 60.09 M15.02 60.09 C5.01 60.09, 0 55.08, 0 45.06 M15.02 60.09 C5.01 60.09, 0 55.08, 0 45.06 M0 45.06 C0 36.45, 0 27.83, 0 15.02 M0 45.06 C0 36.76, 0 28.46, 0 15.02 M0 15.02 C0 5.01, 5.01 0, 15.02 0 M0 15.02 C0 5.01, 5.01 0, 15.02 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(197.69116858913472 27.509558272688352) rotate(0 73.07972717285155 16.09441218964041)"><text x="73.07972717285156" y="11.89269764733162" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.021451376997714px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">horizontal_grid_cell+</text><text x="73.07972717285156" y="27.987109836972028" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="15.021451376997714px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">g100, g101 … gNNN</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml"><g stroke-linecap="round" transform="translate(778.0907534246575 10) rotate(0 144.0170162671232 33.60397046232876)"><rect x="0" y="0" width="288.0340325342464" height="67.20794092465752" fill="transparent" pointer-events="all"/><path d="M16.8 0 C67.69 0, 118.58 0, 271.23 0 M16.8 0 C86.01 0, 155.21 0, 271.23 0 M271.23 0 C282.43 0, 288.03 5.6, 288.03 16.8 M271.23 0 C282.43 0, 288.03 5.6, 288.03 16.8 M288.03 16.8 C288.03 24.11, 288.03 31.42, 288.03 50.41 M288.03 16.8 C288.03 29.89, 288.03 42.98, 288.03 50.41 M288.03 50.41 C288.03 61.61, 282.43 67.21, 271.23 67.21 M288.03 50.41 C288.03 61.61, 282.43 67.21, 271.23 67.21 M271.23 67.21 C216.36 67.21, 161.48 67.21, 16.8 67.21 M271.23 67.21 C216.32 67.21, 161.41 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(806.1542555926596 25.601843428938352) rotate(0 115.9535140991211 18.00212703339041)"><text x="115.9535140991211" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">vertical_computational_grid+</text><text x="115.9535140991211" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">v100, v101 … vNNN</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml"><g stroke-linecap="round" transform="translate(142.015598244863 136.01488923373284) rotate(0 126.01488923373286 33.60397046232876)"><rect x="0" y="0" width="252.02977846746572" height="67.20794092465752" fill="transparent" pointer-events="all"/><path d="M16.8 0 C60.49 0, 104.17 0, 235.23 0 M16.8 0 C76.21 0, 135.62 0, 235.23 0 M235.23 0 C246.43 0, 252.03 5.6, 252.03 16.8 M235.23 0 C246.43 0, 252.03 5.6, 252.03 16.8 M252.03 16.8 C252.03 24.11, 252.03 31.42, 252.03 50.41 M252.03 16.8 C252.03 29.89, 252.03 42.98, 252.03 50.41 M252.03 50.41 C252.03 61.61, 246.43 67.21, 235.23 67.21 M252.03 50.41 C252.03 61.61, 246.43 67.21, 235.23 67.21 M235.23 67.21 C188.12 67.21, 141.01 67.21, 16.8 67.21 M235.23 67.21 C188.09 67.21, 140.95 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(179.3265613921701 151.6167326626712) rotate(0 88.70392608642578 18.00212703339041)"><text x="88.70392608642578" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">horizontal_subgrid</text><text x="88.70392608642578" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">g100-mass, g103-x-vel</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml"><g stroke-linecap="round" transform="translate(460.0531758347602 136.01488923373284) rotate(0 153.01807978381848 33.60397046232876)"><rect x="0" y="0" width="306.03615956763696" height="67.20794092465752" fill="transparent" pointer-events="all"/><path d="M16.8 0 C71.29 0, 125.78 0, 289.23 0 M16.8 0 C90.9 0, 165 0, 289.23 0 M289.23 0 C300.44 0, 306.04 5.6, 306.04 16.8 M289.23 0 C300.44 0, 306.04 5.6, 306.04 16.8 M306.04 16.8 C306.04 24.11, 306.04 31.42, 306.04 50.41 M306.04 16.8 C306.04 29.89, 306.04 42.98, 306.04 50.41 M306.04 50.41 C306.04 61.61, 300.44 67.21, 289.23 67.21 M306.04 50.41 C306.04 61.61, 300.44 67.21, 289.23 67.21 M289.23 67.21 C230.48 67.21, 171.72 67.21, 16.8 67.21 M289.23 67.21 C230.44 67.21, 171.64 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(488.1381501498287 151.6167326626712) rotate(0 124.93310546875 18.00212703339041)"><text x="124.93310546875" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">horizontal_computational_grid+</text><text x="124.93310546875" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">h100, h101 … hNNN</text></g><g stroke-opacity="0.8" fill-opacity="0.8" transform="translate(429.90190229023966 292.0255110231164) rotate(0 150.01772527825344 21.60255244006848)"><text x="150.0177252782534" y="14.180875535102738" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="13.2015598244863px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">both in  model_family/</text><text x="150.0177252782534" y="35.78342797517123" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="13.2015598244863px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">distinguished by  family_type  field</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml"><g stroke-linecap="round" transform="translate(135.867160744863 280.0240930008561) rotate(0 141.01666176155823 33.60397046232876)"><rect x="0" y="0" width="282.03332352311645" height="67.20794092465752" fill="transparent" pointer-events="all"/><path d="M16.8 0 C66.49 0, 116.18 0, 265.23 0 M16.8 0 C84.37 0, 151.94 0, 265.23 0 M265.23 0 C276.43 0, 282.03 5.6, 282.03 16.8 M265.23 0 C276.43 0, 282.03 5.6, 282.03 16.8 M282.03 16.8 C282.03 24.11, 282.03 31.42, 282.03 50.41 M282.03 16.8 C282.03 29.89, 282.03 42.98, 282.03 50.41 M282.03 50.41 C282.03 61.61, 276.43 67.21, 265.23 67.21 M282.03 50.41 C282.03 61.61, 276.43 67.21, 265.23 67.21 M265.23 67.21 C211.65 67.21, 158.07 67.21, 16.8 67.21 M265.23 67.21 C211.62 67.21, 158 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(155.31071001862824 295.6259364297945) rotate(0 121.57311248779297 18.002127033390423)"><text x="121.57311248779297" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">component_family</text><text x="121.57311248779297" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">nemo, arpege-climat, surfex …</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml"><g stroke-linecap="round" transform="translate(799.1452279204619 285.5056829284492) rotate(0 147.01737077268837 33.60397046232876)"><rect x="0" y="0" width="294.03474154537673" height="67.20794092465752" fill="transparent" pointer-events="all"/><path d="M16.8 0 C68.89 0, 120.98 0, 277.23 0 M16.8 0 C87.64 0, 158.47 0, 277.23 0 M277.23 0 C288.43 0, 294.03 5.6, 294.03 16.8 M277.23 0 C288.43 0, 294.03 5.6, 294.03 16.8 M294.03 16.8 C294.03 24.11, 294.03 31.42, 294.03 50.41 M294.03 16.8 C294.03 29.89, 294.03 42.98, 294.03 50.41 M294.03 50.41 C294.03 61.61, 288.43 67.21, 277.23 67.21 M294.03 50.41 C294.03 61.61, 288.43 67.21, 277.23 67.21 M277.23 67.21 C221.07 67.21, 164.9 67.21, 16.8 67.21 M277.23 67.21 C221.03 67.21, 164.82 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(840.4402628777206 301.10752635738754) rotate(0 105.72233581542974 18.002127033390423)"><text x="105.72233581542969" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">esm_family</text><text x="105.72233581542969" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">hadgem3, cnrm-cm, cesm …</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml"><g stroke-linecap="round" transform="translate(142.015598244863 424.04892176797944) rotate(0 135.01595275042808 33.60397046232879)"><rect x="0" y="0" width="270.03190550085617" height="67.20794092465758" fill="transparent" pointer-events="all"/><path d="M16.8 0 C64.09 0, 111.38 0, 253.23 0 M16.8 0 C81.11 0, 145.42 0, 253.23 0 M253.23 0 C264.43 0, 270.03 5.6, 270.03 16.8 M253.23 0 C264.43 0, 270.03 5.6, 270.03 16.8 M270.03 16.8 C270.03 24.11, 270.03 31.42, 270.03 50.41 M270.03 16.8 C270.03 29.89, 270.03 42.98, 270.03 50.41 M270.03 50.41 C270.03 61.61, 264.43 67.21, 253.23 67.21 M270.03 50.41 C270.03 61.61, 264.43 67.21, 253.23 67.21 M253.23 67.21 C202.24 67.21, 151.25 67.21, 16.8 67.21 M253.23 67.21 C202.2 67.21, 151.18 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(170.75483285564263 439.6507651969178) rotate(0 106.27671813964844 18.002127033390394)"><text x="106.27671813964844" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">model_component+</text><text x="106.27671813964844" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">arpege-v6-3, nemo-v3-6 …</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml"><g stroke-linecap="round" transform="translate(508.05884792380135 424.04892176797944) rotate(0 168.0198523116438 33.60397046232879)"><rect x="0" y="0" width="336.0397046232876" height="67.20794092465758" fill="transparent" pointer-events="all"/><path d="M16.8 0 C77.29 0, 137.78 0, 319.24 0 M16.8 0 C99.06 0, 181.32 0, 319.24 0 M319.24 0 C330.44 0, 336.04 5.6, 336.04 16.8 M319.24 0 C330.44 0, 336.04 5.6, 336.04 16.8 M336.04 16.8 C336.04 24.11, 336.04 31.42, 336.04 50.41 M336.04 16.8 C336.04 29.89, 336.04 42.98, 336.04 50.41 M336.04 50.41 C336.04 61.61, 330.44 67.21, 319.24 67.21 M336.04 50.41 C336.04 61.61, 330.44 67.21, 319.24 67.21 M319.24 67.21 C254.01 67.21, 188.78 67.21, 16.8 67.21 M319.24 67.21 C253.97 67.21, 188.69 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(536.4372054844686 439.6507651969178) rotate(0 139.64149475097656 18.002127033390394)"><text x="139.64149475097656" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">component_config</text><text x="139.64149475097656" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">atmosphere_arpege_h100_v100 …</text></g><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml"><g stroke-linecap="round" transform="translate(364.041831656678 568.0659380351027) rotate(0 171.02020681720893 33.60397046232873)"><rect x="0" y="0" width="342.04041363441786" height="67.20794092465746" fill="transparent" pointer-events="all"/><path d="M16.8 0 C78.49 0, 140.18 0, 325.24 0 M16.8 0 C100.69 0, 184.59 0, 325.24 0 M325.24 0 C336.44 0, 342.04 5.6, 342.04 16.8 M325.24 0 C336.44 0, 342.04 5.6, 342.04 16.8 M342.04 16.8 C342.04 24.11, 342.04 31.42, 342.04 50.41 M342.04 16.8 C342.04 29.89, 342.04 42.98, 342.04 50.41 M342.04 50.41 C342.04 61.61, 336.44 67.21, 325.24 67.21 M342.04 50.41 C342.04 61.61, 336.44 67.21, 325.24 67.21 M325.24 67.21 C258.72 67.21, 192.2 67.21, 16.8 67.21 M325.24 67.21 C258.67 67.21, 192.1 67.21, 16.8 67.21 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M16.8 67.21 C5.6 67.21, 0 61.61, 0 50.41 M0 50.41 C0 40.77, 0 31.13, 0 16.8 M0 50.41 C0 41.12, 0 31.83, 0 16.8 M0 16.8 C0 5.6, 5.6 0, 16.8 0 M0 16.8 C0 5.6, 5.6 0, 16.8 0" stroke="#343a40" stroke-width="2" fill="none"/></g></a><g transform="translate(405.39974599341815 583.667781464041) rotate(0 129.66229248046875 18.002127033390423)"><text x="129.66229248046875" y="13.302371735873287" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">model  (source_id)+</text><text x="129.66229248046875" y="31.304498769263695" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="16.80198523116438px" fill="#343a40" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">cnrm-esm2-1e, hadgem3-gc31-ll …</text></g><g stroke-linecap="round"><g transform="translate(270.53295816758595 79.6468732163242) rotate(0 -1.106789528619771 25.184008008704325)"><path d="M0 0 C-0.44 10.07, -0.89 20.15, -2.21 50.37 M0 0 C-0.6 13.7, -1.2 27.4, -2.21 50.37" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(270.53295816758595 79.6468732163242) rotate(0 -1.106789528619771 25.184008008704325)"><path d="M-9.72 26.52 C-8.22 31.29, -6.72 36.06, -2.21 50.37 M-9.72 26.52 C-7.68 33.01, -5.64 39.49, -2.21 50.37" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(270.53295816758595 79.6468732163242) rotate(0 -1.106789528619771 25.184008008704325)"><path d="M7.36 27.27 C5.45 31.89, 3.53 36.51, -2.21 50.37 M7.36 27.27 C4.76 33.56, 2.15 39.84, -2.21 50.37" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g transform="translate(400.0453767123288 169.62558049015408) rotate(0 27.003899561215718 0)"><path d="M0 0 C10.8 0, 21.6 0, 54.01 0 M0 0 C14.69 0, 29.38 0, 54.01 0" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(400.0453767123288 169.62558049015408) rotate(0 27.003899561215718 0)"><path d="M30.52 8.55 C35.21 6.84, 39.91 5.13, 54.01 0 M30.52 8.55 C36.91 6.22, 43.3 3.9, 54.01 0" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(400.0453767123288 169.62558049015408) rotate(0 27.003899561215718 0)"><path d="M30.52 -8.55 C35.21 -6.84, 39.91 -5.13, 54.01 0 M30.52 -8.55 C36.91 -6.22, 43.3 -3.9, 54.01 0" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g transform="translate(612.1559449884697 209.22283015839037) rotate(0 52.833841237985666 104.41304580479454)"><path d="M0 0 C-0.12 14.41, -0.23 28.82, -0.58 72.05 M0 0 C-0.16 19.6, -0.31 39.19, -0.58 72.05 M-0.58 72.05 C24.54 72.04, 49.66 72.04, 106.24 72.03 M-0.58 72.05 C39.51 72.04, 79.6 72.04, 106.24 72.03 M106.24 72.03 C106.03 99.2, 105.81 126.37, 105.64 147.19 M106.24 72.03 C106.1 90.14, 105.95 108.24, 105.64 147.19 M105.64 147.19 C91.13 147.22, 76.61 147.25, 63.04 147.28 M105.64 147.19 C90.66 147.22, 75.69 147.25, 63.04 147.28 M63.04 147.28 C63.19 164.28, 63.35 181.29, 63.6 208.83 M63.04 147.28 C63.2 165.69, 63.37 184.11, 63.6 208.83" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(612.1559449884697 209.22283015839037) rotate(0 52.833841237985666 104.41304580479454)"><path d="M54.83 185.41 C56.58 190.1, 58.34 194.78, 63.6 208.83 M54.83 185.41 C57.22 191.78, 59.6 198.15, 63.6 208.83" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(612.1559449884697 209.22283015839037) rotate(0 52.833841237985666 104.41304580479454)"><path d="M71.93 185.26 C70.26 189.97, 68.6 194.68, 63.6 208.83 M71.93 185.26 C69.66 191.67, 67.4 198.08, 63.6 208.83" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g transform="translate(920.7469525548835 76.77916053453339) rotate(0 -84.28228823575449 170.63488061672302)"><path d="M0 0 C-0.26 36.23, -0.53 72.47, -1.32 181.17 M0 0 C-0.36 49.28, -0.72 98.55, -1.32 181.17 M-1.32 181.17 C-40.35 181.44, -79.38 181.71, -167.31 182.32 M-1.32 181.17 C-63.61 181.6, -125.91 182.04, -167.31 182.32 M-167.31 182.32 C-167.76 239.79, -168.22 297.25, -168.56 341.27 M-167.31 182.32 C-167.61 220.62, -167.91 258.91, -168.56 341.27" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(920.7469525548835 76.77916053453339) rotate(0 -84.28228823575449 170.63488061672302)"><path d="M-176.93 317.71 C-175.26 322.42, -173.58 327.13, -168.56 341.27 M-176.93 317.71 C-174.65 324.12, -172.38 330.53, -168.56 341.27" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(920.7469525548835 76.77916053453339) rotate(0 -84.28228823575449 170.63488061672302)"><path d="M-159.83 317.85 C-161.58 322.53, -163.32 327.22, -168.56 341.27 M-159.83 317.85 C-162.2 324.22, -164.58 330.59, -168.56 341.27" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g transform="translate(276.9234708492015 353.2320339255136) rotate(0 0.061819163105809594 32.40844392123296)"><path d="M0 0 C0.02 12.96, 0.05 25.93, 0.12 64.82 M0 0 C0.03 17.63, 0.07 35.26, 0.12 64.82" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(276.9234708492015 353.2320339255136) rotate(0 0.061819163105809594 32.40844392123296)"><path d="M-8.47 41.34 C-6.75 46.04, -5.03 50.73, 0.12 64.82 M-8.47 41.34 C-6.13 47.73, -3.8 54.11, 0.12 64.82" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(276.9234708492015 353.2320339255136) rotate(0 0.061819163105809594 32.40844392123296)"><path d="M8.63 41.31 C6.93 46.01, 5.23 50.71, 0.12 64.82 M8.63 41.31 C6.32 47.7, 4 54.1, 0.12 64.82" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g transform="translate(418.04750374571915 457.6596130244007) rotate(0 42.00567208904107 0)"><path d="M0 0 C16.8 0, 33.61 0, 84.01 0 M0 0 C22.85 0, 45.7 0, 84.01 0" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(418.04750374571915 457.6596130244007) rotate(0 42.00567208904107 0)"><path d="M60.52 8.55 C65.22 6.84, 69.92 5.13, 84.01 0 M60.52 8.55 C66.91 6.22, 73.3 3.9, 84.01 0" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(418.04750374571915 457.6596130244007) rotate(0 42.00567208904107 0)"><path d="M60.52 -8.55 C65.22 -6.84, 69.92 -5.13, 84.01 0 M60.52 -8.55 C66.91 -6.22, 73.3 -3.9, 84.01 0" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g transform="translate(674.7487718205314 490.694362692637) rotate(0 -70.56723024887873 35.685787671232845)"><path d="M0 0 C-0.06 7.3, -0.12 14.6, -0.31 36.5 M0 0 C-0.08 9.93, -0.17 19.86, -0.31 36.5 M-0.31 36.5 C-33.42 36.11, -66.54 35.73, -141.13 34.85 M-0.31 36.5 C-53.16 35.88, -106.01 35.26, -141.13 34.85 M-141.13 34.85 C-140.99 48.06, -140.84 61.26, -140.73 71.37 M-141.13 34.85 C-141.04 43.65, -140.94 52.45, -140.73 71.37" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(674.7487718205314 490.694362692637) rotate(0 -70.56723024887873 35.685787671232845)"><path d="M-147.16 54.28 C-145.88 57.7, -144.59 61.12, -140.73 71.37 M-147.16 54.28 C-145.41 58.93, -143.66 63.58, -140.73 71.37" stroke="#343a40" stroke-width="2" fill="none"/></g><g transform="translate(674.7487718205314 490.694362692637) rotate(0 -70.56723024887873 35.685787671232845)"><path d="M-134.67 54.14 C-135.88 57.59, -137.1 61.04, -140.73 71.37 M-134.67 54.14 C-136.32 58.83, -137.97 63.52, -140.73 71.37" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-linecap="round"><g stroke-opacity="0.6" fill-opacity="0.6" transform="translate(1092.9512659819277 318.8293539742064) rotate(0 -264.79420935896536 121.61829203044809)"><path d="M0 0 C5.39 0.03, 10.78 0.05, 26.95 0.13 M0 0 C7.33 0.03, 14.66 0.07, 26.95 0.13 M26.95 0.13 C27.41 48.32, 27.86 96.52, 28.9 205.11 M26.95 0.13 C27.68 77.05, 28.41 153.98, 28.9 205.11 M28.9 205.11 C-183.45 206.31, -395.8 207.51, -558.49 208.43 M28.9 205.11 C-112.61 205.91, -254.11 206.71, -558.49 208.43 M-558.49 208.43 C-558.49 220.29, -558.49 232.15, -558.49 243.24 M-558.49 208.43 C-558.49 220.67, -558.49 232.9, -558.49 243.24" stroke="#343a40" stroke-width="2" fill="none"/></g><g stroke-opacity="0.6" fill-opacity="0.6" transform="translate(1092.9512659819277 318.8293539742064) rotate(0 -264.79420935896536 121.61829203044809)"><path d="M-564.44 226.88 C-563.25 230.15, -562.06 233.42, -558.49 243.24 M-564.44 226.88 C-562.82 231.33, -561.2 235.78, -558.49 243.24" stroke="#343a40" stroke-width="2" fill="none"/></g><g stroke-opacity="0.6" fill-opacity="0.6" transform="translate(1092.9512659819277 318.8293539742064) rotate(0 -264.79420935896536 121.61829203044809)"><path d="M-552.54 226.88 C-553.73 230.15, -554.92 233.42, -558.49 243.24 M-552.54 226.88 C-554.16 231.33, -555.78 235.78, -558.49 243.24" stroke="#343a40" stroke-width="2" fill="none"/></g></g><mask/><g stroke-opacity="0.8" fill-opacity="0.8" transform="translate(309.1664852944151 688.4381369056044) rotate(0 132.01559824486304 10.801276220034254)"><text x="0" y="14.488111836472605" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="14.401701626712331px" fill="#495057" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">—— references (linked field)</text></g><g stroke-opacity="0.8" fill-opacity="0.8" transform="translate(621.2033538731822 688.4381369056044) rotate(0 150.0177252782534 10.801276220034254)"><text x="0" y="14.488111836472601" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="14.401701626712327px" fill="#495057" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"> +  modelling centres to fill in</text></g><g stroke-opacity="0.7" fill-opacity="0.7" transform="translate(309.1664852944151 712.440972950125) rotate(0 360.04254066780817 10.801276220034254)"><text x="0" y="14.488111836472601" font-family="Virgil, sans-serif, Segoe UI Emoji" font-size="14.401701626712327px" fill="#868e96" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Click any box to open the GitHub submission form for that record type</text></g></svg>
+
+---
+
+## What is the Essential Model Documentation?
+
+The EMD is a structured, machine-readable record of how climate models are built. For every model that contributes data to CMIP7, it captures the grids it runs on, the software components it uses, and how those components are coupled together.
+
+It answers the questions that model output alone cannot: *What resolution did this model actually run at? Is this the same ocean grid as that other model? Which components are interactive and which are prescribed?*
+
+---
+
+## What does it contain?
+
+The EMD is organised into nine linked record types, assembled from the bottom up. Items marked with an asterisk (&#42;) are the only ones you will be required to fill in for your EMD submission.
+
+
+
+
+
+#### Grid cells &#42;
+
+Grid cells describe the horizontal geometry a model computes on — the shape, resolution, and number of cells in a 2D tile. A regular 1° latitude-longitude atmosphere grid and a tripolar ocean grid are each their own record, reused by any model that runs on them.
+
+
+
+#### Vertical grids &#42;
+
+Vertical grids capture the layering in the third dimension — how many levels, what coordinate system (pressure, height, depth), and how thick each layer is.
+
+
+
+#### Subgrids
+
+Subgrids record where different physical quantities sit within a horizontal grid — mass variables, east-west velocities, and north-south velocities can each occupy a different stagger point on the same underlying cells. These are atumatically generated as part of the horizontal computational grids and can have multiple projects pointing to the same grid-variable pair.
+
+
+
+#### Computational grids &#42;
+
+Computational grids consist of two pairs to describe a model. The horizontal compuatational grids assemble subgrids into the complete horizontal domain a model component actually uses, including the Arakawa grid arrangement that governs how variables are interpolated and exchanged. Vertical computational grids describe the vertical profile (columns) arrangement ontop of this. 
+
+
+
+#### Component families
+
+Component families document the scientific lineage of a single-domain code base: who built it, what scientific domain it covers, and how it has evolved. Examples include NEMO (ocean), ARPEGE-Climat (atmosphere), and SURFEX (land surface). A component family is referenced by model components at Stage 3.
+
+
+
+#### ESM families
+
+ESM families document the lineage of a coupled Earth System Model — the broader multi-component system that institutions develop and maintain across generations.
+Examples include HadGEM3, CNRM-CM, and CESM. An ESM family is referenced by the final model record at Stage 4.
+
+> Both component families and ESM families are stored in the `model_family` folder. They are distinguished by a `family_type` field: `"component"` or `"model"`.
+
+
+
+#### Model components &#42;
+
+Model components are specific versioned instances of a piece of model software: an atmosphere, ocean, sea-ice, or land-surface code at a specific version, with citable references. Each component references its component family. 
+
+
+
+#### Component configurations
+
+Component configurations bind a component version to a specific horizontal and vertical grid, producing a fully-specified computational setup. The configuration ID encodes this directly — `atmosphere_arpege-climat-version-6-3_h100_v100` is unambiguous and self-describing. Similar to the subgrids this is not a property most users will be engaging with directlt, but rather the items (e.g. model) describing it. 
+
+
+
+#### Models (Source ID) &#42;
+
+Models are the complete assembled system — listing every component configuration, declaring which earth system realms are active or prescribed, recording how components are coupled or embedded within one another, and referencing the ESM family the model belongs to.
+
+---
+
+#### repository Structure?
+
+### The core principle
+
+The backend structure of the EMD is organised around the idea that **each thing that can vary independently gets its own record type.** 
+Information has a single definition that is referenced everywhere it is needed. This is what determines the folder and file structure. Most people will not be interacting with this side of the code, however for those that do want to understand it better, there will be a dev module added [here] once all work for this has completed. 
+
+### Grids are split into four record types
+
+**Grid cells** capture geometry alone — shape, resolution, extent. This is separated out first because grid geometry is genuinely independent of everything else. The same 1° tripolar ocean grid can be used by dozens of models across different institutions. Making it a shared record means a correction propagates automatically to every model that references it.
+
+**Subgrids** capture where different physical variables sit within that geometry. On an Arakawa-C grid, mass variables, east-west velocities, and north-south velocities do not all sit at the same point on the cell — they are staggered. This is a fundamental property of how the discretisation works, and it determines how variables are interpolated and exchanged at component boundaries. Separating subgrid from grid cell means the staggering convention is recorded explicitly rather than implied.
+
+**Computational grids** assemble a set of subgrids into the complete domain that a component actually runs on. This is separated from the cell and subgrid records because the same physical cells can be assembled differently — with different arrangements or different subsets of variable types — by different components.
+
+**Vertical grids** are kept entirely separate from the horizontal records because vertical structure varies completely independently. A model can increase horizontal resolution without touching its 85-level atmosphere, or adopt a new vertical coordinate in the ocean while keeping the same horizontal grid. Combining vertical and horizontal into one record would force a new record every time either changed.
+
+Together, the four grid types answer a question that is otherwise unanswerable from model output alone: exactly what computational space was this variable defined on?
+
+### The different kinds of family
+
+The `model_family` folder holds records for both **component families** and **ESM families**, distinguished by a `family_type` field. They are stored together because they share the same structure — institution, lineage, scientific domains, references — but they serve different purposes in the hierarchy.
+
+**Component families** (type: `"component"`) group versions of a single-domain code base. NEMO as a family encompasses NEMO v3.6, v4.0, and so on. This lineage matters for understanding which model generations share numerical methods and parameterisations, and for tracking how a component evolved independently of whatever coupled model it was embedded in.
+
+**ESM families** (type: `"model"`) group configurations of a coupled Earth System Model across generations. HadGEM3 as a family encompasses HadGEM3-GC31-LL, HadGEM3-GC31-MM, and future successors. This lineage matters for genealogy analysis — understanding which models are structurally related and how the community's ensemble of models is distributed across independent development lines.
+
+Keeping them in one folder with a type field, rather than two separate folders, reflects the fact that the distinction is about *how the family is used*, not about what a family record contains.
+
+### Components are split into two
+
+**Model components** define a specific versioned instances of a piece of software: ARPEGE-Climat version 6.3, NEMO v3.6. They are separated from the family because different versions of the same component have different scientific properties and different citable references, and from the grid configuration because the same version can be deployed at different resolutions.
+
+**Component configurations** are the binding: this component version, on this horizontal grid, on this vertical grid. This is the key reuse point. If two models both run NEMO v3.6 on the same 1° tripolar grid at 75 levels, they share the same component configuration record. That shared record is what makes the comparison between the two models computable rather than inferential.
+
+### Source / Model
+
+The model (source_id) record does not describe any individual component or grid. It describes a system — which component configurations are present, which realms are active or prescribed, and how the components exchange information with one another. The coupling and embedding topology lives here because it is a property of the assembled system, not of any individual part.
+
+The model record is deliberately thin. It holds IDs of component configurations and an ESM family reference, not copies of their content. If an ocean grid specification needs to be corrected, the correction happens in one grid cell record and is immediately reflected in every model that references it. The idea is that once registered, the model id can be used directly within a project. In another project wants to use a similar (but not identical) configuration, then a new source id would be required. 
+
+### The design in one sentence
+
+Each folder corresponds to a distinct scientific concept that varies independently of the others, so that any one aspect of a model configuration can be linked , shared, or be modified (corrected) without causing breaking errors or duplication.
+
+---
+
+#### Who does this affect. ?
+
+### For data users
+
+The EMD makes that configuration machine-readable and linkable, rather than buried in prose documentation or spread across incompatible metadata fields. It enables programmatic filtering: find all models with a native ocean resolution finer than 0.5°, or all models where aerosols are interactive rather than prescribed.
+
+### For scientists looking at model intercomparison
+
+It makes structural similarity computable. Two models with identical coupling topologies can be identified automatically, not by manually reading papers.
+
+### For software and infrastructure
+
+The grid records are shared reference objects. Regridding tools, data pipelines, and visualisation systems can look up the exact grid specification rather than inferring it from the data itself.
+
+### For reproducibility
+
+A model record pinned to specific component versions and grid IDs is an unambiguous description of a configuration — enough to reconstruct what was run.
+
+---
+
+#### References
 
 - [EMD Specification v1.1](https://doi.org/10.5281/zenodo.17853724) — the complete specification with property definitions, controlled vocabularies, and worked examples
 - [CMIP7 Grid Guidance v1.0](https://doi.org/10.5281/zenodo.15697025) — companion guidance on grid description

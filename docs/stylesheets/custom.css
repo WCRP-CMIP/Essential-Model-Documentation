@@ -2,6 +2,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans:wght@400;500;600;700&display=swap');
 
+
+@font-face {
+  font-family: Virgil; /* set name */
+  src: url(/assets/Virgil.woff2); /* url of the font */
+}
+
+svg text, 
+svg [font-family*="Virgil"] {
+  font-family: Virgil, sans-serif !important;
+}
 /* ============================================
    CSS VARIABLES - BLUE THEME
    ============================================ */
@@ -688,6 +698,13 @@ article h2 {
 article h3 {
   font-family: "Noto Sans", var(--font-sans), system-ui !important;
   font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--emd-text) !important;
+}
+
+article h4 {
+  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-size: 0.95rem !important;
   font-weight: 600 !important;
   color: var(--emd-text) !important;
 }
