@@ -457,9 +457,11 @@ _NAV_CSS = """
   color: var(--sidebar-accent-foreground, inherit);
 }
 #custom-nav a.active {
-  background: var(--accent, rgba(0,0,0,0.09));
-  color: var(--foreground, inherit);
-  font-weight: var(--font-weight-medium, 500);
+  background: transparent;
+  color: var(--emd-primary, #2196f3);
+  font-weight: var(--font-weight-semibold, 600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* Group label row */
