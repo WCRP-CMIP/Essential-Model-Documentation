@@ -28,10 +28,8 @@ ALL_BRANCHES=$(git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/hea
 STALE=()
 
 while IFS= read -r branch; do
-    # Skip main protected branches
-    case "$branch" in
-        main|production|src-data|docs|develop|master) continue ;;
-    esac
+    # Only consider branches with new_ or modify_ in the name
+    [[ "$branch" != *new_* && "$branch" != *modify_* ]] && continue
 
     # PRs on this branch
     open_count=$(echo "$ALL_PRS" | jq --arg b "$branch" \
