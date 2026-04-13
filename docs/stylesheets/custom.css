@@ -66,7 +66,6 @@ svg tspan {
   --accent-foreground: 222.2 47.4% 11.2%;
   --sidebar-primary: 213 94% 68%;
   --sidebar-primary-foreground: 222.2 47.4% 11.2%;
-  --sidebar-accent: 213 94% 68%;
   --ring: 213 94% 68%;
   
   color: var(--emd-text);
@@ -254,6 +253,24 @@ nav a {
 
 [data-slot="sidebar-group-content"] ul {
   gap: 0 !important;
+}
+
+/* Strip ALL background colours from sidebar buttons — hover, active, focus, any state */
+[data-slot="sidebar-menu-button"],
+[data-slot="sidebar-menu-button"]:hover,
+[data-slot="sidebar-menu-button"]:active,
+[data-slot="sidebar-menu-button"]:focus,
+[data-slot="sidebar-menu-button"]:focus-visible {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Remove theme gradient overlays from the sidebar */
+.bg-gradient-to-b {
+  background-image: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
 }
 
 /* ============================================
