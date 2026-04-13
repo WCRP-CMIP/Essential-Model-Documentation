@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # pr_issue_map.sh
 #
-# Gets all pull requests and maps them to the issues that reference them
-# via Resolves/Fixes/Closes #N in the issue body.
-#
+# Lists open PRs, the issues they reference, and their review status.
 # Usage:
-#   .github/pr_issue_map.sh           # print mapping
-#   .github/pr_issue_map.sh --json    # output as JSON
+#   .github/pr_issue_map.sh              # open PRs, pretty print
+#   .github/pr_issue_map.sh --all        # all PRs, pretty print
+#   .github/pr_issue_map.sh --json       # open PRs, JSON output
+#   .github/pr_issue_map.sh --all --json # all PRs, JSON output
 
 set -euo pipefail
 
@@ -18,35 +18,61 @@ for arg in "$@"; do
 done
 
 REPO=$(gh repo view --json nameWithOwner --jq '.nameWithOwner')
-
 echo "Fetching PRs and issues for $REPO..." >&2
 
-# Fetch all PRs (open + closed) with number and title
-ALL_PRS=$(gh pr list --repo "$REPO" --state "$PR_STATE" --limit 500 --json number,title,state,body)
+# Fetch PRs with reviews
+ALL_PRS=$(gh pr list --repo "$REPO" --state "$PR_STATE" --limit 500 \
+    --json number,title,state,body,reviews)
 
-# Fetch all issues (open + closed) with number, title, state, body
-ALL_ISSUES=$(gh issue list --repo "$REPO" --state all --limit 500 --json number,title,state,body)
+# Fetch all issues (open + closed)
+ALL_ISSUES=$(gh issue list --repo "$REPO" --state all --limit 500 \
+    --json number,title,state)
 
-# Build mapping: for each PR, extract issues referenced in the PR body
+# Build mapping: for each PR, extract linked issues + review summary
 MAPPING=$(echo "$ALL_PRS" | jq -c '.[]' | while IFS= read -r pr; do
-    pr_num=$(echo "$pr" | jq -r '.number')
+    pr_num=$(echo "$pr"   | jq -r '.number')
     pr_title=$(echo "$pr" | jq -r '.title')
     pr_state=$(echo "$pr" | jq -r '.state')
-    pr_body=$(echo "$pr" | jq -r '.body // ""')
+    pr_body=$(echo "$pr"  | jq -r '.body // ""')
+    reviews=$(echo "$pr"  | jq -c '.reviews // []')
 
-    # Extract issue numbers referenced in this PR's body
-    issue_nums=$(echo "$pr_body" | grep -oiE '(resolves|fixes|closes)[[:space:]]+#[0-9]+' | grep -oE '[0-9]+' || true)
+    # Summarise reviews: approved / commented / changes_requested
+    approved=$(echo "$reviews"  | jq '[.[] | select(.state=="APPROVED")]  | length')
+    commented=$(echo "$reviews" | jq '[.[] | select(.state=="COMMENTED")] | length')
+    changes=$(echo "$reviews"   | jq '[.[] | select(.state=="CHANGES_REQUESTED")] | length')
 
-    # Look up each referenced issue's title and state
+    # Unique reviewers per state
+    approvers=$(echo "$reviews"  | jq -r '[.[] | select(.state=="APPROVED")  | .author.login] | unique | join(", ")')
+    commenters=$(echo "$reviews" | jq -r '[.[] | select(.state=="COMMENTED") | .author.login] | unique | join(", ")')
+
+    # Extract referenced issue numbers from PR body
+    issue_nums=$(echo "$pr_body" | grep -oiE '(resolves|fixes|closes)[[:space:]]+#[0-9]+' \
+        | grep -oE '[0-9]+' || true)
+
     linked_issues=$(echo "$issue_nums" | while IFS= read -r inum; do
         [[ -z "$inum" ]] && continue
-        echo "$ALL_ISSUES" | jq -c --arg n "$inum" '.[] | select(.number == ($n | tonumber)) | {number, title, state}'
+        echo "$ALL_ISSUES" | jq -c --arg n "$inum" \
+            '.[] | select(.number == ($n | tonumber)) | {number, title, state}'
     done | jq -s '.')
-
     [[ -z "$linked_issues" ]] && linked_issues='[]'
 
-    echo "{\"pr\": $pr_num, \"pr_title\": $(echo "$pr_title" | jq -Rs .), \"pr_state\": \"$pr_state\", \"linked_issues\": $linked_issues}"
+    jq -n \
+        --argjson pr_num "$pr_num" \
+        --arg     pr_title "$pr_title" \
+        --arg     pr_state "$pr_state" \
+        --argjson approved "$approved" \
+        --argjson commented "$commented" \
+        --argjson changes "$changes" \
+        --arg     approvers "$approvers" \
+        --arg     commenters "$commenters" \
+        --argjson linked_issues "$linked_issues" \
+        '{pr: $pr_num, pr_title: $pr_title, pr_state: $pr_state,
+          reviews: {approved: $approved, commented: $commented,
+                    changes_requested: $changes,
+                    approvers: $approvers, commenters: $commenters},
+          linked_issues: $linked_issues}'
 done | jq -s '.')
+
 
 if [[ "$JSON" == "true" ]]; then
     echo "$MAPPING" | jq '.'
@@ -55,13 +81,19 @@ fi
 
 # Pretty print
 echo ""
-echo "$MAPPING" | jq -r '.[] | select(.linked_issues | length > 0) |
-    "PR #\(.pr) [\(.pr_state)] — \(.pr_title)",
-    (.linked_issues[] | "  └─ Issue #\(.number) [\(.state)] — \(.title)"),
+echo "$MAPPING" | jq -r '.[] |
+    "PR #\(.pr) [\(.pr_state | ascii_upcase)] — \(.pr_title)",
+    "  Reviews : ✓ \(.reviews.approved) approved  💬 \(.reviews.commented) commented  ✗ \(.reviews.changes_requested) changes requested",
+    (if .reviews.approvers   != "" then "  Approved by  : \(.reviews.approvers)"   else empty end),
+    (if .reviews.commenters  != "" then "  Commented by : \(.reviews.commenters)"  else empty end),
+    (if (.linked_issues | length) > 0 then
+        (.linked_issues[] | "  └─ Issue #\(.number) [\(.state)] — \(.title)")
+    else
+        "  └─ (no linked issues)"
+    end),
     ""'
 
-# Summary of PRs with no linked issues
-NO_LINKS=$(echo "$MAPPING" | jq '[.[] | select(.linked_issues | length == 0)] | length')
 TOTAL=$(echo "$MAPPING" | jq 'length')
+REVIEWED=$(echo "$MAPPING" | jq '[.[] | select(.reviews.approved > 0 or .reviews.commented > 0)] | length')
 echo "---"
-echo "$(echo "$MAPPING" | jq '[.[] | select(.linked_issues | length > 0)] | length') / $TOTAL PRs have linked issues ($NO_LINKS unlinked)."
+echo "$TOTAL PR(s) shown — $REVIEWED with reviews."
