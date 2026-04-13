@@ -12,6 +12,13 @@ svg text,
 svg [font-family*="Virgil"] {
   font-family: Virgil, sans-serif !important;
 }
+
+/* SVG text elements should never intercept clicks — let them pass through to
+   the underlying <a> / <rect> elements that carry the actual href. */
+svg text,
+svg tspan {
+  pointer-events: none;
+}
 /* ============================================
    CSS VARIABLES - BLUE THEME
    ============================================ */
