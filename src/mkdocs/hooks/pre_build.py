@@ -15,19 +15,16 @@ _FONT_PLACEHOLDER = "https://emd.mipcvs.dev/docs/assets/Virgil.woff2"
 
 def on_page_content(html, page, config, **kwargs):
     """
-    Replace the hardcoded font URL with a relative path based on page depth.
-    e.g. a page at docs/Submission-Guide/index.html is 1 level deep,
-    so the font URL becomes ../assets/Virgil.woff2
+    Replace the hardcoded font URL with an absolute URL derived from site_url.
+    The SVG @font-face is inline HTML, so relative paths resolve against the
+    page URL which varies by depth — an absolute URL is the only safe option.
     """
     if _FONT_PLACEHOLDER not in html:
         return html
 
-    # page.url is like '' (root), 'Submission-Guide/', 'Table_Summaries/model/'
-    depth = len([p for p in page.url.split("/") if p])
-    prefix = "../" * depth if depth else ""
-    relative_url = f"{prefix}assets/Virgil.woff2"
-
-    return html.replace(_FONT_PLACEHOLDER, relative_url)
+    site_url = config.get("site_url", "/").rstrip("/")
+    font_url = f"{site_url}/assets/Virgil.woff2"
+    return html.replace(_FONT_PLACEHOLDER, font_url)
 
 
 def on_pre_build(config, **kwargs):
