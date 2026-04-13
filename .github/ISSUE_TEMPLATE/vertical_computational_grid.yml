@@ -170,9 +170,9 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Additional Information
+      label: Description
       description: |
-        Any additional information that may distinguish this specific grid from others with the same properties.
+        Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -186,7 +186,6 @@ body:
         **Leave blank if** the structured fields fully describe the grid.
         
         </details>
-      placeholder: "Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None"
 
   - type: markdown
     attributes:

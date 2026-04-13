@@ -138,10 +138,9 @@ body:
   - type: dropdown
     id: region
     attributes:
-      multiple: true
       label: Region
       description: |
-        The geographic coverage area of the grid. **Select multiple.**
+        The geographic coverage area of the grid.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -157,6 +156,7 @@ body:
         
         </details>
       options:
+        - "Not specified"
         - "30s-90s"
         - "antarctica"
         - "arctic"
@@ -167,6 +167,7 @@ body:
         - "shem"
         - "southern_hemisphere"
         - "tropics"
+      default: 0
     validations:
       required: true
 
@@ -353,10 +354,9 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Additional Information
+      label: Description
       description: |
-        Any additional information that may distinguish this specific grid from others with the same properties.
-      placeholder: "Any additional information that may distinguish this specific grid from others with the same properties. Leave blank if None"
+        Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.
 
   - type: markdown
     attributes:
