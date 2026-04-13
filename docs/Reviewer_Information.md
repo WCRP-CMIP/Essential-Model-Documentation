@@ -7,8 +7,8 @@
 These are pages that provide guidance to reviewers, and anyone else interested in their submissions and how they get processsed. Not everything visible on this page will be public. 
 
 ## Useful links for users
-	- [Link for submitters to track their Issues](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
-	- [Link for how to edit an Issue, and rerun the actions](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible)
+- [Link for submitters to track their Issues](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
+- [Link for how to edit an Issue, and rerun the actions](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible)
 
 ## review procedure. 
 1. (tbc) action autoassigns reviewers
