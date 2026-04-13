@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: Virgil; /* set name */
-  src: url(/assets/Virgil.woff2); /* url of the font */
+  src: url(https://emd.mipcvs.dev/docs/assets/Virgil.woff2); /* url of the font */
 }
 
 svg text, 
@@ -256,10 +256,35 @@ nav a {
   gap: 0 !important;
 }
 
-/* Active sidebar item text color */
+/* ============================================
+   ACTIVE SIDEBAR ITEM — clean colour + underline only
+   ============================================ */
+
+/* Strip the background pill, border, and pseudo-element shape */
+[data-slot="sidebar-menu-button"][data-active="true"],
+[data-slot="sidebar-menu-button"][data-active="true"]:hover,
+[data-active="true"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Also kill the ::after pseudo-element the theme uses for the rounded pill */
+[data-slot="sidebar-menu-button"][data-active="true"]::after,
+[data-active="true"]::after {
+  display: none !important;
+  background: transparent !important;
+}
+
+/* Colour change + underline on the text */
 [data-active="true"],
-.data-\[active\=true\]\:text-sidebar-accent-foreground[data-active=true] {
+[data-active="true"] span,
+[data-active="true"] a {
   color: var(--emd-primary) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  font-weight: 600 !important;
 }
 
 /* Reduce vertical spacing between nav items */
