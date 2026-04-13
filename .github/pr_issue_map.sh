@@ -11,14 +11,18 @@
 set -euo pipefail
 
 JSON=false
-[[ "${1:-}" == "--json" ]] && JSON=true
+PR_STATE="open"
+for arg in "$@"; do
+    [[ "$arg" == "--json" ]] && JSON=true
+    [[ "$arg" == "--all" ]]  && PR_STATE="all"
+done
 
 REPO=$(gh repo view --json nameWithOwner --jq '.nameWithOwner')
 
 echo "Fetching PRs and issues for $REPO..." >&2
 
 # Fetch all PRs (open + closed) with number and title
-ALL_PRS=$(gh pr list --repo "$REPO" --state all --limit 500 --json number,title,state,body)
+ALL_PRS=$(gh pr list --repo "$REPO" --state "$PR_STATE" --limit 500 --json number,title,state,body)
 
 # Fetch all issues (open + closed) with number, title, state, body
 ALL_ISSUES=$(gh issue list --repo "$REPO" --state all --limit 500 --json number,title,state,body)
