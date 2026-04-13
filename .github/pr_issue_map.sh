@@ -73,7 +73,7 @@ fi
 
 # Pretty print
 echo ""
-echo "$MAPPING" | jq -r '.[] |
+echo "$MAPPING" | jq -r '[.[] | select(.reviews.approved == "")] |  .[] |
     "PR #\(.pr) [\(.pr_state | ascii_upcase)] — \(.pr_title)",
     (if .reviews.approved != "" then "  ✓ Approved : \(.reviews.approved)" else "  ✓ Approved : —" end),
     (if .reviews.engaged  != "" then "  💬 Engaged : \(.reviews.engaged)"  else "  💬 Engaged : —" end),
