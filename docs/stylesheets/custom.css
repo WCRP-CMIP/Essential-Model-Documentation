@@ -266,6 +266,13 @@ nav a {
   box-shadow: none !important;
 }
 
+/* Remove theme gradient overlays from the sidebar */
+.bg-gradient-to-b {
+  background-image: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
 /* ============================================
    ACTIVE SIDEBAR ITEM — clean colour + underline only
    ============================================ */
