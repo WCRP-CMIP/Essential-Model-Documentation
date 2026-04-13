@@ -784,77 +784,138 @@ def inject_nav(site_dir: Path, nav: list):
     print(f'  [post_build] Nav injected into {injected} HTML files + emd-nav.css written')
 
 
-def _extract_search_block(site_dir: Path) -> str:
-    """
-    Pull the search button + dialog HTML from a built MkDocs index page.
-    Returns an empty string if not found.
-    """
-    for candidate in [site_dir / 'index.html',
-                      site_dir / 'Submission-Guide' / 'index.html']:
-        if not candidate.exists():
-            continue
-        text = candidate.read_text(encoding='utf-8')
-        if 'search-dialog' not in text:
-            continue
-        # Locate button that opens the dialog
-        btn_start = text.rfind('<button', 0, text.find('search-dialog'))
-        if btn_start < 0:
-            continue
-        # Locate end of the inline shortcut re-registration script
-        dialog_pos   = text.find('</dialog>')
-        script_end   = text.find('</script>', dialog_pos)
-        if script_end < 0:
-            continue
-        return text[btn_start: script_end + len('</script>')]
-    return ''
+_EMD_SEARCH_JS = r"""
+(function(){
+  var DOCS = __SEARCH_DOCS__;
+
+  /* ── tokenise query into lowercase words ── */
+  function tokenise(q){
+    return q.toLowerCase().replace(/[^\w\s]/g,' ').split(/\s+/).filter(function(t){return t.length>1;});
+  }
+
+  /* ── score a doc against tokens ── */
+  function score(doc, tokens){
+    var s=0, title=(doc.title||'').toLowerCase(), text=(doc.text||'').toLowerCase();
+    for(var i=0;i<tokens.length;i++){
+      var t=tokens[i];
+      if(title.indexOf(t)>=0) s+=10;
+      var idx=0, n=0;
+      while((idx=text.indexOf(t,idx))>=0){n++;idx++;}
+      s+=n;
+    }
+    return s;
+  }
+
+  /* ── extract a short snippet around the first match ── */
+  function snippet(text, tokens){
+    var lo=text.toLowerCase(), best=-1;
+    for(var i=0;i<tokens.length;i++){
+      var idx=lo.indexOf(tokens[i]);
+      if(idx>=0&&(best<0||idx<best)) best=idx;
+    }
+    if(best<0) return text.slice(0,120)+'…';
+    var start=Math.max(0,best-60), end=Math.min(text.length,best+120);
+    return (start>0?'…':'')+text.slice(start,end).trim()+(end<text.length?'…':'');
+  }
+
+  /* ── resolve a search result URL relative to current page ── */
+  function resolveUrl(loc){
+    /* loc is like '' (root), 'Submission-Guide/', 'Submission-Guide/#stage-1' */
+    var base = (typeof NAV_PREFIX !== 'undefined') ? NAV_PREFIX : './';
+    return base + loc;
+  }
+
+  /* ── run search and render results ── */
+  function runSearch(q){
+    var results = document.getElementById('mkdocs-search-results');
+    if(!results) return;
+    results.innerHTML = '';
+    if(!q||q.length<2){return;}
+    var tokens = tokenise(q);
+    if(!tokens.length) return;
+
+    var scored = [];
+    for(var i=0;i<DOCS.length;i++){
+      var s=score(DOCS[i],tokens);
+      if(s>0) scored.push({doc:DOCS[i],score:s});
+    }
+    scored.sort(function(a,b){return b.score-a.score;});
+    scored = scored.slice(0,12);
+
+    if(!scored.length){
+      results.innerHTML='<p>No results for "'+q+'"</p>';
+      return;
+    }
+    for(var j=0;j<scored.length;j++){
+      var d=scored[j].doc;
+      var snip=snippet(d.text||'',tokens);
+      var url=resolveUrl(d.location);
+      results.innerHTML+='<article><h3><a href="'+url+'">'+d.title+'</a></h3><p>'+snip+'</p></article>';
+    }
+  }
+
+  /* ── wire up the existing search input ── */
+  function init(){
+    var input = document.querySelector('[data-slot="command-input"]');
+    if(!input) return;
+    input.addEventListener('input', function(){ runSearch(this.value.trim()); });
+    input.addEventListener('keydown', function(e){
+      if(e.key==='Enter'){
+        var first=document.querySelector('#mkdocs-search-results article a');
+        if(first){window.location.href=first.href;}
+      }
+    });
+  }
+
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+"""
 
 
 def inject_search(site_dir: Path):
     """
-    For every standalone .html page (i.e. pages that don't already have the
-    MkDocs theme search dialog), inject:
-      - the search button + dialog HTML extracted from index.html
-      - <script src="…/js/callbacks.js"> (defines onSearchBarClick etc.)
-      - <script src="…/search/main.js"> (starts the Lunr web worker)
-
-    MkDocs-built index pages already have all this — we only patch standalone
-    pages such as Similarity.html.
+    Replace the MkDocs Lunr worker-based search with a self-contained
+    client-side search. The full search index is embedded directly into
+    each page as a JS variable — no fetch, no worker, no base_url needed.
+    Works on any origin (mipcvs.dev, GitHub Pages, localhost).
     """
-    search_block = _extract_search_block(site_dir)
-    if not search_block:
-        print('  [post_build] search block not found — skipping search injection')
+    # Load the search index built by MkDocs
+    index_path = site_dir / 'search' / 'search_index.json'
+    if not index_path.exists():
+        print('  [post_build] search_index.json not found — skipping search injection')
         return
 
-    # Similarity pages are self-contained D3 visualisations — no search bar.
-    SEARCH_SKIP = {'Similarity.html'}
+    try:
+        index_data = json.loads(index_path.read_text(encoding='utf-8'))
+        docs = index_data.get('docs', [])
+    except Exception as e:
+        print(f'  [post_build] could not read search index: {e}')
+        return
+
+    docs_json = json.dumps(docs)
+    search_js = _EMD_SEARCH_JS.replace('__SEARCH_DOCS__', docs_json)
 
     patched = 0
-    for html in site_dir.rglob('*.html'):
-        if html.name in SEARCH_SKIP:
-            continue
-        content = html.read_text(encoding='utf-8')
-        # Skip pages that already have the search dialog
-        if 'search-dialog' in content:
-            continue
-        # Skip pages where the nav marker hasn't been written yet
-        if _NAV_MARKER not in content:
+    for html_path in site_dir.rglob('*.html'):
+        content = html_path.read_text(encoding='utf-8')
+        if 'search-dialog' not in content:
             continue
 
-        depth  = len(html.relative_to(site_dir).parts) - 1
-        prefix = '../' * depth if depth else './'
+        # Remove existing worker scripts (main.js loads the Lunr worker)
+        content = re.sub(r'<script[^>]+search/main\.js[^>]*></script>', '', content)
+        content = re.sub(r'<script[^>]+search/worker\.js[^>]*></script>', '', content)
 
-        scripts = (
-            f'<script src="{prefix}js/callbacks.js"></script>'
-            f'<script src="{prefix}search/main.js"></script>'
-        )
-        # Insert right before </body> — after nav, before close
-        injection = f'{search_block}\n{scripts}'
-        new = content.replace('</body>', f'  {injection}\n</body>')
-        if new != content:
-            html.write_text(new, encoding='utf-8')
-            patched += 1
+        # Inject our search script if not already present
+        if 'mkdocs-search-results' in content and 'EMD_SEARCH_DOCS' not in content:
+            tag = f'<script>/* emd-search */\n{search_js}</script>'
+            new = content.replace('</body>', f'  {tag}\n</body>')
+            if new != content:
+                html_path.write_text(new, encoding='utf-8')
+                patched += 1
 
-    print(f'  [post_build] Search injected into {patched} standalone HTML files')
+    print(f'  [post_build] EMD search injected into {patched} HTML files')
 
 
 # ─────────────────────────────────────────────────────────────────────────────
