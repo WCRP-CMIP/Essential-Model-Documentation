@@ -90,8 +90,8 @@ esac
 echo ""
 echo "$MAPPING" | jq -r "[.[] | $FILTER] | .[] |
     \"PR #\(.pr) [\(.pr_state | ascii_upcase)] — \(.pr_title)\",
-    (if .reviews.approved != \"\" then \"  ✓ Approved : \(.reviews.approved)\" else \"  ✓ Approved : —\" end),
-    (if .reviews.engaged  != \"\" then \"  💬 Engaged : \(.reviews.engaged)\"  else \"  💬 Engaged : —\" end),
+    (if .reviews.approved != \"\" then \"  [+] Approved : \(.reviews.approved)\" else \"  [+] Approved : -\" end),
+    (if .reviews.engaged  != \"\" then \"  [~] Engaged  : \(.reviews.engaged)\"  else \"  [~] Engaged  : -\" end),
     (if (.linked_issues | length) > 0 then
         (.linked_issues[] | \"  └─ Issue #\(.number) [\(.state)] — \(.title)\")
     else
