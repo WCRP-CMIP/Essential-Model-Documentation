@@ -1,0 +1,24 @@
+
+
+
+
+
+### Listing pull requests using the command line 
+There is a tool in the main branch of the repository that allows reviewers to quickly see what pull requests are linked to which issue. 
+
+This can be run with `git checkout main && .github/pr_issue_map.sh`
+
+```bash
+PR #86 [OPEN] — New Horizontal_computational_grid : g108-mass | tempgrid_wolfiex-1774629370
+  [+] Approved : -
+  [~] Engaged  : -
+  └─ Issue #80 [OPEN] — New Horizontal_computational_grid : g108-mass, tempgrid_wolfiex-1774629370
+
+PR #78 [OPEN] — New Vertical_computational_grid : tempgrid_wolfiex-1774628619
+  [+] Approved : -
+  [~] Engaged  : davidhassell
+  └─ Issue #77 [OPEN] — New Vertical_computational_grid : tempgrid_wolfiex-1774628619
+```
+We can filter by `--approved`, `--needs-review` tags as well as using the `--json` output option. 
+
+
