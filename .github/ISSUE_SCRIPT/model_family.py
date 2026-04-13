@@ -32,8 +32,16 @@ def _clean_id(s: str) -> str:
 def _parse_list(value) -> list:
     if isinstance(value, list):
         return [str(v).strip() for v in value if str(v).strip()]
-    delim = '\n' if '\n' in str(value) else ','
-    return [v.strip() for v in str(value).split(delim) if v.strip()]
+    s = str(value)
+    # Split on newlines or commas first; fall back to whitespace (e.g. space-separated URLs)
+    if '\n' in s:
+        parts = s.split('\n')
+    elif ',' in s:
+        parts = s.split(',')
+    else:
+        import re
+        parts = re.split(r'\s+(?=https?://)', s)
+    return [v.strip() for v in parts if v.strip()]
 
 
 def run(parsed_issue, issue, dry_run=False):
