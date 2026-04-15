@@ -10,6 +10,11 @@ These are pages that provide guidance to reviewers, and anyone else interested i
 - [Link for submitters to track their Issues](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)
 - [Link for how to edit an Issue, and rerun the actions](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible)
 
+### General rules
+- IDs shall not have any underscores or spaces. Any periods "." are to be replaced with dashes "-".
+- Grid descriptions should only exist to define a difference between grid cells with identical parameters, but different physical properties that cannot be documented within the current structure. 
+- Links should point to permanent locations. These are Version Control Interfaces (Github, Bitbucket, GitLab etc. ) or DOI's. Users can mint a document or repository using [Zenodo](https://zenodo.org/) for free if required. 
+
 ## review procedure. 
 1. (tbc) action autoassigns reviewers
 2. reviewer looks at submission, Approves, or makes a suggestion. *Suggestions to be made on original issue*
