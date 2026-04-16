@@ -51,6 +51,27 @@ body:
         
         </details>
       options:
+        - "Not specified"
+        - "air-potential-temperature"
+        - "air-pressure"
+        - "atmosphere-hybrid-height-coordinate"
+        - "atmosphere-hybrid-sigma-pressure-coordinate"
+        - "atmosphere-ln-pressure-coordinate"
+        - "atmosphere-sigma-coordinate"
+        - "atmosphere-sleve-coordinate"
+        - "depth"
+        - "geopotential-height"
+        - "height"
+        - "land-ice-sigma-coordinate"
+        - "ocean-double-sigma-coordinate"
+        - "ocean-s-coordinate"
+        - "ocean-s-coordinate-g1"
+        - "ocean-s-coordinate-g2"
+        - "ocean-sigma-coordinate"
+        - "ocean-sigma-z-coordinate"
+        - "sea-water-potential-temperature"
+        - "sea-water-pressure"
+        - "z-star"
       default: 0
     validations:
       required: true
