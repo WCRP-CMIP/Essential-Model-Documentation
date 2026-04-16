@@ -160,8 +160,8 @@ Check `description` and `references` only:
 - `validation_key` — internal identifier, auto-managed; **do not comment on this field**
 - `ui_label` — auto-generated display label
 - `description` when empty or blank — intentionally optional and **ideal for grids**; do not flag, do not suggest filling in
-- `z*` as a `vertical_coordinate` value — this is a valid shorthand for the z-star ocean
-  coordinate; do not flag it as non-standard or suggest replacing it
+- `z*` or `z-star` as a `vertical_coordinate` value — both are valid forms of the z-star ocean
+  coordinate; do not flag either as non-standard or suggest replacing them
 - `tempgrid_*` values — temporary, renamed on merge
 - Filenames, field names, JSON structure — syntax, out of scope
 - The PR targeting `src-data` — correct workflow
