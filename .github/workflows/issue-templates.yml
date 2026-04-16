@@ -33,23 +33,30 @@ jobs:
 
       - name: Generate templates
         continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "Generating issue templates..."
 
-          # Start LDR server in this step's shell so it stays alive for the full step
+          # ldr server start already daemonizes itself — do not add &
           echo "Starting LDR server..."
-          ldr server start &
+          ldr server stop 2>/dev/null || true
+          ldr server start
 
-          # Wait for server to be ready with health check
-          echo "Waiting for LDR server to be ready..."
-          for i in {1..30}; do
-            if curl -s http://localhost:3333/health >/dev/null 2>&1; then
-              echo "✅ LDR server is ready"
+          # Wait for server to be ready (bash built-in /dev/tcp — no curl needed)
+          echo "Waiting for LDR server on port 3333..."
+          for i in $(seq 1 30); do
+            if timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
+              echo "✅ LDR server ready (attempt $i)"
               break
             fi
-            echo "  Attempt $i/30 - server not ready yet, waiting..."
-            sleep 2
+            sleep 1
           done
+
+          if ! timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/3333' 2>/dev/null; then
+            echo "ERROR: LDR server did not start within 30s"
+            exit 1
+          fi
 
           echo "Running template generator..."
           template_generate
