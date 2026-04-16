@@ -51,27 +51,6 @@ body:
         
         </details>
       options:
-        - "Not specified"
-        - "Air Potential Temperature"
-        - "Air Pressure"
-        - "Atmosphere Hybrid Height Coordinate"
-        - "Atmosphere Hybrid Sigma Pressure Coordinate"
-        - "Atmosphere Ln Pressure Coordinate"
-        - "Atmosphere Sigma Coordinate"
-        - "Atmosphere SLEVE Coordinate"
-        - "Depth"
-        - "Geopotential Height"
-        - "Height"
-        - "Land Ice Sigma Coordinate"
-        - "Ocean Double Sigma Coordinate"
-        - "Ocean S Coordinate"
-        - "Ocean S Coordinate G1"
-        - "Ocean S Coordinate G2"
-        - "Ocean Sigma Coordinate"
-        - "Ocean Sigma Z Coordinate"
-        - "Sea Water Potential Temperature"
-        - "Sea Water Pressure"
-        - "z*"
       default: 0
     validations:
       required: true
