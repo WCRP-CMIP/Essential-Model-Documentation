@@ -20,3 +20,6 @@ The following forms are available for this repository, and can be used to add or
 
 - [model_family](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml)
 - [general_issue](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=general_issue.yml)
+### Ungrouped Forms
+
+- [horizontal_grid_cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml)
