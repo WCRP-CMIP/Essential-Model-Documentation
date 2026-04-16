@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_wolfiex-1774629366",
+    "ui_label": "",
+    "description": "Arakawa-C tripolar ocean grid (eORCA1), 120184 cells.",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g110-mass",
+        "g110-x-velocity",
+        "g110-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1774629366"
+}
