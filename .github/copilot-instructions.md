@@ -37,8 +37,12 @@ For possible issues or values that are unusual but not definitively wrong:
 ## Description field — rewrites
 
 When flagging a `description` field:
+- If the description is **generic and model-specific** — e.g. "used in model X", "used for Y
+  experiment" — flag it as a NOTE. Such descriptions add no scientific information about the
+  component or grid itself and should be left blank or replaced with a technically meaningful
+  description. Do not suggest a replacement; indicate the description should be removed or rewritten.
 - If the description is **empty, blank, or missing** — do not flag it, do not suggest filling
-  it in, ignore it entirely.
+  it in, ignore it entirely. For grid entries, a blank description is the preferred default.
 - If it contains **typos or minor clarity issues**, suggest a minimal correction that
   preserves the original meaning and length. Do not expand or enrich the content.
   - Acceptable: `"A new version of Hadgema version 5. Same code. Noo changes."` →
@@ -101,6 +105,8 @@ For `model_component` files, check:
 
 - Does the `description` match the stated `component` type?
 - Does the `name` include a recognisable version identifier?
+  - Version strings must use hyphens, not dots: `name v1-1-3` not `name v1.1.3`
+    Flag dot-separated version strings and suggest the hyphenated form.
 - Are `references` present?
 
 For `component_config` files, check:
@@ -148,12 +154,14 @@ Check `description` and `references` only:
 
 ## What NOT to flag
 
-- `@id` — auto-generated identifier, renamed on merge
-- `@type` — controlled vocabulary, not for review
+- `@id` — auto-generated identifier, renamed on merge; **do not comment on this field**
+- `@type` — controlled vocabulary, not for review; **do not comment on this field**
 - `@context` — infrastructure field, out of scope
-- `validation_key` — internal identifier, auto-managed
+- `validation_key` — internal identifier, auto-managed; **do not comment on this field**
 - `ui_label` — auto-generated display label
-- `description` when empty or blank — intentionally optional, do not flag
+- `description` when empty or blank — intentionally optional and **ideal for grids**; do not flag, do not suggest filling in
+- `z*` as a `vertical_coordinate` value — this is a valid shorthand for the z-star ocean
+  coordinate; do not flag it as non-standard or suggest replacing it
 - `tempgrid_*` values — temporary, renamed on merge
 - Filenames, field names, JSON structure — syntax, out of scope
 - The PR targeting `src-data` — correct workflow
