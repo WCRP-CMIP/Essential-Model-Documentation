@@ -126,7 +126,7 @@ def run(parsed_issue, issue, dry_run=False):
             "@id":                   sid,
             "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
             "validation_key":        sid,
-            "horizontal_grid_cells": [{"@id": cell}],
+            "horizontal_grid_cells": cell,
         }
         # Update slot so slot_report and subgrid_ids use the normalised values
         slot = {**slot, 'cell': cell, 'variable_types': vtypes}
