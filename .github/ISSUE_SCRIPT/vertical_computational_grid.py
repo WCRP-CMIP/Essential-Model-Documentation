@@ -27,6 +27,31 @@ FIELD_MAP = {
 IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category',
           'additional_information', 'description'}
 
+# Map ui_label → @id for vertical_coordinate dropdown values.
+# Keeps the handler decoupled from the template generator at runtime.
+_VERTICAL_COORD_MAP = {
+    'Air Potential Temperature':                    'air-potential-temperature',
+    'Air Pressure':                                 'air-pressure',
+    'Atmosphere Hybrid Height Coordinate':          'atmosphere-hybrid-height-coordinate',
+    'Atmosphere Hybrid Sigma Pressure Coordinate':  'atmosphere-hybrid-sigma-pressure-coordinate',
+    'Atmosphere Ln Pressure Coordinate':            'atmosphere-ln-pressure-coordinate',
+    'Atmosphere Sigma Coordinate':                  'atmosphere-sigma-coordinate',
+    'Atmosphere SLEVE Coordinate':                  'atmosphere-sleve-coordinate',
+    'Depth':                                        'depth',
+    'Geopotential Height':                          'geopotential-height',
+    'Height':                                       'height',
+    'Land Ice Sigma Coordinate':                    'land-ice-sigma-coordinate',
+    'Ocean Double Sigma Coordinate':                'ocean-double-sigma-coordinate',
+    'Ocean S Coordinate G1':                        'ocean-s-coordinate-g1',
+    'Ocean S Coordinate G2':                        'ocean-s-coordinate-g2',
+    'Ocean S Coordinate':                           'ocean-s-coordinate',
+    'Ocean Sigma Coordinate':                       'ocean-sigma-coordinate',
+    'Ocean Sigma Z Coordinate':                     'ocean-sigma-z-coordinate',
+    'Sea Water Potential Temperature':              'sea-water-potential-temperature',
+    'Sea Water Pressure':                           'sea-water-pressure',
+    'z*':                                           'z-star',
+}
+
 
 def _parse_list(value) -> list:
     if isinstance(value, list):
@@ -45,10 +70,12 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
     file_path  = os.path.join(kind, f"{temp_id}.json")
 
-    coord   = parsed_issue.get('vertical_coordinate', '').strip().lower()
+    coord_raw = parsed_issue.get('vertical_coordinate', '').strip()
+    # Dropdown options are ui_labels — map back to @id (hyphenated) for storage.
+    coord = _VERTICAL_COORD_MAP.get(coord_raw, coord_raw.lower().replace(' ', '-').replace('_', '-'))
     n_z     = parsed_issue.get('n_z', parsed_issue.get('number_of_levels', ''))
     ui_label = (
-        f"{coord.replace('_', ' ')} grid"
+        f"{coord_raw} grid"
         + (f" with {n_z} levels" if n_z else "")
         + "."
     )
