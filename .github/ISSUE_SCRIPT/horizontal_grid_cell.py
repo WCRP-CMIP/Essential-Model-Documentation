@@ -48,13 +48,13 @@ def run(parsed_issue, issue, dry_run=False):
     file_path  = os.path.join('horizontal_grid_cell', f"{temp_id}.json")
 
     region = (parsed_issue.get('region') or '').strip()
-    units  = parsed_issue.get('units', parsed_issue.get('horizontal_units', ''))
+    units  = (parsed_issue.get('units') or parsed_issue.get('horizontal_units') or '').strip()
 
     grid_type = parsed_issue.get('grid_type', '')
     x_res     = parsed_issue.get('x_resolution', '')
     y_res     = parsed_issue.get('y_resolution', '')
     ui_label  = (
-        f"Horizontal grid cell with a {grid_type.replace('_', ' ')} grid type"
+        f"Horizontal grid cell with a {grid_type.replace('-', ' ')} grid type"
         + (f" and {x_res} x {y_res} {units} resolution" if x_res and y_res else "")
         + "."
     )
@@ -66,17 +66,15 @@ def run(parsed_issue, issue, dry_run=False):
     data = {
         "@context":       "_context",
         "@id":            temp_id,
-        "@type":          ["wcrp:horizontal_grid_cell", "esgvoc:horizontal_grid_cell"],
+        "@type":          ["emd", "wcrp:horizontal_grid_cell", "esgvoc:HorizontalGridCell"],
         "validation_key": temp_id,   # must match @id so rename workflow can update it
         "ui_label":       ui_label,
+        "description":    description,
     }
-    if description:
-        data['description'] = description
     if units:
-        data['horizontal_units'] = units
+        data['units'] = units
 
-    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description'}
-    for key, val in parsed_issue.items():
+    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description'}    for key, val in parsed_issue.items():
         if key in skip or not val or key in data:
             continue
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
@@ -85,7 +83,18 @@ def run(parsed_issue, issue, dry_run=False):
         val = val.strip().lower() if isinstance(val, str) else val
         data[key] = to_num(key, val)
     if region and region.lower() not in ('_no response_', 'none', 'not specified'):
-        data['region'] = region
+        data['region'] = [region]
+
+    # Ensure all spec keys are always present (as "" if not set)
+    ALL_KEYS = [
+        'validation_key', 'ui_label', 'description', 'grid_mapping', 'grid_type',
+        'n_cells', 'region', 'southernmost_latitude', 'temporal_refinement',
+        'truncation_method', 'truncation_number', 'units', 'westernmost_longitude',
+        'x_resolution', 'y_resolution',
+    ]
+    for k in ALL_KEYS:
+        if k not in data:
+            data[k] = ""
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
