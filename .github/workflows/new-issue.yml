@@ -111,5 +111,12 @@ jobs:
             || echo "! Could not add PR to project #8 (check project number, owner, and token 'project' scope)" >> "$GITHUB_STEP_SUMMARY"
         shell: bash
 
+      - name: Check for duplicate grid content
+        if: steps.find_pr.outputs.pr_number != ''
+        uses: WCRP-CMIP/CMIPLD/actions/check-tempgrid-duplicate@main
+        with:
+          pr_number: ${{ steps.find_pr.outputs.pr_number }}
+          gh_token:  ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+
       # Copilot code review has no stable public API — request it manually
       # via the "Request review from Copilot" button in the PR UI.
