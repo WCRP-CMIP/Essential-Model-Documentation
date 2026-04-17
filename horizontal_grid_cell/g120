@@ -1,0 +1,26 @@
+{
+  "validation_key": "g120",
+  "ui_label": "Horizontal grid cell with a regular gaussian grid type and 0.7 x 0.7 degree resolution.",
+  "description": "",
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-gaussian",
+  "n_cells": 131072,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.4628215685774,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 0,
+  "x_resolution": 0.7,
+  "y_resolution": 0.7,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g120"
+}
