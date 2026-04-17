@@ -1,12 +1,14 @@
 {
     "validation_key": "g106",
-    "ui_label": "",
-    "description": "Horizontal grid cell with a regular latitude longitude grid type and 1 x 1 degree resolution.",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1 x 1 degree resolution.",
+    "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
     "horizontal_units": "degree",
     "n_cells": 64800,
-    "region": ["global"],
+    "region": [
+        "global"
+    ],
     "southernmost_latitude": -89.5,
     "temporal_refinement": "static",
     "truncation_method": "",
