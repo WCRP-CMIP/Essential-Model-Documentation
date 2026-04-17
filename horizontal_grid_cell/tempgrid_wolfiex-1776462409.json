@@ -1,0 +1,26 @@
+{
+    "validation_key": "tempgrid_wolfiex-1776462409",
+    "ui_label": "Horizontal grid cell with a hierarchical discrete global grid grid type and 1.25 x 0.9424 degree resolution.",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "hierarchical-discrete-global-grid",
+    "n_cells": "",
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.25,
+    "y_resolution": 0.9424,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-wolfiex-1776462409"
+}
