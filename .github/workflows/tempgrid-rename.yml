@@ -295,6 +295,11 @@ jobs:
             echo "> [!WARNING]" >> "$BODY_FILE"
             echo "> One or more submitted grids are identical to an existing entry (ignoring ID fields). The existing ID has been used — no new entry was created." >> "$BODY_FILE"
             echo "" >> "$BODY_FILE"
+            echo "**What to do next:**" >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+            echo "- **Use the existing grid** — reference the ID shown above in your Stage 2a (Horizontal Computational Grid) submission instead." >> "$BODY_FILE"
+            echo "- **Your grid is genuinely different** — close this issue and submit a new one, using the **Description** field to explain how your grid differs from the one listed above. Any difference that cannot be captured by the other form fields must be described there." >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
           fi
           if [ "$HAS_NEW" -gt 0 ]; then
             echo "Temporary grid files renamed to permanent sequential IDs on \`src-data\`." >> "$BODY_FILE"
@@ -347,6 +352,18 @@ jobs:
             done <<< "$ISSUE_NUMBERS"
           else
             echo "_No linked issues found._" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # ── Delete branch if all submissions were duplicates ───────────────
+          if [ "$HAS_DUPS" -gt 0 ] && [ "$HAS_NEW" -eq 0 ]; then
+            BRANCH=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+              --json headRefName --jq '.headRefName' 2>/dev/null || true)
+            if [ -n "$BRANCH" ]; then
+              echo "All files were duplicates — deleting branch: $BRANCH"
+              gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" \
+                && echo "Deleted $BRANCH" \
+                || echo "Could not delete $BRANCH (may already be gone)"
+            fi
           fi
 
   delete_branch:
