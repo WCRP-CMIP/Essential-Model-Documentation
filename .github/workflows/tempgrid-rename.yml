@@ -29,28 +29,6 @@ jobs:
     env:
       MANUAL_PR_NUMBER: ${{ github.event.inputs.pr_number }}
 
-  delete_branch:
-    if: >
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    env:
-      GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-      REPO:     ${{ github.repository }}
-      BRANCH:   ${{ github.event.pull_request.head.ref }}
-    steps:
-      - name: Delete branch if new_ or modify_
-        run: |
-          if [[ "$BRANCH" == *new_* || "$BRANCH" == *modify_* ]]; then
-            echo "Deleting branch: $BRANCH"
-            gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" && \
-              echo "Deleted $BRANCH" || echo "Could not delete $BRANCH (may already be gone)"
-          else
-            echo "Branch '$BRANCH' does not match new_/modify_ — skipping."
-          fi
-
     steps:
       # ── 1. Checkout src-data ───────────────────────────────────────────────
       - name: Checkout src-data branch
@@ -323,4 +301,26 @@ jobs:
             done <<< "$ISSUE_NUMBERS"
           else
             echo "_No linked issues found._" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  delete_branch:
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:     ${{ github.repository }}
+      BRANCH:   ${{ github.event.pull_request.head.ref }}
+    steps:
+      - name: Delete branch if new_ or modify_
+        run: |
+          if [[ "$BRANCH" == *new_* || "$BRANCH" == *modify_* ]]; then
+            echo "Deleting branch: $BRANCH"
+            gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" && \
+              echo "Deleted $BRANCH" || echo "Could not delete $BRANCH (may already be gone)"
+          else
+            echo "Branch '$BRANCH' does not match new_/modify_ — skipping."
           fi
