@@ -14,6 +14,7 @@ import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
 from cmipld.utils.similarity import ReportBuilder
+from cmipld.utils.ldparse import ui_label_to_key
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -25,6 +26,30 @@ FIELD_MAP = {
 }
 
 _NUMERIC_KEYS = re.compile(r'_(resolution|number|longitude|latitude|cells|truncation)')
+
+# CV fields that may be submitted as ui_label — map field name to graph URL
+CV_FIELDS = {
+    'grid_type':          'constants:grid_type/_graph.json',
+    'grid_mapping':       'constants:grid_mapping/_graph.json',
+    'region':             'constants:region/_graph.json',
+    'temporal_refinement':'constants:temporal_refinement/_graph.json',
+    'units':              'constants:units/_graph.json',
+    'truncation_method':  'constants:truncation_method/_graph.json',
+}
+
+# Cache reverse maps so we only fetch each graph once per run
+_CV_REVERSE_MAP: dict[str, dict] = {}
+
+def resolve_cv_value(field: str, value: str) -> str:
+    """Convert a ui_label back to its validation_key if needed, else return as-is."""
+    if not value or field not in CV_FIELDS:
+        return value
+    if field not in _CV_REVERSE_MAP:
+        try:
+            _CV_REVERSE_MAP[field] = ui_label_to_key(CV_FIELDS[field])
+        except Exception:
+            _CV_REVERSE_MAP[field] = {}
+    return _CV_REVERSE_MAP[field].get(value, value)
 
 def to_num(key, val):
     """Coerce val to int or float if the key matches a numeric field pattern."""
@@ -48,9 +73,11 @@ def run(parsed_issue, issue, dry_run=False):
     file_path  = os.path.join('horizontal_grid_cell', f"{temp_id}.json")
 
     region = (parsed_issue.get('region') or '').strip()
+    region = resolve_cv_value('region', region)
     units  = (parsed_issue.get('units') or parsed_issue.get('horizontal_units') or '').strip()
+    units  = resolve_cv_value('units', units)
 
-    grid_type = parsed_issue.get('grid_type', '')
+    grid_type = resolve_cv_value('grid_type', parsed_issue.get('grid_type', ''))
     x_res     = parsed_issue.get('x_resolution', '')
     y_res     = parsed_issue.get('y_resolution', '')
     ui_label  = (
@@ -82,6 +109,7 @@ def run(parsed_issue, issue, dry_run=False):
             continue
         key = FIELD_MAP.get(key, key)
         val = val.strip().lower() if isinstance(val, str) else val
+        val = resolve_cv_value(key, val) if isinstance(val, str) else val
         data[key] = to_num(key, val)
     if region and region.lower() not in ('_no response_', 'none', 'not specified'):
         data['region'] = [region]
@@ -123,6 +151,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         try:
             inplace_edit = data.copy()
             inplace_edit['region'] =  inplace_edit['region'][0]
+            
+            print('Warning!!: Bypassing ESGVOC for regions as it does not support multiple regions. ')
+            
             data['_validation_report'] = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
                 item=inplace_edit, link_threshold=80.0,
