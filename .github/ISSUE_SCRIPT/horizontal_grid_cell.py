@@ -178,12 +178,6 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 folder_url=f"emd:{kind}", kind=kind,
                 item=validation_item, link_threshold=80.0,
             ).build()
-
-            
-            data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{kind}", kind=kind,
-                item=inplace_edit, link_threshold=80.0,
-            ).build()
         except Exception as e:
             print(f"  WARNING Report generation failed: {e}", flush=True)
             data['_validation_report'] = ''
