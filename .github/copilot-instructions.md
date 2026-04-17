@@ -74,6 +74,11 @@ For `horizontal_grid_cell` files, check:
 - Is `x_resolution` consistent with `grid_type`?
   - A spectral T127 grid has an equivalent grid spacing of ~1.4° — if resolution fields claim
     something very different, flag it
+  - **The spacing formula depends on grid type — do not apply the linear formula universally:**
+    - Linear reduced Gaussian (TL): Δx ≈ 180° / N (e.g. TL319 ≈ 0.56° ≈ 63 km)
+    - Cubic octahedral (TCo): Δx ≈ 10,000 km / N (e.g. TCo319 ≈ 31 km geometric mean, or ~36 km at equator — both are correct and cite different conventions)
+    - If `grid_type` is `cubic_octahedral_spectral_reduced_gaussian` or similar, use the TCo formula
+    - If the grid type is ambiguous, do not flag truncation/resolution mismatches — the submitter knows which formula applies
   - `horizontal_units: km` on a `regular_latitude_longitude` grid is valid — do not flag it
     as ambiguous or suggest converting to degrees; a companion degree-resolution entry may exist
     separately and both representations are acceptable
