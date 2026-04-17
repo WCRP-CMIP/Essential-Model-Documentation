@@ -22,8 +22,9 @@ IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collabora
           'additional_information'}
 
 FIELD_MAP = {
-    'number_of_cells':      'n_cells',
-    'additional_information': 'description',  # header renamed in template
+    'number_of_cells':        'n_cells',
+    'coordinate_system':      'grid_mapping',   # label "Coordinate System" != id grid_mapping
+    'additional_information': 'description',    # header renamed in template
 }
 
 _NUMERIC_KEYS = re.compile(r'_(resolution|number|longitude|latitude|cells|truncation)')
