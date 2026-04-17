@@ -22,7 +22,8 @@ IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collabora
           'additional_information'}
 
 FIELD_MAP = {
-    'number_of_cells': 'n_cells',
+    'number_of_cells':      'n_cells',
+    'additional_information': 'description',  # header renamed in template
 }
 
 _NUMERIC_KEYS = re.compile(r'_(resolution|number|longitude|latitude|cells|truncation)')
@@ -86,7 +87,7 @@ def run(parsed_issue, issue, dry_run=False):
         + "."
     )
 
-    description = (parsed_issue.get('description') or '').strip()
+    description = (parsed_issue.get('description') or parsed_issue.get('additional_information') or '').strip()
     if not description or description.lower() in ('_no response_', 'none', 'not specified'):
         description = ''
 
@@ -101,7 +102,7 @@ def run(parsed_issue, issue, dry_run=False):
     if units:
         data['units'] = units
 
-    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description'}
+    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description', 'additional_information'}
     for key, val in parsed_issue.items():
         if key in skip or not val or key in data:
             continue
