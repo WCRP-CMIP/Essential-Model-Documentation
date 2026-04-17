@@ -151,10 +151,20 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         print(f"  Generating review report for {file_path} ...", flush=True)
         try:
+            # Build a pydantic-compatible view without touching what gets written
             inplace_edit = data.copy()
-            inplace_edit['region'] =  inplace_edit['region'][0]
-            
-            print('Warning!!: Bypassing ESGVOC for regions as it does not support multiple regions. ')
+
+            # region: pydantic expects a string, file stores a list — pass first element
+            region_val = inplace_edit.get('region', '')
+            if isinstance(region_val, list):
+                inplace_edit['region'] = region_val[0] if region_val else None
+            elif not region_val:
+                inplace_edit['region'] = None
+            print('Warning: passing first region value to pydantic (list not supported by esgvoc).', flush=True)
+
+            # horizontal_units: pydantic expects this key; file uses 'units'
+            if 'units' in inplace_edit and 'horizontal_units' not in inplace_edit:
+                inplace_edit['horizontal_units'] = inplace_edit['units']
             
             data['_validation_report'] = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
