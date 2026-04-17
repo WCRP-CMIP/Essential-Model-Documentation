@@ -43,7 +43,11 @@ CV_FIELDS = {
 _CV_REVERSE_MAP: dict[str, dict] = {}
 
 def resolve_cv_value(field: str, value: str) -> str:
-    """Convert a ui_label back to its validation_key if needed, else return as-is."""
+    """
+    Resolve a CV field value to its validation_key.
+    Accepts both ui_label and validation_key as input.
+    If unrecognised, returns the value as-is with a warning.
+    """
     if not value or field not in CV_FIELDS:
         return value
     if field not in _CV_REVERSE_MAP:
@@ -51,7 +55,11 @@ def resolve_cv_value(field: str, value: str) -> str:
             _CV_REVERSE_MAP[field] = ui_label_to_key(CV_FIELDS[field])
         except Exception:
             _CV_REVERSE_MAP[field] = {}
-    return _CV_REVERSE_MAP[field].get(value, value)
+    resolved = _CV_REVERSE_MAP[field].get(value)
+    if resolved is None:
+        print(f"  WARNING: unrecognised {field} value {value!r} — storing as-is", flush=True)
+        return value
+    return resolved
 
 def to_num(key, val):
     """Coerce val to int or float if the key matches a numeric field pattern."""
