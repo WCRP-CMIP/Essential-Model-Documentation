@@ -1,0 +1,17 @@
+{
+  "validation_key": "v110",
+  "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 91 levels.",
+  "description": "This is the vertical grid of the IFS cy36r4 L91 model.",
+  "bottom_layer_thickness": 10,
+  "n_z": 91,
+  "top_layer_thickness": 7000,
+  "total_thickness": 80000,
+  "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v110"
+}
