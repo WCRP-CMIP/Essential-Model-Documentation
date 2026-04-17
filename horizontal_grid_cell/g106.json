@@ -4,7 +4,7 @@
     "description": "Horizontal grid cell with a regular latitude longitude grid type and 1 x 1 degree resolution.",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
-    "units": "degree",
+    "horizontal_units": "degree",
     "n_cells": 64800,
     "region": ["global"],
     "southernmost_latitude": -89.5,
