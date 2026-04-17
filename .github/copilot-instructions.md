@@ -85,7 +85,7 @@ For `vertical_computational_grid` files, check:
 
 - Is `vertical_coordinate` appropriate for the domain?
   - Atmosphere: `atmosphere_hybrid_sigma_pressure_coordinate`, `atmosphere_hybrid_height_coordinate`
-  - Ocean: `ocean_sigma_z_coordinate`, `ocean_s_coordinate`, `depth`
+  - Ocean: `ocean_sigma_z_coordinate`, `ocean_s_coordinate`, `depth`, `z*`, `z-star` (z-star is a valid rescaled height coordinate used in ocean models — do not flag)
   - Soil/land: `depth`
   - Sea ice / land ice: `height`, `land_ice_sigma_coordinate`
 - Is `n_z` plausible for the domain?
