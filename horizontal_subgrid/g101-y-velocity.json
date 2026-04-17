@@ -1,16 +1,16 @@
 {
-    "validation_key": "g103-x-velocity",
+    "validation_key": "g101-y-velocity",
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "x-velocity"
+        "y-velocity"
     ],
-    "horizontal_grid_cells": "g103",
+    "horizontal_grid_cells": "g101",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g103-x-velocity"
+    "@id": "g101-y-velocity"
 }
