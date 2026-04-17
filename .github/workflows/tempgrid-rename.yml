@@ -133,7 +133,31 @@ jobs:
             # ── b. Get last commit message for this file ──────────────────────
             LAST_MSG=$(git log --follow -1 --format="%s" -- "$filepath" 2>/dev/null || true)
 
-            # ── c. Find the next sequential ID for this folder ───────────────
+            # ── c. Check for duplicate content among existing numbered files ──
+            # Strip identity fields and sort keys so comparison is order-independent
+            JQ_STRIP='del(.["@id"], .["@type"], .validation_key, .ui_label) | to_entries | sort_by(.key) | from_entries'
+            CANDIDATE_SIG=$(jq -c "$JQ_STRIP" "$filepath")
+
+            EXISTING_ID=""
+            for existing in "$dir"/[gGhHvVsS][0-9]*.json; do
+              [ -e "$existing" ] || continue
+              if [ "$(jq -c "$JQ_STRIP" "$existing")" = "$CANDIDATE_SIG" ]; then
+                EXISTING_ID=$(basename "$existing" .json)
+                break
+              fi
+            done
+
+            if [ -n "$EXISTING_ID" ]; then
+              echo "  DUPLICATE: content matches existing $EXISTING_ID — skipping rename"
+              echo "| \`$filepath\` | duplicate of \`$EXISTING_ID\` | $AUTHOR_NAMES |" >> "$GITHUB_STEP_SUMMARY"
+              git rm "$filepath"
+              [ -n "$MAPPING_JSON" ] && MAPPING_JSON="${MAPPING_JSON},"
+              LAST_MSG_JSON=$(echo "$LAST_MSG" | jq -Rs .)
+              MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${dir}/${EXISTING_ID}.json\",\"old_id\":\"$(basename "$filepath" .json)\",\"new_id\":\"${EXISTING_ID}\",\"authors\":\"${AUTHOR_NAMES}\",\"last_msg\":${LAST_MSG_JSON},\"duplicate\":true}"
+              continue
+            fi
+
+            # ── d. Find the next sequential ID for this folder ───────────────
             LETTER=""
             MAX_NUM=-1
             for existing in "$dir"/[sghvSGHV]*[0-9].json; do
@@ -250,15 +274,33 @@ jobs:
           MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
         run: |
           TABLE_ROWS=$(echo "$MAPPING_JSON" | jq -r \
-            '.[] | "| `\(.old_id)` | `\(.new_id)` | \(.authors) |"')
-          NEW_IDS=$(echo "$MAPPING_JSON" | jq -r '[.[].new_id] | join(", ")')
+            '.[] | if .duplicate then
+              "| `\(.old_id)` | ⚠️ duplicate of `\(.new_id)` | \(.authors) |"
+            else
+              "| `\(.old_id)` | `\(.new_id)` | \(.authors) |"
+            end')
+          NEW_IDS=$(echo "$MAPPING_JSON" | jq -r '[.[].new_id] | unique | join(", ")')
 
           BODY_FILE=$(mktemp)
-          echo "## Grid IDs assigned" >> "$BODY_FILE"
+          HAS_DUPS=$(echo "$MAPPING_JSON" | jq '[.[] | select(.duplicate == true)] | length')
+          HAS_NEW=$(echo "$MAPPING_JSON"  | jq '[.[] | select(.duplicate != true)] | length')
+
+          if [ "$HAS_NEW" -gt 0 ]; then
+            echo "## Grid IDs assigned" >> "$BODY_FILE"
+          else
+            echo "## Duplicate grid detected" >> "$BODY_FILE"
+          fi
           echo "" >> "$BODY_FILE"
-          echo "Temporary grid files renamed to permanent sequential IDs on \`src-data\`." >> "$BODY_FILE"
-          echo "" >> "$BODY_FILE"
-          echo "| Temporary ID | Permanent ID | Authors |" >> "$BODY_FILE"
+          if [ "$HAS_DUPS" -gt 0 ]; then
+            echo "> [!WARNING]" >> "$BODY_FILE"
+            echo "> One or more submitted grids are identical to an existing entry (ignoring ID fields). The existing ID has been used — no new entry was created." >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+          fi
+          if [ "$HAS_NEW" -gt 0 ]; then
+            echo "Temporary grid files renamed to permanent sequential IDs on \`src-data\`." >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+          fi
+          echo "| Temporary ID | Result | Authors |" >> "$BODY_FILE"
           echo "|---|---|---|" >> "$BODY_FILE"
           printf "%s\n" "$TABLE_ROWS" >> "$BODY_FILE"
           echo "" >> "$BODY_FILE"
@@ -269,8 +311,10 @@ jobs:
           OLD_PR_TITLE=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
             --json title --jq '.title')
           CLEAN_PR_TITLE=$(echo "$OLD_PR_TITLE" | sed 's/^|[^|]*| *//')
-          gh pr edit "$PR_NUMBER" --repo "$REPO" \
-            --title "| ${NEW_IDS} | ${CLEAN_PR_TITLE}"
+          NEW_PR_TITLE="| ${NEW_IDS} | ${CLEAN_PR_TITLE}"
+          if [ "$OLD_PR_TITLE" != "$NEW_PR_TITLE" ]; then
+            gh pr edit "$PR_NUMBER" --repo "$REPO" --title "$NEW_PR_TITLE"
+          fi
 
           gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
           echo "Updated and commented on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
@@ -292,8 +336,10 @@ jobs:
               OLD_ISSUE_TITLE=$(gh issue view "$issue_num" --repo "$REPO" \
                 --json title --jq '.title')
               CLEAN_ISSUE_TITLE=$(echo "$OLD_ISSUE_TITLE" | sed 's/^|[^|]*| *//')
-              gh issue edit "$issue_num" --repo "$REPO" \
-                --title "| ${NEW_IDS} | ${CLEAN_ISSUE_TITLE}"
+              NEW_ISSUE_TITLE="| ${NEW_IDS} | ${CLEAN_ISSUE_TITLE}"
+              if [ "$OLD_ISSUE_TITLE" != "$NEW_ISSUE_TITLE" ]; then
+                gh issue edit "$issue_num" --repo "$REPO" --title "$NEW_ISSUE_TITLE"
+              fi
 
               gh issue close "$issue_num" --repo "$REPO" || true
 
