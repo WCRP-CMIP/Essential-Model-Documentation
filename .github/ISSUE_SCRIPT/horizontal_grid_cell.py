@@ -174,13 +174,21 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             # Use pydantic-compatible copy if available, else fall back to data
             pydantic_overrides = files_to_write.get('_pydantic_data', {})
             validation_item = pydantic_overrides.get(file_path, data)
-            data['_validation_report'] = ReportBuilder(
+            report = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
-                item=validation_item, link_threshold=80.0,
+                item=validation_item, link_threshold=85.0,
             ).build()
+            data['_validation_report'] = report
+            print(f"  Report generated ({len(report)} chars)", flush=True)
         except Exception as e:
-            print(f"  WARNING Report generation failed: {e}", flush=True)
-            data['_validation_report'] = ''
+            import traceback
+            tb = traceback.format_exc()
+            print(f"  WARNING Report generation failed: {e}\n{tb}", flush=True)
+            data['_validation_report'] = (
+                f"## Review Report\n\n"
+                f"> [!WARNING]\n"
+                f"> Report generation failed: `{e}`\n"
+            )
 
     if atid:
         import json as _json
