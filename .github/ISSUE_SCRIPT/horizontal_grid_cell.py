@@ -132,14 +132,26 @@ def run(parsed_issue, issue, dry_run=False):
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
                    if collab_str else []
 
+    # Build pydantic-compatible copy for validation (used by new_issue.py STEP 1
+    # before update() is called — does not affect what gets written to file)
+    pydantic_data = {k: v for k, v in data.items() if not k.startswith('_')}
+    region_val = pydantic_data.get('region', '')
+    if isinstance(region_val, list):
+        pydantic_data['region'] = region_val[0] if region_val else None
+    elif not region_val:
+        pydantic_data['region'] = None
+    if 'units' in pydantic_data and 'horizontal_units' not in pydantic_data:
+        pydantic_data['horizontal_units'] = pydantic_data.pop('units')
+
     print(f"  [+ new] Grid cell '{temp_id}'", flush=True)
 
     return {
-        file_path:       data,
-        '_author':       issue.get('author'),
-        '_contributors': contributors,
-        '_make_pull':    True,
-        '_atid':         temp_id,
+        file_path:        data,
+        '_pydantic_data': {file_path: pydantic_data},
+        '_author':        issue.get('author'),
+        '_contributors':  contributors,
+        '_make_pull':     True,
+        '_atid':          temp_id,
     }
 
 
@@ -151,20 +163,14 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         print(f"  Generating review report for {file_path} ...", flush=True)
         try:
-            # Build a pydantic-compatible view without touching what gets written
-            inplace_edit = data.copy()
+            # Use pydantic-compatible copy if available, else fall back to data
+            pydantic_overrides = files_to_write.get('_pydantic_data', {})
+            validation_item = pydantic_overrides.get(file_path, data)
+            data['_validation_report'] = ReportBuilder(
+                folder_url=f"emd:{kind}", kind=kind,
+                item=validation_item, link_threshold=80.0,
+            ).build()
 
-            # region: pydantic expects a string, file stores a list — pass first element
-            region_val = inplace_edit.get('region', '')
-            if isinstance(region_val, list):
-                inplace_edit['region'] = region_val[0] if region_val else None
-            elif not region_val:
-                inplace_edit['region'] = None
-            print('Warning: passing first region value to pydantic (list not supported by esgvoc).', flush=True)
-
-            # horizontal_units: pydantic expects this key; file uses 'units'
-            if 'units' in inplace_edit and 'horizontal_units' not in inplace_edit:
-                inplace_edit['horizontal_units'] = inplace_edit['units']
             
             data['_validation_report'] = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
