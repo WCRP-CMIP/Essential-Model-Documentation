@@ -357,6 +357,7 @@ body:
       label: Description
       description: |
         Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.
+      placeholder: "COMPLETE ONLY IF YOUR GRID APPEARS IDENTICAL TO ANOTHER AND THE DIFFERENCES CANNOT BE CAPTURED BY ANY OTHER PART OF THIS FORM."
 
   - type: markdown
     attributes:
