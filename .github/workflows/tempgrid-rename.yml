@@ -83,13 +83,11 @@ jobs:
           echo "|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
 
           if [ -z "$FILES" ]; then
-            echo "No tempgrid files found – nothing to do."
+            echo "No tempgrid files found – skipping rename."
             echo "| _(none)_ | – | – |" >> "$GITHUB_STEP_SUMMARY"
             echo "mapping_json=[]" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          while IFS= read -r filepath; do
+          else
+            while IFS= read -r filepath; do
             [ -z "$filepath" ] && continue
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
             echo "Processing: $filepath"
@@ -209,8 +207,8 @@ jobs:
             MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${NEW_PATH}\",\"old_id\":\"${OLD_ID}\",\"new_id\":\"${NEW_ID}\",\"authors\":\"${AUTHOR_NAMES}\",\"last_msg\":${LAST_MSG_JSON}}"
 
           done <<< "$FILES"
-
-          echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
+            echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
+          fi
 
       # ── 4. Commit to src-data ──────────────────────────────────────────────
       - name: Commit renames to src-data
@@ -266,13 +264,40 @@ jobs:
 
       # ── 6. Update PR + issues: comment and retitle ────────────────────────
       - name: Update PR and linked issues
-        if: steps.rename.outputs.mapping_json != '[]'
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.set_pr.outputs.pr_number }}
           REPO: ${{ github.repository }}
           MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
         run: |
+          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json body --jq '.body' | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          BRANCH=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json headRefName --jq '.headRefName' 2>/dev/null || true)
+
+          # ── No tempgrid files — still close issues and delete branch ────────
+          if [ -z "$MAPPING_JSON" ] || [ "$MAPPING_JSON" = "[]" ]; then
+            echo "No tempgrid entries — closing linked issues and deleting branch."
+
+            if [ -n "$ISSUE_NUMBERS" ]; then
+              while IFS= read -r issue_num; do
+                [ -z "$issue_num" ] && continue
+                gh issue close "$issue_num" --repo "$REPO" || true
+                echo "Closed issue #${issue_num}" >> "$GITHUB_STEP_SUMMARY"
+              done <<< "$ISSUE_NUMBERS"
+            fi
+
+            if [ -n "$BRANCH" ]; then
+              gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" \
+                && echo "Deleted branch $BRANCH" \
+                || echo "Could not delete $BRANCH (may already be gone)"
+            fi
+            exit 0
+          fi
           TABLE_ROWS=$(echo "$MAPPING_JSON" | jq -r \
             '.[] | if .duplicate then
               "| `\(.old_id)` | ⚠️ duplicate of `\(.new_id)` | \(.authors) |"
@@ -324,11 +349,6 @@ jobs:
           gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
           echo "Updated and commented on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
 
-          ISSUE_NUMBERS=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
-            --json body --jq '.body' | tr '\n' ' ' \
-            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
-            | grep -oE '[0-9]+' || true)
-
           if [ -n "$ISSUE_NUMBERS" ]; then
             echo "## Linked issues" >> "$GITHUB_STEP_SUMMARY"
             echo "| Issue | Action |" >> "$GITHUB_STEP_SUMMARY"
@@ -356,8 +376,6 @@ jobs:
 
           # ── Delete branch if all submissions were duplicates ───────────────
           if [ "$HAS_DUPS" -gt 0 ] && [ "$HAS_NEW" -eq 0 ]; then
-            BRANCH=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
-              --json headRefName --jq '.headRefName' 2>/dev/null || true)
             if [ -n "$BRANCH" ]; then
               echo "All files were duplicates — deleting branch: $BRANCH"
               gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" \
