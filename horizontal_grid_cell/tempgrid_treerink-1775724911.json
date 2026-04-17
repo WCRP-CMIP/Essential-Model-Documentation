@@ -1,0 +1,26 @@
+{
+    "validation_key": "tempgrid_treerink-1775724911",
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 0.7 x 0.7 degree resolution.",
+    "description": "This grid serves for delivering the data, this data is regridded from the IFS cy36r4 model grid (which is a spectral representation with triangular truncation at wavenumber 255 with a linear N128 reduced Gaussian grid).",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 131072,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.4628215685774,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.7,
+    "y_resolution": 0.7,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-treerink-1775724911"
+}
