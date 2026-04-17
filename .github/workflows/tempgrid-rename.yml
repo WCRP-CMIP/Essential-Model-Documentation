@@ -67,7 +67,13 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      # ── 3. Process each tempgrid file ─────────────────────────────────────
+      # ── 3. Write duplicate-check helper ───────────────────────────────────
+      - name: Write duplicate checker
+        run: |
+          echo aW1wb3J0IGpzb24sIGdsb2IsIHN5cwoKSUdOT1JFID0geyJAaWQiLCAiQHR5cGUiLCAidmFsaWRhdGlvbl9rZXkiLCAidWlfbGFiZWwifQoKZGVmIHN0cmlwKGQpOgogICAgcmV0dXJuIHtrOiB2IGZvciBrLCB2IGluIGQuaXRlbXMoKSBpZiBrIG5vdCBpbiBJR05PUkV9CgpmaWxlcGF0aCA9IHN5cy5hcmd2WzFdCmRpcnBhdGggID0gc3lzLmFyZ3ZbMl0KCnRyeToKICAgIGNhbmRpZGF0ZSA9IGpzb24ubG9hZChvcGVuKGZpbGVwYXRoKSkKZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgcHJpbnQoZiJFUlJPUjoge2V9IiwgZmlsZT1zeXMuc3RkZXJyKQogICAgc3lzLmV4aXQoMikKCmNhbmRpZGF0ZV9zdHJpcHBlZCA9IHN0cmlwKGNhbmRpZGF0ZSkKCmZvciBleGlzdGluZyBpbiBzb3J0ZWQoZ2xvYi5nbG9iKGYie2RpcnBhdGh9L1tnR2hIdlZzU11bMC05XSouanNvbiIpKToKICAgIHRyeToKICAgICAgICBleGlzdGluZ19kYXRhID0ganNvbi5sb2FkKG9wZW4oZXhpc3RpbmcpKQogICAgZXhjZXB0IEV4Y2VwdGlvbjoKICAgICAgICBjb250aW51ZQogICAgaWYgc3RyaXAoZXhpc3RpbmdfZGF0YSkgPT0gY2FuZGlkYXRlX3N0cmlwcGVkOgogICAgICAgIHByaW50KGV4aXN0aW5nLnNwbGl0KCIvIilbLTFdLnJlcGxhY2UoIi5qc29uIiwgIiIpKQogICAgICAgIHN5cy5leGl0KDApCgpzeXMuZXhpdCgxKQo= | base64 -d > /tmp/check_dup.py
+          echo "check_dup.py written"
+
+      # ── 4. Process each tempgrid file ─────────────────────────────────────
       - name: Process and rename tempgrid files
         id: rename
         env:
@@ -133,7 +139,23 @@ jobs:
             # ── b. Get last commit message for this file ──────────────────────
             LAST_MSG=$(git log --follow -1 --format="%s" -- "$filepath" 2>/dev/null || true)
 
-            # ── c. Find the next sequential ID for this folder ───────────────
+            # ── c. Check for duplicate content among existing numbered files ──
+            EXISTING_ID=$(python3 /tmp/check_dup.py "$filepath" "$dir" 2>/dev/null)
+            DUP_EXIT=$?
+
+            if [ $DUP_EXIT -eq 0 ] && [ -n "$EXISTING_ID" ]; then
+              echo "  DUPLICATE: content matches existing $EXISTING_ID — skipping rename"
+              echo "| \`$filepath\` | duplicate of \`$EXISTING_ID\` | $AUTHOR_NAMES |" >> "$GITHUB_STEP_SUMMARY"
+
+              git rm "$filepath"
+
+              [ -n "$MAPPING_JSON" ] && MAPPING_JSON="${MAPPING_JSON},"
+              LAST_MSG_JSON=$(echo "$LAST_MSG" | jq -Rs .)
+              MAPPING_JSON="${MAPPING_JSON}{\"old\":\"${filepath}\",\"new\":\"${dir}/${EXISTING_ID}.json\",\"old_id\":\"$(basename "$filepath" .json)\",\"new_id\":\"${EXISTING_ID}\",\"authors\":\"${AUTHOR_NAMES}\",\"last_msg\":${LAST_MSG_JSON},\"duplicate\":true}"
+              continue
+            fi
+
+            # ── d. Find the next sequential ID for this folder ───────────────
             LETTER=""
             MAX_NUM=-1
             for existing in "$dir"/[sghvSGHV]*[0-9].json; do
@@ -188,7 +210,7 @@ jobs:
 
           echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
 
-      # ── 4. Commit to src-data ──────────────────────────────────────────────
+      # ── 5. Commit to src-data ──────────────────────────────────────────────
       - name: Commit renames to src-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -226,7 +248,7 @@ jobs:
           fi
           git push origin src-data
 
-      # ── 5. Cancel stale src-data-change runs then retrigger ───────────────
+      # ── 6. Cancel stale src-data-change runs then retrigger ───────────────
       - name: Cancel and retrigger src-data-change
         if: ${{ !cancelled() }}
         env:
@@ -240,7 +262,7 @@ jobs:
           done
           gh workflow run src-data-change.yml --repo "$REPO" --ref src-data
 
-      # ── 6. Update PR + issues: comment and retitle ────────────────────────
+      # ── 7. Update PR + issues: comment and retitle ────────────────────────
       - name: Update PR and linked issues
         if: steps.rename.outputs.mapping_json != '[]'
         env:
@@ -250,15 +272,33 @@ jobs:
           MAPPING_JSON: ${{ steps.rename.outputs.mapping_json }}
         run: |
           TABLE_ROWS=$(echo "$MAPPING_JSON" | jq -r \
-            '.[] | "| `\(.old_id)` | `\(.new_id)` | \(.authors) |"')
-          NEW_IDS=$(echo "$MAPPING_JSON" | jq -r '[.[].new_id] | join(", ")')
+            '.[] | if .duplicate then
+              "| `\(.old_id)` | ⚠️ duplicate of `\(.new_id)` | \(.authors) |"
+            else
+              "| `\(.old_id)` | `\(.new_id)` | \(.authors) |"
+            end')
+          NEW_IDS=$(echo "$MAPPING_JSON" | jq -r '[.[].new_id] | unique | join(", ")')
 
           BODY_FILE=$(mktemp)
-          echo "## Grid IDs assigned" >> "$BODY_FILE"
+          HAS_DUPS=$(echo "$MAPPING_JSON" | jq '[.[] | select(.duplicate == true)] | length')
+          HAS_NEW=$(echo "$MAPPING_JSON"  | jq '[.[] | select(.duplicate != true)] | length')
+
+          if [ "$HAS_NEW" -gt 0 ]; then
+            echo "## Grid IDs assigned" >> "$BODY_FILE"
+          else
+            echo "## Duplicate grid detected" >> "$BODY_FILE"
+          fi
           echo "" >> "$BODY_FILE"
-          echo "Temporary grid files renamed to permanent sequential IDs on \`src-data\`." >> "$BODY_FILE"
-          echo "" >> "$BODY_FILE"
-          echo "| Temporary ID | Permanent ID | Authors |" >> "$BODY_FILE"
+          if [ "$HAS_DUPS" -gt 0 ]; then
+            echo "> [!WARNING]" >> "$BODY_FILE"
+            echo "> One or more submitted grids are identical to an existing entry (ignoring ID fields). The existing ID has been used — no new entry was created." >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+          fi
+          if [ "$HAS_NEW" -gt 0 ]; then
+            echo "Temporary grid files renamed to permanent sequential IDs on \`src-data\`." >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+          fi
+          echo "| Temporary ID | Result | Authors |" >> "$BODY_FILE"
           echo "|---|---|---|" >> "$BODY_FILE"
           printf "%s\n" "$TABLE_ROWS" >> "$BODY_FILE"
           echo "" >> "$BODY_FILE"
