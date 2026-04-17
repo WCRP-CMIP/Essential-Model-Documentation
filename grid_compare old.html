@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMD Grid Cell Tree</title>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-browser.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0d0f14;
+  --surf:   #151820;
+  --border: #252a35;
+  --dim:    #3a4155;
+  --text:   #c8d0e0;
+  --muted:  #5a6380;
+  --accent: #4af0c0;
+  --hi:     #f07040;
+  --mono:   'IBM Plex Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text);
+  font-family: var(--mono); overflow: hidden; }
+#app { display: grid; grid-template-rows: 44px 1fr; height: 100vh; }
+#hdr { display: flex; align-items: center; gap: 14px; padding: 0 18px;
+  border-bottom: 1px solid var(--border); background: var(--surf); flex-shrink: 0; }
+#hdr h1 { font-size: 12px; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent); }
+#hdr .sub { color: var(--muted); font-size: 10px; }
+#hdr .sp  { flex: 1; }
+#status { font-size: 10px; color: var(--muted); }
+#status.loading { color: var(--accent); }
+#status.error   { color: #f05060; }
+#controls { display: flex; gap: 8px; align-items: center; }
+#search { background: var(--bg); border: 1px solid var(--border); color: var(--text);
+  font-family: var(--mono); font-size: 10px; padding: 3px 7px; outline: none; width: 160px; }
+#search:focus { border-color: var(--accent); }
+#search::placeholder { color: var(--dim); }
+.btn { background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--mono); font-size: 9px; padding: 3px 9px; cursor: pointer;
+  letter-spacing: .06em; text-transform: uppercase; transition: all .12s; }
+.btn:hover { color: var(--text); border-color: var(--dim); }
+#svg-wrap { overflow: auto; width: 100%; height: 100%; }
+#svg-wrap::-webkit-scrollbar { width: 5px; height: 5px; }
+#svg-wrap::-webkit-scrollbar-thumb { background: var(--dim); }
+svg { display: block; }
+/* tooltip */
+#tip { position: fixed; background: var(--surf); border: 1px solid var(--border);
+  padding: 6px 10px; font-size: 10px; color: var(--text); pointer-events: none;
+  display: none; z-index: 100; max-width: 300px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="hdr">
+    <h1>EMD Grid Cells</h1>
+    <span class="sub">d3.hierarchy · recursive value splitter</span>
+    <span class="sp"></span>
+    <div id="controls">
+      <input id="search" type="text" placeholder="highlight…" autocomplete="off">
+      <button class="btn" id="expand-btn">EXPAND ALL</button>
+      <button class="btn" id="collapse-btn">COLLAPSE</button>
+    </div>
+    <span id="status" class="loading">loading…</span>
+  </header>
+  <div id="svg-wrap"><svg id="tree-svg"></svg></div>
+</div>
+<div id="tip"></div>
+<script type="module">
+const GRAPH_URL = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/_graph.json';
+const ITEM_BASE = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/';
+// Note: JsonLdExpand.compact will resolve linked entries via the @context base URLs,
+// which point to wcrp-cmip.github.io — not mipcvs.dev
+const SKIP = new Set(['@context','@type','@id','validation_key','ui_label','description']);
+
+// ── Load ──────────────────────────────────────────────────────────────────────
+const $s = document.getElementById('status');
+let allGrids = [];
+
+async function load() {
+  $s.className = 'loading'; $s.textContent = 'loading…';
+  // Patch the context base to use GitHub Pages before fetching
+  const graphRes  = await fetch(GRAPH_URL);
+  const graphJson = await graphRes.json();
+  if (graphJson['@context'] && graphJson['@context']['@base']) {
+    graphJson['@context']['@base'] = ITEM_BASE;
+  }
+  const blob = new Blob([JSON.stringify(graphJson)], {type:'application/json'});
+  const blobUrl = URL.createObjectURL(blob);
+  const data = await JsonLdExpand.compact(blobUrl, { depth: 2 });
+  URL.revokeObjectURL(blobUrl);
+  const raw  = data.contents || data['@graph'] || [];
+  allGrids   = (Array.isArray(raw) ? raw : Object.values(raw))
+    .filter(d => d['@id'] || d.validation_key);
+  $s.className = ''; $s.textContent = allGrids.length + ' grids';
+  build();
+}
+
+// ── Build hierarchy input ─────────────────────────────────────────────────────
+// Collect all unique field values across all grids, organised as:
+// root → field_name → unique_value → [grid ids that have this value]
+// Then feed that nested structure into d3.hierarchy using the recursive splitter.
+
+function collectTree() {
+  // { field: { rawValue: [gridId, ...] } }
+  const byField = {};
+  allGrids.forEach(d => {
+    const id = d['@id'] || d.validation_key;
+    Object.entries(d).forEach(([k, v]) => {
+      if (SKIP.has(k)) return;
+      if (v === null || v === undefined || v === '') return;
+      const vals = Array.isArray(v) ? v : [v];
+      vals.forEach(val => {
+        const s = typeof val === 'object' ? (val['@id'] || val.ui_label || JSON.stringify(val)) : String(val);
+        if (!s) return;
+        if (!byField[k]) byField[k] = {};
+        if (!byField[k][s]) byField[k][s] = [];
+        byField[k][s].push(id);
+      });
+    });
+  });
+  return byField;
+}
+
+// The d3.hierarchy recursive splitter — identical to the example
+function splitId(id) {
+  for (const split of [/[^\w\s]/, /\s/]) {
+    const children = id && id.split(split).filter(c => c.length > 0);
+    if (children && children.length > 1) return children;
+  }
+  return null;
+}
+
+// Build the full nested object tree from the collected data,
+// then let d3.hierarchy + the splitter decompose each value node.
+function buildHierarchy() {
+  const byField = collectTree();
+
+  // Root node
+  const root = {
+    id: 'root',
+    label: 'Grid Cells',
+    children: Object.entries(byField).map(([field, values]) => ({
+      id: `field:${field}`,
+      label: field,
+      field: true,
+      // Each unique value becomes a child; d3.hierarchy will further split
+      // the value string using the recursive splitter
+      children: Object.entries(values)
+        .sort(([a],[b]) => a.localeCompare(b, undefined, {numeric:true}))
+        .map(([val, grids]) => ({
+          id: val,
+          label: val,
+          field_name: field,
+          grids,
+          // children come from the splitter below
+        }))
+    }))
+  };
+
+  // Now apply d3.hierarchy with the recursive splitter on each value node
+  // We do this by wrapping in a custom children accessor that:
+  // 1. For the root and field nodes, returns their explicit .children
+  // 2. For value/token nodes, tries to split the .id string further
+  const hierarchy = d3.hierarchy(root, node => {
+    // Explicit children (root + field nodes)
+    if (node.children) return node.children;
+    // Value/token nodes — try recursive split
+    const parts = splitId(node.id);
+    if (parts) return parts.map(p => ({ id: p, label: p, grids: node.grids, field_name: node.field_name }));
+    return null;
+  });
+
+  return hierarchy;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+const DX = 16;   // row height
+const DY = 200;  // column width
+
+let root, svgSel, gLink, gNode;
+let collapsed = new Set(); // node ids that are collapsed
+
+function build() {
+  root = buildHierarchy();
+
+  // Collapse all field children by default; user expands
+  root.children.forEach(fieldNode => {
+    fieldNode.children && fieldNode.children.forEach(valNode => {
+      valNode._children = valNode.children;
+      valNode.children  = null;
+    });
+  });
+
+  svgSel = d3.select('#tree-svg');
+  svgSel.selectAll('*').remove();
+
+  const g = svgSel.append('g').attr('transform','translate(20,20)');
+  gLink = g.append('g').attr('fill','none').attr('stroke','#252a35').attr('stroke-width', 1);
+  gNode = g.append('g');
+
+  update(root);
+}
+
+function update(source) {
+  const treeLayout = d3.tree().nodeSize([DX, DY]);
+  treeLayout(root);
+
+  // Compute extents
+  let x0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  root.each(d => {
+    if (d.x < x0) x0 = d.x;
+    if (d.x > x1) x1 = d.x;
+    if (d.y > y1) y1 = d.y;
+  });
+
+  const height = x1 - x0 + DX * 2 + 40;
+  const width  = y1 + DY + 40;
+
+  svgSel
+    .attr('width',  width)
+    .attr('height', height);
+
+  svgSel.select('g').attr('transform', `translate(20,${-x0 + 20})`);
+
+  const nodes = root.descendants();
+  const links = root.links();
+
+  const q = document.getElementById('search').value.toLowerCase();
+
+  // ── Links ──
+  const link = gLink.selectAll('path').data(links, d => d.target.data.id + d.source.data.id);
+  link.enter().append('path')
+    .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x))
+    .attr('opacity', 0)
+    .transition().duration(200)
+    .attr('opacity', 1);
+  link.transition().duration(200)
+    .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x));
+  link.exit().transition().duration(150).attr('opacity',0).remove();
+
+  // ── Nodes ──
+  const node = gNode.selectAll('g.node').data(nodes, d => d.data.id);
+
+  const nodeEnter = node.enter().append('g').attr('class','node')
+    .attr('transform', d => `translate(${source.y0 ?? d.y},${source.x0 ?? d.x})`)
+    .attr('opacity', 0)
+    .style('cursor', d => (d.data.field || d._children || d.children) ? 'pointer' : 'default')
+    .on('click', (e, d) => {
+      if (d.data.field) return;
+      if (d._children) { d.children = d._children; d._children = null; }
+      else if (d.children) { d._children = d.children; d.children = null; }
+      update(d);
+    })
+    .on('mouseover', (e, d) => {
+      if (d.data.grids) {
+        const tip = document.getElementById('tip');
+        tip.innerHTML = `<strong style="color:var(--accent)">${d.data.label}</strong><br>
+          <span style="color:var(--muted)">${d.data.field_name || ''}</span><br>
+          <span style="color:#7ec8ff">${d.data.grids.join(', ')}</span>`;
+        tip.style.display = 'block';
+      }
+    })
+    .on('mousemove', e => {
+      const tip = document.getElementById('tip');
+      tip.style.left = (e.clientX + 14) + 'px';
+      tip.style.top  = (e.clientY - 10) + 'px';
+    })
+    .on('mouseout', () => { document.getElementById('tip').style.display = 'none'; });
+
+  // Circle
+  nodeEnter.append('circle')
+    .attr('r', d => d.data.field ? 5 : d.data.grids ? 3.5 : 2.5)
+    .attr('fill', d => {
+      if (d.data.id === 'root') return 'var(--accent)';
+      if (d.data.field)  return 'var(--dim)';
+      if (d.data.grids)  return 'var(--hi)';
+      return '#3a4155';
+    })
+    .attr('stroke', d => d._children ? 'var(--muted)' : 'none')
+    .attr('stroke-width', 1.5);
+
+  // Label
+  nodeEnter.append('text')
+    .attr('dy', '0.31em')
+    .attr('x', d => (d.children || d._children) ? -8 : 8)
+    .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+    .attr('font-family', 'var(--mono)')
+    .attr('font-size', d => d.data.field ? 10 : 9)
+    .attr('font-weight', d => d.data.field ? 500 : 300)
+    .attr('fill', d => {
+      if (d.data.id === 'root') return 'var(--accent)';
+      if (d.data.field) return 'var(--muted)';
+      if (q && d.data.label.toLowerCase().includes(q)) return 'var(--match, #f0c040)';
+      if (d.data.grids) return 'var(--hi)';
+      return '#6a7490';
+    })
+    .text(d => d.data.label);
+
+  nodeEnter.transition().duration(200)
+    .attr('transform', d => `translate(${d.y},${d.x})`)
+    .attr('opacity', 1);
+
+  node.transition().duration(200)
+    .attr('transform', d => `translate(${d.y},${d.x})`)
+    .attr('opacity', 1);
+
+  node.select('circle')
+    .attr('fill', d => {
+      if (d.data.id === 'root') return 'var(--accent)';
+      if (d.data.field)  return 'var(--dim)';
+      if (d.data.grids)  return 'var(--hi)';
+      return '#3a4155';
+    })
+    .attr('stroke', d => d._children ? 'var(--muted)' : 'none');
+
+  node.select('text')
+    .attr('fill', d => {
+      if (d.data.id === 'root') return 'var(--accent)';
+      if (d.data.field) return 'var(--muted)';
+      if (q && d.data.label.toLowerCase().includes(q)) return '#f0c040';
+      if (d.data.grids) return 'var(--hi)';
+      return '#6a7490';
+    });
+
+  node.exit().transition().duration(150)
+    .attr('transform', d => `translate(${source.y},${source.x})`)
+    .attr('opacity', 0).remove();
+
+  root.each(d => { d.x0 = d.x; d.y0 = d.y; });
+}
+
+// ── Controls ──────────────────────────────────────────────────────────────────
+document.getElementById('expand-btn').addEventListener('click', () => {
+  root.each(d => {
+    if (d._children) { d.children = d._children; d._children = null; }
+  });
+  update(root);
+});
+
+document.getElementById('collapse-btn').addEventListener('click', () => {
+  root.each(d => {
+    if (d.depth > 1 && d.children) { d._children = d.children; d.children = null; }
+  });
+  update(root);
+});
+
+document.getElementById('search').addEventListener('input', () => update(root));
+
+load();
+</script>
+</body>
+</html>

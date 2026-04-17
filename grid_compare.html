@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMD Grid Finder</title>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-browser.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0d0f14;
+  --surf:   #151820;
+  --border: #252a35;
+  --dim:    #2e3448;
+  --text:   #c8d0e0;
+  --muted:  #5a6380;
+  --accent: #4af0c0;
+  --leaf:   #f07040;
+  --hi:     #f0c040;
+  --faded:  rgba(74,240,192,.06);
+  --mono:   'IBM Plex Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text);
+  font-family: var(--mono); font-size: 12px; overflow: hidden; }
+
+#app { display: grid; grid-template-rows: 44px 1fr; height: 100vh; }
+
+/* header */
+#hdr { display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  border-bottom: 1px solid var(--border); background: var(--surf); flex-shrink: 0; }
+#hdr h1 { font-size: 11px; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent); }
+.sp { flex: 1; }
+#status { font-size: 10px; color: var(--muted); }
+#status.loading { color: var(--accent); }
+#status.error   { color: #f05060; }
+.btn { background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--mono); font-size: 9px; padding: 3px 9px; cursor: pointer;
+  letter-spacing: .06em; text-transform: uppercase; transition: all .12s; }
+.btn:hover { color: var(--text); border-color: var(--muted); }
+.btn.active { color: var(--hi); border-color: var(--hi); }
+
+/* phase label */
+#phase-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); padding: 0 10px; border-left: 1px solid var(--border); }
+#filter-summary { font-size: 9px; color: var(--accent); max-width: 400px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* svg container — fills remaining space, no scroll — viewBox scales to fit */
+#tree-wrap { width: 100%; height: 100%; position: relative; overflow: hidden; }
+svg#svg { width: 100%; height: 100%; display: block; }
+
+/* nodes */
+.node circle { transition: r .2s, fill .15s, stroke .15s; cursor: pointer; stroke-width: 1.5; }
+.node text { font-family: var(--mono); dominant-baseline: central; pointer-events: none; }
+.node.root  circle { fill: var(--accent); stroke: none; cursor: default; }
+.node.branch circle { fill: var(--surf); stroke: var(--muted); }
+.node.branch:hover circle { stroke: var(--accent); fill: var(--faded); }
+.node.branch.filtered circle { stroke: var(--hi); fill: rgba(240,192,64,.08); }
+.node.leaf   circle { fill: var(--leaf); stroke: none; }
+.node.leaf:hover circle { fill: var(--hi); }
+.node.leaf.filtered circle { fill: var(--hi); stroke: none; }
+.link { fill: none; stroke: var(--border); stroke-width: 1; transition: stroke .15s; }
+.link.active { stroke: var(--dim); }
+
+/* tooltip */
+#tip { position: fixed; background: var(--surf); border: 1px solid var(--border);
+  padding: 7px 11px; font-size: 10px; color: var(--text); pointer-events: none;
+  display: none; z-index: 200; line-height: 1.7; max-width: 260px; }
+
+/* drawer */
+#drawer { position: fixed; right: 0; top: 0; bottom: 0; width: 280px;
+  background: var(--surf); border-left: 1px solid var(--border);
+  transform: translateX(100%); transition: transform .2s;
+  display: flex; flex-direction: column; z-index: 100; }
+#drawer.open { transform: none; }
+#drawer-hdr { padding: 10px 14px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; flex-shrink: 0; }
+#drawer-id { font-size: 13px; color: var(--leaf); font-weight: 600; flex: 1; }
+#drawer-close { cursor: pointer; color: var(--muted); font-size: 10px; }
+#drawer-close:hover { color: var(--text); }
+#drawer-body { flex: 1; overflow-y: auto; padding: 4px 0; }
+#drawer-body::-webkit-scrollbar { width: 3px; }
+#drawer-body::-webkit-scrollbar-thumb { background: var(--dim); }
+.dr { display: grid; grid-template-columns: 110px 1fr; gap: 1px; margin-bottom: 1px; }
+.dk { padding: 3px 10px; font-size: 9px; color: var(--muted); background: rgba(21,24,32,.8); }
+.dv { padding: 3px 8px; font-size: 10px; background: var(--surf); word-break: break-word; }
+.dv.num { color: #7ec8ff; }
+.dv.nil { color: var(--dim); font-style: italic; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="hdr">
+    <h1>EMD Grid Finder</h1>
+    <span id="phase-label">phase 1 — select</span>
+    <span id="filter-summary"></span>
+    <span class="sp"></span>
+    <button class="btn" id="reset-btn">RESET</button>
+    <button class="btn" id="next-btn" style="display:none">NEXT PHASE →</button>
+    <span id="status" class="loading">loading…</span>
+  </header>
+  <div id="tree-wrap">
+    <svg id="svg"></svg>
+  </div>
+</div>
+<div id="tip"></div>
+<div id="drawer">
+  <div id="drawer-hdr">
+    <span id="drawer-id"></span>
+    <span id="drawer-close">✕</span>
+  </div>
+  <div id="drawer-body"></div>
+</div>
+</body>
+<script type="module">
+const GRAPH       = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/_graph.json';
+const CONTEXT_URL = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/_context';
+const ITEM_BASE   = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/';
+const SKIP_KEYS   = new Set(['@context','@type','@id','validation_key','ui_label']);
+const FIELD_ORDER = ['grid_type','grid_mapping','coordinate_system','x_resolution','y_resolution',
+  'horizontal_units','units','n_cells','region','southernmost_latitude','westernmost_longitude',
+  'temporal_refinement','truncation_method','truncation_number','description'];
+
+let allGrids     = {};
+let linkedFields = [];   // phase 1 facets (from _context)
+let numericFields = [];  // phase 2 facets
+
+// Active filter state: phase → { field: Set<value> }
+// phase=1 uses linkedFields, phase=2 uses numericFields
+let phase = 1;
+const filters = { 1: {}, 2: {} };  // filters[phase][field] = Set of selected values
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function rawVal(d, field) {
+  const v = d[field];
+  if (v === null || v === undefined || v === '') return null;
+  if (Array.isArray(v)) {
+    const parts = v.filter(x => x !== null && x !== undefined && x !== '');
+    return parts.length ? parts.map(String) : null;
+  }
+  const s = String(v);
+  return s === 'null' ? null : s;
+}
+
+function display(raw) {
+  if (raw === null || raw === undefined) return '';
+  if (Array.isArray(raw)) return raw.map(display).join(', ');
+  return String(raw).replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function gridVals(d, field) {
+  const v = rawVal(d, field);
+  if (v === null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+// Grids matching current phase filters (for phase 1) or phase-1 + phase-2 filters
+function matchingGrids(includePhase2 = false) {
+  const activeFilters = includePhase2
+    ? { ...filters[1], ...filters[2] }
+    : filters[1];
+  return Object.values(allGrids).filter(d =>
+    Object.entries(activeFilters).every(([f, sel]) => {
+      if (!sel || sel.size === 0) return true;
+      const vals = gridVals(d, f);
+      return [...sel].some(s => vals.includes(s));
+    })
+  );
+}
+
+// ── Load ──────────────────────────────────────────────────────────────────────
+async function load() {
+  const $s = document.getElementById('status');
+  try {
+    const ctxRes  = await fetch(CONTEXT_URL);
+    const ctxJson = await ctxRes.json();
+    const ctx     = ctxJson['@context'] || ctxJson;
+    linkedFields  = Object.entries(ctx)
+      .filter(([k,v]) => k[0] !== '@' && typeof v === 'object' && v['@type'] === '@id')
+      .map(([k]) => k);
+
+    const res  = await fetch(GRAPH);
+    const json = await res.json();
+    if (json['@context']?.['@base']) json['@context']['@base'] = ITEM_BASE;
+    const blob = new Blob([JSON.stringify(json)], {type:'application/json'});
+    const burl = URL.createObjectURL(blob);
+    const data = await JsonLdExpand.compact(burl, {depth: 2});
+    URL.revokeObjectURL(burl);
+    const raw = data.contents || data['@graph'] || [];
+    (Array.isArray(raw) ? raw : Object.values(raw)).forEach(d => {
+      const id = shortId(d['@id'] || d.validation_key || '');
+      if (id) allGrids[id] = d;
+    });
+
+    const allKeys = new Set();
+    Object.values(allGrids).forEach(d => Object.keys(d).forEach(k => allKeys.add(k)));
+    numericFields = [...allKeys].filter(k =>
+      !SKIP_KEYS.has(k) && !linkedFields.includes(k) && k !== 'description'
+    ).sort();
+
+    linkedFields.forEach(f => { filters[1][f] = new Set(); });
+    numericFields.forEach(f => { filters[2][f] = new Set(); });
+
+    $s.className = ''; $s.textContent = Object.keys(allGrids).length + ' grids';
+    buildTree(1);
+  } catch(e) {
+    $s.className = 'error'; $s.textContent = 'error: ' + e.message;
+    console.error(e);
+  }
+}
+
+// ── Tree builder ──────────────────────────────────────────────────────────────
+function entropy(groups) {
+  const total = Object.values(groups).reduce((s,g)=>s+g.length,0);
+  if (!total) return 0;
+  return -Object.values(groups).reduce((s,g)=>{
+    const p=g.length/total; return p>0?s+p*Math.log2(p):s;
+  },0);
+}
+
+function infoGain(grids, field) {
+  const total=grids.length; if(!total) return 0;
+  const groups={};
+  grids.forEach(d=>{
+    const k=gridVals(d,field).join('|')||'__x__';
+    if(!groups[k]) groups[k]=[];
+    groups[k].push(d);
+  });
+  if(Object.keys(groups).length<=1) return -Infinity;
+  const wH=Object.values(groups).reduce((s,g)=>{
+    const sub={};
+    g.forEach(d=>{const k2=gridVals(d,field).join('|')||'__x__';if(!sub[k2])sub[k2]=[];sub[k2].push(d);});
+    return s+(g.length/total)*entropy(sub);
+  },0);
+  return entropy(groups)-wH;
+}
+
+function sortedFields(grids, fields) {
+  return [...fields]
+    .map(f=>({f,g:infoGain(grids,f)}))
+    .filter(x=>x.g>-Infinity)
+    .sort((a,b)=>b.g-a.g)
+    .map(x=>x.f);
+}
+
+// Build nested node structure — no '—' nodes: skip grids missing a field silently
+function buildNodes(grids, fields, depth, pathKey) {
+  if (!fields.length || !grids.length) {
+    return grids.map(d => ({
+      type:'leaf', id: shortId(d['@id']||d.validation_key||''), data:d, count:1,
+      _key: pathKey+'|leaf:'+shortId(d['@id']||d.validation_key||''),
+    }));
+  }
+  const field = fields[0], rest = fields.slice(1);
+  const groups = {}, missing = [];
+  grids.forEach(d => {
+    const vals = gridVals(d, field);
+    if (!vals.length) { missing.push(d); return; }
+    vals.forEach(v => {
+      if (!groups[v]) groups[v] = [];
+      groups[v].push(d);
+    });
+  });
+  const children = [];
+  // Grids missing this field bubble up directly without a '—' node
+  if (missing.length) {
+    buildNodes(missing, rest, depth+1, pathKey+'|skip').forEach(c=>children.push(c));
+  }
+  Object.entries(groups)
+    .sort(([a],[b])=>{const na=parseFloat(a),nb=parseFloat(b);return(!isNaN(na)&&!isNaN(nb))?na-nb:a.localeCompare(b,undefined,{numeric:true});})
+    .forEach(([val,subset])=>{
+      const nk=pathKey+'|'+field+':'+val;
+      children.push({
+        type:'branch', field, value:val, count:subset.length, _key:nk,
+        children: buildNodes(subset,rest,depth+1,nk),
+      });
+    });
+  return children;
+}
+
+// ── Build & render tree for given phase ───────────────────────────────────────
+function buildTree(p) {
+  phase = p;
+  document.getElementById('phase-label').textContent =
+    p === 1 ? 'phase 1 — cv fields' : 'phase 2 — numeric fields';
+  document.getElementById('next-btn').style.display = p === 1 ? 'inline-block' : 'none';
+
+  const grids   = matchingGrids(p === 2);
+  const fields  = sortedFields(grids, p === 1 ? linkedFields : numericFields);
+  const filt    = filters[p];
+
+  const rootData = {
+    type:'root', _key:'root', count: grids.length,
+    label: (p===1?'CV Facets':'Numeric Facets')+' ('+grids.length+')',
+    children: buildNodes(grids, fields, 0, 'root'),
+  };
+
+  const root = d3.hierarchy(rootData, d => d.type==='leaf' ? null : d.children||null);
+
+  // Annotate each node with the Set of active filter values for its field
+  root.each(d => { d.data._active = d.data.field && filt[d.data.field]?.has(d.data.value); });
+
+  // Normalise count for radius scaling: 0–1 across all branch nodes
+  const counts = root.descendants().filter(d=>d.data.type==='branch').map(d=>d.data.count);
+  const maxC = Math.max(...counts, 1), minC = Math.min(...counts, 1);
+  const normR = d => {
+    if (d.data.type === 'root')   return 8;
+    if (d.data.type === 'leaf')   return 4;
+    const t = maxC===minC ? 1 : (d.data.count-minC)/(maxC-minC);
+    return 4 + t * 8;   // range: 4px … 12px (2× the base 4px)
+  };
+
+  renderTree(root, normR);
+  updateFilterSummary();
+}
+
+// ── Fit-to-screen D3 render ───────────────────────────────────────────────────
+// Strategy: layout at natural size, measure bounding box, set viewBox to fit.
+let svgRoot, normRFn;
+
+function renderTree(root, normR) {
+  svgRoot = root; normRFn = normR;
+  const svg = d3.select('#svg');
+  svg.selectAll('*').remove();
+  svg.attr('preserveAspectRatio','xMidYMid meet');
+
+  const g  = svg.append('g').attr('class','tree-root');
+  const gL = g.append('g').attr('class','links');
+  const gN = g.append('g').attr('class','nodes');
+
+  update(root, g, gL, gN, svg, normR);
+}
+
+function update(root, g, gL, gN, svg, normR) {
+  const wrap = document.getElementById('tree-wrap');
+  const W    = wrap.clientWidth  || window.innerWidth;
+  const H    = wrap.clientHeight || (window.innerHeight - 44);
+
+  // Layout at a generous natural size first, then fit via viewBox
+  const PAD_X = 140, PAD_Y = 20;
+  const leaves = root.leaves ? root.leaves().length : 20;
+  const natH   = Math.max(leaves * 18, H);
+  const depth  = (root.height || 5);
+  const natW   = Math.max(depth * 200, W);
+
+  d3.tree().size([natH - PAD_Y*2, natW - PAD_X*2])(root);
+
+  // Compute actual bounding box of laid-out nodes
+  let x0=Infinity, x1=-Infinity, y0=Infinity, y1=-Infinity;
+  root.each(d => {
+    if (d.x < x0) x0=d.x; if (d.x > x1) x1=d.x;
+    if (d.y < y0) y0=d.y; if (d.y > y1) y1=d.y;
+  });
+  const treeW = y1 - y0 + PAD_X*2;
+  const treeH = x1 - x0 + PAD_Y*2;
+
+  // Set viewBox so entire tree fits in the visible area
+  svg.attr('viewBox', `${y0 - PAD_X} ${x0 - PAD_Y} ${treeW} ${treeH}`);
+
+  // Links
+  const lk = gL.selectAll('path.link').data(root.links(), d=>d.target.data._key);
+  lk.enter().append('path').attr('class','link active')
+    .attr('d', d3.linkHorizontal().x(d=>d.y).y(d=>d.x))
+    .attr('opacity',0).transition().duration(200).attr('opacity',1);
+  lk.transition().duration(200).attr('d', d3.linkHorizontal().x(d=>d.y).y(d=>d.x));
+  lk.exit().transition().duration(150).attr('opacity',0).remove();
+
+  // Nodes
+  const nd = gN.selectAll('g.node').data(root.descendants(), d=>d.data._key);
+  const isFiltered = d => d.data._active;
+
+  const enter = nd.enter().append('g')
+    .attr('class', d => 'node '+d.data.type+(isFiltered(d)?' filtered':''))
+    .attr('transform', d=>`translate(${d.y},${d.x})`)
+    .attr('opacity',0);
+
+  enter.append('circle').attr('r', d=>normR(d));
+
+  enter.append('text')
+    .attr('x', d=>(d.children||d._children)?-(normR(d)+4):(normR(d)+4))
+    .attr('text-anchor', d=>(d.children||d._children)?'end':'start')
+    .attr('font-size', d=>d.data.type==='root'?11:d.data.type==='leaf'?9:10)
+    .attr('fill', d=>d.data.type==='root'?'var(--accent)':d.data.type==='leaf'?'var(--leaf)':isFiltered(d)?'var(--hi)':'var(--muted)')
+    .text(d=>nodeLabel(d));
+
+  enter.filter(d=>d.data.type!=='root')
+    .style('cursor','pointer')
+    .on('click', (e,d)=>{
+      if (d.data.type==='leaf') { openDrawer(d.data); return; }
+      const sel = filters[phase][d.data.field];
+      if (sel) {
+        if (sel.has(d.data.value)) sel.delete(d.data.value);
+        else sel.add(d.data.value);
+        buildTree(phase);
+      }
+    })
+    .on('mouseover',(e,d)=>{
+      const tip=document.getElementById('tip');
+      if(d.data.type==='branch'){
+        tip.innerHTML=`<b style="color:var(--accent)">${display(d.data.field)}</b><br>
+          <span style="color:var(--text)">${display(d.data.value)}</span><br>
+          <span style="color:var(--muted)">${d.data.count} grid${d.data.count!==1?'s':''}</span>`;
+        tip.style.display='block';
+      } else if(d.data.type==='leaf'){
+        const desc=d.data.data?.description||'';
+        tip.innerHTML=`<b style="color:var(--leaf)">${shortId(d.data.id)}</b>`+(desc?`<br><span style="color:var(--muted)">${desc.slice(0,80)}</span>`:'');
+        tip.style.display='block';
+      }
+    })
+    .on('mousemove',e=>{const t=document.getElementById('tip');t.style.left=(e.clientX+14)+'px';t.style.top=(e.clientY-8)+'px';})
+    .on('mouseout',()=>document.getElementById('tip').style.display='none');
+
+  enter.transition().duration(200)
+    .attr('transform',d=>`translate(${d.y},${d.x})`).attr('opacity',1);
+
+  nd.attr('class',d=>'node '+d.data.type+(isFiltered(d)?' filtered':''))
+    .transition().duration(200)
+    .attr('transform',d=>`translate(${d.y},${d.x})`).attr('opacity',1);
+  nd.select('text').text(d=>nodeLabel(d))
+    .attr('fill',d=>d.data.type==='root'?'var(--accent)':d.data.type==='leaf'?'var(--leaf)':isFiltered(d)?'var(--hi)':'var(--muted)');
+  nd.select('circle').attr('r',d=>normR(d));
+  nd.exit().transition().duration(150).attr('opacity',0).remove();
+}
+
+// Strip URL path — keep only the final segment after the last /
+function shortId(s) {
+  if (!s) return s;
+  return String(s).split('/').filter(Boolean).pop() || s;
+}
+
+function nodeLabel(d) {
+  if (d.data.type==='root')   return d.data.label;
+  if (d.data.type==='leaf')   return shortId(d.data.id);
+  const cnt = d.data.count > 1 ? ` (${d.data.count})` : '';
+  return display(d.data.value)+cnt;
+}
+
+function updateFilterSummary() {
+  const parts = [];
+  [1,2].forEach(p=>{
+    Object.entries(filters[p]).forEach(([f,sel])=>{
+      if(sel.size) parts.push(display(f)+': '+[...sel].map(display).join(', '));
+    });
+  });
+  document.getElementById('filter-summary').textContent = parts.join(' · ');
+}
+
+// ── Controls ──────────────────────────────────────────────────────────────────
+document.getElementById('next-btn').addEventListener('click', () => buildTree(2));
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  linkedFields.forEach(f  => filters[1][f] = new Set());
+  numericFields.forEach(f => filters[2][f] = new Set());
+  buildTree(1);
+});
+
+window.addEventListener('resize', () => { if (svgRoot) buildTree(phase); });
+
+// ── Drawer ────────────────────────────────────────────────────────────────────
+function openDrawer(leafData) {
+  const d = leafData.data;
+  document.getElementById('drawer-id').textContent = leafData.id;
+  const body = document.getElementById('drawer-body');
+  body.innerHTML = '';
+  const keys = [...new Set([...FIELD_ORDER,...Object.keys(d)])].filter(k=>!SKIP_KEYS.has(k));
+  keys.forEach(k=>{
+    if(d[k]===undefined) return;
+    const v=d[k];
+    const s=v===null||v===''?null:Array.isArray(v)?v.join(', '):String(v).replace(/[-_]/g,' ');
+    const cls=v===null||v===''?'nil':typeof v==='number'?'num':'';
+    const row=document.createElement('div'); row.className='dr';
+    row.innerHTML=`<div class="dk">${k}</div><div class="dv ${cls}">${s||'—'}</div>`;
+    body.appendChild(row);
+  });
+  document.getElementById('drawer').classList.add('open');
+}
+document.getElementById('drawer-close').addEventListener('click',()=>
+  document.getElementById('drawer').classList.remove('open'));
+
+load();
+</script>
+</html>
