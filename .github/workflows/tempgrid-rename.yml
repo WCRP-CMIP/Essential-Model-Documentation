@@ -269,8 +269,10 @@ jobs:
           OLD_PR_TITLE=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
             --json title --jq '.title')
           CLEAN_PR_TITLE=$(echo "$OLD_PR_TITLE" | sed 's/^|[^|]*| *//')
-          gh pr edit "$PR_NUMBER" --repo "$REPO" \
-            --title "| ${NEW_IDS} | ${CLEAN_PR_TITLE}"
+          NEW_PR_TITLE="| ${NEW_IDS} | ${CLEAN_PR_TITLE}"
+          if [ "$OLD_PR_TITLE" != "$NEW_PR_TITLE" ]; then
+            gh pr edit "$PR_NUMBER" --repo "$REPO" --title "$NEW_PR_TITLE"
+          fi
 
           gh pr comment "$PR_NUMBER" --repo "$REPO" --body "$COMMENT_BODY"
           echo "Updated and commented on PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
@@ -292,8 +294,10 @@ jobs:
               OLD_ISSUE_TITLE=$(gh issue view "$issue_num" --repo "$REPO" \
                 --json title --jq '.title')
               CLEAN_ISSUE_TITLE=$(echo "$OLD_ISSUE_TITLE" | sed 's/^|[^|]*| *//')
-              gh issue edit "$issue_num" --repo "$REPO" \
-                --title "| ${NEW_IDS} | ${CLEAN_ISSUE_TITLE}"
+              NEW_ISSUE_TITLE="| ${NEW_IDS} | ${CLEAN_ISSUE_TITLE}"
+              if [ "$OLD_ISSUE_TITLE" != "$NEW_ISSUE_TITLE" ]; then
+                gh issue edit "$issue_num" --repo "$REPO" --title "$NEW_ISSUE_TITLE"
+              fi
 
               gh issue close "$issue_num" --repo "$REPO" || true
 
