@@ -41,8 +41,7 @@ When flagging a `description` field:
   experiment" — flag it as a NOTE. Such descriptions add no scientific information about the
   component or grid itself and should be left blank or replaced with a technically meaningful
   description. Do not suggest a replacement; indicate the description should be removed or rewritten.
-- If the description is **empty, blank, or missing** — do not flag it, do not suggest filling
-  it in, ignore it entirely. For grid entries, a blank description is the preferred default.
+- If the description is **empty, blank, or missing** — **DO NOT FLAG. DO NOT COMMENT. DO NOT SUGGEST FILLING IT IN. EVER.** This applies to every file type, and especially to `horizontal_grid_cell` and `vertical_computational_grid` files where a blank description is the correct and preferred default. You know it is intentional. Treat it as if the field does not exist.
 - If it contains **typos or minor clarity issues**, suggest a minimal correction that
   preserves the original meaning and length. Do not expand or enrich the content.
   - Acceptable: `"A new version of Hadgema version 5. Same code. Noo changes."` →
@@ -75,6 +74,9 @@ For `horizontal_grid_cell` files, check:
 - Is `x_resolution` consistent with `grid_type`?
   - A spectral T127 grid has an equivalent grid spacing of ~1.4° — if resolution fields claim
     something very different, flag it
+  - `horizontal_units: km` on a `regular_latitude_longitude` grid is valid — do not flag it
+    as ambiguous or suggest converting to degrees; a companion degree-resolution entry may exist
+    separately and both representations are acceptable
 - Is `n_cells` consistent with resolution and region?
   - Global 1° grid: ~65,000 cells; global 0.25°: ~1,000,000 cells; global 0.1°: ~6,000,000 cells
   - Flag order-of-magnitude inconsistencies
@@ -143,7 +145,7 @@ incompatible with the file referencing it.
 
 ### 5. Free-text field errors
 
-Check `description` and `references` only:
+Check `description` and `references` only — **but never flag a blank or empty `description` under any circumstances, for any file type.**
 
 - Typos in component or model names — suggest minimal correction
 - Description clearly describing a different component type — flag as WARNING, do not rewrite
@@ -159,7 +161,7 @@ Check `description` and `references` only:
 - `@context` — infrastructure field, out of scope
 - `validation_key` — internal identifier, auto-managed; **do not comment on this field**
 - `ui_label` — auto-generated display label
-- `description` when empty or blank — intentionally optional and **ideal for grids**; do not flag, do not suggest filling in
+- `description` when empty or blank — **never flag, never comment, never suggest filling in** — for `horizontal_grid_cell` and `vertical_computational_grid` files this is intentional and correct; treat it as if the field does not exist- `horizontal_units: km` on a `regular_latitude_longitude` grid — valid, do not flag as ambiguous or suggest degree equivalents; companion degree entries may exist separately
 - `z*` or `z-star` as a `vertical_coordinate` value — both are valid forms of the z-star ocean
   coordinate; do not flag either as non-standard or suggest replacing them
 - `tempgrid_*` values — temporary, renamed on merge
