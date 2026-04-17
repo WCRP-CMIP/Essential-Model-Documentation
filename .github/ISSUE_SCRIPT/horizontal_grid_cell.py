@@ -74,7 +74,8 @@ def run(parsed_issue, issue, dry_run=False):
     if units:
         data['units'] = units
 
-    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description'}    for key, val in parsed_issue.items():
+    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description'}
+    for key, val in parsed_issue.items():
         if key in skip or not val or key in data:
             continue
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
