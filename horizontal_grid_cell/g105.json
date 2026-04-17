@@ -4,7 +4,7 @@
     "description": "Regular latitude-longitude output grid for atmosphere (based on TL127 spectral grid), 1.4 x 1.4 degree resolution.",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
-    "units": "degree",
+    "horizontal_units": "degree",
     "n_cells": 32768,
     "region": [
         "global"
