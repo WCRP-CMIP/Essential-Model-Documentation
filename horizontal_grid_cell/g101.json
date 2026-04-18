@@ -4,6 +4,7 @@
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "linear-spectral-gaussian",
+    "horizontal_units": "degree",
     "n_cells": 24572,
     "region": [
         "global"
@@ -12,7 +13,6 @@
     "temporal_refinement": "static",
     "truncation_method": "triangular",
     "truncation_number": 127,
-    "horizontal_units": "degree",
     "westernmost_longitude": 0.0,
     "x_resolution": 1.4,
     "y_resolution": 1.4,
