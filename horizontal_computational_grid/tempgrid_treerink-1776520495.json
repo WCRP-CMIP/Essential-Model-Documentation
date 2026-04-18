@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_treerink-1776520495",
+    "ui_label": "",
+    "description": "- Grid arrangement: Arakawa-A - This regular longitude - latitude grid serves for delivering the data. The data is regridded from the IFS Cycle36r4 L91 model grid (which is a spectral representation with triangular truncation at wavenumber 255 with a linear N128 reduced Gaussian grid). - Horizontal gird for the the interpolated output for the IFS Atmosphere component in the EC-Earth3-ESM-1-1 configuration",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g114-mass-velocity-vorticity-x-velocity-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-treerink-1776520495"
+}
