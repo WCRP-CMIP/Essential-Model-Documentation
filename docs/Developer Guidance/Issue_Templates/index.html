@@ -39,7 +39,7 @@
     
 
 
-<title>Reviewer Information</title>
+<title>Issue Templates</title>
 
 
 
@@ -51,18 +51,18 @@
 
 
 
-<link rel="canonical" href="https://emd.mipcvs.dev/Reviewer_Information/">
+<link rel="canonical" href="https://emd.mipcvs.dev/Developer%20Guidance/Issue_Templates/">
 
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="Reviewer Information">
+<meta property="og:title" content="Issue Templates">
 
 
 
 
 
-<meta property="og:url" content="https://emd.mipcvs.dev/Reviewer_Information/">
+<meta property="og:url" content="https://emd.mipcvs.dev/Developer%20Guidance/Issue_Templates/">
 
 
 
@@ -71,7 +71,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="Reviewer Information">
+<meta name="twitter:title" content="Issue Templates">
 
 
 
@@ -82,18 +82,18 @@
 
 
 
-    <link rel="icon" href="../assets/favicon.svg">
+    <link rel="icon" href="../../assets/favicon.svg">
 
-    <link href="../css/base.css" rel="stylesheet">
-    <link href="../css/geist.css" rel="stylesheet">
-
-    
-    <link href="../stylesheets/custom.css" rel="stylesheet">
-    <link href="../stylesheets/footer-override.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/geist.css" rel="stylesheet">
 
     
+    <link href="../../stylesheets/custom.css" rel="stylesheet">
+    <link href="../../stylesheets/footer-override.css" rel="stylesheet">
 
-    <script src="../js/callbacks.js"></script>
+    
+
+    <script src="../../js/callbacks.js"></script>
 
     
 
@@ -156,7 +156,7 @@
                 <span class="size-8 flex flex-row justify-center items-center">
                     
 
-<img class="size-8" src="../assets/cmip-logo.svg" alt="icon">
+<img class="size-8" src="../../assets/cmip-logo.svg" alt="icon">
 
 
                 </span>
@@ -285,13 +285,13 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          Reviewer Information
+          Issue Templates
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
           
 <button
-    onclick="fetch(`https://emd.mipcvs.dev/Reviewer_Information.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
+    onclick="fetch(`https://emd.mipcvs.dev/Developer Guidance/Issue_Templates.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
     data-slot="button" class="secondary cursor-pointer">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
@@ -307,7 +307,7 @@
             data-slot="button"
             id="previous-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/"
+            href="/Developer%20Guidance/Github%20Actions%2C%20Workflows_and_Automation/"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -329,31 +329,6 @@
           </a>
            
           
-          <a
-            data-slot="button"
-            id="next-button"
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Submission-Guide/"
-          >
-            <span class="sr-only">Next</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="tabler-icon tabler-icon-arrow-right"
-            >
-              <path d="M5 12l14 0"></path>
-              <path d="M13 18l6 -6"></path>
-              <path d="M13 6l6 6"></path>
-            </svg>
-          </a>
-          
         </div>
       </div>
       
@@ -363,84 +338,93 @@
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-    <div class="admonition warning">
-<p class="admonition-title">Information for reviewers only</p>
-<p>The following information is for the reviewing of the EMD and some of the features descsribed may not be accessible to those not on the review team. 
-If you are interesting in helping out with the review process, please send an email to emd-submissions@wcrp-cmip.org. </p>
-</div>
-<p>These are pages that provide guidance to reviewers, and anyone else interested in their submissions and how they get processsed. Not everything visible on this page will be public. </p>
-<h2 id="useful-links-for-users">Useful links for users<a class="headerlink" href="#useful-links-for-users" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me">Link for submitters to track their Issues</a></li>
-<li><a href="https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&amp;size=flexible">Link for how to edit an Issue, and rerun the actions</a></li>
-</ul>
-<h3 id="general-rules">General rules<a class="headerlink" href="#general-rules" title="Permanent link">&para;</a></h3>
-<ul>
-<li>IDs shall not have any underscores or spaces. Any periods "." are to be replaced with dashes "-".</li>
-<li>Grid descriptions should only exist to define a difference between grid cells with identical parameters, but different physical properties that cannot be documented within the current structure. </li>
-<li>Links should point to permanent locations. These are Version Control Interfaces (Github, Bitbucket, GitLab etc. ) or DOI's. Users can mint a document or repository using <a href="https://zenodo.org/">Zenodo</a> for free if required. </li>
-</ul>
-<h2 id="review-procedure">review procedure.<a class="headerlink" href="#review-procedure" title="Permanent link">&para;</a></h2>
+    <p>This page explains how the GitHub issue templates (the backbone of the EMD submission process) are structured, generated, edited / corrected. 
+It is aimed at developers and maintainers.</p>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The submission forms at <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">github.com/…/issues/new/choose</a> are standard GitHub issue templates stored as YAML files under <code>.github/ISSUE_TEMPLATE/</code>. Rather than being edited by hand, they are <strong>generated automatically</strong> by the <code>template_generate</code> command from the <code>cmipld</code> library. The generator runs on the <code>main</code> branch and commits the resulting files back to <code>.github/ISSUE_TEMPLATE/</code> and the modification links in <code>CONTRIBUTING.md</code>. The generator is triggered by the <code>issue-templates.yml</code> workflow — see <a href="Workflows_and_Automations/">Workflows and Automations</a>.</p>
+<p>[!warning] The general rule is: <strong>do not edit the generated template files directly</strong> — as they will be overwritten on the next run. </p>
+<hr />
+<h2 id="branch-layout">Branch Layout<a class="headerlink" href="#branch-layout" title="Permanent link">&para;</a></h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>What it contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main</code></td>
+<td>Workflow files, generated <code>.github/ISSUE_TEMPLATE/*.yml</code>, <code>CONTRIBUTING.md</code></td>
+</tr>
+<tr>
+<td><code>src-data</code></td>
+<td>Raw JSON records submitted through the forms</td>
+</tr>
+<tr>
+<td><code>production</code></td>
+<td>Processed JSON, graph files, built documentation</td>
+</tr>
+</tbody>
+</table></div>
+<p>The generator reads live controlled vocabulary data from the <code>production</code> branch (via the LDR server) to populate dropdowns. This is why newly merged entries appear in forms after the publication action in a merge chain. </p>
+<hr />
+<h2 id="template-file-anatomy-for-info">Template File Anatomy (For info)<a class="headerlink" href="#template-file-anatomy-for-info" title="Permanent link">&para;</a></h2>
+<p>Each generated template is a standard GitHub issue form YAML file. The overall structure is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;human-readable name shown in the template chooser&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;subtitle shown under the name&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New</span><span class="nv"> </span><span class="s">&lt;RecordType&gt;:</span><span class="nv"> </span><span class="s">&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;needs-review&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;&lt;record-type-label&gt;&quot;</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">body</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input | dropdown | textarea | checkboxes | markdown</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;field_id&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;display label&gt;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;hint text shown under the field&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">      </span><span class="nt">placeholder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;greyed-out example text&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span><span class="w">        </span><span class="c1"># dropdown only</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;default&gt;</span><span class="w">      </span><span class="c1"># textarea/input default content</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nt">validations</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true | false</span>
+</code></pre></div>
+<p>GitHub renders <code>body</code> as a structured form. Each element maps to a field in the issue body, which <code>new-issue.yml</code> then parses by <code>id</code> to build the JSON record.If these files contain an error (often if no options are provided to a dropdown) the templates will not render, and the issue will not appear in GitHub.</p>
+<hr />
+<h2 id="how-the-generator-works">How the Generator Works<a class="headerlink" href="#how-the-generator-works" title="Permanent link">&para;</a></h2>
+<p><code>template_generate</code> (from <code>cmipld</code>) does the following for each record type:</p>
 <ol>
-<li>(tbc) action autoassigns reviewers</li>
-<li>reviewer looks at submission, Approves, or makes a suggestion. <em>Suggestions to be made on original issue</em></li>
-<li>on approval <em>a different</em> reviewer / maintainer will sanity check the submission and merge. </li>
+<li>Reads a schema definition that maps field names to their GitHub form field type and display properties.</li>
+<li>Queries the live JSONLD-recursive server (serving <code>production</code> data) to get the current list of registered entries for any field that references another record type — these become <code>dropdown</code> or <code>checkboxes</code> options.</li>
+<li>Renders each field into YAML using the schema + live data.</li>
+<li>Writes the resulting file to <code>.github/ISSUE_TEMPLATE/&lt;record_type&gt;.yml</code>.</li>
 </ol>
-<h2 id="reviewer-project-board">Reviewer Project Board<a class="headerlink" href="#reviewer-project-board" title="Permanent link">&para;</a></h2>
-<p>The reviewer project board was designed to better manage the issues and identify those relating to submissions and those which are not. </p>
-<p>The project board can be found at https://github.com/orgs/WCRP-CMIP/projects/8?pane=info </p>
-<p>It contains tabs on which issues are open, which have created pull requests for review, and which are not Form related (general issues / discussions). Additionally a tab for each form group has been provided to make it easier to locate an item. Columns for these are managed using the issue tags. </p>
-<h3 id="post-review-action">Post review action<a class="headerlink" href="#post-review-action" title="Permanent link">&para;</a></h3>
-<p>Following an accepted review, an action runs to remove the <code>needs-review</code> tag from the issue, allowing the project board to move it across to the review column. Approved pull requests are denoted by a green tick next to the name on the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls">pull request page</a></p>
-<p>Additional links to this that might be useful are: 
-- <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Anone">Pull requests needing review</a>
-- <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Aapproved">Already reviewed pull requests in need of merging</a>
-- <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+sort%3Acreated-asc+user-review-requested%3A%40me">Review assigned to you</a>
-- <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+sort%3Acreated-asc+user-review-requested%3A%40me">Review assigned to you</a></p>
-<h2 id="using-copilot-as-a-third-reviewer">Using copilot as a third reviewer<a class="headerlink" href="#using-copilot-as-a-third-reviewer" title="Permanent link">&para;</a></h2>
-<p>If you have a copilot subscription, you will be able to allocate this as a reviewer. A comprehensive document describing what and how it will perform its review is provided in the repository.
-Merits to this are: 
-- greater background knowledge to confirm semantic review. 
-- syntatic and grammatical suggestions
-- awareness of the contents of the repository and information present on duplication. </p>
-<h3 id="listing-pull-requests-using-the-command-line">Listing pull requests using the command line<a class="headerlink" href="#listing-pull-requests-using-the-command-line" title="Permanent link">&para;</a></h3>
-<p>There is a tool in the main branch of the repository that allows reviewers to quickly see what pull requests are linked to which issue. </p>
-<p>This can be run with <code>git checkout main &amp;&amp; .github/pr_issue_map.sh</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>PR<span class="w"> </span><span class="c1">#86 [OPEN] — New Horizontal_computational_grid : g108-mass | tempgrid_wolfiex-1774629370</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Approved<span class="w"> </span>:<span class="w"> </span>-
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="o">[</span>~<span class="o">]</span><span class="w"> </span>Engaged<span class="w">  </span>:<span class="w"> </span>-
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>└─<span class="w"> </span>Issue<span class="w"> </span><span class="c1">#80 [OPEN] — New Horizontal_computational_grid : g108-mass, tempgrid_wolfiex-1774629370</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>PR<span class="w"> </span><span class="c1">#78 [OPEN] — New Vertical_computational_grid : tempgrid_wolfiex-1774628619</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Approved<span class="w"> </span>:<span class="w"> </span>-
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="o">[</span>~<span class="o">]</span><span class="w"> </span>Engaged<span class="w">  </span>:<span class="w"> </span>davidhassell
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>└─<span class="w"> </span>Issue<span class="w"> </span><span class="c1">#77 [OPEN] — New Vertical_computational_grid : tempgrid_wolfiex-1774628619</span>
-</code></pre></div>
-<p>We can also use the <code>--approved</code> and <code>--needs-review</code> flags to filter our output as well as the <code>--json</code> flag for a more verbose output: </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">  </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;pr&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">78</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;pr_title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Vertical_computational_grid : tempgrid_wolfiex-1774628619&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;pr_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OPEN&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">&quot;reviews&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">&quot;approved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">&quot;engaged&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;davidhassell&quot;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">},</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">&quot;linked_issues&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="p">{</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="nt">&quot;number&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">77</span><span class="p">,</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Vertical_computational_grid : tempgrid_wolfiex-1774628619&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OPEN&quot;</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">      </span><span class="p">}</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="p">]</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="p">}</span>
-</code></pre></div>
+<p><code>template_update</code> then re-generates the modification links in <code>CONTRIBUTING.md</code> — the pre-filled URLs in the "Modifying or reusing existing entries" section — by serialising each existing registry record back into URL query parameters.</p>
+<hr />
+<h2 id="how-to-change-a-template">How to Change a Template<a class="headerlink" href="#how-to-change-a-template" title="Permanent link">&para;</a></h2>
+<h3 id="the-options-in-a-dropdown-are-wrong-or-out-of-date">The options in a dropdown are wrong or out of date<a class="headerlink" href="#the-options-in-a-dropdown-are-wrong-or-out-of-date" title="Permanent link">&para;</a></h3>
+<p>This means the live registry data is stale relative to what you expect. Check whether the record that should appear has been merged to <code>src-data</code> and published to <code>production</code>. If it has, manually trigger the <strong>Update Issue Templates</strong> workflow (<code>issue-templates.yml</code>) from the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/issue-templates.yml">Actions tab</a> — the dropdown will be updated when the workflow commits.</p>
+<h3 id="a-field-label-or-hint-text-is-wrong">A field label or hint text is wrong<a class="headerlink" href="#a-field-label-or-hint-text-is-wrong" title="Permanent link">&para;</a></h3>
+<p>All fields are described within the <code>.github/GEN_ISSUE_TEMPLATE</code> folder <code>.csv</code> file with the relevant issue name. Any dynamic information is computed by the <code>.py</code> file, and dropdown descriptions come from the <code>.json</code> files. </p>
+<h3 id="a-required-field-is-missing-from-a-template">A required field is missing from a template<a class="headerlink" href="#a-required-field-is-missing-from-a-template" title="Permanent link">&para;</a></h3>
+<p>Again this is a schema change upstream in the <code>.csv</code> file. If a field needs to be added as <code>required: true</code>.</p>
+<hr />
+<h2 id="post-submission-processing">Post Submission Processing<a class="headerlink" href="#post-submission-processing" title="Permanent link">&para;</a></h2>
+<p>After submission, the <code>New Issue</code> workflow processes the contents using the logic in the <code>.github/ISSUE_SCIPTS</code> folder. Here we compare the pre-configured labels assigned to the issue, and find the python script containing the same term and then run it on the parsed input. This workflow is the one which creates any new files and submits a pull request for review. </p>
+<hr />
+<h2 id="useful-links">Useful Links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">Template chooser (live)</a></li>
+<li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/.github/ISSUE_TEMPLATE">Generated templates on <code>main</code></a></li>
+<li><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/issue-templates.yml">Issue Templates workflow</a></li>
+<li><a href="https://github.com/WCRP-CMIP/CMIPLD">CMIPLD library</a> — upstream source of template schemas and the <code>template_generate</code> command</li>
+</ul>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 shadow-none"
-        href="/">
+        href="/Developer%20Guidance/Github%20Actions%2C%20Workflows_and_Automation/">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-left ">
@@ -448,22 +432,9 @@ Merits to this are:
             <path d="M5 12l6 6"></path>
             <path d="M5 12l6 -6"></path>
         </svg>
-        <span class="max-[500px]:hidden">Home</span>
+        <span class="max-[500px]:hidden">Github Actions, Workflows and Automation</span>
     </a>
     
-    
-    <a data-slot="button"
-        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 ml-auto shadow-none"
-        href="/Submission-Guide/">
-        <span class="max-[500px]:hidden">Submission Guide</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="tabler-icon tabler-icon-arrow-right ">
-            <path d="M5 12l14 0"></path>
-            <path d="M13 18l6 -6"></path>
-            <path d="M13 6l6 6"></path>
-        </svg>
-    </a>
     
 </div>
                                 <dialog id="bottom-sidebar" onclick="onBottomSidebarDialogClick(event)" class="bg-transparent"
@@ -484,19 +455,19 @@ Merits to this are:
                 <div class="text-muted-foreground text-sm font-medium">Menu</div>
                 <div class="flex flex-col gap-3">
                     
-                    <a class="text-2xl font-medium" href="..">
+                    <a class="text-2xl font-medium" href="../..">
                         
                         Home
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="./">
+                    <a class="text-2xl font-medium" href="../../Reviewer_Information/">
                         
                         Reviewer Information
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../Submission-Guide/">
+                    <a class="text-2xl font-medium" href="../../Submission-Guide/">
                         
                         Submission Guide
                         
@@ -514,13 +485,13 @@ Merits to this are:
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../Developer%20Guidance/Github%20Actions%2C%20Workflows_and_Automation/">
+                        <a class="text-2xl font-medium" href="../Github%20Actions%2C%20Workflows_and_Automation/">
                             
                             Github Actions, Workflows and Automation
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../Developer%20Guidance/Issue_Templates/">
+                        <a class="text-2xl font-medium" href="./">
                             
                             Issue Templates
                             
@@ -550,59 +521,79 @@ Merits to this are:
         
         
         
-        <a href="#useful-links-for-users"
+        <a href="#overview"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#useful-links-for-users');">
-            Useful links for users
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#overview');">
+            Overview
+        </a>
+        
+
+        
+        <a href="#branch-layout"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#branch-layout');">
+            Branch Layout
+        </a>
+        
+
+        
+        <a href="#template-file-anatomy-for-info"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#template-file-anatomy-for-info');">
+            Template File Anatomy (For info)
+        </a>
+        
+
+        
+        <a href="#how-the-generator-works"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-the-generator-works');">
+            How the Generator Works
+        </a>
+        
+
+        
+        <a href="#how-to-change-a-template"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-to-change-a-template');">
+            How to Change a Template
         </a>
         
         
-        <a href="#general-rules"
+        <a href="#the-options-in-a-dropdown-are-wrong-or-out-of-date"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#general-rules');">
-            General rules
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#the-options-in-a-dropdown-are-wrong-or-out-of-date');">
+            The options in a dropdown are wrong or out of date
+        </a>
+        
+        <a href="#a-field-label-or-hint-text-is-wrong"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#a-field-label-or-hint-text-is-wrong');">
+            A field label or hint text is wrong
+        </a>
+        
+        <a href="#a-required-field-is-missing-from-a-template"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#a-required-field-is-missing-from-a-template');">
+            A required field is missing from a template
         </a>
         
         
 
         
-        <a href="#review-procedure"
+        <a href="#post-submission-processing"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#review-procedure');">
-            review procedure.
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#post-submission-processing');">
+            Post Submission Processing
         </a>
         
 
         
-        <a href="#reviewer-project-board"
+        <a href="#useful-links"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#reviewer-project-board');">
-            Reviewer Project Board
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#useful-links');">
+            Useful Links
         </a>
-        
-        
-        <a href="#post-review-action"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#post-review-action');">
-            Post review action
-        </a>
-        
-        
-
-        
-        <a href="#using-copilot-as-a-third-reviewer"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#using-copilot-as-a-third-reviewer');">
-            Using copilot as a third reviewer
-        </a>
-        
-        
-        <a href="#listing-pull-requests-using-the-command-line"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#listing-pull-requests-using-the-command-line');">
-            Listing pull requests using the command line
-        </a>
-        
         
 
         
@@ -637,11 +628,11 @@ Merits to this are:
     </div>
      
 
-<script src="../stylesheets/custom.js"></script>
+<script src="../../stylesheets/custom.js"></script>
 
      
 
-<script src="../stylesheets/embed.js"></script>
+<script src="../../stylesheets/embed.js"></script>
 
      
 
@@ -654,9 +645,9 @@ Merits to this are:
 
     
 
-    <script src="../js/copy-button.js"></script>
-    <script src="../js/sidebar.js"></script>
-    <script src="../js/slider.js"></script>
+    <script src="../../js/copy-button.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script src="../../js/slider.js"></script>
     <script>updatePygmentsStylesheet();</script>
     
     
@@ -672,7 +663,7 @@ Merits to this are:
   ]
 }
 </script>
-  <!-- emd-nav-v1 --><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
 
 (function(){
 var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Submission Guide", "url": "/Submission-Guide/"}, {"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Information/"}, {"type": "group", "label": "Developer Guidance", "url": "/Developer Guidance/", "children": [{"type": "link", "label": "Github Actions, Workflows and Automation", "url": "/Developer Guidance/Github Actions, Workflows_and_Automation/"}, {"type": "link", "label": "Issue Templates", "url": "/Developer Guidance/Issue_Templates/"}]}];
