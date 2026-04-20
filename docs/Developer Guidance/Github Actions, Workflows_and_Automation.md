@@ -22,7 +22,8 @@ The moment a form is submitted — or edited in case of a correction — the **N
 
 Immediately after the PR is created, a second action (`check-tempgrid-duplicate`) runs against the new pull request. It compares the submitted grid  against all existing entries in the registry and comments if the new record appears to be a potential-duplicate of something already registered. 
 
-[!warning] This is advisory: the submitter and reviewer should read the comment and decide whether the new record is genuinely distinct or whether the submitter should instead reference an existing ID. No automatic rejection occurs at this stage.
+!!! warning
+    This is advisory: the submitter and reviewer should read the comment and decide whether the new record is genuinely distinct or whether the submitter should instead reference an existing ID. No automatic rejection occurs at this stage.
 
 ---
 
@@ -67,7 +68,8 @@ This closes the loop: an entry merged today will appear in the relevant form dro
 
 ## Stale Issues and Closed Issues
 
-[!info] This is currently disabled. 
+!!! info
+    This is currently disabled.
 
 Two housekeeping workflows run on a schedule to keep the issue tracker clean. The **Stale Issues** workflow (`stale.yml`) checks daily: issues with no activity for 60 days receive a `stale` label and a warning comment; if no further activity occurs within 7 days they are closed automatically. 
 

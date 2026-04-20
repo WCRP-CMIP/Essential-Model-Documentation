@@ -9,7 +9,8 @@ It is aimed at developers and maintainers.
 
 The submission forms at [github.com/…/issues/new/choose](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose) are standard GitHub issue templates stored as YAML files under `.github/ISSUE_TEMPLATE/`. Rather than being edited by hand, they are **generated automatically** by the `template_generate` command from the `cmipld` library. The generator runs on the `main` branch and commits the resulting files back to `.github/ISSUE_TEMPLATE/` and the modification links in `CONTRIBUTING.md`. The generator is triggered by the `issue-templates.yml` workflow — see [Workflows and Automations](Workflows_and_Automations/).
 
-[!warning] The general rule is: **do not edit the generated template files directly** — as they will be overwritten on the next run. 
+!!! warning
+    The general rule is: **do not edit the generated template files directly** — as they will be overwritten on the next run.
 
 ---
 
