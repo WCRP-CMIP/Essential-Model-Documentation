@@ -1,13 +1,11 @@
 {
     "validation_key": "g100-mass",
     "ui_label": "",
-    "description": "Mass variables on a regular latitude-longitude grid.",
+    "description": "",
     "cell_variable_type": [
         "mass"
     ],
-    "horizontal_grid_cells": [
-        "g100"
-    ],
+    "horizontal_grid_cells": "g100",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
