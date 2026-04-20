@@ -1,0 +1,16 @@
+{
+    "validation_key": "mom5",
+    "ui_label": "MOM5",
+    "description": "Griffies SM, Hallberg RW (2000) Biharmonic friction with a Smagorinsky-like viscosity for use in largescale eddy-permitting ocean models. Mon Weather Rev 128(8):2935–2946.",
+    "component": "ocean",
+    "references": [
+        "https://doi.org/10.1175/1520-0493(2000)128%3c2935:BFWASL%3e2.0.CO;2"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mom5"
+}
