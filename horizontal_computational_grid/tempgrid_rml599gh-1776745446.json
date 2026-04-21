@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_rml599gh-1776745446",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g115-mass",
+        "g114-x-velocity",
+        "g116-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-rml599gh-1776745446"
+}
