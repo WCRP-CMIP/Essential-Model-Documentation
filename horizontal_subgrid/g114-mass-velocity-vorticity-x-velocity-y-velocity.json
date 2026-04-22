@@ -1,0 +1,20 @@
+{
+    "validation_key": "g114-mass-velocity-vorticity-x-velocity-y-velocity",
+    "ui_label": "",
+    "description": "",
+    "cell_variable_type": [
+        "mass",
+        "velocity",
+        "vorticity",
+        "x-velocity",
+        "y-velocity"
+    ],
+    "horizontal_grid_cells": "g114",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g114-mass-velocity-vorticity-x-velocity-y-velocity"
+}
