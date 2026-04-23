@@ -11,7 +11,7 @@ You will need a free GitHub account to submit — [create one here](https://gith
 EMD submission follows a four-stage process, working from the bottom of the structure upwards — grids first, then components, then the assembled model. If your grids and model families are already registered from a previous submission, you can start at Stage 3.
 
 !!! success
-    Each stage must pass a successful review before you can use its IDs in the next stage. See [What to Expect on Submission](What_to_expect_on_submission/) for a full walkthrough of the review process.
+    Each stage must pass a successful review before you can use its IDs in the next stage. See [What to Expect on Submission](What_To_Expect_On_Submission/) for a full walkthrough of the review process.
 
 *Click any box in the diagram to open the corresponding GitHub submission form.*
 

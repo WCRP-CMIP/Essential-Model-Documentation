@@ -26,7 +26,8 @@
 | [Approved PRs awaiting merge](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Aapproved) | PRs that have passed review and are ready for a sanity check and merge |
 | [PRs assigned to me](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+sort%3Acreated-asc+user-review-requested%3A%40me) | PRs where you have been explicitly requested as a reviewer |
 | [Reviewer project board](https://github.com/orgs/WCRP-CMIP/projects/8?pane=info) | Kanban view of all active submissions, organised by stage and review status |
-| [EMD specification](https://doi.org/10.5281/zenodo.17853724) | The authoritative reference for all field definitions and controlled vocabularies |
+| [EMD specification](https://zenodo.org/records/17853724) | The authoritative reference for all field definitions and controlled vocabularies |
+| [Comment templates](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/docs/docs/Review_Comments.md) | Comment examples and markdown templates for use by reviewers |
 
 ### Reviewer Labels
 
@@ -80,7 +81,7 @@ These apply to all submissions and should be checked during review.
 
 Every pull request includes an automated summary report as a comment. This is your primary review tool — read it before examining the raw diff.
 
-**Check the overall structure first.** Ensure all required sections are present and populated. Compare against the latest [EMD specification](https://doi.org/10.5281/zenodo.15439551).
+**Check the overall structure first.** Ensure all required sections are present and populated. Compare against the latest [EMD specification](https://zenodo.org/records/17853724).
 
 **Review validation outputs.** Errors indicate mandatory issues that must be fixed before merging. Warnings highlight potential inconsistencies or missing best practice — use your judgement on whether they need addressing.
 

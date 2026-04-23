@@ -1,136 +1,92 @@
 # Writing Review Comments
 
-This page covers how to write clear, consistent review comments on EMD pull requests. GitHub renders markdown in PR reviews, comments, and issue bodies — but its syntax differs from the MkDocs syntax used in this documentation site.
+[!INFO] This page is a work in progress, if it can use improvements, please submit a pull request
+
+Scientific reviewers are there to comment on the feasibility of submissions once domain-specific knowledge has been applied. The aim is not to interrogate the submitters, but more to ensure there are no mistakes present, which can have implications further down the EMD / publication chain. 
+
+This page contains some guidance on how to respond. 
+---
+[!IMPORTANT] Note on direct branch edits (avoid)
+    If you accept copilot reviews or edit the branch, this will update a pull request. However updating the issue body afterwards will re-run the generation scripts and superseed these changes. 
+
+[!CAUTION] Pull request reviews to happen in the review panel - (suggest changes)
+    If you accept copilot reviews or edit the branch, this will update a pull request. However updating the issue body afterwards will re-run the generation scripts and superseed these changes. 
+
+    ![review changes](assets/github/request_changes.png)
+
+## Commenting and review procedure. 
+
+### Minor corrections
+If the fix before merging is minor, e.g. a typeographical mistake of the order `noo -> No`, then administrators and maintainers of the repository should be able to edit the original issue body and let the workflow automation regenerate the corrected content before approving. Do not rewrite sections by the submitter! This reduces the work and latency between correction and merging. 
+
+### Changes
+If there are changes that can improve the submission, you can suggest an alternative in the comments, and then it is up to the submitter to accept or reject these. We will wait for their response before continuing. 
+
+### Scientific / Form corrections: 
+Unless it is an issue with the generation script, these changes fall solely on the submitter to approve, and ideally implement. This includes corrections of a dropdown item, or forgetting to fill a pre-required field. 
+
+### No changes
+
+
+If you find nothing to flag, write something along the lines of 
+
+```markdown
+**EMD Review:** No issues found.
+```
+or `All looks good to me`
+
+
 
 ---
+### Wording of suggested edits 
 
-## GitHub vs MkDocs Admonitions
 
-The EMD documentation site uses MkDocs Material admonitions (`!!! warning`). Pull request review comments use **GitHub's alert syntax** instead. These are two different systems — do not mix them.
+#### All edit requests should start with 
+```md
+The following errors were found. Please edit the issue to correct them. 
+[How to edit an issue.](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible)
+```
 
-| Context | Correct syntax |
-|---|---|
-| This documentation site (`.md` files in `docs/`) | `!!! warning` / `!!! note` |
-| GitHub PR reviews, issue comments, PR bodies | `> [!WARNING]` / `> [!NOTE]` |
+#### Additional information 
+```md
+A component, needs to have a component family. 
+
+Please register this using [this form](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) and then edit your issue. 
+````
+
+
+
+
+
 
 ---
 
 ## GitHub Alert Syntax
 
-GitHub supports five alert types. Each is a blockquote with a type keyword on the first line:
+If we really need to emphasise a point we can use the alert syntax within comments. 
 
 ```markdown
-> [!NOTE]
-> Useful information the reader should notice.
-
-> [!TIP]
-> Helpful advice or a suggested improvement.
-
-> [!WARNING]
-> Something that needs attention or correction.
-
 > [!IMPORTANT]
 > Critical information required for a correct submission.
-
-> [!CAUTION]
-> A logical error or contradiction that must be resolved before merging.
 ```
 
 These render as coloured callout boxes in the GitHub UI. Plain blockquotes (`>`) without the keyword render as standard indented quotes and carry no visual weight — use the typed form for review comments.
 
 ---
 
-## Review Comment Structure
-
-EMD reviews follow a four-section structure. Use only the sections that apply — omit empty ones entirely.
-
-```markdown
-**EMD Review:**
-
-### Changes
-Minor corrections where the fix is unambiguous.
-
-> [!TIP]
-> **[Component] name:** "Noo changes" → "No changes". Typo.
-
-### Warnings
-Values that are physically implausible or internally inconsistent.
-
-> [!WARNING]
-> **[Grid] n_z:** 500 levels for an ocean component — typical range is 25–75. Verify this is not a transcription error.
-
-### Concerns
-Things that look unusual but could be intentional. No action required if deliberate.
-
-> [!NOTE]
-> **[Grid] description:** Description restates the grid type already captured in `grid_type`. Consider leaving blank.
-
-### Errors
-Logical contradictions that make the submission invalid and must be resolved before merging.
-
-> [!CAUTION]
-> **[Model] dynamic_components / omitted_components:** "aerosol" appears in both lists. A realm cannot be both active and omitted — one entry must be removed.
-```
-
-If you find nothing to flag, write:
-
-```markdown
-**EMD Review:** No issues found.
-```
-
----
-
-## Alert Type Reference
-
-| Type | Use for |
-|---|---|
-| `[!TIP]` | **Changes** — unambiguous corrections, typos, clear fixes |
-| `[!WARNING]` | **Warnings** — implausible values, inconsistencies requiring submitter confirmation |
-| `[!NOTE]` | **Concerns** — unusual but possibly intentional; raised for awareness |
-| `[!IMPORTANT]` | **Rules** — flagging a broken convention (ID format, link permanence) |
-| `[!CAUTION]` | **Errors** — logical contradictions that block merging |
-
----
-
-## Formatting Individual Comments
-
-Each comment should identify the category and field clearly so the submitter knows exactly what to address.
-
-**Pattern:**
-
-```markdown
-> [!WARNING]
-> **[Category] field_name:** what is wrong and why. Suggested correction if applicable.
-```
-
-**Category** is the record type in square brackets — `[Grid]`, `[Component]`, `[Model]`, `[Family]`.
-
-**Examples:**
-
-```markdown
-> [!TIP]
-> **[Grid] grid_type:** "regular_latitide_longitude" → "regular_latitude_longitude". Typo.
-
-> [!WARNING]
-> **[Grid] x_resolution:** Stated as 1.4° for a T127 spectral grid, consistent. But `y_resolution`
-> is 2.8° — double the expected meridional spacing. Verify this is intentional.
-
-> [!NOTE]
-> **[Component] description:** "Used in CNRM-ESM2-1e for CMIP7." This describes where the component
-> is used, not what it does. Consider leaving blank or replacing with a technical description.
-
-> [!CAUTION]
-> **[Model] prescribed_components / dynamic_components:** "ocean" appears in both. A realm must be
-> either active or prescribed, not both — remove it from one list.
-```
 
 ---
 
 ## Requesting Edits from Submitters
 
-When changes are needed, leave the request on the **original issue**, not the PR. The submitter edits the issue body and the action re-runs automatically, updating the PR.
 
-Make it easy to action — include exactly what to change, in which field, and what the corrected value should be:
+
+
+When changes are needed, leave the request on the **request changes** part of the PR. 
+
+The action on the submitter is to edit the issue body and then the action will re-runs automatically, updating the PR.
+
+Make it easy to understand — include exactly what to change, in which field, and what the corrected value should be:
 
 ```markdown
 Please update the **original issue** (not this PR) with the following correction:
