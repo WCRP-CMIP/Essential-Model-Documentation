@@ -39,7 +39,7 @@
     
 
 
-<title>Reviewer Information</title>
+<title>Review Comments</title>
 
 
 
@@ -51,18 +51,18 @@
 
 
 
-<link rel="canonical" href="https://emd.mipcvs.dev/Reviewer_Information/">
+<link rel="canonical" href="https://emd.mipcvs.dev/Review_Comments/">
 
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="Reviewer Information">
+<meta property="og:title" content="Review Comments">
 
 
 
 
 
-<meta property="og:url" content="https://emd.mipcvs.dev/Reviewer_Information/">
+<meta property="og:url" content="https://emd.mipcvs.dev/Review_Comments/">
 
 
 
@@ -71,7 +71,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="Reviewer Information">
+<meta name="twitter:title" content="Review Comments">
 
 
 
@@ -285,13 +285,13 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          Reviewer Information
+          Review Comments
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
           
 <button
-    onclick="fetch(`https://emd.mipcvs.dev/Reviewer_Information.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
+    onclick="fetch(`https://emd.mipcvs.dev/Review_Comments.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
     data-slot="button" class="secondary cursor-pointer">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
@@ -307,7 +307,7 @@
             data-slot="button"
             id="previous-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Review_Comments/"
+            href="/"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -333,7 +333,7 @@
             data-slot="button"
             id="next-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Submission-Guide/"
+            href="/Reviewer_Information/"
           >
             <span class="sr-only">Next</span>
             <svg
@@ -363,217 +363,167 @@
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-    <div class="admonition warning">
-<p class="admonition-title">Reviewers only</p>
-<p>The following information is for the EMD review team. Some features described may not be accessible to those outside the team.
-If you are interested in helping with the review process, <a href="https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form">sign up here</a> </p>
-</div>
+    <p>This page covers how to write clear, consistent review comments on EMD pull requests. GitHub renders markdown in PR reviews, comments, and issue bodies — but its syntax differs from the MkDocs syntax used in this documentation site.</p>
 <hr />
-<h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h2>
-<h3 id="for-submitters">For Submitters<a class="headerlink" href="#for-submitters" title="Permanent link">&para;</a></h3>
+<h2 id="github-vs-mkdocs-admonitions">GitHub vs MkDocs Admonitions<a class="headerlink" href="#github-vs-mkdocs-admonitions" title="Permanent link">&para;</a></h2>
+<p>The EMD documentation site uses MkDocs Material admonitions (<code>!!! warning</code>). Pull request review comments use <strong>GitHub's alert syntax</strong> instead. These are two different systems — do not mix them.</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>Link</th>
-<th>Description</th>
+<th>Context</th>
+<th>Correct syntax</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">New submission</a></td>
-<td>Open the form chooser to start a new grid, component, family, or model submission</td>
+<td>This documentation site (<code>.md</code> files in <code>docs/</code>)</td>
+<td><code>!!! warning</code> / <code>!!! note</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me">Track my submissions</a></td>
-<td>All issues you have opened, including their current review status</td>
-</tr>
-<tr>
-<td><a href="https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&amp;size=flexible">How to edit an issue and rerun actions</a></td>
-<td>Step-by-step guide for making corrections after submission</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="for-reviewers">For Reviewers<a class="headerlink" href="#for-reviewers" title="Permanent link">&para;</a></h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Link</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc">All open PRs — oldest first</a></td>
-<td>The full PR queue sorted by age — <strong>review in this order</strong></td>
-</tr>
-<tr>
-<td><a href="https://scribehow.com/embed-preview/Reviewing_a_Pull_Reqiest__lI5FFHj-Rz2dcvD9-JEe5g?as=slides&amp;size=flexible">How to submit a review on GitHub</a></td>
-<td>Step-by-step walkthrough of the review and merge process</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Anone">PRs needing a first review</a></td>
-<td>Open PRs that have not yet received any reviewer engagement</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Aapproved">Approved PRs awaiting merge</a></td>
-<td>PRs that have passed review and are ready for a sanity check and merge</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+sort%3Acreated-asc+user-review-requested%3A%40me">PRs assigned to me</a></td>
-<td>PRs where you have been explicitly requested as a reviewer</td>
-</tr>
-<tr>
-<td><a href="https://github.com/orgs/WCRP-CMIP/projects/8?pane=info">Reviewer project board</a></td>
-<td>Kanban view of all active submissions, organised by stage and review status</td>
-</tr>
-<tr>
-<td><a href="https://doi.org/10.5281/zenodo.17853724">EMD specification</a></td>
-<td>The authoritative reference for all field definitions and controlled vocabularies</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="reviewer-labels">Reviewer Labels<a class="headerlink" href="#reviewer-labels" title="Permanent link">&para;</a></h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Label</th>
-<th>When to use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>needs-review</code></td>
-<td>Applied automatically on submission; removed automatically on approval. <strong>Do not add or remove manually.</strong></td>
-</tr>
-<tr>
-<td><code>needs checking</code></td>
-<td>Escalating to another reviewer with domain expertise; conditional approval requiring a second opinion; changes were requested and need re-checking once completed</td>
-</tr>
-<tr>
-<td><code>priority</code> / <code>urgent</code></td>
-<td>To be defined on a case-by-case basis</td>
+<td>GitHub PR reviews, issue comments, PR bodies</td>
+<td><code>&gt; [!WARNING]</code> / <code>&gt; [!NOTE]</code></td>
 </tr>
 </tbody>
 </table></div>
 <hr />
-<h2 id="review-procedure">Review Procedure<a class="headerlink" href="#review-procedure" title="Permanent link">&para;</a></h2>
-<p>Reviewing oldest first is a requirement — it ensures submitters are not left waiting indefinitely.</p>
-<ol>
-<li>A pull request is created automatically when a submitter completes a form. Reviewers may be auto-assigned.</li>
-<li>Open the PR and read the automated summary report posted as a comment. Then examine the JSON diff.</li>
-<li><strong>Approve</strong> the PR if the submission is scientifically valid, or <strong>request changes</strong> with clear, actionable comments.<ul>
-<li>All comments must be made using GitHub's <strong>Review</strong> mode on the pull request — not in the issue or elsewhere.</li>
-<li>Suggestions that require the submitter to edit their entry should be left as comments on the <strong>original issue</strong>, not the PR, so the submitter sees them clearly.</li>
-</ul>
-</li>
-<li>On approval, a second reviewer or maintainer performs a sanity check and merges.</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Reviewing oldest first is a firm requirement. Use the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc">oldest-first link</a> (also above).</p>
-</div>
-<hr />
-<h2 id="general-rules">General Rules<a class="headerlink" href="#general-rules" title="Permanent link">&para;</a></h2>
-<p>These apply to all submissions and should be checked during review.</p>
-<p><strong>IDs and naming</strong></p>
-<ul>
-<li>IDs must not contain underscores or spaces.</li>
-<li>Any periods <code>.</code> must be replaced with hyphens <code>-</code>. This applies to source IDs, model family names, and component version strings.</li>
-<li>Confirm this for every identifier in the submitted record.</li>
-</ul>
-<p><strong>Links and references</strong></p>
-<ul>
-<li>All links must point to permanent locations: version control platforms (GitHub, GitLab, Bitbucket) or DOIs.</li>
-<li>If a submitter needs a DOI for an otherwise unpublished resource, <a href="https://zenodo.org/">Zenodo</a> can mint one for free.</li>
-</ul>
-<p><strong>Grid descriptions</strong></p>
-<ul>
-<li>A description field on a grid record should only exist to document a difference between two otherwise identical parameter sets that cannot be captured by any structured field.</li>
-<li>Do not accept descriptions that simply restate the grid type or parameters already present in other fields.</li>
-</ul>
-<hr />
-<h2 id="how-to-read-an-emd-report">How to Read an EMD Report<a class="headerlink" href="#how-to-read-an-emd-report" title="Permanent link">&para;</a></h2>
-<p>Every pull request includes an automated summary report as a comment. This is your primary review tool — read it before examining the raw diff.</p>
-<p><strong>Check the overall structure first.</strong> Ensure all required sections are present and populated. Compare against the latest <a href="https://doi.org/10.5281/zenodo.15439551">EMD specification</a>.</p>
-<p><strong>Review validation outputs.</strong> Errors indicate mandatory issues that must be fixed before merging. Warnings highlight potential inconsistencies or missing best practice — use your judgement on whether they need addressing.</p>
-<p><strong>Inspect identifiers and references.</strong> Confirm IDs follow the naming rules above. Ensure any referenced entities (grids, component configs, families) already exist in the registry and are correctly linked.</p>
-<p><strong>Assess the semantic content.</strong> Check that descriptions are meaningful and not duplicated unnecessarily. Ensure fields are used as intended — for example, grid description fields should not be used to encode information that belongs in a structured field.</p>
-<p><strong>Follow all links.</strong> Verify that references resolve and point to stable, permanent resources. A link to a personal Dropbox or an unversioned URL should be flagged.</p>
-<p>The goal is not only to confirm technical validity, but to ensure the submission is clear and usable by others.</p>
-<hr />
-<h2 id="grid-similarity">Grid Similarity<a class="headerlink" href="#grid-similarity" title="Permanent link">&para;</a></h2>
-<p>Duplicate or near-duplicate grid submissions are a common review concern. Before approving any grid record:</p>
-<ul>
-<li>Check whether a similar or identical grid already exists in the registry. The automated duplicate-detection comment on the PR is a starting point, but it is not exhaustive — apply your own judgement.</li>
-<li>Minor differences in naming or description do not justify a new record. A new grid entry is warranted only when there are structural differences (resolution, topology, cell count, indexing) or when the physical interpretation differs in a way that cannot be captured by existing fields.</li>
-<li>If you are unsure, tag the PR with <code>needs checking</code> and request input from a domain expert rather than approving or rejecting outright.</li>
-</ul>
-<hr />
-<hr />
-<h2 id="requesting-changes">Requesting Changes<a class="headerlink" href="#requesting-changes" title="Permanent link">&para;</a></h2>
-<p>When requesting changes, provide clear and pasteable guidance so the submitter knows exactly what to do. Always include:</p>
-<ul>
-<li><strong>What</strong> needs to change and why</li>
-<li><strong>Where</strong> to make the change (field name, section)</li>
-<li><strong>How</strong> to rerun the action after editing (link to the <a href="https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&amp;size=flexible">Scribe guide</a> if helpful)</li>
-</ul>
-<p>Leave change requests as comments on the <strong>original issue</strong>, not the PR. This ensures the submitter's notification goes to the right place, and the edit-to-update loop works correctly — when the submitter edits the issue body, the PR updates automatically.</p>
-<hr />
-<h2 id="reviewer-project-board">Reviewer Project Board<a class="headerlink" href="#reviewer-project-board" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/orgs/WCRP-CMIP/projects/8?pane=info">project board</a> provides a consolidated view of all active submissions. It contains:</p>
-<ul>
-<li>Open submissions awaiting review</li>
-<li>Submissions with pull requests under active review</li>
-<li>Non-form issues (general discussions and questions)</li>
-<li>A tab per form group to make it easy to filter by record type</li>
-</ul>
-<p>Columns are managed via issue labels. After an approval, an automated action removes the <code>needs-review</code> label and the PR moves to the approved column. Approved PRs are shown with a green tick on the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls">pull requests page</a>.</p>
-<hr />
-<h2 id="how-to-submit-a-review-on-github">How to Submit a Review on GitHub<a class="headerlink" href="#how-to-submit-a-review-on-github" title="Permanent link">&para;</a></h2>
-<iframe src="https://scribehow.com/embed/Reviewing_a_Pull_Reqiest__lI5FFHj-Rz2dcvD9-JEe5g" width="800" height="679" allow="fullscreen" style="aspect-ratio: 1 / 1; border: 0; min-height: 480px"></iframe>
-
-<hr />
-<h2 id="listing-pull-requests-from-the-command-line">Listing Pull Requests from the Command Line<a class="headerlink" href="#listing-pull-requests-from-the-command-line" title="Permanent link">&para;</a></h2>
-<p>A helper script is available on the <code>main</code> branch for reviewers who prefer the terminal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>.github/pr_issue_map.sh
+<h2 id="github-alert-syntax">GitHub Alert Syntax<a class="headerlink" href="#github-alert-syntax" title="Permanent link">&para;</a></h2>
+<p>GitHub supports five alert types. Each is a blockquote with a type keyword on the first line:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">&gt; </span><span class="ge">[!NOTE]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">&gt; </span><span class="ge">Useful information the reader should notice.</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">&gt; </span><span class="ge">[!TIP]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">&gt; </span><span class="ge">Helpful advice or a suggested improvement.</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">&gt; </span><span class="ge">[!WARNING]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">&gt; </span><span class="ge">Something that needs attention or correction.</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">&gt; </span><span class="ge">[!IMPORTANT]</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">&gt; </span><span class="ge">Critical information required for a correct submission.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">&gt; </span><span class="ge">[!CAUTION]</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">&gt; </span><span class="ge">A logical error or contradiction that must be resolved before merging.</span>
 </code></pre></div>
-<p>Example output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>PR #86 [OPEN] — New Horizontal_computational_grid : g108-mass | tempgrid_wolfiex-1774629370
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  [+] Approved : -
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  [~] Engaged  : -
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  └─ Issue #80 [OPEN] — New Horizontal_computational_grid : g108-mass, tempgrid_wolfiex-1774629370
+<p>These render as coloured callout boxes in the GitHub UI. Plain blockquotes (<code>&gt;</code>) without the keyword render as standard indented quotes and carry no visual weight — use the typed form for review comments.</p>
+<hr />
+<h2 id="review-comment-structure">Review Comment Structure<a class="headerlink" href="#review-comment-structure" title="Permanent link">&para;</a></h2>
+<p>EMD reviews follow a four-section structure. Use only the sections that apply — omit empty ones entirely.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gs">**EMD Review:**</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gu">### Changes</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Minor corrections where the fix is unambiguous.
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>PR #78 [OPEN] — New Vertical_computational_grid : tempgrid_wolfiex-1774628619
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  [+] Approved : -
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  [~] Engaged  : davidhassell
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  └─ Issue #77 [OPEN] — New Vertical_computational_grid : tempgrid_wolfiex-1774628619
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">&gt; </span><span class="ge">[!TIP]</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">&gt; </span><span class="ge">**[Component] name:** &quot;Noo changes&quot; → &quot;No changes&quot;. Typo.</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="gu">### Warnings</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Values that are physically implausible or internally inconsistent.
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">&gt; </span><span class="ge">[!WARNING]</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">&gt; </span><span class="ge">**[Grid] n_z:** 500 levels for an ocean component — typical range is 25–75. Verify this is not a transcription error.</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="gu">### Concerns</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>Things that look unusual but could be intentional. No action required if deliberate.
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="k">&gt; </span><span class="ge">[!NOTE]</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="k">&gt; </span><span class="ge">**[Grid] description:** Description restates the grid type already captured in `grid_type`. Consider leaving blank.</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="gu">### Errors</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>Logical contradictions that make the submission invalid and must be resolved before merging.
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="k">&gt; </span><span class="ge">[!CAUTION]</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="k">&gt; </span><span class="ge">**[Model] dynamic_components / omitted_components:** &quot;aerosol&quot; appears in both lists. A realm cannot be both active and omitted — one entry must be removed.</span>
 </code></pre></div>
-<p>Filter flags: <code>--approved</code>, <code>--needs-review</code>, <code>--json</code> (for structured output).</p>
+<p>If you find nothing to flag, write:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gs">**EMD Review:**</span> No issues found.
+</code></pre></div>
 <hr />
-<h2 id="using-copilot-as-a-third-reviewer">Using Copilot as a Third Reviewer<a class="headerlink" href="#using-copilot-as-a-third-reviewer" title="Permanent link">&para;</a></h2>
-<p>Copilot may be added as a reviewer <strong>only after you have completed your own manual review</strong>. </p>
-<p>It must not be used as a primary reviewer and is <strong>still in training</strong> — it can and does produce incorrect results.</p>
-<p>Appropriate uses:</p>
-<ul>
-<li>Sanity checking your own conclusions</li>
-<li>Flagging weaknesses you may have missed</li>
-<li>Suggesting grammar or phrasing improvements in description fields</li>
-<li>Identifying potential duplication</li>
-</ul>
-<p>When working with Copilot suggestions:</p>
-<ul>
-<li>Never use "Fix all" or "Apply all fixes"</li>
-<li>Manually review each suggestion before acting on it</li>
-<li>Resolve and dismiss conversations that are not relevant</li>
-<li>Do not ask Copilot to review subgrid records — these are auto-generated</li>
-</ul>
+<h2 id="alert-type-reference">Alert Type Reference<a class="headerlink" href="#alert-type-reference" title="Permanent link">&para;</a></h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[!TIP]</code></td>
+<td><strong>Changes</strong> — unambiguous corrections, typos, clear fixes</td>
+</tr>
+<tr>
+<td><code>[!WARNING]</code></td>
+<td><strong>Warnings</strong> — implausible values, inconsistencies requiring submitter confirmation</td>
+</tr>
+<tr>
+<td><code>[!NOTE]</code></td>
+<td><strong>Concerns</strong> — unusual but possibly intentional; raised for awareness</td>
+</tr>
+<tr>
+<td><code>[!IMPORTANT]</code></td>
+<td><strong>Rules</strong> — flagging a broken convention (ID format, link permanence)</td>
+</tr>
+<tr>
+<td><code>[!CAUTION]</code></td>
+<td><strong>Errors</strong> — logical contradictions that block merging</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="formatting-individual-comments">Formatting Individual Comments<a class="headerlink" href="#formatting-individual-comments" title="Permanent link">&para;</a></h2>
+<p>Each comment should identify the category and field clearly so the submitter knows exactly what to address.</p>
+<p><strong>Pattern:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">&gt; </span><span class="ge">[!WARNING]</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">&gt; </span><span class="ge">**[Category] field_name:** what is wrong and why. Suggested correction if applicable.</span>
+</code></pre></div>
+<p><strong>Category</strong> is the record type in square brackets — <code>[Grid]</code>, <code>[Component]</code>, <code>[Model]</code>, <code>[Family]</code>.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">&gt; </span><span class="ge">[!TIP]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">&gt; </span><span class="ge">**[Grid] grid_type:** &quot;regular_latitide_longitude&quot; → &quot;regular_latitude_longitude&quot;. Typo.</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">&gt; </span><span class="ge">[!WARNING]</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">&gt; </span><span class="ge">**[Grid] x_resolution:** Stated as 1.4° for a T127 spectral grid, consistent. But `y_resolution`</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">&gt; </span><span class="ge">is 2.8° — double the expected meridional spacing. Verify this is intentional.</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">&gt; </span><span class="ge">[!NOTE]</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">&gt; </span><span class="ge">**[Component] description:** &quot;Used in CNRM-ESM2-1e for CMIP7.&quot; This describes where the component</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">&gt; </span><span class="ge">is used, not what it does. Consider leaving blank or replacing with a technical description.</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="k">&gt; </span><span class="ge">[!CAUTION]</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="k">&gt; </span><span class="ge">**[Model] prescribed_components / dynamic_components:** &quot;ocean&quot; appears in both. A realm must be</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">&gt; </span><span class="ge">either active or prescribed, not both — remove it from one list.</span>
+</code></pre></div>
+<hr />
+<h2 id="requesting-edits-from-submitters">Requesting Edits from Submitters<a class="headerlink" href="#requesting-edits-from-submitters" title="Permanent link">&para;</a></h2>
+<p>When changes are needed, leave the request on the <strong>original issue</strong>, not the PR. The submitter edits the issue body and the action re-runs automatically, updating the PR.</p>
+<p>Make it easy to action — include exactly what to change, in which field, and what the corrected value should be:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Please update the <span class="gs">**original issue**</span> (not this PR) with the following correction:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">-</span><span class="w"> </span>Field: <span class="sb">`x_resolution`</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">-</span><span class="w"> </span>Current value: <span class="sb">`&quot;1.4 km&quot;`</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">-</span><span class="w"> </span>Corrected value: <span class="sb">`&quot;1.40&quot;`</span> (units are set separately in the <span class="sb">`units`</span> field)
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>After editing the issue body, the pull request will update automatically within a few minutes.
+</code></pre></div>
+<p>Link to the <a href="https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&amp;size=flexible">edit guide</a> if the submitter may be unfamiliar with the process.</p>
+<hr />
+<h2 id="other-useful-markdown">Other Useful Markdown<a class="headerlink" href="#other-useful-markdown" title="Permanent link">&para;</a></h2>
+<p><strong>Inline code</strong> — use backticks to reference field names, values, and IDs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>The <span class="sb">`n_cells`</span> value of <span class="sb">`55296`</span> is consistent with a global 1.25° × 0.9° grid.
+</code></pre></div>
+<p><strong>Quoting the submission</strong> — quote the relevant line from the diff to anchor your comment:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">&gt; </span><span class="ge">&quot;description&quot;: &quot;This is the grid used in our model.&quot;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>This description references the model rather than the grid itself.
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Leave blank or replace with a description of the grid&#39;s physical structure.
+</code></pre></div>
+<p><strong>Linking to a specific line in the diff</strong> — in the PR Files tab, click a line number to highlight it, then copy the URL. Paste this into your comment to pin it to the exact field being discussed. This is especially useful when requesting changes to a specific value in a long JSON file.</p>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 shadow-none"
-        href="/Review_Comments/">
+        href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-left ">
@@ -581,14 +531,14 @@ If you are interested in helping with the review process, <a href="https://airta
             <path d="M5 12l6 6"></path>
             <path d="M5 12l6 -6"></path>
         </svg>
-        <span class="max-[500px]:hidden">Review Comments</span>
+        <span class="max-[500px]:hidden">Home</span>
     </a>
     
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 ml-auto shadow-none"
-        href="/Submission-Guide/">
-        <span class="max-[500px]:hidden">Submission Guide</span>
+        href="/Reviewer_Information/">
+        <span class="max-[500px]:hidden">Reviewer Information</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-right ">
@@ -623,13 +573,13 @@ If you are interested in helping with the review process, <a href="https://airta
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../Review_Comments/">
+                    <a class="text-2xl font-medium" href="./">
                         
                         Review Comments
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="./">
+                    <a class="text-2xl font-medium" href="../Reviewer_Information/">
                         
                         Reviewer Information
                         
@@ -695,102 +645,58 @@ If you are interested in helping with the review process, <a href="https://airta
         
         
         
-        <a href="#quick-links"
+        <a href="#github-vs-mkdocs-admonitions"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#quick-links');">
-            Quick Links
-        </a>
-        
-        
-        <a href="#for-submitters"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#for-submitters');">
-            For Submitters
-        </a>
-        
-        <a href="#for-reviewers"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#for-reviewers');">
-            For Reviewers
-        </a>
-        
-        <a href="#reviewer-labels"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#reviewer-labels');">
-            Reviewer Labels
-        </a>
-        
-        
-
-        
-        <a href="#review-procedure"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#review-procedure');">
-            Review Procedure
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#github-vs-mkdocs-admonitions');">
+            GitHub vs MkDocs Admonitions
         </a>
         
 
         
-        <a href="#general-rules"
+        <a href="#github-alert-syntax"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#general-rules');">
-            General Rules
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#github-alert-syntax');">
+            GitHub Alert Syntax
         </a>
         
 
         
-        <a href="#how-to-read-an-emd-report"
+        <a href="#review-comment-structure"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-to-read-an-emd-report');">
-            How to Read an EMD Report
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#review-comment-structure');">
+            Review Comment Structure
         </a>
         
 
         
-        <a href="#grid-similarity"
+        <a href="#alert-type-reference"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#grid-similarity');">
-            Grid Similarity
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#alert-type-reference');">
+            Alert Type Reference
         </a>
         
 
         
-        <a href="#requesting-changes"
+        <a href="#formatting-individual-comments"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#requesting-changes');">
-            Requesting Changes
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#formatting-individual-comments');">
+            Formatting Individual Comments
         </a>
         
 
         
-        <a href="#reviewer-project-board"
+        <a href="#requesting-edits-from-submitters"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#reviewer-project-board');">
-            Reviewer Project Board
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#requesting-edits-from-submitters');">
+            Requesting Edits from Submitters
         </a>
         
 
         
-        <a href="#how-to-submit-a-review-on-github"
+        <a href="#other-useful-markdown"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-to-submit-a-review-on-github');">
-            How to Submit a Review on GitHub
-        </a>
-        
-
-        
-        <a href="#listing-pull-requests-from-the-command-line"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#listing-pull-requests-from-the-command-line');">
-            Listing Pull Requests from the Command Line
-        </a>
-        
-
-        
-        <a href="#using-copilot-as-a-third-reviewer"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#using-copilot-as-a-third-reviewer');">
-            Using Copilot as a Third Reviewer
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#other-useful-markdown');">
+            Other Useful Markdown
         </a>
         
 
