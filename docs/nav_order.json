@@ -121,7 +121,11 @@
     "json": -1,
     "horizontal_grid_cells": null
   },
-  "Reviewer_Information": 4,
+  "Reviewer_Information": {
+    ".": 4,
+    "Review_Comments": null,
+    "index": -1
+  },
   "Contributors": 5,
   "assets": -1,
   "css": -1,
@@ -144,6 +148,6 @@
     "Workflows_and_Automations": null,
     "Github Actions, Workflows_and_Automation": null
   },
-  "What_to_expect_on_submission": 2,
-  "Review_Comments": null
+  "What_To_Expect_On_Submission": 2,
+  "Review_Comments": -1
 }
