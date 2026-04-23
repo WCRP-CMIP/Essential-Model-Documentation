@@ -54,7 +54,7 @@ flowchart LR
     ESM -.->|family-id| S4
     CF -.->|family-id| S3
 
-    click S1 "https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=grid_cell_and_subgrid.yml" _blank
+    click S1 "https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml" _blank
     click S2a "https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml" _blank
     click S2b "https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml" _blank
     click S3 "https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml" _blank
