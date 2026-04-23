@@ -1,0 +1,26 @@
+{
+    "validation_key": "tempgrid_matsbn-1776706028",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "At the Equator, the grid resolution is 1&deg; zonally and 0.25&deg; meridionally, gradually approaching more isotropic grid cells at higher latitudes. The longitude and latitude of the two northern poles are (250&deg;, 62&deg;) and (70&deg;, 62&deg;)",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 138600,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -80.2,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 250,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-matsbn-1776706028"
+}
