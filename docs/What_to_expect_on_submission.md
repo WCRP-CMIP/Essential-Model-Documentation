@@ -1,4 +1,4 @@
-# What to Expect When You Submit
+# What to Expect on Submission
 
 This page describes what you will see at each stage of the submission process and hilights some points of what you need to do next. 
 

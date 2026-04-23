@@ -10,6 +10,9 @@ You will need a free GitHub account to submit — [create one here](https://gith
 
 EMD submission follows a four-stage process, working from the bottom of the structure upwards — grids first, then components, then the assembled model. If your grids and model families are already registered from a previous submission, you can start at Stage 3.
 
+!!! success
+    Each stage must pass a successful review before you can use its IDs in the next stage. See [What to Expect on Submission](What_to_expect_on_submission/) for a full walkthrough of the review process.
+
 *Click any box in the diagram to open the corresponding GitHub submission form.*
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1131.8521456731507 744.0435253901935"><!-- svg-source:excalidraw --><metadata/><defs><style class="style-fonts">
@@ -25,7 +28,7 @@ Register the fundamental horizontal geometry your model computes on — the shap
 
 **You will need:** grid type, resolution, number of cells, coordinate system.
 
-**You will receive:** a grid cell ID (`g###`) used in Stage 2.
+**Following review, you will receive:** a grid cell ID (`g###`) used in Stage 2.
 
 ---
 
@@ -37,7 +40,7 @@ Computational grids assemble grid cells into the complete domain a component act
 
 **You will need:** grid cell ID(s) from Stage 1, staggering convention, vertical coordinate type and levels.
 
-**You will receive:** a horizontal grid ID (`h###`) and a vertical grid ID (`v###`) used in Stage 3.
+**Following review, you will receive:** a horizontal grid ID (`h###`) and a vertical grid ID (`v###`) used in Stage 3.
 
 ---
 
@@ -64,7 +67,7 @@ Pre-registered components appear in a dropdown at the top of the form. Select on
 
 **You will need:** component name and version, grid IDs from Stage 2, component family ID if applicable.
 
-**You will receive:** a component config ID (e.g., `atmosphere_arpege-climat-v6-3_h100_v100`) used in Stage 4.
+**Following review, you will receive:** a component config ID (e.g., `atmosphere_arpege-climat-v6-3_h100_v100`) used in Stage 4.
 
 ---
 
@@ -76,7 +79,7 @@ The model record assembles the complete system — listing every component confi
 
 **You will need:** component config IDs from Stage 3, ESM family ID, coupling topology, calendar type.
 
-**You will receive:** a registered `source_id`.
+**Following review, you will receive:** a registered `source_id`.
 
 ---
 

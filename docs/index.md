@@ -1,14 +1,16 @@
 # Essential Model Documentation (EMD)
 
-## Registration
+## Registering a new item in the EMD
 Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
-Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. 
-
-Full instructions are given in the [submission guide](Submission-Guide/).
+Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. Full instructions are provided in the [**submission guide**](Submission-Guide/). To know what to expect after submission and what the actions mean, these are described in the [What to expect](What_to_expect_on_submission/) page. For information on what is or is not allowed at each stage please consult the [latest version of the specification](https://doi.org/10.5281/zenodo.15439551).
 
 #### EMD Structure Diagram
 
-*This is a representation of the back-end file structure. You will only be required to fill in one form per stage. Click on any box to be taken to the GitHub submission inputs.*
+*This is a representation of the back-end file structure. 
+You will only be required to fill in one form per stage. 
+
+Each stage will require a brief (human) review process before you can continue. 
+You may click on any box to be taken to the GitHub submission inputs, or use the links provided in the [**submission guide**](Submission-Guide/).*
 <!-- Note: asterisks (*) in the SVG below are SVG text elements, not markdown -->
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1131.8521456731507 744.0435253901935"><!-- svg-source:excalidraw --><metadata/><defs><style class="style-fonts">
@@ -89,7 +91,7 @@ Models are the complete assembled system — listing every component configurati
 
 ---
 
-#### repository Structure?
+## Repository Structure?
 
 ### The core principle
 
@@ -134,27 +136,32 @@ The model record is deliberately thin. It holds IDs of component configurations 
 
 Each folder corresponds to a distinct scientific concept that varies independently of the others, so that any one aspect of a model configuration can be linked , shared, or be modified (corrected) without causing breaking errors or duplication.
 
----
-
-#### Who does this affect. ?
-
-### For data users
-
-The EMD makes that configuration machine-readable and linkable, rather than buried in prose documentation or spread across incompatible metadata fields. It enables programmatic filtering: find all models with a native ocean resolution finer than 0.5°, or all models where aerosols are interactive rather than prescribed.
-
-### For scientists looking at model intercomparison
-
-It makes structural similarity computable. Two models with identical coupling topologies can be identified automatically, not by manually reading papers.
-
-### For software and infrastructure
-
-The grid records are shared reference objects. Regridding tools, data pipelines, and visualisation systems can look up the exact grid specification rather than inferring it from the data itself.
-
-### For reproducibility
-
-A model record pinned to specific component versions and grid IDs is an unambiguous description of a configuration — enough to reconstruct what was run.
 
 ---
+
+#### Who does this affect?
+
+- **Data users**  
+  The EMD makes that configuration machine-readable and linkable, rather than buried in prose documentation or spread across incompatible metadata fields. It enables programmatic filtering: find all models with a native ocean resolution finer than 0.5°, or all models where aerosols are interactive rather than prescribed.
+
+- **Scientists looking at model intercomparison**  
+  It makes structural similarity computable. Two models with identical coupling topologies can be identified automatically, not by manually reading papers.
+
+- **Software and infrastructure**  
+  The grid records are shared reference objects. Regridding tools, data pipelines, and visualisation systems can look up the exact grid specification rather than inferring it from the data itself.
+
+- **Reproducibility**  
+  A model record pinned to specific component versions and grid IDs is an unambiguous description of a configuration — enough to reconstruct what was run.
+
+---
+
+### Become a reviewer
+If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form) or the embedded form below. 
+
+<iframe class="airtable-embed" src="https://airtable.com/embed/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+
+---
+
 
 #### References
 
