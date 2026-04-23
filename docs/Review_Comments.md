@@ -1,18 +1,22 @@
 # Writing Review Comments
-
-[!INFO] This page is a work in progress, if it can use improvements, please submit a pull request
-
 Scientific reviewers are there to comment on the feasibility of submissions once domain-specific knowledge has been applied. The aim is not to interrogate the submitters, but more to ensure there are no mistakes present, which can have implications further down the EMD / publication chain. 
 
 This page contains some guidance on how to respond. 
+
+> [!WARNING]
+> This page is a work in progress, if it can use improvements, please submit a pull request
+
+> [!CAUTION]
+> *Pull request reviews to happen in the review panel - (suggest changes)*
+    If you accept copilot reviews or edit the branch, this will update a pull request. However updating the issue body afterwards will re-run the generation scripts and superseed these changes. 
+
+![review changes](assets/github/request_changes.png)
 ---
-[!IMPORTANT] Note on direct branch edits (avoid)
+> [!IMPORTANT]
+> *Note on direct branch edits* (avoid))
     If you accept copilot reviews or edit the branch, this will update a pull request. However updating the issue body afterwards will re-run the generation scripts and superseed these changes. 
 
-[!CAUTION] Pull request reviews to happen in the review panel - (suggest changes)
-    If you accept copilot reviews or edit the branch, this will update a pull request. However updating the issue body afterwards will re-run the generation scripts and superseed these changes. 
 
-    ![review changes](assets/github/request_changes.png)
 
 ## Commenting and review procedure. 
 
@@ -78,8 +82,6 @@ These render as coloured callout boxes in the GitHub UI. Plain blockquotes (`>`)
 ---
 
 ## Requesting Edits from Submitters
-
-
 
 
 When changes are needed, leave the request on the **request changes** part of the PR. 
