@@ -48,7 +48,7 @@ flowchart LR
     end
 
     S1 -->|g###, s###| S2a
-    S2a -->|c###| S3
+    S2a -->|h###| S3
     S2b -->|v###| S3
     S3 -->|config ID| S4
     ESM -.->|family-id| S4
