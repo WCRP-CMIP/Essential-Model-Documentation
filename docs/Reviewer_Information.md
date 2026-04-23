@@ -138,6 +138,18 @@ Columns are managed via issue labels. After an approval, an automated action rem
 
 ---
 
+## Changes and Corrections
+
+The full link to guidance on comments and template code is provided in [here](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/docs/docs/Review_Comments.md). The current guidance is to submit a formal review (see image below), whereupon completion any suggested changes will be copied to the issue as well. 
+
+!!! info 
+    
+    If you accept copilot reviews or edit the branch, this will update a pull request. However updating the issue body afterwards will re-run the generation scripts and superseed these changes. 
+
+![review changes](assets/github/request_changes.png)
+
+
+
 ## Listing Pull Requests from the Command Line
 
 A helper script is available on the `main` branch for reviewers who prefer the terminal:
