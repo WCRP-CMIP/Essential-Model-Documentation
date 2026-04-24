@@ -1,9 +1,9 @@
 {
-    "validation_key": "g100-mass",
+    "validation_key": "g100-y-velocity",
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "mass"
+        "y-velocity"
     ],
     "horizontal_grid_cells": "g100",
     "@context": "_context",
@@ -12,5 +12,5 @@
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g100-mass"
+    "@id": "g100-y-velocity"
 }
