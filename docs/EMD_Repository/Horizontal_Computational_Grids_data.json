@@ -1,0 +1,115 @@
+{
+  "stem": "Horizontal_Computational_Grids",
+  "singular": "Horizontal Grid",
+  "endpoint": "horizontal_computational_grid",
+  "count": 3,
+  "method": "field-level | link: text (links uninformative) | order: UPGMA leaf traversal",
+  "entries": [
+    {
+      "id": "h100",
+      "label": "h100",
+      "spectral_rank": 0
+    },
+    {
+      "id": "h102",
+      "label": "h102",
+      "spectral_rank": 1
+    },
+    {
+      "id": "h101",
+      "label": "h101",
+      "spectral_rank": 2
+    }
+  ],
+  "link_matrix": [
+    [
+      0.0,
+      0.5506535947712419,
+      0.5939626709790445
+    ],
+    [
+      0.5506535947712419,
+      0.0,
+      0.7205882352941176
+    ],
+    [
+      0.5939626709790445,
+      0.7205882352941176,
+      0.0
+    ]
+  ],
+  "text_matrix": [
+    [
+      0.0,
+      0.5506535947712419,
+      0.5939626709790445
+    ],
+    [
+      0.5506535947712419,
+      0.0,
+      0.7205882352941176
+    ],
+    [
+      0.5939626709790445,
+      0.7205882352941176,
+      0.0
+    ]
+  ],
+  "dendrogram": {
+    "name": "",
+    "leaf": false,
+    "children": [
+      {
+        "name": "h100",
+        "leaf": true,
+        "spectral_index": 0,
+        "value": 0.0
+      },
+      {
+        "name": "",
+        "leaf": false,
+        "children": [
+          {
+            "name": "h102",
+            "leaf": true,
+            "spectral_index": 1,
+            "value": 0.0
+          },
+          {
+            "name": "h101",
+            "leaf": true,
+            "spectral_index": 2,
+            "value": 0.0
+          }
+        ],
+        "value": 0.27941176470588236
+      }
+    ],
+    "value": 0.4276918671248568
+  },
+  "schema": {
+    "name": "record",
+    "children": [
+      {
+        "name": "arrangement",
+        "type": "scalar"
+      },
+      {
+        "name": "description",
+        "type": "scalar"
+      },
+      {
+        "name": "horizontal_subgrids",
+        "type": "list"
+      },
+      {
+        "name": "ui_label",
+        "type": "scalar"
+      },
+      {
+        "name": "validation_key",
+        "type": "scalar"
+      }
+    ]
+  }
+}

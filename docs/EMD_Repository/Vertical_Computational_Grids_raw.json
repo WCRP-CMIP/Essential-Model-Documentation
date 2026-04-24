@@ -1,0 +1,178 @@
+[
+  {
+    "@id": "v101",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 4,
+    "description": "14 soil layers (0.01, 0.04, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0, 3.0, 5.0, 8.0, and 12.0 m) but the soil moisture profile is computed only over the rooting depth, from 0.2 (rocks) to 8 m (tropical forest) according to the land cover type, while the soil temperature is computed down to a depth of 12 m.",
+    "n_z": 14,
+    "top_layer_thickness": 0.01,
+    "total_thickness": 12,
+    "ui_label": "",
+    "validation_key": "v101",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v102",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 200,
+    "description": "75-level ocean sigma-z coordinate with 1 m surface layers and 200 m bottom layers.",
+    "n_z": 75,
+    "top_layer_thickness": 1,
+    "total_thickness": 5902.057,
+    "ui_label": "",
+    "validation_key": "v102",
+    "vertical_coordinate": "ocean-sigma-z-coordinate"
+  },
+  {
+    "@id": "v106",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 50,
+    "description": "",
+    "n_z": 38,
+    "top_layer_thickness": 3173,
+    "total_thickness": 39254.8,
+    "ui_label": "atmosphere hybrid height coordinate grid with 38 levels.",
+    "validation_key": "v106",
+    "vertical_coordinate": "atmosphere_hybrid_height_coordinate"
+  },
+  {
+    "@id": "v107",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 204.229,
+    "description": "",
+    "n_z": 75,
+    "top_layer_thickness": 1.023907,
+    "total_thickness": 6004.229,
+    "ui_label": "depth grid with 75 levels.",
+    "validation_key": "v107",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v110",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 10,
+    "description": "This is the vertical grid of the IFS cy36r4 L91 model.",
+    "n_z": 91,
+    "top_layer_thickness": 7000,
+    "total_thickness": 80000,
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 91 levels.",
+    "validation_key": "v110",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
+  },
+  {
+    "@id": "v105",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 2.872,
+    "description": "All land tiles have a 6-layer soil column and up to 3 snow layers",
+    "n_z": 6,
+    "top_layer_thickness": 0.022,
+    "total_thickness": 4.6,
+    "ui_label": "depth grid with 6 levels.",
+    "validation_key": "v105",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v108",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 0.05,
+    "description": "",
+    "n_z": 4,
+    "top_layer_thickness": 1.325,
+    "total_thickness": 2,
+    "ui_label": "depth grid with 4 levels.",
+    "validation_key": "v108",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v100",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "bottom_layer_thickness": 100,
+    "description": "85-level atmospheric hybrid height coordinate extending to approximately 85 km.",
+    "n_z": 85,
+    "top_layer_thickness": 10,
+    "total_thickness": 84763.34,
+    "ui_label": "",
+    "validation_key": "v100",
+    "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
+  },
+  {
+    "@id": "v103",
+    "@type": [
+      "emd",
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid"
+    ],
+    "description": "10-level height coordinate for sea ice thermodynamics.",
+    "n_z": 10,
+    "ui_label": "",
+    "validation_key": "v103",
+    "vertical_coordinate": "height"
+  },
+  {
+    "@id": "v104",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 20,
+    "description": "91-level atmospheric hybrid sigma-pressure coordinate.",
+    "n_z": 91,
+    "top_layer_thickness": 14000,
+    "total_thickness": 79536.54,
+    "ui_label": "",
+    "validation_key": "v104",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
+  },
+  {
+    "@id": "v109",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 334.7305,
+    "description": "",
+    "n_z_range": [
+      5,
+      50
+    ],
+    "top_layer_thickness": 10,
+    "total_thickness": 6000,
+    "ui_label": "z* grid.",
+    "validation_key": "v109",
+    "vertical_coordinate": "z*"
+  }
+]
