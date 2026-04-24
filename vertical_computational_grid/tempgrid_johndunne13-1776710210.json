@@ -1,0 +1,15 @@
+{
+    "validation_key": "tempgrid_johndunne13-1776710210",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 49 levels.",
+    "description": "",
+    "n_z": 49,
+    "total_thickness": 80000,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-johndunne13-1776710210"
+}
