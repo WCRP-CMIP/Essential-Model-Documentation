@@ -1,0 +1,26 @@
+{
+    "validation_key": "tempgrid_johndunne13-1776948920",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 0.25 x 0.25 degree resolution.",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 1671840,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -88.625,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 60,
+    "x_resolution": 0.25,
+    "y_resolution": 0.25,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-johndunne13-1776948920"
+}
