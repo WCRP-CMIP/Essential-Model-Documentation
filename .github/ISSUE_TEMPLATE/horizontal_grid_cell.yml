@@ -350,6 +350,14 @@ body:
         </details>
       placeholder: "127"
 
+  - type: input
+    id: alias
+    attributes:
+      label: Alias
+      description: |
+        Optional, if you wish to describe where the grid is being used, and other names it may be known as
+      placeholder: "XXX1, YYY2,  comma deliminated entries.."
+
   - type: textarea
     id: description
     attributes:
