@@ -7,7 +7,6 @@
 # Format:
 #   - title: "Link Text"
 #     url: "https://example.com"
-#     icon: "🔗"  # Optional emoji icon
 #     category: "Category Name"  # Optional - groups links under subcategories
 #
 # Examples included below - modify or remove as needed.
@@ -33,7 +32,9 @@ links:
   - title: "CMIP Website"
     url: "https://wcrp-cmip.org/"
 
-  
   - title: "WCRP"
     url: "https://www.wcrp-climate.org/"
+
+  - title: "CMIP2026 Poster"
+    url: "https://emd.mipcvs.dev/docs/assets/CMIP2026_EMD.pdf"
 
