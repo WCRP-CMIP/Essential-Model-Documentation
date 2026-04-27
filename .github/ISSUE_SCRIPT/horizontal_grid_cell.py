@@ -110,6 +110,8 @@ def run(parsed_issue, issue, dry_run=False):
     }
     if units:
         data['units'] = units
+        
+    data['grid_type'] = grid_type
 
     skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description', 'additional_information','grid_type'}
     for key, val in parsed_issue.items():
