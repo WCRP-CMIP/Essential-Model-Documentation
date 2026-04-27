@@ -105,7 +105,7 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
 
     if not slots:
-        print('  ❌ No subgrid slots found — cannot build a computational grid ID.', flush=True)
+        print('\033[91m  ❌ No subgrid slots found — cannot build a computational grid ID.\033[0m', flush=True)
         return None
 
     files       = {}
@@ -137,7 +137,7 @@ def run(parsed_issue, issue, dry_run=False):
         subgrid_ids.append(sid)
         slot_report.append({**slot, 'sid': sid, 'reused': reused})
         tag = '♻ matched' if reused else '+ new'
-        print(f"  [{tag}] Slot {slot['n']}: subgrid '{sid}'", flush=True)
+        print(f"\033[92m  [{tag}] Slot {slot['n']}: subgrid '{sid}'\033[0m", flush=True)
 
     # Collect paths of matched subgrids so new_issue.py skips the 'file exists' check
     force_modify = {
@@ -199,10 +199,10 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             data['_validation_report'] = report
             status = '✓' if report else '(empty)'
         except Exception as e:
-            print(f"  ⚠ Report generation failed for {file_path}: {e}", flush=True)
+            print(f"\033[91m  ⚠ Report generation failed for {file_path}: {e}\033[0m", flush=True)
             data['_validation_report'] = ''
             status = '⚠ failed'
-        print(f"  Report {status}: {file_path}", flush=True)
+        print(f"\033[92m  Report {status}: {file_path}\033[0m", flush=True)
 
     if atid:
         import json as _json
@@ -216,7 +216,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             subgrid_key = os.path.join('horizontal_subgrid', f"{s['sid']}.json")
             subgrid_obj = files_to_write.get(subgrid_key, {})
             clean       = {k: v for k, v in subgrid_obj.items() if not k.startswith('_')}
-            print(f"\n  [{tag}] horizontal_subgrid/{s['sid']}.json", flush=True)
+            print(f"\033[92m\n  [{tag}] horizontal_subgrid/{s['sid']}.json\033[0m", flush=True)
             print(_json.dumps(clean, indent=4), flush=True)
 
         # Print the computational grid file
@@ -224,13 +224,13 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         hgrid_obj = files_to_write.get(hgrid_key, {})
         clean     = {k: v for k, v in hgrid_obj.items() if not k.startswith('_')}
         print("\n" + "=" * 60, flush=True)
-        print(f"  [+ new] horizontal_computational_grid/{atid}.json", flush=True)
+        print(f"\033[92m  [+ new] horizontal_computational_grid/{atid}.json\033[0m", flush=True)
         print(_json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
         print(
-            f"\n  ✅ Temporary ID: '{atid}'\n"
+            f"\033[92m\n  ✅ Temporary ID: '{atid}'\n"
             f"     Will be renamed to h### on PR merge.\n"
             f"     Use the final h### with a v### in Stage 3 (Model Component).\n"
-            f"     e.g.  atmosphere_arpege-v6_<h###>_<v###>",
+            f"     e.g.  atmosphere_arpege-v6_<h###>_<v###>\033[0m",
             flush=True,
         )

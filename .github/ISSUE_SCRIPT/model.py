@@ -169,11 +169,11 @@ def run(parsed_issue, issue, dry_run=False):
     crs_errors = _crs.validate(dynamic, embedded_pairs, coupling_groups)
     if crs_errors:
         for e in crs_errors:
-            print(f"  ⚠ CRS: {e}", flush=True)
+            print(f"\033[91m  ⚠ CRS: {e}\033[0m", flush=True)
         data['_crs_errors'] = crs_errors
     else:
         data['crs'] = _crs.build(dynamic, embedded_pairs, coupling_groups)
-        print(f"  ✓ CRS: {data['crs']}", flush=True)
+        print(f"\033[92m  ✓ CRS: {data['crs']}\033[0m", flush=True)
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
@@ -196,9 +196,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
 
     crs_errors = model_data.pop('_crs_errors', [])
     if crs_errors:
-        print("\n⚠  CRS validation errors:", flush=True)
+        print("\033[91m\n⚠  CRS validation errors:\033[0m", flush=True)
         for e in crs_errors:
-            print(f"    • {e}", flush=True)
+            print(f"\033[91m    • {e}\033[0m", flush=True)
         model_data['_crs_note'] = (
             "\n> [!WARNING]\n"
             "> **Coupling/embedding errors** — `crs` field was not generated:\n"
@@ -207,17 +207,17 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     else:
         crs_val = model_data.get('crs', '')
         if crs_val:
-            print(f"\n  CRS: {crs_val}", flush=True)
+            print(f"\033[92m\n  CRS: {crs_val}\033[0m", flush=True)
             try:
                 parsed = _crs.parse(crs_val)
                 if parsed['embeddings']:
-                    print("  Embeddings:", flush=True)
+                    print("\033[92m  Embeddings:\033[0m", flush=True)
                     for parent, child in parsed['embeddings']:
-                        print(f"    {_crs.to_name(child)} → embedded in {_crs.to_name(parent)}", flush=True)
+                        print(f"\033[92m    {_crs.to_name(child)} → embedded in {_crs.to_name(parent)}\033[0m", flush=True)
                 if parsed['coupling_pairs']:
-                    print("  Couplings:", flush=True)
+                    print("\033[92m  Couplings:\033[0m", flush=True)
                     for a, b in parsed['coupling_pairs']:
-                        print(f"    {_crs.to_name(a)} ↔ {_crs.to_name(b)}", flush=True)
+                        print(f"\033[92m    {_crs.to_name(a)} ↔ {_crs.to_name(b)}\033[0m", flush=True)
             except Exception:
                 pass
 
@@ -226,14 +226,14 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         # Strip name if JSONValidator re-injected it
         data.pop('name', None)
-        print(f"  Generating review report for {file_path} …", flush=True)
+        print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
                 item=data, link_threshold=80.0,
             ).build()
         except Exception as e:
-            print(f"  ⚠ Report generation failed: {e}", flush=True)
+            print(f"\033[91m  ⚠ Report generation failed: {e}\033[0m", flush=True)
             data['_validation_report'] = ''
 
     if model_data and source_id:
@@ -246,11 +246,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
 
         configs = clean.get('model_components', [])
         if configs:
-            print(f"\n  Component configs ({len(configs)}):", flush=True)
+            print(f"\033[92m\n  Component configs ({len(configs)}):\033[0m", flush=True)
             for c in configs:
-                print(f"    • {c}", flush=True)
+                print(f"\033[92m    • {c}\033[0m", flush=True)
         else:
-            print("\n  ⚠ No model_components linked — add Stage 3 config IDs.", flush=True)
+            print("\033[91m\n  ⚠ No model_components linked — add Stage 3 config IDs.\033[0m", flush=True)
 
         if crs_errors:
-            print("\n  ⚠ Fix coupling/embedding errors above before merging.", flush=True)
+            print("\033[91m\n  ⚠ Fix coupling/embedding errors above before merging.\033[0m", flush=True)

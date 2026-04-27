@@ -57,7 +57,7 @@ def resolve_cv_value(field: str, value: str) -> str:
             _CV_REVERSE_MAP[field] = {}
     resolved = _CV_REVERSE_MAP[field].get(value)
     if resolved is None:
-        print(f"  WARNING: unrecognised {field} value {value!r} — storing as-is", flush=True)
+        print(f"\033[91m  WARNING: unrecognised {field} value {value!r} — storing as-is\033[0m", flush=True)
         return value
     return resolved
 
@@ -156,7 +156,7 @@ def run(parsed_issue, issue, dry_run=False):
 
     
 
-    print(f"  [+ new] Grid cell '{temp_id}'", flush=True)
+    print(f"\033[92m  [+ new] Grid cell '{temp_id}'\033[0m", flush=True)
 
     return {
         file_path:        data,
@@ -174,7 +174,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
-        print(f"  Generating review report for {file_path} ...", flush=True)
+        print(f"\033[92m  Generating review report for {file_path} ...\033[0m", flush=True)
         try:
             # Use pydantic-compatible copy if available, else fall back to data
             pydantic_overrides = files_to_write.get('_pydantic_data', {})
@@ -184,11 +184,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 item=validation_item, link_threshold=85.0,
             ).build()
             data['_validation_report'] = report
-            print(f"  Report generated ({len(report)} chars)", flush=True)
+            print(f"\033[92m  Report generated ({len(report)} chars)\033[0m", flush=True)
         except Exception as e:
             import traceback
             tb = traceback.format_exc()
-            print(f"  WARNING Report generation failed: {e}\n{tb}", flush=True)
+            print(f"\033[91m  WARNING Report generation failed: {e}\n{tb}\033[0m", flush=True)
             data['_validation_report'] = (
                 f"## Review Report\n\n"
                 f"> [!WARNING]\n"
@@ -205,8 +205,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(_json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
         print(
-            f"\n  Temporary ID: '{atid}'\n"
+            f"\033[92m\n  Temporary ID: '{atid}'\n"
             f"     Will be renamed to g### on PR merge.\n"
-            f"     Use the final g### in Stage 2a (Horizontal Computational Grid).",
+            f"     Use the final g### in Stage 2a (Horizontal Computational Grid).\033[0m",
             flush=True,
         )

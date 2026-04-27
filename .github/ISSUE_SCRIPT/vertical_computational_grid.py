@@ -98,7 +98,7 @@ def run(parsed_issue, issue, dry_run=False):
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
                    if collab_str else []
 
-    print(f"  [+ new] Vertical grid '{temp_id}'", flush=True)
+    print(f"\033[92m  [+ new] Vertical grid '{temp_id}'\033[0m", flush=True)
 
     return {
         file_path:       data,
@@ -115,14 +115,14 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
-        print(f"  Generating review report for {file_path} ...", flush=True)
+        print(f"\033[92m  Generating review report for {file_path} ...\033[0m", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
                 item=data, link_threshold=80.0,
             ).build()
         except Exception as e:
-            print(f"  WARNING Report generation failed: {e}", flush=True)
+            print(f"\033[91m  WARNING Report generation failed: {e}\033[0m", flush=True)
             data['_validation_report'] = ''
 
     if atid:
@@ -135,8 +135,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(_json.dumps(clean, indent=4), flush=True)
         print("=" * 60, flush=True)
         print(
-            f"\n  Temporary ID: '{atid}'\n"
+            f"\033[92m\n  Temporary ID: '{atid}'\n"
             f"     Will be renamed to v### on PR merge.\n"
-            f"     Use the final v### in Stage 3 (Model Component).",
+            f"     Use the final v### in Stage 3 (Model Component).\033[0m",
             flush=True,
         )
