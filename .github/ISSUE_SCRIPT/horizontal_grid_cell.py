@@ -111,7 +111,7 @@ def run(parsed_issue, issue, dry_run=False):
     if units:
         data['units'] = units
 
-    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description', 'additional_information'}
+    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description', 'additional_information','grid_type'}
     for key, val in parsed_issue.items():
         if key in skip or not val or key in data:
             continue
@@ -136,7 +136,7 @@ def run(parsed_issue, issue, dry_run=False):
             data[k] = ""
 
     # parse the grid usage fields.
-    data['alias'] = data['alias'].split(',') if data.get('alias') else []
+    data['alias'] = data.get('alias', '').split(',') if data.get('alias') else []
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
