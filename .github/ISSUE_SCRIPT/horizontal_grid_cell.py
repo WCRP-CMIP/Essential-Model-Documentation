@@ -135,6 +135,9 @@ def run(parsed_issue, issue, dry_run=False):
         if k not in data:
             data[k] = ""
 
+    # parse the grid usage fields.
+    data['alias'] = data['alias'].split(',') if data.get('alias') else []
+
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
@@ -150,6 +153,8 @@ def run(parsed_issue, issue, dry_run=False):
         pydantic_data['region'] = None
     if 'units' in pydantic_data and 'horizontal_units' not in pydantic_data:
         pydantic_data['horizontal_units'] = pydantic_data.pop('units')
+
+    
 
     print(f"  [+ new] Grid cell '{temp_id}'", flush=True)
 
