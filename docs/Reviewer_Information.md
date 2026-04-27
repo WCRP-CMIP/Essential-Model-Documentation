@@ -1,8 +1,6 @@
 # Reviewer Guidance
 
-!!! warning "Reviewers only"
-    The following information is for the EMD review team. Some features described may not be accessible to those outside the team.
-    If you are interested in helping with the review process, [sign up here](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form) 
+!!! warning "Reviewers only" The following information is for the EMD review team. Some features described may not be accessible to those outside the team. If you are interested in helping with the review process, [sign up here](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form)
 
 ---
 
@@ -10,32 +8,15 @@
 
 ### For Submitters
 
-| Link | Description |
-|---|---|
-| [New submission](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose) | Open the form chooser to start a new grid, component, family, or model submission |
-| [Track my submissions](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me) | All issues you have opened, including their current review status |
-| [How to edit an issue and rerun actions](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible) | Step-by-step guide for making corrections after submission |
+LinkDescription[New submission](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose)Open the form chooser to start a new grid, component, family, or model submission[Track my submissions](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)All issues you have opened, including their current review status[How to edit an issue and rerun actions](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible)Step-by-step guide for making corrections after submission
 
 ### For Reviewers
 
-| Link | Description |
-|---|---|
-| [All open PRs — oldest first](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc) | The full PR queue sorted by age — **review in this order** |
-| [How to submit a review on GitHub](https://scribehow.com/embed-preview/Reviewing_a_Pull_Reqiest__lI5FFHj-Rz2dcvD9-JEe5g?as=slides&size=flexible) | Step-by-step walkthrough of the review and merge process |
-| [PRs needing a first review](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Anone) | Open PRs that have not yet received any reviewer engagement |
-| [Approved PRs awaiting merge](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Aapproved) | PRs that have passed review and are ready for a sanity check and merge |
-| [PRs assigned to me](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+sort%3Acreated-asc+user-review-requested%3A%40me) | PRs where you have been explicitly requested as a reviewer |
-| [Reviewer project board](https://github.com/orgs/WCRP-CMIP/projects/8?pane=info) | Kanban view of all active submissions, organised by stage and review status |
-| [EMD specification](https://zenodo.org/records/17853724) | The authoritative reference for all field definitions and controlled vocabularies |
-| [Comment templates](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/docs/docs/Review_Comments.md) | Comment examples and markdown templates for use by reviewers |
+LinkDescription[All open PRs — oldest first](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc)The full PR queue sorted by age — **review in this order**[How to submit a review on GitHub](https://scribehow.com/embed-preview/Reviewing_a_Pull_Reqiest__lI5FFHj-Rz2dcvD9-JEe5g?as=slides&size=flexible)Step-by-step walkthrough of the review and merge process[PRs needing a first review](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Anone)Open PRs that have not yet received any reviewer engagement[Approved PRs awaiting merge](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Aapproved)PRs that have passed review and are ready for a sanity check and merge[PRs assigned to me](https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+sort%3Acreated-asc+user-review-requested%3A%40me)PRs where you have been explicitly requested as a reviewer[Reviewer project board](https://github.com/orgs/WCRP-CMIP/projects/8?pane=info)Kanban view of all active submissions, organised by stage and review status[EMD specification](https://zenodo.org/records/17853724)The authoritative reference for all field definitions and controlled vocabularies[Comment templates](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/docs/docs/Review_Comments.md)Comment examples and markdown templates for use by reviewers
 
 ### Reviewer Labels
 
-| Label | When to use |
-|---|---|
-| `needs-review` | Applied automatically on submission; removed automatically on approval. **Do not add or remove manually.** |
-| `needs checking` | Escalating to another reviewer with domain expertise; conditional approval requiring a second opinion; changes were requested and need re-checking once completed |
-| `priority` / `urgent` | To be defined on a case-by-case basis |
+LabelWhen to use`needs-review`Applied automatically on submission; removed automatically on approval. **Do not add or remove manually.**`needs checking`Escalating to another reviewer with domain expertise; conditional approval requiring a second opinion; changes were requested and need re-checking once completed`priority` / `urgent`To be defined on a case-by-case basis
 
 ---
 

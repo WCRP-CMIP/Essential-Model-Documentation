@@ -39,7 +39,7 @@
     
 
 
-<title>What to expect on submission</title>
+<title>Using GitHub Forms</title>
 
 
 
@@ -51,18 +51,18 @@
 
 
 
-<link rel="canonical" href="https://emd.mipcvs.dev/What_to_expect_on_submission/">
+<link rel="canonical" href="https://emd.mipcvs.dev/Using_GitHub_Forms/">
 
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="What to expect on submission">
+<meta property="og:title" content="Using GitHub Forms">
 
 
 
 
 
-<meta property="og:url" content="https://emd.mipcvs.dev/What_to_expect_on_submission/">
+<meta property="og:url" content="https://emd.mipcvs.dev/Using_GitHub_Forms/">
 
 
 
@@ -71,7 +71,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="What to expect on submission">
+<meta name="twitter:title" content="Using GitHub Forms">
 
 
 
@@ -285,13 +285,13 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          What to expect on submission
+          Using GitHub Forms
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
           
 <button
-    onclick="fetch(`https://emd.mipcvs.dev/What_to_expect_on_submission.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
+    onclick="fetch(`https://emd.mipcvs.dev/Using_GitHub_Forms.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
     data-slot="button" class="secondary cursor-pointer">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
@@ -307,7 +307,7 @@
             data-slot="button"
             id="previous-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Using_GitHub_Forms/"
+            href="/Submission-Guide/"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -333,7 +333,7 @@
             data-slot="button"
             id="next-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Developer%20Guidance/Github%20Actions%2C%20Workflows_and_Automation/"
+            href="/What_to_expect_on_submission/"
           >
             <span class="sr-only">Next</span>
             <svg
@@ -363,62 +363,136 @@
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-    <p>This page describes what you will see at each stage of the submission process and hilights some points of what you need to do next.</p>
+    <p>EMD submissions are made through structured GitHub issue forms. This page explains how to open a form, fill in each field type, and submit.</p>
+<p>You will need a free GitHub account — <a href="https://github.com/signup">create one here</a> if you do not already have one.</p>
 <hr />
-<h2 id="step-1-open-the-form">Step 1 — Open the Form<a class="headerlink" href="#step-1-open-the-form" title="Permanent link">&para;</a></h2>
-<p>Log into GitHub and go to the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">submission form chooser</a> and select the form for the current stage. The <a href="Submission-Guide/">Submission Guide</a> describes which form to use and in what order.</p>
-<p>Each form opens as a structured GitHub issue. Fill in the fields, read the collapsible guidance (▶)!, and then submit.</p>
+<h2 id="opening-a-form">Opening a form<a class="headerlink" href="#opening-a-form" title="Permanent link">&para;</a></h2>
+<p>Go to the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">submission form chooser</a> and click the form for the stage you are completing.</p>
 <p><img alt="The GitHub issue template chooser showing all available EMD submission forms" src="../assets/github/form.png" /></p>
-<h3 id="this-generates-an-issue-with-your-submitted-information">This generates an issue with your submitted information<a class="headerlink" href="#this-generates-an-issue-with-your-submitted-information" title="Permanent link">&para;</a></h3>
-<p><img alt="A submitted form makes an issue" src="../assets/github/issue.png" /></p>
+<p>Each form opens as a structured GitHub issue. The title is pre-filled — do not edit it.</p>
 <hr />
-<h2 id="step-2-automated-validation">Step 2 — Automated Validation<a class="headerlink" href="#step-2-automated-validation" title="Permanent link">&para;</a></h2>
-<p>On submission a workflow action proceses your information and tries to create the relevant files. It also performs a number of rudamentary checks on the information provided. After a couple of minutes you will get one of the following commented on your submission.</p>
-<p><strong>If validation fails</strong>, a comment is posted on your issue it should explain exactly which fields need correcting. No pull request is created as the User will need to to make these changes first.. Edit the issue body to fix the problems — the action re-runs automatically on every edit, so there is no need to close and reopen the issue. Repeat until the comment reports a clean result.</p>
-<p><img alt="An example problem" src="assets/github/user_correctable.png" /></p>
-<p><strong>If validation passes</strong>, the action creates a JSON record and opens a pull request targeting the <code>src-data</code> branch. A comment on your issue links directly to the new PR.</p>
-<p>!!! note Editing the issue body at any point — before or after the PR is created — re-runs the action and updates the PR with fresh content. You do not need to create a new issue to make a correction.</p>
-<p><img alt="An Accepted submission" src="../assets/github/accepted.png" /></p>
-<hr />
-<h2 id="step-3-the-pull-request-and-its-report">Step 3 — The Pull Request and its Report<a class="headerlink" href="#step-3-the-pull-request-and-its-report" title="Permanent link">&para;</a></h2>
-<p>The pull request the action opens contains two things:</p>
-<ul>
-<li>the diff (a single JSON file showing the data that will be added to the registry) and</li>
-<li>a summary report posted as a PR comment.</li>
-</ul>
-<p>The report shows the file created from your submission. If we are submitting groups a temporary ID will be assigned to the record (e.g. <code>tempgrid_username-1234</code>), and a link back to the originating issue. Additionally for grids we will also run a duplicate check, comparing your submission against all existing records and posts a comment if a match is found.</p>
-<p>!!! warning The duplicate warning is advisory only — it does not block the submission. You and the reviewer should read the comment and decide whether your record is genuinely distinct. If it duplicates an existing entry, you can withdraw by closing the issue (which also closes the PR automatically) and reference the existing ID in your next stage instead.</p>
-<p><img alt="An automated comment flagging that a near-identical grid cell already exists in the registry" src="../assets/github/grid_exists.png" /></p>
-<p>The PR is also added to the <a href="https://github.com/orgs/WCRP-CMIP/projects/8">Reviewer Project Board</a> and the <code>needs-review</code> label is applied to your issue. You can track all your open submissions from the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue+author%3A%40me">My Issues</a> link.</p>
-<p><img alt="The pull request body showing the JSON diff that reviewers examine" src="../assets/github/pr_body.png" /></p>
-<hr />
-<h2 id="step-4-first-review">Step 4 — First Review<a class="headerlink" href="#step-4-first-review" title="Permanent link">&para;</a></h2>
-<p>A reviewer reads the pull request — examining the JSON diff and the summary report — and either approves or requests changes. Any suggested corrections will be left as a comment on the <strong>original issue</strong>, not the PR. Edit the issue body to make the changes; the action re-runs and the PR updates automatically.</p>
-<p><img alt="The automated summary report posted as a comment on the pull request" src="../assets/github/submit_report.png" /></p>
-<p>Once the reviewer is satisfied they approve the PR. This removes the <code>needs-review</code> label from your issue and moves the PR to the <em>Done</em> column on the project board.</p>
-<p>!!! note You can see all PRs that have been approved and are waiting to merge at the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+-label%3Aneeds-review+review%3Aapproved">already-reviewed filter</a>.</p>
-<hr />
-<h2 id="step-5-second-review-and-merge">Step 5 — Second Review and Merge<a class="headerlink" href="#step-5-second-review-and-merge" title="Permanent link">&para;</a></h2>
-<p>A second reviewer or maintainer performs a final sanity check and then triggers the merge. Before the merge completes, an automated merge gate validates the JSON against a set of required fields. If the validation fails at this point the merge is blocked and you will need to correct the issue body again. If it passes, the PR is merged into <code>src-data</code> and will appear on the docs pages <a href="https://emd.mipcvs.dev">emd.mipcvs.dev</a>.</p>
-<hr />
-<h2 id="step-6-publication-and-id-assignment">Step 6 — Publication and ID Assignment<a class="headerlink" href="#step-6-publication-and-id-assignment" title="Permanent link">&para;</a></h2>
-<p>Once merged, a publication pipeline runs automatically:</p>
+<h2 id="field-types">Field types<a class="headerlink" href="#field-types" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The examples below are representative illustrations. The exact appearance may vary slightly depending on your browser, operating system, and GitHub's current interface.</p>
+</div>
+<h3 id="text-fields">Text fields<a class="headerlink" href="#text-fields" title="Permanent link">&para;</a></h3>
+<p>A single-line box for short answers such as a name, version, or year. Click it and type.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <p style="font-size:14px;font-weight:600;color:#1f2328;margin:0 0 6px;">Model Name <span style="color:#cf222e;">*</span></p>
+  <input type="text" placeholder="e.g. CNRM-ESM2-1" readonly style="width:100%;box-sizing:border-box;padding:5px 12px;font-size:14px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;color:#6e7781;height:32px;"/>
+</div>
+
 <ol>
-<li>The new record is synced to the <code>production</code> branch and your temporary ID (<code>tempgrid_*</code>) is replaced with a permanent one (e.g. <code>g112</code>).</li>
-<li>Linked-data graph files are regenerated.</li>
-<li>The documentation site is rebuilt and deployed to GitHub Pages.</li>
-<li>Issue form dropdowns are updated so the new ID is available for selection in subsequent stages.</li>
+<li>Click inside the box</li>
+<li>Type your answer</li>
+<li>Move to the next field — answers are held automatically, there is no save button</li>
 </ol>
-<p>This takes a short while. Your permanent ID will appear in the relevant form dropdowns by the next time the templates are regenerated (daily, or after the next publication run). This will also be posted on both the pull request and original issue (submission).</p>
-<p><img alt="The permanent grid ID assigned after the record is published to the production branch" src="../assets/github/grid_assigned.png" /></p>
 <hr />
+<h3 id="text-areas">Text areas<a class="headerlink" href="#text-areas" title="Permanent link">&para;</a></h3>
+<p>A larger box for longer answers such as a model description or list of reference DOIs. The box expands as you type.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <p style="font-size:14px;font-weight:600;color:#1f2328;margin:0 0 6px;">Description <span style="color:#cf222e;">*</span></p>
+  <textarea readonly placeholder="1. Dynamic components (briefly)&#10;2. Prescribed components and their treatment&#10;3. Omitted components" style="width:100%;box-sizing:border-box;padding:8px 12px;font-size:14px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;color:#6e7781;min-height:80px;resize:vertical;font-family:inherit;"></textarea>
+</div>
+
+<ol>
+<li>Click inside the box</li>
+<li>Type your answer — press <strong>Enter</strong> for a new line</li>
+<li>The box grows as you type</li>
+</ol>
+<hr />
+<h3 id="dropdowns">Dropdowns<a class="headerlink" href="#dropdowns" title="Permanent link">&para;</a></h3>
+<p>A box with a small arrow on the right. Click it to open a list and select one option.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <p style="font-size:14px;font-weight:600;color:#1f2328;margin:0 0 6px;">Model Family</p>
+  <div style="position:relative;display:inline-block;width:100%;">
+    <select style="width:100%;padding:5px 32px 5px 12px;font-size:14px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;color:#1f2328;height:32px;appearance:none;font-family:inherit;">
+      <option>Not specified</option>
+      <option>ACCESS</option>
+      <option>CESM</option>
+      <option>CNRM-CM</option>
+      <option>HadGEM3</option>
+    </select>
+    <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:#57606a;font-size:12px;">▾</span>
+  </div>
+</div>
+
+<ol>
+<li>Click the box — a list drops down</li>
+<li>Click the option you want</li>
+<li>The box updates to show your selection</li>
+</ol>
+<hr />
+<h3 id="multi-select-dropdowns">Multi-select dropdowns<a class="headerlink" href="#multi-select-dropdowns" title="Permanent link">&para;</a></h3>
+<p>Some dropdowns allow more than one selection — labelled <strong>Select multiple</strong> in the form. When you open one, a panel with a checkbox next to each option appears.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <p style="font-size:14px;font-weight:600;color:#1f2328;margin:0 0 4px;">Dynamic Components <span style="color:#cf222e;">*</span></p>
+  <p style="font-size:12px;color:#57606a;margin:0 0 8px;">Select multiple</p>
+  <div style="border:1px solid #d0d7de;border-radius:6px;overflow:hidden;width:240px;">
+    <div style="background:#f6f8fa;border-bottom:1px solid #d0d7de;padding:4px 8px;font-size:12px;font-weight:600;color:#57606a;">Options</div>
+    <div style="padding:4px 0;">
+      <label style="display:flex;align-items:center;gap:8px;padding:4px 12px;font-size:14px;color:#1f2328;cursor:pointer;"><input type="checkbox" checked readonly style="accent-color:#0969da;"> Atmosphere</label>
+      <label style="display:flex;align-items:center;gap:8px;padding:4px 12px;font-size:14px;color:#1f2328;cursor:pointer;"><input type="checkbox" readonly style="accent-color:#0969da;"> Aerosol</label>
+      <label style="display:flex;align-items:center;gap:8px;padding:4px 12px;font-size:14px;color:#1f2328;cursor:pointer;"><input type="checkbox" checked readonly style="accent-color:#0969da;"> Ocean</label>
+      <label style="display:flex;align-items:center;gap:8px;padding:4px 12px;font-size:14px;color:#1f2328;cursor:pointer;"><input type="checkbox" readonly style="accent-color:#0969da;"> Land Ice</label>
+      <label style="display:flex;align-items:center;gap:8px;padding:4px 12px;font-size:14px;color:#1f2328;cursor:pointer;"><input type="checkbox" checked readonly style="accent-color:#0969da;"> Sea Ice</label>
+    </div>
+  </div>
+</div>
+
+<ol>
+<li>Click the dropdown button to open the panel</li>
+<li>Click each option you want — a checkmark appears next to it</li>
+<li>Click the same option again to deselect it</li>
+<li>Click anywhere outside the panel to close it</li>
+</ol>
+<p>The closed button updates to show how many items are selected.</p>
+<hr />
+<h3 id="collapsible-guidance">Collapsible guidance<a class="headerlink" href="#collapsible-guidance" title="Permanent link">&para;</a></h3>
+<p>Many fields include a <strong>▶ Detailed Guidance</strong> section. Click it to expand examples and formatting rules for that field. Read these before filling in your answer — they contain the acceptance criteria reviewers use.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <p style="font-size:14px;font-weight:600;color:#1f2328;margin:0 0 6px;">Model Name <span style="color:#cf222e;">*</span></p>
+  <details style="margin-bottom:8px;font-size:13px;color:#57606a;">
+    <summary style="cursor:pointer;color:#0969da;">Detailed Guidance</summary>
+    <div style="margin-top:8px;padding-left:12px;border-left:3px solid #d0d7de;">
+      <p style="margin:4px 0;"><strong>Model name (source_id)</strong></p>
+      <p style="margin:4px 0;">Full identifier including family and version. For CMIP, this becomes the official <strong>source_id</strong>.</p>
+      <p style="margin:4px 0;"><strong>Examples:</strong> CNRM-ESM2-1, HadGEM3-GC31-LL, CESM2, ACCESS-ESM1-5</p>
+    </div>
+  </details>
+  <input type="text" placeholder="e.g. CNRM-ESM2-1" readonly style="width:100%;box-sizing:border-box;padding:5px 12px;font-size:14px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;color:#6e7781;height:32px;"/>
+</div>
+
+<hr />
+<h2 id="required-fields">Required fields<a class="headerlink" href="#required-fields" title="Permanent link">&para;</a></h2>
+<p>Fields marked with a red <strong>*</strong> must be filled in before you can submit. If you try to submit with one empty, the form scrolls to it and highlights the box in red.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+  <p style="font-size:14px;font-weight:600;color:#1f2328;margin:0 0 6px;">Release Year <span style="color:#cf222e;">*</span></p>
+  <input type="text" readonly style="width:100%;box-sizing:border-box;padding:5px 12px;font-size:14px;border:1px solid #cf222e;border-radius:6px;background:#fff;color:#1f2328;height:32px;"/>
+  <p style="font-size:12px;color:#cf222e;margin:4px 0 0;">This field is required.</p>
+</div>
+
+<hr />
+<h2 id="submitting">Submitting<a class="headerlink" href="#submitting" title="Permanent link">&para;</a></h2>
+<p>When all required fields are complete, scroll to the bottom and click <strong>Submit new issue</strong>.</p>
+<div style="background:#ffffff;border:1px solid #d0d7de;border-radius:6px;padding:16px 20px;margin:12px 0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;text-align:right;">
+  <button style="background:#1f883d;color:#fff;border:1px solid rgba(31,136,61,0.4);border-radius:6px;padding:5px 16px;font-size:14px;font-weight:500;cursor:pointer;">Submit new issue</button>
+</div>
+
+<p>GitHub creates an issue from your answers. Automated validation runs within a couple of minutes — see <a href="What_to_expect_on_submission/">What to Expect on Submission</a> for a full walkthrough of what happens next.</p>
+<p><img alt="A submitted form shown as a GitHub issue" src="../assets/github/issue.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can edit the issue body after submission at any time. Every edit re-triggers the validation workflow automatically — there is no need to close and reopen the issue.</p>
+</div>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 shadow-none"
-        href="/Using_GitHub_Forms/">
+        href="/Submission-Guide/">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-left ">
@@ -426,14 +500,14 @@
             <path d="M5 12l6 6"></path>
             <path d="M5 12l6 -6"></path>
         </svg>
-        <span class="max-[500px]:hidden">Using GitHub Forms</span>
+        <span class="max-[500px]:hidden">Submission Guide</span>
     </a>
     
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 ml-auto shadow-none"
-        href="/Developer%20Guidance/Github%20Actions%2C%20Workflows_and_Automation/">
-        <span class="max-[500px]:hidden">Github Actions, Workflows and Automation</span>
+        href="/What_to_expect_on_submission/">
+        <span class="max-[500px]:hidden">What to expect on submission</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-right ">
@@ -486,13 +560,13 @@
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../Using_GitHub_Forms/">
+                    <a class="text-2xl font-medium" href="./">
                         
                         Using GitHub Forms
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="./">
+                    <a class="text-2xl font-medium" href="../What_to_expect_on_submission/">
                         
                         What to expect on submission
                         
@@ -591,58 +665,66 @@
         
         
         
-        <a href="#step-1-open-the-form"
+        <a href="#opening-a-form"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#step-1-open-the-form');">
-            Step 1 — Open the Form
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#opening-a-form');">
+            Opening a form
+        </a>
+        
+
+        
+        <a href="#field-types"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#field-types');">
+            Field types
         </a>
         
         
-        <a href="#this-generates-an-issue-with-your-submitted-information"
+        <a href="#text-fields"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#this-generates-an-issue-with-your-submitted-information');">
-            This generates an issue with your submitted information
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#text-fields');">
+            Text fields
+        </a>
+        
+        <a href="#text-areas"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#text-areas');">
+            Text areas
+        </a>
+        
+        <a href="#dropdowns"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#dropdowns');">
+            Dropdowns
+        </a>
+        
+        <a href="#multi-select-dropdowns"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#multi-select-dropdowns');">
+            Multi-select dropdowns
+        </a>
+        
+        <a href="#collapsible-guidance"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#collapsible-guidance');">
+            Collapsible guidance
         </a>
         
         
 
         
-        <a href="#step-2-automated-validation"
+        <a href="#required-fields"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#step-2-automated-validation');">
-            Step 2 — Automated Validation
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#required-fields');">
+            Required fields
         </a>
         
 
         
-        <a href="#step-3-the-pull-request-and-its-report"
+        <a href="#submitting"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#step-3-the-pull-request-and-its-report');">
-            Step 3 — The Pull Request and its Report
-        </a>
-        
-
-        
-        <a href="#step-4-first-review"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#step-4-first-review');">
-            Step 4 — First Review
-        </a>
-        
-
-        
-        <a href="#step-5-second-review-and-merge"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#step-5-second-review-and-merge');">
-            Step 5 — Second Review and Merge
-        </a>
-        
-
-        
-        <a href="#step-6-publication-and-id-assignment"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#step-6-publication-and-id-assignment');">
-            Step 6 — Publication and ID Assignment
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#submitting');">
+            Submitting
         </a>
         
 
