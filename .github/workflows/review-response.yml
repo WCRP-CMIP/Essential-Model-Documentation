@@ -1,0 +1,87 @@
+name: 🔍 PR Review — label PR and notify linked issue
+
+# When a PR review is submitted:
+#   1. Add 'approved' or 'changes-requested' label to the PR
+#   2. Find the linked issue and post the reviewer's comment there
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  handle_review:
+    if: |
+      github.event.review.state == 'approved' ||
+      github.event.review.state == 'changes_requested'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN:       ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:           ${{ github.repository }}
+      PR_NUMBER:      ${{ github.event.pull_request.number }}
+      REVIEWER:       ${{ github.event.review.user.login }}
+      REVIEW_STATE:   ${{ github.event.review.state }}
+      REVIEW_BODY:    ${{ github.event.review.body }}
+      REVIEW_URL:     ${{ github.event.review.html_url }}
+
+    steps:
+      # ── 1. Add label to PR ─────────────────────────────────────────────────
+      - name: Add label to PR
+        run: |
+          if [ "$REVIEW_STATE" = "approved" ]; then
+            LABEL="approved"
+          else
+            LABEL="changes-requested"
+          fi
+
+          # Ensure the label exists in the repo
+          gh label create "$LABEL" --repo "$REPO" \
+            --color "$([ "$LABEL" = "approved" ] && echo "0e8a16" || echo "e11d48")" \
+            --description "$([ "$LABEL" = "approved" ] && echo "PR approved by reviewer" || echo "Reviewer requested changes")" \
+            2>/dev/null || true
+
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "$LABEL"
+
+          echo "## Review Response — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Reviewer | @${REVIEWER} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| State | ${REVIEW_STATE} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Label added | \`${LABEL}\` |" >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 2. Find linked issue and post comment ──────────────────────────────
+      - name: Comment on linked issue
+        run: |
+          PR_BODY=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' || true)
+
+          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            echo "| linked issue | none found |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Build the comment body
+          if [ "$REVIEW_STATE" = "approved" ]; then
+            STATE_DISPLAY="✅ approved"
+          else
+            STATE_DISPLAY="⚠️ requested changes"
+          fi
+
+          # Trim review body — use placeholder if empty
+          COMMENT_TEXT="${REVIEW_BODY:-*(No comment provided)*}"
+
+          COMMENT="**Reviewer @${REVIEWER} on [Pull Request #${PR_NUMBER}](${REVIEW_URL}) ${STATE_DISPLAY}:**
+
+${COMMENT_TEXT}"
+
+          while IFS= read -r issue_num; do
+            [ -z "$issue_num" ] && continue
+            gh issue comment "$issue_num" --repo "$REPO" --body "$COMMENT"
+            echo "| #${issue_num} | comment posted |" >> "$GITHUB_STEP_SUMMARY"
+          done <<< "$ISSUE_NUMBERS"
