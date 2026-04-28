@@ -4,9 +4,10 @@
   "description": "",
   "grid_mapping": "latitude-longitude",
   "grid_type": "regular-latitude-longitude",
-  "horizontal_units": "degree",
   "n_cells": 1036800,
-  "region": ["global"],
+  "region": [
+    "global"
+  ],
   "southernmost_latitude": -89.875,
   "temporal_refinement": "static",
   "truncation_method": "",
@@ -20,5 +21,6 @@
     "esgvoc:HorizontalGridCell",
     "emd"
   ],
-  "@id": "g113"
+  "@id": "g113",
+  "units": "degree"
 }

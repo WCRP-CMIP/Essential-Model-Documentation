@@ -1,26 +1,26 @@
 {
-    "validation_key": "g116",
-    "ui_label": "Horizontal grid cell with a tripolar grid type.",
-    "description": "South of 65°N, the resolution of the model is 1° along the zonal direction. In the meridional direction the grid spacing is nominally 1° resolution, with the following three refinements: a) tripolar Arctic north of 65°N (poles at 65°N, 80°E and 65°N, 260°E); b) equatorial refinement to 1/3° between 10°S and 10°N; and c) a Mercator (cosine-dependent) implementation for the southern hemisphere, ranging from 0.25° at 78°S to 1° at 30°S.",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "tripolar",
-    "n_cells": 108000,
-    "region": [
-        "global"
-    ],
-    "southernmost_latitude": -77.7532,
-    "temporal_refinement": "static",
-    "truncation_method": "",
-    "truncation_number": "",
-    "units": "",
-    "westernmost_longitude": 0,
-    "x_resolution": "",
-    "y_resolution": "",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:horizontal_grid_cell",
-        "esgvoc:HorizontalGridCell"
-    ],
-    "@id": "g116"
+  "validation_key": "g116",
+  "ui_label": "Horizontal grid cell with a tripolar grid type.",
+  "description": "South of 65°N, the resolution of the model is 1° along the zonal direction. In the meridional direction the grid spacing is nominally 1° resolution, with the following three refinements: a) tripolar Arctic north of 65°N (poles at 65°N, 80°E and 65°N, 260°E); b) equatorial refinement to 1/3° between 10°S and 10°N; and c) a Mercator (cosine-dependent) implementation for the southern hemisphere, ranging from 0.25° at 78°S to 1° at 30°S.",
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "tripolar",
+  "n_cells": 108000,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -77.7532,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "",
+  "westernmost_longitude": 0,
+  "x_resolution": "",
+  "y_resolution": "",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g116"
 }

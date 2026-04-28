@@ -4,7 +4,6 @@
   "description": "",
   "grid_mapping": "latitude-longitude",
   "grid_type": "regular-latitude-longitude",
-  "horizontal_units": "degree",
   "n_cells": 27840,
   "region": [
     "global"
@@ -22,5 +21,6 @@
     "esgvoc:HorizontalGridCell",
     "emd"
   ],
-  "@id": "g115"
+  "@id": "g115",
+  "units": "degree"
 }

@@ -1,22 +1,22 @@
 {
-    "validation_key": "tempgrid-wolfiex-1772558788",
-    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree resolution.",
-    "description": "",
-    "coordinate_system": "latitude_longitude",
-    "grid_type": "regular_latitude_longitude",
-    "horizontal_units": "degree",
-    "n_cells": 27648,
-    "region": "global",
-    "southernmost_latitude": -89.375,
-    "temporal_refinement": "static",
-    "westernmost_longitude": 0.9375,
-    "x_resolution": 1.875,
-    "y_resolution": 1.25,
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:delete",
-        "esgvoc:Delete"
-    ],
-    "@id": "tempgrid-wolfiex-1772558788"
+  "validation_key": "tempgrid-wolfiex-1772558788",
+  "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 1.25 degree resolution.",
+  "description": "",
+  "coordinate_system": "latitude_longitude",
+  "grid_type": "regular_latitude_longitude",
+  "n_cells": 27648,
+  "region": "global",
+  "southernmost_latitude": -89.375,
+  "temporal_refinement": "static",
+  "westernmost_longitude": 0.9375,
+  "x_resolution": 1.875,
+  "y_resolution": 1.25,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:delete",
+    "esgvoc:Delete"
+  ],
+  "@id": "tempgrid-wolfiex-1772558788",
+  "units": "degree"
 }
