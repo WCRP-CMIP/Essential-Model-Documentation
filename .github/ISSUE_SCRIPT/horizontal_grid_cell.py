@@ -178,12 +178,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         print(f"\033[92m  Generating review report for {file_path} ...\033[0m", flush=True)
         try:
-            # Use pydantic-compatible copy if available, else fall back to data
-            pydantic_overrides = files_to_write.get('_pydantic_data', {})
-            validation_item = pydantic_overrides.get(file_path, data)
             report = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
-                item=validation_item, link_threshold=85.0,
+                item=data, link_threshold=85.0,
             ).build()
             data['_validation_report'] = report
             print(f"\033[92m  Report generated ({len(report)} chars)\033[0m", flush=True)
