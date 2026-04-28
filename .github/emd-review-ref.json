@@ -1,0 +1,75 @@
+{
+  "_ref": "EMD v1.1 §2-4,7",
+  "model": {
+    "_ref": "§2",
+    "release_year": "integer; flag <1990 or future",
+    "dynamic_components": "must not overlap with prescribed_components or omitted_components",
+    "embedded_components": {
+      "rule": "embedded cannot appear in coupled_components; no cyclic embedding",
+      "typical_patterns": {
+        "sea_ice → ocean": "normal",
+        "ocean_biogeochemistry → ocean": "normal",
+        "aerosol → atmosphere OR atmospheric_chemistry": "normal",
+        "atmospheric_chemistry → atmosphere": "normal",
+        "land_ice → anywhere": "unusual — flag if embedded without explanation"
+      }
+    },
+    "coupled_components": "only superior hosts (non-embedded) may couple; all must be directly/indirectly connected"
+  },
+  "model_component": {
+    "_ref": "§3",
+    "component_cv": ["aerosol","atmosphere","atmospheric_chemistry","land_surface","land_ice","ocean","ocean_biogeochemistry","sea_ice"],
+    "name": "version strings use hyphens not dots — v1-1 not v1.1",
+    "references": "expected to be present; flag if absent",
+    "references.doi": "must start with https://doi.org/"
+  },
+  "component_config": {
+    "_ref": "§3, §4",
+    "horizontal_grid_domain_match": "grid domain must match component type — e.g. ocean_biogeochemistry must not reference an atmospheric grid",
+    "vertical_grid_domain_match": {
+      "ocean_biogeochemistry": "should share ocean's vertical grid",
+      "land_surface": "should have a soil-depth vertical grid, not an atmospheric one"
+    }
+  },
+  "horizontal_grid_cell": {
+    "_ref": "§4.1.3, §7.6",
+    "grid_type_domain_rules": {
+      "tripolar|displaced_pole": "ocean/sea_ice only — flag if atmosphere or land",
+      "reduced_gaussian|spectral_gaussian|linear_spectral_gaussian|quadratic_spectral_gaussian|cubic_octahedral_spectral_reduced_gaussian": "atmosphere only — flag if ocean",
+      "regular_latitude_longitude": "any domain"
+    },
+    "spectral_resolution_formulas": {
+      "linear_TL": "Δx ≈ 180/N deg  (TL319 ≈ 0.56° ≈ 63 km)",
+      "cubic_TCo": "Δx ≈ 10000 km/N  (TCo319 ≈ 31-36 km)",
+      "rule": "determine grid_type before flagging; if ambiguous raise NOTE not WARNING"
+    },
+    "n_cells_global_approx": {"1deg":"~65000","0.25deg":"~1000000","0.1deg":"~6000000","rule":"flag order-of-magnitude inconsistencies"},
+    "region_mismatch": "ocean component grid claiming 'arctic' only is unusual without explanation",
+    "horizontal_units_km": "valid on any grid_type including regular_lat_lon — do not flag",
+    "region_cv": ["global","antarctica","greenland","limited_area","30S-90S"]
+  },
+  "vertical_grid": {
+    "_ref": "§4.2.1, §7.11",
+    "vertical_coordinate_by_domain": {
+      "atmosphere": ["atmosphere_hybrid_sigma_pressure_coordinate","atmosphere_hybrid_height_coordinate","atmosphere_ln_pressure_coordinate","atmosphere_sigma_coordinate","atmosphere_sleve_coordinate","air_pressure","air_potential_temperature","geopotential_height","height"],
+      "ocean": ["ocean_sigma_z_coordinate","ocean_s_coordinate","ocean_s_coordinate_g1","ocean_s_coordinate_g2","ocean_sigma_coordinate","ocean_double_sigma_coordinate","depth","sea_water_pressure","sea_water_potential_temperature","z*"],
+      "soil_land": ["depth"],
+      "sea_ice": ["height"],
+      "land_ice": ["land_ice_sigma_coordinate","height"]
+    },
+    "z_star_note": "z* is the canonical form; do not flag it as non-standard",
+    "n_z_plausible": {
+      "atmosphere": "19-137; flag <10 or >200",
+      "ocean": "25-75; flag <10 or >100",
+      "soil": "4-20",
+      "sea_ice": "1-10"
+    },
+    "total_thickness_m": {
+      "atmosphere": "30000-85000",
+      "ocean": "3000-7000",
+      "soil": "1-20",
+      "sea_ice": "1-10"
+    },
+    "top_layer_thickness": "must be less than total_thickness"
+  }
+}
