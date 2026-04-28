@@ -47,9 +47,9 @@ jobs:
             --field description="$DESC" \
             2>/dev/null || true
 
-          # Apply label to PR via API (more reliable than gh pr edit)
+          # Apply label to PR via API with correct JSON array body
           gh api --method POST "repos/${REPO}/issues/${PR_NUMBER}/labels" \
-            --field "labels[]=$LABEL"
+            --input - <<< "{\"labels\":[\"${LABEL}\"]}"
 
           echo "## Review Response — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
           echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
