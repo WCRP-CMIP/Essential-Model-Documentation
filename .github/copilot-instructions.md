@@ -152,7 +152,6 @@ Check `description` and `references` only — **but never flag a blank or empty*
 - Description clearly describing a different component type — flag as WARNING, do not rewrite
 - Malformed DOI strings (should start with `https://doi.org/`)
 - Placeholder text that was never replaced
-
 ---
 
 ## What NOT to flag
@@ -177,6 +176,8 @@ Begin every review with:
 
 **EMD Copilot Review:**
 
+> This is an automated review. It is used to aid the reviewer in identifying areas to check, but should not be used on its own.
+
 Structure the review in the following four sections, in this order. Omit any section that has no content — do not write empty section headers.
 
 ---
@@ -185,7 +186,7 @@ Structure the review in the following four sections, in this order. Omit any sec
 
 Minimal corrections to submitted content — typos, transposed digits, clearly wrong values where the intended value is obvious. These are unambiguous and safe to apply.
 
-> \[!TIP\] **\[field\]** "submitted value" → suggested correction. Reason in one sentence.
+> \[!TIP\] **Copilot suggestion (optional, and can be ignored).** **\[field\]** "submitted value" → suggested correction. Reason in one sentence.
 
 ---
 
@@ -198,9 +199,7 @@ Values that are physically implausible, internally inconsistent, or scientifical
 ---
 
 ### Concerns
-
 Things that look odd but could be intentional — unusual combinations, missing fields that are expected but not required, descriptions that are minimal. Raised for awareness.
-
 > \[!NOTE\] **\[Category\] field:** what looks unusual. No action required if intentional.
 
 ---
@@ -230,6 +229,7 @@ Example:
 > **[Component] name:** "Noo changes" → "No changes". Typo.
 
 ### Warnings
+```
 
 > [!WARNING]
 > **[Grid] n_z:** 500 levels for an ocean component — typical range is 25–75. Verify
