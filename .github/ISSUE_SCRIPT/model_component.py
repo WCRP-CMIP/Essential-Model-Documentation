@@ -84,6 +84,23 @@ def run(parsed_issue, issue, dry_run=False):
     if description and description.lower() not in ('none', 'not specified'):
         config_data['description'] = description
 
+    # Ensure all spec fields present — assign '' if not set
+    COMPONENT_KEYS = [
+        'validation_key', 'ui_label', 'component', 'family', 'description',
+        'references', 'code_base', 'embedded_in', 'coupled_with',
+    ]
+    for k in COMPONENT_KEYS:
+        if k not in component_data:
+            component_data[k] = ''
+
+    CONFIG_KEYS = [
+        'validation_key', 'ui_label', 'model_component',
+        'horizontal_computational_grid', 'vertical_computational_grid', 'description',
+    ]
+    for k in CONFIG_KEYS:
+        if k not in config_data:
+            config_data[k] = ''
+
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \

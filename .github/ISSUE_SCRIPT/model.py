@@ -163,6 +163,17 @@ def run(parsed_issue, issue, dry_run=False):
     if coupling_groups:
         data['coupled_components'] = coupling_groups
 
+    # Ensure all spec fields present — assign '' if not set
+    ALL_KEYS = [
+        'validation_key', 'ui_label', 'family', 'description', 'release_year',
+        'calendar', 'references',
+        'dynamic_components', 'prescribed_components', 'omitted_components',
+        'model_components', 'embedded_components', 'coupled_components',
+    ]
+    for k in ALL_KEYS:
+        if k not in data:
+            data[k] = ''
+
     # Build and validate CRS
     dynamic = (data.get('dynamic_components', []) +
                data.get('prescribed_components', []))

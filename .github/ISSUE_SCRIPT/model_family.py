@@ -104,6 +104,16 @@ def run(parsed_issue, issue, dry_run=False):
     for key in BAD_KEYS:
         data.pop(key, None)
 
+    # Ensure all spec fields present — assign '' if not set
+    ALL_KEYS = [
+        'validation_key', 'ui_label', 'family_type',
+        'description', 'website', 'established', 'references',
+        'primary_institution', 'collaborative_institutions', 'scientific_domains',
+    ]
+    for k in ALL_KEYS:
+        if k not in data:
+            data[k] = ''
+
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \

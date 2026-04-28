@@ -93,6 +93,17 @@ def run(parsed_issue, issue, dry_run=False):
     for old_key in FIELD_MAP:
         data.pop(old_key, None)
 
+    # Ensure all spec fields present — assign '' if not set
+    ALL_KEYS = [
+        'validation_key', 'ui_label', 'description',
+        'vertical_coordinate',
+        'n_z', 'n_z_range',
+        'top_layer_thickness', 'bottom_layer_thickness', 'total_thickness',
+    ]
+    for k in ALL_KEYS:
+        if k not in data:
+            data[k] = ''
+
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \

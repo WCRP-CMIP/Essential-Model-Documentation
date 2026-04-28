@@ -158,6 +158,20 @@ def run(parsed_issue, issue, dry_run=False):
     if description:
         hgrid_data['description'] = description
 
+    # Ensure all spec fields present — assign '' if not set
+    HGRID_KEYS = ['validation_key', 'ui_label', 'description', 'arrangement', 'horizontal_subgrids']
+    for k in HGRID_KEYS:
+        if k not in hgrid_data:
+            hgrid_data[k] = ''
+
+    # Ensure all spec fields present in each subgrid — assign '' if not set
+    SUBGRID_KEYS = ['validation_key', 'ui_label', 'cell_variable_type', 'horizontal_grid_cells']
+    for fp, sd in files.items():
+        if 'horizontal_subgrid' in fp:
+            for k in SUBGRID_KEYS:
+                if k not in sd:
+                    sd[k] = ''
+
     files[os.path.join('horizontal_computational_grid', f"{temp_id}.json")] = hgrid_data
 
     collab_str   = parsed_issue.get('additional_collaborators',
