@@ -69,9 +69,9 @@ jobs:
           fi
 
           if [ "$REVIEW_STATE" = "approved" ]; then
-            STATE_DISPLAY="✅ approved"
+            STATE_DISPLAY="✔ approved"
           else
-            STATE_DISPLAY="⚠️ requested changes"
+            STATE_DISPLAY="✖ requested changes"
           fi
 
           # Fetch review body inside the step to safely handle multi-line content
