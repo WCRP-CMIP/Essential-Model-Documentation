@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_wolfiex-1777283038",
+    "ui_label": "Horizontal grid cell with a hierarchical discrete global grid grid type and 1 x 1 km resolution.",
+    "description": "TEST TEST TEST",
+    "alias": [
+        "item2",
+        " item3"
+    ],
+    "grid_mapping": "lambert-azimuthal-equal-area",
+    "grid_type": "hierarchical-discrete-global-grid",
+    "n_cells": 1,
+    "region": [
+        "southern-hemisphere"
+    ],
+    "southernmost_latitude": 1,
+    "temporal_refinement": "dynamically-stretched",
+    "truncation_method": "triangular",
+    "truncation_number": 1,
+    "units": "km",
+    "westernmost_longitude": 1,
+    "x_resolution": 1,
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-wolfiex-1777283038"
+}
