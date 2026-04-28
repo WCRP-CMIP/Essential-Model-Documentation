@@ -133,7 +133,7 @@ jobs:
 
             # ── c. Check for duplicate content among existing numbered files ──
             # Strip identity fields and sort keys so comparison is order-independent
-            JQ_STRIP='del(.["@id"], .["@type"], .validation_key, .ui_label) | to_entries | sort_by(.key) | from_entries'
+            JQ_STRIP='del(.["@id"], .["@type"], .validation_key, .ui_label, .alias) | to_entries | sort_by(.key) | from_entries'
             CANDIDATE_SIG=$(jq -c "$JQ_STRIP" "$filepath")
             EXISTING_ID=""
             for existing in "$dir"/[gGhHvVsS][0-9]*.json; do
