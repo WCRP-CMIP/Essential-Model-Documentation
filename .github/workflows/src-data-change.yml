@@ -230,7 +230,17 @@ jobs:
   update_issue_templates:
     needs: [deploy]
     if: ${{ !failure() && !cancelled() }}
-    uses: ./.github/workflows/issue-templates.yml
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger issue template update
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'issue-templates.yml',
+              ref: 'main'
+            });
+            console.log('Triggered issue-templates workflow');
 
