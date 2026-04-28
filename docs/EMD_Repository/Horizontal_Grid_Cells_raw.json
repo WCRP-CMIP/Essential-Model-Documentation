@@ -1,5 +1,29 @@
 [
   {
+    "@id": "g120",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "Triangular truncation at total wavenumber 63 (T63) corresponding to an approximate isotropic resolution of 2.8 degrees in both latitude and longitude",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-gaussian",
+    "n_cells": 8192,
+    "region": "global",
+    "southernmost_latitude": -87.86379884,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 63,
+    "ui_label": "Horizontal grid cell with a spectral gaussian grid type and 2.8 x 2.8 degree resolution.",
+    "units": "degree",
+    "validation_key": "g120",
+    "westernmost_longitude": 0,
+    "x_resolution": 2.8,
+    "y_resolution": 2.8
+  },
+  {
     "@id": "g115",
     "@type": [
       "wcrp:horizontal_grid_cell",
