@@ -185,29 +185,6 @@
     "y_resolution": 0.9424
   },
   {
-    "@id": "g102",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "description": "Wrap-around",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "tripolar",
-    "n_cells": 105704,
-    "region": "global",
-    "southernmost_latitude": "",
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Ocean tripolar grid (eORCA1) with 105704 cells.",
-    "units": "./",
-    "validation_key": "g102",
-    "westernmost_longitude": "",
-    "x_resolution": "",
-    "y_resolution": ""
-  },
-  {
     "@id": "g100",
     "@type": [
       "emd",
