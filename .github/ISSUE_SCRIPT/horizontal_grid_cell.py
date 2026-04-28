@@ -178,9 +178,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         print(f"\033[92m  Generating review report for {file_path} ...\033[0m", flush=True)
         try:
+            pre_val = files_to_write.get('_val_results', {}).get(file_path)
             report = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
                 item=data, link_threshold=85.0,
+                val_result=pre_val,
             ).build()
             data['_validation_report'] = report
             print(f"\033[92m  Report generated ({len(report)} chars)\033[0m", flush=True)
