@@ -17,17 +17,20 @@ Your review must be concise and numbered. Do not summarise what the submission d
 
 ## How to report problems
 
-Use GitHub admonition blocks to signal severity. Do not apply corrections to the branch. Suggestions belong in the review comment text only.
+Use GitHub admonition blocks to signal severity. Do not apply corrections to the branch. Do not include fenced code blocks or suggested code changes in review comments — write all suggestions in plain prose only.
 
 For confirmed errors or logical contradictions:
 
 ```
 > [!WARNING]
 ```
-> **[Category]** field_name: what is wrong and why. Suggested correction: ...
+
+> **\[Category\]** field_name: what is wrong and why. Suggested correction: ...
+
 ```
 
 For possible issues or values that are unusual but not definitively wrong:
+```
 
 ```
 > [!NOTE]
