@@ -1,6 +1,6 @@
 {
   "validation_key": "g102",
-  "ui_label": "Ocean tripolar grid (eORCA1) with 105704 cells.",
+  "ui_label": "Ocean tripolar grid with 105704 cells.",
   "description": "Wrap-around",
   "grid_mapping": "latitude-longitude",
   "grid_type": "tripolar",
@@ -15,6 +15,7 @@
   "westernmost_longitude": "",
   "x_resolution": "",
   "y_resolution": "",
+  "alias":["eORCA1"]
   "@context": "_context",
   "@type": [
     "emd",
