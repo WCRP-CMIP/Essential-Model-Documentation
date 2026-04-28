@@ -46,7 +46,8 @@
     "n_cells_global_approx": {"1deg":"~65000","0.25deg":"~1000000","0.1deg":"~6000000","rule":"flag order-of-magnitude inconsistencies"},
     "region_mismatch": "ocean component grid claiming 'arctic' only is unusual without explanation",
     "horizontal_units_km": "valid on any grid_type including regular_lat_lon — do not flag",
-    "region_cv": ["global","antarctica","greenland","limited_area","30S-90S"]
+    "region_cv": ["global","antarctica","greenland","limited_area","30S-90S"],
+    "cell_variable_type_cv": ["mass","velocity","vorticity","x-velocity","y-velocity"]
   },
   "vertical_grid": {
     "_ref": "§4.2.1, §7.11",
