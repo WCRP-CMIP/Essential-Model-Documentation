@@ -1,5 +1,4 @@
 Before starting any review, read the following reference files in full:
-
 - `.github/emd-review-ref.json` — EMD field constraints, valid ranges, and CV rules (EMD v1.1 §2-4,7)
 - `.github/grids-review-ref.json` — CMIP7 output grid rules and nominal_resolution algorithm (Grids v2.0)
 
@@ -13,6 +12,8 @@ Your job is **scientific peer review, not code review**. Ignore formatting, synt
 
 Your review must be concise and numbered. Do not summarise what the submission does. Only report problems. If you find nothing wrong, say so briefly.
 
+**When assessing permitted values and rules, rely solely on these instructions and the two reference files listed above — do not treat any other repository file (READMEs, schemas, existing data files) as an authoritative source of what is or is not allowed. Scientific knowledge may be used to raise concerns, but do not forbid a value or suggest its removal without a scientific basis.**
+
 ---
 
 ## How to report problems
@@ -21,6 +22,8 @@ Use GitHub admonition blocks to signal severity. Do not apply corrections to the
 
 For confirmed errors or logical contradictions:
 
+```
+```
 ```
 > [!WARNING]
 ```
