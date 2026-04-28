@@ -50,6 +50,7 @@ def resolve_cv_value(field: str, value: str) -> str:
     """
     if not value or field not in CV_FIELDS:
         return value
+    value = value.strip().lower()
     if field not in _CV_REVERSE_MAP:
         try:
             _CV_REVERSE_MAP[field] = ui_label_to_key(CV_FIELDS[field])
@@ -82,12 +83,12 @@ def run(parsed_issue, issue, dry_run=False):
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
     file_path  = os.path.join('horizontal_grid_cell', f"{temp_id}.json")
 
-    region = (parsed_issue.get('region') or '').strip()
+    region = (parsed_issue.get('region') or '').strip().lower()
     region = resolve_cv_value('region', region)
-    units  = (parsed_issue.get('units') or parsed_issue.get('horizontal_units') or '').strip()
+    units  = (parsed_issue.get('units') or parsed_issue.get('horizontal_units') or '').strip().lower()
     units  = resolve_cv_value('units', units)
 
-    grid_type = resolve_cv_value('grid_type', parsed_issue.get('grid_type', ''))
+    grid_type = resolve_cv_value('grid_type', (parsed_issue.get('grid_type') or '').strip().lower())
     x_res     = parsed_issue.get('x_resolution', '')
     y_res     = parsed_issue.get('y_resolution', '')
     ui_label  = (
