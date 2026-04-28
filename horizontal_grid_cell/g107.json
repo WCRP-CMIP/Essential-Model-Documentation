@@ -1,26 +1,26 @@
 {
-    "validation_key": "g107",
-    "ui_label": "Horizontal grid cell with a tripolar grid type.",
-    "description": "",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "tripolar",
-    "horizontal_units": "",
-    "n_cells": 120184,
-    "region": [
-        "global"
-    ],
-    "southernmost_latitude": "",
-    "temporal_refinement": "static",
-    "truncation_method": "",
-    "truncation_number": "",
-    "westernmost_longitude": "",
-    "x_resolution": "",
-    "y_resolution": "",
-    "@context": "_context",
-    "@type": [
-        "wcrp:horizontal_grid_cell",
-        "esgvoc:HorizontalGridCell",
-        "emd"
-    ],
-    "@id": "g107"
+  "validation_key": "g107",
+  "ui_label": "Horizontal grid cell with a tripolar grid type.",
+  "description": "",
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "tripolar",
+  "n_cells": 120184,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": "",
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "westernmost_longitude": "",
+  "x_resolution": "",
+  "y_resolution": "",
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell",
+    "emd"
+  ],
+  "@id": "g107",
+  "units": ""
 }

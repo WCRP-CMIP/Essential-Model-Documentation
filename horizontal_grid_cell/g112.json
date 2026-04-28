@@ -4,9 +4,10 @@
   "description": "",
   "grid_mapping": "latitude-longitude",
   "grid_type": "tripolar",
-  "horizontal_units": "degree",
   "n_cells": 120184,
-  "region": ["global"],
+  "region": [
+    "global"
+  ],
   "southernmost_latitude": -85.789,
   "temporal_refinement": "static",
   "truncation_method": "",
@@ -20,5 +21,6 @@
     "esgvoc:HorizontalGridCell",
     "emd"
   ],
-  "@id": "g112"
+  "@id": "g112",
+  "units": "degree"
 }
