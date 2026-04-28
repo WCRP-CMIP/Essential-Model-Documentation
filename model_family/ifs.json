@@ -1,27 +1,27 @@
 {
-    "validation_key": "IFS",
-    "ui_label": "",
-    "description": "Integrated Forecasting System - ECMWF's operational weather and climate model.",
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
+    "validation_key": "ifs",
+    "ui_label": "IFS",
+    "description": "Family description The Integrated Forecasting System (IFS) is the global numerical weather prediction and atmospheric modelling system developed and maintained at ECMWF. The IFS family encompasses the operational forecasting model used at ECMWF since the 1980s, its data assimilation system, and the portable research configuration OpenIFS, which provides the full IFS forecast capability without the data assimilation system. IFS is used for medium-range, extended-range and seasonal weather forecasting, atmospheric reanalyses (ERA family), and as the atmospheric component of coupled Earth system configurations (e.g. EC-Earth, AWI-CM-3). Scientific focus and approach The IFS family is designed around a global hydrostatic primitive-equation atmospheric model that prognoses wind, temperature, specific humidity, cloud condensate (liquid, ice), precipitation species (rain, snow), cloud fraction and surface pressure on a terrain-following mass-based vertical coordinate. The IFS simulates the global three-dimensional atmospheric circulation together with its interactions with the land surface, sea ice and ocean wave fields, and — in more recent cycles — atmospheric chemistry, aerosol and prognostic ozone. Coupled subsystems include the HTESSEL land-surface scheme (soil moisture and temperature, vegetation, snow, lakes via FLake), the WAM ocean wave model, and the CAMS chemistry and aerosol package. Common code base, dynamical core and physics All IFS family members share a common code base and dynamical core: hydrostatic, two-time-level, semi-implicit and semi-Lagrangian, using spectral transforms between a reduced Gaussian grid (where physics and advection are computed) and spherical-harmonic spectral space (where the Helmholtz problem is solved). The vertical discretisation uses a finite-element scheme (Untch & Hortal, 2004; Vivoda et al., 2018). The shared physics package includes the turbulence scheme of Köhler et al. (2011), shallow and deep convection following Bechtold et al. (2014), the prognostic cloud scheme (Tiedtke / Forbes & Tompkins lineage), microphysics, the ecRad radiation scheme, and the HTESSEL land surface (Balsamo et al., 2009; Arduini et al., 2019 for the multi-layer snow scheme). Stochastic physics is provided through the SPPT scheme. How family members differ Family members differ principally in cycle, configuration and intended use. The IFS cycle (e.g. 38r1, 40r1, 41r2, 43r3, 47r3, 48r1, 49r1) determines the scientific content of the model, with each cycle bringing updates to physics, dynamics and coupling. OpenIFS releases (40r1, 43r3, 43r3v2, 48r1) provide research-oriented portable counterparts to selected operational cycles, scientifically identical to the forecast model of the corresponding IFS cycle but without data assimilation. Configurations also differ in horizontal resolution (e.g. TCo399, TCo1279, TCo3999), vertical resolution (typically 91 or 137 levels), inclusion of the wave model, activation of CAMS chemistry/aerosol, and choice of single- or double-precision builds.",
+    "collaborative_institutions": [
+        "météo-france"
+    ],
+    "established": 1983,
     "family_type": "component",
-    "license": "none",
     "primary_institution": "ecmwf",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
+    "references": [
+        "https://doi.org/10.21957/slk503fs2i",
+        "https://doi.org/10.1175/JAS-D-13-0163.1",
+        "https://doi.org/10.1002/qj.713",
+        "https://doi.org/10.1175/2008JHM1068.1",
+        "https://doi.org/10.1029/2019MS001725",
+        "https://doi.org/10.1175/MWR-D-18-0043.1",
+        "https://doi.org/10.1256/qj.03.173"
+    ],
+    "representative_member": "OpenIFS 48r1",
     "scientific_domains": [
         "atmosphere"
     ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "variation_dimensions": "none",
-    "website": "none",
+    "website": "https://confluence.ecmwf.int/display/OIFS",
     "@context": "_context",
     "@type": [
         "emd",
