@@ -37,22 +37,22 @@ For staggered grids (Arakawa B/C/D/E), multiple subgrids with different variable
 ---
 
 ## Subgrid Slot 1",none,false,,,
-6,dropdown,horizontal_grid_cells_1,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,true,,list_with_na,0
+6,dropdown,horizontal_grid_cells_1,Grid Cell (select horizontal grid cell for this subgrid),,horizontal_grid_cells,true,,list_with_na,0
 7,multi-select,cell_variable_type_1,Variable Types (variable types at this cell location),,cell_variable_type,true,,list,
 8,markdown,subgrid_2_header,,"---
 
 ## Subgrid Slot 2",none,false,,,
-9,dropdown,horizontal_grid_cells_2,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
+9,dropdown,horizontal_grid_cells_2,Grid Cell (select horizontal grid cell for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
 10,multi-select,cell_variable_type_2,Variable Types (variable types at this cell location),,cell_variable_type,false,,list,
 11,markdown,subgrid_3_header,,"---
 
 ## Subgrid Slot 3",none,false,,,
-12,dropdown,horizontal_grid_cells_3,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
+12,dropdown,horizontal_grid_cells_3,Grid Cell (select horizontal grid cell for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
 13,multi-select,cell_variable_type_3,Variable Types (variable types at this cell location),,cell_variable_type,false,,list,
 14,markdown,subgrid_4_header,,"---
 
 ## Subgrid Slot 4",none,false,,,
-15,dropdown,horizontal_grid_cells_4,Grid Cells (select or define horizontal grid cells for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
+15,dropdown,horizontal_grid_cells_4,Grid Cell (select horizontal grid cell for this subgrid),,horizontal_grid_cells,false,,list_with_na,0
 16,multi-select,cell_variable_type_4,Variable Types (variable types at this cell location),,cell_variable_type,false,,list,
 17,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3,...",,
 18,textarea,description,Description,Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.,none,false,,,

@@ -103,7 +103,7 @@ For `model_component` files, check:
 
 - Does the `description` match the stated `component` type?
 - Does the `name` include a recognisable version identifier?
-  - Version strings must use hyphens, not dots: `name v1-1-3` not `name v1.1.3`Flag dot-separated version strings and suggest the hyphenated form.
+- Version strings must use hyphens, not dots: `name v1-1-3` not `name v1.1.3`Flag dot-separated version strings and suggest the hyphenated form.
 - Are `references` present?
 
 For `component_config` files, check:
@@ -113,7 +113,7 @@ For `component_config` files, check:
   - `ocean_biogeochemistry` should share the ocean's vertical grid
   - `land_surface` should have a soil-depth vertical grid, not an atmospheric one
 
-> **Note:** For `horizontal_computational_grid` and `component_config` files, do not use `[!TIP]` blocks or suggest specific data corrections. Raise scientific concerns only, using `[!NOTE]`, `[!WARNING]`, or `[!CAUTION]` as appropriate.
+> **Note:** For `horizontal_computational_grid` and `component_config` files, do not use `[!TIP]` blocks or suggest specific data corrections. Do not comment on data types, array vs. string representations, field formats, schema consistency, or structural conventions. Raise scientific concerns only, using `[!NOTE]`, `[!WARNING]`, or `[!CAUTION]` as appropriate.
 
 ---
 
