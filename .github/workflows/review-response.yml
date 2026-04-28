@@ -14,18 +14,17 @@ permissions:
 
 jobs:
   handle_review:
-    if: |
+    if: >-
       github.event.review.state == 'approved' ||
       github.event.review.state == 'changes_requested'
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN:       ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-      REPO:           ${{ github.repository }}
-      PR_NUMBER:      ${{ github.event.pull_request.number }}
-      REVIEWER:       ${{ github.event.review.user.login }}
-      REVIEW_STATE:   ${{ github.event.review.state }}
-      REVIEW_BODY:    ${{ github.event.review.body }}
-      REVIEW_URL:     ${{ github.event.review.html_url }}
+      GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:        ${{ github.repository }}
+      PR_NUMBER:   ${{ github.event.pull_request.number }}
+      REVIEWER:    ${{ github.event.review.user.login }}
+      REVIEW_STATE: ${{ github.event.review.state }}
+      REVIEW_URL:  ${{ github.event.review.html_url }}
 
     steps:
       # ── 1. Add label to PR ─────────────────────────────────────────────────
@@ -33,17 +32,24 @@ jobs:
         run: |
           if [ "$REVIEW_STATE" = "approved" ]; then
             LABEL="approved"
+            COLOR="0e8a16"
+            DESC="PR approved by reviewer"
           else
             LABEL="changes-requested"
+            COLOR="e11d48"
+            DESC="Reviewer requested changes"
           fi
 
-          # Ensure the label exists in the repo
-          gh label create "$LABEL" --repo "$REPO" \
-            --color "$([ "$LABEL" = "approved" ] && echo "0e8a16" || echo "e11d48")" \
-            --description "$([ "$LABEL" = "approved" ] && echo "PR approved by reviewer" || echo "Reviewer requested changes")" \
+          # Create label if it doesn't exist (ignore error if it already does)
+          gh api --method POST "repos/${REPO}/labels" \
+            --field name="$LABEL" \
+            --field color="$COLOR" \
+            --field description="$DESC" \
             2>/dev/null || true
 
-          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "$LABEL"
+          # Apply label to PR via API (more reliable than gh pr edit)
+          gh api --method POST "repos/${REPO}/issues/${PR_NUMBER}/labels" \
+            --field "labels[]=$LABEL"
 
           echo "## Review Response — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
           echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
@@ -66,14 +72,15 @@ jobs:
             exit 0
           fi
 
-          # Build the comment body
           if [ "$REVIEW_STATE" = "approved" ]; then
             STATE_DISPLAY="✅ approved"
           else
             STATE_DISPLAY="⚠️ requested changes"
           fi
 
-          # Trim review body — use placeholder if empty
+          # Fetch review body inside the step to safely handle multi-line content
+          REVIEW_BODY=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}/reviews" \
+            --jq 'sort_by(.submitted_at) | last | .body' 2>/dev/null || true)
           COMMENT_TEXT="${REVIEW_BODY:-*(No comment provided)*}"
 
           COMMENT="**Reviewer @${REVIEWER} on [Pull Request #${PR_NUMBER}](${REVIEW_URL}) ${STATE_DISPLAY}:**"$'\n\n'"${COMMENT_TEXT}"
