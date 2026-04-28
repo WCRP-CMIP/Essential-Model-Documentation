@@ -196,6 +196,14 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     slot_report = files_to_write.get('_slot_report', [])
     subgrid_ids = files_to_write.get('_subgrid_ids', [])
 
+    # Build a lookup of subgrid dicts for validator substitution.
+    # Keys are the bare subgrid IDs (e.g. "g100-mass").
+    subgrid_lookup = {
+        data['@id']: {k: v for k, v in data.items() if not k.startswith('_')}
+        for fp, data in files_to_write.items()
+        if not fp.startswith('_') and 'horizontal_subgrid' in fp and '@id' in data
+    }
+
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
@@ -203,12 +211,25 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             'horizontal_subgrid' if 'horizontal_subgrid' in file_path
             else 'horizontal_computational_grid'
         )
-        # folder names are singular — do not pluralise
         folder_url = f"emd:{report_kind}"
+
+        # For the comp grid, substitute subgrid ID strings with their full dicts
+        # so the validator receives HorizontalSubgrid objects, not bare strings.
+        if report_kind == 'horizontal_computational_grid' and subgrid_lookup:
+            validate_data = {
+                **{k: v for k, v in data.items() if not k.startswith('_')},
+                'horizontal_subgrids': [
+                    subgrid_lookup.get(sid, sid)
+                    for sid in data.get('horizontal_subgrids', [])
+                ],
+            }
+        else:
+            validate_data = data
+
         try:
             report = ReportBuilder(
                 folder_url=folder_url, kind=report_kind,
-                item=data, link_threshold=80.0,
+                item=validate_data, link_threshold=80.0,
             ).build()
             data['_validation_report'] = report
             status = '✓' if report else '(empty)'
