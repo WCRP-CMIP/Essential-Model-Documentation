@@ -40,16 +40,12 @@ jobs:
             DESC="Reviewer requested changes"
           fi
 
-          # Create label if it doesn't exist (ignore error if it already does)
-          gh api --method POST "repos/${REPO}/labels" \
-            --field name="$LABEL" \
-            --field color="$COLOR" \
-            --field description="$DESC" \
-            2>/dev/null || true
+          # Create/update label in the repo (--force updates if it already exists)
+          gh label create "$LABEL" --repo "$REPO" \
+            --color "$COLOR" --description "$DESC" --force 2>/dev/null || true
 
-          # Apply label to PR via API with correct JSON array body
-          gh api --method POST "repos/${REPO}/issues/${PR_NUMBER}/labels" \
-            --input - <<< "{\"labels\":[\"${LABEL}\"]}"
+          # Apply label to the PR
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "$LABEL"
 
           echo "## Review Response — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
           echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
