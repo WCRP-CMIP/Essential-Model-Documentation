@@ -76,9 +76,7 @@ jobs:
           # Trim review body — use placeholder if empty
           COMMENT_TEXT="${REVIEW_BODY:-*(No comment provided)*}"
 
-          COMMENT="**Reviewer @${REVIEWER} on [Pull Request #${PR_NUMBER}](${REVIEW_URL}) ${STATE_DISPLAY}:**
-
-${COMMENT_TEXT}"
+          COMMENT="**Reviewer @${REVIEWER} on [Pull Request #${PR_NUMBER}](${REVIEW_URL}) ${STATE_DISPLAY}:**"$'\n\n'"${COMMENT_TEXT}"
 
           while IFS= read -r issue_num; do
             [ -z "$issue_num" ] && continue
