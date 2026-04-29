@@ -239,6 +239,56 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             status = '⚠ failed'
         print(f"\033[92m  Report {status}: {file_path}\033[0m", flush=True)
 
+    # For subgrid files, ReportBuilder doesn't produce meaningful output.
+    # Instead, resolve all @id-typed links and append them as hyperlinks
+    # so the PR comment surfaces what each subgrid references.
+    try:
+        import subprocess as _sp
+        _repo = _sp.check_output(
+            ['gh', 'repo', 'view', '--json', 'nameWithOwner', '-q', '.nameWithOwner'],
+            text=True
+        ).strip()
+    except Exception:
+        _repo = 'WCRP-CMIP/Essential-Model-Documentation'
+
+    _BRANCH = 'src-data'
+    _BASE_URL = f'https://github.com/{_repo}/blob/{_BRANCH}'
+
+    # Field → folder mapping for in-repo @id links in horizontal_subgrid
+    _IN_REPO_LINKS = {
+        'horizontal_grid_cell': 'horizontal_grid_cell',
+    }
+
+    for file_path, data in files_to_write.items():
+        if file_path.startswith('_') or 'horizontal_subgrid' not in file_path:
+            continue
+
+        lines = ['**Linked entries:**\n']
+        found_any = False
+
+        for field, folder in _IN_REPO_LINKS.items():
+            value = data.get(field)
+            if not value:
+                continue
+            values = [value] if isinstance(value, str) else value
+            for v in values:
+                url = f'{_BASE_URL}/{folder}/{v}.json'
+                lines.append(f'- `{field}` → [{v}]({url})')
+                found_any = True
+
+        # cell_variable_type links to an external CV — add a reference URL
+        cvt = data.get('cell_variable_type')
+        if cvt:
+            cvt_list = [cvt] if isinstance(cvt, str) else cvt
+            for v in cvt_list:
+                cv_url = f'https://constants.mipcvs.dev/cell_variable_type/{v}'
+                lines.append(f'- `cell_variable_type` → [{v}]({cv_url}) *(external CV)*')
+                found_any = True
+
+        if found_any:
+            existing = data.get('_validation_report') or ''
+            data['_validation_report'] = (existing + '\n\n' + '\n'.join(lines)).strip()
+
     if atid:
         import json as _json
 
