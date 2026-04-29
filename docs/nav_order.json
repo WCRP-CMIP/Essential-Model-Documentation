@@ -1,110 +1,15 @@
 {
   "Submission-Guide": 1,
+  "What_to_expect_on_submission": 2,
+  "What_To_Expect_On_Submission": -1,
+  "Reviewer_Information": {
+    ".": 3,
+    "Review_Comments": null,
+    "index": -1
+  },
   "EMD_Repository": {
-    ".": 2,
-    "Model_Components": {
-      ".": 6,
-      "Similarity": 1,
-      "arpege-climat_version_6_3": null,
-      "bisicles-ukesm-ismip6-1_0": null,
-      "clm4": null,
-      "gelato": null,
-      "hadam3": null,
-      "nemo_v3_6": null,
-      "piscesv2-gas": null,
-      "reprobus-c_v2_0": null,
-      "surfex_v8_modeling_platform": null,
-      "tactic": null,
-      "index": -1
-    },
-    "Component_Families": {
-      ".": 4,
-      "Similarity": 1,
-      "arpege-climat": null,
-      "bisicles": null,
-      "cam": null,
-      "clm": null,
-      "gelato": null,
-      "geos": null,
-      "hadam": null,
-      "ifs": null,
-      "nemo": null,
-      "nicam": null,
-      "pisces": null,
-      "reprobus": null,
-      "surfex": null,
-      "tactic": null,
-      "index": -1
-    },
-    "Earth_System_Model_Families": {
-      ".": 5,
-      "Similarity": 1,
-      "access": null,
-      "bcc-csm": null,
-      "canesm": null,
-      "cesm": null,
-      "cnrm-cm": null,
-      "ec-earth": null,
-      "fgoals": null,
-      "gfdl-cm4": null,
-      "giss-e2": null,
-      "hadcm2": null,
-      "hadgem3": null,
-      "icon": null,
-      "ipsl-cm": null,
-      "miroc": null,
-      "mpi-esm": null,
-      "ukesm1": null,
-      "index": -1
-    },
-    "Horizontal_Computational_Grids": {
-      ".": 2,
-      "Similarity": 1,
-      "h100": null,
-      "h101": null,
-      "h102": null,
-      "h103": null,
-      "index": -1
-    },
-    "Vertical_Computational_Grids": {
-      ".": 3,
-      "Similarity": 1,
-      "v100": null,
-      "v101": null,
-      "v102": null,
-      "v103": null,
-      "v104": null,
-      "v105": null,
-      "v106": null,
-      "index": -1
-    },
-    "Horizontal_Grid_Cells": {
-      ".": 1,
-      "Similarity": 1,
-      "g100": null,
-      "g101": null,
-      "g102": null,
-      "g103": null,
-      "g104": null,
-      "g105": null,
-      "g106": null,
-      "index": -1
-    },
+    ".": 4,
     "genealogy": null,
-    "Horizontal_Grid_Cell": {
-      "g100": null,
-      "g101": null,
-      "g102": null,
-      "g103": null,
-      "g104": null,
-      "g105": null,
-      "g106": null,
-      "g107": null,
-      "g108": null,
-      "g109": null,
-      "g110": null,
-      "Similarity": null
-    },
     "Component_Families_data.json": -1,
     "Earth_System_Model_Families_data.json": -1,
     "Horizontal_Computational_Grids_data.json": -1,
@@ -117,29 +22,24 @@
     "Horizontal_Grid_Cells_raw.json": -1,
     "Model_Components_raw.json": -1,
     "Models_raw.json": -1,
-    "Vertical_Computational_Grids_raw.json": -1
+    "Vertical_Computational_Grids_raw.json": -1,
+    "Component_Families": null,
+    "Earth_System_Model_Families": null,
+    "Horizontal_Computational_Grids": null,
+    "Horizontal_Grid_Cells": null,
+    "Model_Components": null,
+    "Vertical_Computational_Grids": null
   },
-  "Table_Summaries": {
-    ".": 3,
-    "component_config": null,
-    "component_family": null,
-    "horizontal_computational_grid": null,
-    "horizontal_grid_cell": null,
-    "horizontal_subgrid": null,
-    "model": null,
-    "model_component": null,
-    "source_family": null,
-    "vertical_computational_grid": null,
-    "index": -1,
-    "json": -1,
-    "horizontal_grid_cells": null
+  "Developer Guidance": {
+    ".": 5,
+    "Issue_Templates": null,
+    "Workflows_and_Automations": null,
+    "Github Actions, Workflows_and_Automation": null
   },
-  "Reviewer_Information": {
-    ".": 4,
-    "Review_Comments": null,
-    "index": -1
-  },
-  "Contributors": 5,
+  "Using_GitHub_Forms": 6,
+  "Contributors": -1,
+  "Submission-Automations": -1,
+  "Review_Comments": -1,
   "assets": -1,
   "css": -1,
   "fonts": -1,
@@ -155,15 +55,6 @@
   "sitemap.xml.gz": -1,
   "stylesheets": -1,
   "image.png": -1,
-  "Submission-Automations": 1,
-  "Developer Guidance": {
-    ".": 6,
-    "Issue_Templates": null,
-    "Workflows_and_Automations": null,
-    "Github Actions, Workflows_and_Automation": null
-  },
-  "What_To_Expect_On_Submission": 2,
-  "Review_Comments": -1,
   "EMD_Registry": {
     "Component_Families": {
       "Similarity": null
@@ -191,7 +82,5 @@
     "Horizontal_Grid_Cells": null,
     "Model_Components": null,
     "Vertical_Computational_Grids": null
-  },
-  "Using_GitHub_Forms": null,
-  "What_to_expect_on_submission": null
+  }
 }
