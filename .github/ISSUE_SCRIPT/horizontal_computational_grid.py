@@ -68,7 +68,7 @@ def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
                     i += 1  # consume the vtype section too
                 if cell and cell.lower() not in PLACEHOLDER:
                     n += 1
-                    vtype_list = [v.strip() for v in vtypes.split(',') if v.strip()] if vtypes else []
+                    vtype_list = sorted(v.strip() for v in vtypes.split(',') if v.strip()) if vtypes else []
                     slots.append({'cell': cell, 'variable_types': vtype_list, 'n': n})
             i += 1
         return slots
@@ -86,7 +86,7 @@ def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
             ''
         ).strip()
         if cell and cell.lower() not in ('not specified', 'none', ''):
-            vtype_list = [v.strip() for v in vtypes.split(',') if v.strip()] if vtypes else []
+            vtype_list = sorted(v.strip() for v in vtypes.split(',') if v.strip()) if vtypes else []
             slots.append({'cell': cell, 'variable_types': vtype_list, 'n': n})
     return slots
 
@@ -115,8 +115,8 @@ def run(parsed_issue, issue, dry_run=False):
     for slot in slots:
         # Lowercase the cell ID and variable types — these are links to other entries
         cell       = slot['cell'].strip().lower()
-        vtypes     = [v.strip().lower() for v in slot['variable_types']]
-        vtype_slug = '-'.join(sorted(vtypes)) if vtypes else 'untyped'
+        vtypes     = sorted(v.strip().lower() for v in slot['variable_types'])
+        vtype_slug = '-'.join(vtypes) if vtypes else 'untyped'
         sid        = f"{cell}-{vtype_slug}"
         file_path  = os.path.join('horizontal_subgrid', f"{sid}.json")
         reused     = os.path.exists(os.path.join(repo_root, file_path))
