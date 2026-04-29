@@ -1,9 +1,11 @@
 """
 Handler for Model Component registration (Stage 3)
 
-Produces two files per submission:
-  1. model_component/{name_slug}.json  — the reusable component record
+Produces one or two files per submission:
+  1. model_component/{name_slug}.json  — the reusable component record (always)
   2. component_config/{config_id}.json — component + grid binding for use in Stage 4
+                                         ONLY when both a horizontal AND vertical
+                                         computational grid are supplied.
 
 Config ID format: {component_type}_{name_slug}_{h###}_{v###}
 e.g.  ocean_nemo-v3-6_h101_v103
@@ -44,7 +46,10 @@ def run(parsed_issue, issue, dry_run=False):
         return None  # fall back to generic handler
 
     name_slug = _slugify(component_name)
-    config_id = f"{component_type}_{name_slug}_{h_grid}_{v_grid}"
+
+    _MISSING = {'', 'not specified', 'none'}
+    make_config = (h_grid not in _MISSING) and (v_grid not in _MISSING)
+    config_id   = f"{component_type}_{name_slug}_{h_grid}_{v_grid}" if make_config else ''
 
     # ── 1. model_component record ─────────────────────────────────────────────
     component_data = {
@@ -70,19 +75,36 @@ def run(parsed_issue, issue, dry_run=False):
         else:
             component_data[k] = v.strip() if isinstance(v, str) else v
 
-    # ── 2. component_config record ────────────────────────────────────────────
-    config_data = {
-        "@context":                      "_context",
-        "@id":                           config_id,
-        "@type":                         ["emd", "wcrp:component_config", "esgvoc:ComponentConfig"],
-        "validation_key":                config_id,
-        "ui_label":                      config_id,
-        "model_component":               name_slug,
-        "horizontal_computational_grid": h_grid,
-        "vertical_computational_grid":   v_grid,
-    }
-    if description and description.lower() not in ('none', 'not specified'):
-        config_data['description'] = description
+    # ── 2. component_config record (only when both grids are provided) ─────────
+    if not make_config:
+        print(
+            '\033[93m  ⚠ No component_config created: '
+            'both a horizontal AND vertical computational grid must be supplied.\033[0m',
+            flush=True,
+        )
+
+    config_data = None
+    if make_config:
+        config_data = {
+            "@context":                      "_context",
+            "@id":                           config_id,
+            "@type":                         ["emd", "wcrp:component_config", "esgvoc:ComponentConfig"],
+            "validation_key":                config_id,
+            "ui_label":                      config_id,
+            "model_component":               name_slug,
+            "horizontal_computational_grid": h_grid,
+            "vertical_computational_grid":   v_grid,
+        }
+        if description and description.lower() not in ('none', 'not specified'):
+            config_data['description'] = description
+
+        CONFIG_KEYS = [
+            'validation_key', 'ui_label', 'model_component',
+            'horizontal_computational_grid', 'vertical_computational_grid', 'description',
+        ]
+        for k in CONFIG_KEYS:
+            if k not in config_data:
+                config_data[k] = ''
 
     # Ensure all spec fields present — assign '' if not set
     COMPONENT_KEYS = [
@@ -93,36 +115,89 @@ def run(parsed_issue, issue, dry_run=False):
         if k not in component_data:
             component_data[k] = ''
 
-    CONFIG_KEYS = [
-        'validation_key', 'ui_label', 'model_component',
-        'horizontal_computational_grid', 'vertical_computational_grid', 'description',
-    ]
-    for k in CONFIG_KEYS:
-        if k not in config_data:
-            config_data[k] = ''
-
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
                    if collab_str else []
 
     component_path = os.path.join('model_component', f"{name_slug}.json")
-    config_path    = os.path.join('component_config', f"{config_id}.json")
 
-    return {
+    result = {
         component_path:  component_data,
-        config_path:     config_data,
         '_author':       issue.get('author'),
         '_contributors': contributors,
         '_make_pull':    True,
         '_config_id':    config_id,
     }
+    if make_config and config_data is not None:
+        config_path = os.path.join('component_config', f"{config_id}.json")
+        result[config_path] = config_data
+
+    return result
+
+
+_LINK_FORM_URL = (
+    'https://github.com/WCRP-CMIP/Essential-Model-Documentation'
+    '/issues/new?template=link_existing_component.yml'
+)
+
+
+def _post_issue_comment(issue_number, body):
+    """Post a comment on the original issue via the gh CLI."""
+    import subprocess
+    try:
+        subprocess.run(
+            ['gh', 'issue', 'comment', str(issue_number), '--body', body],
+            check=True,
+        )
+    except Exception as e:
+        print(f'\033[91m  ⚠ Could not post issue comment: {e}\033[0m', flush=True)
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     config_id   = files_to_write.get('_config_id', '')
     config_path = next((p for p in files_to_write if 'component_config' in p), None)
     config_data = files_to_write.get(config_path, {}) if config_path else {}
+
+    # ── No-config notice ──────────────────────────────────────────────────────
+    # When the submitter omitted one or both grids, no component_config was
+    # created.  Notify them on both the issue and (via _validation_report) the PR.
+    if not config_id:
+        component_path = next(
+            (p for p in files_to_write if not p.startswith('_') and 'model_component' in p),
+            None,
+        )
+        name_slug = (
+            files_to_write.get(component_path, {}).get('@id', '')
+            if component_path else ''
+        )
+        no_config_notice = (
+            '## ⚠️ No component configuration created\n\n'
+            'A horizontal **and** vertical computational grid are both required to '
+            'generate a `component_config` record.  '
+            'Because one or both were not supplied, only the `model_component` '
+            'record has been created in this PR.\n\n'
+            'Once your component is merged, use '
+            '**[Stage 3: Link Existing Component](' + _LINK_FORM_URL + ')** '
+            'to create the configuration by selecting:\n\n'
+            f'- **Model Component:** `{name_slug}`\n'
+            '- **Horizontal Grid:** your `h###` from Stage 2a\n'
+            '- **Vertical Grid:** your `v###` from Stage 2b\n\n'
+            '_The config ID will be auto-generated and pushed directly to '
+            '`src-data` without a separate review._'
+        )
+
+        # Append to the component\'s PR report
+        if component_path and component_path in files_to_write:
+            existing = files_to_write[component_path].get('_validation_report') or ''
+            files_to_write[component_path]['_validation_report'] = (
+                (existing + '\n\n' + no_config_notice).strip()
+            )
+
+        # Also comment directly on the issue
+        issue_number = issue.get('number') or issue.get('issue_number')
+        if issue_number and not dry_run:
+            _post_issue_comment(issue_number, no_config_notice)
 
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
@@ -140,7 +215,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             print(f"\033[91m  ⚠ Report generation failed: {e}\033[0m", flush=True)
             data['_validation_report'] = ''
 
-    if config_data and config_id:
+    if config_id and config_data:
         import json
         clean = {k: v for k, v in config_data.items() if not k.startswith('_')}
         print("\n" + "=" * 60, flush=True)
