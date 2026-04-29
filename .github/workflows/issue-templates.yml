@@ -11,6 +11,7 @@ on:
     paths:
       - '.github/GEN_ISSUE_TEMPLATE/**'
   workflow_dispatch:
+  workflow_call:
   schedule:
     - cron: '0 6 * * *'  # daily at 6am UTC
 
