@@ -141,6 +141,23 @@
     "vertical_coordinate": "height"
   },
   {
+    "@id": "v111",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "",
+    "n_z": 49,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": 80000,
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 49 levels.",
+    "validation_key": "v111",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
+  },
+  {
     "@id": "v104",
     "@type": [
       "wcrp:vertical_computational_grid",
