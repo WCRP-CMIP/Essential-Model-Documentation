@@ -1139,11 +1139,18 @@ function rel(u){return PFX+(u||'').replace(/^\//,'');}
 function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
 function active(u){
   if(!u)return false;
+  /* Home: key off u==='/' BEFORE resolving rel() — on a sub-path
+     deployment rel('/') resolves to e.g. '/docs', not '', so the old
+     p==='' guard was never reached and Home matched every page. */
+  if(u==='/'){
+    var a=document.createElement('a');a.href=rel(u);
+    var p=a.pathname.replace(/\/$/,'');
+    var c=cur();
+    return c===p||(p===''&&(c===''||c=='/'));
+  }
   var a=document.createElement('a');a.href=rel(u);
   var p=a.pathname.replace(/\/$/,'');
   var c=cur();
-  /* Home ('/') is only active on the exact root — never as a prefix match */
-  if(p===''||p==='/'){return c===''||c==='/';}
   return c===p||c.startsWith(p+'/');
 }
 var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
