@@ -173,7 +173,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         )
         no_config_notice = (
             '> [!WARNING]\n'
-            '> **⚠️ Component (only) created. Insufficient computational grids supplied. See below.**\n'
+            '> ## Component (only) created.\n'
+            '> **Insufficient computational grids supplied. See below.**\n'
             '>\n'
             '> A horizontal **and** vertical computational grid are both required to '
             'generate a `component_config` record. '
