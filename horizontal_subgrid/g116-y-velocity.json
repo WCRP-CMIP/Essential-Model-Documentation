@@ -1,16 +1,16 @@
 {
-    "validation_key": "g116-y-velocity",
-    "ui_label": "",
-    "description": "",
-    "cell_variable_type": [
-        "y-velocity"
-    ],
-    "horizontal_grid_cells": "g116",
-    "@context": "_context",
-    "@type": [
-        "wcrp:horizontal_subgrid",
-        "esgvoc:HorizontalSubgrid",
-        "emd"
-    ],
-    "@id": "g116-y-velocity"
+  "validation_key": "g116-y-velocity",
+  "ui_label": "",
+  "description": "",
+  "cell_variable_type": [
+    "y-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_subgrid",
+    "esgvoc:HorizontalSubgrid",
+    "emd"
+  ],
+  "@id": "g116-y-velocity",
+  "horizontal_grid_cell": "g116"
 }
