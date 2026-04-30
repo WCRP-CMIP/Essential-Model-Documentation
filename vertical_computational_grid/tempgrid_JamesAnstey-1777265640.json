@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_JamesAnstey-1777265640",
+    "ui_label": "depth grid with 45 levels.",
+    "description": "",
+    "bottom_layer_thickness": 250,
+    "n_z": 45,
+    "n_z_range": "",
+    "top_layer_thickness": 6.2,
+    "total_thickness": 5750,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-jamesanstey-1777265640"
+}
