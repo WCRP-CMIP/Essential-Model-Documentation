@@ -236,105 +236,140 @@ def _upgma_for_ordering(n, dist_matrix):
     return nodes[active[0]]
 
 
-def _cluster_by_dendrogram_cut(n, tree, threshold=0.45):
+def _mcl_clusters(text_matrix, inflation=2.0, iterations=60):
     """
-    Cut the UPGMA dendrogram at `threshold` distance (0-1 scale).
-    Nodes that merge *below* the threshold share a cluster.
-    Nodes that only merge *above* it become singletons.
+    Markov Clustering Algorithm (MCL) on the text/embedding similarity matrix.
+
+    The text matrix is used (not the combined) because the link matrix for
+    most record types has uniformly high values that prevent MCL from finding
+    meaningful structure. The text/embedding matrix captures the numerical
+    and semantic differences that actually distinguish items.
+
+    Pruning threshold is set adaptively at the 50th percentile of non-zero
+    off-diagonal values so the graph sparsity scales with the data.
+
+    inflation controls granularity: higher → more, smaller clusters.
+    The default 2.0 is the standard starting value.
 
     Returns an int array of length n with cluster IDs.
-    IDs are assigned in DFS order so the natural ordering of the tree
-    is preserved when the matrix rows are sorted by cluster ID.
     """
-    cluster_id = [None] * n
-    next_id    = [0]
+    n = len(text_matrix)
+    if n < 2:
+        return np.zeros(n, dtype=int)
 
-    def _cut(node, forced_id):
-        """forced_id: cluster already assigned by a parent merge below threshold."""
-        if node.get('leaf'):
-            idx = node['spectral_index']
-            if forced_id is not None:
-                cluster_id[idx] = forced_id
-            else:
-                cluster_id[idx] = next_id[0]
-                next_id[0] += 1
-            return
-        if node['value'] <= threshold:
-            # Merge is close enough — all leaves share one cluster
-            if forced_id is None:
-                forced_id = next_id[0]
-                next_id[0] += 1
-            for child in node['children']:
-                _cut(child, forced_id)
-        else:
-            # Merge is too distant — each branch continues independently
-            for child in node['children']:
-                _cut(child, None)
+    # Adaptive pruning: keep only the top half of non-zero similarities
+    M    = text_matrix.astype(float).copy()
+    np.fill_diagonal(M, 0)
+    nonzero = M[M > 0]
+    prune   = float(np.percentile(nonzero, 50)) if len(nonzero) else 0.05
+    prune   = max(0.05, prune)
+    M[M < prune] = 0
 
-    _cut(tree, None)
-    return np.array(cluster_id, dtype=int)
+    np.fill_diagonal(M, 1.0)  # self-loops keep every node reachable
+    col = M.sum(axis=0, keepdims=True); col[col == 0] = 1; M /= col
+
+    for _ in range(iterations):
+        prev = M.copy()
+        M    = M @ M                          # expand
+        np.power(M, inflation, out=M)         # inflate
+        col  = M.sum(axis=0, keepdims=True); col[col == 0] = 1; M /= col
+        M[M < 1e-5] = 0                       # prune noise
+        if np.max(np.abs(M - prev)) < 1e-4:
+            break
+
+    # Extract clusters from converged matrix.
+    # Attractor nodes have M[i,i] > 0; members are nodes j with M[i,j] > 0.
+    labels     = np.full(n, -1, dtype=int)
+    cluster_id = 0
+    for i in range(n):
+        if M[i, i] > 0:
+            for m in np.where(M[i, :] > 0)[0]:
+                if labels[m] < 0:
+                    labels[m] = cluster_id
+            cluster_id += 1
+
+    # Catch any unassigned nodes (rare) as singletons
+    for i in range(n):
+        if labels[i] < 0:
+            labels[i] = cluster_id
+            cluster_id += 1
+
+    return labels
 
 
 def _spectral_order_and_clusters(sim_matrix, n_clusters=None):
     """
-    Spectral clustering on the combined similarity matrix.
+    Graph-based clustering: threshold the similarity matrix at the 75th
+    percentile of off-diagonal values, then find connected components.
+
+    Items whose strongest similarity to any other item is below the
+    threshold become singletons naturally — no item is forced into a group.
+
+    Within each multi-item component the Fiedler vector (second eigenvector
+    of the component's Laplacian) is used to give a smooth linear ordering.
+    Components are then sorted largest-first so the dominant groups appear
+    at the top-left of the matrix.
+
     Returns (order, cluster_labels) where:
-      order         — array of original indices sorted by cluster, then by
-                      within-cluster spectral embedding coordinate
-      cluster_labels — cluster ID for each item in the returned order
-    n_clusters is auto-selected via eigengap heuristic if None.
+      order          — permutation of 0..n-1 giving the final matrix row order
+      cluster_labels — cluster ID for each item *in the returned order*
     """
-    import numpy as np
     n = len(sim_matrix)
-    if n < 3:
+    if n < 2:
         return np.arange(n), np.zeros(n, dtype=int)
 
-    # Normalised Laplacian
-    W  = np.clip(sim_matrix, 0, 1).copy()
+    # ── 1. Adaptive threshold: keep only the top 25% of similarities ──
+    W = np.clip(sim_matrix, 0, 1).copy()
     np.fill_diagonal(W, 0)
-    d  = W.sum(axis=1)
-    d  = np.where(d == 0, 1, d)
-    D_inv_sqrt = np.diag(1.0 / np.sqrt(d))
-    L_sym = np.eye(n) - D_inv_sqrt @ W @ D_inv_sqrt
+    off = W[W > 0]
+    threshold = float(np.percentile(off, 75)) if len(off) else 0.5
 
-    eigvals, eigvecs = np.linalg.eigh(L_sym)
-    eigvals = np.clip(eigvals, 0, None)
+    adj = W > threshold
 
-    # Eigengap heuristic: pick k where gap between consecutive eigenvalues is largest
-    if n_clusters is None:
-        max_k      = min(max(8, n // 3), n - 1)   # allow up to n/3 clusters
-        gaps       = np.diff(eigvals[1:max_k + 1])
-        n_clusters = int(np.argmax(gaps)) + 2
-        n_clusters = max(2, min(n_clusters, max_k))
+    # ── 2. Connected components (BFS) ────────────────────────────
+    raw_labels = np.full(n, -1, dtype=int)
+    cid = 0
+    for start in range(n):
+        if raw_labels[start] >= 0:
+            continue
+        stack = [start]
+        while stack:
+            node = stack.pop()
+            if raw_labels[node] >= 0:
+                continue
+            raw_labels[node] = cid
+            stack.extend(int(nb) for nb in np.where(adj[node] & (raw_labels < 0))[0])
+        cid += 1
 
-    # Embedding in the space of the first n_clusters eigenvectors
-    embedding = eigvecs[:, :n_clusters]
-    # Row-normalise
-    norms = np.linalg.norm(embedding, axis=1, keepdims=True)
-    norms = np.where(norms == 0, 1, norms)
-    embedding /= norms
+    # ── 3. Order within each component using Fiedler vector ─────────
+    component_orders = []
+    for c in range(cid):
+        idx = np.where(raw_labels == c)[0]
+        if len(idx) < 3:
+            component_orders.append(idx.tolist())
+            continue
+        sub = W[np.ix_(idx, idx)]
+        deg = sub.sum(axis=1)
+        deg[deg == 0] = 1
+        d = 1.0 / np.sqrt(deg)
+        L = np.eye(len(idx)) - (d[:, None] * sub * d[None, :])
+        _, evec = np.linalg.eigh(L)
+        fiedler = evec[:, 1]          # second eigenvector = smoothest ordering
+        local_order = np.argsort(fiedler)
+        component_orders.append(idx[local_order].tolist())
 
-    # k-means on the embedding (simple numpy implementation)
-    rng = np.random.default_rng(42)
-    centres = embedding[rng.choice(n, n_clusters, replace=False)]
-    labels  = np.zeros(n, dtype=int)
-    for _ in range(100):
-        dists  = np.linalg.norm(embedding[:, None, :] - centres[None, :, :], axis=2)
-        new_lbl = np.argmin(dists, axis=1)
-        if np.array_equal(new_lbl, labels):
-            break
-        labels = new_lbl
-        for k in range(n_clusters):
-            mask = labels == k
-            if mask.any():
-                centres[k] = embedding[mask].mean(axis=0)
+    # ── 4. Sort components largest-first ────────────────────────────
+    component_orders.sort(key=len, reverse=True)
 
-    # Sort items: primary by cluster, secondary by first eigenvector coordinate
-    order = np.argsort(labels * n + embedding[:, 0].argsort().argsort())
-    cluster_labels = labels[order]
-    return order, cluster_labels
+    order = []
+    cluster_labels = []
+    new_cid = 0
+    for comp in component_orders:
+        order.extend(comp)
+        cluster_labels.extend([new_cid] * len(comp))
+        new_cid += 1
 
-
+    return np.array(order, dtype=int), np.array(cluster_labels, dtype=int)
 def _leaf_order(node):
     if node.get("leaf"):
         return [node["oi"]]
@@ -688,7 +723,7 @@ var maxLLen  = Math.max.apply(null, meta.map(function (m) { return Math.min(m.la
 var XLBL_H   = Math.ceil(maxLLen * lblFs * 0.62) + 12;
 var YLBL_W   = Math.ceil(maxLLen * lblFs * 0.62) + 16;
 var LEG_H    = 62;
-var DEND_W   = Math.max(60, Math.round(n * cellSize * 0.18));  /* narrow right-side dendrogram */
+var DEND_W   = Math.max(30, Math.round(n * cellSize * 0.09));  /* compact right-side dendrogram */
 var matW     = n * cellSize;
 var margin   = { top: 30, right: DEND_W + 8, bottom: XLBL_H + LEG_H + 16, left: YLBL_W };
 var totalW   = matW + margin.left + margin.right;
@@ -743,7 +778,7 @@ var tip = d3.select('#emd-tip');
 /* Show cluster boxes only while the mouse is over the matrix */
 d3.select('#emd-combined-chart')
   .on('mouseenter.cluster', function () {
-    matG.selectAll('.emd-cluster-box').attr('opacity', 0.5);
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0.8);
   })
   .on('mouseleave.cluster', function () {
     matG.selectAll('.emd-cluster-box').attr('opacity', 0);
@@ -1024,7 +1059,7 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
       return k >= 0 ? clusterColor(k) : '#888';
     })
     .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
-    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.6 : 0.25; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +
@@ -1266,36 +1301,24 @@ def run(use_embeddings=True):
             link_m, text_m, method_str = _compute_matrices(
                 items, ids, use_embeddings=use_embeddings)
 
-            # ── Dendrogram + threshold cut for natural groupings ─────────────
-            # Build a full UPGMA tree first, then cut it at a similarity
-            # threshold.  Items that only merge at high distance stay as
-            # singletons — no item is forced into a group it doesn’t belong to.
+            # ── Graph-based spectral clustering ────────────────────────────────
+            # Threshold the combined similarity at the 75th percentile,
+            # find connected components (singletons allowed naturally),
+            # order within each component by the Fiedler vector.
             n_items   = len(items)
             combined0 = (link_m + text_m) / 2
             np.fill_diagonal(combined0, 0.0)
-            dist0 = 1.0 - np.clip(combined0, 0, 1)
 
-            # Preliminary UPGMA to get DFS leaf order (zero-crossing order)
-            _raw_order = np.array(
-                _leaf_order(_upgma_for_ordering(n_items, dist0)), dtype=int)
+            spec_order, cluster_labels = _spectral_order_and_clusters(combined0)
 
-            ordered_labels = [labels[i] for i in _raw_order]
-            ordered_ids    = [ids[i]    for i in _raw_order]
-            ordered_tags   = [tags[i]   for i in _raw_order]
+            ordered_labels = [labels[i] for i in spec_order]
+            ordered_ids    = [ids[i]    for i in spec_order]
+            ordered_tags   = [tags[i]   for i in spec_order]
 
-            link_ordered = link_m[np.ix_(_raw_order, _raw_order)]
-            text_ordered = text_m[np.ix_(_raw_order, _raw_order)]
+            link_ordered = link_m[np.ix_(spec_order, spec_order)]
+            text_ordered = text_m[np.ix_(spec_order, spec_order)]
 
-            # Full UPGMA on ordered matrix — spectral_index aligns with matrix rows
-            combined_sim = (link_ordered + text_ordered) / 2
-            np.fill_diagonal(combined_sim, 0.0)
-            dist = 1.0 - np.clip(combined_sim, 0, 1)
-            tree = _average_linkage_tree(ordered_labels, dist)
-
-            # Cut the tree to find natural clusters; singletons get their own ID
-            cluster_labels = _cluster_by_dendrogram_cut(n_items, tree, threshold=0.45)
-
-            method_str_display = method_str + " | order: UPGMA + dendrogram cut"
+            method_str_display = method_str + " | order: spectral graph components"
 
             schema = _extract_key_schema(items, max_depth=2)
 

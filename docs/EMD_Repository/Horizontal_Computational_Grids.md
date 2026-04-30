@@ -85,9 +85,9 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
-    <option value="../Horizontal_Computational_Grids/h100/">h100</option>
     <option value="../Horizontal_Computational_Grids/h102/">h102</option>
     <option value="../Horizontal_Computational_Grids/h101/">h101</option>
+    <option value="../Horizontal_Computational_Grids/h100/">h100</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
@@ -118,8 +118,8 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["h100","h102","h101"],"link":[[0.0,0.4008714596949891,0.45861689463872607],[0.4008714596949891,0.0,0.6274509803921569],[0.45861689463872607,0.6274509803921569,0.0]],"text":[[0.0,0.0,0.03891314447019854],[0.0,0.0,0.17733157069159314],[0.03891314447019854,0.17733157069159314,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut","folder":"Horizontal Computational Grids","meta":[{"label":"h100","tags":[]},{"label":"h102","tags":[]},{"label":"h101","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":1,"value":0.0},{"name":"h101","leaf":true,"spectral_index":2,"value":0.0}],"value":0.597608724458125}],"value":0.7753996252990216},"clusters":[0,1,2]};
-var EMD_ENTRIES = [{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"}];
+var EMD_DATA    = {"ids":["h102","h101","h100"],"link":[[0.0,0.6274509803921569,0.4008714596949891],[0.6274509803921569,0.0,0.45861689463872607],[0.4008714596949891,0.45861689463872607,0.0]],"text":[[0.0,0.17733157069159314,0.0],[0.17733157069159314,0.0,0.03891314447019854],[0.0,0.03891314447019854,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Horizontal Computational Grids","meta":[{"label":"h102","tags":[]},{"label":"h101","tags":[]},{"label":"h100","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":0,"value":0.0},{"name":"h101","leaf":true,"spectral_index":1,"value":0.0}],"value":0.597608724458125}],"value":0.7753996252990216},"clusters":[0,0,1]};
+var EMD_ENTRIES = [{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"list"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids      = EMD_DATA.ids;
@@ -219,7 +219,7 @@ var maxLLen  = Math.max.apply(null, meta.map(function (m) { return Math.min(m.la
 var XLBL_H   = Math.ceil(maxLLen * lblFs * 0.62) + 12;
 var YLBL_W   = Math.ceil(maxLLen * lblFs * 0.62) + 16;
 var LEG_H    = 62;
-var DEND_W   = Math.max(60, Math.round(n * cellSize * 0.18));  /* narrow right-side dendrogram */
+var DEND_W   = Math.max(30, Math.round(n * cellSize * 0.09));  /* compact right-side dendrogram */
 var matW     = n * cellSize;
 var margin   = { top: 30, right: DEND_W + 8, bottom: XLBL_H + LEG_H + 16, left: YLBL_W };
 var totalW   = matW + margin.left + margin.right;
@@ -271,6 +271,15 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* Show cluster boxes only while the mouse is over the matrix */
+d3.select('#emd-combined-chart')
+  .on('mouseenter.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0.8);
+  })
+  .on('mouseleave.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0);
+  });
+
 /* ── cluster background fills (drawn before cells so they sit behind) ──── */
 (function () {
   var runs = [];
@@ -289,6 +298,7 @@ var tip = d3.select('#emd-tip');
     var x  = r.start * cellSize;
     var sz = (r.end - r.start + 1) * cellSize;
     matG.append('rect')
+      .attr('class', 'emd-cluster-box')
       .attr('x', x).attr('y', x)
       .attr('width', sz).attr('height', sz)
       .attr('fill', 'none')
@@ -296,7 +306,7 @@ var tip = d3.select('#emd-tip');
       .attr('stroke-width', 2)
       .attr('rx', rad + 1)
       .attr('pointer-events', 'none')
-      .attr('opacity', 0.5);
+      .attr('opacity', 0);
   });
 }());
 
@@ -545,7 +555,7 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
       return k >= 0 ? clusterColor(k) : '#888';
     })
     .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
-    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.6 : 0.25; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +

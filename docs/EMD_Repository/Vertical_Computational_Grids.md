@@ -85,17 +85,17 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
-    <option value="../Vertical_Computational_Grids/v109/">v109</option>
-    <option value="../Vertical_Computational_Grids/v103/">v103</option>
-    <option value="../Vertical_Computational_Grids/v101/">v101</option>
     <option value="../Vertical_Computational_Grids/v105/">v105</option>
-    <option value="../Vertical_Computational_Grids/v107/">v107</option>
     <option value="../Vertical_Computational_Grids/v108/">v108</option>
+    <option value="../Vertical_Computational_Grids/v107/">v107</option>
+    <option value="../Vertical_Computational_Grids/v101/">v101</option>
     <option value="../Vertical_Computational_Grids/v102/">v102</option>
-    <option value="../Vertical_Computational_Grids/v100/">v100</option>
     <option value="../Vertical_Computational_Grids/v106/">v106</option>
     <option value="../Vertical_Computational_Grids/v110/">v110</option>
+    <option value="../Vertical_Computational_Grids/v100/">v100</option>
     <option value="../Vertical_Computational_Grids/v104/">v104</option>
+    <option value="../Vertical_Computational_Grids/v103/">v103</option>
+    <option value="../Vertical_Computational_Grids/v109/">v109</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
@@ -126,8 +126,8 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["v109","v103","v101","v105","v107","v108","v102","v100","v106","v110","v104"],"link":[[0.0,0.0,0.0,0.0,0.10714285714285714,0.028571428571428574,0.078125,0.125,0.0,0.10625,0.025],[0.0,0.0,0.13943533697632057,0.05201465201465201,0.047619047619047616,0.047619047619047616,0.02032520325203252,0.016877637130801686,0.0,0.010582010582010581,0.030864197530864196],[0.0,0.13943533697632057,0.0,0.2299765807962529,0.17857142857142858,0.17142857142857143,0.00273224043715847,0.002185792349726776,0.0,0.038056206088992975,0.035519125683060114],[0.0,0.05201465201465201,0.2299765807962529,0.0,0.32515698587127156,0.3657142857142857,0.03205574912891986,0.0162748643761302,0.007653061224489796,0.028571428571428574,0.06373626373626375],[0.10714285714285714,0.047619047619047616,0.17857142857142858,0.32515698587127156,0.0,0.3317307692307692,0.23724489795918366,0.1096938775510204,0.026785714285714284,0.07397959183673468,0.07653061224489796],[0.028571428571428574,0.047619047619047616,0.17142857142857143,0.3657142857142857,0.3317307692307692,0.0,0.0642857142857143,0.0642857142857143,0.008928571428571428,0.0,0.028571428571428574],[0.078125,0.02032520325203252,0.00273224043715847,0.03205574912891986,0.23724489795918366,0.0642857142857143,0.0,0.2981029810298103,0.06547619047619048,0.07054060989114874,0.20624724270498518],[0.125,0.016877637130801686,0.002185792349726776,0.0162748643761302,0.1096938775510204,0.0642857142857143,0.2981029810298103,0.0,0.19608843537414966,0.2104185065253655,0.25517531809112615],[0.0,0.0,0.0,0.007653061224489796,0.026785714285714284,0.008928571428571428,0.06547619047619048,0.19608843537414966,0.0,0.16476328903654486,0.16029900332225913],[0.10625,0.010582010582010581,0.038056206088992975,0.028571428571428574,0.07397959183673468,0.0,0.07054060989114874,0.2104185065253655,0.16476328903654486,0.0,0.4195767195767196],[0.025,0.030864197530864196,0.035519125683060114,0.06373626373626375,0.07653061224489796,0.028571428571428574,0.20624724270498518,0.25517531809112615,0.16029900332225913,0.4195767195767196,0.0]],"text":[[0.0,0.05212840821585593,0.0,0.0,0.0,0.0,0.0,0.03934570254166284,0.07156434318618692,0.03263815195259083,0.0],[0.05212840821585593,0.0,0.0,0.0,0.0,0.0,0.03403564357388283,0.1879586981758526,0.16428789813106265,0.03461543721659834,0.0],[0.0,0.0,0.0,0.19760730253973047,0.06779855050952814,0.12267914219261603,0.062094648873080575,0.049803214381210124,0.0,0.19585771510577066,0.0],[0.0,0.0,0.19760730253973047,0.0,0.2060920261180281,0.2060920261180281,0.06628396064960454,0.032022907903928644,0.06618504411799693,0.0661579181205903,0.0],[0.0,0.0,0.06779855050952814,0.2060920261180281,0.0,0.3244730568385177,0.12845167617307765,0.0,0.10420230217766807,0.1041595947742614,0.0],[0.0,0.0,0.12267914219261603,0.2060920261180281,0.3244730568385177,0.0,0.02211472079248486,0.0,0.10420230217766806,0.10415959477426137,0.0],[0.0,0.03403564357388283,0.062094648873080575,0.06628396064960454,0.12845167617307765,0.02211472079248486,0.0,0.025689568389021325,0.04829704299329367,0.014349628900205755,0.0],[0.03934570254166284,0.1879586981758526,0.049803214381210124,0.032022907903928644,0.0,0.0,0.025689568389021325,0.0,0.12400192126130626,0.026127187510391177,0.11567199976638062],[0.07156434318618692,0.16428789813106265,0.0,0.06618504411799693,0.10420230217766807,0.10420230217766806,0.04829704299329367,0.12400192126130626,0.0,0.0915379640729323,0.05667657725661642],[0.03263815195259083,0.03461543721659834,0.19585771510577066,0.0661579181205903,0.1041595947742614,0.10415959477426137,0.014349628900205755,0.026127187510391177,0.0915379640729323,0.0,0.21642351937313928],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.11567199976638062,0.05667657725661642,0.21642351937313928,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut","folder":"Vertical Computational Grids","meta":[{"label":"v109","tags":[]},{"label":"v103","tags":[]},{"label":"v101","tags":[]},{"label":"v105","tags":[]},{"label":"v107","tags":[]},{"label":"v108","tags":[]},{"label":"v102","tags":[]},{"label":"v100","tags":[]},{"label":"v106","tags":[]},{"label":"v110","tags":[]},{"label":"v104","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"v109","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v103","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"v101","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v105","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v107","leaf":true,"spectral_index":4,"value":0.0},{"name":"v108","leaf":true,"spectral_index":5,"value":0.0}],"value":0.6718980869653566}],"value":0.7242361690445966}],"value":0.8386564039936454},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"v102","leaf":true,"spectral_index":6,"value":0.0},{"name":"v100","leaf":true,"spectral_index":7,"value":0.0}],"value":0.8381037252905842},{"name":"","leaf":false,"children":[{"name":"v106","leaf":true,"spectral_index":8,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v110","leaf":true,"spectral_index":9,"value":0.0},{"name":"v104","leaf":true,"spectral_index":10,"value":0.0}],"value":0.6819998805250705}],"value":0.8816807915779119}],"value":0.8889671597087881}],"value":0.9494303386483314}],"value":0.9563202883432125}],"value":0.9667117054194708},"clusters":[0,1,2,3,4,5,6,7,8,9,10]};
-var EMD_ENTRIES = [{"label":"v109","url":"../Vertical_Computational_Grids/v109/"},{"label":"v103","url":"../Vertical_Computational_Grids/v103/"},{"label":"v101","url":"../Vertical_Computational_Grids/v101/"},{"label":"v105","url":"../Vertical_Computational_Grids/v105/"},{"label":"v107","url":"../Vertical_Computational_Grids/v107/"},{"label":"v108","url":"../Vertical_Computational_Grids/v108/"},{"label":"v102","url":"../Vertical_Computational_Grids/v102/"},{"label":"v100","url":"../Vertical_Computational_Grids/v100/"},{"label":"v106","url":"../Vertical_Computational_Grids/v106/"},{"label":"v110","url":"../Vertical_Computational_Grids/v110/"},{"label":"v104","url":"../Vertical_Computational_Grids/v104/"}];
+var EMD_DATA    = {"ids":["v105","v108","v107","v101","v102","v106","v110","v100","v104","v103","v109"],"link":[[0.0,0.3657142857142857,0.32515698587127156,0.2299765807962529,0.03205574912891986,0.007653061224489796,0.028571428571428574,0.0162748643761302,0.06373626373626375,0.05201465201465201,0.0],[0.3657142857142857,0.0,0.3317307692307692,0.17142857142857143,0.0642857142857143,0.008928571428571428,0.0,0.0642857142857143,0.028571428571428574,0.047619047619047616,0.028571428571428574],[0.32515698587127156,0.3317307692307692,0.0,0.17857142857142858,0.23724489795918366,0.026785714285714284,0.07397959183673468,0.1096938775510204,0.07653061224489796,0.047619047619047616,0.10714285714285714],[0.2299765807962529,0.17142857142857143,0.17857142857142858,0.0,0.00273224043715847,0.0,0.038056206088992975,0.002185792349726776,0.035519125683060114,0.13943533697632057,0.0],[0.03205574912891986,0.0642857142857143,0.23724489795918366,0.00273224043715847,0.0,0.06547619047619048,0.07054060989114874,0.2981029810298103,0.20624724270498518,0.02032520325203252,0.078125],[0.007653061224489796,0.008928571428571428,0.026785714285714284,0.0,0.06547619047619048,0.0,0.16476328903654486,0.19608843537414966,0.16029900332225913,0.0,0.0],[0.028571428571428574,0.0,0.07397959183673468,0.038056206088992975,0.07054060989114874,0.16476328903654486,0.0,0.2104185065253655,0.4195767195767196,0.010582010582010581,0.10625],[0.0162748643761302,0.0642857142857143,0.1096938775510204,0.002185792349726776,0.2981029810298103,0.19608843537414966,0.2104185065253655,0.0,0.25517531809112615,0.016877637130801686,0.125],[0.06373626373626375,0.028571428571428574,0.07653061224489796,0.035519125683060114,0.20624724270498518,0.16029900332225913,0.4195767195767196,0.25517531809112615,0.0,0.030864197530864196,0.025],[0.05201465201465201,0.047619047619047616,0.047619047619047616,0.13943533697632057,0.02032520325203252,0.0,0.010582010582010581,0.016877637130801686,0.030864197530864196,0.0,0.0],[0.0,0.028571428571428574,0.10714285714285714,0.0,0.078125,0.0,0.10625,0.125,0.025,0.0,0.0]],"text":[[0.0,0.2060920261180281,0.2060920261180281,0.19760730253973047,0.06628396064960454,0.06618504411799693,0.0661579181205903,0.032022907903928644,0.0,0.0,0.0],[0.2060920261180281,0.0,0.3244730568385177,0.12267914219261603,0.02211472079248486,0.10420230217766806,0.10415959477426137,0.0,0.0,0.0,0.0],[0.2060920261180281,0.3244730568385177,0.0,0.06779855050952814,0.12845167617307765,0.10420230217766807,0.1041595947742614,0.0,0.0,0.0,0.0],[0.19760730253973047,0.12267914219261603,0.06779855050952814,0.0,0.062094648873080575,0.0,0.19585771510577066,0.049803214381210124,0.0,0.0,0.0],[0.06628396064960454,0.02211472079248486,0.12845167617307765,0.062094648873080575,0.0,0.04829704299329367,0.014349628900205755,0.025689568389021325,0.0,0.03403564357388283,0.0],[0.06618504411799693,0.10420230217766806,0.10420230217766807,0.0,0.04829704299329367,0.0,0.0915379640729323,0.12400192126130626,0.05667657725661642,0.16428789813106265,0.07156434318618692],[0.0661579181205903,0.10415959477426137,0.1041595947742614,0.19585771510577066,0.014349628900205755,0.0915379640729323,0.0,0.026127187510391177,0.21642351937313928,0.03461543721659834,0.03263815195259083],[0.032022907903928644,0.0,0.0,0.049803214381210124,0.025689568389021325,0.12400192126130626,0.026127187510391177,0.0,0.11567199976638062,0.1879586981758526,0.03934570254166284],[0.0,0.0,0.0,0.0,0.0,0.05667657725661642,0.21642351937313928,0.11567199976638062,0.0,0.0,0.0],[0.0,0.0,0.0,0.0,0.03403564357388283,0.16428789813106265,0.03461543721659834,0.1879586981758526,0.0,0.0,0.05212840821585593],[0.0,0.0,0.0,0.0,0.0,0.07156434318618692,0.03263815195259083,0.03934570254166284,0.0,0.05212840821585593,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Vertical Computational Grids","meta":[{"label":"v105","tags":[]},{"label":"v108","tags":[]},{"label":"v107","tags":[]},{"label":"v101","tags":[]},{"label":"v102","tags":[]},{"label":"v106","tags":[]},{"label":"v110","tags":[]},{"label":"v100","tags":[]},{"label":"v104","tags":[]},{"label":"v103","tags":[]},{"label":"v109","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"v109","leaf":true,"spectral_index":10,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v103","leaf":true,"spectral_index":9,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"v101","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v105","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v108","leaf":true,"spectral_index":1,"value":0.0},{"name":"v107","leaf":true,"spectral_index":2,"value":0.0}],"value":0.6718980869653566}],"value":0.7242361690445966}],"value":0.8386564039936454},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"v102","leaf":true,"spectral_index":4,"value":0.0},{"name":"v100","leaf":true,"spectral_index":7,"value":0.0}],"value":0.8381037252905842},{"name":"","leaf":false,"children":[{"name":"v106","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"v110","leaf":true,"spectral_index":6,"value":0.0},{"name":"v104","leaf":true,"spectral_index":8,"value":0.0}],"value":0.6819998805250705}],"value":0.8816807915779119}],"value":0.8889671597087881}],"value":0.9494303386483314}],"value":0.9563202883432125}],"value":0.9667117054194708},"clusters":[0,0,0,0,0,0,0,0,0,1,2]};
+var EMD_ENTRIES = [{"label":"v105","url":"../Vertical_Computational_Grids/v105/"},{"label":"v108","url":"../Vertical_Computational_Grids/v108/"},{"label":"v107","url":"../Vertical_Computational_Grids/v107/"},{"label":"v101","url":"../Vertical_Computational_Grids/v101/"},{"label":"v102","url":"../Vertical_Computational_Grids/v102/"},{"label":"v106","url":"../Vertical_Computational_Grids/v106/"},{"label":"v110","url":"../Vertical_Computational_Grids/v110/"},{"label":"v100","url":"../Vertical_Computational_Grids/v100/"},{"label":"v104","url":"../Vertical_Computational_Grids/v104/"},{"label":"v103","url":"../Vertical_Computational_Grids/v103/"},{"label":"v109","url":"../Vertical_Computational_Grids/v109/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"bottom_layer_thickness","type":"scalar"},{"name":"description","type":"scalar"},{"name":"n_z","type":"scalar"},{"name":"top_layer_thickness","type":"scalar"},{"name":"total_thickness","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"},{"name":"vertical_coordinate","type":"scalar"}]};
 
 var ids      = EMD_DATA.ids;
@@ -227,7 +227,7 @@ var maxLLen  = Math.max.apply(null, meta.map(function (m) { return Math.min(m.la
 var XLBL_H   = Math.ceil(maxLLen * lblFs * 0.62) + 12;
 var YLBL_W   = Math.ceil(maxLLen * lblFs * 0.62) + 16;
 var LEG_H    = 62;
-var DEND_W   = Math.max(60, Math.round(n * cellSize * 0.18));  /* narrow right-side dendrogram */
+var DEND_W   = Math.max(30, Math.round(n * cellSize * 0.09));  /* compact right-side dendrogram */
 var matW     = n * cellSize;
 var margin   = { top: 30, right: DEND_W + 8, bottom: XLBL_H + LEG_H + 16, left: YLBL_W };
 var totalW   = matW + margin.left + margin.right;
@@ -279,6 +279,15 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* Show cluster boxes only while the mouse is over the matrix */
+d3.select('#emd-combined-chart')
+  .on('mouseenter.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0.8);
+  })
+  .on('mouseleave.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0);
+  });
+
 /* ── cluster background fills (drawn before cells so they sit behind) ──── */
 (function () {
   var runs = [];
@@ -297,6 +306,7 @@ var tip = d3.select('#emd-tip');
     var x  = r.start * cellSize;
     var sz = (r.end - r.start + 1) * cellSize;
     matG.append('rect')
+      .attr('class', 'emd-cluster-box')
       .attr('x', x).attr('y', x)
       .attr('width', sz).attr('height', sz)
       .attr('fill', 'none')
@@ -304,7 +314,7 @@ var tip = d3.select('#emd-tip');
       .attr('stroke-width', 2)
       .attr('rx', rad + 1)
       .attr('pointer-events', 'none')
-      .attr('opacity', 0.5);
+      .attr('opacity', 0);
   });
 }());
 
@@ -553,7 +563,7 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
       return k >= 0 ? clusterColor(k) : '#888';
     })
     .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
-    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.6 : 0.25; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +
