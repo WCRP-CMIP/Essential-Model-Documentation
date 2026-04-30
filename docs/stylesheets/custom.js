@@ -127,6 +127,7 @@ function init() {
   setupHeaderAnchors();
   setupTabbedContent();
   processDetailsMarkdown();
+  setupFigureControls();
 }
 
 // ============================================
@@ -533,6 +534,96 @@ function addVersionSelector() {
 
 // Export for debugging
 window.EMDCustom = { init, CONFIG };
+
+// ============================================
+// FIGURE CONTROLS — save + font toggle
+// ============================================
+
+function setupFigureControls() {
+  const article = document.querySelector('article, main');
+  if (!article) return;
+
+  article.querySelectorAll('img').forEach(img => {
+    // Skip if already wrapped or inside a table/nav
+    if (img.closest('.fig-wrap') || img.closest('nav') || img.closest('table')) return;
+    if (!img.src) return;
+
+    // Wrap
+    const wrap = document.createElement('span');
+    wrap.className = 'fig-wrap';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+
+    // Toolbar
+    const bar = document.createElement('span');
+    bar.className = 'fig-bar';
+
+    // ── Save button ──────────────────────────────────────────────────────────
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'fig-btn';
+    saveBtn.title = 'Save image';
+    // Floppy-disk SVG (monochrome)
+    saveBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
+      aria-hidden="true">
+      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+      <polyline points="17 21 17 13 7 13 7 21"/>
+      <polyline points="7 3 7 8 15 8"/>
+    </svg>`;
+    saveBtn.addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.download = img.src.split('/').pop().split('?')[0] || 'figure';
+      a.click();
+    });
+    bar.appendChild(saveBtn);
+
+    // ── Font toggle (only meaningful for SVG images — shown for all, acts on SVG) ──
+    const isSvg = img.src.toLowerCase().includes('.svg');
+    if (isSvg) {
+      const fontBtn = document.createElement('button');
+      fontBtn.className = 'fig-btn';
+      fontBtn.title = 'Toggle page font on SVG text';
+      fontBtn.textContent = 'Aa';
+      fontBtn.style.fontFamily = 'inherit';
+      fontBtn.style.fontSize = '10px';
+      fontBtn.style.fontWeight = '700';
+      fontBtn.dataset.fontOn = 'false';
+
+      fontBtn.addEventListener('click', () => {
+        const on = fontBtn.dataset.fontOn === 'true';
+        fontBtn.dataset.fontOn = on ? 'false' : 'true';
+        fontBtn.style.color = on ? '' : 'var(--emd-primary)';
+        // Inject / remove a <style> inside the SVG document via object trick
+        // For an <img> we must re-fetch as text and swap to <object> or use a blob URL
+        if (!img._svgBlob) {
+          fetch(img.src)
+            .then(r => r.text())
+            .then(text => {
+              const styleTag = `<style>.emd-font-override text, .emd-font-override tspan {
+                font-family: Virgil, "Noto Sans", sans-serif !important; }</style>`;
+              const patched = text.replace('<svg', `<svg class="emd-font-override"`);
+              const blob = new Blob([styleTag + patched], { type: 'image/svg+xml' });
+              img._svgBlob = URL.createObjectURL(blob);
+              img._origSrc = img.src;
+              img.src = img._svgBlob;
+              fontBtn.dataset.fontOn = 'true';
+            })
+            .catch(() => {});
+        } else if (on) {
+          img.src = img._origSrc;
+          img._svgBlob = null;
+        } else {
+          // Re-patch
+          img.src = img._svgBlob;
+        }
+      });
+      bar.appendChild(fontBtn);
+    }
+
+    wrap.appendChild(bar);
+  });
+}
 
 // ============================================
 // MERMAID INITIALIZATION

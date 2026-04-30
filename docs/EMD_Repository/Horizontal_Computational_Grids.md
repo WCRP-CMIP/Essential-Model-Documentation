@@ -346,6 +346,23 @@ matG.append('line')
   .attr('x1',0).attr('y1',0).attr('x2',matW).attr('y2',matW)
   .attr('stroke', NAVY).attr('stroke-width', 1.5).attr('stroke-dasharray','5,4').attr('opacity',0.22);
 
+/* ── upper / lower triangle corner labels ──────────────────────────────── */
+/* These make explicit that the two triangles show different metrics. */
+var triFs = Math.max(8, Math.round(cellSize * 0.13));
+var pad   = Math.max(6, Math.round(cellSize * 0.18));
+/* Upper-right: link similarity label */
+matG.append('text')
+  .attr('x', matW - pad).attr('y', pad + triFs)
+  .attr('text-anchor','end').attr('font-family', FONT)
+  .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
+  .text('link %');
+/* Lower-left: text / embedding label */
+matG.append('text')
+  .attr('x', pad).attr('y', matW - pad)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
+  .text('content sim');
+
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
 var barW  = Math.floor(matW * 0.43);
@@ -382,16 +399,27 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   root.each(function (d) { if (d.data.value > maxDist) maxDist = d.data.value; });
   if (maxDist < 1e-9) maxDist = 1;
 
-  /* 1. y-positions: each leaf pins to its spectral_index matrix row */
-  function assignY(node) {
-    if (!node.children) {
-      node.dendY = (node.data.spectral_index || 0) * cellSize + cellSize / 2;
-    } else {
-      node.children.forEach(assignY);
-      node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
-    }
+  /* 1. y-positions: distribute leaves uniformly in DFS order so all
+        vertical bars have equal height, then propagate means upward.
+        Dashed connectors (step 5) bridge each leaf to its matrix row. */
+  var orderedLeaves = [];
+  (function collectLeaves(node) {
+    if (!node.children) { orderedLeaves.push(node); }
+    else node.children.forEach(collectLeaves);
+  }(root));
+
+  var step = matW / orderedLeaves.length;
+  orderedLeaves.forEach(function (leaf, i) {
+    leaf.dendY = step * i + step / 2;
+  });
+
+  /* propagate means bottom-up (leaves already set) */
+  function assignYMean(node) {
+    if (!node.children) return;
+    node.children.forEach(assignYMean);
+    node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
   }
-  assignY(root);
+  assignYMean(root);
 
   /* 2. x-positions for RIGHT-SIDE dendrogram:
         Leaf x = 2  (touching matrix right edge = left edge of dendG)
@@ -427,14 +455,25 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
              ' H ' + d.tgt.dendX;
     });
 
-  /* 5. Dashed connector: matrix right edge → leaf left-edge
-        (small tick showing which row the leaf belongs to) */
+  /* 5. Dashed connector: matrix row → dendrogram leaf position.
+        Uses an elbow: vertical from matY to dendY, then horizontal to leaf. */
   root.leaves().forEach(function (d) {
-    dendG.append('line')
-      .attr('x1', 0).attr('y1', d.dendY)
-      .attr('x2', d.dendX).attr('y2', d.dendY)
-      .attr('stroke', NAVY).attr('stroke-width', 0.5)
-      .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
+    var matY = (d.data.spectral_index || 0) * cellSize + cellSize / 2;
+    if (Math.abs(matY - d.dendY) < 0.5) {
+      /* already aligned — simple horizontal tick */
+      dendG.append('line')
+        .attr('x1', 0).attr('y1', d.dendY)
+        .attr('x2', d.dendX).attr('y2', d.dendY)
+        .attr('stroke', NAVY).attr('stroke-width', 0.5)
+        .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
+    } else {
+      /* elbow: V at x=0 from matY to dendY, then H to leaf */
+      dendG.append('path')
+        .attr('fill', 'none')
+        .attr('stroke', NAVY).attr('stroke-width', 0.5)
+        .attr('stroke-dasharray','1,3').attr('opacity', 0.18)
+        .attr('d', 'M 0,' + matY + ' V ' + d.dendY + ' H ' + d.dendX);
+    }
   });
 
   /* No leaf labels — rows are already labelled by the matrix y-axis */
