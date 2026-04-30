@@ -453,6 +453,33 @@
     "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model"
   },
   {
+    "@id": "gfdl",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Coupled models using the GFDL atmosphere, land, sea ice, and ocean components making use of the Flexible Modeling System coupling infrastructure starting with the GFDL-CM2 series (Delworth et al., 2006) in CMIP3, GFDL-CM3 and GFDL-ESM2 series in CMIP5, and GFDL-ESM4.1 in CMIP6.  Delworth, T. L., and Coauthors, 2006: GFDL\u2019s CM2 global coupled climate models. Part I: Formulation and simulation characteristics. J. Climate, 19, 643\u2013674.",
+    "established": 2004,
+    "family_type": "model",
+    "primary_institution": "noaa-gfdl",
+    "references": "https://doi.org/10.1029/2019MS002015",
+    "representative_member": "GFDL-ESM4.1",
+    "scientific_domains": [
+      "aerosol",
+      "atmosphere",
+      "atmospheric-chemistry",
+      "land_surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea_ice"
+    ],
+    "ui_label": "GFDL",
+    "validation_key": "gfdl",
+    "website": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019MS002015"
+  },
+  {
     "@id": "hadcm2",
     "@type": [
       "emd",
