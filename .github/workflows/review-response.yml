@@ -1,64 +1,67 @@
 name: 🔍 PR Review — label PR and notify linked issue
 
-# When a PR review is submitted:
-#   1. Add 'approved' or 'changes-requested' label to the PR
-#   2. Find the linked issue and post the reviewer's comment there
+# Triggers:
+#   pull_request_review         — review submitted (approve / request changes / comment)
+#                                  Mirrors the top-level review body to the linked issue.
+#   pull_request_review_comment — individual inline comment left on the diff as part of a review
+#                                  Mirrors the comment + file/line context to the linked issue.
+#
+# Plain PR thread comments (issue_comment) are intentionally NOT picked up —
+# only comments that are formally part of a GitHub review are mirrored.
 
 on:
   pull_request_review:
     types: [submitted]
+  pull_request_review_comment:
+    types: [created]
 
 permissions:
   issues: write
   pull-requests: write
 
 jobs:
+
+  # ── Top-level review (approve / request changes / comment) ────────────────
   handle_review:
-    if: >-
-      github.event.review.state == 'approved' ||
-      github.event.review.state == 'changes_requested'
+    if: github.event_name == 'pull_request_review'
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
-      REPO:        ${{ github.repository }}
-      PR_NUMBER:   ${{ github.event.pull_request.number }}
-      REVIEWER:    ${{ github.event.review.user.login }}
+      GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:         ${{ github.repository }}
+      PR_NUMBER:    ${{ github.event.pull_request.number }}
+      REVIEWER:     ${{ github.event.review.user.login }}
       REVIEW_STATE: ${{ github.event.review.state }}
-      REVIEW_URL:  ${{ github.event.review.html_url }}
+      REVIEW_URL:   ${{ github.event.review.html_url }}
+      REVIEW_ID:    ${{ github.event.review.id }}
 
     steps:
-      # ── 1. Add label to PR ─────────────────────────────────────────────────
-      - name: Add label to PR
+      # ── 1. Label the PR ────────────────────────────────────────────────────
+      - name: Add review label to PR
         run: |
-          if [ "$REVIEW_STATE" = "approved" ]; then
-            LABEL="approved"
-            COLOR="0e8a16"
-            DESC="PR approved by reviewer"
-          else
-            LABEL="changes-requested"
-            COLOR="e11d48"
-            DESC="Reviewer requested changes"
-          fi
+          case "$REVIEW_STATE" in
+            approved)
+              LABEL="approved"; COLOR="0e8a16"; DESC="PR approved by reviewer" ;;
+            changes_requested)
+              LABEL="changes-requested"; COLOR="e11d48"; DESC="Reviewer requested changes" ;;
+            *)
+              LABEL="reviewer-comment"; COLOR="f0c419"; DESC="A reviewer has commented" ;;
+          esac
 
-          # Create/update label in the repo (--force updates if it already exists)
           gh label create "$LABEL" --repo "$REPO" \
             --color "$COLOR" --description "$DESC" --force 2>/dev/null || true
-
-          # Apply label to the PR
           gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "$LABEL"
 
-          echo "## Review Response — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Review — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
           echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
           echo "| Reviewer | @${REVIEWER} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| State | ${REVIEW_STATE} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Label added | \`${LABEL}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Label | \`${LABEL}\` |" >> "$GITHUB_STEP_SUMMARY"
 
-      # ── 2. Find linked issue and post comment ──────────────────────────────
-      - name: Comment on linked issue
+      # ── 2. Mirror review body to linked issue ──────────────────────────────
+      - name: Mirror review to linked issue
         run: |
           PR_BODY=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' || true)
-
           ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
             | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
             | grep -oE '[0-9]+' || true)
@@ -68,21 +71,132 @@ jobs:
             exit 0
           fi
 
-          if [ "$REVIEW_STATE" = "approved" ]; then
-            STATE_DISPLAY="✔ approved"
-          else
-            STATE_DISPLAY="✖ requested changes"
+          REVIEW_BODY=$(gh api \
+            "repos/${REPO}/pulls/${PR_NUMBER}/reviews/${REVIEW_ID}" \
+            --jq '.body' 2>/dev/null || true)
+
+          if [ -z "$REVIEW_BODY" ] || [ "$REVIEW_BODY" = "null" ]; then
+            echo "| review body | empty — skipping mirror |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
 
-          # Fetch review body inside the step to safely handle multi-line content
-          REVIEW_BODY=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}/reviews" \
-            --jq 'sort_by(.submitted_at) | last | .body' 2>/dev/null || true)
-          COMMENT_TEXT="${REVIEW_BODY:-*(No comment provided)*}"
+          case "$REVIEW_STATE" in
+            approved)          STATE_DISPLAY="✔ approved" ;;
+            changes_requested) STATE_DISPLAY="✖ requested changes" ;;
+            *)                 STATE_DISPLAY="— commented" ;;
+          esac
 
-          COMMENT="**Reviewer @${REVIEWER} on [Pull Request #${PR_NUMBER}](${REVIEW_URL}) ${STATE_DISPLAY}:**"$'\n\n'"${COMMENT_TEXT}"
+          PR_URL=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json url --jq '.url' 2>/dev/null || true)
+
+          MIRROR_FILE=$(mktemp)
+          printf '%s\n\n%s' \
+            "**Reviewer @${REVIEWER} on [Pull Request #${PR_NUMBER}](${REVIEW_URL}) ${STATE_DISPLAY}:**" \
+            "${REVIEW_BODY}" > "$MIRROR_FILE"
+
+          NOTE_FILE=$(mktemp)
+          printf '%s' \
+            "_To reply, add your comment on [Pull Request #${PR_NUMBER}](${PR_URL})._" \
+            > "$NOTE_FILE"
 
           while IFS= read -r issue_num; do
             [ -z "$issue_num" ] && continue
-            gh issue comment "$issue_num" --repo "$REPO" --body "$COMMENT"
-            echo "| #${issue_num} | comment posted |" >> "$GITHUB_STEP_SUMMARY"
+            gh issue comment "$issue_num" --repo "$REPO" --body-file "$MIRROR_FILE"
+            gh issue comment "$issue_num" --repo "$REPO" --body-file "$NOTE_FILE"
+            echo "| #${issue_num} | review mirrored |" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$ISSUE_NUMBERS"
+          rm -f "$MIRROR_FILE" "$NOTE_FILE"
+
+  # ── Inline diff comment (part of a review) ────────────────────────────────
+  handle_review_comment:
+    if: github.event_name == 'pull_request_review_comment'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN:    ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:        ${{ github.repository }}
+      PR_NUMBER:   ${{ github.event.pull_request.number }}
+      REVIEWER:    ${{ github.event.comment.user.login }}
+      COMMENT_URL: ${{ github.event.comment.html_url }}
+      COMMENT_ID:  ${{ github.event.comment.id }}
+
+    steps:
+      # ── 1. Add reviewer-comment label ──────────────────────────────────────
+      - name: Add reviewer-comment label
+        run: |
+          gh label create "reviewer-comment" --repo "$REPO" \
+            --color "f0c419" \
+            --description "A reviewer has commented on this submission" \
+            --force 2>/dev/null || true
+
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "reviewer-comment"
+
+          PR_BODY=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' || true)
+          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          while IFS= read -r issue_num; do
+            [ -z "$issue_num" ] && continue
+            gh issue edit "$issue_num" --repo "$REPO" --add-label "reviewer-comment" || true
+          done <<< "$ISSUE_NUMBERS"
+
+          echo "## Inline Review Comment — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Reviewer | @${REVIEWER} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Label | \`reviewer-comment\` |" >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 2. Mirror inline comment to linked issue ───────────────────────────
+      - name: Mirror inline comment to linked issue
+        run: |
+          PR_BODY=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq '.body' || true)
+          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            echo "| linked issue | none found |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          PR_TITLE=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json title --jq '.title' 2>/dev/null || true)
+
+          PR_URL=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json url --jq '.url' 2>/dev/null || true)
+
+          COMMENT_DATA=$(gh api "repos/${REPO}/pulls/comments/${COMMENT_ID}" \
+            --jq '{body: .body, path: .path, line: (.line // .original_line)}' \
+            2>/dev/null || true)
+
+          COMMENT_BODY=$(echo "$COMMENT_DATA" | jq -r '.body'  2>/dev/null || true)
+          FILE_PATH=$(echo "$COMMENT_DATA"    | jq -r '.path'  2>/dev/null || true)
+          LINE_NUM=$(echo "$COMMENT_DATA"     | jq -r '.line'  2>/dev/null || true)
+
+          if [ -n "$FILE_PATH" ] && [ "$FILE_PATH" != "null" ]; then
+            if [ -n "$LINE_NUM" ] && [ "$LINE_NUM" != "null" ]; then
+              CONTEXT=" on \`${FILE_PATH}\` line ${LINE_NUM}"
+            else
+              CONTEXT=" on \`${FILE_PATH}\`"
+            fi
+          else
+            CONTEXT=""
+          fi
+
+          MIRROR_FILE=$(mktemp)
+          printf '%s\n\n%s' \
+            "**Reviewer @${REVIEWER} commented${CONTEXT} on [PR #${PR_NUMBER}: ${PR_TITLE}](${COMMENT_URL}):**" \
+            "${COMMENT_BODY}" > "$MIRROR_FILE"
+
+          NOTE_FILE=$(mktemp)
+          printf '%s' \
+            "_To reply, add your comment on [Pull Request #${PR_NUMBER}](${PR_URL})._" \
+            > "$NOTE_FILE"
+
+          while IFS= read -r issue_num; do
+            [ -z "$issue_num" ] && continue
+            gh issue comment "$issue_num" --repo "$REPO" --body-file "$MIRROR_FILE"
+            gh issue comment "$issue_num" --repo "$REPO" --body-file "$NOTE_FILE"
+            echo "| #${issue_num} | inline comment mirrored |" >> "$GITHUB_STEP_SUMMARY"
+          done <<< "$ISSUE_NUMBERS"
+          rm -f "$MIRROR_FILE" "$NOTE_FILE"
