@@ -32,6 +32,23 @@
     "vertical_coordinate": "ocean-sigma-z-coordinate"
   },
   {
+    "@id": "v113",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 10,
+    "description": "Top layer thickness: Half-level 0 sits at the model top (0.0 hPa, ~\u221e m), but the topmost resolved layer is bounded by half-levels 0 and 1. Using geometric altitudes, the top of layer 1 is at 80,301.65 m and the top of layer 2 is at 74,584.91 m, giving a top-layer thickness of ~5,717 m.",
+    "n_z": 137,
+    "n_z_range": "",
+    "top_layer_thickness": 5700,
+    "total_thickness": 80000,
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 137 levels.",
+    "validation_key": "v113",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
+  },
+  {
     "@id": "v106",
     "@type": [
       "wcrp:vertical_computational_grid",

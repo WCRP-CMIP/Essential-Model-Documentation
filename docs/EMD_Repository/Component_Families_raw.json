@@ -393,6 +393,28 @@
     "website": "none"
   },
   {
+    "@id": "cable",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "unsw",
+      "access-nri"
+    ],
+    "description": "The Community Atmosphere Biosphere Land Exchange (CABLE) model is a land surface model developed in Australia. It incorporates land biogeochemistry using the CASA-CNP module. It can be run as a standalone model or embedded in an atmosphere model. Versions of CABLE are used within the ACCESS earth system model and within the Conformal Cubic Atmosphere Model (CCAM). One version of the standalone model includes tree demography (CABLE-POP) but this feature is not yet used within ACCESS.",
+    "established": 2003,
+    "family_type": "component",
+    "primary_institution": "csiro",
+    "references": "https://doi.org/10.4225/08/58615c6a9a51d",
+    "representative_member": "CABLE2.4",
+    "scientific_domains": "land_surface",
+    "ui_label": "CABLE",
+    "validation_key": "cable",
+    "website": "https://docs.access-hive.org.au/models/model_components/land/"
+  },
+  {
     "@id": "hadam",
     "@type": [
       "emd",
