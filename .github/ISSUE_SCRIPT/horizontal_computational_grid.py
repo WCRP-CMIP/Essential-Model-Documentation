@@ -15,6 +15,7 @@ import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
 from cmipld.utils.similarity import ReportBuilder
+from cmipld.utils.similarity.report_builder import build_subgrid_report
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -213,6 +214,25 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         )
         folder_url = f"emd:{report_kind}"
 
+        # For subgrid files use the dedicated focused report instead of the
+        # full ReportBuilder — subgrids have only two meaningful linked fields
+        # (horizontal_grid_cell and cell_variable_type) and no pydantic model.
+        if report_kind == 'horizontal_subgrid':
+            try:
+                # Fetch existing subgrid folder items for similarity comparison
+                from helpers.data_loader import fetch_data
+                folder_items = list(fetch_data('horizontal_subgrid', depth=1))
+            except Exception:
+                folder_items = []
+            try:
+                clean = {k: v for k, v in data.items() if not k.startswith('_')}
+                data['_validation_report'] = build_subgrid_report(clean, folder_items)
+            except Exception as e:
+                print(f"\033[91m  ⚠ Subgrid report failed for {file_path}: {e}\033[0m",
+                      flush=True)
+                data['_validation_report'] = ''
+            continue
+
         # For the comp grid, substitute subgrid ID strings with their full dicts
         # so the validator receives HorizontalSubgrid objects, not bare strings.
         if report_kind == 'horizontal_computational_grid' and subgrid_lookup:
@@ -239,55 +259,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             status = '⚠ failed'
         print(f"\033[92m  Report {status}: {file_path}\033[0m", flush=True)
 
-    # For subgrid files, ReportBuilder doesn't produce meaningful output.
-    # Instead, resolve all @id-typed links and append them as hyperlinks
-    # so the PR comment surfaces what each subgrid references.
-    try:
-        import subprocess as _sp
-        _repo = _sp.check_output(
-            ['gh', 'repo', 'view', '--json', 'nameWithOwner', '-q', '.nameWithOwner'],
-            text=True
-        ).strip()
-    except Exception:
-        _repo = 'WCRP-CMIP/Essential-Model-Documentation'
-
-    _BRANCH = 'src-data'
-    _BASE_URL = f'https://github.com/{_repo}/blob/{_BRANCH}'
-
-    # Field → folder mapping for in-repo @id links in horizontal_subgrid
-    _IN_REPO_LINKS = {
-        'horizontal_grid_cell': 'horizontal_grid_cell',
-    }
-
-    for file_path, data in files_to_write.items():
-        if file_path.startswith('_') or 'horizontal_subgrid' not in file_path:
-            continue
-
-        lines = ['**Linked entries:**\n']
-        found_any = False
-
-        for field, folder in _IN_REPO_LINKS.items():
-            value = data.get(field)
-            if not value:
-                continue
-            values = [value] if isinstance(value, str) else value
-            for v in values:
-                url = f'{_BASE_URL}/{folder}/{v}.json'
-                lines.append(f'- `{field}` → [{v}]({url})')
-                found_any = True
-
-        # cell_variable_type links to an external CV — add a reference URL
-        cvt = data.get('cell_variable_type')
-        if cvt:
-            cvt_list = [cvt] if isinstance(cvt, str) else cvt
-            for v in cvt_list:
-                cv_url = f'https://constants.mipcvs.dev/cell_variable_type/{v}'
-                lines.append(f'- `cell_variable_type` → [{v}]({cv_url}) *(external CV)*')
-                found_any = True
-
-        if found_any:
-            existing = data.get('_validation_report') or ''
-            data['_validation_report'] = (existing + '\n\n' + '\n'.join(lines)).strip()
+    # Subgrid linked-entry section is now handled inside build_subgrid_report().
+    # The manual append block below is intentionally removed.
 
     if atid:
         import json as _json
