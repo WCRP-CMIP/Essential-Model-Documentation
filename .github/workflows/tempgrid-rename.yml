@@ -373,14 +373,11 @@ jobs:
             echo "_No linked issues found._" >> "$GITHUB_STEP_SUMMARY"
           fi
 
-          # ── Delete branch if all submissions were duplicates ───────────────
-          if [ "$HAS_DUPS" -gt 0 ] && [ "$HAS_NEW" -eq 0 ]; then
-            if [ -n "$BRANCH" ]; then
-              echo "All files were duplicates — deleting branch: $BRANCH"
-              gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" \
-                && echo "Deleted $BRANCH" \
-                || echo "Could not delete $BRANCH (may already be gone)"
-            fi
+          # ── Delete branch — always, whether new IDs or duplicates ──────────
+          if [ -n "$BRANCH" ]; then
+            gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" \
+              && echo "Deleted branch $BRANCH" >> "$GITHUB_STEP_SUMMARY" \
+              || echo "Could not delete $BRANCH (may already be gone)" >> "$GITHUB_STEP_SUMMARY"
           fi
 
   delete_branch:
@@ -395,12 +392,9 @@ jobs:
       REPO:     ${{ github.repository }}
       BRANCH:   ${{ github.event.pull_request.head.ref }}
     steps:
-      - name: Delete branch if new_ or modify_
+      - name: Delete head branch
         run: |
-          if [[ "$BRANCH" == *new_* || "$BRANCH" == *modify_* ]]; then
-            echo "Deleting branch: $BRANCH"
-            gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" && \
-              echo "Deleted $BRANCH" || echo "Could not delete $BRANCH (may already be gone)"
-          else
-            echo "Branch '$BRANCH' does not match new_/modify_ — skipping."
-          fi
+          echo "Deleting branch: $BRANCH"
+          gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" \
+            && echo "Deleted $BRANCH" \
+            || echo "Could not delete $BRANCH (may already be gone)"
