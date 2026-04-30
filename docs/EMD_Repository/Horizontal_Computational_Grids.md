@@ -118,17 +118,29 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["h100","h102","h101"],"link":[[0.0,0.0,0.03891314447019854],[0.0,0.0,0.17733157069159314],[0.03891314447019854,0.17733157069159314,0.0]],"text":[[0.0,0.0,0.03891314447019854],[0.0,0.0,0.17733157069159314],[0.03891314447019854,0.17733157069159314,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Horizontal Computational Grids","meta":[{"label":"h100","tags":[]},{"label":"h102","tags":[]},{"label":"h101","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":1,"value":0.0},{"name":"h101","leaf":true,"spectral_index":2,"value":0.0}],"value":0.8226684293084069}],"value":0.9805434277649008}};
+var EMD_DATA    = {"ids":["h100","h102","h101"],"link":[[0.0,0.4008714596949891,0.45861689463872607],[0.4008714596949891,0.0,0.6274509803921569],[0.45861689463872607,0.6274509803921569,0.0]],"text":[[0.0,0.0,0.03891314447019854],[0.0,0.0,0.17733157069159314],[0.03891314447019854,0.17733157069159314,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut","folder":"Horizontal Computational Grids","meta":[{"label":"h100","tags":[]},{"label":"h102","tags":[]},{"label":"h101","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":1,"value":0.0},{"name":"h101","leaf":true,"spectral_index":2,"value":0.0}],"value":0.597608724458125}],"value":0.7753996252990216},"clusters":[0,1,2]};
 var EMD_ENTRIES = [{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"list"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids      = EMD_DATA.ids;
+var link     = EMD_DATA.link;
+var text     = EMD_DATA.text;
+var method   = EMD_DATA.method;
+var meta     = EMD_DATA.meta;
+var tree     = EMD_DATA.tree;
+var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
+var n        = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -259,6 +271,35 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0.5);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -274,8 +315,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' ↔ ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">▲ Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">▼ Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">▲ Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">▼ Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -316,6 +357,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -350,18 +418,20 @@ matG.append('line')
 /* These make explicit that the two triangles show different metrics. */
 var triFs = Math.max(8, Math.round(cellSize * 0.13));
 var pad   = Math.max(6, Math.round(cellSize * 0.18));
-/* Upper-right: link similarity label */
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
 matG.append('text')
   .attr('x', matW - pad).attr('y', pad + triFs)
   .attr('text-anchor','end').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
-  .text('link %');
+  .text(upperLabel);
 /* Lower-left: text / embedding label */
 matG.append('text')
   .attr('x', pad).attr('y', matW - pad)
   .attr('text-anchor','start').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
-  .text('content sim');
+  .text('embeddings');
 
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
@@ -371,7 +441,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('▲  link similarity');
+  .text('▲  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -382,7 +452,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('▼  content similarity');
+  .text('▼  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -442,13 +512,40 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
     .data(links).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +

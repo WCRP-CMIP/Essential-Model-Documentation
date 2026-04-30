@@ -87,16 +87,16 @@
     <option value="">Select an entry…</option>
     <option value="../Component_Families/nemo/">nemo</option>
     <option value="../Component_Families/pisces/">pisces</option>
+    <option value="../Component_Families/hadam/">hadam</option>
+    <option value="../Component_Families/tactic/">tactic</option>
+    <option value="../Component_Families/surfex/">surfex</option>
+    <option value="../Component_Families/gelato/">gelato</option>
+    <option value="../Component_Families/arpege-climat/">arpege-climat</option>
+    <option value="../Component_Families/reprobus/">reprobus</option>
+    <option value="../Component_Families/NICAM/">NICAM</option>
+    <option value="../Component_Families/CAM/">CAM</option>
     <option value="../Component_Families/IFS/">IFS</option>
     <option value="../Component_Families/GEOS/">GEOS</option>
-    <option value="../Component_Families/CAM/">CAM</option>
-    <option value="../Component_Families/NICAM/">NICAM</option>
-    <option value="../Component_Families/tactic/">tactic</option>
-    <option value="../Component_Families/hadam/">hadam</option>
-    <option value="../Component_Families/surfex/">surfex</option>
-    <option value="../Component_Families/reprobus/">reprobus</option>
-    <option value="../Component_Families/arpege-climat/">arpege-climat</option>
-    <option value="../Component_Families/gelato/">gelato</option>
     <option value="../Component_Families/CLM/">CLM</option>
     <option value="../Component_Families/BISICLES/">BISICLES</option>
   </select>
@@ -129,17 +129,29 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["nemo","pisces","IFS","GEOS","CAM","NICAM","tactic","hadam","surfex","reprobus","arpege-climat","gelato","CLM","BISICLES"],"link":[[0.0,0.7967787408236354,0.7093745223068926,0.7136235471678958,0.7432804319703468,0.7113307908143771,0.7354895626438687,0.773966176323649,0.7807930626756651,0.7755912658463101,0.8001305734236492,0.7723659016295318,0.026279873536632137,0.007277255528198298],[0.7967787408236354,0.0,0.7184990869896243,0.7012766660332298,0.6974290175326378,0.6990235795662276,0.7346662570383116,0.7212589566331432,0.7344585269368029,0.751742304099584,0.7755270422741524,0.7486161178792743,0.01547204874570669,0.0071513474582293075],[0.7093745223068926,0.7184990869896243,0.0,0.7788605170898559,0.7286557861983356,0.7206408824187462,0.7270474473717142,0.7394029552808644,0.7491527110659723,0.7600145357488187,0.7950362097541256,0.7568539487285911,0.012519309018235156,0.0017769009828172107],[0.7136235471678958,0.7012766660332298,0.7788605170898559,0.0,0.7525207895730002,0.7347729954744475,0.731402329851797,0.7541001924468331,0.753640000070454,0.7752692149128211,0.8108392791638794,0.7613873667513278,0.012594297410950575,0.0017875442977575023],[0.7432804319703468,0.6974290175326378,0.7286557861983356,0.7525207895730002,0.0,0.7488539239099357,0.7111746974434301,0.7766125519509621,0.7327973634060415,0.7707316298883345,0.81649202087583,0.746893347580931,0.053538032851235345,0.008833459290074503],[0.7113307908143771,0.6990235795662276,0.7206408824187462,0.7347729954744475,0.7488539239099357,0.0,0.7297730028924112,0.7583071666524637,0.751961133873888,0.7799272316073343,0.8153627908953794,0.7662981147727678,0.015470794519035137,0.0071507677411622875],[0.7354895626438687,0.7346662570383116,0.7270474473717142,0.731402329851797,0.7111746974434301,0.7297730028924112,0.0,0.763433693436621,0.7950502225664272,0.8304315339531632,0.832097203536091,0.8032232834487539,0.002003115476529123,0.0018168835966710349],[0.773966176323649,0.7212589566331432,0.7394029552808644,0.7541001924468331,0.7766125519509621,0.7583071666524637,0.763433693436621,0.0,0.7866452492471361,0.8288037204514818,0.8662819668730102,0.8144923072657761,0.01732356955116481,0.0018222520625550758],[0.7807930626756651,0.7344585269368029,0.7491527110659723,0.753640000070454,0.7327973634060415,0.751961133873888,0.7950502225664272,0.7866452492471361,0.0,0.8311008130492479,0.8774705305364356,0.8470221469943544,0.08638948366903404,0.0018721243093898802],[0.7755912658463101,0.751742304099584,0.7600145357488187,0.7752692149128211,0.7707316298883345,0.7799272316073343,0.8304315339531632,0.8288037204514818,0.8311008130492479,0.0,0.9028945791785888,0.8602400264866924,0.01805573446308378,0.0018992678887065106],[0.8001305734236492,0.7755270422741524,0.7950362097541256,0.8108392791638794,0.81649202087583,0.8153627908953794,0.832097203536091,0.8662819668730102,0.8774705305364356,0.9028945791785888,0.0,0.9077380552707203,0.01862700954881364,0.0019593598460934092],[0.7723659016295318,0.7486161178792743,0.7568539487285911,0.7613873667513278,0.746893347580931,0.7662981147727678,0.8032232834487539,0.8144923072657761,0.8470221469943544,0.8602400264866924,0.9077380552707203,0.0,0.01798064810973072,0.01477001971906881],[0.026279873536632137,0.01547204874570669,0.012519309018235156,0.012594297410950575,0.053538032851235345,0.015470794519035137,0.002003115476529123,0.01732356955116481,0.08638948366903404,0.01805573446308378,0.01862700954881364,0.01798064810973072,0.0,0.0784047505730247],[0.007277255528198298,0.0071513474582293075,0.0017769009828172107,0.0017875442977575023,0.008833459290074503,0.0071507677411622875,0.0018168835966710349,0.0018222520625550758,0.0018721243093898802,0.0018992678887065106,0.0019593598460934092,0.01477001971906881,0.0784047505730247,0.0]],"text":[[0.0,0.7967787408236354,0.7093745223068926,0.7136235471678958,0.7432804319703468,0.7113307908143771,0.7354895626438687,0.773966176323649,0.7807930626756651,0.7755912658463101,0.8001305734236492,0.7723659016295318,0.026279873536632137,0.007277255528198298],[0.7967787408236354,0.0,0.7184990869896243,0.7012766660332298,0.6974290175326378,0.6990235795662276,0.7346662570383116,0.7212589566331432,0.7344585269368029,0.751742304099584,0.7755270422741524,0.7486161178792743,0.01547204874570669,0.0071513474582293075],[0.7093745223068926,0.7184990869896243,0.0,0.7788605170898559,0.7286557861983356,0.7206408824187462,0.7270474473717142,0.7394029552808644,0.7491527110659723,0.7600145357488187,0.7950362097541256,0.7568539487285911,0.012519309018235156,0.0017769009828172107],[0.7136235471678958,0.7012766660332298,0.7788605170898559,0.0,0.7525207895730002,0.7347729954744475,0.731402329851797,0.7541001924468331,0.753640000070454,0.7752692149128211,0.8108392791638794,0.7613873667513278,0.012594297410950575,0.0017875442977575023],[0.7432804319703468,0.6974290175326378,0.7286557861983356,0.7525207895730002,0.0,0.7488539239099357,0.7111746974434301,0.7766125519509621,0.7327973634060415,0.7707316298883345,0.81649202087583,0.746893347580931,0.053538032851235345,0.008833459290074503],[0.7113307908143771,0.6990235795662276,0.7206408824187462,0.7347729954744475,0.7488539239099357,0.0,0.7297730028924112,0.7583071666524637,0.751961133873888,0.7799272316073343,0.8153627908953794,0.7662981147727678,0.015470794519035137,0.0071507677411622875],[0.7354895626438687,0.7346662570383116,0.7270474473717142,0.731402329851797,0.7111746974434301,0.7297730028924112,0.0,0.763433693436621,0.7950502225664272,0.8304315339531632,0.832097203536091,0.8032232834487539,0.002003115476529123,0.0018168835966710349],[0.773966176323649,0.7212589566331432,0.7394029552808644,0.7541001924468331,0.7766125519509621,0.7583071666524637,0.763433693436621,0.0,0.7866452492471361,0.8288037204514818,0.8662819668730102,0.8144923072657761,0.01732356955116481,0.0018222520625550758],[0.7807930626756651,0.7344585269368029,0.7491527110659723,0.753640000070454,0.7327973634060415,0.751961133873888,0.7950502225664272,0.7866452492471361,0.0,0.8311008130492479,0.8774705305364356,0.8470221469943544,0.08638948366903404,0.0018721243093898802],[0.7755912658463101,0.751742304099584,0.7600145357488187,0.7752692149128211,0.7707316298883345,0.7799272316073343,0.8304315339531632,0.8288037204514818,0.8311008130492479,0.0,0.9028945791785888,0.8602400264866924,0.01805573446308378,0.0018992678887065106],[0.8001305734236492,0.7755270422741524,0.7950362097541256,0.8108392791638794,0.81649202087583,0.8153627908953794,0.832097203536091,0.8662819668730102,0.8774705305364356,0.9028945791785888,0.0,0.9077380552707203,0.01862700954881364,0.0019593598460934092],[0.7723659016295318,0.7486161178792743,0.7568539487285911,0.7613873667513278,0.746893347580931,0.7662981147727678,0.8032232834487539,0.8144923072657761,0.8470221469943544,0.8602400264866924,0.9077380552707203,0.0,0.01798064810973072,0.01477001971906881],[0.026279873536632137,0.01547204874570669,0.012519309018235156,0.012594297410950575,0.053538032851235345,0.015470794519035137,0.002003115476529123,0.01732356955116481,0.08638948366903404,0.01805573446308378,0.01862700954881364,0.01798064810973072,0.0,0.0784047505730247],[0.007277255528198298,0.0071513474582293075,0.0017769009828172107,0.0017875442977575023,0.008833459290074503,0.0071507677411622875,0.0018168835966710349,0.0018222520625550758,0.0018721243093898802,0.0018992678887065106,0.0019593598460934092,0.01477001971906881,0.0784047505730247,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Component Families","meta":[{"label":"nemo","tags":["ocean"]},{"label":"pisces","tags":["ocean-biogeochemistry"]},{"label":"IFS","tags":["atmosphere"]},{"label":"GEOS","tags":["atmosphere"]},{"label":"CAM","tags":["atmosphere"]},{"label":"NICAM","tags":["atmosphere"]},{"label":"tactic","tags":["aerosol"]},{"label":"hadam","tags":["atmosphere"]},{"label":"surfex","tags":["land-surface"]},{"label":"reprobus","tags":["atmospheric-chemistry"]},{"label":"arpege-climat","tags":["atmosphere"]},{"label":"gelato","tags":["sea-ice"]},{"label":"CLM","tags":["land-surface"]},{"label":"BISICLES","tags":["land-ice"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"nemo","leaf":true,"spectral_index":0,"value":0.0},{"name":"pisces","leaf":true,"spectral_index":1,"value":0.0}],"value":0.20322125917636458},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"IFS","leaf":true,"spectral_index":2,"value":0.0},{"name":"GEOS","leaf":true,"spectral_index":3,"value":0.0}],"value":0.22113948291014407},{"name":"","leaf":false,"children":[{"name":"CAM","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"NICAM","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"tactic","leaf":true,"spectral_index":6,"value":0.0},{"name":"","leaf":false,"children":[{"name":"hadam","leaf":true,"spectral_index":7,"value":0.0},{"name":"","leaf":false,"children":[{"name":"surfex","leaf":true,"spectral_index":8,"value":0.0},{"name":"","leaf":false,"children":[{"name":"reprobus","leaf":true,"spectral_index":9,"value":0.0},{"name":"","leaf":false,"children":[{"name":"arpege-climat","leaf":true,"spectral_index":10,"value":0.0},{"name":"gelato","leaf":true,"spectral_index":11,"value":0.0}],"value":0.09226194472927973}],"value":0.11843269716735938}],"value":0.14813550313998736}],"value":0.17594418904064896}],"value":0.19515281261178874}],"value":0.2330617598842926}],"value":0.24234920927779074}],"value":0.246828959699267}],"value":0.2600778305107413},{"name":"","leaf":false,"children":[{"name":"CLM","leaf":true,"spectral_index":12,"value":0.0},{"name":"BISICLES","leaf":true,"spectral_index":13,"value":0.0}],"value":0.9215952494269752}],"value":0.9852345375157969}};
-var EMD_ENTRIES = [{"label":"nemo","url":"../Component_Families/nemo/"},{"label":"pisces","url":"../Component_Families/pisces/"},{"label":"IFS","url":"../Component_Families/IFS/"},{"label":"GEOS","url":"../Component_Families/GEOS/"},{"label":"CAM","url":"../Component_Families/CAM/"},{"label":"NICAM","url":"../Component_Families/NICAM/"},{"label":"tactic","url":"../Component_Families/tactic/"},{"label":"hadam","url":"../Component_Families/hadam/"},{"label":"surfex","url":"../Component_Families/surfex/"},{"label":"reprobus","url":"../Component_Families/reprobus/"},{"label":"arpege-climat","url":"../Component_Families/arpege-climat/"},{"label":"gelato","url":"../Component_Families/gelato/"},{"label":"CLM","url":"../Component_Families/CLM/"},{"label":"BISICLES","url":"../Component_Families/BISICLES/"}];
+var EMD_DATA    = {"ids":["nemo","pisces","hadam","tactic","surfex","gelato","arpege-climat","reprobus","NICAM","CAM","IFS","GEOS","CLM","BISICLES"],"link":[[0.0,0.8483152325257588,0.780952380952381,0.7807017543859649,0.7817460317460317,0.7806026365348399,0.7793650793650794,0.7831541218637993,0.778816199376947,0.7823232323232323,0.7777777777777778,0.7875118708452041,0.07998957790515894,0.0735015208987239],[0.8483152325257588,0.0,0.8272445820433437,0.8247678018575851,0.8278637770897833,0.8253869969040248,0.8260061919504644,0.8530738611233968,0.8262781748213304,0.8256684491978609,0.826625386996904,0.8325421396628827,0.053673788431474724,0.06796478301440916],[0.780952380952381,0.8272445820433437,0.0,0.8445378151260504,0.8394957983193277,0.826890756302521,0.9168067226890756,0.8495798319327731,0.8873007146783948,0.8834224598930481,0.8861236802413273,0.8853695324283559,0.053152683689421575,0.0611122556564102],[0.7807017543859649,0.8247678018575851,0.8445378151260504,0.0,0.8857142857142857,0.8937473294402506,0.9025210084033614,0.8907563025210083,0.843375481033535,0.8433155080213903,0.8441930618401207,0.8411764705882353,0.053673788431474724,0.056370202503726506],[0.7817460317460317,0.8278637770897833,0.8394957983193277,0.8857142857142857,0.0,0.8848739495798319,0.9092436974789916,0.8859943977591036,0.8268279274326553,0.8245989304812834,0.8265460030165912,0.8250377073906485,0.1068264721208963,0.07725781758102372],[0.7806026365348399,0.8253869969040248,0.826890756302521,0.8937473294402506,0.8848739495798319,0.0,0.8840336134453781,0.8851992409867173,0.8246289169873556,0.8251336898395722,0.8265460030165912,0.8250377073906485,0.06096925482021886,0.05480688827756705],[0.7793650793650794,0.8260061919504644,0.9168067226890756,0.9025210084033614,0.9092436974789916,0.8840336134453781,0.0,0.9084033613445378,0.8867509620670698,0.8834224598930481,0.8846153846153846,0.8846153846153846,0.053673788431474724,0.0611122556564102],[0.7831541218637993,0.8530738611233968,0.8495798319327731,0.8907563025210083,0.8859943977591036,0.8851992409867173,0.9084033613445378,0.0,0.8498390010209691,0.8503437738731856,0.8494936436112906,0.852510234863176,0.058264473063847744,0.05835536342583376],[0.778816199376947,0.8262781748213304,0.8873007146783948,0.843375481033535,0.8268279274326553,0.8246289169873556,0.8867509620670698,0.8498390010209691,0.0,0.8850267379679144,0.8929553129663081,0.8921874045568383,0.05558288243974422,0.06244180326931217],[0.7823232323232323,0.8256684491978609,0.8834224598930481,0.8433155080213903,0.8245989304812834,0.8251336898395722,0.8834224598930481,0.8503437738731856,0.8850267379679144,0.0,0.8957219251336898,0.8920974450386215,0.11148325358851674,0.06089907644375209],[0.7777777777777778,0.826625386996904,0.8861236802413273,0.8441930618401207,0.8265460030165912,0.8265460030165912,0.8846153846153846,0.8494936436112906,0.8929553129663081,0.8957219251336898,0.0,0.8936651583710408,0.06472120896300156,0.0611122556564102],[0.7875118708452041,0.8325421396628827,0.8853695324283559,0.8411764705882353,0.8250377073906485,0.8250377073906485,0.8846153846153846,0.852510234863176,0.8921874045568383,0.8920974450386215,0.8936651583710408,0.0,0.06004284638990215,0.06059115091435705],[0.07998957790515894,0.053673788431474724,0.053152683689421575,0.053673788431474724,0.1068264721208963,0.06096925482021886,0.053673788431474724,0.058264473063847744,0.05558288243974422,0.11148325358851674,0.06472120896300156,0.06004284638990215,0.0,0.2551727331928142],[0.0735015208987239,0.06796478301440916,0.0611122556564102,0.056370202503726506,0.07725781758102372,0.05480688827756705,0.0611122556564102,0.05835536342583376,0.06244180326931217,0.06089907644375209,0.0611122556564102,0.06059115091435705,0.2551727331928142,0.0]],"text":[[0.0,0.7967787408236354,0.773966176323649,0.7354895626438687,0.7807930626756651,0.7723659016295318,0.8001305734236492,0.7755912658463101,0.7113307908143771,0.7432804319703468,0.7093745223068926,0.7136235471678958,0.026279873536632137,0.007277255528198298],[0.7967787408236354,0.0,0.7212589566331432,0.7346662570383116,0.7344585269368029,0.7486161178792743,0.7755270422741524,0.751742304099584,0.6990235795662276,0.6974290175326378,0.7184990869896243,0.7012766660332298,0.01547204874570669,0.0071513474582293075],[0.773966176323649,0.7212589566331432,0.0,0.763433693436621,0.7866452492471361,0.8144923072657761,0.8662819668730102,0.8288037204514818,0.7583071666524637,0.7766125519509621,0.7394029552808644,0.7541001924468331,0.01732356955116481,0.0018222520625550758],[0.7354895626438687,0.7346662570383116,0.763433693436621,0.0,0.7950502225664272,0.8032232834487539,0.832097203536091,0.8304315339531632,0.7297730028924112,0.7111746974434301,0.7270474473717142,0.731402329851797,0.002003115476529123,0.0018168835966710349],[0.7807930626756651,0.7344585269368029,0.7866452492471361,0.7950502225664272,0.0,0.8470221469943544,0.8774705305364356,0.8311008130492479,0.751961133873888,0.7327973634060415,0.7491527110659723,0.753640000070454,0.08638948366903404,0.0018721243093898802],[0.7723659016295318,0.7486161178792743,0.8144923072657761,0.8032232834487539,0.8470221469943544,0.0,0.9077380552707203,0.8602400264866924,0.7662981147727678,0.746893347580931,0.7568539487285911,0.7613873667513278,0.01798064810973072,0.01477001971906881],[0.8001305734236492,0.7755270422741524,0.8662819668730102,0.832097203536091,0.8774705305364356,0.9077380552707203,0.0,0.9028945791785888,0.8153627908953794,0.81649202087583,0.7950362097541256,0.8108392791638794,0.01862700954881364,0.0019593598460934092],[0.7755912658463101,0.751742304099584,0.8288037204514818,0.8304315339531632,0.8311008130492479,0.8602400264866924,0.9028945791785888,0.0,0.7799272316073343,0.7707316298883345,0.7600145357488187,0.7752692149128211,0.01805573446308378,0.0018992678887065106],[0.7113307908143771,0.6990235795662276,0.7583071666524637,0.7297730028924112,0.751961133873888,0.7662981147727678,0.8153627908953794,0.7799272316073343,0.0,0.7488539239099357,0.7206408824187462,0.7347729954744475,0.015470794519035137,0.0071507677411622875],[0.7432804319703468,0.6974290175326378,0.7766125519509621,0.7111746974434301,0.7327973634060415,0.746893347580931,0.81649202087583,0.7707316298883345,0.7488539239099357,0.0,0.7286557861983356,0.7525207895730002,0.053538032851235345,0.008833459290074503],[0.7093745223068926,0.7184990869896243,0.7394029552808644,0.7270474473717142,0.7491527110659723,0.7568539487285911,0.7950362097541256,0.7600145357488187,0.7206408824187462,0.7286557861983356,0.0,0.7788605170898559,0.012519309018235156,0.0017769009828172107],[0.7136235471678958,0.7012766660332298,0.7541001924468331,0.731402329851797,0.753640000070454,0.7613873667513278,0.8108392791638794,0.7752692149128211,0.7347729954744475,0.7525207895730002,0.7788605170898559,0.0,0.012594297410950575,0.0017875442977575023],[0.026279873536632137,0.01547204874570669,0.01732356955116481,0.002003115476529123,0.08638948366903404,0.01798064810973072,0.01862700954881364,0.01805573446308378,0.015470794519035137,0.053538032851235345,0.012519309018235156,0.012594297410950575,0.0,0.0784047505730247],[0.007277255528198298,0.0071513474582293075,0.0018222520625550758,0.0018168835966710349,0.0018721243093898802,0.01477001971906881,0.0019593598460934092,0.0018992678887065106,0.0071507677411622875,0.008833459290074503,0.0017769009828172107,0.0017875442977575023,0.0784047505730247,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut","folder":"Component Families","meta":[{"label":"nemo","tags":["ocean"]},{"label":"pisces","tags":["ocean-biogeochemistry"]},{"label":"hadam","tags":["atmosphere"]},{"label":"tactic","tags":["aerosol"]},{"label":"surfex","tags":["land-surface"]},{"label":"gelato","tags":["sea-ice"]},{"label":"arpege-climat","tags":["atmosphere"]},{"label":"reprobus","tags":["atmospheric-chemistry"]},{"label":"NICAM","tags":["atmosphere"]},{"label":"CAM","tags":["atmosphere"]},{"label":"IFS","tags":["atmosphere"]},{"label":"GEOS","tags":["atmosphere"]},{"label":"CLM","tags":["land-surface"]},{"label":"BISICLES","tags":["land-ice"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"nemo","leaf":true,"spectral_index":0,"value":0.0},{"name":"pisces","leaf":true,"spectral_index":1,"value":0.0}],"value":0.17745301332530294},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"hadam","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"tactic","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"surfex","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"gelato","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"arpege-climat","leaf":true,"spectral_index":6,"value":0.0},{"name":"reprobus","leaf":true,"spectral_index":7,"value":0.0}],"value":0.09435102973843668}],"value":0.11569726595262297}],"value":0.12738241076700582}],"value":0.14580735380208232}],"value":0.1663032138356227},{"name":"","leaf":false,"children":[{"name":"NICAM","leaf":true,"spectral_index":8,"value":0.0},{"name":"","leaf":false,"children":[{"name":"CAM","leaf":true,"spectral_index":9,"value":0.0},{"name":"","leaf":false,"children":[{"name":"IFS","leaf":true,"spectral_index":10,"value":0.0},{"name":"GEOS","leaf":true,"spectral_index":11,"value":0.0}],"value":0.1637371622695516}],"value":0.1827510135140883}],"value":0.18759379045096827}],"value":0.19311037746195345}],"value":0.22732870408489983},{"name":"","leaf":false,"children":[{"name":"CLM","leaf":true,"spectral_index":12,"value":0.0},{"name":"BISICLES","leaf":true,"spectral_index":13,"value":0.0}],"value":0.8332112581170805}],"value":0.9599593647667929},"clusters":[0,0,0,0,0,0,0,0,0,0,0,0,1,2]};
+var EMD_ENTRIES = [{"label":"nemo","url":"../Component_Families/nemo/"},{"label":"pisces","url":"../Component_Families/pisces/"},{"label":"hadam","url":"../Component_Families/hadam/"},{"label":"tactic","url":"../Component_Families/tactic/"},{"label":"surfex","url":"../Component_Families/surfex/"},{"label":"gelato","url":"../Component_Families/gelato/"},{"label":"arpege-climat","url":"../Component_Families/arpege-climat/"},{"label":"reprobus","url":"../Component_Families/reprobus/"},{"label":"NICAM","url":"../Component_Families/NICAM/"},{"label":"CAM","url":"../Component_Families/CAM/"},{"label":"IFS","url":"../Component_Families/IFS/"},{"label":"GEOS","url":"../Component_Families/GEOS/"},{"label":"CLM","url":"../Component_Families/CLM/"},{"label":"BISICLES","url":"../Component_Families/BISICLES/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"collaborative_institutions","type":"scalar"},{"name":"common_scientific_basis","type":"scalar"},{"name":"computational_requirements","type":"scalar"},{"name":"description","type":"scalar"},{"name":"documentation","type":"scalar"},{"name":"established","type":"scalar"},{"name":"evolution","type":"scalar"},{"name":"family_type","type":"scalar"},{"name":"license","type":"scalar"},{"name":"primary_institution","type":"scalar"},{"name":"programming_languages","type":"scalar"},{"name":"references","type":"scalar"},{"name":"representative_member","type":"scalar"},{"name":"scientific_domains","type":"scalar"},{"name":"shared_code_base","type":"scalar"},{"name":"software_dependencies","type":"scalar"},{"name":"source_code_repository","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"},{"name":"variation_dimensions","type":"scalar"},{"name":"website","type":"scalar"}]};
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids      = EMD_DATA.ids;
+var link     = EMD_DATA.link;
+var text     = EMD_DATA.text;
+var method   = EMD_DATA.method;
+var meta     = EMD_DATA.meta;
+var tree     = EMD_DATA.tree;
+var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
+var n        = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -270,6 +282,35 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0.5);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -285,8 +326,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' ↔ ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">▲ Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">▼ Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">▲ Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">▼ Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -327,6 +368,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -361,18 +429,20 @@ matG.append('line')
 /* These make explicit that the two triangles show different metrics. */
 var triFs = Math.max(8, Math.round(cellSize * 0.13));
 var pad   = Math.max(6, Math.round(cellSize * 0.18));
-/* Upper-right: link similarity label */
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
 matG.append('text')
   .attr('x', matW - pad).attr('y', pad + triFs)
   .attr('text-anchor','end').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
-  .text('link %');
+  .text(upperLabel);
 /* Lower-left: text / embedding label */
 matG.append('text')
   .attr('x', pad).attr('y', matW - pad)
   .attr('text-anchor','start').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
-  .text('content sim');
+  .text('embeddings');
 
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
@@ -382,7 +452,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('▲  link similarity');
+  .text('▲  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -393,7 +463,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('▼  content similarity');
+  .text('▼  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -453,13 +523,40 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
     .data(links).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +

@@ -85,16 +85,16 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
-    <option value="../Model_Components/bisicles-ukesm-ismip6-1_0/">bisicles-ukesm-ismip6-1_0</option>
+    <option value="../Model_Components/piscesv2-gas/">piscesv2-gas</option>
     <option value="../Model_Components/tactic/">tactic</option>
-    <option value="../Model_Components/clm4/">clm4</option>
-    <option value="../Model_Components/surfex_v8_modeling_platform/">surfex_v8_modeling_platform</option>
-    <option value="../Model_Components/hadam3/">hadam3</option>
     <option value="../Model_Components/arpege-climat_version_6_3/">arpege-climat_version_6_3</option>
     <option value="../Model_Components/reprobus-c_v2_0/">reprobus-c_v2_0</option>
     <option value="../Model_Components/gelato/">gelato</option>
-    <option value="../Model_Components/piscesv2-gas/">piscesv2-gas</option>
     <option value="../Model_Components/nemo_v3_6/">nemo_v3_6</option>
+    <option value="../Model_Components/surfex_v8_modeling_platform/">surfex_v8_modeling_platform</option>
+    <option value="../Model_Components/hadam3/">hadam3</option>
+    <option value="../Model_Components/clm4/">clm4</option>
+    <option value="../Model_Components/bisicles-ukesm-ismip6-1_0/">bisicles-ukesm-ismip6-1_0</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
@@ -125,17 +125,29 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["bisicles-ukesm-ismip6-1_0","tactic","clm4","surfex_v8_modeling_platform","hadam3","arpege-climat_version_6_3","reprobus-c_v2_0","gelato","piscesv2-gas","nemo_v3_6"],"link":[[0.0,0.028321467371671287,0.06354571826912403,0.0,0.08008260189445798,0.013206579842902829,0.03336755435114665,0.0,0.02034869109253925,0.0],[0.028321467371671287,0.0,0.03113848947717675,0.08485235684482495,0.043795218473467235,0.08684838734053892,0.13001552554555912,0.05809170796507239,0.02611878295630914,0.04574271253356089],[0.06354571826912403,0.03113848947717675,0.0,0.190958146215307,0.12596625602330952,0.051134089989285134,0.1142051248501426,0.0,0.02132031984235423,0.04223732941817712],[0.0,0.08485235684482495,0.190958146215307,0.0,0.08838128442975393,0.10163404675309934,0.15418045925099905,0.048217723613393555,0.02890574924422914,0.06607152203940175],[0.08008260189445798,0.043795218473467235,0.12596625602330952,0.08838128442975393,0.0,0.14027663509444627,0.15302456664295516,0.03077108925676573,0.021871833432872,0.04332992377762123],[0.013206579842902829,0.08684838734053892,0.051134089989285134,0.10163404675309934,0.14027663509444627,0.0,0.16749972997466012,0.11426255439980898,0.0803579674048647,0.10613458406050613],[0.03336755435114665,0.13001552554555912,0.1142051248501426,0.15418045925099905,0.15302456664295516,0.16749972997466012,0.0,0.01711050311621888,0.06306405407493056,0.10778555017859458],[0.0,0.05809170796507239,0.0,0.048217723613393555,0.03077108925676573,0.11426255439980898,0.01711050311621888,0.0,0.0648491340222091,0.04523395349100263],[0.02034869109253925,0.02611878295630914,0.02132031984235423,0.02890574924422914,0.021871833432872,0.0803579674048647,0.06306405407493056,0.0648491340222091,0.0,0.093919715902127],[0.0,0.04574271253356089,0.04223732941817712,0.06607152203940175,0.04332992377762123,0.10613458406050613,0.10778555017859458,0.04523395349100263,0.093919715902127,0.0]],"text":[[0.0,0.028321467371671287,0.06354571826912403,0.0,0.08008260189445798,0.013206579842902829,0.03336755435114665,0.0,0.02034869109253925,0.0],[0.028321467371671287,0.0,0.03113848947717675,0.08485235684482495,0.043795218473467235,0.08684838734053892,0.13001552554555912,0.05809170796507239,0.02611878295630914,0.04574271253356089],[0.06354571826912403,0.03113848947717675,0.0,0.190958146215307,0.12596625602330952,0.051134089989285134,0.1142051248501426,0.0,0.02132031984235423,0.04223732941817712],[0.0,0.08485235684482495,0.190958146215307,0.0,0.08838128442975393,0.10163404675309934,0.15418045925099905,0.048217723613393555,0.02890574924422914,0.06607152203940175],[0.08008260189445798,0.043795218473467235,0.12596625602330952,0.08838128442975393,0.0,0.14027663509444627,0.15302456664295516,0.03077108925676573,0.021871833432872,0.04332992377762123],[0.013206579842902829,0.08684838734053892,0.051134089989285134,0.10163404675309934,0.14027663509444627,0.0,0.16749972997466012,0.11426255439980898,0.0803579674048647,0.10613458406050613],[0.03336755435114665,0.13001552554555912,0.1142051248501426,0.15418045925099905,0.15302456664295516,0.16749972997466012,0.0,0.01711050311621888,0.06306405407493056,0.10778555017859458],[0.0,0.05809170796507239,0.0,0.048217723613393555,0.03077108925676573,0.11426255439980898,0.01711050311621888,0.0,0.0648491340222091,0.04523395349100263],[0.02034869109253925,0.02611878295630914,0.02132031984235423,0.02890574924422914,0.021871833432872,0.0803579674048647,0.06306405407493056,0.0648491340222091,0.0,0.093919715902127],[0.0,0.04574271253356089,0.04223732941817712,0.06607152203940175,0.04332992377762123,0.10613458406050613,0.10778555017859458,0.04523395349100263,0.093919715902127,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Model Components","meta":[{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]},{"label":"tactic","tags":["aerosol"]},{"label":"clm4","tags":["land-surface"]},{"label":"surfex_v8_modeling_platform","tags":["land-surface"]},{"label":"hadam3","tags":["atmosphere"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"gelato","tags":["sea-ice"]},{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"nemo_v3_6","tags":["ocean"]}],"tree":{"name":"","leaf":false,"children":[{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"tactic","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"clm4","leaf":true,"spectral_index":2,"value":0.0},{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":3,"value":0.0}],"value":0.8090418537846931},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"arpege-climat_version_6_3","leaf":true,"spectral_index":5,"value":0.0},{"name":"reprobus-c_v2_0","leaf":true,"spectral_index":6,"value":0.0}],"value":0.8325002700253399}],"value":0.8533493991312993}],"value":0.8940831231172351}],"value":0.9246700044636867},{"name":"","leaf":false,"children":[{"name":"gelato","leaf":true,"spectral_index":7,"value":0.0},{"name":"","leaf":false,"children":[{"name":"piscesv2-gas","leaf":true,"spectral_index":8,"value":0.0},{"name":"nemo_v3_6","leaf":true,"spectral_index":9,"value":0.0}],"value":0.906080284097873}],"value":0.9449584562433941}],"value":0.9488114495936287}],"value":0.9734585985753509}};
-var EMD_ENTRIES = [{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"},{"label":"hadam3","url":"../Model_Components/hadam3/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"}];
+var EMD_DATA    = {"ids":["piscesv2-gas","tactic","arpege-climat_version_6_3","reprobus-c_v2_0","gelato","nemo_v3_6","surfex_v8_modeling_platform","hadam3","clm4","bisicles-ukesm-ismip6-1_0"],"link":[[0.0,0.005851736829997699,0.010478670634920634,0.08721724898195486,0.010526315789473684,0.04845446950710108,0.14177820076567535,0.005747126436781609,0.00851699592706787,0.06512617012617013],[0.005851736829997699,0.0,0.36008454106280197,0.36257763975155277,0.34778295376121465,0.32306763285024154,0.006420975902581254,0.0877415458937198,0.09271646228167967,0.15247584541062803],[0.010478670634920634,0.36008454106280197,0.0,0.3967976467976468,0.3094618055555556,0.3107638888888889,0.01494853055611138,0.17471264367816094,0.09026624853962983,0.17468660968660968],[0.08721724898195486,0.36257763975155277,0.3967976467976468,0.0,0.35590920517391106,0.3535782028429087,0.0170812093889017,0.08407224958949096,0.1167166167166167,0.1938125763125763],[0.010526315789473684,0.34778295376121465,0.3094618055555556,0.35590920517391106,0.0,0.37896825396825395,0.0036231884057971015,0.06130268199233716,0.09146528930701592,0.14102564102564102],[0.04845446950710108,0.32306763285024154,0.3107638888888889,0.3535782028429087,0.37896825396825395,0.0,0.0036231884057971015,0.0011494252873563218,0.1492523929574289,0.1388888888888889],[0.14177820076567535,0.006420975902581254,0.01494853055611138,0.0170812093889017,0.0036231884057971015,0.0036231884057971015,0.0,0.005747126436781609,0.1858513189448441,0.07790927021696252],[0.005747126436781609,0.0877415458937198,0.17471264367816094,0.08407224958949096,0.06130268199233716,0.0011494252873563218,0.005747126436781609,0.0,0.17701149425287355,0.18867521367521367],[0.00851699592706787,0.09271646228167967,0.09026624853962983,0.1167166167166167,0.09146528930701592,0.1492523929574289,0.1858513189448441,0.17701149425287355,0.0,0.3429487179487179],[0.06512617012617013,0.15247584541062803,0.17468660968660968,0.1938125763125763,0.14102564102564102,0.1388888888888889,0.07790927021696252,0.18867521367521367,0.3429487179487179,0.0]],"text":[[0.0,0.02611878295630914,0.0803579674048647,0.06306405407493056,0.0648491340222091,0.093919715902127,0.02890574924422914,0.021871833432872,0.02132031984235423,0.02034869109253925],[0.02611878295630914,0.0,0.08684838734053892,0.13001552554555912,0.05809170796507239,0.04574271253356089,0.08485235684482495,0.043795218473467235,0.03113848947717675,0.028321467371671287],[0.0803579674048647,0.08684838734053892,0.0,0.16749972997466012,0.11426255439980898,0.10613458406050613,0.10163404675309934,0.14027663509444627,0.051134089989285134,0.013206579842902829],[0.06306405407493056,0.13001552554555912,0.16749972997466012,0.0,0.01711050311621888,0.10778555017859458,0.15418045925099905,0.15302456664295516,0.1142051248501426,0.03336755435114665],[0.0648491340222091,0.05809170796507239,0.11426255439980898,0.01711050311621888,0.0,0.04523395349100263,0.048217723613393555,0.03077108925676573,0.0,0.0],[0.093919715902127,0.04574271253356089,0.10613458406050613,0.10778555017859458,0.04523395349100263,0.0,0.06607152203940175,0.04332992377762123,0.04223732941817712,0.0],[0.02890574924422914,0.08485235684482495,0.10163404675309934,0.15418045925099905,0.048217723613393555,0.06607152203940175,0.0,0.08838128442975393,0.190958146215307,0.0],[0.021871833432872,0.043795218473467235,0.14027663509444627,0.15302456664295516,0.03077108925676573,0.04332992377762123,0.08838128442975393,0.0,0.12596625602330952,0.08008260189445798],[0.02132031984235423,0.03113848947717675,0.051134089989285134,0.1142051248501426,0.0,0.04223732941817712,0.190958146215307,0.12596625602330952,0.0,0.06354571826912403],[0.02034869109253925,0.028321467371671287,0.013206579842902829,0.03336755435114665,0.0,0.0,0.0,0.08008260189445798,0.06354571826912403,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut","folder":"Model Components","meta":[{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"tactic","tags":["aerosol"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"gelato","tags":["sea-ice"]},{"label":"nemo_v3_6","tags":["ocean"]},{"label":"surfex_v8_modeling_platform","tags":["land-surface"]},{"label":"hadam3","tags":["atmosphere"]},{"label":"clm4","tags":["land-surface"]},{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]}],"tree":{"name":"","leaf":false,"children":[{"name":"piscesv2-gas","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"tactic","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"arpege-climat_version_6_3","leaf":true,"spectral_index":2,"value":0.0},{"name":"reprobus-c_v2_0","leaf":true,"spectral_index":3,"value":0.0}],"value":0.7178513116138465}],"value":0.7651184765748869},{"name":"","leaf":false,"children":[{"name":"gelato","leaf":true,"spectral_index":4,"value":0.0},{"name":"nemo_v3_6","leaf":true,"spectral_index":5,"value":0.0}],"value":0.7878988962703717}],"value":0.7958590582227931},{"name":"","leaf":false,"children":[{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":6,"value":0.0},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":7,"value":0.0},{"name":"","leaf":false,"children":[{"name":"clm4","leaf":true,"spectral_index":8,"value":0.0},{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":9,"value":0.0}],"value":0.796752781891079}],"value":0.8570661085385363}],"value":0.9085254756260586}],"value":0.9256063403181388}],"value":0.955308156501579},"clusters":[0,1,2,3,4,5,6,7,8,9]};
+var EMD_ENTRIES = [{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"},{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"},{"label":"hadam3","url":"../Model_Components/hadam3/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"code_base","type":"scalar"},{"name":"component","type":"scalar"},{"name":"description","type":"scalar"},{"name":"family","type":"scalar"},{"name":"name","type":"scalar"},{"name":"references","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids      = EMD_DATA.ids;
+var link     = EMD_DATA.link;
+var text     = EMD_DATA.text;
+var method   = EMD_DATA.method;
+var meta     = EMD_DATA.meta;
+var tree     = EMD_DATA.tree;
+var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
+var n        = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -266,6 +278,35 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0.5);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -281,8 +322,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' ↔ ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">▲ Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">▼ Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">▲ Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">▼ Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -323,6 +364,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -357,18 +425,20 @@ matG.append('line')
 /* These make explicit that the two triangles show different metrics. */
 var triFs = Math.max(8, Math.round(cellSize * 0.13));
 var pad   = Math.max(6, Math.round(cellSize * 0.18));
-/* Upper-right: link similarity label */
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
 matG.append('text')
   .attr('x', matW - pad).attr('y', pad + triFs)
   .attr('text-anchor','end').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
-  .text('link %');
+  .text(upperLabel);
 /* Lower-left: text / embedding label */
 matG.append('text')
   .attr('x', pad).attr('y', matW - pad)
   .attr('text-anchor','start').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
-  .text('content sim');
+  .text('embeddings');
 
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
@@ -378,7 +448,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('▲  link similarity');
+  .text('▲  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -389,7 +459,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('▼  content similarity');
+  .text('▼  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -449,13 +519,40 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
     .data(links).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +

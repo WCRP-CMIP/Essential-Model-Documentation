@@ -85,17 +85,17 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
-    <option value="../Earth_System_Model_Families/CESM/">CESM</option>
-    <option value="../Earth_System_Model_Families/UKESM1/">UKESM1</option>
     <option value="../Earth_System_Model_Families/ACCESS/">ACCESS</option>
     <option value="../Earth_System_Model_Families/ICON/">ICON</option>
+    <option value="../Earth_System_Model_Families/UKESM1/">UKESM1</option>
+    <option value="../Earth_System_Model_Families/CESM/">CESM</option>
     <option value="../Earth_System_Model_Families/FGOALS/">FGOALS</option>
     <option value="../Earth_System_Model_Families/CNRM-CM/">CNRM-CM</option>
-    <option value="../Earth_System_Model_Families/IPSL-CM/">IPSL-CM</option>
-    <option value="../Earth_System_Model_Families/GFDL-CM4/">GFDL-CM4</option>
     <option value="../Earth_System_Model_Families/GISS-E2/">GISS-E2</option>
-    <option value="../Earth_System_Model_Families/MPI-ESM/">MPI-ESM</option>
+    <option value="../Earth_System_Model_Families/GFDL-CM4/">GFDL-CM4</option>
     <option value="../Earth_System_Model_Families/BCC-CSM/">BCC-CSM</option>
+    <option value="../Earth_System_Model_Families/MPI-ESM/">MPI-ESM</option>
+    <option value="../Earth_System_Model_Families/IPSL-CM/">IPSL-CM</option>
     <option value="../Earth_System_Model_Families/CanESM/">CanESM</option>
     <option value="../Earth_System_Model_Families/MIROC/">MIROC</option>
     <option value="../Earth_System_Model_Families/ec-earth/">ec-earth</option>
@@ -131,17 +131,29 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["CESM","UKESM1","ACCESS","ICON","FGOALS","CNRM-CM","IPSL-CM","GFDL-CM4","GISS-E2","MPI-ESM","BCC-CSM","CanESM","MIROC","ec-earth","HadGEM3","HadCM2"],"link":[[0.0,0.619495209626406,0.6849805533544397,0.6189771660972966,0.6734830503879623,0.6544334272210918,0.6899111326746745,0.6664701641559836,0.6657149066224857,0.6943510043773413,0.7008634987449196,0.6854418886930962,0.6746019087732725,0.10198511201425965,0.07206673556496479,0.12206479164290683],[0.619495209626406,0.0,0.6424503943189127,0.6181295547080611,0.6508377126107739,0.6615521484632529,0.6977436281948053,0.6740365361404258,0.6983213199314262,0.7314625123496754,0.7069541006466639,0.6783350246872348,0.6761818620103892,0.10597450820246446,0.14915277253473758,0.11228710188660043],[0.6849805533544397,0.6424503943189127,0.0,0.6506161743105269,0.6475940797006842,0.6714271397671182,0.6968146893882393,0.6731391601843439,0.6791894639538321,0.700548437965647,0.7210129715197617,0.7238524564591197,0.7212033983929744,0.09962906770050262,0.05949703671052668,0.11317293561286325],[0.6189771660972966,0.6181295547080611,0.6506161743105269,0.0,0.6537236936047415,0.6797782739837815,0.7005730751122872,0.6767698470813289,0.6871659318397366,0.7466386351469367,0.7137888784026527,0.7035812737076008,0.7370941840675472,0.04424042360318024,0.02296582293901636,0.09931204076255223],[0.6734830503879623,0.6508377126107739,0.6475940797006842,0.6537236936047415,0.0,0.6962025038104857,0.7227467405371777,0.6981901223907044,0.7305212981773311,0.753453689033157,0.7371859229137423,0.713588000346078,0.7093953384293197,0.0925136342008745,0.07221024596371947,0.10184910530096475],[0.6544334272210918,0.6615521484632529,0.6714271397671182,0.6797782739837815,0.6962025038104857,0.0,0.8131947664323145,0.7855650152843077,0.7725726673721078,0.7790034796642495,0.7958337233734923,0.7369892926598394,0.7325517274586523,0.05293053451194903,0.029050939191906936,0.06639628726089708],[0.6899111326746745,0.6977436281948053,0.6968146893882393,0.7005730751122872,0.7227467405371777,0.8131947664323145,0.0,0.8277260079253023,0.8019006541609185,0.8218789483684091,0.8261323386764519,0.7483557862617699,0.7604366006694673,0.033606895152437984,0.030367414924488655,0.05928786064669229],[0.6664701641559836,0.6740365361404258,0.6731391601843439,0.6767698470813289,0.6981901223907044,0.7855650152843077,0.8277260079253023,0.0,0.7746546402552219,0.793954135664174,0.7980630094096975,0.7229290550063364,0.7345994020575567,0.03246504164702875,0.02933562847041545,0.05727345004066664],[0.6657149066224857,0.6983213199314262,0.6791894639538321,0.6871659318397366,0.7305212981773311,0.7725726673721078,0.8019006541609185,0.7746546402552219,0.0,0.827334919781994,0.8000640043019879,0.7494813022816705,0.7458535360310452,0.0681455967965365,0.034124411280573544,0.057114746889647815],[0.6943510043773413,0.7314625123496754,0.700548437965647,0.7466386351469367,0.753453689033157,0.7790034796642495,0.8218789483684091,0.793954135664174,0.827334919781994,0.0,0.8567624645879596,0.762545401535085,0.7584923111054795,0.042052150520807505,0.0306597115282307,0.038368788254631164],[0.7008634987449196,0.7069541006466639,0.7210129715197617,0.7137888784026527,0.7371859229137423,0.7958337233734923,0.8261323386764519,0.7980630094096975,0.8000640043019879,0.8567624645879596,0.0,0.7695152544545363,0.7747862697475418,0.03461247551588521,0.025767712048980786,0.05911081201555273],[0.6854418886930962,0.6783350246872348,0.7238524564591197,0.7035812737076008,0.713588000346078,0.7369892926598394,0.7483557862617699,0.7229290550063364,0.7494813022816705,0.762545401535085,0.7695152544545363,0.0,0.7666868515556998,0.11561505946820369,0.056844814536842626,0.10851060311620056],[0.6746019087732725,0.6761818620103892,0.7212033983929744,0.7370941840675472,0.7093953384293197,0.7325517274586523,0.7604366006694673,0.7345994020575567,0.7458535360310452,0.7584923111054795,0.7747862697475418,0.7666868515556998,0.0,0.060663523336937,0.03503756734164029,0.0996000193678296],[0.10198511201425965,0.10597450820246446,0.09962906770050262,0.04424042360318024,0.0925136342008745,0.05293053451194903,0.033606895152437984,0.03246504164702875,0.0681455967965365,0.042052150520807505,0.03461247551588521,0.11561505946820369,0.060663523336937,0.0,0.08284230732876766,0.11452438860607492],[0.07206673556496479,0.14915277253473758,0.05949703671052668,0.02296582293901636,0.07221024596371947,0.029050939191906936,0.030367414924488655,0.02933562847041545,0.034124411280573544,0.0306597115282307,0.025767712048980786,0.056844814536842626,0.03503756734164029,0.08284230732876766,0.0,0.23233110287647435],[0.12206479164290683,0.11228710188660043,0.11317293561286325,0.09931204076255223,0.10184910530096475,0.06639628726089708,0.05928786064669229,0.05727345004066664,0.057114746889647815,0.038368788254631164,0.05911081201555273,0.10851060311620056,0.0996000193678296,0.11452438860607492,0.23233110287647435,0.0]],"text":[[0.0,0.619495209626406,0.6849805533544397,0.6189771660972966,0.6734830503879623,0.6544334272210918,0.6899111326746745,0.6664701641559836,0.6657149066224857,0.6943510043773413,0.7008634987449196,0.6854418886930962,0.6746019087732725,0.10198511201425965,0.07206673556496479,0.12206479164290683],[0.619495209626406,0.0,0.6424503943189127,0.6181295547080611,0.6508377126107739,0.6615521484632529,0.6977436281948053,0.6740365361404258,0.6983213199314262,0.7314625123496754,0.7069541006466639,0.6783350246872348,0.6761818620103892,0.10597450820246446,0.14915277253473758,0.11228710188660043],[0.6849805533544397,0.6424503943189127,0.0,0.6506161743105269,0.6475940797006842,0.6714271397671182,0.6968146893882393,0.6731391601843439,0.6791894639538321,0.700548437965647,0.7210129715197617,0.7238524564591197,0.7212033983929744,0.09962906770050262,0.05949703671052668,0.11317293561286325],[0.6189771660972966,0.6181295547080611,0.6506161743105269,0.0,0.6537236936047415,0.6797782739837815,0.7005730751122872,0.6767698470813289,0.6871659318397366,0.7466386351469367,0.7137888784026527,0.7035812737076008,0.7370941840675472,0.04424042360318024,0.02296582293901636,0.09931204076255223],[0.6734830503879623,0.6508377126107739,0.6475940797006842,0.6537236936047415,0.0,0.6962025038104857,0.7227467405371777,0.6981901223907044,0.7305212981773311,0.753453689033157,0.7371859229137423,0.713588000346078,0.7093953384293197,0.0925136342008745,0.07221024596371947,0.10184910530096475],[0.6544334272210918,0.6615521484632529,0.6714271397671182,0.6797782739837815,0.6962025038104857,0.0,0.8131947664323145,0.7855650152843077,0.7725726673721078,0.7790034796642495,0.7958337233734923,0.7369892926598394,0.7325517274586523,0.05293053451194903,0.029050939191906936,0.06639628726089708],[0.6899111326746745,0.6977436281948053,0.6968146893882393,0.7005730751122872,0.7227467405371777,0.8131947664323145,0.0,0.8277260079253023,0.8019006541609185,0.8218789483684091,0.8261323386764519,0.7483557862617699,0.7604366006694673,0.033606895152437984,0.030367414924488655,0.05928786064669229],[0.6664701641559836,0.6740365361404258,0.6731391601843439,0.6767698470813289,0.6981901223907044,0.7855650152843077,0.8277260079253023,0.0,0.7746546402552219,0.793954135664174,0.7980630094096975,0.7229290550063364,0.7345994020575567,0.03246504164702875,0.02933562847041545,0.05727345004066664],[0.6657149066224857,0.6983213199314262,0.6791894639538321,0.6871659318397366,0.7305212981773311,0.7725726673721078,0.8019006541609185,0.7746546402552219,0.0,0.827334919781994,0.8000640043019879,0.7494813022816705,0.7458535360310452,0.0681455967965365,0.034124411280573544,0.057114746889647815],[0.6943510043773413,0.7314625123496754,0.700548437965647,0.7466386351469367,0.753453689033157,0.7790034796642495,0.8218789483684091,0.793954135664174,0.827334919781994,0.0,0.8567624645879596,0.762545401535085,0.7584923111054795,0.042052150520807505,0.0306597115282307,0.038368788254631164],[0.7008634987449196,0.7069541006466639,0.7210129715197617,0.7137888784026527,0.7371859229137423,0.7958337233734923,0.8261323386764519,0.7980630094096975,0.8000640043019879,0.8567624645879596,0.0,0.7695152544545363,0.7747862697475418,0.03461247551588521,0.025767712048980786,0.05911081201555273],[0.6854418886930962,0.6783350246872348,0.7238524564591197,0.7035812737076008,0.713588000346078,0.7369892926598394,0.7483557862617699,0.7229290550063364,0.7494813022816705,0.762545401535085,0.7695152544545363,0.0,0.7666868515556998,0.11561505946820369,0.056844814536842626,0.10851060311620056],[0.6746019087732725,0.6761818620103892,0.7212033983929744,0.7370941840675472,0.7093953384293197,0.7325517274586523,0.7604366006694673,0.7345994020575567,0.7458535360310452,0.7584923111054795,0.7747862697475418,0.7666868515556998,0.0,0.060663523336937,0.03503756734164029,0.0996000193678296],[0.10198511201425965,0.10597450820246446,0.09962906770050262,0.04424042360318024,0.0925136342008745,0.05293053451194903,0.033606895152437984,0.03246504164702875,0.0681455967965365,0.042052150520807505,0.03461247551588521,0.11561505946820369,0.060663523336937,0.0,0.08284230732876766,0.11452438860607492],[0.07206673556496479,0.14915277253473758,0.05949703671052668,0.02296582293901636,0.07221024596371947,0.029050939191906936,0.030367414924488655,0.02933562847041545,0.034124411280573544,0.0306597115282307,0.025767712048980786,0.056844814536842626,0.03503756734164029,0.08284230732876766,0.0,0.23233110287647435],[0.12206479164290683,0.11228710188660043,0.11317293561286325,0.09931204076255223,0.10184910530096475,0.06639628726089708,0.05928786064669229,0.05727345004066664,0.057114746889647815,0.038368788254631164,0.05911081201555273,0.10851060311620056,0.0996000193678296,0.11452438860607492,0.23233110287647435,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Earth System Model Families","meta":[{"label":"CESM","tags":["atmosphere","land_surface","ocean","sea_ice","ocean_biogeochemistry"]},{"label":"UKESM1","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry","atmospheric_chemistry"]},{"label":"ACCESS","tags":["atmosphere","land_surface","ocean","sea_ice"]},{"label":"ICON","tags":["atmosphere","ocean"]},{"label":"FGOALS","tags":["atmosphere","land_surface","ocean"]},{"label":"CNRM-CM","tags":["atmosphere","land-surface","ocean"]},{"label":"IPSL-CM","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry"]},{"label":"GFDL-CM4","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry"]},{"label":"GISS-E2","tags":["atmosphere","land_surface","ocean"]},{"label":"MPI-ESM","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry"]},{"label":"BCC-CSM","tags":["atmosphere","land_surface","ocean"]},{"label":"CanESM","tags":["atmosphere","land_surface","ocean","sea_ice"]},{"label":"MIROC","tags":["atmosphere","land_surface","ocean","sea_ice"]},{"label":"ec-earth","tags":["atmosphere","ocean","sea-ice","ocean-biogeochemistry","land-surface","land-ice","atmospheric-chemistry","aerosol"]},{"label":"HadGEM3","tags":["atmosphere","ocean","land_surface","sea_ice","ocean_biogeochemistry","atmospheric_chemistry"]},{"label":"HadCM2","tags":["atmosphere","ocean"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"CESM","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"UKESM1","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"ACCESS","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"ICON","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"FGOALS","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"CNRM-CM","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"IPSL-CM","leaf":true,"spectral_index":6,"value":0.0},{"name":"GFDL-CM4","leaf":true,"spectral_index":7,"value":0.0}],"value":0.17227399207469773},{"name":"","leaf":false,"children":[{"name":"GISS-E2","leaf":true,"spectral_index":8,"value":0.0},{"name":"","leaf":false,"children":[{"name":"MPI-ESM","leaf":true,"spectral_index":9,"value":0.0},{"name":"BCC-CSM","leaf":true,"spectral_index":10,"value":0.0}],"value":0.14323753541204043}],"value":0.18630053795800905}],"value":0.19723604557752117}],"value":0.21076606957470564},{"name":"","leaf":false,"children":[{"name":"CanESM","leaf":true,"spectral_index":11,"value":0.0},{"name":"MIROC","leaf":true,"spectral_index":12,"value":0.0}],"value":0.23331314844430018}],"value":0.250288671727585}],"value":0.27983954804525046}],"value":0.30009846745037627}],"value":0.31146020283577525}],"value":0.32399956417621617}],"value":0.33093967410591923},{"name":"","leaf":false,"children":[{"name":"ec-earth","leaf":true,"spectral_index":13,"value":0.0},{"name":"","leaf":false,"children":[{"name":"HadGEM3","leaf":true,"spectral_index":14,"value":0.0},{"name":"HadCM2","leaf":true,"spectral_index":15,"value":0.0}],"value":0.7676688971235257}],"value":0.9013166520325787}],"value":0.9326701697819201}};
-var EMD_ENTRIES = [{"label":"CESM","url":"../Earth_System_Model_Families/CESM/"},{"label":"UKESM1","url":"../Earth_System_Model_Families/UKESM1/"},{"label":"ACCESS","url":"../Earth_System_Model_Families/ACCESS/"},{"label":"ICON","url":"../Earth_System_Model_Families/ICON/"},{"label":"FGOALS","url":"../Earth_System_Model_Families/FGOALS/"},{"label":"CNRM-CM","url":"../Earth_System_Model_Families/CNRM-CM/"},{"label":"IPSL-CM","url":"../Earth_System_Model_Families/IPSL-CM/"},{"label":"GFDL-CM4","url":"../Earth_System_Model_Families/GFDL-CM4/"},{"label":"GISS-E2","url":"../Earth_System_Model_Families/GISS-E2/"},{"label":"MPI-ESM","url":"../Earth_System_Model_Families/MPI-ESM/"},{"label":"BCC-CSM","url":"../Earth_System_Model_Families/BCC-CSM/"},{"label":"CanESM","url":"../Earth_System_Model_Families/CanESM/"},{"label":"MIROC","url":"../Earth_System_Model_Families/MIROC/"},{"label":"ec-earth","url":"../Earth_System_Model_Families/ec-earth/"},{"label":"HadGEM3","url":"../Earth_System_Model_Families/HadGEM3/"},{"label":"HadCM2","url":"../Earth_System_Model_Families/HadCM2/"}];
+var EMD_DATA    = {"ids":["ACCESS","ICON","UKESM1","CESM","FGOALS","CNRM-CM","GISS-E2","GFDL-CM4","BCC-CSM","MPI-ESM","IPSL-CM","CanESM","MIROC","ec-earth","HadGEM3","HadCM2"],"link":[[0.0,0.7557347915242653,0.7648475120385233,0.7849636285836542,0.7897607655502392,0.7839348370927318,0.7788926862611073,0.770900974025974,0.7768421052631579,0.7821108168147642,0.7722680280246069,0.8006835269993166,0.7915242652084757,0.07046850018709391,0.06638313385009914,0.11819155844155844],[0.7557347915242653,0.0,0.7892369637291134,0.790984643179765,0.8026741776741777,0.8021274329685544,0.8042042761668929,0.7942627206645898,0.8005698005698005,0.7927050882658359,0.7932242990654205,0.7981516095534787,0.7976323987538941,0.059989114535496824,0.06856461116141672,0.1625699171103174],[0.7648475120385233,0.7892369637291134,0.0,0.8073292530678116,0.8059131383783515,0.8030814131342444,0.8026018801002058,0.824012295153501,0.8022339625137452,0.8285826491719788,0.8193111259931709,0.8070499623814603,0.8163214855602683,0.06552435844533086,0.17287748546034887,0.17109166138258605],[0.7849636285836542,0.790984643179765,0.8073292530678116,0.0,0.8551267336202774,0.8593639406982305,0.8620213613900845,0.8710441575003985,0.8705499760879961,0.8572549019607844,0.8586896221903395,0.8751602104256337,0.8644715447154471,0.06456306855515152,0.08361420854734275,0.12799807013221645],[0.7897607655502392,0.8026741776741777,0.8059131383783515,0.8551267336202774,0.0,0.8879747703277115,0.8963161021984551,0.8597927807486632,0.8841354723707665,0.8593471479500892,0.8753899286987523,0.881782531194296,0.870017825311943,0.05859611524985543,0.06665073556333061,0.13688186487482262],[0.7839348370927318,0.8021274329685544,0.8030814131342444,0.8593639406982305,0.8879747703277115,0.0,0.8880995475113123,0.862438725490196,0.8847662141779788,0.8583210784313726,0.8630269607843137,0.8798639455782313,0.8744375644994841,0.05859611524985543,0.06354068771644066,0.13688186487482262],[0.7788926862611073,0.8042042761668929,0.8026018801002058,0.8620213613900845,0.8963161021984551,0.8880995475113123,0.0,0.8911356209150326,0.8841088674275681,0.8637236611062336,0.8693816456931031,0.8706362545018007,0.8694736842105263,0.05734088512433242,0.06641150111356983,0.13766433748828116],[0.770900974025974,0.7942627206645898,0.824012295153501,0.8710441575003985,0.8597927807486632,0.862438725490196,0.8911356209150326,0.0,0.8600898692810458,0.8831699346405228,0.8839869281045752,0.8636141956782712,0.8624516253869968,0.05692247508249141,0.07249868877970488,0.1337603341711323],[0.7768421052631579,0.8005698005698005,0.8022339625137452,0.8705499760879961,0.8841354723707665,0.8847662141779788,0.8841088674275681,0.8600898692810458,0.0,0.8584558823529411,0.863440927218345,0.8917647058823529,0.8688544891640867,0.059554054029859825,0.06401915661596218,0.13453444703444706],[0.7821108168147642,0.7927050882658359,0.8285826491719788,0.8572549019607844,0.8593471479500892,0.8583210784313726,0.8637236611062336,0.8831699346405228,0.8584558823529411,0.0,0.8951146560319043,0.866015156062425,0.8742163312693498,0.056504065040650406,0.07861245805136888,0.1371336605491535],[0.7722680280246069,0.7932242990654205,0.8193111259931709,0.8586896221903395,0.8753899286987523,0.8630269607843137,0.8693816456931031,0.8839869281045752,0.863440927218345,0.8951146560319043,0.0,0.8648146758703481,0.8612132352941176,0.05692247508249141,0.06617226666380907,0.1260225494380424],[0.8006835269993166,0.7981516095534787,0.8070499623814603,0.8751602104256337,0.881782531194296,0.8798639455782313,0.8706362545018007,0.8636141956782712,0.8917647058823529,0.866015156062425,0.8648146758703481,0.0,0.8865546218487395,0.06281324803998976,0.07411485039586649,0.13304132878076538],[0.7915242652084757,0.7976323987538941,0.8163214855602683,0.8644715447154471,0.870017825311943,0.8744375644994841,0.8694736842105263,0.8624516253869968,0.8688544891640867,0.8742163312693498,0.8612132352941176,0.8865546218487395,0.0,0.05755009014525292,0.08272729058725405,0.143369967278418],[0.07046850018709391,0.059989114535496824,0.06552435844533086,0.06456306855515152,0.05859611524985543,0.05859611524985543,0.05734088512433242,0.05692247508249141,0.059554054029859825,0.056504065040650406,0.05692247508249141,0.06281324803998976,0.05755009014525292,0.0,0.1146214454003736,0.0667106694012007],[0.06638313385009914,0.06856461116141672,0.17287748546034887,0.08361420854734275,0.06665073556333061,0.06354068771644066,0.06641150111356983,0.07249868877970488,0.06401915661596218,0.07861245805136888,0.06617226666380907,0.07411485039586649,0.08272729058725405,0.1146214454003736,0.0,0.2958999486760911],[0.11819155844155844,0.1625699171103174,0.17109166138258605,0.12799807013221645,0.13688186487482262,0.13688186487482262,0.13766433748828116,0.1337603341711323,0.13453444703444706,0.1371336605491535,0.1260225494380424,0.13304132878076538,0.143369967278418,0.0667106694012007,0.2958999486760911,0.0]],"text":[[0.0,0.6506161743105269,0.6424503943189127,0.6849805533544397,0.6475940797006842,0.6714271397671182,0.6791894639538321,0.6731391601843439,0.7210129715197617,0.700548437965647,0.6968146893882393,0.7238524564591197,0.7212033983929744,0.09962906770050262,0.05949703671052668,0.11317293561286325],[0.6506161743105269,0.0,0.6181295547080611,0.6189771660972966,0.6537236936047415,0.6797782739837815,0.6871659318397366,0.6767698470813289,0.7137888784026527,0.7466386351469367,0.7005730751122872,0.7035812737076008,0.7370941840675472,0.04424042360318024,0.02296582293901636,0.09931204076255223],[0.6424503943189127,0.6181295547080611,0.0,0.619495209626406,0.6508377126107739,0.6615521484632529,0.6983213199314262,0.6740365361404258,0.7069541006466639,0.7314625123496754,0.6977436281948053,0.6783350246872348,0.6761818620103892,0.10597450820246446,0.14915277253473758,0.11228710188660043],[0.6849805533544397,0.6189771660972966,0.619495209626406,0.0,0.6734830503879623,0.6544334272210918,0.6657149066224857,0.6664701641559836,0.7008634987449196,0.6943510043773413,0.6899111326746745,0.6854418886930962,0.6746019087732725,0.10198511201425965,0.07206673556496479,0.12206479164290683],[0.6475940797006842,0.6537236936047415,0.6508377126107739,0.6734830503879623,0.0,0.6962025038104857,0.7305212981773311,0.6981901223907044,0.7371859229137423,0.753453689033157,0.7227467405371777,0.713588000346078,0.7093953384293197,0.0925136342008745,0.07221024596371947,0.10184910530096475],[0.6714271397671182,0.6797782739837815,0.6615521484632529,0.6544334272210918,0.6962025038104857,0.0,0.7725726673721078,0.7855650152843077,0.7958337233734923,0.7790034796642495,0.8131947664323145,0.7369892926598394,0.7325517274586523,0.05293053451194903,0.029050939191906936,0.06639628726089708],[0.6791894639538321,0.6871659318397366,0.6983213199314262,0.6657149066224857,0.7305212981773311,0.7725726673721078,0.0,0.7746546402552219,0.8000640043019879,0.827334919781994,0.8019006541609185,0.7494813022816705,0.7458535360310452,0.0681455967965365,0.034124411280573544,0.057114746889647815],[0.6731391601843439,0.6767698470813289,0.6740365361404258,0.6664701641559836,0.6981901223907044,0.7855650152843077,0.7746546402552219,0.0,0.7980630094096975,0.793954135664174,0.8277260079253023,0.7229290550063364,0.7345994020575567,0.03246504164702875,0.02933562847041545,0.05727345004066664],[0.7210129715197617,0.7137888784026527,0.7069541006466639,0.7008634987449196,0.7371859229137423,0.7958337233734923,0.8000640043019879,0.7980630094096975,0.0,0.8567624645879596,0.8261323386764519,0.7695152544545363,0.7747862697475418,0.03461247551588521,0.025767712048980786,0.05911081201555273],[0.700548437965647,0.7466386351469367,0.7314625123496754,0.6943510043773413,0.753453689033157,0.7790034796642495,0.827334919781994,0.793954135664174,0.8567624645879596,0.0,0.8218789483684091,0.762545401535085,0.7584923111054795,0.042052150520807505,0.0306597115282307,0.038368788254631164],[0.6968146893882393,0.7005730751122872,0.6977436281948053,0.6899111326746745,0.7227467405371777,0.8131947664323145,0.8019006541609185,0.8277260079253023,0.8261323386764519,0.8218789483684091,0.0,0.7483557862617699,0.7604366006694673,0.033606895152437984,0.030367414924488655,0.05928786064669229],[0.7238524564591197,0.7035812737076008,0.6783350246872348,0.6854418886930962,0.713588000346078,0.7369892926598394,0.7494813022816705,0.7229290550063364,0.7695152544545363,0.762545401535085,0.7483557862617699,0.0,0.7666868515556998,0.11561505946820369,0.056844814536842626,0.10851060311620056],[0.7212033983929744,0.7370941840675472,0.6761818620103892,0.6746019087732725,0.7093953384293197,0.7325517274586523,0.7458535360310452,0.7345994020575567,0.7747862697475418,0.7584923111054795,0.7604366006694673,0.7666868515556998,0.0,0.060663523336937,0.03503756734164029,0.0996000193678296],[0.09962906770050262,0.04424042360318024,0.10597450820246446,0.10198511201425965,0.0925136342008745,0.05293053451194903,0.0681455967965365,0.03246504164702875,0.03461247551588521,0.042052150520807505,0.033606895152437984,0.11561505946820369,0.060663523336937,0.0,0.08284230732876766,0.11452438860607492],[0.05949703671052668,0.02296582293901636,0.14915277253473758,0.07206673556496479,0.07221024596371947,0.029050939191906936,0.034124411280573544,0.02933562847041545,0.025767712048980786,0.0306597115282307,0.030367414924488655,0.056844814536842626,0.03503756734164029,0.08284230732876766,0.0,0.23233110287647435],[0.11317293561286325,0.09931204076255223,0.11228710188660043,0.12206479164290683,0.10184910530096475,0.06639628726089708,0.057114746889647815,0.05727345004066664,0.05911081201555273,0.038368788254631164,0.05928786064669229,0.10851060311620056,0.0996000193678296,0.11452438860607492,0.23233110287647435,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut","folder":"Earth System Model Families","meta":[{"label":"ACCESS","tags":["atmosphere","land_surface","ocean","sea_ice"]},{"label":"ICON","tags":["atmosphere","ocean"]},{"label":"UKESM1","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry","atmospheric_chemistry"]},{"label":"CESM","tags":["atmosphere","land_surface","ocean","sea_ice","ocean_biogeochemistry"]},{"label":"FGOALS","tags":["atmosphere","land_surface","ocean"]},{"label":"CNRM-CM","tags":["atmosphere","land-surface","ocean"]},{"label":"GISS-E2","tags":["atmosphere","land_surface","ocean"]},{"label":"GFDL-CM4","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry"]},{"label":"BCC-CSM","tags":["atmosphere","land_surface","ocean"]},{"label":"MPI-ESM","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry"]},{"label":"IPSL-CM","tags":["atmosphere","land_surface","ocean","ocean_biogeochemistry"]},{"label":"CanESM","tags":["atmosphere","land_surface","ocean","sea_ice"]},{"label":"MIROC","tags":["atmosphere","land_surface","ocean","sea_ice"]},{"label":"ec-earth","tags":["atmosphere","ocean","sea-ice","ocean-biogeochemistry","land-surface","land-ice","atmospheric-chemistry","aerosol"]},{"label":"HadGEM3","tags":["atmosphere","ocean","land_surface","sea_ice","ocean_biogeochemistry","atmospheric_chemistry"]},{"label":"HadCM2","tags":["atmosphere","ocean"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"ACCESS","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"ICON","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"UKESM1","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"CESM","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"FGOALS","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"CNRM-CM","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"GISS-E2","leaf":true,"spectral_index":6,"value":0.0},{"name":"","leaf":false,"children":[{"name":"GFDL-CM4","leaf":true,"spectral_index":7,"value":0.0},{"name":"","leaf":false,"children":[{"name":"BCC-CSM","leaf":true,"spectral_index":8,"value":0.0},{"name":"","leaf":false,"children":[{"name":"MPI-ESM","leaf":true,"spectral_index":9,"value":0.0},{"name":"IPSL-CM","leaf":true,"spectral_index":10,"value":0.0}],"value":0.14150319779984333}],"value":0.14880209679107564}],"value":0.15883501916244705}],"value":0.16096199829474253}],"value":0.16971778214783548},{"name":"","leaf":false,"children":[{"name":"CanESM","leaf":true,"spectral_index":11,"value":0.0},{"name":"MIROC","leaf":true,"spectral_index":12,"value":0.0}],"value":0.17337926329778042}],"value":0.1898378415555429}],"value":0.20149748909758297}],"value":0.2289470316533323}],"value":0.25443213899421047}],"value":0.25900027616620486}],"value":0.2681127976373993},{"name":"","leaf":false,"children":[{"name":"ec-earth","leaf":true,"spectral_index":13,"value":0.0},{"name":"","leaf":false,"children":[{"name":"HadGEM3","leaf":true,"spectral_index":14,"value":0.0},{"name":"HadCM2","leaf":true,"spectral_index":15,"value":0.0}],"value":0.7358844742237173}],"value":0.9053252973158958}],"value":0.9200444028290248},"clusters":[0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3]};
+var EMD_ENTRIES = [{"label":"ACCESS","url":"../Earth_System_Model_Families/ACCESS/"},{"label":"ICON","url":"../Earth_System_Model_Families/ICON/"},{"label":"UKESM1","url":"../Earth_System_Model_Families/UKESM1/"},{"label":"CESM","url":"../Earth_System_Model_Families/CESM/"},{"label":"FGOALS","url":"../Earth_System_Model_Families/FGOALS/"},{"label":"CNRM-CM","url":"../Earth_System_Model_Families/CNRM-CM/"},{"label":"GISS-E2","url":"../Earth_System_Model_Families/GISS-E2/"},{"label":"GFDL-CM4","url":"../Earth_System_Model_Families/GFDL-CM4/"},{"label":"BCC-CSM","url":"../Earth_System_Model_Families/BCC-CSM/"},{"label":"MPI-ESM","url":"../Earth_System_Model_Families/MPI-ESM/"},{"label":"IPSL-CM","url":"../Earth_System_Model_Families/IPSL-CM/"},{"label":"CanESM","url":"../Earth_System_Model_Families/CanESM/"},{"label":"MIROC","url":"../Earth_System_Model_Families/MIROC/"},{"label":"ec-earth","url":"../Earth_System_Model_Families/ec-earth/"},{"label":"HadGEM3","url":"../Earth_System_Model_Families/HadGEM3/"},{"label":"HadCM2","url":"../Earth_System_Model_Families/HadCM2/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"collaborative_institutions","type":"scalar"},{"name":"common_scientific_basis","type":"scalar"},{"name":"computational_requirements","type":"scalar"},{"name":"description","type":"scalar"},{"name":"documentation","type":"scalar"},{"name":"established","type":"scalar"},{"name":"evolution","type":"scalar"},{"name":"family_type","type":"scalar"},{"name":"license","type":"scalar"},{"name":"primary_institution","type":"scalar"},{"name":"programming_languages","type":"scalar"},{"name":"references","type":"scalar"},{"name":"representative_member","type":"scalar"},{"name":"scientific_domains","type":"list"},{"name":"shared_code_base","type":"scalar"},{"name":"software_dependencies","type":"scalar"},{"name":"source_code_repository","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"},{"name":"variation_dimensions","type":"scalar"},{"name":"website","type":"scalar"}]};
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids      = EMD_DATA.ids;
+var link     = EMD_DATA.link;
+var text     = EMD_DATA.text;
+var method   = EMD_DATA.method;
+var meta     = EMD_DATA.meta;
+var tree     = EMD_DATA.tree;
+var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
+var n        = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -272,6 +284,35 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0.5);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -287,8 +328,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' ↔ ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">▲ Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">▼ Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">▲ Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">▼ Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -329,6 +370,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -363,18 +431,20 @@ matG.append('line')
 /* These make explicit that the two triangles show different metrics. */
 var triFs = Math.max(8, Math.round(cellSize * 0.13));
 var pad   = Math.max(6, Math.round(cellSize * 0.18));
-/* Upper-right: link similarity label */
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
 matG.append('text')
   .attr('x', matW - pad).attr('y', pad + triFs)
   .attr('text-anchor','end').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
-  .text('link %');
+  .text(upperLabel);
 /* Lower-left: text / embedding label */
 matG.append('text')
   .attr('x', pad).attr('y', matW - pad)
   .attr('text-anchor','start').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
-  .text('content sim');
+  .text('embeddings');
 
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
@@ -384,7 +454,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('▲  link similarity');
+  .text('▲  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -395,7 +465,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('▼  content similarity');
+  .text('▼  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -455,13 +525,40 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
     .data(links).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +

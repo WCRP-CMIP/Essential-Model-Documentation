@@ -236,8 +236,106 @@ def _upgma_for_ordering(n, dist_matrix):
     return nodes[active[0]]
 
 
+def _cluster_by_dendrogram_cut(n, tree, threshold=0.45):
+    """
+    Cut the UPGMA dendrogram at `threshold` distance (0-1 scale).
+    Nodes that merge *below* the threshold share a cluster.
+    Nodes that only merge *above* it become singletons.
+
+    Returns an int array of length n with cluster IDs.
+    IDs are assigned in DFS order so the natural ordering of the tree
+    is preserved when the matrix rows are sorted by cluster ID.
+    """
+    cluster_id = [None] * n
+    next_id    = [0]
+
+    def _cut(node, forced_id):
+        """forced_id: cluster already assigned by a parent merge below threshold."""
+        if node.get('leaf'):
+            idx = node['spectral_index']
+            if forced_id is not None:
+                cluster_id[idx] = forced_id
+            else:
+                cluster_id[idx] = next_id[0]
+                next_id[0] += 1
+            return
+        if node['value'] <= threshold:
+            # Merge is close enough — all leaves share one cluster
+            if forced_id is None:
+                forced_id = next_id[0]
+                next_id[0] += 1
+            for child in node['children']:
+                _cut(child, forced_id)
+        else:
+            # Merge is too distant — each branch continues independently
+            for child in node['children']:
+                _cut(child, None)
+
+    _cut(tree, None)
+    return np.array(cluster_id, dtype=int)
+
+
+def _spectral_order_and_clusters(sim_matrix, n_clusters=None):
+    """
+    Spectral clustering on the combined similarity matrix.
+    Returns (order, cluster_labels) where:
+      order         — array of original indices sorted by cluster, then by
+                      within-cluster spectral embedding coordinate
+      cluster_labels — cluster ID for each item in the returned order
+    n_clusters is auto-selected via eigengap heuristic if None.
+    """
+    import numpy as np
+    n = len(sim_matrix)
+    if n < 3:
+        return np.arange(n), np.zeros(n, dtype=int)
+
+    # Normalised Laplacian
+    W  = np.clip(sim_matrix, 0, 1).copy()
+    np.fill_diagonal(W, 0)
+    d  = W.sum(axis=1)
+    d  = np.where(d == 0, 1, d)
+    D_inv_sqrt = np.diag(1.0 / np.sqrt(d))
+    L_sym = np.eye(n) - D_inv_sqrt @ W @ D_inv_sqrt
+
+    eigvals, eigvecs = np.linalg.eigh(L_sym)
+    eigvals = np.clip(eigvals, 0, None)
+
+    # Eigengap heuristic: pick k where gap between consecutive eigenvalues is largest
+    if n_clusters is None:
+        max_k      = min(max(8, n // 3), n - 1)   # allow up to n/3 clusters
+        gaps       = np.diff(eigvals[1:max_k + 1])
+        n_clusters = int(np.argmax(gaps)) + 2
+        n_clusters = max(2, min(n_clusters, max_k))
+
+    # Embedding in the space of the first n_clusters eigenvectors
+    embedding = eigvecs[:, :n_clusters]
+    # Row-normalise
+    norms = np.linalg.norm(embedding, axis=1, keepdims=True)
+    norms = np.where(norms == 0, 1, norms)
+    embedding /= norms
+
+    # k-means on the embedding (simple numpy implementation)
+    rng = np.random.default_rng(42)
+    centres = embedding[rng.choice(n, n_clusters, replace=False)]
+    labels  = np.zeros(n, dtype=int)
+    for _ in range(100):
+        dists  = np.linalg.norm(embedding[:, None, :] - centres[None, :, :], axis=2)
+        new_lbl = np.argmin(dists, axis=1)
+        if np.array_equal(new_lbl, labels):
+            break
+        labels = new_lbl
+        for k in range(n_clusters):
+            mask = labels == k
+            if mask.any():
+                centres[k] = embedding[mask].mean(axis=0)
+
+    # Sort items: primary by cluster, secondary by first eigenvector coordinate
+    order = np.argsort(labels * n + embedding[:, 0].argsort().argsort())
+    cluster_labels = labels[order]
+    return order, cluster_labels
+
+
 def _leaf_order(node):
-    """DFS traversal of a _upgma_for_ordering tree; returns original indices."""
     if node.get("leaf"):
         return [node["oi"]]
     result = []
@@ -339,8 +437,10 @@ def _compute_matrices(items, ids, use_embeddings=True):
         text_matrix = _field_matrix(text_items, n)
 
     if link_degen:
-        link_matrix = text_matrix.copy()
-        link_label  = "text (links uninformative)"
+        # Links are uninformative — fall back to field-level similarity for
+        # the upper triangle so it always differs from the embedding lower triangle.
+        link_matrix = _field_matrix(text_items, n)
+        link_label  = "field-level (links uninformative)"
     else:
         link_matrix = link_raw
         link_label  = "jaccard"
@@ -491,13 +591,25 @@ var EMD_DATA    = __DATA__;
 var EMD_ENTRIES = __ENTRIES__;
 var EMD_SCHEMA  = __SCHEMA__;
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids      = EMD_DATA.ids;
+var link     = EMD_DATA.link;
+var text     = EMD_DATA.text;
+var method   = EMD_DATA.method;
+var meta     = EMD_DATA.meta;
+var tree     = EMD_DATA.tree;
+var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
+var n        = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -628,6 +740,45 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* Show cluster boxes only while the mouse is over the matrix */
+d3.select('#emd-combined-chart')
+  .on('mouseenter.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0.5);
+  })
+  .on('mouseleave.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0);
+  });
+
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('class', 'emd-cluster-box')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -643,8 +794,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' \u2194 ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">\u25b2 Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">\u25bc Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">\u25b2 Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">\u25bc Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -685,6 +836,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -719,18 +897,20 @@ matG.append('line')
 /* These make explicit that the two triangles show different metrics. */
 var triFs = Math.max(8, Math.round(cellSize * 0.13));
 var pad   = Math.max(6, Math.round(cellSize * 0.18));
-/* Upper-right: link similarity label */
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
 matG.append('text')
   .attr('x', matW - pad).attr('y', pad + triFs)
   .attr('text-anchor','end').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
-  .text('link %');
+  .text(upperLabel);
 /* Lower-left: text / embedding label */
 matG.append('text')
   .attr('x', pad).attr('y', matW - pad)
   .attr('text-anchor','start').attr('font-family', FONT)
   .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
-  .text('content sim');
+  .text('embeddings');
 
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
@@ -740,7 +920,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('\u25b2  link similarity');
+  .text('\u25b2  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -751,7 +931,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('\u25bc  content similarity');
+  .text('\u25bc  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -811,13 +991,40 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
     .data(links).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.8 : 0.35; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +
@@ -927,11 +1134,9 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
 # ── page builder ───────────────────────────────────────────────────────────────
 
 def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
-                link_matrix, text_matrix, method_str, order, repo_subdir):
+                link_ordered, text_ordered, cluster_labels, method_str, repo_subdir):
 
     n = len(ordered_ids)
-    link_ordered = link_matrix[np.ix_(order, order)]
-    text_ordered = text_matrix[np.ix_(order, order)]
 
     # Dendrogram on the spectrally-ordered distance matrix
     combined_sim = (link_ordered + text_ordered) / 2
@@ -959,13 +1164,14 @@ def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
     )
 
     payload = json.dumps({
-        "ids":    ordered_ids,
-        "link":   link_ordered.tolist(),
-        "text":   text_ordered.tolist(),
-        "method": method_str,
-        "folder": stem.replace("_", " "),
-        "meta":   meta,
-        "tree":   tree,
+        "ids":      ordered_ids,
+        "link":     link_ordered.tolist(),
+        "text":     text_ordered.tolist(),
+        "method":   method_str,
+        "folder":   stem.replace("_", " "),
+        "meta":     meta,
+        "tree":     tree,
+        "clusters": cluster_labels.tolist(),
     }, separators=(",", ":"))
 
     title       = stem.replace("_", " ")
@@ -1060,33 +1266,36 @@ def run(use_embeddings=True):
             link_m, text_m, method_str = _compute_matrices(
                 items, ids, use_embeddings=use_embeddings)
 
-            # ── UPGMA leaf-traversal ordering ──────────────────────────────
-            # Build a preliminary UPGMA tree on the raw distance matrix and
-            # read off its DFS leaf order.  Using *this* order for the matrix
-            # rows/columns guarantees the dendrogram has zero crossings:
-            # the tree's traversal order is exactly the matrix row order.
+            # ── Dendrogram + threshold cut for natural groupings ─────────────
+            # Build a full UPGMA tree first, then cut it at a similarity
+            # threshold.  Items that only merge at high distance stay as
+            # singletons — no item is forced into a group it doesn’t belong to.
             n_items   = len(items)
             combined0 = (link_m + text_m) / 2
             np.fill_diagonal(combined0, 0.0)
-            dist0     = 1.0 - np.clip(combined0, 0, 1)
-            order     = np.array(
+            dist0 = 1.0 - np.clip(combined0, 0, 1)
+
+            # Preliminary UPGMA to get DFS leaf order (zero-crossing order)
+            _raw_order = np.array(
                 _leaf_order(_upgma_for_ordering(n_items, dist0)), dtype=int)
 
-            ordered_labels = [labels[i] for i in order]
-            ordered_ids    = [ids[i]    for i in order]
-            ordered_tags   = [tags[i]   for i in order]
+            ordered_labels = [labels[i] for i in _raw_order]
+            ordered_ids    = [ids[i]    for i in _raw_order]
+            ordered_tags   = [tags[i]   for i in _raw_order]
 
-            method_str_display = method_str + " | order: UPGMA leaf traversal"
-            link_ordered = link_m[np.ix_(order, order)]
-            text_ordered = text_m[np.ix_(order, order)]
+            link_ordered = link_m[np.ix_(_raw_order, _raw_order)]
+            text_ordered = text_m[np.ix_(_raw_order, _raw_order)]
 
-            # Dendrogram on the UPGMA-ordered distance matrix.
-            # Because row order = UPGMA DFS order, spectral_index i in the
-            # tree exactly matches matrix row i — guaranteed zero crossings.
+            # Full UPGMA on ordered matrix — spectral_index aligns with matrix rows
             combined_sim = (link_ordered + text_ordered) / 2
             np.fill_diagonal(combined_sim, 0.0)
             dist = 1.0 - np.clip(combined_sim, 0, 1)
             tree = _average_linkage_tree(ordered_labels, dist)
+
+            # Cut the tree to find natural clusters; singletons get their own ID
+            cluster_labels = _cluster_by_dendrogram_cut(n_items, tree, threshold=0.45)
+
+            method_str_display = method_str + " | order: UPGMA + dendrogram cut"
 
             schema = _extract_key_schema(items, max_depth=2)
 
@@ -1094,7 +1303,7 @@ def run(use_embeddings=True):
             md_content = _build_page(
                 stem, items,
                 ordered_labels, ordered_ids, ordered_tags,
-                link_m, text_m, method_str_display, order,
+                link_ordered, text_ordered, cluster_labels, method_str_display,
                 repo_subdir,
             )
             md_path.write_text(md_content, encoding="utf-8")

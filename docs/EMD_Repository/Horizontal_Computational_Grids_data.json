@@ -3,7 +3,7 @@
   "singular": "Horizontal Grid",
   "endpoint": "horizontal_computational_grid",
   "count": 3,
-  "method": "embedding (all-MiniLM-L6-v2) | link: text (links uninformative) | order: UPGMA leaf traversal",
+  "method": "embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut",
   "entries": [
     {
       "id": "h100",
@@ -24,17 +24,17 @@
   "link_matrix": [
     [
       0.0,
-      0.0,
-      0.03891314447019854
+      0.4008714596949891,
+      0.45861689463872607
     ],
     [
+      0.4008714596949891,
       0.0,
-      0.0,
-      0.17733157069159314
+      0.6274509803921569
     ],
     [
-      0.03891314447019854,
-      0.17733157069159314,
+      0.45861689463872607,
+      0.6274509803921569,
       0.0
     ]
   ],
@@ -82,10 +82,10 @@
             "value": 0.0
           }
         ],
-        "value": 0.8226684293084069
+        "value": 0.597608724458125
       }
     ],
-    "value": 0.9805434277649008
+    "value": 0.7753996252990216
   },
   "schema": {
     "name": "record",
