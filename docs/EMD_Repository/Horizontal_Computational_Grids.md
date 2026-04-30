@@ -85,6 +85,7 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
+    <option value="../Horizontal_Computational_Grids/h103/">h103</option>
     <option value="../Horizontal_Computational_Grids/h100/">h100</option>
     <option value="../Horizontal_Computational_Grids/h102/">h102</option>
     <option value="../Horizontal_Computational_Grids/h101/">h101</option>
@@ -93,7 +94,7 @@
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
 </div>
 <div class="emd-stats">
-  <span><b>3</b> registered entries</span>
+  <span><b>4</b> registered entries</span>
   <span>Endpoint: <b>horizontal_computational_grid</b></span>
 </div>
 </div>
@@ -118,9 +119,9 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["h100","h102","h101"],"link":[[0.0,0.4008714596949891,0.45861689463872607],[0.4008714596949891,0.0,0.6274509803921569],[0.45861689463872607,0.6274509803921569,0.0]],"text":[[0.0,0.4008714596949891,0.45861689463872607],[0.4008714596949891,0.0,0.6274509803921569],[0.45861689463872607,0.6274509803921569,0.0]],"method":"field-level | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Horizontal Computational Grids","meta":[{"label":"h100","tags":[]},{"label":"h102","tags":[]},{"label":"h101","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":1,"value":0.0},{"name":"h101","leaf":true,"spectral_index":2,"value":0.0}],"value":0.37254901960784315}],"value":0.5702558228331424}};
-var EMD_ENTRIES = [{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"}];
-var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"list"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
+var EMD_DATA    = {"ids":["h103","h100","h102","h101"],"link":[[0.0,0.3505154639175258,0.3028322440087146,0.30848196152283885],[0.3505154639175258,0.0,0.4008714596949891,0.45861689463872607],[0.3028322440087146,0.4008714596949891,0.0,0.6274509803921569],[0.30848196152283885,0.45861689463872607,0.6274509803921569,0.0]],"text":[[0.0,0.3505154639175258,0.3028322440087146,0.30848196152283885],[0.3505154639175258,0.0,0.4008714596949891,0.45861689463872607],[0.3028322440087146,0.4008714596949891,0.0,0.6274509803921569],[0.30848196152283885,0.45861689463872607,0.6274509803921569,0.0]],"method":"field-level | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Horizontal Computational Grids","meta":[{"label":"h103","tags":[]},{"label":"h100","tags":[]},{"label":"h102","tags":[]},{"label":"h101","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h103","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":2,"value":0.0},{"name":"h101","leaf":true,"spectral_index":3,"value":0.0}],"value":0.37254901960784315}],"value":0.5702558228331424}],"value":0.6793901101836403}};
+var EMD_ENTRIES = [{"label":"h103","url":"../Horizontal_Computational_Grids/h103/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"}];
+var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids    = EMD_DATA.ids;
 var link   = EMD_DATA.link;

@@ -1,5 +1,18 @@
 [
   {
+    "@id": "h103",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Regular Gauss grid with Arakawa-A arrangement",
+    "horizontal_subgrids": "g114-mass-velocity-x-velocity-y-velocity",
+    "ui_label": "",
+    "validation_key": "h103"
+  },
+  {
     "@id": "h102",
     "@type": [
       "wcrp:horizontal_computational_grid",
