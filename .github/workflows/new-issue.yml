@@ -18,8 +18,6 @@ permissions:
 jobs:
   process-issue:
     runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
@@ -118,5 +116,43 @@ jobs:
           pr_number: ${{ steps.find_pr.outputs.pr_number }}
           gh_token:  ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
 
-      # Copilot code review has no stable public API — request it manually
-      # via the "Request review from Copilot" button in the PR UI.
+      # ── If issue is being updated and PR has changes-requested, add changes-made
+      - name: Add changes-made label if changes-requested exists
+        if: >
+          steps.find_pr.outputs.pr_number != '' &&
+          github.event.action == 'edited'
+        env:
+          GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          REPO:         ${{ github.repository }}
+          PR_NUMBER:    ${{ steps.find_pr.outputs.pr_number }}
+          ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          EDITOR:       ${{ github.event.sender.login }}
+        run: |
+          # Only act when the person editing is the issue author (the submitter)
+          # — avoids false positives from bots or admins editing issue metadata
+          if [ "$EDITOR" != "$ISSUE_AUTHOR" ]; then
+            echo "Editor ($EDITOR) is not the issue author ($ISSUE_AUTHOR) — skipping."
+            exit 0
+          fi
+
+          # Check whether the PR currently carries the changes-requested label
+          HAS_CR=$(gh pr view "$PR_NUMBER" --repo "$REPO" \
+            --json labels --jq '[.labels[].name] | any(. == "changes-requested")' \
+            2>/dev/null || echo 'false')
+
+          if [ "$HAS_CR" != "true" ]; then
+            echo "No changes-requested label on PR #${PR_NUMBER} — skipping."
+            exit 0
+          fi
+
+          gh label create "changes-made" --repo "$REPO" \
+            --color "5319e7" \
+            --description "Submitter has made changes in response to review" \
+            --force 2>/dev/null || true
+
+          gh pr    edit "$PR_NUMBER"    --repo "$REPO" --add-label "changes-made" || true
+          gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --add-label "changes-made" || true
+
+          echo "Added changes-made to PR #${PR_NUMBER} and issue #${ISSUE_NUMBER}" \
+            >> "$GITHUB_STEP_SUMMARY"
