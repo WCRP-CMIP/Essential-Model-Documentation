@@ -59,11 +59,17 @@ Register families before Stage 3 if they do not already exist.
 
 ## Stage 3: Model Components &#42;
 
-[Open form →](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml)
+There are two forms at this stage depending on whether you are registering a new component or linking one that already exists.
 
-Model components are specific versioned instances of a piece of model software — an atmosphere, ocean, sea-ice, or land-surface code at a specific version. Each component is bound to a horizontal and vertical grid, producing a fully-specified component configuration.
+**Registering a new component:**
+[New Model Component →](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml)
 
-Pre-registered components appear in a dropdown at the top of the form. Select one to auto-populate fields, then modify as needed.
+Use this form to register a component that is not yet in the EMD. It creates both the `model_component` record and a `component_config` binding it to your grids — but only if you supply both a horizontal and a vertical grid ID. If you omit either grid, only the component record is created and you will need to use the second form below once the component is merged.
+
+**Linking an existing component to new grids:**
+[Link Existing Component →](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml)
+
+Use this form when the component is already registered and you only need to bind it to a new grid combination. It creates the `component_config` record only — no review step is needed and the file is pushed directly on submission.
 
 **You will need:** component name and version, grid IDs from Stage 2, component family ID if applicable.
 
@@ -101,5 +107,6 @@ A grid finder is also in progress and will be added here in due course.
 | 2a | Horizontal grid | Grid cell IDs, staggering | `h###` |
 | 2b | Vertical grid | Coordinate type, levels | `v###` |
 | — | Model family | Institution, domains | Family ID |
-| 3 | Model component | Component details, grid IDs | Config ID |
+| 3a | Model component (new) | Component details, grid IDs | Component ID + Config ID |
+| 3b | Link existing component | Component ID, grid IDs | Config ID |
 | 4 | Model | Config IDs, coupling | `source_id` |

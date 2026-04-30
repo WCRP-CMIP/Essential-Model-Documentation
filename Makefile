@@ -24,7 +24,7 @@ build:
 	mkdocs build --config-file $(MKDOCS_CONFIG)
 
 serve:
-	mkdocs serve --config-file $(MKDOCS_CONFIG)
+	pkill -f "mkdocs serve"; mkdocs serve --config-file $(MKDOCS_CONFIG)
 
 dev:
 	mkdocs serve --config-file $(MKDOCS_CONFIG) & sleep 2 && open -a "Google Chrome" http://127.0.0.1:8000/

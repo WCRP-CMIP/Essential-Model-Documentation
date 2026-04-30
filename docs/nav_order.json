@@ -1,15 +1,27 @@
 {
-  "Submission-Guide": 1,
-  "What_to_expect_on_submission": 2,
-  "What_To_Expect_On_Submission": -1,
-  "Reviewer_Information": {
-    ".": 3,
-    "Review_Comments": null,
-    "index": -1
+  "index": 0,
+  "Information_for_Submitters": {
+    ".": 1,
+    "Submission-Guide": null,
+    "What_to_expect_on_submission": null,
+    "Using_GitHub_Forms": null,
+    "Error_Meanings": null
+  },
+  "Reviewer_Gudance": {
+    ".": 2,
+    "Reviewer_Information": null,
+    "Review_Options": null,
+    "Interpreting_The_Review_Summary": null,
+    "Review_Comments": null
   },
   "EMD_Repository": {
-    ".": 4,
-    "genealogy": null,
+    ".": 3,
+    "Component_Families": null,
+    "Earth_System_Model_Families": null,
+    "Horizontal_Computational_Grids": null,
+    "Horizontal_Grid_Cells": null,
+    "Model_Components": null,
+    "Vertical_Computational_Grids": null,
     "Component_Families_data.json": -1,
     "Earth_System_Model_Families_data.json": -1,
     "Horizontal_Computational_Grids_data.json": -1,
@@ -22,30 +34,18 @@
     "Horizontal_Grid_Cells_raw.json": -1,
     "Model_Components_raw.json": -1,
     "Models_raw.json": -1,
-    "Vertical_Computational_Grids_raw.json": -1,
-    "Component_Families": null,
-    "Earth_System_Model_Families": null,
-    "Horizontal_Computational_Grids": null,
-    "Horizontal_Grid_Cells": null,
-    "Model_Components": null,
-    "Vertical_Computational_Grids": null
+    "Vertical_Computational_Grids_raw.json": -1
   },
-  "Developer Guidance": {
-    ".": 5,
+  "Developer_Guidance": {
+    ".": 4,
     "Issue_Templates": null,
-    "Workflows_and_Automations": null,
     "Github Actions, Workflows_and_Automation": null
   },
-  "Using_GitHub_Forms": 6,
-  "Contributors": -1,
-  "Submission-Automations": -1,
-  "Review_Comments": -1,
   "assets": -1,
   "css": -1,
   "fonts": -1,
   "icons": -1,
   "img": -1,
-  "index": -1,
   "js": -1,
   "links.yml": -1,
   "nav_order.json": -1,
@@ -56,24 +56,12 @@
   "stylesheets": -1,
   "image.png": -1,
   "EMD_Registry": {
-    "Component_Families": {
-      "Similarity": null
-    },
-    "Earth_System_Model_Families": {
-      "Similarity": null
-    },
-    "Horizontal_Computational_Grids": {
-      "Similarity": null
-    },
-    "Horizontal_Grid_Cells": {
-      "Similarity": null
-    },
-    "Model_Components": {
-      "Similarity": null
-    },
-    "Vertical_Computational_Grids": {
-      "Similarity": null
-    }
+    "Component_Families": { "Similarity": null },
+    "Earth_System_Model_Families": { "Similarity": null },
+    "Horizontal_Computational_Grids": { "Similarity": null },
+    "Horizontal_Grid_Cells": { "Similarity": null },
+    "Model_Components": { "Similarity": null },
+    "Vertical_Computational_Grids": { "Similarity": null }
   },
   "EMD": {
     "Component_Families": null,

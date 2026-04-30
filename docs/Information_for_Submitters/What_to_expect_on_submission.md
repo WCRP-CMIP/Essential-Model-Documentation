@@ -10,11 +10,11 @@ Log into GitHub and go to the [submission form chooser](https://github.com/WCRP-
 
 Each form opens as a structured GitHub issue. Fill in the fields, read the collapsible guidance (▶)!, and then submit.
 
-![The GitHub issue template chooser showing all available EMD submission forms](assets/github/form.png)
+![The GitHub issue template chooser showing all available EMD submission forms](../assets/github/form.png)
 
 ### This generates an issue with your submitted information
 
-![A submitted form makes an issue](assets/github/issue.png)
+![A submitted form makes an issue](../assets/github/issue.png)
 
 ---
 
@@ -24,13 +24,13 @@ On submission a workflow action proceses your information and tries to create th
 
 **If validation fails**, a comment is posted on your issue it should explain exactly which fields need correcting. No pull request is created as the User will need to to make these changes first.. Edit the issue body to fix the problems — the action re-runs automatically on every edit, so there is no need to close and reopen the issue. Repeat until the comment reports a clean result.
 
-![An example problem](assets/github/user_correctable.png)
+![An example problem](../assets/github/user_corectable.png)
 
 **If validation passes**, the action creates a JSON record and opens a pull request targeting the `src-data` branch. A comment on your issue links directly to the new PR.
 
 !!! note Editing the issue body at any point — before or after the PR is created — re-runs the action and updates the PR with fresh content. You do not need to create a new issue to make a correction.
 
-![An Accepted submission](assets/github/accepted.png)
+![An Accepted submission](../assets/github/accepted.png)
 
 ---
 
@@ -45,19 +45,21 @@ The report shows the file created from your submission. If we are submitting gro
 
 !!! warning The duplicate warning is advisory only — it does not block the submission. You and the reviewer should read the comment and decide whether your record is genuinely distinct. If it duplicates an existing entry, you can withdraw by closing the issue (which also closes the PR automatically) and reference the existing ID in your next stage instead.
 
-![An automated comment flagging that a near-identical grid cell already exists in the registry](assets/github/grid_exists.png)
+![An automated comment flagging that a near-identical grid cell already exists in the registry](../assets/github/grid_exists.png)
 
 The PR is also added to the [Reviewer Project Board](https://github.com/orgs/WCRP-CMIP/projects/8) and the `needs-review` label is applied to your issue. You can track all your open submissions from the [My Issues](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue+author%3A%40me) link.
 
-![The pull request body showing the JSON diff that reviewers examine](assets/github/pr_body.png)
+![The pull request body showing the JSON diff that reviewers examine](../assets/github/pr_body.png)
 
 ---
 
 ## Step 4 — First Review
 
-A reviewer reads the pull request — examining the JSON diff and the summary report — and either approves or requests changes. Any suggested corrections will be left as a comment on the **original issue**, not the PR. Edit the issue body to make the changes; the action re-runs and the PR updates automatically.
+A reviewer reads the pull request — examining the JSON diff and the summary report — and either approves, requests changes, or leaves a comment. See [Review Options](../Reviewer_Gudance/Review_Options/) for a full explanation of what each action means.
 
-![The automated summary report posted as a comment on the pull request](assets/github/submit_report.png)
+Any feedback is automatically copied as a comment on your original issue. A note pointing you to the PR thread is added alongside it in case you want to reply.
+
+If the reviewer **requests changes**, your issue receives a `changes-requested` label. Edit the issue body with the corrections — the action re-runs and the PR updates automatically. Once you save, a `changes-made` label is added so the reviewer knows to look again. See [When Things Go Wrong](../When_Things_Go_Wrong/) if you are unsure what a change request means.
 
 Once the reviewer is satisfied they approve the PR. This removes the `needs-review` label from your issue and moves the PR to the *Done* column on the project board.
 
@@ -67,7 +69,7 @@ Once the reviewer is satisfied they approve the PR. This removes the `needs-revi
 
 ## Step 5 — Second Review and Merge
 
-A second reviewer or maintainer performs a final sanity check and then triggers the merge. Before the merge completes, an automated merge gate validates the JSON against a set of required fields. If the validation fails at this point the merge is blocked and you will need to correct the issue body again. If it passes, the PR is merged into `src-data` and will appear on the docs pages [emd.mipcvs.dev](https://emd.mipcvs.dev).
+A second reviewer or maintainer performs a final sanity check and then triggers the merge. Once merged, the PR is incorporated into `src-data` and will appear on [emd.mipcvs.dev](https://emd.mipcvs.dev).
 
 ---
 
@@ -82,6 +84,6 @@ Once merged, a publication pipeline runs automatically:
 
 This takes a short while. Your permanent ID will appear in the relevant form dropdowns by the next time the templates are regenerated (daily, or after the next publication run). This will also be posted on both the pull request and original issue (submission).
 
-![The permanent grid ID assigned after the record is published to the production branch](assets/github/grid_assigned.png)
+![The permanent grid ID assigned after the record is published to the production branch](../assets/github/grid_assigned.png)
 
 ---

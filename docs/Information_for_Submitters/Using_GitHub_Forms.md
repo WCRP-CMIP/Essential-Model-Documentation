@@ -10,7 +10,7 @@ You will need a free GitHub account — [create one here](https://github.com/sig
 
 Go to the [submission form chooser](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose) and click the form for the stage you are completing.
 
-![The GitHub issue template chooser showing all available EMD submission forms](assets/github/form.png)
+![The GitHub issue template chooser showing all available EMD submission forms](../assets/github/form.png)
 
 Each form opens as a structured GitHub issue. The title is pre-filled — do not edit it.
 
@@ -146,7 +146,7 @@ When all required fields are complete, scroll to the bottom and click **Submit n
 
 GitHub creates an issue from your answers. Automated validation runs within a couple of minutes — see [What to Expect on Submission](What_to_expect_on_submission/) for a full walkthrough of what happens next.
 
-![A submitted form shown as a GitHub issue](assets/github/issue.png)
+![A submitted form shown as a GitHub issue](../assets/github/issue.png)
 
 !!! note
     You can edit the issue body after submission at any time. Every edit re-triggers the validation workflow automatically — there is no need to close and reopen the issue.
