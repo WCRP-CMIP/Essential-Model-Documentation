@@ -90,10 +90,10 @@
     <option value="../Model_Components/tactic/">tactic</option>
     <option value="../Model_Components/arpege-climat_version_6_3/">arpege-climat_version_6_3</option>
     <option value="../Model_Components/reprobus-c_v2_0/">reprobus-c_v2_0</option>
-    <option value="../Model_Components/surfex_v8_modeling_platform/">surfex_v8_modeling_platform</option>
     <option value="../Model_Components/clm4/">clm4</option>
-    <option value="../Model_Components/bisicles-ukesm-ismip6-1_0/">bisicles-ukesm-ismip6-1_0</option>
+    <option value="../Model_Components/surfex_v8_modeling_platform/">surfex_v8_modeling_platform</option>
     <option value="../Model_Components/piscesv2-gas/">piscesv2-gas</option>
+    <option value="../Model_Components/bisicles-ukesm-ismip6-1_0/">bisicles-ukesm-ismip6-1_0</option>
     <option value="../Model_Components/hadam3/">hadam3</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
@@ -125,18 +125,19 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["gelato","nemo_v3_6","tactic","arpege-climat_version_6_3","reprobus-c_v2_0","surfex_v8_modeling_platform","clm4","bisicles-ukesm-ismip6-1_0","piscesv2-gas","hadam3"],"link":[[0.0,0.37896825396825395,0.34778295376121465,0.3094618055555556,0.35590920517391106,0.0036231884057971015,0.09146528930701592,0.14102564102564102,0.010526315789473684,0.06130268199233716],[0.37896825396825395,0.0,0.32306763285024154,0.3107638888888889,0.3535782028429087,0.0036231884057971015,0.1492523929574289,0.1388888888888889,0.04845446950710108,0.0011494252873563218],[0.34778295376121465,0.32306763285024154,0.0,0.36008454106280197,0.36257763975155277,0.006420975902581254,0.09271646228167967,0.15247584541062803,0.005851736829997699,0.0877415458937198],[0.3094618055555556,0.3107638888888889,0.36008454106280197,0.0,0.3967976467976468,0.01494853055611138,0.09026624853962983,0.17468660968660968,0.010478670634920634,0.17471264367816094],[0.35590920517391106,0.3535782028429087,0.36257763975155277,0.3967976467976468,0.0,0.0170812093889017,0.1167166167166167,0.1938125763125763,0.08721724898195486,0.08407224958949096],[0.0036231884057971015,0.0036231884057971015,0.006420975902581254,0.01494853055611138,0.0170812093889017,0.0,0.1858513189448441,0.07790927021696252,0.14177820076567535,0.005747126436781609],[0.09146528930701592,0.1492523929574289,0.09271646228167967,0.09026624853962983,0.1167166167166167,0.1858513189448441,0.0,0.3429487179487179,0.00851699592706787,0.17701149425287355],[0.14102564102564102,0.1388888888888889,0.15247584541062803,0.17468660968660968,0.1938125763125763,0.07790927021696252,0.3429487179487179,0.0,0.06512617012617013,0.18867521367521367],[0.010526315789473684,0.04845446950710108,0.005851736829997699,0.010478670634920634,0.08721724898195486,0.14177820076567535,0.00851699592706787,0.06512617012617013,0.0,0.005747126436781609],[0.06130268199233716,0.0011494252873563218,0.0877415458937198,0.17471264367816094,0.08407224958949096,0.005747126436781609,0.17701149425287355,0.18867521367521367,0.005747126436781609,0.0]],"text":[[0.0,0.04523395349100263,0.05809170796507239,0.11426255439980898,0.01711050311621888,0.048217723613393555,0.0,0.0,0.0648491340222091,0.03077108925676573],[0.04523395349100263,0.0,0.04574271253356089,0.10613458406050613,0.10778555017859458,0.06607152203940175,0.04223732941817712,0.0,0.093919715902127,0.04332992377762123],[0.05809170796507239,0.04574271253356089,0.0,0.08684838734053892,0.13001552554555912,0.08485235684482495,0.03113848947717675,0.028321467371671287,0.02611878295630914,0.043795218473467235],[0.11426255439980898,0.10613458406050613,0.08684838734053892,0.0,0.16749972997466012,0.10163404675309934,0.051134089989285134,0.013206579842902829,0.0803579674048647,0.14027663509444627],[0.01711050311621888,0.10778555017859458,0.13001552554555912,0.16749972997466012,0.0,0.15418045925099905,0.1142051248501426,0.03336755435114665,0.06306405407493056,0.15302456664295516],[0.048217723613393555,0.06607152203940175,0.08485235684482495,0.10163404675309934,0.15418045925099905,0.0,0.190958146215307,0.0,0.02890574924422914,0.08838128442975393],[0.0,0.04223732941817712,0.03113848947717675,0.051134089989285134,0.1142051248501426,0.190958146215307,0.0,0.06354571826912403,0.02132031984235423,0.12596625602330952],[0.0,0.0,0.028321467371671287,0.013206579842902829,0.03336755435114665,0.0,0.06354571826912403,0.0,0.02034869109253925,0.08008260189445798],[0.0648491340222091,0.093919715902127,0.02611878295630914,0.0803579674048647,0.06306405407493056,0.02890574924422914,0.02132031984235423,0.02034869109253925,0.0,0.021871833432872],[0.03077108925676573,0.04332992377762123,0.043795218473467235,0.14027663509444627,0.15302456664295516,0.08838128442975393,0.12596625602330952,0.08008260189445798,0.021871833432872,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Model Components","meta":[{"label":"gelato","tags":["sea-ice"]},{"label":"nemo_v3_6","tags":["ocean"]},{"label":"tactic","tags":["aerosol"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"surfex_v8_modeling_platform","tags":["land-surface"]},{"label":"clm4","tags":["land-surface"]},{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]},{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"hadam3","tags":["atmosphere"]}],"tree":{"name":"","leaf":false,"children":[{"name":"piscesv2-gas","leaf":true,"spectral_index":8,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"tactic","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"arpege-climat_version_6_3","leaf":true,"spectral_index":3,"value":0.0},{"name":"reprobus-c_v2_0","leaf":true,"spectral_index":4,"value":0.0}],"value":0.7178513116138465}],"value":0.7651184765748869},{"name":"","leaf":false,"children":[{"name":"gelato","leaf":true,"spectral_index":0,"value":0.0},{"name":"nemo_v3_6","leaf":true,"spectral_index":1,"value":0.0}],"value":0.7878988962703717}],"value":0.7958590582227931},{"name":"","leaf":false,"children":[{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":9,"value":0.0},{"name":"","leaf":false,"children":[{"name":"clm4","leaf":true,"spectral_index":6,"value":0.0},{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":7,"value":0.0}],"value":0.796752781891079}],"value":0.8570661085385363}],"value":0.9085254756260586}],"value":0.9256063403181388}],"value":0.955308156501579},"clusters":[0,0,0,0,0,1,1,1,2,3]};
-var EMD_ENTRIES = [{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"},{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"hadam3","url":"../Model_Components/hadam3/"}];
+var EMD_DATA    = {"ids":["gelato","nemo_v3_6","tactic","arpege-climat_version_6_3","reprobus-c_v2_0","clm4","surfex_v8_modeling_platform","piscesv2-gas","bisicles-ukesm-ismip6-1_0","hadam3"],"link":[[0.0,0.37896825396825395,0.34778295376121465,0.3094618055555556,0.35590920517391106,0.09146528930701592,0.0036231884057971015,0.010526315789473684,0.14102564102564102,0.06130268199233716],[0.37896825396825395,0.0,0.32306763285024154,0.3107638888888889,0.3535782028429087,0.1492523929574289,0.0036231884057971015,0.04845446950710108,0.1388888888888889,0.0011494252873563218],[0.34778295376121465,0.32306763285024154,0.0,0.36008454106280197,0.36257763975155277,0.09271646228167967,0.006420975902581254,0.005851736829997699,0.15247584541062803,0.0877415458937198],[0.3094618055555556,0.3107638888888889,0.36008454106280197,0.0,0.3967976467976468,0.09026624853962983,0.01494853055611138,0.010478670634920634,0.17468660968660968,0.17471264367816094],[0.35590920517391106,0.3535782028429087,0.36257763975155277,0.3967976467976468,0.0,0.1167166167166167,0.0170812093889017,0.08721724898195486,0.1938125763125763,0.08407224958949096],[0.09146528930701592,0.1492523929574289,0.09271646228167967,0.09026624853962983,0.1167166167166167,0.0,0.1858513189448441,0.00851699592706787,0.3429487179487179,0.17701149425287355],[0.0036231884057971015,0.0036231884057971015,0.006420975902581254,0.01494853055611138,0.0170812093889017,0.1858513189448441,0.0,0.14177820076567535,0.07790927021696252,0.005747126436781609],[0.010526315789473684,0.04845446950710108,0.005851736829997699,0.010478670634920634,0.08721724898195486,0.00851699592706787,0.14177820076567535,0.0,0.06512617012617013,0.005747126436781609],[0.14102564102564102,0.1388888888888889,0.15247584541062803,0.17468660968660968,0.1938125763125763,0.3429487179487179,0.07790927021696252,0.06512617012617013,0.0,0.18867521367521367],[0.06130268199233716,0.0011494252873563218,0.0877415458937198,0.17471264367816094,0.08407224958949096,0.17701149425287355,0.005747126436781609,0.005747126436781609,0.18867521367521367,0.0]],"text":[[0.0,0.04523395349100263,0.05809170796507239,0.11426255439980898,0.01711050311621888,0.0,0.048217723613393555,0.0648491340222091,0.0,0.03077108925676573],[0.04523395349100263,0.0,0.04574271253356089,0.10613458406050613,0.10778555017859458,0.04223732941817712,0.06607152203940175,0.093919715902127,0.0,0.04332992377762123],[0.05809170796507239,0.04574271253356089,0.0,0.08684838734053892,0.13001552554555912,0.03113848947717675,0.08485235684482495,0.02611878295630914,0.028321467371671287,0.043795218473467235],[0.11426255439980898,0.10613458406050613,0.08684838734053892,0.0,0.16749972997466012,0.051134089989285134,0.10163404675309934,0.0803579674048647,0.013206579842902829,0.14027663509444627],[0.01711050311621888,0.10778555017859458,0.13001552554555912,0.16749972997466012,0.0,0.1142051248501426,0.15418045925099905,0.06306405407493056,0.03336755435114665,0.15302456664295516],[0.0,0.04223732941817712,0.03113848947717675,0.051134089989285134,0.1142051248501426,0.0,0.190958146215307,0.02132031984235423,0.06354571826912403,0.12596625602330952],[0.048217723613393555,0.06607152203940175,0.08485235684482495,0.10163404675309934,0.15418045925099905,0.190958146215307,0.0,0.02890574924422914,0.0,0.08838128442975393],[0.0648491340222091,0.093919715902127,0.02611878295630914,0.0803579674048647,0.06306405407493056,0.02132031984235423,0.02890574924422914,0.0,0.02034869109253925,0.021871833432872],[0.0,0.0,0.028321467371671287,0.013206579842902829,0.03336755435114665,0.06354571826912403,0.0,0.02034869109253925,0.0,0.08008260189445798],[0.03077108925676573,0.04332992377762123,0.043795218473467235,0.14027663509444627,0.15302456664295516,0.12596625602330952,0.08838128442975393,0.021871833432872,0.08008260189445798,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Model Components","meta":[{"label":"gelato","tags":["sea-ice"]},{"label":"nemo_v3_6","tags":["ocean"]},{"label":"tactic","tags":["aerosol"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"clm4","tags":["land-surface"]},{"label":"surfex_v8_modeling_platform","tags":["land-surface"]},{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]},{"label":"hadam3","tags":["atmosphere"]}],"tree":{"name":"","leaf":false,"children":[{"name":"piscesv2-gas","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"gelato","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"clm4","leaf":true,"spectral_index":1,"value":0.0},{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":4,"value":0.0}],"value":0.796752781891079}],"value":0.8570661085385363}],"value":0.9085254756260586}],"value":0.9256063403181389}],"value":0.9588217293911534},"clusters":[0,0,0,0,0,1,2,3,4,5],"group_spans":[[0,4],[5,5],[6,6],[7,7],[8,8],[9,9]]};
+var EMD_ENTRIES = [{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"},{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"},{"label":"hadam3","url":"../Model_Components/hadam3/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"code_base","type":"scalar"},{"name":"component","type":"scalar"},{"name":"description","type":"scalar"},{"name":"family","type":"scalar"},{"name":"name","type":"scalar"},{"name":"references","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
-var ids      = EMD_DATA.ids;
-var link     = EMD_DATA.link;
-var text     = EMD_DATA.text;
-var method   = EMD_DATA.method;
-var meta     = EMD_DATA.meta;
-var tree     = EMD_DATA.tree;
-var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
-var n        = ids.length;
+var ids         = EMD_DATA.ids;
+var link        = EMD_DATA.link;
+var text        = EMD_DATA.text;
+var method      = EMD_DATA.method;
+var meta        = EMD_DATA.meta;
+var tree        = EMD_DATA.tree;
+var clusters    = EMD_DATA.clusters || ids.map(function() { return 0; });
+var group_spans = EMD_DATA.group_spans || [];  /* [[start_row, end_row], ...] per group */
+var n           = ids.length;
 
 /* Cluster colour palette — 20 distinct monotone colours */
 var CLUSTER_COLORS = [
@@ -486,27 +487,27 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   root.each(function (d) { if (d.data.value > maxDist) maxDist = d.data.value; });
   if (maxDist < 1e-9) maxDist = 1;
 
-  /* 1. y-positions: distribute leaves uniformly in DFS order so all
-        vertical bars have equal height, then propagate means upward.
-        Dashed connectors (step 5) bridge each leaf to its matrix row. */
-  var orderedLeaves = [];
-  (function collectLeaves(node) {
-    if (!node.children) { orderedLeaves.push(node); }
-    else node.children.forEach(collectLeaves);
-  }(root));
-
-  var step = matW / orderedLeaves.length;
-  orderedLeaves.forEach(function (leaf, i) {
-    leaf.dendY = step * i + step / 2;
-  });
-
-  /* propagate means bottom-up (leaves already set) */
-  function assignYMean(node) {
-    if (!node.children) return;
-    node.children.forEach(assignYMean);
-    node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
+  /* 1. y-positions: each leaf represents a GROUP, not an individual item.
+        Pin each leaf to the vertical centre of its group's matrix block.
+        spectral_index in the group-level tree = group index (0-based, in
+        the order groups appear as rows in the matrix).
+        Falls back to uniform spacing if group_spans is not populated. */
+  function assignY(node) {
+    if (!node.children) {
+      var gi  = node.spectral_index || 0;
+      var span = group_spans[gi];
+      if (span) {
+        /* centre of the group block */
+        node.dendY = (span[0] + span[1]) / 2 * cellSize + cellSize / 2;
+      } else {
+        node.dendY = gi * cellSize + cellSize / 2;
+      }
+    } else {
+      node.children.forEach(assignY);
+      node.dendY = (node.children[0].dendY + node.children[node.children.length-1].dendY) / 2;
+    }
   }
-  assignYMean(root);
+  assignY(root);
 
   /* 2. x-positions for RIGHT-SIDE dendrogram:
         Leaf x = 2  (touching matrix right edge = left edge of dendG)
@@ -554,7 +555,7 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
         Parent (further right) → vertical to child’s y → horizontal left to child.
         Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
-    .data(links).join('path')
+    .data(links.filter(function (d) { return d.tgt._clique >= 0; })).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
     .attr('stroke', function (d) {
@@ -569,32 +570,14 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
              ' H ' + d.tgt.dendX;
     });
 
-  /* 5. Dashed connector: matrix row → dendrogram leaf position.
-        Uses an elbow: vertical from matY to dendY, then horizontal to leaf. */
-  root.leaves().forEach(function (d) {
-    var matY = (d.data.spectral_index || 0) * cellSize + cellSize / 2;
-    if (Math.abs(matY - d.dendY) < 0.5) {
-      /* already aligned — simple horizontal tick */
-      dendG.append('line')
-        .attr('x1', 0).attr('y1', d.dendY)
-        .attr('x2', d.dendX).attr('y2', d.dendY)
-        .attr('stroke', NAVY).attr('stroke-width', 0.5)
-        .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
-    } else {
-      /* elbow: V at x=0 from matY to dendY, then H to leaf */
-      dendG.append('path')
-        .attr('fill', 'none')
-        .attr('stroke', NAVY).attr('stroke-width', 0.5)
-        .attr('stroke-dasharray','1,3').attr('opacity', 0.18)
-        .attr('d', 'M 0,' + matY + ' V ' + d.dendY + ' H ' + d.dendX);
-    }
-  });
+  /* 5. No dashed connectors needed: leaves are already pinned to the
+        centre of their group block in the matrix. */
 
   /* No leaf labels — rows are already labelled by the matrix y-axis */
 
-  /* 6. Internal node dots */
+  /* 6. Internal node dots — only within-cluster nodes */
   root.each(function (d) {
-    if (!d.children) return;
+    if (!d.children || d._clique < 0) return;
     dendG.append('circle')
       .attr('cx', d.dendX).attr('cy', d.dendY).attr('r', 1.8)
       .attr('fill', WHITE).attr('stroke', NAVY).attr('stroke-width', 1).attr('opacity', 0.65);

@@ -322,7 +322,7 @@ def _spectral_order_and_clusters(sim_matrix, n_clusters=None):
     W = np.clip(sim_matrix, 0, 1).copy()
     np.fill_diagonal(W, 0)
     off = W[W > 0]
-    threshold = float(np.percentile(off, 75)) if len(off) else 0.5
+    threshold = float(np.percentile(off, 85)) if len(off) else 0.5
 
     adj = W > threshold
 
@@ -626,14 +626,15 @@ var EMD_DATA    = __DATA__;
 var EMD_ENTRIES = __ENTRIES__;
 var EMD_SCHEMA  = __SCHEMA__;
 
-var ids      = EMD_DATA.ids;
-var link     = EMD_DATA.link;
-var text     = EMD_DATA.text;
-var method   = EMD_DATA.method;
-var meta     = EMD_DATA.meta;
-var tree     = EMD_DATA.tree;
-var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
-var n        = ids.length;
+var ids         = EMD_DATA.ids;
+var link        = EMD_DATA.link;
+var text        = EMD_DATA.text;
+var method      = EMD_DATA.method;
+var meta        = EMD_DATA.meta;
+var tree        = EMD_DATA.tree;
+var clusters    = EMD_DATA.clusters || ids.map(function() { return 0; });
+var group_spans = EMD_DATA.group_spans || [];  /* [[start_row, end_row], ...] per group */
+var n           = ids.length;
 
 /* Cluster colour palette — 20 distinct monotone colours */
 var CLUSTER_COLORS = [
@@ -983,27 +984,27 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   root.each(function (d) { if (d.data.value > maxDist) maxDist = d.data.value; });
   if (maxDist < 1e-9) maxDist = 1;
 
-  /* 1. y-positions: distribute leaves uniformly in DFS order so all
-        vertical bars have equal height, then propagate means upward.
-        Dashed connectors (step 5) bridge each leaf to its matrix row. */
-  var orderedLeaves = [];
-  (function collectLeaves(node) {
-    if (!node.children) { orderedLeaves.push(node); }
-    else node.children.forEach(collectLeaves);
-  }(root));
-
-  var step = matW / orderedLeaves.length;
-  orderedLeaves.forEach(function (leaf, i) {
-    leaf.dendY = step * i + step / 2;
-  });
-
-  /* propagate means bottom-up (leaves already set) */
-  function assignYMean(node) {
-    if (!node.children) return;
-    node.children.forEach(assignYMean);
-    node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
+  /* 1. y-positions: each leaf represents a GROUP, not an individual item.
+        Pin each leaf to the vertical centre of its group's matrix block.
+        spectral_index in the group-level tree = group index (0-based, in
+        the order groups appear as rows in the matrix).
+        Falls back to uniform spacing if group_spans is not populated. */
+  function assignY(node) {
+    if (!node.children) {
+      var gi  = node.spectral_index || 0;
+      var span = group_spans[gi];
+      if (span) {
+        /* centre of the group block */
+        node.dendY = (span[0] + span[1]) / 2 * cellSize + cellSize / 2;
+      } else {
+        node.dendY = gi * cellSize + cellSize / 2;
+      }
+    } else {
+      node.children.forEach(assignY);
+      node.dendY = (node.children[0].dendY + node.children[node.children.length-1].dendY) / 2;
+    }
   }
-  assignYMean(root);
+  assignY(root);
 
   /* 2. x-positions for RIGHT-SIDE dendrogram:
         Leaf x = 2  (touching matrix right edge = left edge of dendG)
@@ -1051,7 +1052,7 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
         Parent (further right) → vertical to child’s y → horizontal left to child.
         Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
-    .data(links).join('path')
+    .data(links.filter(function (d) { return d.tgt._clique >= 0; })).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
     .attr('stroke', function (d) {
@@ -1066,32 +1067,14 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
              ' H ' + d.tgt.dendX;
     });
 
-  /* 5. Dashed connector: matrix row → dendrogram leaf position.
-        Uses an elbow: vertical from matY to dendY, then horizontal to leaf. */
-  root.leaves().forEach(function (d) {
-    var matY = (d.data.spectral_index || 0) * cellSize + cellSize / 2;
-    if (Math.abs(matY - d.dendY) < 0.5) {
-      /* already aligned — simple horizontal tick */
-      dendG.append('line')
-        .attr('x1', 0).attr('y1', d.dendY)
-        .attr('x2', d.dendX).attr('y2', d.dendY)
-        .attr('stroke', NAVY).attr('stroke-width', 0.5)
-        .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
-    } else {
-      /* elbow: V at x=0 from matY to dendY, then H to leaf */
-      dendG.append('path')
-        .attr('fill', 'none')
-        .attr('stroke', NAVY).attr('stroke-width', 0.5)
-        .attr('stroke-dasharray','1,3').attr('opacity', 0.18)
-        .attr('d', 'M 0,' + matY + ' V ' + d.dendY + ' H ' + d.dendX);
-    }
-  });
+  /* 5. No dashed connectors needed: leaves are already pinned to the
+        centre of their group block in the matrix. */
 
   /* No leaf labels — rows are already labelled by the matrix y-axis */
 
-  /* 6. Internal node dots */
+  /* 6. Internal node dots — only within-cluster nodes */
   root.each(function (d) {
-    if (!d.children) return;
+    if (!d.children || d._clique < 0) return;
     dendG.append('circle')
       .attr('cx', d.dendX).attr('cy', d.dendY).attr('r', 1.8)
       .attr('fill', WHITE).attr('stroke', NAVY).attr('stroke-width', 1).attr('opacity', 0.65);
@@ -1173,11 +1156,41 @@ def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
 
     n = len(ordered_ids)
 
-    # Dendrogram on the spectrally-ordered distance matrix
+    # ── Group-level dendrogram ────────────────────────────────────────────────────
+    # Build one UPGMA leaf per group, not per item.
+    # Inter-group distance = average pairwise distance of their members.
+    # group_spans[g] = [start_row, end_row] of group g in the matrix.
     combined_sim = (link_ordered + text_ordered) / 2
     np.fill_diagonal(combined_sim, 0.0)
     dist = 1.0 - np.clip(combined_sim, 0, 1)
-    tree = _average_linkage_tree(ordered_labels, dist)
+
+    unique_groups = sorted(set(cluster_labels.tolist()))
+    k = len(unique_groups)
+
+    # Map group id -> list of item row indices
+    group_rows = {g: [i for i, c in enumerate(cluster_labels) if c == g]
+                  for g in unique_groups}
+    # Row spans [start, end] for the JS
+    group_spans = [[min(rows), max(rows)] for g in unique_groups
+                   for rows in [group_rows[g]]]
+
+    if k >= 2:
+        # k×k average-linkage distance matrix between groups
+        gdist = np.zeros((k, k))
+        for ai, gi in enumerate(unique_groups):
+            for aj, gj in enumerate(unique_groups):
+                if ai == aj:
+                    continue
+                ri, rj = group_rows[gi], group_rows[gj]
+                gdist[ai, aj] = dist[np.ix_(ri, rj)].mean()
+
+        # Labels for group nodes: use first member’s label as representative
+        group_labels = [ordered_labels[group_rows[g][0]] for g in unique_groups]
+        tree = _average_linkage_tree(group_labels, gdist)
+    else:
+        # Single group — trivial tree
+        tree = {"name": ordered_labels[0], "leaf": True,
+                "spectral_index": 0, "value": 0.0}
 
     # Key schema (2 levels deep)
     schema = _extract_key_schema(items, max_depth=2)
@@ -1199,14 +1212,15 @@ def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
     )
 
     payload = json.dumps({
-        "ids":      ordered_ids,
-        "link":     link_ordered.tolist(),
-        "text":     text_ordered.tolist(),
-        "method":   method_str,
-        "folder":   stem.replace("_", " "),
-        "meta":     meta,
-        "tree":     tree,
-        "clusters": cluster_labels.tolist(),
+        "ids":         ordered_ids,
+        "link":        link_ordered.tolist(),
+        "text":        text_ordered.tolist(),
+        "method":      method_str,
+        "folder":      stem.replace("_", " "),
+        "meta":        meta,
+        "tree":        tree,
+        "clusters":    cluster_labels.tolist(),
+        "group_spans": group_spans,
     }, separators=(",", ":"))
 
     title       = stem.replace("_", " ")

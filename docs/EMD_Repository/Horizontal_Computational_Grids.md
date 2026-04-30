@@ -86,8 +86,8 @@
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
     <option value="../Horizontal_Computational_Grids/h102/">h102</option>
-    <option value="../Horizontal_Computational_Grids/h101/">h101</option>
     <option value="../Horizontal_Computational_Grids/h100/">h100</option>
+    <option value="../Horizontal_Computational_Grids/h101/">h101</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
@@ -118,18 +118,19 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["h102","h101","h100"],"link":[[0.0,0.6274509803921569,0.4008714596949891],[0.6274509803921569,0.0,0.45861689463872607],[0.4008714596949891,0.45861689463872607,0.0]],"text":[[0.0,0.17733157069159314,0.0],[0.17733157069159314,0.0,0.03891314447019854],[0.0,0.03891314447019854,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Horizontal Computational Grids","meta":[{"label":"h102","tags":[]},{"label":"h101","tags":[]},{"label":"h100","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":0,"value":0.0},{"name":"h101","leaf":true,"spectral_index":1,"value":0.0}],"value":0.597608724458125}],"value":0.7753996252990216},"clusters":[0,0,1]};
-var EMD_ENTRIES = [{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"}];
+var EMD_DATA    = {"ids":["h102","h100","h101"],"link":[[0.0,0.4008714596949891,0.6274509803921569],[0.4008714596949891,0.0,0.45861689463872607],[0.6274509803921569,0.45861689463872607,0.0]],"text":[[0.0,0.0,0.17733157069159314],[0.0,0.0,0.03891314447019854],[0.17733157069159314,0.03891314447019854,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Horizontal Computational Grids","meta":[{"label":"h102","tags":[]},{"label":"h100","tags":[]},{"label":"h101","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":0,"value":0.0},{"name":"h101","leaf":true,"spectral_index":2,"value":0.0}],"value":0.597608724458125}],"value":0.7753996252990216},"clusters":[0,1,2],"group_spans":[[0,0],[1,1],[2,2]]};
+var EMD_ENTRIES = [{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"list"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
-var ids      = EMD_DATA.ids;
-var link     = EMD_DATA.link;
-var text     = EMD_DATA.text;
-var method   = EMD_DATA.method;
-var meta     = EMD_DATA.meta;
-var tree     = EMD_DATA.tree;
-var clusters = EMD_DATA.clusters || ids.map(function() { return 0; });
-var n        = ids.length;
+var ids         = EMD_DATA.ids;
+var link        = EMD_DATA.link;
+var text        = EMD_DATA.text;
+var method      = EMD_DATA.method;
+var meta        = EMD_DATA.meta;
+var tree        = EMD_DATA.tree;
+var clusters    = EMD_DATA.clusters || ids.map(function() { return 0; });
+var group_spans = EMD_DATA.group_spans || [];  /* [[start_row, end_row], ...] per group */
+var n           = ids.length;
 
 /* Cluster colour palette — 20 distinct monotone colours */
 var CLUSTER_COLORS = [
@@ -479,27 +480,27 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   root.each(function (d) { if (d.data.value > maxDist) maxDist = d.data.value; });
   if (maxDist < 1e-9) maxDist = 1;
 
-  /* 1. y-positions: distribute leaves uniformly in DFS order so all
-        vertical bars have equal height, then propagate means upward.
-        Dashed connectors (step 5) bridge each leaf to its matrix row. */
-  var orderedLeaves = [];
-  (function collectLeaves(node) {
-    if (!node.children) { orderedLeaves.push(node); }
-    else node.children.forEach(collectLeaves);
-  }(root));
-
-  var step = matW / orderedLeaves.length;
-  orderedLeaves.forEach(function (leaf, i) {
-    leaf.dendY = step * i + step / 2;
-  });
-
-  /* propagate means bottom-up (leaves already set) */
-  function assignYMean(node) {
-    if (!node.children) return;
-    node.children.forEach(assignYMean);
-    node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
+  /* 1. y-positions: each leaf represents a GROUP, not an individual item.
+        Pin each leaf to the vertical centre of its group's matrix block.
+        spectral_index in the group-level tree = group index (0-based, in
+        the order groups appear as rows in the matrix).
+        Falls back to uniform spacing if group_spans is not populated. */
+  function assignY(node) {
+    if (!node.children) {
+      var gi  = node.spectral_index || 0;
+      var span = group_spans[gi];
+      if (span) {
+        /* centre of the group block */
+        node.dendY = (span[0] + span[1]) / 2 * cellSize + cellSize / 2;
+      } else {
+        node.dendY = gi * cellSize + cellSize / 2;
+      }
+    } else {
+      node.children.forEach(assignY);
+      node.dendY = (node.children[0].dendY + node.children[node.children.length-1].dendY) / 2;
+    }
   }
-  assignYMean(root);
+  assignY(root);
 
   /* 2. x-positions for RIGHT-SIDE dendrogram:
         Leaf x = 2  (touching matrix right edge = left edge of dendG)
@@ -547,7 +548,7 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
         Parent (further right) → vertical to child’s y → horizontal left to child.
         Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
-    .data(links).join('path')
+    .data(links.filter(function (d) { return d.tgt._clique >= 0; })).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
     .attr('stroke', function (d) {
@@ -562,32 +563,14 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
              ' H ' + d.tgt.dendX;
     });
 
-  /* 5. Dashed connector: matrix row → dendrogram leaf position.
-        Uses an elbow: vertical from matY to dendY, then horizontal to leaf. */
-  root.leaves().forEach(function (d) {
-    var matY = (d.data.spectral_index || 0) * cellSize + cellSize / 2;
-    if (Math.abs(matY - d.dendY) < 0.5) {
-      /* already aligned — simple horizontal tick */
-      dendG.append('line')
-        .attr('x1', 0).attr('y1', d.dendY)
-        .attr('x2', d.dendX).attr('y2', d.dendY)
-        .attr('stroke', NAVY).attr('stroke-width', 0.5)
-        .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
-    } else {
-      /* elbow: V at x=0 from matY to dendY, then H to leaf */
-      dendG.append('path')
-        .attr('fill', 'none')
-        .attr('stroke', NAVY).attr('stroke-width', 0.5)
-        .attr('stroke-dasharray','1,3').attr('opacity', 0.18)
-        .attr('d', 'M 0,' + matY + ' V ' + d.dendY + ' H ' + d.dendX);
-    }
-  });
+  /* 5. No dashed connectors needed: leaves are already pinned to the
+        centre of their group block in the matrix. */
 
   /* No leaf labels — rows are already labelled by the matrix y-axis */
 
-  /* 6. Internal node dots */
+  /* 6. Internal node dots — only within-cluster nodes */
   root.each(function (d) {
-    if (!d.children) return;
+    if (!d.children || d._clique < 0) return;
     dendG.append('circle')
       .attr('cx', d.dendX).attr('cy', d.dendY).attr('r', 1.8)
       .attr('fill', WHITE).attr('stroke', NAVY).attr('stroke-width', 1).attr('opacity', 0.65);
