@@ -81,10 +81,18 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
           REPO:        ${{ github.repository }}
         run: |
-          PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
-            --json number,headRefName \
-            --jq "[.[] | select(.headRefName | test(\"_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}$\"))] | .[0].number" \
-            2>/dev/null || true)
+          # Retry for up to 20s — newly created PRs take a moment to appear in the API
+          for attempt in $(seq 1 10); do
+            PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
+            PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
+              --limit 200 --json number,headRefName \
+              2>/dev/null || true)
+            if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
+              break
+            fi
+            echo "Attempt $attempt: PR not visible yet, retrying in 2s..."
+            sleep 2
+          done
 
           if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
             echo "No open PR found for issue #${ISSUE_NUMBER}."
