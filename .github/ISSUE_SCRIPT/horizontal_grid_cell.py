@@ -121,7 +121,7 @@ def run(parsed_issue, issue, dry_run=False):
         if isinstance(val, str) and val.lower() in ('_no response_', 'none', 'not specified', ''):
             continue
         key = FIELD_MAP.get(key, key)
-        val = val.strip().lower() if isinstance(val, str) else val
+        val = val.strip() if isinstance(val, str) else val
         val = resolve_cv_value(key, val) if isinstance(val, str) else val
         data[key] = to_num(key, val)
     if region and region.lower() not in ('_no response_', 'none', 'not specified'):
