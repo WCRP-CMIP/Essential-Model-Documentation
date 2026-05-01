@@ -235,6 +235,35 @@
     "website": "none"
   },
   {
+    "@id": "access-esm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "access-nri",
+    "description": "The Australian Community Climate and Earth System Simulator (ACCESS) is a group of model versions used in Australia for all timescales from numerical weather prediction to centennial-scale climate simulations. Component models used in ACCESS vary for applications at different timescales. ACCESS-ESM is the earth system model version used for centennial-scale simulations, including an interactive carbon cycle. ACCESS-ESM comprises the UK Met Office Unified Model atmosphere, the CABLE land surface model including land biogeochemistry, the MOM ocean model with WOMBAT for ocean biogeochemistry and the CICE sea-ice model. OASIS-MCT has been used for coupling but ACCESS-ESM3 (under development) will use NUOPC.",
+    "established": 2014,
+    "family_type": "model",
+    "primary_institution": "csiro",
+    "references": [
+      "https://doi.org/10.5194/gmd-10-2567-2017",
+      "https://doi.org/10.1071/ES19035"
+    ],
+    "representative_member": "ACCESS-ESM1-5",
+    "scientific_domains": [
+      "aerosol",
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea_ice"
+    ],
+    "ui_label": "ACCESS-ESM",
+    "validation_key": "access-esm",
+    "website": "https://www.access-nri.org.au/models/earth-system-model-esm/"
+  },
+  {
     "@id": "fgoals",
     "@type": [
       "emd",

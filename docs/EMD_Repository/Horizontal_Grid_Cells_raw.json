@@ -162,6 +162,29 @@
     "y_resolution": ""
   },
   {
+    "@id": "g122",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "reduced-gaussian",
+    "n_cells": 421120,
+    "region": "global",
+    "southernmost_latitude": -89.785,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 319,
+    "ui_label": "Horizontal grid cell with a reduced gaussian grid type and 36 x 36 km resolution.",
+    "units": "km",
+    "validation_key": "g122",
+    "westernmost_longitude": 0,
+    "x_resolution": 36,
+    "y_resolution": 36
+  },
+  {
     "@id": "g117",
     "@type": [
       "emd",
