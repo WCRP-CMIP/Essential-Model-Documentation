@@ -109,7 +109,7 @@ def run(parsed_issue, issue, dry_run=False):
     # Ensure all spec fields present — assign '' if not set
     COMPONENT_KEYS = [
         'validation_key', 'ui_label', 'component', 'family', 'description',
-        'references', 'code_base', 'embedded_in', 'coupled_with',
+        'references', 'code_base',
     ]
     for k in COMPONENT_KEYS:
         if k not in component_data:
