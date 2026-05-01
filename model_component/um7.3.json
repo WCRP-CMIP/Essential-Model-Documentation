@@ -1,0 +1,18 @@
+{
+    "validation_key": "um7.3",
+    "ui_label": "UM7.3",
+    "description": "The model represents atmospheric circulation and includes submodels for radiation, cloud microphysics, convection and boundary layer processes. The atmosphere configuration is as used for ACCESS-ESM1.5 (Ziehn et al., 2020) with a minor change to convective momentum transport and is similar to the atmosphere configuration of HADGEM2 (r1.0) (The HadGEM2 Development Team, 2011 ) but with the PC2 cloud scheme as for HADGEM2 (r1.1) (Hewitt et al, 2011).",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "hadam",
+    "references": [
+        "https://doi.org/10.1071/ES19035 https://doi.org/10.5194/gmd-4-723-2011 https://doi.org/10.5194/gmd-4-223-2011"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "um7.3"
+}
