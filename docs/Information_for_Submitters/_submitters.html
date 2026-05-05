@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    background: transparent;
+    color: #1a1a2e;
+  }
+
+  #toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 10px;
+  }
+
+  #search {
+    padding: 5px 9px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: inherit;
+    width: 220px;
+  }
+
+  #count { font-size: 11px; color: #888; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 6px 8px;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
+  }
+
+  tbody tr:hover { background: #f8fafc; }
+
+  td { padding: 7px 8px; vertical-align: middle; }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #e2e8f0;
+    margin-right: 7px;
+  }
+
+  .name-cell a {
+    font-weight: 500;
+    color: #2d3748;
+    text-decoration: none;
+  }
+  .name-cell a:hover { text-decoration: underline; color: #3182ce; }
+
+  .handle {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: #a0aec0;
+    margin-left: 2px;
+  }
+
+  .orcid-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: #a6ce39;
+    text-decoration: none;
+    background: #f0f9e8;
+    border: 1px solid #d4edaa;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  .orcid-link:hover { background: #e4f5c9; }
+
+  .issue-link {
+    display: inline-block;
+    font-size: 11px;
+    color: #4a5568;
+    text-decoration: none;
+    background: #edf2f7;
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin: 1px 2px 1px 0;
+    white-space: nowrap;
+  }
+  .issue-link:hover { background: #e2e8f0; color: #2d3748; }
+  .issue-link.closed { color: #a0aec0; background: #f7f7f7; }
+
+  .count-badge {
+    display: inline-block;
+    background: #e2e8f0;
+    color: #4a5568;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  #loading { padding: 20px 4px; color: #888; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <input id="search" placeholder="Search name or handle…" oninput="filter()" />
+  <span id="count"></span>
+</div>
+
+<div id="loading">Loading…</div>
+
+<table id="tbl" style="display:none">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>ORCID</th>
+      <th>Submissions</th>
+      <th>Issues / PRs</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<script>
+const owner = "WCRP-CMIP";
+const repo  = "Essential-Model-Documentation";
+const label = "emd-submission";
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function fetchAll(url) {
+  let page = 1, out = [];
+  while (true) {
+    const res = await fetch(`${url}&per_page=100&page=${page}`);
+    if (res.status === 403) { await sleep(1500); continue; }
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) break;
+    out = out.concat(data);
+    page++;
+  }
+  return out;
+}
+
+async function fetchProfile(login) {
+  const r = await fetch(`https://api.github.com/users/${login}`);
+  return r.ok ? r.json() : null;
+}
+
+async function fetchSocials(login) {
+  try {
+    const r = await fetch(`https://api.github.com/users/${login}/social_accounts`);
+    return r.ok ? r.json() : [];
+  } catch { return []; }
+}
+
+function extractOrcid(socials, bio) {
+  for (const s of (socials || []))
+    if (s.provider === 'orcid' || (s.url||'').includes('orcid.org')) return s.url;
+  const m = (bio||'').match(/https?:\/\/orcid\.org\/[\d-]{19}/);
+  return m ? m[0] : null;
+}
+
+function orcidId(url) { return url.replace(/https?:\/\/orcid\.org\//, ''); }
+
+function cleanTitle(title) {
+  return title
+    .replace(/^\s*(new|modify)\s*:\s*/i, '')
+    .replace(/\b(horizontal_grid_cell|horizontal_computational_grid|vertical_computational_grid|model_component|model_family|model|component_config|horizontal_subgrid)\b/gi, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const rows = document.querySelectorAll('#tbody tr');
+  let n = 0;
+  rows.forEach(r => {
+    const show = !q || r.dataset.search.includes(q);
+    r.style.display = show ? '' : 'none';
+    if (show) n++;
+  });
+  document.getElementById('count').textContent = `${n} submitter${n !== 1 ? 's' : ''}`;
+}
+
+(async () => {
+  // fetch all issues + PRs with label
+  const issues = await fetchAll(
+    `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}`
+  );
+
+  // group by login
+  const byLogin = {};
+  for (const item of issues) {
+    const login = item.user.login;
+    if (!byLogin[login]) byLogin[login] = [];
+    byLogin[login].push(item);
+  }
+
+  const logins = Object.keys(byLogin).sort((a,b) => byLogin[b].length - byLogin[a].length);
+  document.getElementById('count').textContent = `${logins.length} submitters`;
+
+  document.getElementById('loading').remove();
+  document.getElementById('tbl').style.display = '';
+
+  const tbody = document.getElementById('tbody');
+
+  const BATCH = 5;
+  for (let i = 0; i < logins.length; i += BATCH) {
+    const batch = logins.slice(i, i + BATCH);
+    await Promise.all(batch.map(async login => {
+      const [profile, socials] = await Promise.all([fetchProfile(login), fetchSocials(login)]);
+      if (!profile) return;
+
+      const orcid = extractOrcid(socials, profile.bio);
+      const items = byLogin[login];
+      const count = items.length;
+
+      const tr = document.createElement('tr');
+      tr.dataset.search = `${(profile.name||'').toLowerCase()} ${login.toLowerCase()}`;
+
+      // Name cell
+      const tdName = document.createElement('td');
+      tdName.className = 'name-cell';
+      tdName.innerHTML = `
+        <img class="avatar" src="${profile.avatar_url}" alt="${login}" />
+        <a href="${profile.html_url}" target="_blank">${profile.name || login}</a>
+        <span class="handle">@${login}</span>`;
+
+      // ORCID cell
+      const tdOrcid = document.createElement('td');
+      if (orcid) {
+        tdOrcid.innerHTML = `<a class="orcid-link" href="${orcid}" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 256 256" fill="#a6ce39">
+            <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm-12.7 190.7H92.4V96.5h22.9v94.2zm-11.5-107c-7.3 0-12-4.8-12-10.8s4.8-10.8 12.3-10.8c7.5 0 12 4.7 12.1 10.8s-4.7 10.8-12.4 10.8zm96.3 107h-22.9v-50.4c0-12.1-4.3-20.3-15.1-20.3-8.2 0-13.1 5.5-15.3 10.9-.8 1.9-1 4.5-1 7.2v52.7H123.9s.3-85.5 0-94.2h22.9v13.3c3-4.7 8.5-11.4 20.8-11.4 15.2 0 26.6 9.9 26.6 31.2l-.1 61.1z"/>
+          </svg>
+          ${orcidId(orcid)}
+        </a>`;
+      }
+
+      // Count cell
+      const tdCount = document.createElement('td');
+      tdCount.innerHTML = `<span class="count-badge">${count}</span>`;
+
+      // Issues cell
+      const tdIssues = document.createElement('td');
+      items.slice(0, 8).forEach(item => {
+        const isPR = !!item.pull_request;
+        const isClosed = item.state === 'closed';
+        const cls = isClosed ? 'issue-link closed' : 'issue-link';
+        const prefix = isPR ? '⤷' : '#';
+        const a = document.createElement('a');
+        a.className = cls;
+        a.href = item.html_url;
+        a.target = '_blank';
+        a.title = item.title;
+        a.textContent = `${prefix}${item.number}`;
+        tdIssues.appendChild(a);
+      });
+      if (items.length > 8) {
+        const span = document.createElement('span');
+        span.style.cssText = 'font-size:11px;color:#a0aec0;margin-left:4px';
+        span.textContent = `+${items.length - 8} more`;
+        tdIssues.appendChild(span);
+      }
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdOrcid);
+      tr.appendChild(tdCount);
+      tr.appendChild(tdIssues);
+      tbody.appendChild(tr);
+    }));
+    if (i + BATCH < logins.length) await sleep(300);
+  }
+
+  filter();
+})();
+</script>
+</body>
+</html>
