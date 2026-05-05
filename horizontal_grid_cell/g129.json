@@ -1,0 +1,27 @@
+{
+  "validation_key": "g129",
+  "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.27778 x 0.28125 degree resolution.",
+  "description": "",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 829440,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.859375,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 0.1389,
+  "x_resolution": 0.27778,
+  "y_resolution": 0.28125,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g129"
+}
