@@ -417,6 +417,30 @@
     "y_resolution": 0.7
   },
   {
+    "@id": "g123",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "latitude\u2013longitude grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 14400,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 2 x 2 degree resolution.",
+    "units": "degree",
+    "validation_key": "g123",
+    "westernmost_longitude": 0,
+    "x_resolution": 2,
+    "y_resolution": 2
+  },
+  {
     "@id": "g105",
     "@type": [
       "wcrp:horizontal_grid_cell",

@@ -114,6 +114,23 @@
     "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
+    "@id": "v118",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 19.99,
+    "description": "",
+    "n_z": 85,
+    "n_z_range": "",
+    "top_layer_thickness": 5899.99,
+    "total_thickness": 85000,
+    "ui_label": "atmosphere-hybrid-height-coordinate grid with 85 levels.",
+    "validation_key": "v118",
+    "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
+  },
+  {
     "@id": "v105",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -226,7 +243,38 @@
     "vertical_coordinate": "height"
   },
   {
-    "@id": "tempgrid-jamesanstey-1777265640"
+    "@id": "tempgrid-jamesanstey-1777265640",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 250,
+    "description": "",
+    "n_z": 45,
+    "n_z_range": "",
+    "top_layer_thickness": 6.2,
+    "total_thickness": 5750,
+    "ui_label": "depth grid with 45 levels.",
+    "validation_key": "tempgrid_JamesAnstey-1777265640",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "tempgrid-jamesanstey-1777265640",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 250,
+    "description": "",
+    "n_z": 45,
+    "n_z_range": "",
+    "top_layer_thickness": 6.2,
+    "total_thickness": 5750,
+    "ui_label": "depth grid with 45 levels.",
+    "validation_key": "tempgrid_JamesAnstey-1777265640",
+    "vertical_coordinate": "depth"
   },
   {
     "@id": "v111",
