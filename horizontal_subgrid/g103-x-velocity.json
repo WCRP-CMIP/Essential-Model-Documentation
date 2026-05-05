@@ -1,18 +1,18 @@
 {
-  "validation_key": "g103-x-velocity",
-  "ui_label": "",
-  "description": "X-velocity (U-grid) on ocean tripolar grid (eORCA1).",
-  "cell_variable_type": [
-    "x-velocity"
-  ],
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_subgrid",
-    "esgvoc:HorizontalSubgrid",
-    "emd"
-  ],
-  "@id": "g103-x-velocity",
-  "horizontal_grid_cell": {
-    "@id": "g103"
-  }
+    "validation_key": "g103-x-velocity",
+    "ui_label": "",
+    "description": "X-velocity (U-grid) on ocean tripolar grid (eORCA1).",
+    "cell_variable_type": [
+        "x-velocity"
+    ],
+    "horizontal_grid_cell": {
+        "@id": "g103"
+    },
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g103-x-velocity"
 }

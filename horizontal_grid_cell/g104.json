@@ -1,26 +1,26 @@
 {
-  "validation_key": "g104",
-  "ui_label": "V-grid cells on ocean tripolar configuration (eORCA1) for y-velocity.",
-  "description": "",
-  "grid_mapping": "latitude-longitude",
-  "grid_type": "tripolar",
-  "n_cells": 105706,
-  "region": [
-    "global"
-  ],
-  "southernmost_latitude": "",
-  "temporal_refinement": "static",
-  "truncation_method": "",
-  "truncation_number": "",
-  "westernmost_longitude": "",
-  "x_resolution": "",
-  "y_resolution": "",
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:horizontal_grid_cell",
-    "esgvoc:HorizontalGridCell"
-  ],
-  "@id": "g104",
-  "units": ""
+    "validation_key": "g104",
+    "ui_label": "V-grid cells on ocean tripolar configuration (eORCA1) for y-velocity.",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 105706,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": "",
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": "",
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "g104"
 }

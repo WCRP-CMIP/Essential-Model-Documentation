@@ -1,18 +1,18 @@
 {
-  "validation_key": "g105-mass",
-  "ui_label": "",
-  "description": "Mass variables on regular latitude-longitude output grid for atmosphere (TL127 equivalent, 1.4 x 1.4 degree).",
-  "cell_variable_type": [
-    "mass"
-  ],
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_subgrid",
-    "esgvoc:HorizontalSubgrid",
-    "emd"
-  ],
-  "@id": "g105-mass",
-  "horizontal_grid_cell": {
-    "@id": "g105"
-  }
+    "validation_key": "g105-mass",
+    "ui_label": "",
+    "description": "Mass variables on regular latitude-longitude output grid for atmosphere (TL127 equivalent, 1.4 x 1.4 degree).",
+    "cell_variable_type": [
+        "mass"
+    ],
+    "horizontal_grid_cell": {
+        "@id": "g105"
+    },
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g105-mass"
 }

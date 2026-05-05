@@ -1,26 +1,26 @@
 {
-  "validation_key": "g113",
-  "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.25 x 0.25 degree resolution.",
-  "description": "",
-  "grid_mapping": "latitude-longitude",
-  "grid_type": "regular-latitude-longitude",
-  "n_cells": 1036800,
-  "region": [
-    "global"
-  ],
-  "southernmost_latitude": -89.875,
-  "temporal_refinement": "static",
-  "truncation_method": "",
-  "truncation_number": "",
-  "westernmost_longitude": 0.125,
-  "x_resolution": 0.25,
-  "y_resolution": 0.25,
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_grid_cell",
-    "esgvoc:HorizontalGridCell",
-    "emd"
-  ],
-  "@id": "g113",
-  "units": "degree"
+    "validation_key": "g113",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.25 x 0.25 degree resolution.",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 1036800,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.875,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.125,
+    "x_resolution": 0.25,
+    "y_resolution": 0.25,
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "g113"
 }
