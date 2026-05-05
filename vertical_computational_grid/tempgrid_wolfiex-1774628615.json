@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_wolfiex-1774628615",
+    "ui_label": "atmosphere-hybrid-height-coordinate grid with 85 levels.",
+    "description": "",
+    "bottom_layer_thickness": 19.99,
+    "n_z": 85,
+    "top_layer_thickness": 5899.99,
+    "total_thickness": 85000,
+    "vertical_coordinate": "atmosphere-hybrid-height-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1774628615"
+}
