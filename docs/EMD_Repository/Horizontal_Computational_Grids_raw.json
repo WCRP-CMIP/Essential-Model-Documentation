@@ -47,6 +47,19 @@
     "validation_key": "h100"
   },
   {
+    "@id": "h104",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Arakawa-A (unstaggered) regular lat-lon grid, 1.875x1.25 degree.",
+    "horizontal_subgrids": "g108-mass",
+    "ui_label": "",
+    "validation_key": "h104"
+  },
+  {
     "@id": "h101",
     "@type": [
       "wcrp:horizontal_computational_grid",

@@ -232,6 +232,9 @@
     "y_resolution": 0.9424
   },
   {
+    "@id": "tempgrid-janstreffing-1775067544"
+  },
+  {
     "@id": "g100",
     "@type": [
       "emd",
@@ -346,6 +349,30 @@
     "westernmost_longitude": 0.125,
     "x_resolution": 0.25,
     "y_resolution": 0.25
+  },
+  {
+    "@id": "g130",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The horizontal grid spacing varies locally between 5 and 25 km.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "unstructured-triangular",
+    "n_cells": 3146761,
+    "region": "global",
+    "southernmost_latitude": -78.626,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a unstructured triangular grid type.",
+    "units": "./",
+    "validation_key": "g130",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": ""
   },
   {
     "@id": "g121",
@@ -511,6 +538,54 @@
     "westernmost_longitude": 0,
     "x_resolution": 0.7,
     "y_resolution": 0.7
+  },
+  {
+    "@id": "g128",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "orca1 (standard)",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 104760,
+    "region": "global",
+    "southernmost_latitude": -78.29248047,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g128",
+    "westernmost_longitude": 0.5,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
+    "@id": "g129",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 829440,
+    "region": "global",
+    "southernmost_latitude": -89.859375,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.27778 x 0.28125 degree resolution.",
+    "units": "degree",
+    "validation_key": "g129",
+    "westernmost_longitude": 0.1389,
+    "x_resolution": 0.27778,
+    "y_resolution": 0.28125
   },
   {
     "@id": "g123",

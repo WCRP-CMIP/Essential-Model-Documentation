@@ -35,27 +35,25 @@
       "wcrp:model_family",
       "esgvoc:ModelFamily"
     ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Integrated Forecasting System - ECMWF's operational weather and climate model.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
+    "collaborative_institutions": "m\u00e9t\u00e9o-france",
+    "description": "Family description The Integrated Forecasting System (IFS) is the global numerical weather prediction and atmospheric modelling system developed and maintained at ECMWF. The IFS family encompasses the operational forecasting model used at ECMWF since the 1980s, its data assimilation system, and the portable research configuration OpenIFS, which provides the full IFS forecast capability without the data assimilation system. IFS is used for medium-range, extended-range and seasonal weather forecasting, atmospheric reanalyses (ERA family), and as the atmospheric component of coupled Earth system configurations (e.g. EC-Earth, AWI-CM-3). Scientific focus and approach The IFS family is designed around a global hydrostatic primitive-equation atmospheric model that prognoses wind, temperature, specific humidity, cloud condensate (liquid, ice), precipitation species (rain, snow), cloud fraction and surface pressure on a terrain-following mass-based vertical coordinate. The IFS simulates the global three-dimensional atmospheric circulation together with its interactions with the land surface, sea ice and ocean wave fields, and \u2014 in more recent cycles \u2014 atmospheric chemistry, aerosol and prognostic ozone. Coupled subsystems include the HTESSEL land-surface scheme (soil moisture and temperature, vegetation, snow, lakes via FLake), the WAM ocean wave model, and the CAMS chemistry and aerosol package. Common code base, dynamical core and physics All IFS family members share a common code base and dynamical core: hydrostatic, two-time-level, semi-implicit and semi-Lagrangian, using spectral transforms between a reduced Gaussian grid (where physics and advection are computed) and spherical-harmonic spectral space (where the Helmholtz problem is solved). The vertical discretisation uses a finite-element scheme (Untch & Hortal, 2004; Vivoda et al., 2018). The shared physics package includes the turbulence scheme of K\u00f6hler et al. (2011), shallow and deep convection following Bechtold et al. (2014), the prognostic cloud scheme (Tiedtke / Forbes & Tompkins lineage), microphysics, the ecRad radiation scheme, and the HTESSEL land surface (Balsamo et al., 2009; Arduini et al., 2019 for the multi-layer snow scheme). Stochastic physics is provided through the SPPT scheme. How family members differ Family members differ principally in cycle, configuration and intended use. The IFS cycle (e.g. 38r1, 40r1, 41r2, 43r3, 47r3, 48r1, 49r1) determines the scientific content of the model, with each cycle bringing updates to physics, dynamics and coupling. OpenIFS releases (40r1, 43r3, 43r3v2, 48r1) provide research-oriented portable counterparts to selected operational cycles, scientifically identical to the forecast model of the corresponding IFS cycle but without data assimilation. Configurations also differ in horizontal resolution (e.g. TCo399, TCo1279, TCo3999), vertical resolution (typically 91 or 137 levels), inclusion of the wave model, activation of CAMS chemistry/aerosol, and choice of single- or double-precision builds.",
+    "established": 1983,
     "family_type": "component",
-    "license": "none",
     "primary_institution": "ecmwf",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
+    "references": [
+      "https://doi.org/10.21957/slk503fs2i",
+      "https://doi.org/10.1175/JAS-D-13-0163.1",
+      "https://doi.org/10.1002/qj.713",
+      "https://doi.org/10.1175/2008JHM1068.1",
+      "https://doi.org/10.1029/2019MS001725",
+      "https://doi.org/10.1175/MWR-D-18-0043.1",
+      "https://doi.org/10.1256/qj.03.173"
+    ],
+    "representative_member": "OpenIFS 48r1",
     "scientific_domains": "atmosphere",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "IFS",
-    "variation_dimensions": "none",
-    "website": "none"
+    "ui_label": "IFS",
+    "validation_key": "ifs",
+    "website": "https://confluence.ecmwf.int/display/OIFS"
   },
   {
     "@id": "arpege-climat",
@@ -185,6 +183,35 @@
     "validation_key": "CAM",
     "variation_dimensions": "none",
     "website": "none"
+  },
+  {
+    "@id": "lpj-guess",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "pik",
+    "description": "**Scientific focus and approach** LPJ-GUESS (Lund\u2013Potsdam\u2013Jena General Ecosystem Simulator), developed primarily at Lund University, is a process-based dynamic global vegetation model (DGVM) that simulates the structure, composition, growth and biogeochemistry of terrestrial ecosystems under varying climate, atmospheric CO\u2082 and land-use forcing. Its scientific focus is the coupled carbon\u2013nitrogen\u2013water cycling of the land biosphere, with a strong emphasis on ecological realism: rather than treating each plant functional type as a single grid-cell average, LPJ-GUESS represents vegetation as a population of age- and size-structured cohorts of woody individuals competing for light, water and nutrients within multiple replicate \"patches\" per grid cell, with an herbaceous understorey and stochastic disturbance and mortality. This individual- and patch-based design \u2014 inherited from forest gap models \u2014 allows the model to capture demographic processes, stand development, succession and the response of community composition to climatic, edaphic and disturbance gradients, alongside the standard DGVM outputs of net primary production, net ecosystem exchange, runoff, vegetation carbon and soil carbon and nitrogen pools.  **Common code base and physics** All LPJ-GUESS family members share a common C++ code base and a core set of process representations originally derived from the LPJ-DGVM (Sitch et al., 2003) and extended in Smith et al. (2001, 2014). Common elements across the family include: a coupled photosynthesis\u2013stomatal-conductance scheme based on the Farquhar\u2013Collatz formulation (Haxeltine & Prentice 1996); a growing-degree-day phenology with chilling and water-stress controls; allometric tree growth and tissue turnover; an autotrophic and heterotrophic respiration scheme with prognostic litter and soil organic matter pools (CENTURY-style after the v3.0 update); a soil hydrology scheme with two physical layers in the standard formulation (Gerten et al., 2004) extended to a multi-layer permafrost-capable scheme in the arctic configurations; a coupled terrestrial nitrogen cycle (from v3.0 onward; Smith et al., 2014) including biological N fixation, deposition, leaching and plant\u2013microbial competition; representations of natural disturbance through fire (BLAZE, GlobFIRM or SIMFIRE-BLAZE depending on configuration) and stand-replacing disturbance; and a managed-land module (from v4.0; Lindeskog et al., 2013) supporting croplands with major C3/C4 crop functional types, irrigation, fertilisation and rotation, plus pasture and managed forestry. Simulations are typically run as ensembles of replicate patches (commonly ~25 per grid cell) on grids of 0.5\u00b0 resolution or finer, driven by climate, CO\u2082, N deposition and land-use forcing.  **How family members differ** Family members differ principally in process complexity, target ecosystems, and coupling architecture:  - LPJ-GUESS v2.x (Smith et al. 2001; Ahlstr\u00f6m et al. 2012; Hickler et al. 2012) is the original carbon-and-water-only version with global or European plant-functional-type sets, used in many CMIP5-era applications. - LPJ-GUESS v3.0 (Smith et al. 2014) introduced the coupled C\u2013N cycle with N limitation on photosynthesis and decomposition, and remains the scientific reference for most current applications. - LPJ-GUESS v4.0+ (Lindeskog et al. 2013; Olin et al. 2015; Lindeskog et al. 2021) adds the managed-land module (crops, pasture, managed forests). - LPJ-GUESS arctic / WHyMe / peatland configurations (Wania et al. 2009; McGuire et al., Chadburn et al., Pongracz et al. 2021) add multi-layer soil thermodynamics, freeze\u2013thaw, soil organic layers, peatland hydrology, methane production/oxidation and a multi-layer snow scheme for high-latitude applications. - LPJ-GUESS/LSM v1.0 (Mart\u00edn Belda et al. 2022) is a next-generation reformulation as a full land-surface model with a closed surface energy balance, prognostic canopy and soil temperatures, and sub-daily physics, designed for two-way coupling with atmospheric models. - Process extensions developed across the family include alternative fire schemes (SIMFIRE-BLAZE, LMfire-CF), BVOC emissions, lightning-induced mortality, hydraulic mortality, stable-water-isotope tracers, and coupling to surface\u2013subsurface hydrology models (e.g. ParFlow-LPJG). - PFT sets and parameterisations also differ between configurations: a standard global PFT set (~11 PFTs), a more detailed European PFT set, region-specific sets for the tropics, boreal North America and the Greater Yellowstone Ecosystem, and crop-functional-type sets in the managed-land variants.",
+    "established": 2001,
+    "family_type": "component",
+    "primary_institution": "kit",
+    "references": [
+      "https://doi.org/10.1046/j.1466-822X.2001.t01-1-00256.x",
+      "https://doi.org/10.1046/j.1365-2486.2003.00569.x",
+      "https://doi.org/10.1016/j.jhydrol.2003.09.029",
+      "https://doi.org/10.5194/bg-11-2027-2014",
+      "https://doi.org/10.5194/esd-4-385-2013",
+      "https://doi.org/10.5194/bg-12-2489-2015",
+      "https://doi.org/10.1029/2008GB003412",
+      "https://doi.org/10.5194/gmd-14-6071-2021",
+      "https://doi.org/10.5194/gmd-15-6709-2022"
+    ],
+    "representative_member": "LPJ-GUESS 4.1",
+    "scientific_domains": "land_surface",
+    "ui_label": "LPJ-GUESS",
+    "validation_key": "lpj-guess",
+    "website": "https://web.nateko.lu.se/lpj-guess/"
   },
   {
     "@id": "gelato",
@@ -362,6 +389,32 @@
     "validation_key": "GEOS",
     "variation_dimensions": "none",
     "website": "none"
+  },
+  {
+    "@id": "fesom",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "**Scientific focus and approach** FESOM (Finite-Element/volumE Sea ice\u2013Ocean Model), developed at the Alfred Wegener Institute (AWI), is a global sea-ice/ocean general circulation model designed around a single guiding idea: the use of unstructured horizontal meshes to enable seamless multi-resolution simulation of the global ocean. Rather than nesting limited-area models inside a coarser global grid, FESOM allows mesh resolution to vary smoothly across the global domain, so that regions of dynamical interest \u2014 western boundary currents, the Arctic and Southern Oceans, marginal seas, eddy-active zones, or coastal shelves \u2014 can be locally refined to eddy-permitting or eddy-resolving scales while retaining a coarser grid elsewhere. This makes FESOM particularly suited to climate applications where regional process detail and global integrity must be maintained simultaneously, and it has become a widely used platform for exploring the benefits of unstructured-mesh modelling in climate research.  **Common code base and physics** All FESOM family members share the same overarching modelling philosophy: solution of the hydrostatic Boussinesq primitive equations on triangular surface meshes with a vertical discretisation in z-coordinates (with optional partial cells, sigma layers under ice shelves, and arbitrary Lagrangian\u2013Eulerian (ALE) layers in FESOM2). The sea-ice component is the dynamic\u2013thermodynamic Finite-Element Sea Ice Model (FESIM), based on an elastic\u2013viscous\u2013plastic (EVP, or modified mEVP) rheology, with optional coupling to ICEPACK column physics in more recent configurations. Common physics packages include the K-Profile Parameterization (KPP) or TKE-based vertical mixing, Gent\u2013McWilliams parameterization of mesoscale eddy transport and isoneutral Redi diffusion at non-eddying resolutions, and standard parameterizations for tidal mixing and bottom boundary layer flow. Tracers are advected using flux-corrected transport (FCT) schemes. The code is parallelised with MPI and (in FESOM2) supports hybrid CPU/GPU execution; unstructured-mesh I/O is handled either directly or through XIOS.  **How family members differ** Family members differ principally in numerical core, mesh, and complexity:  FESOM1.4 uses a continuous-Galerkin finite-element dynamical core and is documented by Wang et al. (2014). FESOM2 (patch versions FESOM2.0\u2013FESOM2.7) replaces the finite-element core with a finite-volume formulation on cell-vertex triangular meshes, adds an ALE vertical coordinate framework, and delivers roughly a 3\u00d7 throughput improvement over FESOM1.4 at comparable accuracy. FESOM2 is documented by Danilov et al. (2017) and further described by Scholz et al. (2019, 2022). Mesh and resolution is the most visible source of differentiation between configurations: meshes range from CMIP-class low-resolution (~100\u2013150 km in the open ocean with refinement in polar and dynamically active regions, e.g. the CORE2 or CMIP6 LR mesh) through medium-resolution Arctic-focused and DYAMOND meshes, to globally eddy-resolving meshes at 1/10\u00b0 (~10 km) and storm-resolving meshes down to ~5 km used in nextGEMS. Sea-ice complexity varies between configurations: standard FESIM zero-layer or single-category thermodynamics in CMIP-class runs, versus multi-category ICEPACK thermodynamics in other setups. Vertical levels and mixing choices (KPP vs TKE via CVMix, with/without GM, isoneutral Redi on/off) are tuned per configuration depending on whether the mesh resolves mesoscale eddies.",
+    "established": 2004,
+    "family_type": "component",
+    "primary_institution": "awi",
+    "references": [
+      "https://doi.org/10.5194/gmd-7-663-2014",
+      "https://doi.org/10.5194/gmd-10-765-2017",
+      "https://doi.org/10.5194/gmd-8-1747-2015",
+      "https://doi.org/10.5194/gmd-12-4875-2019",
+      "https://doi.org/10.5194/gmd-15-335-2022",
+      "https://doi.org/10.5194/gmd-12-3991-2019"
+    ],
+    "representative_member": "FESOM 2.0",
+    "scientific_domains": "ocean",
+    "ui_label": "FESOM",
+    "validation_key": "fesom",
+    "website": "https://fesom2.readthedocs.io/en/latest/"
   },
   {
     "@id": "tactic",
