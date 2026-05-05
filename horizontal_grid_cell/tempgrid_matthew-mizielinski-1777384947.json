@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_matthew-mizielinski-1777384947",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "",
+    "alias": [
+        "Extended ORCA1 (330 rows) U-points"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 118800,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -85.631584,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 198.85852,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-matthew-mizielinski-1777384947"
+}
