@@ -2,326 +2,298 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EMD Issue Tree Viewer</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-
 <style>
   body {
     margin: 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 13px;
     background: transparent;
+    color: #1a1a2e;
   }
 
-  #nav {
-    position: sticky;
-    top: 0;
-    background: white;
-    border-bottom: 1px solid #eee;
-    padding: 6px 10px;
-    z-index: 10;
+  #toolbar {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 12px;
+    padding: 8px 4px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 10px;
   }
 
-  #goto {
-    padding: 4px 6px;
-    font-family: inherit;
-    font-size: 12px;
+  #search {
+    padding: 5px 9px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 240px;
-  }
-
-  #container {
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  svg {
-    width: 100%;
-    display: block;
-  }
-
-  .link {
-    fill: none;
-    stroke: #e0e0e0;
-    stroke-width: 1.2px;
-  }
-
-  .author-label {
+    border-radius: 6px;
     font-size: 12px;
-    font-weight: 600;
-    text-anchor: end;
-    dominant-baseline: central;
+    font-family: inherit;
+    width: 220px;
   }
 
-  .issue text {
+  #count { font-size: 11px; color: #888; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    text-align: left;
     font-size: 11px;
-    dominant-baseline: central;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 6px 8px;
   }
 
-  .issue.open text { fill: #1f77b4; }
-  .issue.closed text { fill: #888; }
-
-  .tag {
-    font-size: 9px;
-    fill: white;
+  tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
   }
+
+  tbody tr:hover { background: #f8fafc; }
+
+  td { padding: 7px 8px; vertical-align: middle; }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #e2e8f0;
+    margin-right: 7px;
+  }
+
+  .name-cell a {
+    font-weight: 500;
+    color: #2d3748;
+    text-decoration: none;
+  }
+  .name-cell a:hover { text-decoration: underline; color: #3182ce; }
+
+  .handle {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: #a0aec0;
+    margin-left: 2px;
+  }
+
+  .orcid-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: #a6ce39;
+    text-decoration: none;
+    background: #f0f9e8;
+    border: 1px solid #d4edaa;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  .orcid-link:hover { background: #e4f5c9; }
+
+  .issue-link {
+    display: inline-block;
+    font-size: 11px;
+    color: #4a5568;
+    text-decoration: none;
+    background: #edf2f7;
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin: 1px 2px 1px 0;
+    white-space: nowrap;
+  }
+  .issue-link:hover { background: #e2e8f0; color: #2d3748; }
+  .issue-link.closed { color: #a0aec0; background: #f7f7f7; }
+
+  .count-badge {
+    display: inline-block;
+    background: #e2e8f0;
+    color: #4a5568;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  #loading { padding: 20px 4px; color: #888; font-size: 12px; }
 </style>
 </head>
-
 <body>
 
-<div id="nav">
-  <label for="goto">Go to:</label>
-  <input id="goto" list="authors" placeholder="Select author..." />
-  <datalist id="authors"></datalist>
+<div id="toolbar">
+  <input id="search" placeholder="Search name or handle…" oninput="filter()" />
+  <span id="count"></span>
 </div>
 
-<div id="container">
-  <svg></svg>
-</div>
+<div id="loading">Loading…</div>
+
+<table id="tbl" style="display:none">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>ORCID</th>
+      <th>Submissions</th>
+      <th>Issues / PRs</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
 
 <script>
-
 const owner = "WCRP-CMIP";
-const repo = "Essential-Model-Documentation";
+const repo  = "Essential-Model-Documentation";
 const label = "emd-submission";
 
-const TAG_COLORS = {
-  component_config: "#1abc9c",
-  horizontal_computational_grid: "#3498db",
-  horizontal_grid_cell: "#2980b9",
-  horizontal_subgrid: "#8e44ad",
-  model: "#e67e22",
-  model_component: "#d35400",
-  model_family: "#f39c12",
-  vertical_computational_grid: "#16a085"
-};
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-const svg = d3.select("svg");
-
-svg.attr("width", window.innerWidth)
-   .attr("height", 2000);
-
-const g = svg.append("g");
-
-const tree = d3.tree().nodeSize([28, 320]);
-
-let root, i = 0;
-
-/* ---------------- FETCH ---------------- */
-async function fetchAllIssues() {
-  let page = 1;
-  let results = [];
-
+async function fetchAll(url) {
+  let page = 1, out = [];
   while (true) {
-    const url =
-      `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}&per_page=100&page=${page}`;
-
-    const res = await fetch(url);
-    if (res.status === 403) {
-      await new Promise(r => setTimeout(r, 1500));
-      continue;
-    }
-
+    const res = await fetch(`${url}&per_page=100&page=${page}`);
+    if (res.status === 403) { await sleep(1500); continue; }
     const data = await res.json();
-    if (!data.length) break;
-
-    results = results.concat(data);
+    if (!Array.isArray(data) || !data.length) break;
+    out = out.concat(data);
     page++;
   }
-
-  return results.filter(d => !d.pull_request);
+  return out;
 }
 
-/* ---------------- CLEAN TITLE ---------------- */
-function cleanTitle(title, tags) {
-  let t = title;
+async function fetchProfile(login) {
+  const r = await fetch(`https://api.github.com/users/${login}`);
+  return r.ok ? r.json() : null;
+}
 
-  tags.forEach(tag => {
-    t = t.replace(new RegExp(tag, "gi"), "");
+async function fetchSocials(login) {
+  try {
+    const r = await fetch(`https://api.github.com/users/${login}/social_accounts`);
+    return r.ok ? r.json() : [];
+  } catch { return []; }
+}
+
+function extractOrcid(socials, bio) {
+  for (const s of (socials || []))
+    if (s.provider === 'orcid' || (s.url||'').includes('orcid.org')) return s.url;
+  const m = (bio||'').match(/https?:\/\/orcid\.org\/[\d-]{19}/);
+  return m ? m[0] : null;
+}
+
+function orcidId(url) { return url.replace(/https?:\/\/orcid\.org\//, ''); }
+
+function cleanTitle(title) {
+  return title
+    .replace(/^\s*(new|modify)\s*:\s*/i, '')
+    .replace(/\b(horizontal_grid_cell|horizontal_computational_grid|vertical_computational_grid|model_component|model_family|model|component_config|horizontal_subgrid)\b/gi, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const rows = document.querySelectorAll('#tbody tr');
+  let n = 0;
+  rows.forEach(r => {
+    const show = !q || r.dataset.search.includes(q);
+    r.style.display = show ? '' : 'none';
+    if (show) n++;
   });
-
-  t = t.replace(/^\s*(new|modify)\s*:\s*/i, "");
-  return t.replace(/\s+/g, " ").trim();
+  document.getElementById('count').textContent = `${n} submitter${n !== 1 ? 's' : ''}`;
 }
 
-/* ---------------- BUILD ---------------- */
-function buildTree(issues) {
-  const authors = {};
-
-  issues.forEach(issue => {
-    const login = issue.user.login;
-
-    if (!authors[login]) {
-      authors[login] = { name: login, children: [] };
-    }
-
-    const tags = issue.labels
-      .map(l => l.name)
-      .filter(l => TAG_COLORS[l]);
-
-    authors[login].children.push({
-      name: cleanTitle(issue.title, tags),
-      state: issue.state,
-      url: issue.html_url,
-      tags
-    });
-  });
-
-  Object.values(authors).forEach(a => {
-    a.children.sort((a, b) =>
-      a.state === b.state ? 0 : a.state === "open" ? -1 : 1
-    );
-  });
-
-  return { name: "root", children: Object.values(authors) };
-}
-
-/* ---------------- NAV ---------------- */
-function buildNav(authors) {
-  const datalist = document.getElementById("authors");
-  const input = document.getElementById("goto");
-
-  datalist.innerHTML = "";
-
-  authors.forEach(a => {
-    const opt = document.createElement("option");
-    opt.value = a;
-    datalist.appendChild(opt);
-  });
-
-  input.addEventListener("change", () => {
-    const val = input.value;
-    const el = document.querySelector(`[data-author="${val}"]`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-}
-
-/* ---------------- RENDER ---------------- */
-function update(source) {
-  tree(root);
-
-  const nodes = root.descendants().filter(d => d.depth !== 0);
-  const links = root.links().filter(d => d.source.depth !== 0);
-
-  g.selectAll(".link")
-    .data(links, d => d.target.id)
-    .join("path")
-    .attr("class", "link")
-    .attr("d", d3.linkHorizontal()
-      .x(d => d.y)
-      .y(d => d.x)
-    );
-
-  const node = g.selectAll(".node")
-    .data(nodes, d => d.id || (d.id = ++i));
-
-  const enter = node.enter()
-    .append("g")
-    .attr("data-author", d => d.depth === 1 ? d.data.name : null)
-    .attr("transform", d => `translate(${source.y0||0},${source.x0||0})`);
-
-  /* AUTHORS */
-  enter.filter(d => d.depth === 1)
-    .append("text")
-    .attr("class", "author-label")
-    .attr("x", -10)
-    .text(d => d.data.name);
-
-  /* ISSUES */
-  enter.filter(d => d.depth === 2)
-    .each(function(d) {
-      let xOffset = 6;
-      const gNode = d3.select(this);
-
-      d.data.tags.forEach(tag => {
-        const w = Math.max(28, tag.length * 7 + 20);
-
-        gNode.append("rect")
-          .attr("x", xOffset)
-          .attr("y", -8)
-          .attr("width", w)
-          .attr("height", 16)
-          .attr("rx", 4)
-          .attr("fill", TAG_COLORS[tag]);
-
-        gNode.append("text")
-          .attr("x", xOffset + w / 2)
-          .attr("y", 0)
-          .attr("text-anchor", "middle")
-          .attr("dominant-baseline", "central")
-          .attr("class", "tag")
-          .text(tag);
-
-        xOffset += w + 6;
-      });
-
-      const prefix = d.data.state === "closed" ? "+ " : "- ";
-
-      gNode.append("a")
-        .attr("href", d.data.url)
-        .attr("target", "_blank")
-        .append("text")
-        .attr("class", d.data.state)
-        .attr("x", xOffset + 6)
-        .text(prefix + truncate(d.data.name, 110));
-    });
-
-  node.merge(enter)
-    .attr("transform", d => `translate(${d.y},${d.x})`);
-
-  node.exit().remove();
-}
-
-/* ---------------- FIT ---------------- */
-function fitToContent() {
-  const bbox = g.node().getBBox();
-
-  const totalHeight = bbox.height + 200;
-
-  svg
-    .attr("width", window.innerWidth)
-    .attr("height", totalHeight);
-
-  g.attr("transform", `translate(${140 - bbox.x},${40 - bbox.y})`);
-
-  // Notify parent frame of full height so iframe can resize
-  if (window.parent !== window) {
-    window.parent.postMessage({ type: "emd-tree-height", height: totalHeight + 60 }, "*");
-  }
-}
-
-/* ---------------- UTIL ---------------- */
-function truncate(str, n) {
-  return str.length > n ? str.slice(0, n) + "…" : str;
-}
-
-/* ---------------- RUN ---------------- */
 (async () => {
-  const issues = await fetchAllIssues();
-  const data = buildTree(issues);
+  // fetch all issues + PRs with label
+  const issues = await fetchAll(
+    `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}`
+  );
 
-  const authors = data.children.map(d => d.name);
-  buildNav(authors);
+  // group by login
+  const byLogin = {};
+  for (const item of issues) {
+    const login = item.user.login;
+    if (!byLogin[login]) byLogin[login] = [];
+    byLogin[login].push(item);
+  }
 
-  root = d3.hierarchy(data);
-  root.x0 = 0;
-  root.y0 = 0;
+  const logins = Object.keys(byLogin).sort((a,b) => byLogin[b].length - byLogin[a].length);
+  document.getElementById('count').textContent = `${logins.length} submitters`;
 
-  update(root);
+  document.getElementById('loading').remove();
+  document.getElementById('tbl').style.display = '';
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      fitToContent();
-    });
-  });
+  const tbody = document.getElementById('tbody');
+
+  const BATCH = 5;
+  for (let i = 0; i < logins.length; i += BATCH) {
+    const batch = logins.slice(i, i + BATCH);
+    await Promise.all(batch.map(async login => {
+      const [profile, socials] = await Promise.all([fetchProfile(login), fetchSocials(login)]);
+      if (!profile) return;
+
+      const orcid = extractOrcid(socials, profile.bio);
+      const items = byLogin[login];
+      const count = items.length;
+
+      const tr = document.createElement('tr');
+      tr.dataset.search = `${(profile.name||'').toLowerCase()} ${login.toLowerCase()}`;
+
+      // Name cell
+      const tdName = document.createElement('td');
+      tdName.className = 'name-cell';
+      tdName.innerHTML = `
+        <img class="avatar" src="${profile.avatar_url}" alt="${login}" />
+        <a href="${profile.html_url}" target="_blank">${profile.name || login}</a>
+        <span class="handle">@${login}</span>`;
+
+      // ORCID cell
+      const tdOrcid = document.createElement('td');
+      if (orcid) {
+        tdOrcid.innerHTML = `<a class="orcid-link" href="${orcid}" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 256 256" fill="#a6ce39">
+            <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm-12.7 190.7H92.4V96.5h22.9v94.2zm-11.5-107c-7.3 0-12-4.8-12-10.8s4.8-10.8 12.3-10.8c7.5 0 12 4.7 12.1 10.8s-4.7 10.8-12.4 10.8zm96.3 107h-22.9v-50.4c0-12.1-4.3-20.3-15.1-20.3-8.2 0-13.1 5.5-15.3 10.9-.8 1.9-1 4.5-1 7.2v52.7H123.9s.3-85.5 0-94.2h22.9v13.3c3-4.7 8.5-11.4 20.8-11.4 15.2 0 26.6 9.9 26.6 31.2l-.1 61.1z"/>
+          </svg>
+          ${orcidId(orcid)}
+        </a>`;
+      }
+
+      // Count cell
+      const tdCount = document.createElement('td');
+      tdCount.innerHTML = `<span class="count-badge">${count}</span>`;
+
+      // Issues cell
+      const tdIssues = document.createElement('td');
+      items.slice(0, 8).forEach(item => {
+        const isPR = !!item.pull_request;
+        const isClosed = item.state === 'closed';
+        const cls = isClosed ? 'issue-link closed' : 'issue-link';
+        const prefix = isPR ? '⤷' : '#';
+        const a = document.createElement('a');
+        a.className = cls;
+        a.href = item.html_url;
+        a.target = '_blank';
+        a.title = item.title;
+        a.textContent = `${prefix}${item.number}`;
+        tdIssues.appendChild(a);
+      });
+      if (items.length > 8) {
+        const span = document.createElement('span');
+        span.style.cssText = 'font-size:11px;color:#a0aec0;margin-left:4px';
+        span.textContent = `+${items.length - 8} more`;
+        tdIssues.appendChild(span);
+      }
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdOrcid);
+      tr.appendChild(tdCount);
+      tr.appendChild(tdIssues);
+      tbody.appendChild(tr);
+    }));
+    if (i + BATCH < logins.length) await sleep(300);
+  }
+
+  filter();
 })();
-
 </script>
   <!-- emd-nav-v1 --><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/geist.css"><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
 
