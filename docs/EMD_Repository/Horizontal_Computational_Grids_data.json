@@ -2,51 +2,37 @@
   "stem": "Horizontal_Computational_Grids",
   "singular": "Horizontal Grid",
   "endpoint": "horizontal_computational_grid",
-  "count": 4,
-  "method": "field-level | link: text (links uninformative) | order: UPGMA leaf traversal",
+  "count": 3,
+  "method": "embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: UPGMA + dendrogram cut",
   "entries": [
-    {
-      "id": "h103",
-      "label": "h103",
-      "spectral_rank": 0
-    },
     {
       "id": "h100",
       "label": "h100",
-      "spectral_rank": 1
+      "spectral_rank": 0
     },
     {
       "id": "h102",
       "label": "h102",
-      "spectral_rank": 2
+      "spectral_rank": 1
     },
     {
       "id": "h101",
       "label": "h101",
-      "spectral_rank": 3
+      "spectral_rank": 2
     }
   ],
   "link_matrix": [
     [
       0.0,
-      0.3505154639175258,
-      0.3028322440087146,
-      0.30848196152283885
-    ],
-    [
-      0.3505154639175258,
-      0.0,
       0.4008714596949891,
       0.45861689463872607
     ],
     [
-      0.3028322440087146,
       0.4008714596949891,
       0.0,
       0.6274509803921569
     ],
     [
-      0.30848196152283885,
       0.45861689463872607,
       0.6274509803921569,
       0.0
@@ -55,26 +41,17 @@
   "text_matrix": [
     [
       0.0,
-      0.3505154639175258,
-      0.3028322440087146,
-      0.30848196152283885
-    ],
-    [
-      0.3505154639175258,
       0.0,
-      0.4008714596949891,
-      0.45861689463872607
+      0.03891314447019854
     ],
     [
-      0.3028322440087146,
-      0.4008714596949891,
       0.0,
-      0.6274509803921569
+      0.0,
+      0.17733157069159314
     ],
     [
-      0.30848196152283885,
-      0.45861689463872607,
-      0.6274509803921569,
+      0.03891314447019854,
+      0.17733157069159314,
       0.0
     ]
   ],
@@ -83,7 +60,7 @@
     "leaf": false,
     "children": [
       {
-        "name": "h103",
+        "name": "h100",
         "leaf": true,
         "spectral_index": 0,
         "value": 0.0
@@ -93,35 +70,22 @@
         "leaf": false,
         "children": [
           {
-            "name": "h100",
+            "name": "h102",
             "leaf": true,
             "spectral_index": 1,
             "value": 0.0
           },
           {
-            "name": "",
-            "leaf": false,
-            "children": [
-              {
-                "name": "h102",
-                "leaf": true,
-                "spectral_index": 2,
-                "value": 0.0
-              },
-              {
-                "name": "h101",
-                "leaf": true,
-                "spectral_index": 3,
-                "value": 0.0
-              }
-            ],
-            "value": 0.37254901960784315
+            "name": "h101",
+            "leaf": true,
+            "spectral_index": 2,
+            "value": 0.0
           }
         ],
-        "value": 0.5702558228331424
+        "value": 0.597608724458125
       }
     ],
-    "value": 0.6793901101836403
+    "value": 0.7753996252990216
   },
   "schema": {
     "name": "record",
@@ -136,7 +100,7 @@
       },
       {
         "name": "horizontal_subgrids",
-        "type": "scalar"
+        "type": "list"
       },
       {
         "name": "ui_label",

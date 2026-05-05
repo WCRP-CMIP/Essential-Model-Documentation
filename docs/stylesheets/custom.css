@@ -1637,3 +1637,73 @@ th[data-sort="desc"] .sort-indicator {
   display: block !important;
   visibility: visible !important;
 }
+
+/* ============================================
+   FIGURE CONTROLS — save + font toggle
+   ============================================ */
+
+.fig-wrap {
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.fig-wrap img {
+  display: block;
+  max-width: 100%;
+}
+
+.fig-bar {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.fig-wrap:hover .fig-bar {
+  opacity: 1;
+}
+
+.fig-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--emd-border, #e2e8f0);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--emd-text-secondary, #475569);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  backdrop-filter: blur(4px);
+  line-height: 1;
+}
+
+.dark .fig-btn {
+  background: rgba(15, 23, 42, 0.88);
+  border-color: var(--emd-border, #334155);
+  color: var(--emd-text-secondary, #cbd5e1);
+}
+
+.fig-btn:hover {
+  background: white;
+  border-color: var(--emd-primary, #2196f3);
+  color: var(--emd-primary, #2196f3);
+}
+
+.dark .fig-btn:hover {
+  background: var(--emd-bg-secondary, #1e293b);
+}
+
+.fig-btn svg {
+  pointer-events: none;
+  display: block;
+}

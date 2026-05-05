@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EMD Issue Tree Viewer</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: transparent;
+  }
+
+  #nav {
+    position: sticky;
+    top: 0;
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 6px 10px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  #goto {
+    padding: 4px 6px;
+    font-family: inherit;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 240px;
+  }
+
+  #container {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  svg {
+    width: 100%;
+    display: block;
+  }
+
+  .link {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 1.2px;
+  }
+
+  .author-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-anchor: end;
+    dominant-baseline: central;
+  }
+
+  .issue text {
+    font-size: 11px;
+    dominant-baseline: central;
+  }
+
+  .issue.open text { fill: #1f77b4; }
+  .issue.closed text { fill: #888; }
+
+  .tag {
+    font-size: 9px;
+    fill: white;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="nav">
+  <label for="goto">Go to:</label>
+  <input id="goto" list="authors" placeholder="Select author..." />
+  <datalist id="authors"></datalist>
+</div>
+
+<div id="container">
+  <svg></svg>
+</div>
+
+<script>
+
+const owner = "WCRP-CMIP";
+const repo = "Essential-Model-Documentation";
+const label = "emd-submission";
+
+const TAG_COLORS = {
+  component_config: "#1abc9c",
+  horizontal_computational_grid: "#3498db",
+  horizontal_grid_cell: "#2980b9",
+  horizontal_subgrid: "#8e44ad",
+  model: "#e67e22",
+  model_component: "#d35400",
+  model_family: "#f39c12",
+  vertical_computational_grid: "#16a085"
+};
+
+const svg = d3.select("svg");
+
+svg.attr("width", window.innerWidth)
+   .attr("height", 2000);
+
+const g = svg.append("g");
+
+const tree = d3.tree().nodeSize([28, 320]);
+
+let root, i = 0;
+
+/* ---------------- FETCH ---------------- */
+async function fetchAllIssues() {
+  let page = 1;
+  let results = [];
+
+  while (true) {
+    const url =
+      `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}&per_page=100&page=${page}`;
+
+    const res = await fetch(url);
+    if (res.status === 403) {
+      await new Promise(r => setTimeout(r, 1500));
+      continue;
+    }
+
+    const data = await res.json();
+    if (!data.length) break;
+
+    results = results.concat(data);
+    page++;
+  }
+
+  return results.filter(d => !d.pull_request);
+}
+
+/* ---------------- CLEAN TITLE ---------------- */
+function cleanTitle(title, tags) {
+  let t = title;
+
+  tags.forEach(tag => {
+    t = t.replace(new RegExp(tag, "gi"), "");
+  });
+
+  t = t.replace(/^\s*(new|modify)\s*:\s*/i, "");
+  return t.replace(/\s+/g, " ").trim();
+}
+
+/* ---------------- BUILD ---------------- */
+function buildTree(issues) {
+  const authors = {};
+
+  issues.forEach(issue => {
+    const login = issue.user.login;
+
+    if (!authors[login]) {
+      authors[login] = { name: login, children: [] };
+    }
+
+    const tags = issue.labels
+      .map(l => l.name)
+      .filter(l => TAG_COLORS[l]);
+
+    authors[login].children.push({
+      name: cleanTitle(issue.title, tags),
+      state: issue.state,
+      url: issue.html_url,
+      tags
+    });
+  });
+
+  Object.values(authors).forEach(a => {
+    a.children.sort((a, b) =>
+      a.state === b.state ? 0 : a.state === "open" ? -1 : 1
+    );
+  });
+
+  return { name: "root", children: Object.values(authors) };
+}
+
+/* ---------------- NAV ---------------- */
+function buildNav(authors) {
+  const datalist = document.getElementById("authors");
+  const input = document.getElementById("goto");
+
+  datalist.innerHTML = "";
+
+  authors.forEach(a => {
+    const opt = document.createElement("option");
+    opt.value = a;
+    datalist.appendChild(opt);
+  });
+
+  input.addEventListener("change", () => {
+    const val = input.value;
+    const el = document.querySelector(`[data-author="${val}"]`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+}
+
+/* ---------------- RENDER ---------------- */
+function update(source) {
+  tree(root);
+
+  const nodes = root.descendants().filter(d => d.depth !== 0);
+  const links = root.links().filter(d => d.source.depth !== 0);
+
+  g.selectAll(".link")
+    .data(links, d => d.target.id)
+    .join("path")
+    .attr("class", "link")
+    .attr("d", d3.linkHorizontal()
+      .x(d => d.y)
+      .y(d => d.x)
+    );
+
+  const node = g.selectAll(".node")
+    .data(nodes, d => d.id || (d.id = ++i));
+
+  const enter = node.enter()
+    .append("g")
+    .attr("data-author", d => d.depth === 1 ? d.data.name : null)
+    .attr("transform", d => `translate(${source.y0||0},${source.x0||0})`);
+
+  /* AUTHORS */
+  enter.filter(d => d.depth === 1)
+    .append("text")
+    .attr("class", "author-label")
+    .attr("x", -10)
+    .text(d => d.data.name);
+
+  /* ISSUES */
+  enter.filter(d => d.depth === 2)
+    .each(function(d) {
+      let xOffset = 6;
+      const gNode = d3.select(this);
+
+      d.data.tags.forEach(tag => {
+        const w = Math.max(28, tag.length * 7 + 20);
+
+        gNode.append("rect")
+          .attr("x", xOffset)
+          .attr("y", -8)
+          .attr("width", w)
+          .attr("height", 16)
+          .attr("rx", 4)
+          .attr("fill", TAG_COLORS[tag]);
+
+        gNode.append("text")
+          .attr("x", xOffset + w / 2)
+          .attr("y", 0)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "central")
+          .attr("class", "tag")
+          .text(tag);
+
+        xOffset += w + 6;
+      });
+
+      const prefix = d.data.state === "closed" ? "+ " : "- ";
+
+      gNode.append("a")
+        .attr("href", d.data.url)
+        .attr("target", "_blank")
+        .append("text")
+        .attr("class", d.data.state)
+        .attr("x", xOffset + 6)
+        .text(prefix + truncate(d.data.name, 110));
+    });
+
+  node.merge(enter)
+    .attr("transform", d => `translate(${d.y},${d.x})`);
+
+  node.exit().remove();
+}
+
+/* ---------------- FIT ---------------- */
+function fitToContent() {
+  const bbox = g.node().getBBox();
+
+  const totalHeight = bbox.height + 200;
+
+  svg
+    .attr("width", window.innerWidth)
+    .attr("height", totalHeight);
+
+  g.attr("transform", `translate(${140 - bbox.x},${40 - bbox.y})`);
+
+  // Notify parent frame of full height so iframe can resize
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: "emd-tree-height", height: totalHeight + 60 }, "*");
+  }
+}
+
+/* ---------------- UTIL ---------------- */
+function truncate(str, n) {
+  return str.length > n ? str.slice(0, n) + "…" : str;
+}
+
+/* ---------------- RUN ---------------- */
+(async () => {
+  const issues = await fetchAllIssues();
+  const data = buildTree(issues);
+
+  const authors = data.children.map(d => d.name);
+  buildNav(authors);
+
+  root = d3.hierarchy(data);
+  root.x0 = 0;
+  root.y0 = 0;
+
+  update(root);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      fitToContent();
+    });
+  });
+})();
+
+</script>
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/geist.css"><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
+
+(function(){
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "group", "label": "Information for Submitters", "url": "/Information_for_Submitters/", "children": [{"type": "link", "label": "Error Meanings", "url": "/Information_for_Submitters/Error_Meanings/"}, {"type": "link", "label": "Find your submissions", "url": "/Information_for_Submitters/find_your_submissions.html"}, {"type": "link", "label": "Submission Guide", "url": "/Information_for_Submitters/Submission-Guide/"}, {"type": "link", "label": "Using GitHub Forms", "url": "/Information_for_Submitters/Using_GitHub_Forms/"}, {"type": "link", "label": "What to expect on submission", "url": "/Information_for_Submitters/What_to_expect_on_submission/"}]}, {"type": "group", "label": "EMD Repository", "url": "/EMD_Repository/", "children": [{"type": "link", "label": "Component Families", "url": "/EMD_Repository/Component_Families/"}, {"type": "link", "label": "Earth System Model Families", "url": "/EMD_Repository/Earth_System_Model_Families/"}, {"type": "link", "label": "Horizontal Computational Grids", "url": "/EMD_Repository/Horizontal_Computational_Grids/"}, {"type": "link", "label": "Horizontal Grid Cells", "url": "/EMD_Repository/Horizontal_Grid_Cells/"}, {"type": "link", "label": "Model Components", "url": "/EMD_Repository/Model_Components/"}, {"type": "link", "label": "Vertical Computational Grids", "url": "/EMD_Repository/Vertical_Computational_Grids/"}]}, {"type": "group", "label": "Developer Guidance", "url": "/Developer_Guidance/", "children": [{"type": "link", "label": "Github Actions, Workflows and Automation", "url": "/Developer_Guidance/Github Actions, Workflows_and_Automation/"}, {"type": "link", "label": "Issue Templates", "url": "/Developer_Guidance/Issue_Templates/"}]}, {"type": "group", "label": "Reviewer Guidance", "url": "/Reviewer_Guidance/", "children": [{"type": "link", "label": "Interpreting The Review Summary", "url": "/Reviewer_Guidance/Interpreting_The_Review_Summary/"}, {"type": "link", "label": "Review Comments", "url": "/Reviewer_Guidance/Review_Comments/"}, {"type": "link", "label": "Review Options", "url": "/Reviewer_Guidance/Review_Options/"}, {"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Guidance/Reviewer_Information/"}]}];
+var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
+function rel(u){return PFX+(u||'').replace(/^\//,'');}
+function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
+function active(u){
+  if(!u)return false;
+  /* Home: key off u==='/' BEFORE resolving rel() — on a sub-path
+     deployment rel('/') resolves to e.g. '/docs', not '', so the old
+     p==='' guard was never reached and Home matched every page. */
+  if(u==='/'){
+    var a=document.createElement('a');a.href=rel(u);
+    var p=a.pathname.replace(/\/$/,'');
+    var c=cur();
+    return c===p||(p===''&&(c===''||c=='/'));
+  }
+  var a=document.createElement('a');a.href=rel(u);
+  var p=a.pathname.replace(/\/$/,'');
+  var c=cur();
+  return c===p||c.startsWith(p+'/');
+}
+var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+function grpActive(g){
+  for(var i=0;i<(g.children||[]).length;i++){
+    var c=g.children[i];
+    if(c.type==='link'&&active(c.url))return true;
+    if(c.type==='group'&&grpActive(c))return true;
+  }
+  return g.url&&active(g.url);
+}
+function render(items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    if(it.type==='link'){
+      h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>'+it.label+'</a>';
+    } else {
+      var on=grpActive(it);
+      var col=on?'':' collapsed';
+      var id='g'+Math.random().toString(36).slice(2);
+      h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
+      h+='<div id="'+id+'" class="nav-group-children'+col+'">';
+      /* Overview link intentionally omitted — group URL is the section header */
+      h+=render(it.children||[]);
+      h+='</div></div>';
+    }
+  }
+  return h;
+}
+window.toggleNav=function(el,id){
+  el.classList.toggle('collapsed');
+  document.getElementById(id).classList.toggle('collapsed');
+};
+function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+}
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
+}
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
+if(document.readyState==='loading')
+  document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+</body>
+</html>

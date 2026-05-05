@@ -85,16 +85,16 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
+    <option value="../Model_Components/nemo_v3_6/">nemo_v3_6</option>
+    <option value="../Model_Components/gelato/">gelato</option>
+    <option value="../Model_Components/tactic/">tactic</option>
+    <option value="../Model_Components/reprobus-c_v2_0/">reprobus-c_v2_0</option>
+    <option value="../Model_Components/arpege-climat_version_6_3/">arpege-climat_version_6_3</option>
+    <option value="../Model_Components/clm4/">clm4</option>
     <option value="../Model_Components/surfex_v8_modeling_platform/">surfex_v8_modeling_platform</option>
     <option value="../Model_Components/piscesv2-gas/">piscesv2-gas</option>
-    <option value="../Model_Components/gelato/">gelato</option>
-    <option value="../Model_Components/nemo_v3_6/">nemo_v3_6</option>
-    <option value="../Model_Components/tactic/">tactic</option>
-    <option value="../Model_Components/arpege-climat_version_6_3/">arpege-climat_version_6_3</option>
-    <option value="../Model_Components/reprobus-c_v2_0/">reprobus-c_v2_0</option>
-    <option value="../Model_Components/hadam3/">hadam3</option>
-    <option value="../Model_Components/clm4/">clm4</option>
     <option value="../Model_Components/bisicles-ukesm-ismip6-1_0/">bisicles-ukesm-ismip6-1_0</option>
+    <option value="../Model_Components/hadam3/">hadam3</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
@@ -125,17 +125,30 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["surfex_v8_modeling_platform","piscesv2-gas","gelato","nemo_v3_6","tactic","arpege-climat_version_6_3","reprobus-c_v2_0","hadam3","clm4","bisicles-ukesm-ismip6-1_0"],"link":[[0.0,0.14177820076567535,0.0036231884057971015,0.0036231884057971015,0.006420975902581254,0.01494853055611138,0.0170812093889017,0.005747126436781609,0.1858513189448441,0.07790927021696252],[0.14177820076567535,0.0,0.010526315789473684,0.04845446950710108,0.005851736829997699,0.010478670634920634,0.08721724898195486,0.005747126436781609,0.00851699592706787,0.06512617012617013],[0.0036231884057971015,0.010526315789473684,0.0,0.37896825396825395,0.34778295376121465,0.3094618055555556,0.35590920517391106,0.06130268199233716,0.09146528930701592,0.14102564102564102],[0.0036231884057971015,0.04845446950710108,0.37896825396825395,0.0,0.32306763285024154,0.3107638888888889,0.3535782028429087,0.0011494252873563218,0.1492523929574289,0.1388888888888889],[0.006420975902581254,0.005851736829997699,0.34778295376121465,0.32306763285024154,0.0,0.36008454106280197,0.36257763975155277,0.0877415458937198,0.09271646228167967,0.15247584541062803],[0.01494853055611138,0.010478670634920634,0.3094618055555556,0.3107638888888889,0.36008454106280197,0.0,0.3967976467976468,0.17471264367816094,0.09026624853962983,0.17468660968660968],[0.0170812093889017,0.08721724898195486,0.35590920517391106,0.3535782028429087,0.36257763975155277,0.3967976467976468,0.0,0.08407224958949096,0.1167166167166167,0.1938125763125763],[0.005747126436781609,0.005747126436781609,0.06130268199233716,0.0011494252873563218,0.0877415458937198,0.17471264367816094,0.08407224958949096,0.0,0.17701149425287355,0.18867521367521367],[0.1858513189448441,0.00851699592706787,0.09146528930701592,0.1492523929574289,0.09271646228167967,0.09026624853962983,0.1167166167166167,0.17701149425287355,0.0,0.3429487179487179],[0.07790927021696252,0.06512617012617013,0.14102564102564102,0.1388888888888889,0.15247584541062803,0.17468660968660968,0.1938125763125763,0.18867521367521367,0.3429487179487179,0.0]],"text":[[0.0,0.14177820076567535,0.0036231884057971015,0.0036231884057971015,0.006420975902581254,0.01494853055611138,0.0170812093889017,0.005747126436781609,0.1858513189448441,0.07790927021696252],[0.14177820076567535,0.0,0.010526315789473684,0.04845446950710108,0.005851736829997699,0.010478670634920634,0.08721724898195486,0.005747126436781609,0.00851699592706787,0.06512617012617013],[0.0036231884057971015,0.010526315789473684,0.0,0.37896825396825395,0.34778295376121465,0.3094618055555556,0.35590920517391106,0.06130268199233716,0.09146528930701592,0.14102564102564102],[0.0036231884057971015,0.04845446950710108,0.37896825396825395,0.0,0.32306763285024154,0.3107638888888889,0.3535782028429087,0.0011494252873563218,0.1492523929574289,0.1388888888888889],[0.006420975902581254,0.005851736829997699,0.34778295376121465,0.32306763285024154,0.0,0.36008454106280197,0.36257763975155277,0.0877415458937198,0.09271646228167967,0.15247584541062803],[0.01494853055611138,0.010478670634920634,0.3094618055555556,0.3107638888888889,0.36008454106280197,0.0,0.3967976467976468,0.17471264367816094,0.09026624853962983,0.17468660968660968],[0.0170812093889017,0.08721724898195486,0.35590920517391106,0.3535782028429087,0.36257763975155277,0.3967976467976468,0.0,0.08407224958949096,0.1167166167166167,0.1938125763125763],[0.005747126436781609,0.005747126436781609,0.06130268199233716,0.0011494252873563218,0.0877415458937198,0.17471264367816094,0.08407224958949096,0.0,0.17701149425287355,0.18867521367521367],[0.1858513189448441,0.00851699592706787,0.09146528930701592,0.1492523929574289,0.09271646228167967,0.09026624853962983,0.1167166167166167,0.17701149425287355,0.0,0.3429487179487179],[0.07790927021696252,0.06512617012617013,0.14102564102564102,0.1388888888888889,0.15247584541062803,0.17468660968660968,0.1938125763125763,0.18867521367521367,0.3429487179487179,0.0]],"method":"field-level | link: text (links uninformative) | order: UPGMA leaf traversal","folder":"Model Components","meta":[{"label":"surfex_v8_modeling_platform","tags":["land-surface"]},{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"gelato","tags":["sea-ice"]},{"label":"nemo_v3_6","tags":["ocean"]},{"label":"tactic","tags":["aerosol"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"hadam3","tags":["atmosphere"]},{"label":"clm4","tags":["land-surface"]},{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":0,"value":0.0},{"name":"piscesv2-gas","leaf":true,"spectral_index":1,"value":0.0}],"value":0.8582217992343246},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"gelato","leaf":true,"spectral_index":2,"value":0.0},{"name":"nemo_v3_6","leaf":true,"spectral_index":3,"value":0.0}],"value":0.621031746031746},{"name":"","leaf":false,"children":[{"name":"tactic","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"arpege-climat_version_6_3","leaf":true,"spectral_index":5,"value":0.0},{"name":"reprobus-c_v2_0","leaf":true,"spectral_index":6,"value":0.0}],"value":0.6032023532023532}],"value":0.6386689095928226}],"value":0.6665727184878799},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":7,"value":0.0},{"name":"","leaf":false,"children":[{"name":"clm4","leaf":true,"spectral_index":8,"value":0.0},{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":9,"value":0.0}],"value":0.6570512820512822}],"value":0.8171566460359564}],"value":0.8833143254954813}],"value":0.9651797785942973}};
-var EMD_ENTRIES = [{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"},{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"hadam3","url":"../Model_Components/hadam3/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"}];
+var EMD_DATA    = {"ids":["nemo_v3_6","gelato","tactic","reprobus-c_v2_0","arpege-climat_version_6_3","clm4","surfex_v8_modeling_platform","piscesv2-gas","bisicles-ukesm-ismip6-1_0","hadam3"],"link":[[0.0,0.37896825396825395,0.32306763285024154,0.3535782028429087,0.3107638888888889,0.1492523929574289,0.0036231884057971015,0.04845446950710108,0.1388888888888889,0.0011494252873563218],[0.37896825396825395,0.0,0.34778295376121465,0.35590920517391106,0.3094618055555556,0.09146528930701592,0.0036231884057971015,0.010526315789473684,0.14102564102564102,0.06130268199233716],[0.32306763285024154,0.34778295376121465,0.0,0.36257763975155277,0.36008454106280197,0.09271646228167967,0.006420975902581254,0.005851736829997699,0.15247584541062803,0.0877415458937198],[0.3535782028429087,0.35590920517391106,0.36257763975155277,0.0,0.3967976467976468,0.1167166167166167,0.0170812093889017,0.08721724898195486,0.1938125763125763,0.08407224958949096],[0.3107638888888889,0.3094618055555556,0.36008454106280197,0.3967976467976468,0.0,0.09026624853962983,0.01494853055611138,0.010478670634920634,0.17468660968660968,0.17471264367816094],[0.1492523929574289,0.09146528930701592,0.09271646228167967,0.1167166167166167,0.09026624853962983,0.0,0.1858513189448441,0.00851699592706787,0.3429487179487179,0.17701149425287355],[0.0036231884057971015,0.0036231884057971015,0.006420975902581254,0.0170812093889017,0.01494853055611138,0.1858513189448441,0.0,0.14177820076567535,0.07790927021696252,0.005747126436781609],[0.04845446950710108,0.010526315789473684,0.005851736829997699,0.08721724898195486,0.010478670634920634,0.00851699592706787,0.14177820076567535,0.0,0.06512617012617013,0.005747126436781609],[0.1388888888888889,0.14102564102564102,0.15247584541062803,0.1938125763125763,0.17468660968660968,0.3429487179487179,0.07790927021696252,0.06512617012617013,0.0,0.18867521367521367],[0.0011494252873563218,0.06130268199233716,0.0877415458937198,0.08407224958949096,0.17471264367816094,0.17701149425287355,0.005747126436781609,0.005747126436781609,0.18867521367521367,0.0]],"text":[[0.0,0.37896825396825395,0.32306763285024154,0.3535782028429087,0.3107638888888889,0.1492523929574289,0.0036231884057971015,0.04845446950710108,0.1388888888888889,0.0011494252873563218],[0.37896825396825395,0.0,0.34778295376121465,0.35590920517391106,0.3094618055555556,0.09146528930701592,0.0036231884057971015,0.010526315789473684,0.14102564102564102,0.06130268199233716],[0.32306763285024154,0.34778295376121465,0.0,0.36257763975155277,0.36008454106280197,0.09271646228167967,0.006420975902581254,0.005851736829997699,0.15247584541062803,0.0877415458937198],[0.3535782028429087,0.35590920517391106,0.36257763975155277,0.0,0.3967976467976468,0.1167166167166167,0.0170812093889017,0.08721724898195486,0.1938125763125763,0.08407224958949096],[0.3107638888888889,0.3094618055555556,0.36008454106280197,0.3967976467976468,0.0,0.09026624853962983,0.01494853055611138,0.010478670634920634,0.17468660968660968,0.17471264367816094],[0.1492523929574289,0.09146528930701592,0.09271646228167967,0.1167166167166167,0.09026624853962983,0.0,0.1858513189448441,0.00851699592706787,0.3429487179487179,0.17701149425287355],[0.0036231884057971015,0.0036231884057971015,0.006420975902581254,0.0170812093889017,0.01494853055611138,0.1858513189448441,0.0,0.14177820076567535,0.07790927021696252,0.005747126436781609],[0.04845446950710108,0.010526315789473684,0.005851736829997699,0.08721724898195486,0.010478670634920634,0.00851699592706787,0.14177820076567535,0.0,0.06512617012617013,0.005747126436781609],[0.1388888888888889,0.14102564102564102,0.15247584541062803,0.1938125763125763,0.17468660968660968,0.3429487179487179,0.07790927021696252,0.06512617012617013,0.0,0.18867521367521367],[0.0011494252873563218,0.06130268199233716,0.0877415458937198,0.08407224958949096,0.17471264367816094,0.17701149425287355,0.005747126436781609,0.005747126436781609,0.18867521367521367,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Model Components","meta":[{"label":"nemo_v3_6","tags":["ocean"]},{"label":"gelato","tags":["sea-ice"]},{"label":"tactic","tags":["aerosol"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"clm4","tags":["land-surface"]},{"label":"surfex_v8_modeling_platform","tags":["land-surface"]},{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]},{"label":"hadam3","tags":["atmosphere"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":2,"value":0.0},{"name":"piscesv2-gas","leaf":true,"spectral_index":3,"value":0.0}],"value":0.8582217992343246},{"name":"","leaf":false,"children":[{"name":"nemo_v3_6","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":5,"value":0.0},{"name":"","leaf":false,"children":[{"name":"clm4","leaf":true,"spectral_index":1,"value":0.0},{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":4,"value":0.0}],"value":0.6570512820512822}],"value":0.8171566460359564}],"value":0.8833143254954813}],"value":0.9511821106288582},"clusters":[0,0,0,0,0,1,2,3,4,5],"group_spans":[[0,4],[5,5],[6,6],[7,7],[8,8],[9,9]]};
+var EMD_ENTRIES = [{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"},{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"},{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"},{"label":"hadam3","url":"../Model_Components/hadam3/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"code_base","type":"scalar"},{"name":"component","type":"scalar"},{"name":"description","type":"scalar"},{"name":"family","type":"scalar"},{"name":"name","type":"scalar"},{"name":"references","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids         = EMD_DATA.ids;
+var link        = EMD_DATA.link;
+var text        = EMD_DATA.text;
+var method      = EMD_DATA.method;
+var meta        = EMD_DATA.meta;
+var tree        = EMD_DATA.tree;
+var clusters    = EMD_DATA.clusters || ids.map(function() { return 0; });
+var group_spans = EMD_DATA.group_spans || [];  /* [[start_row, end_row], ...] per group */
+var n           = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -214,7 +227,7 @@ var maxLLen  = Math.max.apply(null, meta.map(function (m) { return Math.min(m.la
 var XLBL_H   = Math.ceil(maxLLen * lblFs * 0.62) + 12;
 var YLBL_W   = Math.ceil(maxLLen * lblFs * 0.62) + 16;
 var LEG_H    = 62;
-var DEND_W   = Math.max(60, Math.round(n * cellSize * 0.18));  /* narrow right-side dendrogram */
+var DEND_W   = Math.max(30, Math.round(n * cellSize * 0.09));  /* compact right-side dendrogram */
 var matW     = n * cellSize;
 var margin   = { top: 30, right: DEND_W + 8, bottom: XLBL_H + LEG_H + 16, left: YLBL_W };
 var totalW   = matW + margin.left + margin.right;
@@ -266,6 +279,45 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* Show cluster boxes only while the mouse is over the matrix */
+d3.select('#emd-combined-chart')
+  .on('mouseenter.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0.8);
+  })
+  .on('mouseleave.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0);
+  });
+
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('class', 'emd-cluster-box')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -281,8 +333,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' ↔ ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">▲ Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">▼ Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">▲ Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">▼ Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -323,6 +375,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -353,6 +432,25 @@ matG.append('line')
   .attr('x1',0).attr('y1',0).attr('x2',matW).attr('y2',matW)
   .attr('stroke', NAVY).attr('stroke-width', 1.5).attr('stroke-dasharray','5,4').attr('opacity',0.22);
 
+/* ── upper / lower triangle corner labels ──────────────────────────────── */
+/* These make explicit that the two triangles show different metrics. */
+var triFs = Math.max(8, Math.round(cellSize * 0.13));
+var pad   = Math.max(6, Math.round(cellSize * 0.18));
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
+matG.append('text')
+  .attr('x', matW - pad).attr('y', pad + triFs)
+  .attr('text-anchor','end').attr('font-family', FONT)
+  .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
+  .text(upperLabel);
+/* Lower-left: text / embedding label */
+matG.append('text')
+  .attr('x', pad).attr('y', matW - pad)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
+  .text('embeddings');
+
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
 var barW  = Math.floor(matW * 0.43);
@@ -361,7 +459,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('▲  link similarity');
+  .text('▲  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -372,7 +470,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('▼  content similarity');
+  .text('▼  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -389,13 +487,24 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   root.each(function (d) { if (d.data.value > maxDist) maxDist = d.data.value; });
   if (maxDist < 1e-9) maxDist = 1;
 
-  /* 1. y-positions: each leaf pins to its spectral_index matrix row */
+  /* 1. y-positions: each leaf represents a GROUP, not an individual item.
+        Pin each leaf to the vertical centre of its group's matrix block.
+        spectral_index in the group-level tree = group index (0-based, in
+        the order groups appear as rows in the matrix).
+        Falls back to uniform spacing if group_spans is not populated. */
   function assignY(node) {
     if (!node.children) {
-      node.dendY = (node.data.spectral_index || 0) * cellSize + cellSize / 2;
+      var gi  = node.spectral_index || 0;
+      var span = group_spans[gi];
+      if (span) {
+        /* centre of the group block */
+        node.dendY = (span[0] + span[1]) / 2 * cellSize + cellSize / 2;
+      } else {
+        node.dendY = gi * cellSize + cellSize / 2;
+      }
     } else {
       node.children.forEach(assignY);
-      node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
+      node.dendY = (node.children[0].dendY + node.children[node.children.length-1].dendY) / 2;
     }
   }
   assignY(root);
@@ -421,34 +530,54 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
-    .data(links).join('path')
+    .data(links.filter(function (d) { return d.tgt._clique >= 0; })).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.6 : 0.25; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +
              ' H ' + d.tgt.dendX;
     });
 
-  /* 5. Dashed connector: matrix right edge → leaf left-edge
-        (small tick showing which row the leaf belongs to) */
-  root.leaves().forEach(function (d) {
-    dendG.append('line')
-      .attr('x1', 0).attr('y1', d.dendY)
-      .attr('x2', d.dendX).attr('y2', d.dendY)
-      .attr('stroke', NAVY).attr('stroke-width', 0.5)
-      .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
-  });
+  /* 5. No dashed connectors needed: leaves are already pinned to the
+        centre of their group block in the matrix. */
 
   /* No leaf labels — rows are already labelled by the matrix y-axis */
 
-  /* 6. Internal node dots */
+  /* 6. Internal node dots — only within-cluster nodes */
   root.each(function (d) {
-    if (!d.children) return;
+    if (!d.children || d._clique < 0) return;
     dendG.append('circle')
       .attr('cx', d.dendX).attr('cy', d.dendY).attr('r', 1.8)
       .attr('fill', WHITE).attr('stroke', NAVY).attr('stroke-width', 1).attr('opacity', 0.65);

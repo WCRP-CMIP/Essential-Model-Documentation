@@ -86,6 +86,7 @@ FILTER_FIELD = {
     "Component_Families":          "scientific_domains",
     "Earth_System_Model_Families": "scientific_domains",
     "Model_Components":            "component",
+    "Horizontal_Grid_Cells":       "grid_type",
 }
 
 REPO_DIR_MAP = {
@@ -235,8 +236,141 @@ def _upgma_for_ordering(n, dist_matrix):
     return nodes[active[0]]
 
 
+def _mcl_clusters(text_matrix, inflation=2.0, iterations=60):
+    """
+    Markov Clustering Algorithm (MCL) on the text/embedding similarity matrix.
+
+    The text matrix is used (not the combined) because the link matrix for
+    most record types has uniformly high values that prevent MCL from finding
+    meaningful structure. The text/embedding matrix captures the numerical
+    and semantic differences that actually distinguish items.
+
+    Pruning threshold is set adaptively at the 50th percentile of non-zero
+    off-diagonal values so the graph sparsity scales with the data.
+
+    inflation controls granularity: higher → more, smaller clusters.
+    The default 2.0 is the standard starting value.
+
+    Returns an int array of length n with cluster IDs.
+    """
+    n = len(text_matrix)
+    if n < 2:
+        return np.zeros(n, dtype=int)
+
+    # Adaptive pruning: keep only the top half of non-zero similarities
+    M    = text_matrix.astype(float).copy()
+    np.fill_diagonal(M, 0)
+    nonzero = M[M > 0]
+    prune   = float(np.percentile(nonzero, 50)) if len(nonzero) else 0.05
+    prune   = max(0.05, prune)
+    M[M < prune] = 0
+
+    np.fill_diagonal(M, 1.0)  # self-loops keep every node reachable
+    col = M.sum(axis=0, keepdims=True); col[col == 0] = 1; M /= col
+
+    for _ in range(iterations):
+        prev = M.copy()
+        M    = M @ M                          # expand
+        np.power(M, inflation, out=M)         # inflate
+        col  = M.sum(axis=0, keepdims=True); col[col == 0] = 1; M /= col
+        M[M < 1e-5] = 0                       # prune noise
+        if np.max(np.abs(M - prev)) < 1e-4:
+            break
+
+    # Extract clusters from converged matrix.
+    # Attractor nodes have M[i,i] > 0; members are nodes j with M[i,j] > 0.
+    labels     = np.full(n, -1, dtype=int)
+    cluster_id = 0
+    for i in range(n):
+        if M[i, i] > 0:
+            for m in np.where(M[i, :] > 0)[0]:
+                if labels[m] < 0:
+                    labels[m] = cluster_id
+            cluster_id += 1
+
+    # Catch any unassigned nodes (rare) as singletons
+    for i in range(n):
+        if labels[i] < 0:
+            labels[i] = cluster_id
+            cluster_id += 1
+
+    return labels
+
+
+def _spectral_order_and_clusters(sim_matrix, n_clusters=None):
+    """
+    Graph-based clustering: threshold the similarity matrix at the 75th
+    percentile of off-diagonal values, then find connected components.
+
+    Items whose strongest similarity to any other item is below the
+    threshold become singletons naturally — no item is forced into a group.
+
+    Within each multi-item component the Fiedler vector (second eigenvector
+    of the component's Laplacian) is used to give a smooth linear ordering.
+    Components are then sorted largest-first so the dominant groups appear
+    at the top-left of the matrix.
+
+    Returns (order, cluster_labels) where:
+      order          — permutation of 0..n-1 giving the final matrix row order
+      cluster_labels — cluster ID for each item *in the returned order*
+    """
+    n = len(sim_matrix)
+    if n < 2:
+        return np.arange(n), np.zeros(n, dtype=int)
+
+    # ── 1. Adaptive threshold: keep only the top 25% of similarities ──
+    W = np.clip(sim_matrix, 0, 1).copy()
+    np.fill_diagonal(W, 0)
+    off = W[W > 0]
+    threshold = float(np.percentile(off, 85)) if len(off) else 0.5
+
+    adj = W > threshold
+
+    # ── 2. Connected components (BFS) ────────────────────────────
+    raw_labels = np.full(n, -1, dtype=int)
+    cid = 0
+    for start in range(n):
+        if raw_labels[start] >= 0:
+            continue
+        stack = [start]
+        while stack:
+            node = stack.pop()
+            if raw_labels[node] >= 0:
+                continue
+            raw_labels[node] = cid
+            stack.extend(int(nb) for nb in np.where(adj[node] & (raw_labels < 0))[0])
+        cid += 1
+
+    # ── 3. Order within each component using Fiedler vector ─────────
+    component_orders = []
+    for c in range(cid):
+        idx = np.where(raw_labels == c)[0]
+        if len(idx) < 3:
+            component_orders.append(idx.tolist())
+            continue
+        sub = W[np.ix_(idx, idx)]
+        deg = sub.sum(axis=1)
+        deg[deg == 0] = 1
+        d = 1.0 / np.sqrt(deg)
+        L = np.eye(len(idx)) - (d[:, None] * sub * d[None, :])
+        _, evec = np.linalg.eigh(L)
+        fiedler = evec[:, 1]          # second eigenvector = smoothest ordering
+        local_order = np.argsort(fiedler)
+        component_orders.append(idx[local_order].tolist())
+
+    # ── 4. Sort components largest-first ────────────────────────────
+    component_orders.sort(key=len, reverse=True)
+
+    order = []
+    cluster_labels = []
+    new_cid = 0
+    for comp in component_orders:
+        order.extend(comp)
+        cluster_labels.extend([new_cid] * len(comp))
+        new_cid += 1
+
+    return np.array(order, dtype=int), np.array(cluster_labels, dtype=int)
 def _leaf_order(node):
-    """DFS traversal of a _upgma_for_ordering tree; returns original indices."""
     if node.get("leaf"):
         return [node["oi"]]
     result = []
@@ -338,8 +472,10 @@ def _compute_matrices(items, ids, use_embeddings=True):
         text_matrix = _field_matrix(text_items, n)
 
     if link_degen:
-        link_matrix = text_matrix.copy()
-        link_label  = "text (links uninformative)"
+        # Links are uninformative — fall back to field-level similarity for
+        # the upper triangle so it always differs from the embedding lower triangle.
+        link_matrix = _field_matrix(text_items, n)
+        link_label  = "field-level (links uninformative)"
     else:
         link_matrix = link_raw
         link_label  = "jaccard"
@@ -490,13 +626,26 @@ var EMD_DATA    = __DATA__;
 var EMD_ENTRIES = __ENTRIES__;
 var EMD_SCHEMA  = __SCHEMA__;
 
-var ids    = EMD_DATA.ids;
-var link   = EMD_DATA.link;
-var text   = EMD_DATA.text;
-var method = EMD_DATA.method;
-var meta   = EMD_DATA.meta;
-var tree   = EMD_DATA.tree;
-var n      = ids.length;
+var ids         = EMD_DATA.ids;
+var link        = EMD_DATA.link;
+var text        = EMD_DATA.text;
+var method      = EMD_DATA.method;
+var meta        = EMD_DATA.meta;
+var tree        = EMD_DATA.tree;
+var clusters    = EMD_DATA.clusters || ids.map(function() { return 0; });
+var group_spans = EMD_DATA.group_spans || [];  /* [[start_row, end_row], ...] per group */
+var n           = ids.length;
+
+/* Cluster colour palette — 20 distinct monotone colours */
+var CLUSTER_COLORS = [
+  '#1565c0','#b71c1c','#1b5e20','#4a148c','#e65100',
+  '#006064','#3e2723','#37474f','#880e4f','#33691e',
+  '#0d47a1','#bf360c','#1a237e','#01579b','#004d40',
+  '#f57f17','#4e342e','#263238','#6a1b9a','#827717'
+];
+function clusterColor(k) {
+  return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
+}
 
 var FONT    = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
@@ -575,7 +724,7 @@ var maxLLen  = Math.max.apply(null, meta.map(function (m) { return Math.min(m.la
 var XLBL_H   = Math.ceil(maxLLen * lblFs * 0.62) + 12;
 var YLBL_W   = Math.ceil(maxLLen * lblFs * 0.62) + 16;
 var LEG_H    = 62;
-var DEND_W   = Math.max(60, Math.round(n * cellSize * 0.18));  /* narrow right-side dendrogram */
+var DEND_W   = Math.max(30, Math.round(n * cellSize * 0.09));  /* compact right-side dendrogram */
 var matW     = n * cellSize;
 var margin   = { top: 30, right: DEND_W + 8, bottom: XLBL_H + LEG_H + 16, left: YLBL_W };
 var totalW   = matW + margin.left + margin.right;
@@ -627,6 +776,45 @@ for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) cellData.push({i: i, j: 
 
 var tip = d3.select('#emd-tip');
 
+/* Show cluster boxes only while the mouse is over the matrix */
+d3.select('#emd-combined-chart')
+  .on('mouseenter.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0.8);
+  })
+  .on('mouseleave.cluster', function () {
+    matG.selectAll('.emd-cluster-box').attr('opacity', 0);
+  });
+
+/* ── cluster background fills (drawn before cells so they sit behind) ──── */
+(function () {
+  var runs = [];
+  var start = 0;
+  for (var i = 1; i <= n; i++) {
+    if (i === n || clusters[i] !== clusters[start]) {
+      runs.push({ k: clusters[start], start: start, end: i - 1 });
+      start = i;
+    }
+  }
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+
+  runs.forEach(function (r) {
+    if (clusterSize[r.k] < 2) return;
+    var x  = r.start * cellSize;
+    var sz = (r.end - r.start + 1) * cellSize;
+    matG.append('rect')
+      .attr('class', 'emd-cluster-box')
+      .attr('x', x).attr('y', x)
+      .attr('width', sz).attr('height', sz)
+      .attr('fill', 'none')
+      .attr('stroke', clusterColor(r.k))
+      .attr('stroke-width', 2)
+      .attr('rx', rad + 1)
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0);
+  });
+}());
+
 matG.selectAll('.emd-cell').data(cellData).join('rect')
   .attr('class','emd-cell')
   .attr('x', function (d) { return d.j * cellSize + gap / 2; })
@@ -642,8 +830,8 @@ matG.selectAll('.emd-cell').data(cellData).join('rect')
     var li = Math.min(d.i, d.j), lj = Math.max(d.i, d.j);
     tip.style('opacity', 1).html(
       '<div class="emd-tip-head">' + meta[d.i].label + ' \u2194 ' + meta[d.j].label + '</div>' +
-      '<span class="emd-tip-link">\u25b2 Link</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
-      '<span class="emd-tip-text">\u25bc Content</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
+      '<span class="emd-tip-link">\u25b2 Link similarity</span>&nbsp;' + (link[li][lj]*100).toFixed(1) + '%<br>' +
+      '<span class="emd-tip-text">\u25bc Embeddings</span>&nbsp;' + (text[lj][li]*100).toFixed(1) + '%'
     );
     d3.select(this).attr('stroke', NAVY).attr('stroke-width', 2);
     matG.selectAll('.emd-cell').filter(function (e) { return e.i !== d.i && e.j !== d.j; })
@@ -684,6 +872,33 @@ matG.selectAll('.emd-val').data(cellData.filter(function (d) { return d.i !== d.
     return v >= 0.08 ? Math.round(v * 100) + '%' : '';
   });
 
+/* ── cluster legend ────────────────────────────────────────────────────── */
+(function () {
+  var clusterSize = {};
+  clusters.forEach(function (c) { clusterSize[c] = (clusterSize[c] || 0) + 1; });
+  var shownClusters = Object.keys(clusterSize)
+    .map(Number)
+    .filter(function (k) { return clusterSize[k] >= 2; })
+    .sort(function (a, b) { return a - b; });
+  var legY2 = matW + XLBL_H + LEG_H + 28;
+  var legFs2 = Math.max(9, Math.round(cellSize * 0.14));
+  var dot = legFs2 + 2;
+  var lx = 0;
+  shownClusters.forEach(function (k, idx) {
+    matG.append('rect')
+      .attr('x', lx).attr('y', legY2)
+      .attr('width', dot).attr('height', dot)
+      .attr('rx', 2)
+      .attr('fill', clusterColor(k));
+    matG.append('text')
+      .attr('x', lx + dot + 4).attr('y', legY2 + dot - 2)
+      .attr('font-family', FONT).attr('font-size', legFs2)
+      .attr('fill', NAVY)
+      .text('Group ' + (idx + 1));
+    lx += dot + 70;
+  });
+}());
+
 matG.selectAll('.emd-diag').data(meta).join('text')
   .attr('class','emd-diag')
   .attr('x', function (d, i) { return i * cellSize + cellSize / 2; })
@@ -714,6 +929,25 @@ matG.append('line')
   .attr('x1',0).attr('y1',0).attr('x2',matW).attr('y2',matW)
   .attr('stroke', NAVY).attr('stroke-width', 1.5).attr('stroke-dasharray','5,4').attr('opacity',0.22);
 
+/* ── upper / lower triangle corner labels ──────────────────────────────── */
+/* These make explicit that the two triangles show different metrics. */
+var triFs = Math.max(8, Math.round(cellSize * 0.13));
+var pad   = Math.max(6, Math.round(cellSize * 0.18));
+/* Upper-right: link / field-level label (from method string) */
+var upperLabel = (method.indexOf('field-level') >= 0 && method.indexOf('jaccard') < 0)
+  ? 'field similarity' : 'link similarity';
+matG.append('text')
+  .attr('x', matW - pad).attr('y', pad + triFs)
+  .attr('text-anchor','end').attr('font-family', FONT)
+  .attr('font-size', triFs).attr('font-weight', 700).attr('fill', RED).attr('opacity', 0.75)
+  .text(upperLabel);
+/* Lower-left: text / embedding label */
+matG.append('text')
+  .attr('x', pad).attr('y', matW - pad)
+  .attr('text-anchor','start').attr('font-family', FONT)
+  .attr('font-size', triFs).attr('font-weight', 700).attr('fill', MUSTARD).attr('opacity', 0.75)
+  .text('embeddings');
+
 /* ── legend ────────────────────────────────────────────────────────────── */
 var legY  = matW + XLBL_H + 16;
 var barW  = Math.floor(matW * 0.43);
@@ -722,7 +956,7 @@ var legFs = Math.max(9, Math.round(cellSize * 0.16));
 
 matG.append('text').attr('x',0).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill',RED)
-  .text('\u25b2  link similarity');
+  .text('\u25b2  link similarity (upper)');
 matG.append('rect').attr('x',0).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-red)');
 matG.append('text').attr('x',0).attr('y',legY+barH+9)
@@ -733,7 +967,7 @@ matG.append('text').attr('x',barW).attr('y',legY+barH+9).attr('text-anchor','end
 var mustX = matW - barW;
 matG.append('text').attr('x',mustX).attr('y',legY-8)
   .attr('font-family',FONT).attr('font-size',legFs).attr('font-weight',700).attr('fill','#c49000')
-  .text('\u25bc  content similarity');
+  .text('\u25bc  embeddings (lower)');
 matG.append('rect').attr('x',mustX).attr('y',legY).attr('width',barW).attr('height',barH)
   .attr('rx',3).attr('fill','url(#emd-leg-mustard)');
 matG.append('text').attr('x',mustX).attr('y',legY+barH+9)
@@ -750,13 +984,24 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   root.each(function (d) { if (d.data.value > maxDist) maxDist = d.data.value; });
   if (maxDist < 1e-9) maxDist = 1;
 
-  /* 1. y-positions: each leaf pins to its spectral_index matrix row */
+  /* 1. y-positions: each leaf represents a GROUP, not an individual item.
+        Pin each leaf to the vertical centre of its group's matrix block.
+        spectral_index in the group-level tree = group index (0-based, in
+        the order groups appear as rows in the matrix).
+        Falls back to uniform spacing if group_spans is not populated. */
   function assignY(node) {
     if (!node.children) {
-      node.dendY = (node.data.spectral_index || 0) * cellSize + cellSize / 2;
+      var gi  = node.spectral_index || 0;
+      var span = group_spans[gi];
+      if (span) {
+        /* centre of the group block */
+        node.dendY = (span[0] + span[1]) / 2 * cellSize + cellSize / 2;
+      } else {
+        node.dendY = gi * cellSize + cellSize / 2;
+      }
     } else {
       node.children.forEach(assignY);
-      node.dendY = d3.mean(node.children, function (c) { return c.dendY; });
+      node.dendY = (node.children[0].dendY + node.children[node.children.length-1].dendY) / 2;
     }
   }
   assignY(root);
@@ -782,34 +1027,54 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
     if (d.children) d.children.forEach(function (c) { links.push({src: d, tgt: c}); });
   });
 
+  /* Annotate each node with the majority cluster of its leaf subtree.
+     Used to colour branches: a branch is the cluster colour when all
+     leaves below share the same cluster AND that cluster is not a singleton.
+     Grey when mixed or all singletons. */
+  var clusterSizeD = {};
+  clusters.forEach(function (c) { clusterSizeD[c] = (clusterSizeD[c] || 0) + 1; });
+
+  root.each(function (d) {
+    var leaves = d.leaves();
+    var clusterSet = {};
+    leaves.forEach(function (l) {
+      var ci = clusters[l.data.spectral_index || 0];
+      clusterSet[ci] = (clusterSet[ci] || 0) + 1;
+    });
+    var keys = Object.keys(clusterSet);
+    var singleCluster = (keys.length === 1) ? parseInt(keys[0]) : -1;
+    /* Only assign a clique colour if the cluster has more than 1 item total */
+    d._clique = (singleCluster >= 0 && clusterSizeD[singleCluster] >= 2)
+      ? singleCluster : -1;
+  });
+
   /* 4. Orthogonal elbow paths: M px,py V cy H cx
-        Parent (further right) → vertical to child's y → horizontal left to child. */
+        Parent (further right) → vertical to child’s y → horizontal left to child.
+        Coloured by cluster when the entire subtree belongs to one cluster. */
   dendG.selectAll('.emd-dend-branch')
-    .data(links).join('path')
+    .data(links.filter(function (d) { return d.tgt._clique >= 0; })).join('path')
     .attr('class','emd-dend-branch')
     .attr('fill','none')
-    .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.55)
+    .attr('stroke', function (d) {
+      var k = d.tgt._clique;
+      return k >= 0 ? clusterColor(k) : '#888';
+    })
+    .attr('stroke-width', function (d) { return d.tgt._clique >= 0 ? 1.8 : 0.9; })
+    .attr('opacity', function (d) { return d.tgt._clique >= 0 ? 0.6 : 0.25; })
     .attr('d', function (d) {
       return 'M ' + d.src.dendX + ',' + d.src.dendY +
              ' V ' + d.tgt.dendY +
              ' H ' + d.tgt.dendX;
     });
 
-  /* 5. Dashed connector: matrix right edge → leaf left-edge
-        (small tick showing which row the leaf belongs to) */
-  root.leaves().forEach(function (d) {
-    dendG.append('line')
-      .attr('x1', 0).attr('y1', d.dendY)
-      .attr('x2', d.dendX).attr('y2', d.dendY)
-      .attr('stroke', NAVY).attr('stroke-width', 0.5)
-      .attr('stroke-dasharray','1,3').attr('opacity', 0.18);
-  });
+  /* 5. No dashed connectors needed: leaves are already pinned to the
+        centre of their group block in the matrix. */
 
   /* No leaf labels — rows are already labelled by the matrix y-axis */
 
-  /* 6. Internal node dots */
+  /* 6. Internal node dots — only within-cluster nodes */
   root.each(function (d) {
-    if (!d.children) return;
+    if (!d.children || d._clique < 0) return;
     dendG.append('circle')
       .attr('cx', d.dendX).attr('cy', d.dendY).attr('r', 1.8)
       .attr('fill', WHITE).attr('stroke', NAVY).attr('stroke-width', 1).attr('opacity', 0.65);
@@ -887,17 +1152,45 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
 # ── page builder ───────────────────────────────────────────────────────────────
 
 def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
-                link_matrix, text_matrix, method_str, order, repo_subdir):
+                link_ordered, text_ordered, cluster_labels, method_str, repo_subdir):
 
     n = len(ordered_ids)
-    link_ordered = link_matrix[np.ix_(order, order)]
-    text_ordered = text_matrix[np.ix_(order, order)]
 
-    # Dendrogram on the spectrally-ordered distance matrix
+    # ── Group-level dendrogram ────────────────────────────────────────────────────
+    # Build one UPGMA leaf per group, not per item.
+    # Inter-group distance = average pairwise distance of their members.
+    # group_spans[g] = [start_row, end_row] of group g in the matrix.
     combined_sim = (link_ordered + text_ordered) / 2
     np.fill_diagonal(combined_sim, 0.0)
     dist = 1.0 - np.clip(combined_sim, 0, 1)
-    tree = _average_linkage_tree(ordered_labels, dist)
+
+    unique_groups = sorted(set(cluster_labels.tolist()))
+    k = len(unique_groups)
+
+    # Map group id -> list of item row indices
+    group_rows = {g: [i for i, c in enumerate(cluster_labels) if c == g]
+                  for g in unique_groups}
+    # Row spans [start, end] for the JS
+    group_spans = [[min(rows), max(rows)] for g in unique_groups
+                   for rows in [group_rows[g]]]
+
+    if k >= 2:
+        # k×k average-linkage distance matrix between groups
+        gdist = np.zeros((k, k))
+        for ai, gi in enumerate(unique_groups):
+            for aj, gj in enumerate(unique_groups):
+                if ai == aj:
+                    continue
+                ri, rj = group_rows[gi], group_rows[gj]
+                gdist[ai, aj] = dist[np.ix_(ri, rj)].mean()
+
+        # Labels for group nodes: use first member’s label as representative
+        group_labels = [ordered_labels[group_rows[g][0]] for g in unique_groups]
+        tree = _average_linkage_tree(group_labels, gdist)
+    else:
+        # Single group — trivial tree
+        tree = {"name": ordered_labels[0], "leaf": True,
+                "spectral_index": 0, "value": 0.0}
 
     # Key schema (2 levels deep)
     schema = _extract_key_schema(items, max_depth=2)
@@ -919,13 +1212,15 @@ def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
     )
 
     payload = json.dumps({
-        "ids":    ordered_ids,
-        "link":   link_ordered.tolist(),
-        "text":   text_ordered.tolist(),
-        "method": method_str,
-        "folder": stem.replace("_", " "),
-        "meta":   meta,
-        "tree":   tree,
+        "ids":         ordered_ids,
+        "link":        link_ordered.tolist(),
+        "text":        text_ordered.tolist(),
+        "method":      method_str,
+        "folder":      stem.replace("_", " "),
+        "meta":        meta,
+        "tree":        tree,
+        "clusters":    cluster_labels.tolist(),
+        "group_spans": group_spans,
     }, separators=(",", ":"))
 
     title       = stem.replace("_", " ")
@@ -1020,33 +1315,24 @@ def run(use_embeddings=True):
             link_m, text_m, method_str = _compute_matrices(
                 items, ids, use_embeddings=use_embeddings)
 
-            # ── UPGMA leaf-traversal ordering ──────────────────────────────
-            # Build a preliminary UPGMA tree on the raw distance matrix and
-            # read off its DFS leaf order.  Using *this* order for the matrix
-            # rows/columns guarantees the dendrogram has zero crossings:
-            # the tree's traversal order is exactly the matrix row order.
+            # ── Graph-based spectral clustering ────────────────────────────────
+            # Threshold the combined similarity at the 75th percentile,
+            # find connected components (singletons allowed naturally),
+            # order within each component by the Fiedler vector.
             n_items   = len(items)
             combined0 = (link_m + text_m) / 2
             np.fill_diagonal(combined0, 0.0)
-            dist0     = 1.0 - np.clip(combined0, 0, 1)
-            order     = np.array(
-                _leaf_order(_upgma_for_ordering(n_items, dist0)), dtype=int)
 
-            ordered_labels = [labels[i] for i in order]
-            ordered_ids    = [ids[i]    for i in order]
-            ordered_tags   = [tags[i]   for i in order]
+            spec_order, cluster_labels = _spectral_order_and_clusters(combined0)
 
-            method_str_display = method_str + " | order: UPGMA leaf traversal"
-            link_ordered = link_m[np.ix_(order, order)]
-            text_ordered = text_m[np.ix_(order, order)]
+            ordered_labels = [labels[i] for i in spec_order]
+            ordered_ids    = [ids[i]    for i in spec_order]
+            ordered_tags   = [tags[i]   for i in spec_order]
 
-            # Dendrogram on the UPGMA-ordered distance matrix.
-            # Because row order = UPGMA DFS order, spectral_index i in the
-            # tree exactly matches matrix row i — guaranteed zero crossings.
-            combined_sim = (link_ordered + text_ordered) / 2
-            np.fill_diagonal(combined_sim, 0.0)
-            dist = 1.0 - np.clip(combined_sim, 0, 1)
-            tree = _average_linkage_tree(ordered_labels, dist)
+            link_ordered = link_m[np.ix_(spec_order, spec_order)]
+            text_ordered = text_m[np.ix_(spec_order, spec_order)]
+
+            method_str_display = method_str + " | order: spectral graph components"
 
             schema = _extract_key_schema(items, max_depth=2)
 
@@ -1054,7 +1340,7 @@ def run(use_embeddings=True):
             md_content = _build_page(
                 stem, items,
                 ordered_labels, ordered_ids, ordered_tags,
-                link_m, text_m, method_str_display, order,
+                link_ordered, text_ordered, cluster_labels, method_str_display,
                 repo_subdir,
             )
             md_path.write_text(md_content, encoding="utf-8")
