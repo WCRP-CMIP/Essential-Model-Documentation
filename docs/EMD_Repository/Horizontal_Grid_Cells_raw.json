@@ -277,6 +277,30 @@
     "y_resolution": 1.25
   },
   {
+    "@id": "g125",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "Extended ORCA1 (330 rows) U-points",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 118800,
+    "region": "global",
+    "southernmost_latitude": -85.631584,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g125",
+    "westernmost_longitude": 198.85852,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g113",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -322,6 +346,30 @@
     "westernmost_longitude": 0,
     "x_resolution": 0.75,
     "y_resolution": 0.75
+  },
+  {
+    "@id": "g124",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "Extended ORCA1 grid (330 rows) V-points",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 118800,
+    "region": "global",
+    "southernmost_latitude": -85.55218,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g124",
+    "westernmost_longitude": 199.7664,
+    "x_resolution": "",
+    "y_resolution": ""
   },
   {
     "@id": "g119",
