@@ -2,326 +2,303 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EMD Issue Tree Viewer</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-
+<title>EMD Contributors</title>
 <style>
   body {
     margin: 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
     background: transparent;
+    color: #1a1a2e;
   }
 
-  #nav {
+  #search-bar {
+    padding: 10px 12px;
     position: sticky;
     top: 0;
     background: white;
     border-bottom: 1px solid #eee;
-    padding: 6px 10px;
     z-index: 10;
     display: flex;
-    align-items: center;
     gap: 10px;
-    font-size: 12px;
+    align-items: center;
   }
 
-  #goto {
-    padding: 4px 6px;
-    font-family: inherit;
-    font-size: 12px;
+  #search-bar input {
+    flex: 1;
+    padding: 6px 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 240px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
   }
 
-  #container {
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  svg {
-    width: 100%;
-    display: block;
-  }
-
-  .link {
-    fill: none;
-    stroke: #e0e0e0;
-    stroke-width: 1.2px;
-  }
-
-  .author-label {
+  #count {
     font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+  }
+
+  #grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    width: 280px;
+    background: #fafafa;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.15s, border-color 0.15s;
+    position: relative;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #a0aec0;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #e2e8f0;
+  }
+
+  .info {
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .full-name {
+    font-size: 14px;
     font-weight: 600;
-    text-anchor: end;
-    dominant-baseline: central;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .issue text {
+  .handle {
     font-size: 11px;
-    dominant-baseline: central;
+    color: #718096;
+    font-family: ui-monospace, monospace;
+    margin-top: 1px;
   }
 
-  .issue.open text { fill: #1f77b4; }
-  .issue.closed text { fill: #888; }
+  .orcid-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 5px;
+    font-size: 10px;
+    color: #a6ce39;
+    font-family: ui-monospace, monospace;
+    text-decoration: none;
+    background: #f0f9e8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #d4edaa;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-  .tag {
-    font-size: 9px;
-    fill: white;
+  .orcid-badge svg {
+    flex-shrink: 0;
+  }
+
+  .submission-count {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 10px;
+    background: #e2e8f0;
+    color: #4a5568;
+    border-radius: 12px;
+    padding: 1px 7px;
+  }
+
+  #loading {
+    padding: 30px;
+    color: #888;
+    font-size: 13px;
   }
 </style>
 </head>
-
 <body>
 
-<div id="nav">
-  <label for="goto">Go to:</label>
-  <input id="goto" list="authors" placeholder="Select author..." />
-  <datalist id="authors"></datalist>
+<div id="search-bar">
+  <input id="search" placeholder="Search by name or handle…" oninput="filterCards()" />
+  <span id="count"></span>
 </div>
 
-<div id="container">
-  <svg></svg>
-</div>
+<div id="loading">Loading contributors…</div>
+<div id="grid"></div>
 
 <script>
-
 const owner = "WCRP-CMIP";
-const repo = "Essential-Model-Documentation";
+const repo  = "Essential-Model-Documentation";
 const label = "emd-submission";
 
-const TAG_COLORS = {
-  component_config: "#1abc9c",
-  horizontal_computational_grid: "#3498db",
-  horizontal_grid_cell: "#2980b9",
-  horizontal_subgrid: "#8e44ad",
-  model: "#e67e22",
-  model_component: "#d35400",
-  model_family: "#f39c12",
-  vertical_computational_grid: "#16a085"
-};
-
-const svg = d3.select("svg");
-
-svg.attr("width", window.innerWidth)
-   .attr("height", 2000);
-
-const g = svg.append("g");
-
-const tree = d3.tree().nodeSize([28, 320]);
-
-let root, i = 0;
-
-/* ---------------- FETCH ---------------- */
-async function fetchAllIssues() {
-  let page = 1;
-  let results = [];
-
+/* ── fetch all issues → extract unique handles ── */
+async function fetchHandles() {
+  let page = 1, results = [];
   while (true) {
-    const url =
-      `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}&per_page=100&page=${page}`;
-
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}&per_page=100&page=${page}`;
     const res = await fetch(url);
-    if (res.status === 403) {
-      await new Promise(r => setTimeout(r, 1500));
-      continue;
-    }
-
+    if (res.status === 403) { await sleep(1500); continue; }
     const data = await res.json();
     if (!data.length) break;
-
-    results = results.concat(data);
+    results = results.concat(data.filter(d => !d.pull_request));
     page++;
   }
 
-  return results.filter(d => !d.pull_request);
-}
-
-/* ---------------- CLEAN TITLE ---------------- */
-function cleanTitle(title, tags) {
-  let t = title;
-
-  tags.forEach(tag => {
-    t = t.replace(new RegExp(tag, "gi"), "");
-  });
-
-  t = t.replace(/^\s*(new|modify)\s*:\s*/i, "");
-  return t.replace(/\s+/g, " ").trim();
-}
-
-/* ---------------- BUILD ---------------- */
-function buildTree(issues) {
-  const authors = {};
-
-  issues.forEach(issue => {
+  const counts = {};
+  for (const issue of results) {
     const login = issue.user.login;
-
-    if (!authors[login]) {
-      authors[login] = { name: login, children: [] };
-    }
-
-    const tags = issue.labels
-      .map(l => l.name)
-      .filter(l => TAG_COLORS[l]);
-
-    authors[login].children.push({
-      name: cleanTitle(issue.title, tags),
-      state: issue.state,
-      url: issue.html_url,
-      tags
-    });
-  });
-
-  Object.values(authors).forEach(a => {
-    a.children.sort((a, b) =>
-      a.state === b.state ? 0 : a.state === "open" ? -1 : 1
-    );
-  });
-
-  return { name: "root", children: Object.values(authors) };
-}
-
-/* ---------------- NAV ---------------- */
-function buildNav(authors) {
-  const datalist = document.getElementById("authors");
-  const input = document.getElementById("goto");
-
-  datalist.innerHTML = "";
-
-  authors.forEach(a => {
-    const opt = document.createElement("option");
-    opt.value = a;
-    datalist.appendChild(opt);
-  });
-
-  input.addEventListener("change", () => {
-    const val = input.value;
-    const el = document.querySelector(`[data-author="${val}"]`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-}
-
-/* ---------------- RENDER ---------------- */
-function update(source) {
-  tree(root);
-
-  const nodes = root.descendants().filter(d => d.depth !== 0);
-  const links = root.links().filter(d => d.source.depth !== 0);
-
-  g.selectAll(".link")
-    .data(links, d => d.target.id)
-    .join("path")
-    .attr("class", "link")
-    .attr("d", d3.linkHorizontal()
-      .x(d => d.y)
-      .y(d => d.x)
-    );
-
-  const node = g.selectAll(".node")
-    .data(nodes, d => d.id || (d.id = ++i));
-
-  const enter = node.enter()
-    .append("g")
-    .attr("data-author", d => d.depth === 1 ? d.data.name : null)
-    .attr("transform", d => `translate(${source.y0||0},${source.x0||0})`);
-
-  /* AUTHORS */
-  enter.filter(d => d.depth === 1)
-    .append("text")
-    .attr("class", "author-label")
-    .attr("x", -10)
-    .text(d => d.data.name);
-
-  /* ISSUES */
-  enter.filter(d => d.depth === 2)
-    .each(function(d) {
-      let xOffset = 6;
-      const gNode = d3.select(this);
-
-      d.data.tags.forEach(tag => {
-        const w = Math.max(28, tag.length * 7 + 20);
-
-        gNode.append("rect")
-          .attr("x", xOffset)
-          .attr("y", -8)
-          .attr("width", w)
-          .attr("height", 16)
-          .attr("rx", 4)
-          .attr("fill", TAG_COLORS[tag]);
-
-        gNode.append("text")
-          .attr("x", xOffset + w / 2)
-          .attr("y", 0)
-          .attr("text-anchor", "middle")
-          .attr("dominant-baseline", "central")
-          .attr("class", "tag")
-          .text(tag);
-
-        xOffset += w + 6;
-      });
-
-      const prefix = d.data.state === "closed" ? "+ " : "- ";
-
-      gNode.append("a")
-        .attr("href", d.data.url)
-        .attr("target", "_blank")
-        .append("text")
-        .attr("class", d.data.state)
-        .attr("x", xOffset + 6)
-        .text(prefix + truncate(d.data.name, 110));
-    });
-
-  node.merge(enter)
-    .attr("transform", d => `translate(${d.y},${d.x})`);
-
-  node.exit().remove();
-}
-
-/* ---------------- FIT ---------------- */
-function fitToContent() {
-  const bbox = g.node().getBBox();
-
-  const totalHeight = bbox.height + 200;
-
-  svg
-    .attr("width", window.innerWidth)
-    .attr("height", totalHeight);
-
-  g.attr("transform", `translate(${140 - bbox.x},${40 - bbox.y})`);
-
-  // Notify parent frame of full height so iframe can resize
-  if (window.parent !== window) {
-    window.parent.postMessage({ type: "emd-tree-height", height: totalHeight + 60 }, "*");
+    counts[login] = (counts[login] || 0) + 1;
   }
+  return counts;   // { login: submissionCount }
 }
 
-/* ---------------- UTIL ---------------- */
-function truncate(str, n) {
-  return str.length > n ? str.slice(0, n) + "…" : str;
+/* ── fetch GitHub user profile ── */
+async function fetchProfile(login) {
+  const res = await fetch(`https://api.github.com/users/${login}`);
+  if (!res.ok) return null;
+  return res.json();
 }
 
-/* ---------------- RUN ---------------- */
-(async () => {
-  const issues = await fetchAllIssues();
-  const data = buildTree(issues);
+/* ── fetch social accounts (ORCID lives here) ── */
+async function fetchSocials(login) {
+  try {
+    const res = await fetch(`https://api.github.com/users/${login}/social_accounts`);
+    if (!res.ok) return [];
+    return res.json();
+  } catch { return []; }
+}
 
-  const authors = data.children.map(d => d.name);
-  buildNav(authors);
+function extractOrcid(socials, bio) {
+  // 1. social_accounts first
+  for (const s of (socials || [])) {
+    if (s.provider === 'orcid' || (s.url || '').includes('orcid.org')) {
+      return s.url;
+    }
+  }
+  // 2. bio fallback
+  const m = (bio || '').match(/https?:\/\/orcid\.org\/[\d-]{19}/);
+  return m ? m[0] : null;
+}
 
-  root = d3.hierarchy(data);
-  root.x0 = 0;
-  root.y0 = 0;
+/* ── render card ── */
+function makeCard(profile, orcid, submissionCount) {
+  const card = document.createElement('a');
+  card.className = 'card';
+  card.href = profile.html_url;
+  card.target = '_blank';
+  card.dataset.name = (profile.name || '').toLowerCase();
+  card.dataset.login = profile.login.toLowerCase();
 
-  update(root);
+  const avatar = document.createElement('img');
+  avatar.className = 'avatar';
+  avatar.src = profile.avatar_url;
+  avatar.alt = profile.login;
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      fitToContent();
-    });
+  const info = document.createElement('div');
+  info.className = 'info';
+
+  const fullName = document.createElement('div');
+  fullName.className = 'full-name';
+  fullName.textContent = profile.name || profile.login;
+
+  const handle = document.createElement('div');
+  handle.className = 'handle';
+  handle.textContent = '@' + profile.login;
+
+  info.appendChild(fullName);
+  info.appendChild(handle);
+
+  if (orcid) {
+    const orcidLink = document.createElement('a');
+    orcidLink.className = 'orcid-badge';
+    orcidLink.href = orcid;
+    orcidLink.target = '_blank';
+    orcidLink.onclick = e => e.stopPropagation();
+    orcidLink.innerHTML = `
+      <svg width="12" height="12" viewBox="0 0 256 256" fill="#a6ce39">
+        <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm-12.7 190.7H92.4V96.5h22.9v94.2zm-11.5-107c-7.3 0-12-4.8-12-10.8s4.8-10.8 12.3-10.8c7.5 0 12 4.7 12.1 10.8s-4.7 10.8-12.4 10.8zm96.3 107h-22.9v-50.4c0-12.1-4.3-20.3-15.1-20.3-8.2 0-13.1 5.5-15.3 10.9-.8 1.9-1 4.5-1 7.2v52.7H123.9s.3-85.5 0-94.2h22.9v13.3c3-4.7 8.5-11.4 20.8-11.4 15.2 0 26.6 9.9 26.6 31.2l-.1 61.1z"/>
+      </svg>
+      ${orcid.replace('https://orcid.org/', '')}`;
+    info.appendChild(orcidLink);
+  }
+
+  const badge = document.createElement('span');
+  badge.className = 'submission-count';
+  badge.textContent = submissionCount + ' submission' + (submissionCount !== 1 ? 's' : '');
+
+  card.appendChild(avatar);
+  card.appendChild(info);
+  card.appendChild(badge);
+  return card;
+}
+
+/* ── filter ── */
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
+  let visible = 0;
+  cards.forEach(c => {
+    const match = !q || c.dataset.name.includes(q) || c.dataset.login.includes(q);
+    c.style.display = match ? '' : 'none';
+    if (match) visible++;
   });
-})();
+  document.getElementById('count').textContent = `${visible} contributor${visible !== 1 ? 's' : ''}`;
+}
 
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ── main ── */
+(async () => {
+  const counts = await fetchHandles();
+  const logins = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+
+  document.getElementById('loading').remove();
+  document.getElementById('count').textContent = `${logins.length} contributors`;
+
+  const grid = document.getElementById('grid');
+
+  // Fetch profiles in small batches to avoid rate limits
+  const BATCH = 5;
+  for (let i = 0; i < logins.length; i += BATCH) {
+    const batch = logins.slice(i, i + BATCH);
+    await Promise.all(batch.map(async login => {
+      const [profile, socials] = await Promise.all([
+        fetchProfile(login),
+        fetchSocials(login),
+      ]);
+      if (!profile) return;
+      const orcid = extractOrcid(socials, profile.bio);
+      const card = makeCard(profile, orcid, counts[login]);
+      grid.appendChild(card);
+    }));
+    if (i + BATCH < logins.length) await sleep(300); // gentle rate limiting
+  }
+
+  // Notify parent of height for iframe embed
+  if (window.parent !== window) {
+    const h = document.body.scrollHeight;
+    window.parent.postMessage({ type: 'emd-contributors-height', height: h + 40 }, '*');
+  }
+})();
 </script>
   <!-- emd-nav-v1 --><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/geist.css"><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
 
