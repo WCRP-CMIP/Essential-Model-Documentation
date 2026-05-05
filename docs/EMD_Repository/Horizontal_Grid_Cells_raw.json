@@ -47,6 +47,30 @@
     "y_resolution": 1.25
   },
   {
+    "@id": "g126",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "Extended ORCA1 grid (330 rows) T-points",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 118800,
+    "region": "global",
+    "southernmost_latitude": -85.63117,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g126",
+    "westernmost_longitude": 199.77852,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g118",
     "@type": [
       "emd",
@@ -415,6 +439,30 @@
     "units": "./",
     "validation_key": "g116",
     "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
+    "@id": "g127",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "orca1 (standard)",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 104760,
+    "region": "global",
+    "southernmost_latitude": -78.39350128,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution.",
+    "units": "./",
+    "validation_key": "g127",
+    "westernmost_longitude": 0.5,
     "x_resolution": "",
     "y_resolution": ""
   },
