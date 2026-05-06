@@ -55,11 +55,11 @@ The PR is also added to the [Reviewer Project Board](https://github.com/orgs/WCR
 
 ## Step 4 — First Review
 
-A reviewer reads the pull request — examining the JSON diff and the summary report — and either approves, requests changes, or leaves a comment. See [Review Options](../Reviewer_Gudance/Review_Options/) for a full explanation of what each action means.
+A reviewer reads the pull request — examining the JSON diff and the summary report — and either approves, requests changes, or leaves a comment. See [Review Options](../Reviewer_Guidance/Review_Options/) for a full explanation of what each action means.
 
 Any feedback is automatically copied as a comment on your original issue. A note pointing you to the PR thread is added alongside it in case you want to reply.
 
-If the reviewer **requests changes**, your issue receives a `changes-requested` label. Edit the issue body with the corrections — the action re-runs and the PR updates automatically. Once you save, a `changes-made` label is added so the reviewer knows to look again. See [When Things Go Wrong](../When_Things_Go_Wrong/) if you are unsure what a change request means.
+If the reviewer **requests changes**, your issue receives a `changes-requested` label. Edit the issue body with the corrections — the action re-runs and the PR updates automatically. Once you save, a `changes-made` label is added so the reviewer knows to look again. See [Error Meanings](Error_Meanings/) if you are unsure what a change request means.
 
 Once the reviewer is satisfied they approve the PR. This removes the `needs-review` label from your issue and moves the PR to the *Done* column on the project board.
 
