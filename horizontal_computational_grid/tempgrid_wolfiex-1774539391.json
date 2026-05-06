@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_wolfiex-1774539391",
+    "ui_label": "",
+    "description": "Test2 v",
+    "arrangement": "arakawa-d",
+    "horizontal_subgrids": [
+        "g103-x-velocity",
+        "g101-y-velocity",
+        "g100-mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1774539391"
+}
