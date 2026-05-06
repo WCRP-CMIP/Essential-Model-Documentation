@@ -1,0 +1,25 @@
+{
+    "validation_key": "canam",
+    "ui_label": "CanAM",
+    "description": "Atmospheric general circulation model developed at the Canadian Centre for Climate Modelling and Analysis (CCCma)  https://gitlab.com/cccma/canam",
+    "collaborative_institutions": "",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+        "https://doi.org/10.5194/gmd-16-5427-2023"
+    ],
+    "scientific_domains": [
+        "atmosphere",
+        "aerosol",
+        "atmospheric-chemistry"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "canam"
+}
