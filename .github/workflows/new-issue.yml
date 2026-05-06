@@ -1,10 +1,18 @@
 name: ⟳ New Issue Processing
 
-# Initial run name set at workflow start. The full status (PR# or ValidationFail)
-# is set later by the `status-marker` job, which renames the run using job display
-# names that are evaluated AFTER outputs are known.
+# Initial run name set at workflow start. Format:
+#   Issue<num>_<labels-joined-by-pipe>  (event)
+#
+# Examples:
+#   "Issue332_emd-horizontal-grid-cell|stage1 (new)"
+#   "Issue333_emd-model|pull_req|needs-review (edit)"
+#
+# Labels are pulled from the issue event payload at trigger time, so any labels
+# attached to the issue (including bot-added ones like pull_req, needs-review,
+# changes-requested) appear here. The status-marker job further down renames
+# the run later with the validation outcome / PR number.
 run-name: >-
-  I${{ github.event.issue.number || inputs.issue_number }}
+  Issue${{ github.event.issue.number || inputs.issue_number }}_${{ join(github.event.issue.labels.*.name, '|') }}
   ${{
     github.event_name == 'workflow_dispatch' && '(manual)' ||
     github.event.action == 'edited' && '(edit)' ||
@@ -28,7 +36,7 @@ permissions:
 
 jobs:
   process-issue:
-    name: I${{ github.event.issue.number || inputs.issue_number }} processing
+    name: Issue${{ github.event.issue.number || inputs.issue_number }}_${{ join(github.event.issue.labels.*.name, '|') }} processing
     runs-on: ubuntu-latest
     outputs:
       pr_number:    ${{ steps.find_pr.outputs.pr_number }}
@@ -109,17 +117,23 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
           REPO:         ${{ github.repository }}
         run: |
-          # Retry for up to 20s — newly created PRs take a moment to index in the API
-          for attempt in $(seq 1 10); do
+          # Retry for up to 8s — newly created PRs take a moment to index.
+          # Build the regex pattern in a bash variable first; the previous version
+          # had nested unescaped quotes inside --jq, so bash treated the regex's
+          # literal "|" as a shell pipe and truncated the expression at the first |.
+          PATTERN="_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}\$"
+
+          PR_NUMBER=""
+          for attempt in $(seq 1 4); do
             PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
               --limit 200 \
               --json number,headRefName \
-              --jq "[.[] | select(.headRefName | test("_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}$"))] | .[0].number" \
+              --jq "[.[] | select(.headRefName | test(\"$PATTERN\"))] | .[0].number" \
               2>/dev/null || true)
             if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
               break
             fi
-            echo "Attempt $attempt: PR not visible yet, retrying in 2s..."
+            echo "Attempt $attempt/4: PR not visible yet, retrying in 2s..."
             sleep 2
           done
 
@@ -198,8 +212,8 @@ jobs:
   # ── Status marker — visible in the Actions UI with the final outcome ────────
   # The job's display NAME is evaluated AFTER process-issue produces its outputs,
   # so it shows the real result:
-  #   "I332 ; PR333"           — validation passed, PR exists
-  #   "I332 ValidationFail"    — validation failed (process-issue exited non-zero)
+  #   "Issue332_emd-horizontal-grid-cell|stage1 ; PR333"   — passed, PR exists
+  #   "Issue332_emd-horizontal-grid-cell ValidationFail"   — failed
   # GitHub doesn't allow updating the workflow run-name mid-run, but a job name
   # set this way appears prominently in the run summary.
   status-marker:
@@ -209,26 +223,67 @@ jobs:
     name: >-
       ${{
         needs.process-issue.result == 'success' && needs.process-issue.outputs.pr_number != ''
-          && format('I{0} ; PR{1}', github.event.issue.number || inputs.issue_number, needs.process-issue.outputs.pr_number)
+          && format('Issue{0}_{1} ; PR{2}',
+                    github.event.issue.number || inputs.issue_number,
+                    join(github.event.issue.labels.*.name, '|'),
+                    needs.process-issue.outputs.pr_number)
         || needs.process-issue.result == 'success'
-          && format('I{0} ; (no PR)', github.event.issue.number || inputs.issue_number)
-        || format('I{0} ValidationFail', github.event.issue.number || inputs.issue_number)
+          && format('Issue{0}_{1} ; (no PR)',
+                    github.event.issue.number || inputs.issue_number,
+                    join(github.event.issue.labels.*.name, '|'))
+        || format('Issue{0}_{1} ValidationFail',
+                  github.event.issue.number || inputs.issue_number,
+                  join(github.event.issue.labels.*.name, '|'))
       }}
     steps:
       - name: Record outcome in summary
         run: |
-          ISSUE="I${{ github.event.issue.number || inputs.issue_number }}"
+          ISSUE_NUM="${{ github.event.issue.number || inputs.issue_number }}"
+          LABELS="${{ join(github.event.issue.labels.*.name, '|') }}"
+          ISSUE_TAG="Issue${ISSUE_NUM}_${LABELS}"
+          REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+          ISSUE_URL="${REPO_URL}/issues/${ISSUE_NUM}"
+
+          {
+            echo ""
+            echo "| Item | Value |"
+            echo "|------|-------|"
+            echo "| **Issue**  | [#${ISSUE_NUM}](${ISSUE_URL}) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
           if [ "${{ needs.process-issue.result }}" = "success" ]; then
             PR="${{ needs.process-issue.outputs.pr_number }}"
             if [ -n "$PR" ]; then
-              echo "## ✅ ${ISSUE} ; PR${PR}" >> "$GITHUB_STEP_SUMMARY"
-              echo "Validation passed; pull request [#${PR}](${{ github.server_url }}/${{ github.repository }}/pull/${PR}) created/updated." >> "$GITHUB_STEP_SUMMARY"
+              PR_URL="${REPO_URL}/pull/${PR}"
+              {
+                echo "| **PR**     | [#${PR}](${PR_URL}) |"
+                echo "| **Status** | ✅ Validation passed — PR created/updated |"
+                echo ""
+                echo "## ✅ ${ISSUE_TAG} ; PR${PR}"
+                echo ""
+                echo "Pull request [#${PR}](${PR_URL}) is ready for review."
+              } >> "$GITHUB_STEP_SUMMARY"
             else
-              echo "## ✅ ${ISSUE} ; (no PR)" >> "$GITHUB_STEP_SUMMARY"
-              echo "Validation passed but no PR was created (dry-run, validate-only, or no file changes)." >> "$GITHUB_STEP_SUMMARY"
+              {
+                echo "| **PR**     | _none_ |"
+                echo "| **Status** | ⚠️ Validation passed — no PR created |"
+                echo ""
+                echo "## ⚠️ ${ISSUE_TAG} ; (no PR)"
+                echo ""
+                echo "Validation passed, but the handler did not produce a writable file."
+                echo "Common causes: missing required IDs, dry-run / validate-only mode, or no file changes."
+                echo "See the issue for handler-specific errors."
+              } >> "$GITHUB_STEP_SUMMARY"
             fi
           else
-            echo "## ❌ ${ISSUE} ValidationFail" >> "$GITHUB_STEP_SUMMARY"
-            echo "Validation failed — see the issue comment for details. No PR was updated." >> "$GITHUB_STEP_SUMMARY"
+            {
+              echo "| **PR**     | _frozen / not updated_ |"
+              echo "| **Status** | ❌ Validation failed |"
+              echo ""
+              echo "## ❌ ${ISSUE_TAG} ValidationFail"
+              echo ""
+              echo "Validation failed — see the comment on [issue #${ISSUE_NUM}](${ISSUE_URL}) for the field-level errors."
+              echo "No PR was created or updated. The submitter must edit the issue to correct the errors."
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
         shell: bash
