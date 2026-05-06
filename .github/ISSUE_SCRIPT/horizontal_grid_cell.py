@@ -146,14 +146,23 @@ def run(parsed_issue, issue, dry_run=False):
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
                    if collab_str else []
 
-    # Build pydantic-compatible copy for validation (used by new_issue.py STEP 1
-    # before update() is called — does not affect what gets written to file)
-    pydantic_data = {k: v for k, v in data.items() if not k.startswith('_')}
+    # Build pydantic-compatible copy for validation + ReportBuilder.
+    # Strip empty/blank values so:
+    #   1. pydantic validation doesn't fail on "" for typed fields (int/float)
+    #   2. ReportBuilder checklist correctly distinguishes submitted vs missing
+    #      (empty string was being shown as "_not submitted_" with a [x] tick,
+    #       which was misleading reviewers)
+    pydantic_data = {
+        k: v for k, v in data.items()
+        if not k.startswith('_') and v not in ("", None, [], {})
+    }
+    # Translate region: model expects str (single value), raw data is a list.
     region_val = pydantic_data.get('region', '')
     if isinstance(region_val, list):
         pydantic_data['region'] = region_val[0] if region_val else None
     elif not region_val:
-        pydantic_data['region'] = None
+        pydantic_data.pop('region', None)
+    # Translate units → horizontal_units (esgvoc model field name).
     if 'units' in pydantic_data and 'horizontal_units' not in pydantic_data:
         pydantic_data['horizontal_units'] = pydantic_data.pop('units')
 
@@ -173,6 +182,7 @@ def run(parsed_issue, issue, dry_run=False):
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     atid = files_to_write.get('_atid', '')
+    pydantic_overrides = files_to_write.get('_pydantic_data', {})
 
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
@@ -180,9 +190,13 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         print(f"\033[92m  Generating review report for {file_path} ...\033[0m", flush=True)
         try:
             pre_val = files_to_write.get('_val_results', {}).get(file_path)
+            # Use the pydantic-clean copy (correct field names, no empty strings)
+            # so ReportBuilder's checklist reflects what the schema actually sees.
+            # Falls back to raw data if no override was provided.
+            report_item = pydantic_overrides.get(file_path, data)
             report = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
-                item=data, link_threshold=85.0,
+                item=report_item, link_threshold=85.0,
                 val_result=pre_val,
             ).build()
             data['_validation_report'] = report
