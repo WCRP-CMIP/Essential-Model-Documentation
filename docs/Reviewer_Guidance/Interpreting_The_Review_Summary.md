@@ -76,7 +76,7 @@ The submitter must edit their issue to correct the listed errors. The workflow r
 
 ### Missing required field (`← missing`)
 
-Request changes. Quote the field name and tell the submitter what value is expected. Use the [Review Comments](Review_Comments.md) templates.
+Request changes. Quote the field name and tell the submitter what value is expected. Use the [Review Comments](Review_Comments/) templates.
 
 ### CV link below 100%
 

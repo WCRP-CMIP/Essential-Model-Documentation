@@ -2,7 +2,7 @@
 
 ## Registering a new item in the EMD
 Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
-Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. Full instructions are provided in the [**submission guide**](Submission-Guide/). To know what to expect after submission and what the actions mean, these are described in the [What to expect](What_to_expect_on_submission/) page. For information on what is or is not allowed at each stage please consult the [latest version of the specification](https://doi.org/10.5281/zenodo.15439551).
+Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. Full instructions are provided in the [**submission guide**](Information_for_Submitters/Submission-Guide/). To know what to expect after submission and what the actions mean, these are described in the [What to expect](Information_for_Submitters/What_to_expect_on_submission/) page. For information on what is or is not allowed at each stage please consult the [latest version of the specification](https://doi.org/10.5281/zenodo.15439551).
 
 #### EMD Structure Diagram
 
@@ -10,7 +10,7 @@ Alternatively click on the relevant stage / cell in the diagram below to be dire
 You will only be required to fill in one form per stage. 
 
 Each stage will require a brief (human) review process before you can continue. 
-You may click on any box to be taken to the GitHub submission inputs, or use the links provided in the [**submission guide**](Submission-Guide/).*
+You may click on any box to be taken to the GitHub submission inputs, or use the links provided in the [**submission guide**](Information_for_Submitters/Submission-Guide/).*
 <!-- Note: asterisks (*) in the SVG below are SVG text elements, not markdown -->
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1131.8521456731507 744.0435253901935"><!-- svg-source:excalidraw --><metadata/><defs><style class="style-fonts">
