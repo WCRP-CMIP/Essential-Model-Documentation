@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_johndunne13-1776715566",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g100-mass",
+        "g100-x-velocity",
+        "g100-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-johndunne13-1776715566"
+}
