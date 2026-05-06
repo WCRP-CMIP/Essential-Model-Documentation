@@ -34,8 +34,18 @@ def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
     slots = []
 
     if issue_body:
-        # Walk raw body — pair each 'Grid Cells' header with the next 'Variable Types'
-        CELL_HEADER  = 'grid cells'
+        # Walk raw body — pair each 'Grid Cell' header with the next 'Variable Types'
+        #
+        # The issue form template uses singular "Grid Cell" in its label
+        # (`### Grid Cell (select horizontal grid cell for this subgrid)`),
+        # so we must match the singular form. Earlier this was 'grid cells'
+        # (plural), which never matched anything → "No subgrid slots found"
+        # even when the user had filled in valid g### values. We use a
+        # short prefix because the form labels include a parenthetical:
+        #   "Grid Cell (select horizontal grid cell for this subgrid)"
+        # The 'grid cell' prefix is unique enough not to match the variable
+        # types header ("Variable Types ...") or other fields.
+        CELL_HEADER  = 'grid cell'
         VTYPE_HEADER = 'variable types'
         PLACEHOLDER  = {'not specified', 'none', '_no response_', ''}
 
