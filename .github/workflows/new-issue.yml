@@ -1,18 +1,14 @@
 name: ⟳ New Issue Processing
 
-# Initial run name set at workflow start. Format:
-#   Issue<num>_<labels-joined-by-pipe>  (event)
+# Initial run name set at workflow start. Format: Issue<num> (event)
 #
-# Examples:
-#   "Issue332_emd-horizontal-grid-cell|stage1 (new)"
-#   "Issue333_emd-model|pull_req|needs-review (edit)"
-#
-# Labels are pulled from the issue event payload at trigger time, so any labels
-# attached to the issue (including bot-added ones like pull_req, needs-review,
-# changes-requested) appear here. The status-marker job further down renames
-# the run later with the validation outcome / PR number.
+# We don't put labels here because GitHub Actions expressions cannot filter
+# arrays — we'd have to include every label including noisy bot ones like
+# pull_req, needs-review, changes-requested. The status-marker job at the
+# end of the workflow uses outputs from a bash filter step to produce a
+# cleaner name like "Issue332_horizontal_grid_cell ; PR333".
 run-name: >-
-  Issue${{ github.event.issue.number || inputs.issue_number }}_${{ join(github.event.issue.labels.*.name, '|') }}
+  Issue${{ github.event.issue.number || inputs.issue_number }}
   ${{
     github.event_name == 'workflow_dispatch' && '(manual)' ||
     github.event.action == 'edited' && '(edit)' ||
@@ -36,17 +32,42 @@ permissions:
 
 jobs:
   process-issue:
-    name: Issue${{ github.event.issue.number || inputs.issue_number }}_${{ join(github.event.issue.labels.*.name, '|') }} processing
+    name: Issue${{ github.event.issue.number || inputs.issue_number }} processing
     runs-on: ubuntu-latest
     outputs:
-      pr_number:    ${{ steps.find_pr.outputs.pr_number }}
-      validation:  ${{ steps.run_issue.outputs.validation }}
+      pr_number:       ${{ steps.find_pr.outputs.pr_number }}
+      validation:      ${{ steps.run_issue.outputs.validation }}
+      labels_filtered: ${{ steps.filter_labels.outputs.filtered }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
+
+      # ── Filter labels for use in the status-marker job name ─────────────
+      # Keep only labels that contain '_' (the typed CV labels like
+      # horizontal_grid_cell, model_component, etc.) and explicitly drop
+      # 'pull_req'. This strips noisy bot/state labels (Review, needs-review,
+      # changes-requested, changes-made, emd-submission, approved, ...) so
+      # the run shows just the data-type label that matters at a glance.
+      - name: Filter labels
+        id: filter_labels
+        env:
+          LABELS_JSON: ${{ toJSON(github.event.issue.labels.*.name) }}
+        run: |
+          FILTERED=$(printf '%s' "${LABELS_JSON:-[]}" | python3 -c "
+          import json, sys
+          try:
+              labels = json.load(sys.stdin) or []
+          except json.JSONDecodeError:
+              labels = []
+          kept = [l for l in labels if '_' in l and l != 'pull_req']
+          print('|'.join(kept))
+          ")
+          echo "filtered=$FILTERED" >> "$GITHUB_OUTPUT"
+          echo "Filtered labels: '$FILTERED'"
+        shell: bash
 
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
@@ -211,11 +232,11 @@ jobs:
 
   # ── Status marker — visible in the Actions UI with the final outcome ────────
   # The job's display NAME is evaluated AFTER process-issue produces its outputs,
-  # so it shows the real result:
-  #   "Issue332_emd-horizontal-grid-cell|stage1 ; PR333"   — passed, PR exists
-  #   "Issue332_emd-horizontal-grid-cell ValidationFail"   — failed
-  # GitHub doesn't allow updating the workflow run-name mid-run, but a job name
-  # set this way appears prominently in the run summary.
+  # so it can include both the filtered-labels output AND the validation result:
+  #   "Issue332_horizontal_grid_cell ; PR333"   — passed, PR exists
+  #   "Issue332_horizontal_grid_cell ValidationFail"   — failed
+  # Labels are filtered by the filter_labels step in process-issue: kept only if
+  # they contain '_' (the typed CV labels) and exclude 'pull_req'.
   status-marker:
     needs: process-issue
     if: always()
@@ -225,22 +246,29 @@ jobs:
         needs.process-issue.result == 'success' && needs.process-issue.outputs.pr_number != ''
           && format('Issue{0}_{1} ; PR{2}',
                     github.event.issue.number || inputs.issue_number,
-                    join(github.event.issue.labels.*.name, '|'),
+                    needs.process-issue.outputs.labels_filtered,
                     needs.process-issue.outputs.pr_number)
         || needs.process-issue.result == 'success'
           && format('Issue{0}_{1} ; (no PR)',
                     github.event.issue.number || inputs.issue_number,
-                    join(github.event.issue.labels.*.name, '|'))
+                    needs.process-issue.outputs.labels_filtered)
         || format('Issue{0}_{1} ValidationFail',
                   github.event.issue.number || inputs.issue_number,
-                  join(github.event.issue.labels.*.name, '|'))
+                  needs.process-issue.outputs.labels_filtered)
       }}
     steps:
       - name: Record outcome in summary
         run: |
           ISSUE_NUM="${{ github.event.issue.number || inputs.issue_number }}"
-          LABELS="${{ join(github.event.issue.labels.*.name, '|') }}"
-          ISSUE_TAG="Issue${ISSUE_NUM}_${LABELS}"
+          LABELS="${{ needs.process-issue.outputs.labels_filtered }}"
+          # If labels_filtered is empty (e.g. workflow_dispatch with no issue
+          # context, or an issue with no _-bearing labels), drop the trailing
+          # underscore so the tag reads "Issue332" not "Issue332_".
+          if [ -n "$LABELS" ]; then
+            ISSUE_TAG="Issue${ISSUE_NUM}_${LABELS}"
+          else
+            ISSUE_TAG="Issue${ISSUE_NUM}"
+          fi
           REPO_URL="${{ github.server_url }}/${{ github.repository }}"
           ISSUE_URL="${REPO_URL}/issues/${ISSUE_NUM}"
 
