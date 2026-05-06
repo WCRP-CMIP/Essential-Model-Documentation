@@ -101,12 +101,12 @@ A grid finder is also in progress and will be added here in due course.
 
 ## Quick Reference
 
-| Stage | Form | You provide | You receive |
-|-------|------|-------------|-------------|
-| 1 | Grid cells | Geometry, coordinates | `g###` |
-| 2a | Horizontal grid | Grid cell IDs, staggering | `h###` |
-| 2b | Vertical grid | Coordinate type, levels | `v###` |
-| — | Model family | Institution, domains | Family ID |
-| 3a | Model component (new) | Component details, grid IDs | Component ID + Config ID |
-| 3b | Link existing component | Component ID, grid IDs | Config ID |
-| 4 | Model | Config IDs, coupling | `source_id` |
+| Stage | Form | You provide | You receive | Link |
+|-------|------|-------------|-------------|------|
+| 1 | Grid cells | Geometry, coordinates | `g###` | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) |
+| 1b | Vertical grid | Coordinate type, levels | `v###` | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) |
+| 2a | Horizontal computational grid | Grid cell IDs, staggering | `h###` | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) |
+| — | Model family | Institution, domains | Family ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml) |
+| 3a | New model component | Component details, grid IDs | Component ID + Config ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) |
+| 3b | Link existing component | Component ID, grid IDs | Config ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml) |
+| 4 | Model | Config IDs, coupling | `source_id` | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
