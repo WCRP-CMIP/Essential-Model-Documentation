@@ -272,6 +272,28 @@
     "website": "none"
   },
   {
+    "@id": "canam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Atmospheric general circulation model developed at the Canadian Centre for Climate Modelling and Analysis (CCCma)  https://gitlab.com/cccma/canam",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": "https://doi.org/10.5194/gmd-16-5427-2023",
+    "scientific_domains": [
+      "atmosphere",
+      "aerosol",
+      "atmospheric-chemistry"
+    ],
+    "ui_label": "CanAM",
+    "validation_key": "canam",
+    "website": ""
+  },
+  {
     "@id": "nemo",
     "@type": [
       "emd",
