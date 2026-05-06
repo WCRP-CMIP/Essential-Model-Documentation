@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_wolfiex-1774629374",
+    "ui_label": "",
+    "description": "Arakawa-C regular lat-lon grid, 1.875x1.25 degree, atmosphere (192x144/145 cells).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g108-mass",
+        "g109-x-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1774629374"
+}
