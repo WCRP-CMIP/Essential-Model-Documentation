@@ -1,0 +1,26 @@
+{
+    "validation_key": "jules-gl9",
+    "ui_label": "JULES-GL9",
+    "description": "Joint UK Land Surface model",
+    "collaborative_institutions": [
+        "nerc"
+    ],
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": [
+        "https://doi.org/10.5194/gmd-4-677-2011"
+    ],
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+        "land_surface"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "jules-gl9"
+}

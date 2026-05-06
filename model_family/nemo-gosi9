@@ -1,0 +1,26 @@
+{
+    "validation_key": "nemo-gosi9",
+    "ui_label": "NEMO-GOSI9",
+    "description": "UK physical global ocean configuration of the NEMO model",
+    "collaborative_institutions": [
+        "nerc"
+    ],
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": [
+        "https://doi.org/10.5194/gmd-18-377-2025"
+    ],
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+        "ocean"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "nemo-gosi9"
+}
