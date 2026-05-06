@@ -108,5 +108,5 @@ A grid finder is also in progress and will be added here in due course.
 | 2a | Horizontal computational grid | Grid cell IDs, staggering | `h###` | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) |
 | — | Model family | Institution, domains | Family ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_family.yml) |
 | 3a | New model component | Component details, grid IDs | Component ID + Config ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) |
-| 3b | Link existing component | Component ID, grid IDs | Config ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml) |
+| 3b | (or) Link existing component | Component ID, grid IDs | Config ID | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml) |
 | 4 | Model | Config IDs, coupling | `source_id` | [Register](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
