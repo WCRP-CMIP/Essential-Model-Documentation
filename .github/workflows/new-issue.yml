@@ -1,5 +1,16 @@
 name: ⟳ New Issue Processing
 
+# Initial run name set at workflow start. The full status (PR# or ValidationFail)
+# is set later by the `status-marker` job, which renames the run using job display
+# names that are evaluated AFTER outputs are known.
+run-name: >-
+  I${{ github.event.issue.number || inputs.issue_number }}
+  ${{
+    github.event_name == 'workflow_dispatch' && '(manual)' ||
+    github.event.action == 'edited' && '(edit)' ||
+    '(new)'
+  }}
+
 on:
   issues:
     types: [opened, edited]
@@ -17,7 +28,11 @@ permissions:
 
 jobs:
   process-issue:
+    name: I${{ github.event.issue.number || inputs.issue_number }} processing
     runs-on: ubuntu-latest
+    outputs:
+      pr_number:    ${{ steps.find_pr.outputs.pr_number }}
+      validation:  ${{ steps.run_issue.outputs.validation }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -33,6 +48,7 @@ jobs:
         shell: bash
 
       - name: Process issue
+        id: run_issue
         env:
           ISSUE_NUMBER:      ${{ github.event.inputs.issue_number || github.event.issue.number }}
           ISSUE_SUBMITTER:   ${{ github.event.issue.user.login }}
@@ -71,7 +87,19 @@ jobs:
             exit 1
           fi
 
+          # Run new_issue and capture exit status. Validation failure exits with 1
+          # (sys.exit(1) in new_issue.py STEP 2). Any other failure also exits non-zero.
+          # We record the validation outcome so the status-marker job can rename the run.
+          set +e
           new_issue --issue $ISSUE_NUMBER
+          RC=$?
+          set -e
+          if [ $RC -eq 0 ]; then
+            echo "validation=pass" >> "$GITHUB_OUTPUT"
+          else
+            echo "validation=fail" >> "$GITHUB_OUTPUT"
+            exit $RC
+          fi
         shell: bash
 
       - name: Find PR for this issue
@@ -166,3 +194,41 @@ jobs:
 
           echo "Added changes-made to PR #${PR_NUMBER} and issue #${ISSUE_NUMBER}" \
             >> "$GITHUB_STEP_SUMMARY"
+
+  # ── Status marker — visible in the Actions UI with the final outcome ────────
+  # The job's display NAME is evaluated AFTER process-issue produces its outputs,
+  # so it shows the real result:
+  #   "I332 ; PR333"           — validation passed, PR exists
+  #   "I332 ValidationFail"    — validation failed (process-issue exited non-zero)
+  # GitHub doesn't allow updating the workflow run-name mid-run, but a job name
+  # set this way appears prominently in the run summary.
+  status-marker:
+    needs: process-issue
+    if: always()
+    runs-on: ubuntu-latest
+    name: >-
+      ${{
+        needs.process-issue.result == 'success' && needs.process-issue.outputs.pr_number != ''
+          && format('I{0} ; PR{1}', github.event.issue.number || inputs.issue_number, needs.process-issue.outputs.pr_number)
+        || needs.process-issue.result == 'success'
+          && format('I{0} ; (no PR)', github.event.issue.number || inputs.issue_number)
+        || format('I{0} ValidationFail', github.event.issue.number || inputs.issue_number)
+      }}
+    steps:
+      - name: Record outcome in summary
+        run: |
+          ISSUE="I${{ github.event.issue.number || inputs.issue_number }}"
+          if [ "${{ needs.process-issue.result }}" = "success" ]; then
+            PR="${{ needs.process-issue.outputs.pr_number }}"
+            if [ -n "$PR" ]; then
+              echo "## ✅ ${ISSUE} ; PR${PR}" >> "$GITHUB_STEP_SUMMARY"
+              echo "Validation passed; pull request [#${PR}](${{ github.server_url }}/${{ github.repository }}/pull/${PR}) created/updated." >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "## ✅ ${ISSUE} ; (no PR)" >> "$GITHUB_STEP_SUMMARY"
+              echo "Validation passed but no PR was created (dry-run, validate-only, or no file changes)." >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            echo "## ❌ ${ISSUE} ValidationFail" >> "$GITHUB_STEP_SUMMARY"
+            echo "Validation failed — see the issue comment for details. No PR was updated." >> "$GITHUB_STEP_SUMMARY"
+          fi
+        shell: bash
