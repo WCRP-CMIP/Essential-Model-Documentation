@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_treerink-1777010624",
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type and 0.7 x 0.7 degree resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 88838,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.462,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 255,
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.7,
+    "y_resolution": 0.7,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-treerink-1777010624"
+}
