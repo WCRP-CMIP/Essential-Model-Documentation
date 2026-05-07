@@ -1,5 +1,24 @@
 [
   {
+    "@id": "si3-gosi9",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "nerc",
+    "description": "UK global sea-ice configuration of the SI3 model",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": "https://doi.org/10.5194/gmd-17-6799-2024",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": "sea_ice",
+    "ui_label": "SI3-GOSI9",
+    "validation_key": "si3-gosi9",
+    "website": ""
+  },
+  {
     "@id": "nicam",
     "@type": [
       "emd",
@@ -174,6 +193,28 @@
     "website": "https://bisicles.lbl.gov/"
   },
   {
+    "@id": "cmoc",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Canadian Model of Ocean Carbon (CMOC); NPZD ecosystem with OMIP prescribed carbonate chemistry.  https://gitlab.com/cccma/cannemo",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+      "Christian et al. 2022:",
+      "https://doi.org/10.5194/gmd-15-4393-2022 Swart et al. 2019:",
+      "https://doi.org/10.5194/gmd-12-4823-2019"
+    ],
+    "scientific_domains": "ocean-biogeochemistry",
+    "ui_label": "CMOC",
+    "validation_key": "cmoc",
+    "website": ""
+  },
+  {
     "@id": "cam",
     "@type": [
       "emd",
@@ -307,6 +348,28 @@
     "validation_key": "surfex",
     "variation_dimensions": "none",
     "website": "none"
+  },
+  {
+    "@id": "glomap-mode",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "nerc",
+    "description": "Global aerosol and microphysics model for UKCA",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": "https://doi.org/10.5194/gmd-3-519-2010",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+      "aerosol",
+      "atmospheric-chemistry"
+    ],
+    "ui_label": "GLOMAP-mode",
+    "validation_key": "glomap-mode",
+    "website": ""
   },
   {
     "@id": "canam",

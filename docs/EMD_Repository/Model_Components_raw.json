@@ -167,6 +167,21 @@
     "validation_key": "nemo_v3_6"
   },
   {
+    "@id": "gamil3",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "atmosphere",
+    "description": "GAMIL3 is the atmospheric component of the FGOALS-g3.5 coupled climate system model, developed by the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). 1.  Main processes simulated: - Global atmospheric circulation, including large-scale dynamics, and radiation processes. - Full treatment of moist convection, boundary layer processes, and cloud microphysics. 2.  Key physics/parameterizations: - Updated Zhang-McFarlane convection scheme with modifications for tropical convection. - Improved two-moment cloud microphysics and boundary layer turbulence scheme. - Hybrid sigma-pressure vertical coordinates with 26 levels up to ~2.194 hPa (42 km). 3.  Notable features: - Uses a 2.0\u00b0 \u00d7 2.0\u00b0 regular latitude-longitude grid in the horizontal. - Coupled to the CAS-LSM land model, LICOM3 ocean model, and Los Alamos sea ice model within FGOALS-g3.5. - Optimized for long-term climate simulations and CMIP7 experiments. - The freshwater exchange process between river model and the ocean model employs the nearest mapping method rather than the area conservative mapping method, as the former ensures that the ocean sufficiently receives the riverine freshwater input.",
+    "family": "./",
+    "references": "https://doi.org/10.1029/2020JD032574",
+    "ui_label": "GAMIL3",
+    "validation_key": "gamil3"
+  },
+  {
     "@id": "tactic",
     "@type": [
       "emd",

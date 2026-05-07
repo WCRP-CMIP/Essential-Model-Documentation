@@ -202,6 +202,30 @@
     "website": "none"
   },
   {
+    "@id": "cas-fgoals-g3.5",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "cas",
+    "description": "The four component models of FGOALS-g3.5 include Version 3 of the Grid-Point Atmospheric Model of LASG-IAP (GAMIL3) for the atmosphere, Version 3 of the LASG-IAP Climate System Ocean Model (LICOM3) for the ocean, Version 4 of the Los Alamos sea ice model for sea ice, and the CAS-Land Surface Model (CAS-LSM) for the land. In LICOM3, the freshwater exchange process between river model and the ocean model employs the nearest mapping method rather than the area conservative mapping method, as the former ensures that the ocean sufficiently receives the riverine freshwater input.",
+    "established": 2019,
+    "family_type": "model",
+    "primary_institution": "cas",
+    "references": "https://doi.org/10.1029/2019MS002012",
+    "representative_member": "CAS-FGOALS-g3",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "ui_label": "CAS-FGOALS-g3.5",
+    "validation_key": "cas-fgoals-g3.5",
+    "website": "https://No website"
+  },
+  {
     "@id": "giss-e2",
     "@type": [
       "emd",
