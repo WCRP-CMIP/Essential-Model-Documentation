@@ -19,6 +19,28 @@
     "website": ""
   },
   {
+    "@id": "lim",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography. It is coupled to the ocean general circulation model OPA (Oc\u00e9an Parall\u00e9lis\u00e9) and is part of NEMO (Nucleus for European Modeling of the Ocean). LIM is used in several global climate models contributing to the assessment reports of the IPCC (Intergovernmental Panel on Climate Change). The code is freely available under a software licensing agreement and can be downloaded from the NEMO website (www.nemo-ocean.eu/).  Source: https://www.cmcc.it/models/lim",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "uclouvain",
+    "references": [
+      "https://doi.org/10.1029/97JC00480",
+      "https://doi.org/10.1016/j.ocemod.2009.01.004",
+      "https://doi.org/10.1016/j.ocemod.2008.10.005"
+    ],
+    "scientific_domains": "sea_ice",
+    "ui_label": "LIM",
+    "validation_key": "lim",
+    "website": ""
+  },
+  {
     "@id": "nicam",
     "@type": [
       "emd",
