@@ -52,6 +52,21 @@
     "validation_key": "surfex_v8_modeling_platform"
   },
   {
+    "@id": "lpj-guess-4.1",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "land_surface",
+    "description": "1. Main processes simulated (additions only) Adds methane emissions from natural wetlands and peatlands as a standard feature, lifting them from earlier branch-only configurations into the main release. Emissions of nitrogen-based trace gases (N\u2082O, NO, NH\u2083) from soils are simulated in the coupled C\u2013N cycle.  2. Key physics / parameterisations (new or upgraded) New process-based wildfire scheme as the default fire module, replacing the previous simpler default. Peatland-specific plant functional types and a dedicated peatland hydrology integrated into the main code path. Multi-layer soil temperature and freeze\u2013thaw scheme available in the standard configuration, enabling permafrost dynamics outside the dedicated arctic branches. Soil nitrogen chemistry extended to support consistent trace-gas production alongside leaching and plant\u2013microbial competition.  3. Notable features of this version First release of LPJ-GUESS, available directly from the project website. Consolidates previously branch-specific developments (high-latitude soil physics, methane, advanced fire) into a single, supported mainline code base.",
+    "family": "lpj-guess",
+    "references": "https://doi.org/10.5281/zenodo.8065736",
+    "ui_label": "LPJ-Guess 4.1",
+    "validation_key": "lpj-guess-4.1"
+  },
+  {
     "@id": "piscesv2-gas",
     "@type": [
       "emd",
