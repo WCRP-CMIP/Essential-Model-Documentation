@@ -1,5 +1,20 @@
 name: ⟳ New Issue Processing
 
+# Initial run name set at workflow start. Format: Issue<num> (event)
+#
+# We don't put labels here because GitHub Actions expressions cannot filter
+# arrays — we'd have to include every label including noisy bot ones like
+# pull_req, needs-review, changes-requested. The status-marker job at the
+# end of the workflow uses outputs from a bash filter step to produce a
+# cleaner name like "Issue332_horizontal_grid_cell ; PR333".
+run-name: >-
+  Issue${{ github.event.issue.number || inputs.issue_number }}
+  ${{
+    github.event_name == 'workflow_dispatch' && '(manual)' ||
+    github.event.action == 'edited' && '(edit)' ||
+    '(new)'
+  }}
+
 on:
   issues:
     types: [opened, edited]
@@ -17,13 +32,42 @@ permissions:
 
 jobs:
   process-issue:
+    name: Issue${{ github.event.issue.number || inputs.issue_number }} processing
     runs-on: ubuntu-latest
+    outputs:
+      pr_number:       ${{ steps.find_pr.outputs.pr_number }}
+      validation:      ${{ steps.run_issue.outputs.validation }}
+      labels_filtered: ${{ steps.filter_labels.outputs.filtered }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
+
+      # ── Filter labels for use in the status-marker job name ─────────────
+      # Keep only labels that contain '_' (the typed CV labels like
+      # horizontal_grid_cell, model_component, etc.) and explicitly drop
+      # 'pull_req'. This strips noisy bot/state labels (Review, needs-review,
+      # changes-requested, changes-made, emd-submission, approved, ...) so
+      # the run shows just the data-type label that matters at a glance.
+      - name: Filter labels
+        id: filter_labels
+        env:
+          LABELS_JSON: ${{ toJSON(github.event.issue.labels.*.name) }}
+        run: |
+          FILTERED=$(printf '%s' "${LABELS_JSON:-[]}" | python3 -c "
+          import json, sys
+          try:
+              labels = json.load(sys.stdin) or []
+          except json.JSONDecodeError:
+              labels = []
+          kept = [l for l in labels if '_' in l and l != 'pull_req']
+          print('|'.join(kept))
+          ")
+          echo "filtered=$FILTERED" >> "$GITHUB_OUTPUT"
+          echo "Filtered labels: '$FILTERED'"
+        shell: bash
 
       - name: Install CMIPLD
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
@@ -33,6 +77,7 @@ jobs:
         shell: bash
 
       - name: Process issue
+        id: run_issue
         env:
           ISSUE_NUMBER:      ${{ github.event.inputs.issue_number || github.event.issue.number }}
           ISSUE_SUBMITTER:   ${{ github.event.issue.user.login }}
@@ -71,7 +116,19 @@ jobs:
             exit 1
           fi
 
+          # Run new_issue and capture exit status. Validation failure exits with 1
+          # (sys.exit(1) in new_issue.py STEP 2). Any other failure also exits non-zero.
+          # We record the validation outcome so the status-marker job can rename the run.
+          set +e
           new_issue --issue $ISSUE_NUMBER
+          RC=$?
+          set -e
+          if [ $RC -eq 0 ]; then
+            echo "validation=pass" >> "$GITHUB_OUTPUT"
+          else
+            echo "validation=fail" >> "$GITHUB_OUTPUT"
+            exit $RC
+          fi
         shell: bash
 
       - name: Find PR for this issue
@@ -81,17 +138,23 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
           REPO:         ${{ github.repository }}
         run: |
-          # Retry for up to 20s — newly created PRs take a moment to index in the API
-          for attempt in $(seq 1 10); do
+          # Retry for up to 8s — newly created PRs take a moment to index.
+          # Build the regex pattern in a bash variable first; the previous version
+          # had nested unescaped quotes inside --jq, so bash treated the regex's
+          # literal "|" as a shell pipe and truncated the expression at the first |.
+          PATTERN="_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}\$"
+
+          PR_NUMBER=""
+          for attempt in $(seq 1 4); do
             PR_NUMBER=$(gh pr list --repo "$REPO" --state open \
               --limit 200 \
               --json number,headRefName \
-              --jq "[.[] | select(.headRefName | test("_${ISSUE_NUMBER}_|[-_]${ISSUE_NUMBER}$"))] | .[0].number" \
+              --jq "[.[] | select(.headRefName | test(\"$PATTERN\"))] | .[0].number" \
               2>/dev/null || true)
             if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
               break
             fi
-            echo "Attempt $attempt: PR not visible yet, retrying in 2s..."
+            echo "Attempt $attempt/4: PR not visible yet, retrying in 2s..."
             sleep 2
           done
 
@@ -166,3 +229,89 @@ jobs:
 
           echo "Added changes-made to PR #${PR_NUMBER} and issue #${ISSUE_NUMBER}" \
             >> "$GITHUB_STEP_SUMMARY"
+
+  # ── Status marker — visible in the Actions UI with the final outcome ────────
+  # The job's display NAME is evaluated AFTER process-issue produces its outputs,
+  # so it can include both the filtered-labels output AND the validation result:
+  #   "Issue332_horizontal_grid_cell ; PR333"   — passed, PR exists
+  #   "Issue332_horizontal_grid_cell ValidationFail"   — failed
+  # Labels are filtered by the filter_labels step in process-issue: kept only if
+  # they contain '_' (the typed CV labels) and exclude 'pull_req'.
+  status-marker:
+    needs: process-issue
+    if: always()
+    runs-on: ubuntu-latest
+    name: >-
+      ${{
+        needs.process-issue.result == 'success' && needs.process-issue.outputs.pr_number != ''
+          && format('Issue{0}_{1} ; PR{2}',
+                    github.event.issue.number || inputs.issue_number,
+                    needs.process-issue.outputs.labels_filtered,
+                    needs.process-issue.outputs.pr_number)
+        || needs.process-issue.result == 'success'
+          && format('Issue{0}_{1} ; (no PR)',
+                    github.event.issue.number || inputs.issue_number,
+                    needs.process-issue.outputs.labels_filtered)
+        || format('Issue{0}_{1} ValidationFail',
+                  github.event.issue.number || inputs.issue_number,
+                  needs.process-issue.outputs.labels_filtered)
+      }}
+    steps:
+      - name: Record outcome in summary
+        run: |
+          ISSUE_NUM="${{ github.event.issue.number || inputs.issue_number }}"
+          LABELS="${{ needs.process-issue.outputs.labels_filtered }}"
+          # If labels_filtered is empty (e.g. workflow_dispatch with no issue
+          # context, or an issue with no _-bearing labels), drop the trailing
+          # underscore so the tag reads "Issue332" not "Issue332_".
+          if [ -n "$LABELS" ]; then
+            ISSUE_TAG="Issue${ISSUE_NUM}_${LABELS}"
+          else
+            ISSUE_TAG="Issue${ISSUE_NUM}"
+          fi
+          REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+          ISSUE_URL="${REPO_URL}/issues/${ISSUE_NUM}"
+
+          {
+            echo ""
+            echo "| Item | Value |"
+            echo "|------|-------|"
+            echo "| **Issue**  | [#${ISSUE_NUM}](${ISSUE_URL}) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "${{ needs.process-issue.result }}" = "success" ]; then
+            PR="${{ needs.process-issue.outputs.pr_number }}"
+            if [ -n "$PR" ]; then
+              PR_URL="${REPO_URL}/pull/${PR}"
+              {
+                echo "| **PR**     | [#${PR}](${PR_URL}) |"
+                echo "| **Status** | ✅ Validation passed — PR created/updated |"
+                echo ""
+                echo "## ✅ ${ISSUE_TAG} ; PR${PR}"
+                echo ""
+                echo "Pull request [#${PR}](${PR_URL}) is ready for review."
+              } >> "$GITHUB_STEP_SUMMARY"
+            else
+              {
+                echo "| **PR**     | _none_ |"
+                echo "| **Status** | ⚠️ Validation passed — no PR created |"
+                echo ""
+                echo "## ⚠️ ${ISSUE_TAG} ; (no PR)"
+                echo ""
+                echo "Validation passed, but the handler did not produce a writable file."
+                echo "Common causes: missing required IDs, dry-run / validate-only mode, or no file changes."
+                echo "See the issue for handler-specific errors."
+              } >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            {
+              echo "| **PR**     | _frozen / not updated_ |"
+              echo "| **Status** | ❌ Validation failed |"
+              echo ""
+              echo "## ❌ ${ISSUE_TAG} ValidationFail"
+              echo ""
+              echo "Validation failed — see the comment on [issue #${ISSUE_NUM}](${ISSUE_URL}) for the field-level errors."
+              echo "No PR was created or updated. The submitter must edit the issue to correct the errors."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+        shell: bash
