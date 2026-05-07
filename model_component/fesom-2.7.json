@@ -1,0 +1,18 @@
+{
+    "validation_key": "fesom-2.7",
+    "ui_label": "FESOM 2.7",
+    "description": "1. Main processes simulated (additions only) Adds an explicit iceberg drift-and-melt module (with wave-induced erosion) that can run together with active ice-shelf cavities. Transient passive tracers (CFCs, SF6, radiocarbon) and water isotopes (δ18O, δD) are supported as production features, including consistent cold-start and land-ice flux handling.  2. Key physics / parameterisations (new or upgraded) Combined harmonic + biharmonic momentum viscosity as a single namelist-selectable closure. Dynamic kinetic-energy backscatter, including advection of the unresolved-eddy-kinetic-energy variable. Restructured CVmix interface, unified across vertical-mixing branches. Hardened ice-shelf cavity treatment: rigid-lid/free-surface consistency, water-flux closure, and vertical-velocity reset for the CFLz check. Updated global-tides module.  3. Notable features of this version First phase of OpenACC port: the dynamical core can run on GPUs alongside the existing MPI CPU path. CMIP7-oriented diagnostics via ldiag_cmor, producing 0-dimensional global diagnostics with one file per simulated year. MultIO 2.6 output back-end, providing asynchronous parallel I/O in addition to the native and XIOS paths. Coupled-system robustness for IFS-based configurations: reproducibility under frequent restarts, corrected wind coupling, reworked calving/enthalpy logic, and reduced coupling memory footprint. Build & test infrastructure: ecbundle support, separable mesh-partitioner build, multi-environment CI, ctest regression tests including cavity and iceberg setups, and auto-download of standard test meshes.",
+    "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.7.0",
+    "component": "ocean",
+    "family": "fesom",
+    "references": [
+        "https://doi.org/10.5194/gmd-10-765-2017 https://doi.org/10.5194/gmd-12-4875-2019 https://doi.org/10.5194/gmd-15-335-2022 https://doi.org/10.5194/gmd-12-3991-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "fesom-2.7"
+}
