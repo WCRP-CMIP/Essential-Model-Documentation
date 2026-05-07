@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_olafmorgenstern-1778154146",
+    "ui_label": "Horizontal grid cell with a icosahedral geodesic grid type and 80 x 80 km resolution.",
+    "description": "Icosahedral, nearly uniform-density grid at 80 km grid spacing. Used for atmosphere and land variables.",
+    "alias": [],
+    "grid_mapping": "latitude_longitude",
+    "grid_type": "icosahedral-geodesic",
+    "n_cells": 81920,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 0,
+    "x_resolution": 80,
+    "y_resolution": 80,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-olafmorgenstern-1778154146"
+}
