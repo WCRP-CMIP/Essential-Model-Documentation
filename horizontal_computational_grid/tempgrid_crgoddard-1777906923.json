@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_crgoddard-1777906923",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g107-mass",
+        "g107-x-velocity",
+        "g107-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-crgoddard-1777906923"
+}
