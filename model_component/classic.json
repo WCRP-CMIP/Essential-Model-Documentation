@@ -1,0 +1,18 @@
+{
+    "validation_key": "classic",
+    "ui_label": "CLASSIC",
+    "description": "The aerosol module is the Coupled Large-scale Aerosol Simulator for Studies In Climate (CLASSIC) as in HadGEM2 (Bellouin et al., 2011). It represents tropospheric aerosol species:  sulphate, mineral dust, sea salt, fossil fuel black carbon, fossil fuel organic carbon, biomass burning aerosols, secondary organic (also called biogenic) aerosols. Emissions of mineral dust and sea salt are interactive. Emissions for other species or their precursors are prescribed. Transported species experience boundary layer and convective mixing and are removed by dry and wet deposition.",
+    "code_base": "private",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2011JD016074"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "classic"
+}
