@@ -87,15 +87,16 @@
     <option value="">Select an entry…</option>
     <option value="../Horizontal_Computational_Grids/h102/">h102</option>
     <option value="../Horizontal_Computational_Grids/h101/">h101</option>
+    <option value="../Horizontal_Computational_Grids/h104/">h104</option>
+    <option value="../Horizontal_Computational_Grids/h105/">h105</option>
     <option value="../Horizontal_Computational_Grids/h103/">h103</option>
     <option value="../Horizontal_Computational_Grids/h100/">h100</option>
-    <option value="../Horizontal_Computational_Grids/h104/">h104</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
 </div>
 <div class="emd-stats">
-  <span><b>5</b> registered entries</span>
+  <span><b>6</b> registered entries</span>
   <span>Endpoint: <b>horizontal_computational_grid</b></span>
 </div>
 </div>
@@ -120,8 +121,8 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["h102","h101","h103","h100","h104"],"link":[[0.0,0.6274509803921569,0.3028322440087146,0.4008714596949891,0.2962962962962963],[0.6274509803921569,0.0,0.30848196152283885,0.45861689463872607,0.3640046296296296],[0.3028322440087146,0.30848196152283885,0.0,0.3505154639175258,0.40208333333333335],[0.4008714596949891,0.45861689463872607,0.3505154639175258,0.0,0.3917525773195876],[0.2962962962962963,0.3640046296296296,0.40208333333333335,0.3917525773195876,0.0]],"text":[[0.0,0.6274509803921569,0.3028322440087146,0.4008714596949891,0.2962962962962963],[0.6274509803921569,0.0,0.30848196152283885,0.45861689463872607,0.3640046296296296],[0.3028322440087146,0.30848196152283885,0.0,0.3505154639175258,0.40208333333333335],[0.4008714596949891,0.45861689463872607,0.3505154639175258,0.0,0.3917525773195876],[0.2962962962962963,0.3640046296296296,0.40208333333333335,0.3917525773195876,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Horizontal Computational Grids","meta":[{"label":"h102","tags":[]},{"label":"h101","tags":[]},{"label":"h103","tags":[]},{"label":"h100","tags":[]},{"label":"h104","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":0,"value":0.0},{"name":"h100","leaf":true,"spectral_index":2,"value":0.0}],"value":0.5702558228331424},{"name":"","leaf":false,"children":[{"name":"h103","leaf":true,"spectral_index":1,"value":0.0},{"name":"h104","leaf":true,"spectral_index":3,"value":0.0}],"value":0.5979166666666667}],"value":0.6554810982585367},"clusters":[0,0,1,2,3],"group_spans":[[0,1],[2,2],[3,3],[4,4]]};
-var EMD_ENTRIES = [{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"},{"label":"h103","url":"../Horizontal_Computational_Grids/h103/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h104","url":"../Horizontal_Computational_Grids/h104/"}];
+var EMD_DATA    = {"ids":["h102","h101","h104","h105","h103","h100"],"link":[[0.0,0.6274509803921569,0.2962962962962963,0.4444444444444444,0.3028322440087146,0.4008714596949891],[0.6274509803921569,0.0,0.3640046296296296,0.2962962962962963,0.30848196152283885,0.45861689463872607],[0.2962962962962963,0.3640046296296296,0.0,0.5925925925925926,0.40208333333333335,0.3917525773195876],[0.4444444444444444,0.2962962962962963,0.5925925925925926,0.0,0.39999999999999997,0.3333333333333333],[0.3028322440087146,0.30848196152283885,0.40208333333333335,0.39999999999999997,0.0,0.3505154639175258],[0.4008714596949891,0.45861689463872607,0.3917525773195876,0.3333333333333333,0.3505154639175258,0.0]],"text":[[0.0,0.6274509803921569,0.2962962962962963,0.4444444444444444,0.3028322440087146,0.4008714596949891],[0.6274509803921569,0.0,0.3640046296296296,0.2962962962962963,0.30848196152283885,0.45861689463872607],[0.2962962962962963,0.3640046296296296,0.0,0.5925925925925926,0.40208333333333335,0.3917525773195876],[0.4444444444444444,0.2962962962962963,0.5925925925925926,0.0,0.39999999999999997,0.3333333333333333],[0.3028322440087146,0.30848196152283885,0.40208333333333335,0.39999999999999997,0.0,0.3505154639175258],[0.4008714596949891,0.45861689463872607,0.3917525773195876,0.3333333333333333,0.3505154639175258,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Horizontal Computational Grids","meta":[{"label":"h102","tags":[]},{"label":"h101","tags":[]},{"label":"h104","tags":[]},{"label":"h105","tags":[]},{"label":"h103","tags":[]},{"label":"h100","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"h102","leaf":true,"spectral_index":0,"value":0.0},{"name":"h100","leaf":true,"spectral_index":3,"value":0.0}],"value":0.5702558228331424},{"name":"","leaf":false,"children":[{"name":"h104","leaf":true,"spectral_index":1,"value":0.0},{"name":"h103","leaf":true,"spectral_index":2,"value":0.0}],"value":0.5989583333333334}],"value":0.6577560153308926},"clusters":[0,0,1,1,2,3],"group_spans":[[0,1],[2,3],[4,4],[5,5]]};
+var EMD_ENTRIES = [{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"},{"label":"h104","url":"../Horizontal_Computational_Grids/h104/"},{"label":"h105","url":"../Horizontal_Computational_Grids/h105/"},{"label":"h103","url":"../Horizontal_Computational_Grids/h103/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"}];
 var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids         = EMD_DATA.ids;
