@@ -95,8 +95,7 @@ def run(parsed_issue, issue, dry_run=False):
             "horizontal_computational_grid": h_grid,
             "vertical_computational_grid":   v_grid,
         }
-        if description and description.lower() not in ('none', 'not specified'):
-            config_data['description'] = description
+
 
         CONFIG_KEYS = [
             'validation_key', 'ui_label', 'model_component',
