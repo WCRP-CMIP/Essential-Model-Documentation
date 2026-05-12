@@ -24,6 +24,30 @@
     "y_resolution": 2.8
   },
   {
+    "@id": "g132",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The horizontal grid spacing varies locally between 5 and 25 km.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "unstructured-triangular",
+    "n_cells": 6229020,
+    "region": "global",
+    "southernmost_latitude": -78.6104600661382,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a unstructured triangular grid type.",
+    "units": "./",
+    "validation_key": "g132",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g115",
     "@type": [
       "wcrp:horizontal_grid_cell",
