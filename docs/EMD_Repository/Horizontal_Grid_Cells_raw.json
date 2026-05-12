@@ -232,7 +232,28 @@
     "y_resolution": 0.9424
   },
   {
-    "@id": "tempgrid-janstreffing-1775067544"
+    "@id": "tempgrid-janstreffing-1775067544",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The horizontal grid spacing varies locally between 5 and 25 km.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "unstructured-triangular",
+    "n_cells": 6229020,
+    "region": "global",
+    "southernmost_latitude": -78.626,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a unstructured triangular grid type.",
+    "units": "./",
+    "validation_key": "tempgrid_JanStreffing-1775067544",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": ""
   },
   {
     "@id": "g100",
@@ -681,6 +702,30 @@
     "y_resolution": 1.4
   },
   {
+    "@id": "tempgrid-janstreffing-1775067544",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The horizontal grid spacing varies locally between 5 and 25 km.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "unstructured-triangular",
+    "n_cells": 6229020,
+    "region": "global",
+    "southernmost_latitude": -78.626,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a unstructured triangular grid type.",
+    "units": "./",
+    "validation_key": "tempgrid_JanStreffing-1775067544",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g104",
     "@type": [
       "emd",
@@ -702,5 +747,29 @@
     "westernmost_longitude": "",
     "x_resolution": "",
     "y_resolution": ""
+  },
+  {
+    "@id": "g131",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 259200,
+    "region": "global",
+    "southernmost_latitude": -89.75,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.5 x 0.5 degree resolution.",
+    "units": "degree",
+    "validation_key": "g131",
+    "westernmost_longitude": 0.25,
+    "x_resolution": 0.5,
+    "y_resolution": 0.5
   }
 ]
