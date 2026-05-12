@@ -47,6 +47,19 @@
     "validation_key": "h100"
   },
   {
+    "@id": "h106",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g122-mass",
+    "ui_label": "",
+    "validation_key": "h106"
+  },
+  {
     "@id": "h104",
     "@type": [
       "wcrp:horizontal_computational_grid",
