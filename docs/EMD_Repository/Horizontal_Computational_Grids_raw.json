@@ -1,5 +1,18 @@
 [
   {
+    "@id": "h107",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g122-mass-x-velocity-y-velocity",
+    "ui_label": "",
+    "validation_key": "h107"
+  },
+  {
     "@id": "h103",
     "@type": [
       "wcrp:horizontal_computational_grid",

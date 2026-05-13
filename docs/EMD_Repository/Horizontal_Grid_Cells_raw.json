@@ -468,6 +468,30 @@
     "y_resolution": ""
   },
   {
+    "@id": "g133",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 55296,
+    "region": "global",
+    "southernmost_latitude": -89.5,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 0.9375 x 0.9375 degree resolution.",
+    "units": "degree",
+    "validation_key": "g133",
+    "westernmost_longitude": 0.5,
+    "x_resolution": 0.9375,
+    "y_resolution": 0.9375
+  },
+  {
     "@id": "g119",
     "@type": [
       "emd",
