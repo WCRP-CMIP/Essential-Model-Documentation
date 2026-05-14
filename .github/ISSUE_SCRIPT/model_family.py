@@ -26,8 +26,7 @@ BAD_KEYS = {'id', 'type', 'context'}
 
 
 def _clean_id(s: str) -> str:
-    return s.strip().lower().replace(' ', '-')
-
+    return s.strip().replace(' ', '-')
 
 def _parse_list(value) -> list:
     if isinstance(value, list):
