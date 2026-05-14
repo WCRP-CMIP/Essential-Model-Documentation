@@ -1,65 +1,5 @@
 [
   {
-    "@id": "h107",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "",
-    "horizontal_subgrids": "g122-mass-x-velocity-y-velocity",
-    "ui_label": "",
-    "validation_key": "h107"
-  },
-  {
-    "@id": "h103",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "Regular Gauss grid with Arakawa-A arrangement",
-    "horizontal_subgrids": "g114-mass-velocity-x-velocity-y-velocity",
-    "ui_label": "",
-    "validation_key": "h103"
-  },
-  {
-    "@id": "h102",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-c",
-    "description": "",
-    "horizontal_subgrids": [
-      "g115-mass",
-      "g114-x-velocity",
-      "g116-y-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h102"
-  },
-  {
-    "@id": "h100",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "Arakawa-A spectral grid for atmospheric modelling (TL127 reduced Gaussian + regular output grid).",
-    "horizontal_subgrids": [
-      "g100-mass",
-      "g101-mass",
-      "g105-mass"
-    ],
-    "ui_label": "",
-    "validation_key": "h100"
-  },
-  {
     "@id": "h106",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -86,17 +26,64 @@
     "validation_key": "h108"
   },
   {
-    "@id": "h104",
+    "@id": "h102",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g115-mass",
+      "g114-x-velocity",
+      "g116-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h102"
+  },
+  {
+    "@id": "h103",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
       "emd"
     ],
     "arrangement": "arakawa-a",
-    "description": "Arakawa-A (unstaggered) regular lat-lon grid, 1.875x1.25 degree.",
-    "horizontal_subgrids": "g108-mass",
+    "description": "Regular Gauss grid with Arakawa-A arrangement",
+    "horizontal_subgrids": "g114-mass-velocity-x-velocity-y-velocity",
     "ui_label": "",
-    "validation_key": "h104"
+    "validation_key": "h103"
+  },
+  {
+    "@id": "h100",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Arakawa-A spectral grid for atmospheric modelling (TL127 reduced Gaussian + regular output grid).",
+    "horizontal_subgrids": [
+      "g100-mass",
+      "g101-mass",
+      "g105-mass"
+    ],
+    "ui_label": "",
+    "validation_key": "h100"
+  },
+  {
+    "@id": "h105",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g110-mass",
+    "ui_label": "",
+    "validation_key": "h105"
   },
   {
     "@id": "h101",
@@ -116,7 +103,7 @@
     "validation_key": "h101"
   },
   {
-    "@id": "h105",
+    "@id": "h107",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
@@ -124,8 +111,21 @@
     ],
     "arrangement": "arakawa-a",
     "description": "",
-    "horizontal_subgrids": "g110-mass",
+    "horizontal_subgrids": "g122-mass-x-velocity-y-velocity",
     "ui_label": "",
-    "validation_key": "h105"
+    "validation_key": "h107"
+  },
+  {
+    "@id": "h104",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Arakawa-A (unstaggered) regular lat-lon grid, 1.875x1.25 degree.",
+    "horizontal_subgrids": "g108-mass",
+    "ui_label": "",
+    "validation_key": "h104"
   }
 ]

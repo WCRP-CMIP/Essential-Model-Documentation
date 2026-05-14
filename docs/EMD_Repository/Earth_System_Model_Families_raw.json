@@ -1,6 +1,6 @@
 [
   {
-    "@id": "mpi-esm",
+    "@id": "cesm",
     "@type": [
       "emd",
       "wcrp:model_family",
@@ -9,13 +9,115 @@
     "collaborative_institutions": [],
     "common_scientific_basis": "none",
     "computational_requirements": "none",
-    "description": "Max Planck Institute Earth System Model.",
+    "description": "Community Earth System Model - a fully-coupled global climate model developed at NCAR providing simulations of the Earth's past, present, and future climate states.",
     "documentation": "none",
     "established": "none",
     "evolution": "none",
     "family_type": "model",
     "license": "none",
-    "primary_institution": "mpi-m",
+    "primary_institution": "ncar",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice",
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "hadcm2",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "Common scientific approach based on primitive equation atmospheric and oceanic dynamics.",
+    "computational_requirements": "10s to 100s of processors for climate simulations",
+    "description": "HadCM2 is an early family of Met Office Hadley Centre coupled climate models that established foundational approaches for UK climate modeling.",
+    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",
+    "established": "1995",
+    "evolution": "HadCM2 developed in the mid-1990s, served as foundation for HadCM3 and HadGEM families.",
+    "family_type": "model",
+    "license": "Proprietary",
+    "primary_institution": "mohc",
+    "programming_languages": [
+      "Fortran 77",
+      "Fortran 90"
+    ],
+    "references": "REF014",
+    "representative_member": "HadCM2",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean"
+    ],
+    "shared_code_base": "HadCM2 family members share common atmospheric and oceanic model components developed at the Met Office.",
+    "software_dependencies": "Standard numerical libraries, basic I/O libraries, message passing libraries",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "HadCM2",
+    "variation_dimensions": "Resolution configurations, parameter tuning, physics parameterization choices, domain configurations.",
+    "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models"
+  },
+  {
+    "@id": "icon",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "mpi-m",
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "dwd",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "ICON",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "gfdl-cm4",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "NOAA Geophysical Fluid Dynamics Laboratory coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "noaa-gfdl",
     "programming_languages": "none",
     "references": [],
     "representative_member": "none",
@@ -29,40 +131,7 @@
     "software_dependencies": "none",
     "source_code_repository": "none",
     "ui_label": "",
-    "validation_key": "MPI-ESM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "cnrm-cm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "cnrm-cerfacs",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land-surface",
-      "ocean"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "CNRM-CM",
+    "validation_key": "GFDL-CM4",
     "variation_dimensions": "none",
     "website": "none"
   },
@@ -134,7 +203,46 @@
     "website": "none"
   },
   {
-    "@id": "gfdl-cm4",
+    "@id": "ukesm1",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "ncas",
+      "noc",
+      "bas"
+    ],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "UK Earth System Model - based on HadGEM3 with additional Earth system components including interactive atmospheric chemistry and ocean biogeochemistry.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "mohc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean_biogeochemistry",
+      "atmospheric_chemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "UKESM1",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "mpi-esm",
     "@type": [
       "emd",
       "wcrp:model_family",
@@ -143,13 +251,13 @@
     "collaborative_institutions": [],
     "common_scientific_basis": "none",
     "computational_requirements": "none",
-    "description": "NOAA Geophysical Fluid Dynamics Laboratory coupled climate model family.",
+    "description": "Max Planck Institute Earth System Model.",
     "documentation": "none",
     "established": "none",
     "evolution": "none",
     "family_type": "model",
     "license": "none",
-    "primary_institution": "noaa-gfdl",
+    "primary_institution": "mpi-m",
     "programming_languages": "none",
     "references": [],
     "representative_member": "none",
@@ -163,9 +271,103 @@
     "software_dependencies": "none",
     "source_code_repository": "none",
     "ui_label": "",
-    "validation_key": "GFDL-CM4",
+    "validation_key": "MPI-ESM",
     "variation_dimensions": "none",
     "website": "none"
+  },
+  {
+    "@id": "giss-e2",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "NASA Goddard Institute for Space Studies Earth system model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "nasa-giss",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "GISS-E2",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "canesm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Canadian Earth System Model - developed by the Canadian Centre for Climate Modelling and Analysis.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "cccma",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CanESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "gfdl",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Coupled models using the GFDL atmosphere, land, sea ice, and ocean components making use of the Flexible Modeling System coupling infrastructure starting with the GFDL-CM2 series (Delworth et al., 2006) in CMIP3, GFDL-CM3 and GFDL-ESM2 series in CMIP5, and GFDL-ESM4.1 in CMIP6.  Delworth, T. L., and Coauthors, 2006: GFDL\u2019s CM2 global coupled climate models. Part I: Formulation and simulation characteristics. J. Climate, 19, 643\u2013674.",
+    "established": 2004,
+    "family_type": "model",
+    "primary_institution": "noaa-gfdl",
+    "references": "https://doi.org/10.1029/2019MS002015",
+    "representative_member": "GFDL-ESM4.1",
+    "scientific_domains": [
+      "aerosol",
+      "atmosphere",
+      "atmospheric-chemistry",
+      "land_surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea_ice"
+    ],
+    "ui_label": "GFDL",
+    "validation_key": "gfdl",
+    "website": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019MS002015"
   },
   {
     "@id": "canesm",
@@ -226,7 +428,89 @@
     "website": "https://No website"
   },
   {
-    "@id": "giss-e2",
+    "@id": "hadgem3",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "ncas",
+      "noc",
+      "bas"
+    ],
+    "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
+    "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
+    "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
+    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+    "established": "2009",
+    "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
+    "family_type": "model",
+    "license": "Registration Required",
+    "primary_institution": "mohc",
+    "programming_languages": [
+      "Fortran 90",
+      "Fortran 95",
+      "C"
+    ],
+    "references": "REF015",
+    "representative_member": "HadGEM3-GC31-LL",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean",
+      "land_surface",
+      "sea_ice",
+      "ocean_biogeochemistry",
+      "atmospheric_chemistry"
+    ],
+    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
+    "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
+    "source_code_repository": "https://code.metoffice.gov.uk/",
+    "ui_label": "",
+    "validation_key": "HadGEM3",
+    "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
+    "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model"
+  },
+  {
+    "@id": "ec-earth",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "dmi",
+      "smhi",
+      "knmi",
+      "cnr",
+      "fmi",
+      "ichec"
+    ],
+    "description": "Community-developed Earth system model based on model components like:  1. The ECMWF Integrated Forecasting System (IFS) for the atmosphere 2. The Nucleus for European Modelling of the Ocean (NEMO) 3. A dynamic vegetation model (LPJ-GUESS)",
+    "established": 2006,
+    "family_type": "model",
+    "primary_institution": "ec-earth-consortium",
+    "references": [
+      "https://doi.org/10.5194/gmd-15-2973-2022",
+      "https://doi.org/10.1007/s00382-011-1228-5"
+    ],
+    "representative_member": "EC-Earth3",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean",
+      "sea-ice",
+      "ocean-biogeochemistry",
+      "land-surface",
+      "land-ice",
+      "atmospheric-chemistry",
+      "aerosol"
+    ],
+    "ui_label": "EC-Earth",
+    "validation_key": "ec-earth",
+    "website": "https://ec-earth.org/"
+  },
+  {
+    "@id": "cnrm-cm",
     "@type": [
       "emd",
       "wcrp:model_family",
@@ -235,26 +519,60 @@
     "collaborative_institutions": [],
     "common_scientific_basis": "none",
     "computational_requirements": "none",
-    "description": "NASA Goddard Institute for Space Studies Earth system model family.",
+    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
     "documentation": "none",
     "established": "none",
     "evolution": "none",
     "family_type": "model",
     "license": "none",
-    "primary_institution": "nasa-giss",
+    "primary_institution": "cnrm-cerfacs",
     "programming_languages": "none",
     "references": [],
     "representative_member": "none",
     "scientific_domains": [
       "atmosphere",
-      "land_surface",
+      "land-surface",
       "ocean"
     ],
     "shared_code_base": "none",
     "software_dependencies": "none",
     "source_code_repository": "none",
     "ui_label": "",
-    "validation_key": "GISS-E2",
+    "validation_key": "CNRM-CM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "miroc",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Model for Interdisciplinary Research on Climate - jointly developed by JAMSTEC, AORI, and NIES.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "miroc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "MIROC",
     "variation_dimensions": "none",
     "website": "none"
   },
@@ -317,324 +635,6 @@
     "source_code_repository": "none",
     "ui_label": "",
     "validation_key": "FGOALS",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "ec-earth",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "dmi",
-      "smhi",
-      "knmi",
-      "cnr",
-      "fmi",
-      "ichec"
-    ],
-    "description": "Community-developed Earth system model based on model components like:  1. The ECMWF Integrated Forecasting System (IFS) for the atmosphere 2. The Nucleus for European Modelling of the Ocean (NEMO) 3. A dynamic vegetation model (LPJ-GUESS)",
-    "established": 2006,
-    "family_type": "model",
-    "primary_institution": "ec-earth-consortium",
-    "references": [
-      "https://doi.org/10.5194/gmd-15-2973-2022",
-      "https://doi.org/10.1007/s00382-011-1228-5"
-    ],
-    "representative_member": "EC-Earth3",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean",
-      "sea-ice",
-      "ocean-biogeochemistry",
-      "land-surface",
-      "land-ice",
-      "atmospheric-chemistry",
-      "aerosol"
-    ],
-    "ui_label": "EC-Earth",
-    "validation_key": "ec-earth",
-    "website": "https://ec-earth.org/"
-  },
-  {
-    "@id": "canesm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Canadian Earth System Model - developed by the Canadian Centre for Climate Modelling and Analysis.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "cccma",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "CanESM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "miroc",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Model for Interdisciplinary Research on Climate - jointly developed by JAMSTEC, AORI, and NIES.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "miroc",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "MIROC",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "cesm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Community Earth System Model - a fully-coupled global climate model developed at NCAR providing simulations of the Earth's past, present, and future climate states.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "ncar",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice",
-      "ocean_biogeochemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "CESM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "hadgem3",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "ncas",
-      "noc",
-      "bas"
-    ],
-    "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
-    "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
-    "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
-    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
-    "established": "2009",
-    "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
-    "family_type": "model",
-    "license": "Registration Required",
-    "primary_institution": "mohc",
-    "programming_languages": [
-      "Fortran 90",
-      "Fortran 95",
-      "C"
-    ],
-    "references": "REF015",
-    "representative_member": "HadGEM3-GC31-LL",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean",
-      "land_surface",
-      "sea_ice",
-      "ocean_biogeochemistry",
-      "atmospheric_chemistry"
-    ],
-    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
-    "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
-    "source_code_repository": "https://code.metoffice.gov.uk/",
-    "ui_label": "",
-    "validation_key": "HadGEM3",
-    "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
-    "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model"
-  },
-  {
-    "@id": "gfdl",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "Coupled models using the GFDL atmosphere, land, sea ice, and ocean components making use of the Flexible Modeling System coupling infrastructure starting with the GFDL-CM2 series (Delworth et al., 2006) in CMIP3, GFDL-CM3 and GFDL-ESM2 series in CMIP5, and GFDL-ESM4.1 in CMIP6.  Delworth, T. L., and Coauthors, 2006: GFDL\u2019s CM2 global coupled climate models. Part I: Formulation and simulation characteristics. J. Climate, 19, 643\u2013674.",
-    "established": 2004,
-    "family_type": "model",
-    "primary_institution": "noaa-gfdl",
-    "references": "https://doi.org/10.1029/2019MS002015",
-    "representative_member": "GFDL-ESM4.1",
-    "scientific_domains": [
-      "aerosol",
-      "atmosphere",
-      "atmospheric-chemistry",
-      "land_surface",
-      "ocean",
-      "ocean-biogeochemistry",
-      "sea_ice"
-    ],
-    "ui_label": "GFDL",
-    "validation_key": "gfdl",
-    "website": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019MS002015"
-  },
-  {
-    "@id": "hadcm2",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "Common scientific approach based on primitive equation atmospheric and oceanic dynamics.",
-    "computational_requirements": "10s to 100s of processors for climate simulations",
-    "description": "HadCM2 is an early family of Met Office Hadley Centre coupled climate models that established foundational approaches for UK climate modeling.",
-    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model",
-    "established": "1995",
-    "evolution": "HadCM2 developed in the mid-1990s, served as foundation for HadCM3 and HadGEM families.",
-    "family_type": "model",
-    "license": "Proprietary",
-    "primary_institution": "mohc",
-    "programming_languages": [
-      "Fortran 77",
-      "Fortran 90"
-    ],
-    "references": "REF014",
-    "representative_member": "HadCM2",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean"
-    ],
-    "shared_code_base": "HadCM2 family members share common atmospheric and oceanic model components developed at the Met Office.",
-    "software_dependencies": "Standard numerical libraries, basic I/O libraries, message passing libraries",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "HadCM2",
-    "variation_dimensions": "Resolution configurations, parameter tuning, physics parameterization choices, domain configurations.",
-    "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models"
-  },
-  {
-    "@id": "icon",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "mpi-m",
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "dwd",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "ICON",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "ukesm1",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "ncas",
-      "noc",
-      "bas"
-    ],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "UK Earth System Model - based on HadGEM3 with additional Earth system components including interactive atmospheric chemistry and ocean biogeochemistry.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "mohc",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "ocean_biogeochemistry",
-      "atmospheric_chemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "UKESM1",
     "variation_dimensions": "none",
     "website": "none"
   }

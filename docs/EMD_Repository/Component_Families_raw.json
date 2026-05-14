@@ -1,5 +1,78 @@
 [
   {
+    "@id": "fesim",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "1. Scientific focus and approach The Finite-Element Sea Ice Model (FESIM), developed at the Alfred Wegener Institute, is a sea-ice model formulated on unstructured triangular meshes and used as a component of the Finite-Element Sea ice Ocean Model (FESOM). Its scientific focus is the dynamics and thermodynamics of polar sea ice on multi-resolution meshes that allow regional refinement of the ice cover, marginal ice zones, narrow straits and ice-shelf cavities within the same global configuration as the host ocean.  2. Common code base and physics All FESIM family members share a common Fortran code base distributed inside the FESOM repository. Common elements include a viscous-plastic momentum equation, an elastic-viscous-plastic (EVP) solver and a modified EVP variant with improved stability compared to the standard EVP approach, a flux-corrected transport algorithm to advect the ice and snow mean thicknesses and concentration, and a thermodynamic formulation with prognostic ice and snow thickness. The model assumes a collocated placement of ice velocities, mean thicknesses and concentration at mesh vertices, and relies on piecewise-linear continuous elements.  3. How family members differ Family members differ along several axes. One axis is the underlying code generation: FESIM-1, the original sea-ice component of FESOM 1.4 formulated with linear finite elements, and FESIM-2, the rewritten formulation used inside FESOM2 from 2017 onward. Another axis is the rheology configuration, with the choice between the standard elastic-viscous-plastic solver and the modified EVP variant, and the number of subcycling iterations selected for each. A further axis is the mesh configuration, with FESIM run on a wide range of FESOM meshes from approximately 1\u00b0 global meshes down to sub-kilometre regional meshes, with or without active ice-shelf cavities.",
+    "established": 2003,
+    "family_type": "component",
+    "primary_institution": "awi",
+    "references": "https://doi.org/10.5194/gmd-8-1747-2015",
+    "representative_member": "FESIM 2.7",
+    "scientific_domains": "sea_ice",
+    "ui_label": "FESIM",
+    "validation_key": "fesim",
+    "website": "https://fesom.de/"
+  },
+  {
+    "@id": "nemo",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "cnrm",
+      "mohc"
+    ],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Nucleus for European Modelling of the Ocean model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "ipsl",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "ocean",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "nemo",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "cable",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "unsw",
+      "access-nri"
+    ],
+    "description": "The Community Atmosphere Biosphere Land Exchange (CABLE) model is a land surface model developed in Australia. It incorporates land biogeochemistry using the CASA-CNP module. It can be run as a standalone model or embedded in an atmosphere model. Versions of CABLE are used within the ACCESS earth system model and within the Conformal Cubic Atmosphere Model (CCAM). One version of the standalone model includes tree demography (CABLE-POP) but this feature is not yet used within ACCESS.",
+    "established": 2003,
+    "family_type": "component",
+    "primary_institution": "csiro",
+    "references": "https://doi.org/10.4225/08/58615c6a9a51d",
+    "representative_member": "CABLE2.4",
+    "scientific_domains": "land_surface",
+    "ui_label": "CABLE",
+    "validation_key": "cable",
+    "website": "https://docs.access-hive.org.au/models/model_components/land/"
+  },
+  {
     "@id": "si3-gosi9",
     "@type": [
       "emd",
@@ -19,29 +92,29 @@
     "website": ""
   },
   {
-    "@id": "lim",
+    "@id": "glomap-mode",
     "@type": [
       "emd",
       "wcrp:model_family",
       "esgvoc:ModelFamily"
     ],
-    "collaborative_institutions": "./",
-    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography. It is coupled to the ocean general circulation model OPA (Oc\u00e9an Parall\u00e9lis\u00e9) and is part of NEMO (Nucleus for European Modeling of the Ocean). LIM is used in several global climate models contributing to the assessment reports of the IPCC (Intergovernmental Panel on Climate Change). The code is freely available under a software licensing agreement and can be downloaded from the NEMO website (www.nemo-ocean.eu/).  Source: https://www.cmcc.it/models/lim",
+    "collaborative_institutions": "nerc",
+    "description": "Global aerosol and microphysics model for UKCA",
     "established": "",
     "family_type": "component",
-    "primary_institution": "uclouvain",
-    "references": [
-      "https://doi.org/10.1029/97JC00480",
-      "https://doi.org/10.1016/j.ocemod.2009.01.004",
-      "https://doi.org/10.1016/j.ocemod.2008.10.005"
+    "primary_institution": "mohc",
+    "references": "https://doi.org/10.5194/gmd-3-519-2010",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+      "aerosol",
+      "atmospheric-chemistry"
     ],
-    "scientific_domains": "sea_ice",
-    "ui_label": "LIM",
-    "validation_key": "lim",
+    "ui_label": "GLOMAP-mode",
+    "validation_key": "glomap-mode",
     "website": ""
   },
   {
-    "@id": "nicam",
+    "@id": "surfex",
     "@type": [
       "emd",
       "wcrp:model_family",
@@ -50,24 +123,134 @@
     "collaborative_institutions": [],
     "common_scientific_basis": "none",
     "computational_requirements": "none",
-    "description": "Nonhydrostatic ICosahedral Atmospheric Model - developed by JAMSTEC for high-resolution global simulations.",
+    "description": "SURFEX land surface modelling platform developed by CNRM/M\u00e9t\u00e9o-France.",
     "documentation": "none",
     "established": "none",
     "evolution": "none",
     "family_type": "component",
     "license": "none",
-    "primary_institution": "jamstec",
+    "primary_institution": "cnrm",
     "programming_languages": "none",
     "references": [],
     "representative_member": "none",
-    "scientific_domains": "atmosphere",
+    "scientific_domains": "land-surface",
     "shared_code_base": "none",
     "software_dependencies": "none",
     "source_code_repository": "none",
     "ui_label": "",
-    "validation_key": "NICAM",
+    "validation_key": "surfex",
     "variation_dimensions": "none",
     "website": "none"
+  },
+  {
+    "@id": "cannemo",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "CanNEMO was introduced in CanESM5 (Swart et al., 2019) and introduced modifications to mesoscale and small-scale mixing physics to NEMO3.4.1.  https://gitlab.com/cccma/cannemo",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": "https://doi.org/10.5194/gmd-12-4823-2019",
+    "scientific_domains": "ocean",
+    "ui_label": "CanNEMO",
+    "validation_key": "cannemo",
+    "website": ""
+  },
+  {
+    "@id": "canam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Atmospheric general circulation model developed at the Canadian Centre for Climate Modelling and Analysis (CCCma)  https://gitlab.com/cccma/canam",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": "https://doi.org/10.5194/gmd-16-5427-2023",
+    "scientific_domains": [
+      "atmosphere",
+      "aerosol",
+      "atmospheric-chemistry"
+    ],
+    "ui_label": "CanAM",
+    "validation_key": "canam",
+    "website": ""
+  },
+  {
+    "@id": "lpj-guess",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "pik",
+    "description": "**Scientific focus and approach** LPJ-GUESS (Lund\u2013Potsdam\u2013Jena General Ecosystem Simulator), developed primarily at Lund University, is a process-based dynamic global vegetation model (DGVM) that simulates the structure, composition, growth and biogeochemistry of terrestrial ecosystems under varying climate, atmospheric CO\u2082 and land-use forcing. Its scientific focus is the coupled carbon\u2013nitrogen\u2013water cycling of the land biosphere, with a strong emphasis on ecological realism: rather than treating each plant functional type as a single grid-cell average, LPJ-GUESS represents vegetation as a population of age- and size-structured cohorts of woody individuals competing for light, water and nutrients within multiple replicate \"patches\" per grid cell, with an herbaceous understorey and stochastic disturbance and mortality. This individual- and patch-based design \u2014 inherited from forest gap models \u2014 allows the model to capture demographic processes, stand development, succession and the response of community composition to climatic, edaphic and disturbance gradients, alongside the standard DGVM outputs of net primary production, net ecosystem exchange, runoff, vegetation carbon and soil carbon and nitrogen pools.  **Common code base and physics** All LPJ-GUESS family members share a common C++ code base and a core set of process representations originally derived from the LPJ-DGVM (Sitch et al., 2003) and extended in Smith et al. (2001, 2014). Common elements across the family include: a coupled photosynthesis\u2013stomatal-conductance scheme based on the Farquhar\u2013Collatz formulation (Haxeltine & Prentice 1996); a growing-degree-day phenology with chilling and water-stress controls; allometric tree growth and tissue turnover; an autotrophic and heterotrophic respiration scheme with prognostic litter and soil organic matter pools (CENTURY-style after the v3.0 update); a soil hydrology scheme with two physical layers in the standard formulation (Gerten et al., 2004) extended to a multi-layer permafrost-capable scheme in the arctic configurations; a coupled terrestrial nitrogen cycle (from v3.0 onward; Smith et al., 2014) including biological N fixation, deposition, leaching and plant\u2013microbial competition; representations of natural disturbance through fire (BLAZE, GlobFIRM or SIMFIRE-BLAZE depending on configuration) and stand-replacing disturbance; and a managed-land module (from v4.0; Lindeskog et al., 2013) supporting croplands with major C3/C4 crop functional types, irrigation, fertilisation and rotation, plus pasture and managed forestry. Simulations are typically run as ensembles of replicate patches (commonly ~25 per grid cell) on grids of 0.5\u00b0 resolution or finer, driven by climate, CO\u2082, N deposition and land-use forcing.  **How family members differ** Family members differ principally in process complexity, target ecosystems, and coupling architecture:  - LPJ-GUESS v2.x (Smith et al. 2001; Ahlstr\u00f6m et al. 2012; Hickler et al. 2012) is the original carbon-and-water-only version with global or European plant-functional-type sets, used in many CMIP5-era applications. - LPJ-GUESS v3.0 (Smith et al. 2014) introduced the coupled C\u2013N cycle with N limitation on photosynthesis and decomposition, and remains the scientific reference for most current applications. - LPJ-GUESS v4.0+ (Lindeskog et al. 2013; Olin et al. 2015; Lindeskog et al. 2021) adds the managed-land module (crops, pasture, managed forests). - LPJ-GUESS arctic / WHyMe / peatland configurations (Wania et al. 2009; McGuire et al., Chadburn et al., Pongracz et al. 2021) add multi-layer soil thermodynamics, freeze\u2013thaw, soil organic layers, peatland hydrology, methane production/oxidation and a multi-layer snow scheme for high-latitude applications. - LPJ-GUESS/LSM v1.0 (Mart\u00edn Belda et al. 2022) is a next-generation reformulation as a full land-surface model with a closed surface energy balance, prognostic canopy and soil temperatures, and sub-daily physics, designed for two-way coupling with atmospheric models. - Process extensions developed across the family include alternative fire schemes (SIMFIRE-BLAZE, LMfire-CF), BVOC emissions, lightning-induced mortality, hydraulic mortality, stable-water-isotope tracers, and coupling to surface\u2013subsurface hydrology models (e.g. ParFlow-LPJG). - PFT sets and parameterisations also differ between configurations: a standard global PFT set (~11 PFTs), a more detailed European PFT set, region-specific sets for the tropics, boreal North America and the Greater Yellowstone Ecosystem, and crop-functional-type sets in the managed-land variants.",
+    "established": 2001,
+    "family_type": "component",
+    "primary_institution": "kit",
+    "references": [
+      "https://doi.org/10.1046/j.1466-822X.2001.t01-1-00256.x",
+      "https://doi.org/10.1046/j.1365-2486.2003.00569.x",
+      "https://doi.org/10.1016/j.jhydrol.2003.09.029",
+      "https://doi.org/10.5194/bg-11-2027-2014",
+      "https://doi.org/10.5194/esd-4-385-2013",
+      "https://doi.org/10.5194/bg-12-2489-2015",
+      "https://doi.org/10.1029/2008GB003412",
+      "https://doi.org/10.5194/gmd-14-6071-2021",
+      "https://doi.org/10.5194/gmd-15-6709-2022"
+    ],
+    "representative_member": "LPJ-GUESS 4.1",
+    "scientific_domains": "land_surface",
+    "ui_label": "LPJ-GUESS",
+    "validation_key": "lpj-guess",
+    "website": "https://web.nateko.lu.se/lpj-guess/"
+  },
+  {
+    "@id": "jules-gl9",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "nerc",
+    "description": "Joint UK Land Surface model",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": "https://doi.org/10.5194/gmd-4-677-2011",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": "land_surface",
+    "ui_label": "JULES-GL9",
+    "validation_key": "jules-gl9",
+    "website": ""
+  },
+  {
+    "@id": "cmoc",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Canadian Model of Ocean Carbon (CMOC); NPZD ecosystem with OMIP prescribed carbonate chemistry.  https://gitlab.com/cccma/cannemo",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+      "Christian et al. 2022:",
+      "https://doi.org/10.5194/gmd-15-4393-2022 Swart et al. 2019:",
+      "https://doi.org/10.5194/gmd-12-4823-2019"
+    ],
+    "scientific_domains": "ocean-biogeochemistry",
+    "ui_label": "CMOC",
+    "validation_key": "cmoc",
+    "website": ""
   },
   {
     "@id": "ifs",
@@ -97,25 +280,7 @@
     "website": "https://confluence.ecmwf.int/display/OIFS"
   },
   {
-    "@id": "cannemo",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "CanNEMO was introduced in CanESM5 (Swart et al., 2019) and introduced modifications to mesoscale and small-scale mixing physics to NEMO3.4.1.  https://gitlab.com/cccma/cannemo",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "cccma",
-    "references": "https://doi.org/10.5194/gmd-12-4823-2019",
-    "scientific_domains": "ocean",
-    "ui_label": "CanNEMO",
-    "validation_key": "cannemo",
-    "website": ""
-  },
-  {
-    "@id": "arpege-climat",
+    "@id": "cam",
     "@type": [
       "emd",
       "wcrp:model_family",
@@ -124,7 +289,84 @@
     "collaborative_institutions": [],
     "common_scientific_basis": "none",
     "computational_requirements": "none",
-    "description": "ARPEGE-Climat atmospheric model family developed by CNRM/M\u00e9t\u00e9o-France.",
+    "description": "Community Atmosphere Model - the atmospheric component of CESM, also used standalone for atmospheric research.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "ncar",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "atmosphere",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CAM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "nemo-gosi9",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "nerc",
+    "description": "UK physical global ocean configuration of the NEMO model",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": "https://doi.org/10.5194/gmd-18-377-2025",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": "ocean",
+    "ui_label": "NEMO-GOSI9",
+    "validation_key": "nemo-gosi9",
+    "website": ""
+  },
+  {
+    "@id": "hadam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Hadley Centre Atmospheric Model family developed by the UK Met Office.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "mohc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "atmosphere",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "hadam",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "tactic",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "TACTIC tropospheric aerosol scheme developed by CNRM.",
     "documentation": "none",
     "established": "none",
     "evolution": "none",
@@ -134,12 +376,12 @@
     "programming_languages": "none",
     "references": [],
     "representative_member": "none",
-    "scientific_domains": "atmosphere",
+    "scientific_domains": "aerosol",
     "shared_code_base": "none",
     "software_dependencies": "none",
     "source_code_repository": "none",
     "ui_label": "",
-    "validation_key": "arpege-climat",
+    "validation_key": "tactic",
     "variation_dimensions": "none",
     "website": "none"
   },
@@ -180,6 +422,191 @@
     "website": "https://www.cesm.ucar.edu/models/cesm2/land"
   },
   {
+    "@id": "fesom",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "**Scientific focus and approach** FESOM (Finite-Element/volumE Sea ice\u2013Ocean Model), developed at the Alfred Wegener Institute (AWI), is a global sea-ice/ocean general circulation model designed around a single guiding idea: the use of unstructured horizontal meshes to enable seamless multi-resolution simulation of the global ocean. Rather than nesting limited-area models inside a coarser global grid, FESOM allows mesh resolution to vary smoothly across the global domain, so that regions of dynamical interest \u2014 western boundary currents, the Arctic and Southern Oceans, marginal seas, eddy-active zones, or coastal shelves \u2014 can be locally refined to eddy-permitting or eddy-resolving scales while retaining a coarser grid elsewhere. This makes FESOM particularly suited to climate applications where regional process detail and global integrity must be maintained simultaneously, and it has become a widely used platform for exploring the benefits of unstructured-mesh modelling in climate research.  **Common code base and physics** All FESOM family members share the same overarching modelling philosophy: solution of the hydrostatic Boussinesq primitive equations on triangular surface meshes with a vertical discretisation in z-coordinates (with optional partial cells, sigma layers under ice shelves, and arbitrary Lagrangian\u2013Eulerian (ALE) layers in FESOM2). The sea-ice component is the dynamic\u2013thermodynamic Finite-Element Sea Ice Model (FESIM), based on an elastic\u2013viscous\u2013plastic (EVP, or modified mEVP) rheology, with optional coupling to ICEPACK column physics in more recent configurations. Common physics packages include the K-Profile Parameterization (KPP) or TKE-based vertical mixing, Gent\u2013McWilliams parameterization of mesoscale eddy transport and isoneutral Redi diffusion at non-eddying resolutions, and standard parameterizations for tidal mixing and bottom boundary layer flow. Tracers are advected using flux-corrected transport (FCT) schemes. The code is parallelised with MPI and (in FESOM2) supports hybrid CPU/GPU execution; unstructured-mesh I/O is handled either directly or through XIOS.  **How family members differ** Family members differ principally in numerical core, mesh, and complexity:  FESOM1.4 uses a continuous-Galerkin finite-element dynamical core and is documented by Wang et al. (2014). FESOM2 (patch versions FESOM2.0\u2013FESOM2.7) replaces the finite-element core with a finite-volume formulation on cell-vertex triangular meshes, adds an ALE vertical coordinate framework, and delivers roughly a 3\u00d7 throughput improvement over FESOM1.4 at comparable accuracy. FESOM2 is documented by Danilov et al. (2017) and further described by Scholz et al. (2019, 2022). Mesh and resolution is the most visible source of differentiation between configurations: meshes range from CMIP-class low-resolution (~100\u2013150 km in the open ocean with refinement in polar and dynamically active regions, e.g. the CORE2 or CMIP6 LR mesh) through medium-resolution Arctic-focused and DYAMOND meshes, to globally eddy-resolving meshes at 1/10\u00b0 (~10 km) and storm-resolving meshes down to ~5 km used in nextGEMS. Sea-ice complexity varies between configurations: standard FESIM zero-layer or single-category thermodynamics in CMIP-class runs, versus multi-category ICEPACK thermodynamics in other setups. Vertical levels and mixing choices (KPP vs TKE via CVMix, with/without GM, isoneutral Redi on/off) are tuned per configuration depending on whether the mesh resolves mesoscale eddies.",
+    "established": 2004,
+    "family_type": "component",
+    "primary_institution": "awi",
+    "references": [
+      "https://doi.org/10.5194/gmd-7-663-2014",
+      "https://doi.org/10.5194/gmd-10-765-2017",
+      "https://doi.org/10.5194/gmd-8-1747-2015",
+      "https://doi.org/10.5194/gmd-12-4875-2019",
+      "https://doi.org/10.5194/gmd-15-335-2022",
+      "https://doi.org/10.5194/gmd-12-3991-2019"
+    ],
+    "representative_member": "FESOM 2.0",
+    "scientific_domains": "ocean",
+    "ui_label": "FESOM",
+    "validation_key": "fesom",
+    "website": "https://fesom2.readthedocs.io/en/latest/"
+  },
+  {
+    "@id": "gelato",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "GELATO sea ice model family developed by CNRM/M\u00e9t\u00e9o-France.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "cnrm",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "sea-ice",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "gelato",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "lim",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography. It is coupled to the ocean general circulation model OPA (Oc\u00e9an Parall\u00e9lis\u00e9) and is part of NEMO (Nucleus for European Modeling of the Ocean). LIM is used in several global climate models contributing to the assessment reports of the IPCC (Intergovernmental Panel on Climate Change). The code is freely available under a software licensing agreement and can be downloaded from the NEMO website (www.nemo-ocean.eu/).  Source: https://www.cmcc.it/models/lim",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "uclouvain",
+    "references": [
+      "https://doi.org/10.1029/97JC00480",
+      "https://doi.org/10.1016/j.ocemod.2009.01.004",
+      "https://doi.org/10.1016/j.ocemod.2008.10.005"
+    ],
+    "scientific_domains": "sea_ice",
+    "ui_label": "LIM",
+    "validation_key": "lim",
+    "website": ""
+  },
+  {
+    "@id": "class-ctem",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "CLASS and CTEM simulate the physical and biogeochemical land surface processes, respectively, and together they calculate fluxes of energy, water, CO2, and wetland CH4 emissions at the land\u2013atmosphere boundary.  https://gitlab.com/cccma/canam",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+      "https://doi.org/10.5194/gmd-12-4823-2019",
+      "https://doi.org/10.5194/gmd-16-5427-2023"
+    ],
+    "scientific_domains": "land_surface",
+    "ui_label": "CLASS-CTEM",
+    "validation_key": "class-ctem",
+    "website": ""
+  },
+  {
+    "@id": "reprobus",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "REPROBUS atmospheric chemistry model family developed by CNRM.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "cnrm",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "atmospheric-chemistry",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "reprobus",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "arpege-climat",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "ARPEGE-Climat atmospheric model family developed by CNRM/M\u00e9t\u00e9o-France.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "cnrm",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "atmosphere",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "arpege-climat",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "nicam",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Nonhydrostatic ICosahedral Atmospheric Model - developed by JAMSTEC for high-resolution global simulations.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "component",
+    "license": "none",
+    "primary_institution": "jamstec",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": "atmosphere",
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "NICAM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
     "@id": "bisicles",
     "@type": [
       "emd",
@@ -215,287 +642,6 @@
     "website": "https://bisicles.lbl.gov/"
   },
   {
-    "@id": "cmoc",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "Canadian Model of Ocean Carbon (CMOC); NPZD ecosystem with OMIP prescribed carbonate chemistry.  https://gitlab.com/cccma/cannemo",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "cccma",
-    "references": [
-      "Christian et al. 2022:",
-      "https://doi.org/10.5194/gmd-15-4393-2022 Swart et al. 2019:",
-      "https://doi.org/10.5194/gmd-12-4823-2019"
-    ],
-    "scientific_domains": "ocean-biogeochemistry",
-    "ui_label": "CMOC",
-    "validation_key": "cmoc",
-    "website": ""
-  },
-  {
-    "@id": "cam",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Community Atmosphere Model - the atmospheric component of CESM, also used standalone for atmospheric research.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "ncar",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "atmosphere",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "CAM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "jules-gl9",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "nerc",
-    "description": "Joint UK Land Surface model",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "mohc",
-    "references": "https://doi.org/10.5194/gmd-4-677-2011",
-    "representative_member": "UKCM2-0-LL",
-    "scientific_domains": "land_surface",
-    "ui_label": "JULES-GL9",
-    "validation_key": "jules-gl9",
-    "website": ""
-  },
-  {
-    "@id": "lpj-guess",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "pik",
-    "description": "**Scientific focus and approach** LPJ-GUESS (Lund\u2013Potsdam\u2013Jena General Ecosystem Simulator), developed primarily at Lund University, is a process-based dynamic global vegetation model (DGVM) that simulates the structure, composition, growth and biogeochemistry of terrestrial ecosystems under varying climate, atmospheric CO\u2082 and land-use forcing. Its scientific focus is the coupled carbon\u2013nitrogen\u2013water cycling of the land biosphere, with a strong emphasis on ecological realism: rather than treating each plant functional type as a single grid-cell average, LPJ-GUESS represents vegetation as a population of age- and size-structured cohorts of woody individuals competing for light, water and nutrients within multiple replicate \"patches\" per grid cell, with an herbaceous understorey and stochastic disturbance and mortality. This individual- and patch-based design \u2014 inherited from forest gap models \u2014 allows the model to capture demographic processes, stand development, succession and the response of community composition to climatic, edaphic and disturbance gradients, alongside the standard DGVM outputs of net primary production, net ecosystem exchange, runoff, vegetation carbon and soil carbon and nitrogen pools.  **Common code base and physics** All LPJ-GUESS family members share a common C++ code base and a core set of process representations originally derived from the LPJ-DGVM (Sitch et al., 2003) and extended in Smith et al. (2001, 2014). Common elements across the family include: a coupled photosynthesis\u2013stomatal-conductance scheme based on the Farquhar\u2013Collatz formulation (Haxeltine & Prentice 1996); a growing-degree-day phenology with chilling and water-stress controls; allometric tree growth and tissue turnover; an autotrophic and heterotrophic respiration scheme with prognostic litter and soil organic matter pools (CENTURY-style after the v3.0 update); a soil hydrology scheme with two physical layers in the standard formulation (Gerten et al., 2004) extended to a multi-layer permafrost-capable scheme in the arctic configurations; a coupled terrestrial nitrogen cycle (from v3.0 onward; Smith et al., 2014) including biological N fixation, deposition, leaching and plant\u2013microbial competition; representations of natural disturbance through fire (BLAZE, GlobFIRM or SIMFIRE-BLAZE depending on configuration) and stand-replacing disturbance; and a managed-land module (from v4.0; Lindeskog et al., 2013) supporting croplands with major C3/C4 crop functional types, irrigation, fertilisation and rotation, plus pasture and managed forestry. Simulations are typically run as ensembles of replicate patches (commonly ~25 per grid cell) on grids of 0.5\u00b0 resolution or finer, driven by climate, CO\u2082, N deposition and land-use forcing.  **How family members differ** Family members differ principally in process complexity, target ecosystems, and coupling architecture:  - LPJ-GUESS v2.x (Smith et al. 2001; Ahlstr\u00f6m et al. 2012; Hickler et al. 2012) is the original carbon-and-water-only version with global or European plant-functional-type sets, used in many CMIP5-era applications. - LPJ-GUESS v3.0 (Smith et al. 2014) introduced the coupled C\u2013N cycle with N limitation on photosynthesis and decomposition, and remains the scientific reference for most current applications. - LPJ-GUESS v4.0+ (Lindeskog et al. 2013; Olin et al. 2015; Lindeskog et al. 2021) adds the managed-land module (crops, pasture, managed forests). - LPJ-GUESS arctic / WHyMe / peatland configurations (Wania et al. 2009; McGuire et al., Chadburn et al., Pongracz et al. 2021) add multi-layer soil thermodynamics, freeze\u2013thaw, soil organic layers, peatland hydrology, methane production/oxidation and a multi-layer snow scheme for high-latitude applications. - LPJ-GUESS/LSM v1.0 (Mart\u00edn Belda et al. 2022) is a next-generation reformulation as a full land-surface model with a closed surface energy balance, prognostic canopy and soil temperatures, and sub-daily physics, designed for two-way coupling with atmospheric models. - Process extensions developed across the family include alternative fire schemes (SIMFIRE-BLAZE, LMfire-CF), BVOC emissions, lightning-induced mortality, hydraulic mortality, stable-water-isotope tracers, and coupling to surface\u2013subsurface hydrology models (e.g. ParFlow-LPJG). - PFT sets and parameterisations also differ between configurations: a standard global PFT set (~11 PFTs), a more detailed European PFT set, region-specific sets for the tropics, boreal North America and the Greater Yellowstone Ecosystem, and crop-functional-type sets in the managed-land variants.",
-    "established": 2001,
-    "family_type": "component",
-    "primary_institution": "kit",
-    "references": [
-      "https://doi.org/10.1046/j.1466-822X.2001.t01-1-00256.x",
-      "https://doi.org/10.1046/j.1365-2486.2003.00569.x",
-      "https://doi.org/10.1016/j.jhydrol.2003.09.029",
-      "https://doi.org/10.5194/bg-11-2027-2014",
-      "https://doi.org/10.5194/esd-4-385-2013",
-      "https://doi.org/10.5194/bg-12-2489-2015",
-      "https://doi.org/10.1029/2008GB003412",
-      "https://doi.org/10.5194/gmd-14-6071-2021",
-      "https://doi.org/10.5194/gmd-15-6709-2022"
-    ],
-    "representative_member": "LPJ-GUESS 4.1",
-    "scientific_domains": "land_surface",
-    "ui_label": "LPJ-GUESS",
-    "validation_key": "lpj-guess",
-    "website": "https://web.nateko.lu.se/lpj-guess/"
-  },
-  {
-    "@id": "gelato",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "GELATO sea ice model family developed by CNRM/M\u00e9t\u00e9o-France.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "cnrm",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "sea-ice",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "gelato",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "surfex",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "SURFEX land surface modelling platform developed by CNRM/M\u00e9t\u00e9o-France.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "cnrm",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "land-surface",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "surfex",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "glomap-mode",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "nerc",
-    "description": "Global aerosol and microphysics model for UKCA",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "mohc",
-    "references": "https://doi.org/10.5194/gmd-3-519-2010",
-    "representative_member": "UKCM2-0-LL",
-    "scientific_domains": [
-      "aerosol",
-      "atmospheric-chemistry"
-    ],
-    "ui_label": "GLOMAP-mode",
-    "validation_key": "glomap-mode",
-    "website": ""
-  },
-  {
-    "@id": "canam",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "Atmospheric general circulation model developed at the Canadian Centre for Climate Modelling and Analysis (CCCma)  https://gitlab.com/cccma/canam",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "cccma",
-    "references": "https://doi.org/10.5194/gmd-16-5427-2023",
-    "scientific_domains": [
-      "atmosphere",
-      "aerosol",
-      "atmospheric-chemistry"
-    ],
-    "ui_label": "CanAM",
-    "validation_key": "canam",
-    "website": ""
-  },
-  {
-    "@id": "nemo-gosi9",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "nerc",
-    "description": "UK physical global ocean configuration of the NEMO model",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "mohc",
-    "references": "https://doi.org/10.5194/gmd-18-377-2025",
-    "representative_member": "UKCM2-0-LL",
-    "scientific_domains": "ocean",
-    "ui_label": "NEMO-GOSI9",
-    "validation_key": "nemo-gosi9",
-    "website": ""
-  },
-  {
-    "@id": "nemo",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "cnrm",
-      "mohc"
-    ],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Nucleus for European Modelling of the Ocean model family.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "ipsl",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "ocean",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "nemo",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "reprobus",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "REPROBUS atmospheric chemistry model family developed by CNRM.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "cnrm",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "atmospheric-chemistry",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "reprobus",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
     "@id": "pisces",
     "@type": [
       "emd",
@@ -525,24 +671,22 @@
     "website": "none"
   },
   {
-    "@id": "class-ctem",
+    "@id": "metum-ga9",
     "@type": [
       "emd",
       "wcrp:model_family",
       "esgvoc:ModelFamily"
     ],
-    "collaborative_institutions": "./",
-    "description": "CLASS and CTEM simulate the physical and biogeochemical land surface processes, respectively, and together they calculate fluxes of energy, water, CO2, and wetland CH4 emissions at the land\u2013atmosphere boundary.  https://gitlab.com/cccma/canam",
+    "collaborative_institutions": "nerc",
+    "description": "Physical Atmosphere",
     "established": "",
     "family_type": "component",
-    "primary_institution": "cccma",
-    "references": [
-      "https://doi.org/10.5194/gmd-12-4823-2019",
-      "https://doi.org/10.5194/gmd-16-5427-2023"
-    ],
-    "scientific_domains": "land_surface",
-    "ui_label": "CLASS-CTEM",
-    "validation_key": "class-ctem",
+    "primary_institution": "mohc",
+    "references": "https://doi.org/10.5194/egusphere-2026-1676",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": "atmosphere",
+    "ui_label": "MetUM-GA9",
+    "validation_key": "metum-ga9",
     "website": ""
   },
   {
@@ -575,147 +719,25 @@
     "website": "none"
   },
   {
-    "@id": "metum-ga9",
+    "@id": "wombat",
     "@type": [
       "emd",
       "wcrp:model_family",
       "esgvoc:ModelFamily"
     ],
-    "collaborative_institutions": "nerc",
-    "description": "Physical Atmosphere",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "mohc",
-    "references": "https://doi.org/10.5194/egusphere-2026-1676",
-    "representative_member": "UKCM2-0-LL",
-    "scientific_domains": "atmosphere",
-    "ui_label": "MetUM-GA9",
-    "validation_key": "metum-ga9",
-    "website": ""
-  },
-  {
-    "@id": "fesom",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "**Scientific focus and approach** FESOM (Finite-Element/volumE Sea ice\u2013Ocean Model), developed at the Alfred Wegener Institute (AWI), is a global sea-ice/ocean general circulation model designed around a single guiding idea: the use of unstructured horizontal meshes to enable seamless multi-resolution simulation of the global ocean. Rather than nesting limited-area models inside a coarser global grid, FESOM allows mesh resolution to vary smoothly across the global domain, so that regions of dynamical interest \u2014 western boundary currents, the Arctic and Southern Oceans, marginal seas, eddy-active zones, or coastal shelves \u2014 can be locally refined to eddy-permitting or eddy-resolving scales while retaining a coarser grid elsewhere. This makes FESOM particularly suited to climate applications where regional process detail and global integrity must be maintained simultaneously, and it has become a widely used platform for exploring the benefits of unstructured-mesh modelling in climate research.  **Common code base and physics** All FESOM family members share the same overarching modelling philosophy: solution of the hydrostatic Boussinesq primitive equations on triangular surface meshes with a vertical discretisation in z-coordinates (with optional partial cells, sigma layers under ice shelves, and arbitrary Lagrangian\u2013Eulerian (ALE) layers in FESOM2). The sea-ice component is the dynamic\u2013thermodynamic Finite-Element Sea Ice Model (FESIM), based on an elastic\u2013viscous\u2013plastic (EVP, or modified mEVP) rheology, with optional coupling to ICEPACK column physics in more recent configurations. Common physics packages include the K-Profile Parameterization (KPP) or TKE-based vertical mixing, Gent\u2013McWilliams parameterization of mesoscale eddy transport and isoneutral Redi diffusion at non-eddying resolutions, and standard parameterizations for tidal mixing and bottom boundary layer flow. Tracers are advected using flux-corrected transport (FCT) schemes. The code is parallelised with MPI and (in FESOM2) supports hybrid CPU/GPU execution; unstructured-mesh I/O is handled either directly or through XIOS.  **How family members differ** Family members differ principally in numerical core, mesh, and complexity:  FESOM1.4 uses a continuous-Galerkin finite-element dynamical core and is documented by Wang et al. (2014). FESOM2 (patch versions FESOM2.0\u2013FESOM2.7) replaces the finite-element core with a finite-volume formulation on cell-vertex triangular meshes, adds an ALE vertical coordinate framework, and delivers roughly a 3\u00d7 throughput improvement over FESOM1.4 at comparable accuracy. FESOM2 is documented by Danilov et al. (2017) and further described by Scholz et al. (2019, 2022). Mesh and resolution is the most visible source of differentiation between configurations: meshes range from CMIP-class low-resolution (~100\u2013150 km in the open ocean with refinement in polar and dynamically active regions, e.g. the CORE2 or CMIP6 LR mesh) through medium-resolution Arctic-focused and DYAMOND meshes, to globally eddy-resolving meshes at 1/10\u00b0 (~10 km) and storm-resolving meshes down to ~5 km used in nextGEMS. Sea-ice complexity varies between configurations: standard FESIM zero-layer or single-category thermodynamics in CMIP-class runs, versus multi-category ICEPACK thermodynamics in other setups. Vertical levels and mixing choices (KPP vs TKE via CVMix, with/without GM, isoneutral Redi on/off) are tuned per configuration depending on whether the mesh resolves mesoscale eddies.",
-    "established": 2004,
-    "family_type": "component",
-    "primary_institution": "awi",
-    "references": [
-      "https://doi.org/10.5194/gmd-7-663-2014",
-      "https://doi.org/10.5194/gmd-10-765-2017",
-      "https://doi.org/10.5194/gmd-8-1747-2015",
-      "https://doi.org/10.5194/gmd-12-4875-2019",
-      "https://doi.org/10.5194/gmd-15-335-2022",
-      "https://doi.org/10.5194/gmd-12-3991-2019"
-    ],
-    "representative_member": "FESOM 2.0",
-    "scientific_domains": "ocean",
-    "ui_label": "FESOM",
-    "validation_key": "fesom",
-    "website": "https://fesom2.readthedocs.io/en/latest/"
-  },
-  {
-    "@id": "tactic",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "TACTIC tropospheric aerosol scheme developed by CNRM.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "cnrm",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "aerosol",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "tactic",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "fesim",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "1. Scientific focus and approach The Finite-Element Sea Ice Model (FESIM), developed at the Alfred Wegener Institute, is a sea-ice model formulated on unstructured triangular meshes and used as a component of the Finite-Element Sea ice Ocean Model (FESOM). Its scientific focus is the dynamics and thermodynamics of polar sea ice on multi-resolution meshes that allow regional refinement of the ice cover, marginal ice zones, narrow straits and ice-shelf cavities within the same global configuration as the host ocean.  2. Common code base and physics All FESIM family members share a common Fortran code base distributed inside the FESOM repository. Common elements include a viscous-plastic momentum equation, an elastic-viscous-plastic (EVP) solver and a modified EVP variant with improved stability compared to the standard EVP approach, a flux-corrected transport algorithm to advect the ice and snow mean thicknesses and concentration, and a thermodynamic formulation with prognostic ice and snow thickness. The model assumes a collocated placement of ice velocities, mean thicknesses and concentration at mesh vertices, and relies on piecewise-linear continuous elements.  3. How family members differ Family members differ along several axes. One axis is the underlying code generation: FESIM-1, the original sea-ice component of FESOM 1.4 formulated with linear finite elements, and FESIM-2, the rewritten formulation used inside FESOM2 from 2017 onward. Another axis is the rheology configuration, with the choice between the standard elastic-viscous-plastic solver and the modified EVP variant, and the number of subcycling iterations selected for each. A further axis is the mesh configuration, with FESIM run on a wide range of FESOM meshes from approximately 1\u00b0 global meshes down to sub-kilometre regional meshes, with or without active ice-shelf cavities.",
-    "established": 2003,
-    "family_type": "component",
-    "primary_institution": "awi",
-    "references": "https://doi.org/10.5194/gmd-8-1747-2015",
-    "representative_member": "FESIM 2.7",
-    "scientific_domains": "sea_ice",
-    "ui_label": "FESIM",
-    "validation_key": "fesim",
-    "website": "https://fesom.de/"
-  },
-  {
-    "@id": "cable",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "unsw",
-      "access-nri"
-    ],
-    "description": "The Community Atmosphere Biosphere Land Exchange (CABLE) model is a land surface model developed in Australia. It incorporates land biogeochemistry using the CASA-CNP module. It can be run as a standalone model or embedded in an atmosphere model. Versions of CABLE are used within the ACCESS earth system model and within the Conformal Cubic Atmosphere Model (CCAM). One version of the standalone model includes tree demography (CABLE-POP) but this feature is not yet used within ACCESS.",
-    "established": 2003,
+    "collaborative_institutions": "access-nri",
+    "description": "The World Ocean Model of Biogeochemistry And Trophic-dynamics (WOMBAT) is the ocean biogeochemistry module added to ACCESS models that use MOM (Modular Ocean Model). The core of WOMBAT is a Nutrient - Phytoplankton - Zooplankton - Detritus (NPZD) framework. The original WOMBAT version was described in Oke et al. (2013). Two current WOMBAT models exist: WOMBAT-lite and WOMBAT-mid. WOMBAT-lite is designed to be a simple and general biogeochemical model of the global ocean that is computationally efficient. WOMBAT-mid is designed to be a more complex and realistic ocean biogeochemical model that is more computationally costly but provides a greater resolution of ecosystem and biogeochemical processes. A more complete description of both models can be found at https://wombat-docs.readthedocs.io/stable/",
+    "established": 2013,
     "family_type": "component",
     "primary_institution": "csiro",
-    "references": "https://doi.org/10.4225/08/58615c6a9a51d",
-    "representative_member": "CABLE2.4",
-    "scientific_domains": "land_surface",
-    "ui_label": "CABLE",
-    "validation_key": "cable",
-    "website": "https://docs.access-hive.org.au/models/model_components/land/"
-  },
-  {
-    "@id": "hadam",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
+    "references": [
+      "https://doi.org/10.5194/bg-22-5349-2025",
+      "https://doi.org/10.5194/gmd-6-591-2013"
     ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Hadley Centre Atmospheric Model family developed by the UK Met Office.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "component",
-    "license": "none",
-    "primary_institution": "mohc",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": "atmosphere",
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "hadam",
-    "variation_dimensions": "none",
-    "website": "none"
+    "representative_member": "WOMBATlite",
+    "scientific_domains": "ocean-biogeochemistry",
+    "ui_label": "WOMBAT",
+    "validation_key": "wombat",
+    "website": "https://wombat-docs.readthedocs.io/stable/"
   }
 ]
