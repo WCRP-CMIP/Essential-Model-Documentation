@@ -1,0 +1,31 @@
+{
+    "validation_key": "CanESM",
+    "ui_label": "CanESM",
+    "description": "The Canadian Earth System Model, CanESM, is a global coupled Earth System Model designed to simulate climate variability and change on timescales from seasons to centuries. CanESM is developed at the Canadian Centre for Climate Modelling and Analysis (CCCma), Environment and Climate Change Canada, with inputs from other government and university stakeholders. Publications documenting CanESM and its scientific applications can be found at https://gmd.copernicus.org/articles/special_issue989.html.  Code base: https://gitlab.com/cccma/canesm",
+    "collaborative_institutions": "",
+    "established": "",
+    "family_type": "model",
+    "primary_institution": "cccma",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-4823-2019"
+    ],
+    "representative_member": "CanESM5",
+    "scientific_domains": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-ice",
+        "land_surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea_ice"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "canesm"
+}
