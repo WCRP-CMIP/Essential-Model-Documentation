@@ -139,7 +139,7 @@ def run(parsed_issue, issue, dry_run=False):
             data[k] = ""
 
     # parse the grid usage fields.
-    data['alias'] = data.get('alias', '').split(',') if data.get('alias') else []
+    data['alias'] = [i.strip() for i in data.get('alias', '').replace(' ,',',').replace(.split(',') if data.get('alias') else [] ]
 
     collab_str   = parsed_issue.get('additional_collaborators',
                                     parsed_issue.get('collaborators', ''))
