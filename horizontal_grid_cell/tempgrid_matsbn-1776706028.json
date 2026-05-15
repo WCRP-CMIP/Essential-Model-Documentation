@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_matsbn-1776706028",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 138600,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -80.2,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-matsbn-1776706028"
+}
