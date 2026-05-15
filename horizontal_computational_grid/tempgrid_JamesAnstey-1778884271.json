@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_JamesAnstey-1778884271",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g127-mass",
+        "g119-x-velocity",
+        "g128-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-jamesanstey-1778884271"
+}
