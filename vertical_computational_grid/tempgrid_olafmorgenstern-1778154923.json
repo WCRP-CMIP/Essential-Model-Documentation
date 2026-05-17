@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_olafmorgenstern-1778154923",
+    "ui_label": "atmosphere-sleve-coordinate grid with 130 levels.",
+    "description": "\"sleve\" height-based coordinate system.",
+    "bottom_layer_thickness": "",
+    "n_z": 130,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": 80000,
+    "vertical_coordinate": "atmosphere-sleve-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-olafmorgenstern-1778154923"
+}
