@@ -136,7 +136,14 @@ jobs:
           echo "| State | ${REVIEW_STATE} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Label | \`${LABEL}\` |" >> "$GITHUB_STEP_SUMMARY"
 
-      # ── 2. Mirror review body to linked issue ──────────────────────────────
+      # ── 2. Add reviewer as PR assignee ────────────────────────────────────
+      - name: Add reviewer as PR assignee
+        run: |
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-assignee "$REVIEWER" \
+            && echo "| assignee | @${REVIEWER} added |" >> "$GITHUB_STEP_SUMMARY" \
+            || echo "| assignee | could not add @${REVIEWER} (may lack repo write access) |" >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 3. Mirror review body to linked issue ──────────────────────────────
       - name: Mirror review to linked issue
         run: |
           ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
@@ -224,7 +231,14 @@ jobs:
           echo "| Reviewer | @${REVIEWER} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Label | \`reviewer-comment\` |" >> "$GITHUB_STEP_SUMMARY"
 
-      # ── 2. Mirror inline comment to linked issue ───────────────────────────
+      # ── 2. Add reviewer as PR assignee ────────────────────────────────────
+      - name: Add reviewer as PR assignee
+        run: |
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-assignee "$REVIEWER" \
+            && echo "| assignee | @${REVIEWER} added |" >> "$GITHUB_STEP_SUMMARY" \
+            || echo "| assignee | could not add @${REVIEWER} (may lack repo write access) |" >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 3. Mirror inline comment to linked issue ───────────────────────────
       - name: Mirror inline comment to linked issue
         run: |
           ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
