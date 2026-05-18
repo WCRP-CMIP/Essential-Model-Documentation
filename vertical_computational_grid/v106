@@ -4,9 +4,10 @@
   "description": "",
   "bottom_layer_thickness": 50,
   "n_z": 38,
+  "n_z_range": "",
   "top_layer_thickness": 3173,
   "total_thickness": 39254.8,
-  "vertical_coordinate": "atmosphere_hybrid_height_coordinate",
+  "vertical_coordinate": "atmosphere-hybrid-height-coordinate",
   "@context": "_context",
   "@type": [
     "wcrp:vertical_computational_grid",
