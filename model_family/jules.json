@@ -1,6 +1,6 @@
 {
-    "validation_key": "jules-gl9",
-    "ui_label": "JULES-GL9",
+    "validation_key": "jules",
+    "ui_label": "JULES",
     "description": "Joint UK Land Surface model",
     "collaborative_institutions": [
         "nerc"
@@ -9,7 +9,6 @@
     "family_type": "component",
     "primary_institution": "mohc",
     "references": [
-        "https://doi.org/10.5194/gmd-4-677-2011"
     ],
     "representative_member": "UKCM2-0-LL",
     "scientific_domains": [
@@ -22,5 +21,5 @@
         "wcrp:model_family",
         "esgvoc:ModelFamily"
     ],
-    "@id": "jules-gl9"
+    "@id": "jules"
 }
