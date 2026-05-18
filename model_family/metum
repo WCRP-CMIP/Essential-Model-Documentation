@@ -1,6 +1,6 @@
 {
-    "validation_key": "metum-ga9",
-    "ui_label": "MetUM-GA9",
+    "validation_key": "metum",
+    "ui_label": "MetUM",
     "description": "Physical Atmosphere",
     "collaborative_institutions": [
         "nerc"
@@ -9,7 +9,6 @@
     "family_type": "component",
     "primary_institution": "mohc",
     "references": [
-        "https://doi.org/10.5194/egusphere-2026-1676"
     ],
     "representative_member": "UKCM2-0-LL",
     "scientific_domains": [
@@ -22,5 +21,5 @@
         "wcrp:model_family",
         "esgvoc:ModelFamily"
     ],
-    "@id": "metum-ga9"
+    "@id": "metum"
 }
