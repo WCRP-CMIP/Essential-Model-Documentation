@@ -34,5 +34,5 @@ DATA = {
     'embedded_pairs': sorted(embedded_pairs),
     'domains': sorted(domain_labels),
     'issue_kind': ['New', 'Modify'],
-    'prefill_links': get_existing_entries_markdown('model', issue_kind='New')
+    # 'prefill_links': get_existing_entries_markdown('model', issue_kind='New')  # temporarily disabled
 }
