@@ -373,30 +373,6 @@
     "y_resolution": ""
   },
   {
-    "@id": "tempgrid-janstreffing-1775067544",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "The horizontal grid spacing varies locally between 5 and 25 km.",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "unstructured-triangular",
-    "n_cells": 6229020,
-    "region": "global",
-    "southernmost_latitude": -78.626,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a unstructured triangular grid type.",
-    "units": "./",
-    "validation_key": "tempgrid_JanStreffing-1775067544",
-    "westernmost_longitude": 0,
-    "x_resolution": "",
-    "y_resolution": ""
-  },
-  {
     "@id": "g116",
     "@type": [
       "emd",
@@ -561,28 +537,7 @@
     "y_resolution": 0.28125
   },
   {
-    "@id": "tempgrid-janstreffing-1775067544",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "The horizontal grid spacing varies locally between 5 and 25 km.",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "unstructured-triangular",
-    "n_cells": 6229020,
-    "region": "global",
-    "southernmost_latitude": -78.626,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a unstructured triangular grid type.",
-    "units": "./",
-    "validation_key": "tempgrid_JanStreffing-1775067544",
-    "westernmost_longitude": 0,
-    "x_resolution": "",
-    "y_resolution": ""
+    "@id": "tempgrid-janstreffing-1775067544"
   },
   {
     "@id": "g132",
