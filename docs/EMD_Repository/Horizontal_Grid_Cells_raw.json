@@ -30,6 +30,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "N96",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -125,6 +126,10 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": [
+      "N128",
+      "T255"
+    ],
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-gaussian",
@@ -148,6 +153,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "N96",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -195,6 +201,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": [],
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -218,6 +225,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "ORCA1",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
@@ -265,6 +273,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "N96",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -288,6 +297,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": [],
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "hierarchical-discrete-global-grid",
@@ -311,6 +321,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": [],
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -334,6 +345,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": "TL127",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "linear-spectral-gaussian",
@@ -357,6 +369,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": [],
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -380,6 +393,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": "eORCA1-U",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
@@ -427,6 +441,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": [],
     "description": "South of 65\u00b0N, the resolution of the model is 1\u00b0 along the zonal direction. In the meridional direction the grid spacing is nominally 1\u00b0 resolution, with the following three refinements: a) tripolar Arctic north of 65\u00b0N (poles at 65\u00b0N, 80\u00b0E and 65\u00b0N, 260\u00b0E); b) equatorial refinement to 1/3\u00b0 between 10\u00b0S and 10\u00b0N; and c) a Mercator (cosine-dependent) implementation for the southern hemisphere, ranging from 0.25\u00b0 at 78\u00b0S to 1\u00b0 at 30\u00b0S.",
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
@@ -474,6 +489,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": [],
     "description": "South of 65\u00b0N, the resolution of the model is 1\u00b0 along the zonal direction. In the meridional direction the grid spacing is nominally 1\u00b0 resolution, with the following three refinements: a) tripolar Arctic north of 65\u00b0N (poles at 65\u00b0N, 80\u00b0E and 65\u00b0N, 260\u00b0E); b) equatorial refinement to 1/3\u00b0 between 10\u00b0S and 10\u00b0N; and c) a Mercator (cosine-dependent) implementation for the southern hemisphere, ranging from 0.25\u00b0 at 78\u00b0S to 1\u00b0 at 30\u00b0S.",
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
@@ -496,6 +512,10 @@
       "emd",
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [
+      "N160",
+      "T319"
     ],
     "description": "",
     "grid_mapping": "latitude-longitude",
@@ -520,6 +540,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": [],
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -639,6 +660,7 @@
       "wcrp:horizontal_grid_cell",
       "esgvoc:HorizontalGridCell"
     ],
+    "alias": "eORCA1-V",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
@@ -686,6 +708,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "ORCA1",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
@@ -733,6 +756,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "TL127",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
@@ -756,6 +780,7 @@
       "esgvoc:HorizontalGridCell",
       "emd"
     ],
+    "alias": "N96",
     "description": "",
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
