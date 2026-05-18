@@ -117,7 +117,7 @@ def run(parsed_issue, issue, dry_run=False):
                                     parsed_issue.get('collaborators', ''))
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
                    if collab_str else []
-    file_path    = os.path.join(kind, f"{atid}.json")
+    file_path    = os.path.join(kind, f"{atid.lower()}.json")
 
     return {
         file_path:       data,
