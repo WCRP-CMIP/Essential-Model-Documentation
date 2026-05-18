@@ -147,7 +147,7 @@ body:
         - "jules-gl9"
         - "lim"
         - "lpj-guess"
-        - "metum-ga9"
+        - "metum"
         - "nemo"
         - "nemo-gosi9"
         - "NICAM"
@@ -258,6 +258,7 @@ body:
         - "h106"
         - "h107"
         - "h108"
+        - "h109"
       default: 0
     validations:
       required: true
@@ -288,7 +289,6 @@ body:
         - "v103"
         - "v104"
         - "v105"
-        - "v106"
         - "v107"
         - "v108"
         - "v109"
@@ -302,6 +302,7 @@ body:
         - "v117"
         - "v118"
         - "v119"
+        - "v120"
       default: 0
     validations:
       required: true
