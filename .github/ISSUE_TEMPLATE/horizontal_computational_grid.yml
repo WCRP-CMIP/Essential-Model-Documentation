@@ -102,6 +102,7 @@ body:
         - "Not specified"
         - "g100"
         - "g101"
+        - "g102"
         - "g103"
         - "g104"
         - "g105"
@@ -134,7 +135,7 @@ body:
         - "g132"
         - "g133"
         - "g134"
-        - "tempgrid_JanStreffing-1775067544"
+        - "g135"
       default: 0
     validations:
       required: true
@@ -191,6 +192,7 @@ body:
         - "Not specified"
         - "g100"
         - "g101"
+        - "g102"
         - "g103"
         - "g104"
         - "g105"
@@ -223,7 +225,7 @@ body:
         - "g132"
         - "g133"
         - "g134"
-        - "tempgrid_JanStreffing-1775067544"
+        - "g135"
       default: 0
 
   - type: dropdown
@@ -262,6 +264,7 @@ body:
         - "Not specified"
         - "g100"
         - "g101"
+        - "g102"
         - "g103"
         - "g104"
         - "g105"
@@ -294,7 +297,7 @@ body:
         - "g132"
         - "g133"
         - "g134"
-        - "tempgrid_JanStreffing-1775067544"
+        - "g135"
       default: 0
 
   - type: dropdown
@@ -333,6 +336,7 @@ body:
         - "Not specified"
         - "g100"
         - "g101"
+        - "g102"
         - "g103"
         - "g104"
         - "g105"
@@ -365,7 +369,7 @@ body:
         - "g132"
         - "g133"
         - "g134"
-        - "tempgrid_JanStreffing-1775067544"
+        - "g135"
       default: 0
 
   - type: dropdown
