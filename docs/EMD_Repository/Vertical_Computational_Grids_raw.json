@@ -51,6 +51,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v120",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "The bottom layer thickness can range from zero to of order hundreds of meters depending on where the hybrid-coordinate generator choses to place the grid.",
+    "n_z": 75,
+    "n_z_range": "",
+    "top_layer_thickness": 2,
+    "total_thickness": 6500,
+    "ui_label": "ocean-sigma-z-coordinate grid with 75 levels.",
+    "validation_key": "v120",
+    "vertical_coordinate": "ocean-sigma-z-coordinate"
+  },
+  {
     "@id": "v119",
     "@type": [
       "wcrp:vertical_computational_grid",
