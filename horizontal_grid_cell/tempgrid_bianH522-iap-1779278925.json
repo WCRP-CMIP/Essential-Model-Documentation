@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_bianH522-iap-1779278925",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "healpix",
+    "grid_type": "cubed-sphere",
+    "n_cells": "",
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": "",
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": "",
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-bianh522-iap-1779278925"
+}
