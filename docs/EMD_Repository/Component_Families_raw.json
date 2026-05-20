@@ -114,6 +114,24 @@
     "website": ""
   },
   {
+    "@id": "si3",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "SI3 (Sea Ice modelling Integrated Initiative) is the sea ice engine of NEMO (Nucleus for European Modelling of the Ocean). https://zenodo.org/records/7534900 https://nemo-ocean.eu/",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "nemo consortium",
+    "references": "https://doi.org/10.5281/zenodo.7534899",
+    "scientific_domains": "sea_ice",
+    "ui_label": "SI3",
+    "validation_key": "SI3",
+    "website": ""
+  },
+  {
     "@id": "surfex",
     "@type": [
       "emd",
