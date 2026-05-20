@@ -73,25 +73,6 @@
     "website": "https://docs.access-hive.org.au/models/model_components/land/"
   },
   {
-    "@id": "si3-gosi9",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "nerc",
-    "description": "UK global sea-ice configuration of the SI3 model",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "mohc",
-    "references": "https://doi.org/10.5194/gmd-17-6799-2024",
-    "representative_member": "UKCM2-0-LL",
-    "scientific_domains": "sea_ice",
-    "ui_label": "SI3-GOSI9",
-    "validation_key": "si3-gosi9",
-    "website": ""
-  },
-  {
     "@id": "glomap-mode",
     "@type": [
       "emd",
@@ -325,25 +306,6 @@
     "validation_key": "CAM",
     "variation_dimensions": "none",
     "website": "none"
-  },
-  {
-    "@id": "nemo-gosi9",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "nerc",
-    "description": "UK physical global ocean configuration of the NEMO model",
-    "established": "",
-    "family_type": "component",
-    "primary_institution": "mohc",
-    "references": "https://doi.org/10.5194/gmd-18-377-2025",
-    "representative_member": "UKCM2-0-LL",
-    "scientific_domains": "ocean",
-    "ui_label": "NEMO-GOSI9",
-    "validation_key": "nemo-gosi9",
-    "website": ""
   },
   {
     "@id": "hadam",
