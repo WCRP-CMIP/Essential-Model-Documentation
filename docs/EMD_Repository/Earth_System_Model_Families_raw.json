@@ -448,6 +448,31 @@
     "website": "https://No website"
   },
   {
+    "@id": "ukcm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "nerc",
+    "description": "UKCM is the UK Coupled Model, a physical counterpart to the UKESM model series, which has been referred to in previous iterations of CMIP and other projects under the HadGEM label.",
+    "established": "",
+    "family_type": "model",
+    "primary_institution": "mohc",
+    "references": "./",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+      "aerosol",
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "ui_label": "UKCM",
+    "validation_key": "UKCM",
+    "website": ""
+  },
+  {
     "@id": "hadgem3",
     "@type": [
       "emd",
