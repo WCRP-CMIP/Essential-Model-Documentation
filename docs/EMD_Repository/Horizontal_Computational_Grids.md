@@ -99,26 +99,7 @@
 
 <div class="emd-viz">
 
-<div class="emd-section">
-<span class="emd-section-label">View a specific Horizontal Grid</span>
-<div class="emd-selector-row">
-  <select id="emd-entry-select">
-    <option value="">Select an entry…</option>
-    <option value="../Horizontal_Computational_Grids/h101/">h101</option>
-    <option value="../Horizontal_Computational_Grids/h110/">h110</option>
-    <option value="../Horizontal_Computational_Grids/h102/">h102</option>
-    <option value="../Horizontal_Computational_Grids/h109/">h109</option>
-    <option value="../Horizontal_Computational_Grids/h107/">h107</option>
-    <option value="../Horizontal_Computational_Grids/h106/">h106</option>
-    <option value="../Horizontal_Computational_Grids/h105/">h105</option>
-    <option value="../Horizontal_Computational_Grids/h108/">h108</option>
-    <option value="../Horizontal_Computational_Grids/h103/">h103</option>
-    <option value="../Horizontal_Computational_Grids/h100/">h100</option>
-    <option value="../Horizontal_Computational_Grids/h104/">h104</option>
-  </select>
-  <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
-  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
-</div>
+<!-- Status / stats box pinned to the top of the page -->
 <div class="emd-stats-grid">
   <div class="emd-stat-item">
     <span class="emd-stat-label">Total Records</span>
@@ -138,8 +119,29 @@
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-05-22 13:10 UTC</span>
+    <span class="emd-stat-value">2026-05-22 13:14 UTC</span>
   </div>
+</div>
+
+<div class="emd-section">
+<span class="emd-section-label">View a specific Horizontal Grid</span>
+<div class="emd-selector-row">
+  <select id="emd-entry-select">
+    <option value="">Select an entry…</option>
+    <option value="../Horizontal_Computational_Grids/h101/">h101</option>
+    <option value="../Horizontal_Computational_Grids/h110/">h110</option>
+    <option value="../Horizontal_Computational_Grids/h102/">h102</option>
+    <option value="../Horizontal_Computational_Grids/h109/">h109</option>
+    <option value="../Horizontal_Computational_Grids/h107/">h107</option>
+    <option value="../Horizontal_Computational_Grids/h106/">h106</option>
+    <option value="../Horizontal_Computational_Grids/h105/">h105</option>
+    <option value="../Horizontal_Computational_Grids/h108/">h108</option>
+    <option value="../Horizontal_Computational_Grids/h103/">h103</option>
+    <option value="../Horizontal_Computational_Grids/h100/">h100</option>
+    <option value="../Horizontal_Computational_Grids/h104/">h104</option>
+  </select>
+  <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
+  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
 </div>
 </div>
 

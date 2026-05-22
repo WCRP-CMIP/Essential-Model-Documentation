@@ -3,7 +3,9 @@
 
 
 !!! info "Progress Tracker"
-    Although it is not possible to track your overall provess, you can view the status of you current submission using our [submission tracker](/Progress_Tracker.html). Note that the building of this tool has delayed the EMD by a further few days. 
+    Although it is not possible to track your overall progress. 
+    You can now view the status of you current submission using our [submission tracker](url(/Progress_Tracker.html)). 
+    Note that the building of this tool has delayed the EMD by a further few days. 
 
 
 

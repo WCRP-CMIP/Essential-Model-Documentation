@@ -620,16 +620,7 @@ __DESCRIPTION__
 
 <div class="emd-viz">
 
-<div class="emd-section">
-<span class="emd-section-label">View a specific __SINGULAR__</span>
-<div class="emd-selector-row">
-  <select id="emd-entry-select">
-    <option value="">Select an entry\u2026</option>
-__OPTIONS__
-  </select>
-  <button id="emd-go-btn" onclick="emdGotoEntry()">Open \u2192</button>
-  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
-</div>
+<!-- Status / stats box pinned to the top of the page -->
 <div class="emd-stats-grid">
   <div class="emd-stat-item">
     <span class="emd-stat-label">Total Records</span>
@@ -651,6 +642,17 @@ __OPTIONS__
     <span class="emd-stat-label">Last Updated</span>
     <span class="emd-stat-value">__LAST_UPDATED__</span>
   </div>
+</div>
+
+<div class="emd-section">
+<span class="emd-section-label">View a specific __SINGULAR__</span>
+<div class="emd-selector-row">
+  <select id="emd-entry-select">
+    <option value="">Select an entry\u2026</option>
+__OPTIONS__
+  </select>
+  <button id="emd-go-btn" onclick="emdGotoEntry()">Open \u2192</button>
+  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
 </div>
 </div>
 

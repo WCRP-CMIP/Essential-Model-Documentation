@@ -99,6 +99,30 @@
 
 <div class="emd-viz">
 
+<!-- Status / stats box pinned to the top of the page -->
+<div class="emd-stats-grid">
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Total Records</span>
+    <span class="emd-stat-value">28</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Endpoint</span>
+    <span class="emd-stat-value">model_family</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Raw Data</span>
+    <span class="emd-stat-value">36.5 KB</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Processed Data</span>
+    <span class="emd-stat-value">50.6 KB</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Last Updated</span>
+    <span class="emd-stat-value">2026-05-22 13:14 UTC</span>
+  </div>
+</div>
+
 <div class="emd-section">
 <span class="emd-section-label">View a specific Component Family</span>
 <div class="emd-selector-row">
@@ -135,28 +159,6 @@
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
-</div>
-<div class="emd-stats-grid">
-  <div class="emd-stat-item">
-    <span class="emd-stat-label">Total Records</span>
-    <span class="emd-stat-value">28</span>
-  </div>
-  <div class="emd-stat-item">
-    <span class="emd-stat-label">Endpoint</span>
-    <span class="emd-stat-value">model_family</span>
-  </div>
-  <div class="emd-stat-item">
-    <span class="emd-stat-label">Raw Data</span>
-    <span class="emd-stat-value">36.5 KB</span>
-  </div>
-  <div class="emd-stat-item">
-    <span class="emd-stat-label">Processed Data</span>
-    <span class="emd-stat-value">50.6 KB</span>
-  </div>
-  <div class="emd-stat-item">
-    <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-05-22 13:10 UTC</span>
-  </div>
 </div>
 </div>
 
