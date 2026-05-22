@@ -69,7 +69,7 @@ Once the reviewer is satisfied they approve the PR. This removes the `needs-revi
 
 ## Step 5 — Second Review and Merge
 
-A second reviewer or maintainer performs a final sanity check and then triggers the merge. Once merged, the PR is incorporated into `src-data` and will appear on [emd.mipcvs.dev](https://emd.mipcvs.dev).
+A second reviewer or maintainer performs a final sanity check and then triggers the merge. Once merged, the PR is incorporated into `src-data` and will appear on [emd.mipcvs.dev](/).
 
 ---
 
