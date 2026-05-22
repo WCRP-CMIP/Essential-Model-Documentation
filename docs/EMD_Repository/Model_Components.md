@@ -4,16 +4,7 @@
 
 ---
 
-!!! info "Generated files"
-    This page is auto-generated during the build from live registry data. Three files are produced for each record type:
-
-    - **`Model_Components.md`** — this page, embedded in the MkDocs site layout
-    - **`Model_Components_data.json`** — processed similarity matrices, dendrogram tree, and key schema
-    - **`Model_Components_raw.json`** — raw JSON-LD records as fetched from the cmipld registry (depth 2)
-
----
-
-<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 .emd-viz { font-family: 'Source Code Pro', monospace; width: 100%; }
@@ -62,20 +53,48 @@
 .emd-tip-text { color: #f5c842; font-weight: 600; }
 .emd-tip-head { font-weight: 700; font-size: 13px;
   border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 5px; margin-bottom: 5px; }
-/* ── font toggle ── */
+/* ── accessible font toggle ── */
 .emd-font-btn {
   padding: 5px 12px; border-radius: 20px; border: 1.5px solid #ccc;
   background: #fff; font-size: 11px; cursor: pointer;
   font-family: 'Source Code Pro', monospace; color: #888;
   transition: all .2s; white-space: nowrap;
 }
-.emd-font-btn:hover { border-color: #a060c0; color: #602080; }
-.emd-font-btn.active { background: #f3e8ff; border-color: #a060c0;
-  color: #602080; font-family: 'Pacifico', cursive; }
-.emd-viz.pretty svg text { font-family: 'Pacifico', cursive !important; }
-.emd-viz.pretty #emd-entry-select,
-.emd-viz.pretty .emd-stats,
-.emd-viz.pretty .emd-section-label { font-family: 'Pacifico', cursive !important; }
+.emd-font-btn:hover { border-color: #2065a0; color: #1a4a80; }
+.emd-font-btn.active { background: #e8f0ff; border-color: #2065a0;
+  color: #1a4a80; font-family: inherit; font-weight: 600; }
+/* Accessible mode: also switch the UI controls (the SVGs are already on the
+   accessible/sans-serif font by default via the JS `FONT` constant). */
+.emd-viz.accessible { font-family: inherit; }
+.emd-viz.accessible #emd-entry-select,
+.emd-viz.accessible .emd-stats,
+.emd-viz.accessible .emd-stats-grid,
+.emd-viz.accessible .emd-stat-label,
+.emd-viz.accessible .emd-stat-value,
+.emd-viz.accessible .emd-section-label,
+.emd-viz.accessible .emd-fbtn,
+.emd-viz.accessible #emd-go-btn { font-family: inherit !important; }
+/* ── stats grid ── */
+.emd-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 10px 0 18px;
+  padding: 14px 16px;
+  background: #f7f8fa;
+  border-left: 3px solid #0d1035;
+  border-radius: 4px;
+}
+.emd-stat-item { display: flex; flex-direction: column; gap: 3px; }
+.emd-stat-label {
+  font-family: 'Source Code Pro', monospace;
+  color: #888; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.emd-stat-value {
+  font-family: 'Source Code Pro', monospace;
+  color: #0d1035; font-weight: 600; font-size: 13px;
+}
 </style>
 
 <div class="emd-viz">
@@ -103,11 +122,29 @@
     <option value="../Model_Components/surfex_v8_modeling_platform/">surfex_v8_modeling_platform</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
-  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
+  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
 </div>
-<div class="emd-stats">
-  <span><b>16</b> registered entries</span>
-  <span>Endpoint: <b>model_component</b></span>
+<div class="emd-stats-grid">
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Total Records</span>
+    <span class="emd-stat-value">16</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Endpoint</span>
+    <span class="emd-stat-value">model_component</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Raw Data</span>
+    <span class="emd-stat-value">15.9 KB</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Processed Data</span>
+    <span class="emd-stat-value">17.7 KB</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Last Updated</span>
+    <span class="emd-stat-value">2026-05-22 13:10 UTC</span>
+  </div>
 </div>
 </div>
 
@@ -133,7 +170,7 @@
 /* ── injected data ─────────────────────────────────────────────────────── */
 var EMD_DATA    = {"ids":["hadam3","canam5-1","um7.3","gamil3","arpege-climat_version_6_3","tactic","reprobus-c_v2_0","gelato","nemo_v3_6","bisicles-ukesm-ismip6-1_0","clm4","piscesv2-gas","lpj-guess-4.1","openifs-48r1","fesom-2.7","surfex_v8_modeling_platform"],"link":[[0.0,0.23342432514407038,0.28761061946902655,0.14705529566990524,0.17471264367816094,0.0877415458937198,0.08407224958949096,0.06130268199233716,0.0011494252873563218,0.18867521367521367,0.17701149425287355,0.005747126436781609,0.0008880994671403196,0.1432564330079858,0.029283045721401887,0.005747126436781609],[0.23342432514407038,0.0,0.3078634176746723,0.2578050657710607,0.2190703670003033,0.1408249924173491,0.13507950951081069,0.09614801334546556,0.07233848953594177,0.08723081589323627,0.13935395814376705,0.04375720564234187,0.09223653049141504,0.2642047839604989,0.14852419082913426,0.02507884180533642],[0.28761061946902655,0.3078634176746723,0.0,0.37033099931443014,0.3170762824899384,0.24635153891060363,0.23869697265932435,0.19875356166660868,0.175260093482875,0.045963766687157126,0.029056820422412696,0.00384785182509582,0.203513288901201,0.18003991376918316,0.060772491356172124,0.006122876442821984],[0.14705529566990524,0.2578050657710607,0.37033099931443014,0.0,0.409689736515933,0.2939366678661389,0.31290375092102335,0.25047978889288713,0.2501199472232218,0.13465275278877295,0.0777627074856294,0.0028673098122540368,0.26194263997525297,0.18137891044659307,0.02775822549497356,0.0022903531913413717],[0.17471264367816094,0.2190703670003033,0.3170762824899384,0.409689736515933,0.0,0.36008454106280197,0.3967976467976468,0.3094618055555556,0.3107638888888889,0.17468660968660968,0.09026624853962983,0.010478670634920634,0.23017596594300344,0.1524064130358553,0.0183688939325798,0.01494853055611138],[0.0877415458937198,0.1408249924173491,0.24635153891060363,0.2939366678661389,0.36008454106280197,0.0,0.36257763975155277,0.34778295376121465,0.32306763285024154,0.15247584541062803,0.09271646228167967,0.005851736829997699,0.2195675690113383,0.05271697204206649,0.019080511082553115,0.006420975902581254],[0.08407224958949096,0.13507950951081069,0.23869697265932435,0.31290375092102335,0.3967976467976468,0.36257763975155277,0.0,0.35590920517391106,0.3535782028429087,0.1938125763125763,0.1167166167166167,0.08721724898195486,0.2418626919154437,0.07090685669157847,0.03622603678972265,0.0170812093889017],[0.06130268199233716,0.09614801334546556,0.19875356166660868,0.25047978889288713,0.3094618055555556,0.34778295376121465,0.35590920517391106,0.0,0.37896825396825395,0.14102564102564102,0.09146528930701592,0.010526315789473684,0.22231199668798998,0.009682366895660101,0.042000513454610276,0.0036231884057971015],[0.0011494252873563218,0.07233848953594177,0.175260093482875,0.2501199472232218,0.3107638888888889,0.32306763285024154,0.3535782028429087,0.37896825396825395,0.0,0.1388888888888889,0.1492523929574289,0.04845446950710108,0.2181719841344035,0.00950490460639657,0.21783518107009983,0.0036231884057971015],[0.18867521367521367,0.08723081589323627,0.045963766687157126,0.13465275278877295,0.17468660968660968,0.15247584541062803,0.1938125763125763,0.14102564102564102,0.1388888888888889,0.0,0.3429487179487179,0.06512617012617013,0.1554411487570317,0.04191395518314901,0.03720230037978698,0.07790927021696252],[0.17701149425287355,0.13935395814376705,0.029056820422412696,0.0777627074856294,0.09026624853962983,0.09271646228167967,0.1167166167166167,0.09146528930701592,0.1492523929574289,0.3429487179487179,0.0,0.00851699592706787,0.20876355734259816,0.011243852090365505,0.028660822713405032,0.1858513189448441],[0.005747126436781609,0.04375720564234187,0.00384785182509582,0.0028673098122540368,0.010478670634920634,0.005851736829997699,0.08721724898195486,0.010526315789473684,0.04845446950710108,0.06512617012617013,0.00851699592706787,0.0,0.0036631585730799126,0.07036639846436109,0.10672401507031966,0.14177820076567535],[0.0008880994671403196,0.09223653049141504,0.203513288901201,0.26194263997525297,0.23017596594300344,0.2195675690113383,0.2418626919154437,0.22231199668798998,0.2181719841344035,0.1554411487570317,0.20876355734259816,0.0036631585730799126,0.0,0.015281601957980265,0.03325843304997563,0.13255891760468888],[0.1432564330079858,0.2642047839604989,0.18003991376918316,0.18137891044659307,0.1524064130358553,0.05271697204206649,0.07090685669157847,0.009682366895660101,0.00950490460639657,0.04191395518314901,0.011243852090365505,0.07036639846436109,0.015281601957980265,0.0,0.11798663137748751,0.0312956533064657],[0.029283045721401887,0.14852419082913426,0.060772491356172124,0.02775822549497356,0.0183688939325798,0.019080511082553115,0.03622603678972265,0.042000513454610276,0.21783518107009983,0.03720230037978698,0.028660822713405032,0.10672401507031966,0.03325843304997563,0.11798663137748751,0.0,0.031675658377449734],[0.005747126436781609,0.02507884180533642,0.006122876442821984,0.0022903531913413717,0.01494853055611138,0.006420975902581254,0.0170812093889017,0.0036231884057971015,0.0036231884057971015,0.07790927021696252,0.1858513189448441,0.14177820076567535,0.13255891760468888,0.0312956533064657,0.031675658377449734,0.0]],"text":[[0.0,0.23342432514407038,0.28761061946902655,0.14705529566990524,0.17471264367816094,0.0877415458937198,0.08407224958949096,0.06130268199233716,0.0011494252873563218,0.18867521367521367,0.17701149425287355,0.005747126436781609,0.0008880994671403196,0.1432564330079858,0.029283045721401887,0.005747126436781609],[0.23342432514407038,0.0,0.3078634176746723,0.2578050657710607,0.2190703670003033,0.1408249924173491,0.13507950951081069,0.09614801334546556,0.07233848953594177,0.08723081589323627,0.13935395814376705,0.04375720564234187,0.09223653049141504,0.2642047839604989,0.14852419082913426,0.02507884180533642],[0.28761061946902655,0.3078634176746723,0.0,0.37033099931443014,0.3170762824899384,0.24635153891060363,0.23869697265932435,0.19875356166660868,0.175260093482875,0.045963766687157126,0.029056820422412696,0.00384785182509582,0.203513288901201,0.18003991376918316,0.060772491356172124,0.006122876442821984],[0.14705529566990524,0.2578050657710607,0.37033099931443014,0.0,0.409689736515933,0.2939366678661389,0.31290375092102335,0.25047978889288713,0.2501199472232218,0.13465275278877295,0.0777627074856294,0.0028673098122540368,0.26194263997525297,0.18137891044659307,0.02775822549497356,0.0022903531913413717],[0.17471264367816094,0.2190703670003033,0.3170762824899384,0.409689736515933,0.0,0.36008454106280197,0.3967976467976468,0.3094618055555556,0.3107638888888889,0.17468660968660968,0.09026624853962983,0.010478670634920634,0.23017596594300344,0.1524064130358553,0.0183688939325798,0.01494853055611138],[0.0877415458937198,0.1408249924173491,0.24635153891060363,0.2939366678661389,0.36008454106280197,0.0,0.36257763975155277,0.34778295376121465,0.32306763285024154,0.15247584541062803,0.09271646228167967,0.005851736829997699,0.2195675690113383,0.05271697204206649,0.019080511082553115,0.006420975902581254],[0.08407224958949096,0.13507950951081069,0.23869697265932435,0.31290375092102335,0.3967976467976468,0.36257763975155277,0.0,0.35590920517391106,0.3535782028429087,0.1938125763125763,0.1167166167166167,0.08721724898195486,0.2418626919154437,0.07090685669157847,0.03622603678972265,0.0170812093889017],[0.06130268199233716,0.09614801334546556,0.19875356166660868,0.25047978889288713,0.3094618055555556,0.34778295376121465,0.35590920517391106,0.0,0.37896825396825395,0.14102564102564102,0.09146528930701592,0.010526315789473684,0.22231199668798998,0.009682366895660101,0.042000513454610276,0.0036231884057971015],[0.0011494252873563218,0.07233848953594177,0.175260093482875,0.2501199472232218,0.3107638888888889,0.32306763285024154,0.3535782028429087,0.37896825396825395,0.0,0.1388888888888889,0.1492523929574289,0.04845446950710108,0.2181719841344035,0.00950490460639657,0.21783518107009983,0.0036231884057971015],[0.18867521367521367,0.08723081589323627,0.045963766687157126,0.13465275278877295,0.17468660968660968,0.15247584541062803,0.1938125763125763,0.14102564102564102,0.1388888888888889,0.0,0.3429487179487179,0.06512617012617013,0.1554411487570317,0.04191395518314901,0.03720230037978698,0.07790927021696252],[0.17701149425287355,0.13935395814376705,0.029056820422412696,0.0777627074856294,0.09026624853962983,0.09271646228167967,0.1167166167166167,0.09146528930701592,0.1492523929574289,0.3429487179487179,0.0,0.00851699592706787,0.20876355734259816,0.011243852090365505,0.028660822713405032,0.1858513189448441],[0.005747126436781609,0.04375720564234187,0.00384785182509582,0.0028673098122540368,0.010478670634920634,0.005851736829997699,0.08721724898195486,0.010526315789473684,0.04845446950710108,0.06512617012617013,0.00851699592706787,0.0,0.0036631585730799126,0.07036639846436109,0.10672401507031966,0.14177820076567535],[0.0008880994671403196,0.09223653049141504,0.203513288901201,0.26194263997525297,0.23017596594300344,0.2195675690113383,0.2418626919154437,0.22231199668798998,0.2181719841344035,0.1554411487570317,0.20876355734259816,0.0036631585730799126,0.0,0.015281601957980265,0.03325843304997563,0.13255891760468888],[0.1432564330079858,0.2642047839604989,0.18003991376918316,0.18137891044659307,0.1524064130358553,0.05271697204206649,0.07090685669157847,0.009682366895660101,0.00950490460639657,0.04191395518314901,0.011243852090365505,0.07036639846436109,0.015281601957980265,0.0,0.11798663137748751,0.0312956533064657],[0.029283045721401887,0.14852419082913426,0.060772491356172124,0.02775822549497356,0.0183688939325798,0.019080511082553115,0.03622603678972265,0.042000513454610276,0.21783518107009983,0.03720230037978698,0.028660822713405032,0.10672401507031966,0.03325843304997563,0.11798663137748751,0.0,0.031675658377449734],[0.005747126436781609,0.02507884180533642,0.006122876442821984,0.0022903531913413717,0.01494853055611138,0.006420975902581254,0.0170812093889017,0.0036231884057971015,0.0036231884057971015,0.07790927021696252,0.1858513189448441,0.14177820076567535,0.13255891760468888,0.0312956533064657,0.031675658377449734,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Model Components","meta":[{"label":"hadam3","tags":["atmosphere"]},{"label":"canam5-1","tags":["atmosphere"]},{"label":"um7.3","tags":["atmosphere"]},{"label":"gamil3","tags":["atmosphere"]},{"label":"arpege-climat_version_6_3","tags":["atmosphere"]},{"label":"tactic","tags":["aerosol"]},{"label":"reprobus-c_v2_0","tags":["atmospheric-chemistry"]},{"label":"gelato","tags":["sea-ice"]},{"label":"nemo_v3_6","tags":["ocean"]},{"label":"bisicles-ukesm-ismip6-1_0","tags":["land-ice"]},{"label":"clm4","tags":["land-surface"]},{"label":"piscesv2-gas","tags":["ocean-biogeochemistry"]},{"label":"lpj-guess-4.1","tags":["land_surface"]},{"label":"openifs-48r1","tags":["atmosphere"]},{"label":"fesom-2.7","tags":["ocean"]},{"label":"surfex_v8_modeling_platform","tags":["land-surface"]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"bisicles-ukesm-ismip6-1_0","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"hadam3","leaf":true,"spectral_index":0,"value":0.0},{"name":"lpj-guess-4.1","leaf":true,"spectral_index":3,"value":0.0}],"value":0.8121476926080902}],"value":0.8472539873507654},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"piscesv2-gas","leaf":true,"spectral_index":2,"value":0.0},{"name":"surfex_v8_modeling_platform","leaf":true,"spectral_index":6,"value":0.0}],"value":0.8582217992343246},{"name":"","leaf":false,"children":[{"name":"openifs-48r1","leaf":true,"spectral_index":4,"value":0.0},{"name":"fesom-2.7","leaf":true,"spectral_index":5,"value":0.0}],"value":0.8820133686225125}],"value":0.939984568695351}],"value":0.9473666578150755},"clusters":[0,0,0,0,0,0,0,0,0,1,1,2,3,4,5,6],"group_spans":[[0,8],[9,10],[11,11],[12,12],[13,13],[14,14],[15,15]]};
 var EMD_ENTRIES = [{"label":"hadam3","url":"../Model_Components/hadam3/"},{"label":"canam5-1","url":"../Model_Components/canam5-1/"},{"label":"um7.3","url":"../Model_Components/um7.3/"},{"label":"gamil3","url":"../Model_Components/gamil3/"},{"label":"arpege-climat_version_6_3","url":"../Model_Components/arpege-climat_version_6_3/"},{"label":"tactic","url":"../Model_Components/tactic/"},{"label":"reprobus-c_v2_0","url":"../Model_Components/reprobus-c_v2_0/"},{"label":"gelato","url":"../Model_Components/gelato/"},{"label":"nemo_v3_6","url":"../Model_Components/nemo_v3_6/"},{"label":"bisicles-ukesm-ismip6-1_0","url":"../Model_Components/bisicles-ukesm-ismip6-1_0/"},{"label":"clm4","url":"../Model_Components/clm4/"},{"label":"piscesv2-gas","url":"../Model_Components/piscesv2-gas/"},{"label":"lpj-guess-4.1","url":"../Model_Components/lpj-guess-4.1/"},{"label":"openifs-48r1","url":"../Model_Components/openifs-48r1/"},{"label":"fesom-2.7","url":"../Model_Components/fesom-2.7/"},{"label":"surfex_v8_modeling_platform","url":"../Model_Components/surfex_v8_modeling_platform/"}];
-var EMD_SCHEMA  = {"name":"record","children":[{"name":"code_base","type":"scalar"},{"name":"component","type":"scalar"},{"name":"description","type":"scalar"},{"name":"family","type":"scalar"},{"name":"name","type":"scalar"},{"name":"references","type":"list"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
+var EMD_SCHEMA  = {"name":"","children":[{"name":"code_base","type":"scalar"},{"name":"component","type":"scalar"},{"name":"description","type":"scalar"},{"name":"family","type":"scalar"},{"name":"name","type":"scalar"},{"name":"references","type":"list"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids         = EMD_DATA.ids;
 var link        = EMD_DATA.link;
@@ -156,7 +193,8 @@ function clusterColor(k) {
   return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
 }
 
-var FONT    = "'Source Code Pro', monospace";
+var FONT    = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+var FONT_MONO = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
 var MUSTARD = '#f2b30d';
 var NAVY    = '#0d1035';
@@ -215,16 +253,20 @@ if (allTags.length > 0) {
   });
 }
 
-/* ── font toggle ──────────────────────────────────────────────────────── */
+/* ── accessible font toggle ──────────────────────────────────────────── */
 window.emdToggleFont = function () {
   var viz = document.querySelector('.emd-viz');
   var btn = document.getElementById('emd-font-toggle');
-  viz.classList.toggle('pretty');
+  viz.classList.toggle('accessible');
   btn.classList.toggle('active');
 };
 
 /* ── layout constants ──────────────────────────────────────────────────── */
-var cellSize = Math.min(60, Math.floor(Math.min(window.innerWidth * 0.65, 440) / n));
+/* Matrix grows to occupy up to 3/4 of the available container/SVG width. */
+var containerEl = document.querySelector('.emd-viz');
+var containerW  = (containerEl && containerEl.clientWidth) || window.innerWidth * 0.85;
+var availMatW   = containerW * 0.75;
+var cellSize    = Math.min(80, Math.floor(availMatW / n));
 var gap      = Math.max(2, Math.round(cellSize * 0.055));
 var inner    = cellSize - gap;
 var rad      = Math.round(inner * 0.14);
@@ -590,54 +632,126 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   });
 }());
 
-/* ── key schema radial graph ───────────────────────────────────────────── */
+/* ── key schema horizontal tree ────────────────────────────────────────
+   Cleaner left-to-right layout (replaces the previous radial graph).
+   The root node ("record") is suppressed — its children represent the
+   schema's top-level keys directly. Type-colour-coded nodes with
+   compact badges show whether each key is a scalar, link, or list. */
 (function () {
-  var w  = Math.min(window.innerWidth - 48, 720);
-  var h  = Math.max(360, Math.round(w * 0.6));
-  var cx = w / 2, cy = h / 2;
-  var R  = Math.min(cx, cy) - 90;
+  var schemaData = EMD_SCHEMA || {};
+  var topLevel   = (schemaData.children || []);
+  if (!topLevel.length) {
+    d3.select('#emd-key-graph').append('div')
+      .style('color', '#888').style('font-size', '12px')
+      .style('font-family', FONT).style('padding', '20px 0')
+      .text('No schema fields available for this record type.');
+    return;
+  }
 
-  var root = d3.hierarchy(EMD_SCHEMA).sum(function () { return 1; });
+  /* Wrap the real children under a synthetic root so d3.tree() works,
+     but we will *never* render the synthetic root. */
+  var hierData = {name: '', children: topLevel};
+  var rootH    = d3.hierarchy(hierData);
 
-  var treeLayout = d3.tree()
-    .size([2 * Math.PI, R])
-    .separation(function (a, b) { return (a.parent === b.parent ? 1 : 1.5) / a.depth; });
-  treeLayout(root);
+  /* Count leaves to size the SVG height. */
+  var leaves = rootH.leaves().length;
+  var rowH   = 24;
+  var topPad = 18, botPad = 70;
+  var h      = Math.max(280, leaves * rowH + topPad + botPad);
 
-  var svg2 = d3.select('#emd-key-graph').append('svg').attr('width', w).attr('height', h);
-  var g2   = svg2.append('g').attr('transform', 'translate(' + cx + ',' + cy + ')');
+  /* Width: use container, fall back to viewport. Reserve room for labels. */
+  var contW = (containerEl && containerEl.clientWidth) || window.innerWidth - 48;
+  var w     = Math.min(contW, 820);
 
-  /* Radial curved links */
-  g2.selectAll('.emd-klink')
-    .data(root.links()).join('path')
-    .attr('class','emd-klink')
-    .attr('fill','none').attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.3)
-    .attr('d', d3.linkRadial().angle(function (d) { return d.x; }).radius(function (d) { return d.y; }));
+  var leftPad = 16;
+  var labelReserve = 220;  /* horizontal space reserved for labels on the right */
+
+  var svg2 = d3.select('#emd-key-graph').append('svg')
+    .attr('width', w).attr('height', h)
+    .style('overflow', 'visible');
+
+  var tree = d3.tree()
+    .size([h - topPad - botPad, w - leftPad - labelReserve])
+    .separation(function (a, b) { return a.parent === b.parent ? 1 : 1.3; });
+  tree(rootH);
+
+  var g2 = svg2.append('g')
+    .attr('transform', 'translate(' + leftPad + ',' + topPad + ')');
 
   var typeColor = { scalar: NAVY, link: RED, links: RED, list: MUSTARD };
+  var typeLabel = { scalar: 'value', link: 'link',  links: 'links', list: 'list' };
+
+  /* Links — but skip the edges from the synthetic root, draw a short
+     vertical anchor line on the left instead. */
+  g2.selectAll('.emd-klink')
+    .data(rootH.links().filter(function (d) { return d.source.depth > 0; }))
+    .join('path')
+    .attr('class','emd-klink')
+    .attr('fill','none').attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.28)
+    .attr('d', d3.linkHorizontal()
+      .x(function (d) { return d.y; })
+      .y(function (d) { return d.x; }));
+
+  /* Anchor line + ticks from a virtual rail to each depth-1 node. */
+  var depth1 = rootH.descendants().filter(function (d) { return d.depth === 1; });
+  if (depth1.length > 1) {
+    var railX = depth1[0].y - 18;
+    var yMin  = d3.min(depth1, function (d) { return d.x; });
+    var yMax  = d3.max(depth1, function (d) { return d.x; });
+    g2.append('line')
+      .attr('x1', railX).attr('x2', railX)
+      .attr('y1', yMin).attr('y2', yMax)
+      .attr('stroke', NAVY).attr('stroke-width', 1.5).attr('opacity', 0.35);
+    depth1.forEach(function (d) {
+      g2.append('line')
+        .attr('x1', railX).attr('x2', d.y)
+        .attr('y1', d.x).attr('y2', d.x)
+        .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.28);
+    });
+  }
+
+  /* Nodes — skip the synthetic root. */
+  var nodes = rootH.descendants().filter(function (d) { return d.depth > 0; });
 
   var knode = g2.selectAll('.emd-knode')
-    .data(root.descendants()).join('g')
+    .data(nodes).join('g')
     .attr('class','emd-knode')
-    .attr('transform', function (d) {
-      return 'rotate(' + (d.x * 180 / Math.PI - 90) + ') translate(' + d.y + ',0)';
-    });
+    .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; });
 
   knode.append('circle')
-    .attr('r', function (d) { return d.depth === 0 ? 6 : (d.depth === 1 ? 4 : 3); })
-    .attr('fill', function (d) { return d.depth === 0 ? NAVY : (typeColor[d.data.type] || NAVY); })
-    .attr('stroke', WHITE).attr('stroke-width', 1);
+    .attr('r', function (d) { return d.depth === 1 ? 5 : 3.5; })
+    .attr('fill', function (d) { return typeColor[d.data.type] || NAVY; })
+    .attr('stroke', WHITE).attr('stroke-width', 1.5);
 
+  /* Field name label */
   knode.append('text')
-    .attr('dy','0.31em')
-    .attr('x', function (d) { return d.x < Math.PI === !d.children ? 8 : -8; })
-    .attr('text-anchor', function (d) { return d.x < Math.PI === !d.children ? 'start' : 'end'; })
-    .attr('transform', function (d) { return d.x >= Math.PI ? 'rotate(180)' : null; })
+    .attr('x', 10).attr('dy', '0.32em')
     .attr('font-family', FONT)
-    .attr('font-size', function (d) { return d.depth === 0 ? 11 : (d.depth === 1 ? 9 : 8); })
-    .attr('font-weight', function (d) { return d.depth <= 1 ? 600 : 400; })
-    .attr('fill', function (d) { return d.depth === 0 ? NAVY : (typeColor[d.data.type] || '#555'); })
+    .attr('font-size', function (d) { return d.depth === 1 ? 11 : 10; })
+    .attr('font-weight', function (d) { return d.depth === 1 ? 600 : 400; })
+    .attr('fill', NAVY)
     .text(function (d) { return d.data.name; });
+
+  /* Type badge to the right of the label */
+  knode.each(function (d) {
+    if (!d.data.type) return;
+    var label = typeLabel[d.data.type] || d.data.type;
+    var nameLen = (d.data.name || '').length;
+    var bx = 10 + nameLen * (d.depth === 1 ? 6.4 : 5.8) + 8;
+    var bw = label.length * 5.5 + 10;
+    var sel = d3.select(this);
+    sel.append('rect')
+      .attr('x', bx).attr('y', -7)
+      .attr('width', bw).attr('height', 14).attr('rx', 7)
+      .attr('fill', typeColor[d.data.type] || NAVY).attr('opacity', 0.12);
+    sel.append('text')
+      .attr('x', bx + bw / 2).attr('y', 0).attr('dy', '0.32em')
+      .attr('text-anchor', 'middle')
+      .attr('font-family', FONT).attr('font-size', 8)
+      .attr('font-weight', 600)
+      .attr('fill', typeColor[d.data.type] || NAVY)
+      .text(label);
+  });
 
   /* Legend */
   var legItems = [
