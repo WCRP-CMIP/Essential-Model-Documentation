@@ -1,5 +1,13 @@
 # Essential Model Documentation (EMD)
 
+
+
+!!! info "Progress Tracker"
+    Although it is not possible to track your overall provess, you can view the status of you current submission using our [submission tracker](https://emd.mipcvs.dev/Progress_Tracker.html). Note that the building of this tool has delayed the EMD by a further few days. 
+
+
+
+
 ## Registering a new item in the EMD
 Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
 Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. Full instructions are provided in the [**submission guide**](Information_for_Submitters/Submission-Guide/). To know what to expect after submission and what the actions mean, these are described in the [What to expect](Information_for_Submitters/What_to_expect_on_submission/) page. For information on what is or is not allowed at each stage please consult the [latest version of the specification](https://doi.org/10.5281/zenodo.15439551).
