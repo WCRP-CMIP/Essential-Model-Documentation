@@ -63,7 +63,9 @@
 .emd-font-btn:hover { border-color: #2065a0; color: #1a4a80; }
 .emd-font-btn.active { background: #e8f0ff; border-color: #2065a0;
   color: #1a4a80; font-family: inherit; font-weight: 600; }
-.emd-viz.accessible svg text,
+/* Accessible mode: also switch the UI controls (the SVGs are already on the
+   accessible/sans-serif font by default via the JS `FONT` constant). */
+.emd-viz.accessible { font-family: inherit; }
 .emd-viz.accessible #emd-entry-select,
 .emd-viz.accessible .emd-stats,
 .emd-viz.accessible .emd-stats-grid,
@@ -153,7 +155,7 @@
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-05-22 12:28 UTC</span>
+    <span class="emd-stat-value">2026-05-22 13:12 UTC</span>
   </div>
 </div>
 </div>
@@ -203,7 +205,8 @@ function clusterColor(k) {
   return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
 }
 
-var FONT    = "'Source Code Pro', monospace";
+var FONT    = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+var FONT_MONO = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
 var MUSTARD = '#f2b30d';
 var NAVY    = '#0d1035';
