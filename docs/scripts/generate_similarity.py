@@ -8,10 +8,13 @@ For every configured record type, generate:
   docs/EMD_Repository/{stem}_data.json    — raw data snapshot
 
 Each .md page embeds an integrated visualisation:
-  1. "View a specific <X>" dropdown + summary stats
+  1. "View a specific <X>" dropdown + summary stats (count, file sizes,
+     last-updated timestamp)
   2. Dendrogram (UPGMA on spectrally-ordered similarity, orthogonal branches)
-     fused left-to-right with the adjacency/similarity matrix — one SVG
-  3. Radial key-schema graph (2 levels deep, includes linked-object sub-keys)
+     fused left-to-right with the adjacency/similarity matrix — one SVG.
+     The matrix grows to occupy up to 3/4 of the container width.
+  3. Horizontal key-schema tree (2 levels deep, includes linked-object sub-keys).
+     The synthetic root is suppressed; nodes carry type badges (value/link/list).
 
 Dendrogram leaf order == spectral order of the similarity matrix; every leaf
 is pinned to the y-centre of its matrix row.  Branches are orthogonal
@@ -22,6 +25,7 @@ Dependencies: numpy>=1.24.0, cmipld (via helpers.data_loader)
 
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 # ── paths ─────────────────────────────────────────────────────────────────────
@@ -133,6 +137,17 @@ DESCRIPTIONS = {
 
 # ── helpers ────────────────────────────────────────────────────────────────────
 
+def _format_size(num_bytes):
+    """Format a byte count as a human-readable string (KB / MB)."""
+    if num_bytes is None:
+        return "—"
+    if num_bytes < 1024:
+        return f"{num_bytes} B"
+    if num_bytes < 1024 * 1024:
+        return f"{num_bytes / 1024:.1f} KB"
+    return f"{num_bytes / (1024 * 1024):.2f} MB"
+
+
 def _get_id(item):
     vk = item.get("validation_key") or item.get("ui_label")
     if vk and str(vk).strip():
@@ -188,13 +203,13 @@ def _extract_key_schema(items, max_depth=2):
             else:
                 children.append({"name": name, "type": "scalar"})
 
-        return {"name": "record", "children": children} if children else None
+        return {"name": "", "children": children} if children else None
 
     # Use the first item as the schema template
     if not items:
-        return {"name": "record", "children": []}
+        return {"name": "", "children": []}
     result = _node(items[0], max_depth)
-    return result or {"name": "record", "children": []}
+    return result or {"name": "", "children": []}
 
 
 # ── average-linkage dendrogram ─────────────────────────────────────────────────
@@ -510,16 +525,7 @@ __DESCRIPTION__
 
 ---
 
-!!! info "Generated files"
-    This page is auto-generated during the build from live registry data. Three files are produced for each record type:
-
-    - **`__STEM__.md`** — this page, embedded in the MkDocs site layout
-    - **`__STEM___data.json`** — processed similarity matrices, dendrogram tree, and key schema
-    - **`__STEM___raw.json`** — raw JSON-LD records as fetched from the cmipld registry (depth 2)
-
----
-
-<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 .emd-viz { font-family: 'Source Code Pro', monospace; width: 100%; }
@@ -568,20 +574,48 @@ __DESCRIPTION__
 .emd-tip-text { color: #f5c842; font-weight: 600; }
 .emd-tip-head { font-weight: 700; font-size: 13px;
   border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 5px; margin-bottom: 5px; }
-/* ── font toggle ── */
+/* ── accessible font toggle ── */
 .emd-font-btn {
   padding: 5px 12px; border-radius: 20px; border: 1.5px solid #ccc;
   background: #fff; font-size: 11px; cursor: pointer;
   font-family: 'Source Code Pro', monospace; color: #888;
   transition: all .2s; white-space: nowrap;
 }
-.emd-font-btn:hover { border-color: #a060c0; color: #602080; }
-.emd-font-btn.active { background: #f3e8ff; border-color: #a060c0;
-  color: #602080; font-family: 'Pacifico', cursive; }
-.emd-viz.pretty svg text { font-family: 'Pacifico', cursive !important; }
-.emd-viz.pretty #emd-entry-select,
-.emd-viz.pretty .emd-stats,
-.emd-viz.pretty .emd-section-label { font-family: 'Pacifico', cursive !important; }
+.emd-font-btn:hover { border-color: #2065a0; color: #1a4a80; }
+.emd-font-btn.active { background: #e8f0ff; border-color: #2065a0;
+  color: #1a4a80; font-family: inherit; font-weight: 600; }
+/* Accessible mode: also switch the UI controls (the SVGs are already on the
+   accessible/sans-serif font by default via the JS `FONT` constant). */
+.emd-viz.accessible { font-family: inherit; }
+.emd-viz.accessible #emd-entry-select,
+.emd-viz.accessible .emd-stats,
+.emd-viz.accessible .emd-stats-grid,
+.emd-viz.accessible .emd-stat-label,
+.emd-viz.accessible .emd-stat-value,
+.emd-viz.accessible .emd-section-label,
+.emd-viz.accessible .emd-fbtn,
+.emd-viz.accessible #emd-go-btn { font-family: inherit !important; }
+/* ── stats grid ── */
+.emd-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 10px 0 18px;
+  padding: 14px 16px;
+  background: #f7f8fa;
+  border-left: 3px solid #0d1035;
+  border-radius: 4px;
+}
+.emd-stat-item { display: flex; flex-direction: column; gap: 3px; }
+.emd-stat-label {
+  font-family: 'Source Code Pro', monospace;
+  color: #888; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.emd-stat-value {
+  font-family: 'Source Code Pro', monospace;
+  color: #0d1035; font-weight: 600; font-size: 13px;
+}
 </style>
 
 <div class="emd-viz">
@@ -594,11 +628,29 @@ __DESCRIPTION__
 __OPTIONS__
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open \u2192</button>
-  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
+  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
 </div>
-<div class="emd-stats">
-  <span><b>__N__</b> registered entries</span>
-  <span>Endpoint: <b>__ENDPOINT__</b></span>
+<div class="emd-stats-grid">
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Total Records</span>
+    <span class="emd-stat-value">__N__</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Endpoint</span>
+    <span class="emd-stat-value">__ENDPOINT__</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Raw Data</span>
+    <span class="emd-stat-value">__RAW_SIZE__</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Processed Data</span>
+    <span class="emd-stat-value">__DATA_SIZE__</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Last Updated</span>
+    <span class="emd-stat-value">__LAST_UPDATED__</span>
+  </div>
 </div>
 </div>
 
@@ -647,7 +699,8 @@ function clusterColor(k) {
   return CLUSTER_COLORS[k % CLUSTER_COLORS.length];
 }
 
-var FONT    = "'Source Code Pro', monospace";
+var FONT    = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+var FONT_MONO = "'Source Code Pro', monospace";
 var RED     = '#a40e4c';
 var MUSTARD = '#f2b30d';
 var NAVY    = '#0d1035';
@@ -706,16 +759,20 @@ if (allTags.length > 0) {
   });
 }
 
-/* ── font toggle ──────────────────────────────────────────────────────── */
+/* ── accessible font toggle ──────────────────────────────────────────── */
 window.emdToggleFont = function () {
   var viz = document.querySelector('.emd-viz');
   var btn = document.getElementById('emd-font-toggle');
-  viz.classList.toggle('pretty');
+  viz.classList.toggle('accessible');
   btn.classList.toggle('active');
 };
 
 /* ── layout constants ──────────────────────────────────────────────────── */
-var cellSize = Math.min(60, Math.floor(Math.min(window.innerWidth * 0.65, 440) / n));
+/* Matrix grows to occupy up to 3/4 of the available container/SVG width. */
+var containerEl = document.querySelector('.emd-viz');
+var containerW  = (containerEl && containerEl.clientWidth) || window.innerWidth * 0.85;
+var availMatW   = containerW * 0.75;
+var cellSize    = Math.min(80, Math.floor(availMatW / n));
 var gap      = Math.max(2, Math.round(cellSize * 0.055));
 var inner    = cellSize - gap;
 var rad      = Math.round(inner * 0.14);
@@ -1081,54 +1138,126 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   });
 }());
 
-/* ── key schema radial graph ───────────────────────────────────────────── */
+/* ── key schema horizontal tree ────────────────────────────────────────
+   Cleaner left-to-right layout (replaces the previous radial graph).
+   The root node ("record") is suppressed — its children represent the
+   schema's top-level keys directly. Type-colour-coded nodes with
+   compact badges show whether each key is a scalar, link, or list. */
 (function () {
-  var w  = Math.min(window.innerWidth - 48, 720);
-  var h  = Math.max(360, Math.round(w * 0.6));
-  var cx = w / 2, cy = h / 2;
-  var R  = Math.min(cx, cy) - 90;
+  var schemaData = EMD_SCHEMA || {};
+  var topLevel   = (schemaData.children || []);
+  if (!topLevel.length) {
+    d3.select('#emd-key-graph').append('div')
+      .style('color', '#888').style('font-size', '12px')
+      .style('font-family', FONT).style('padding', '20px 0')
+      .text('No schema fields available for this record type.');
+    return;
+  }
 
-  var root = d3.hierarchy(EMD_SCHEMA).sum(function () { return 1; });
+  /* Wrap the real children under a synthetic root so d3.tree() works,
+     but we will *never* render the synthetic root. */
+  var hierData = {name: '', children: topLevel};
+  var rootH    = d3.hierarchy(hierData);
 
-  var treeLayout = d3.tree()
-    .size([2 * Math.PI, R])
-    .separation(function (a, b) { return (a.parent === b.parent ? 1 : 1.5) / a.depth; });
-  treeLayout(root);
+  /* Count leaves to size the SVG height. */
+  var leaves = rootH.leaves().length;
+  var rowH   = 24;
+  var topPad = 18, botPad = 70;
+  var h      = Math.max(280, leaves * rowH + topPad + botPad);
 
-  var svg2 = d3.select('#emd-key-graph').append('svg').attr('width', w).attr('height', h);
-  var g2   = svg2.append('g').attr('transform', 'translate(' + cx + ',' + cy + ')');
+  /* Width: use container, fall back to viewport. Reserve room for labels. */
+  var contW = (containerEl && containerEl.clientWidth) || window.innerWidth - 48;
+  var w     = Math.min(contW, 820);
 
-  /* Radial curved links */
-  g2.selectAll('.emd-klink')
-    .data(root.links()).join('path')
-    .attr('class','emd-klink')
-    .attr('fill','none').attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.3)
-    .attr('d', d3.linkRadial().angle(function (d) { return d.x; }).radius(function (d) { return d.y; }));
+  var leftPad = 16;
+  var labelReserve = 220;  /* horizontal space reserved for labels on the right */
+
+  var svg2 = d3.select('#emd-key-graph').append('svg')
+    .attr('width', w).attr('height', h)
+    .style('overflow', 'visible');
+
+  var tree = d3.tree()
+    .size([h - topPad - botPad, w - leftPad - labelReserve])
+    .separation(function (a, b) { return a.parent === b.parent ? 1 : 1.3; });
+  tree(rootH);
+
+  var g2 = svg2.append('g')
+    .attr('transform', 'translate(' + leftPad + ',' + topPad + ')');
 
   var typeColor = { scalar: NAVY, link: RED, links: RED, list: MUSTARD };
+  var typeLabel = { scalar: 'value', link: 'link',  links: 'links', list: 'list' };
+
+  /* Links — but skip the edges from the synthetic root, draw a short
+     vertical anchor line on the left instead. */
+  g2.selectAll('.emd-klink')
+    .data(rootH.links().filter(function (d) { return d.source.depth > 0; }))
+    .join('path')
+    .attr('class','emd-klink')
+    .attr('fill','none').attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.28)
+    .attr('d', d3.linkHorizontal()
+      .x(function (d) { return d.y; })
+      .y(function (d) { return d.x; }));
+
+  /* Anchor line + ticks from a virtual rail to each depth-1 node. */
+  var depth1 = rootH.descendants().filter(function (d) { return d.depth === 1; });
+  if (depth1.length > 1) {
+    var railX = depth1[0].y - 18;
+    var yMin  = d3.min(depth1, function (d) { return d.x; });
+    var yMax  = d3.max(depth1, function (d) { return d.x; });
+    g2.append('line')
+      .attr('x1', railX).attr('x2', railX)
+      .attr('y1', yMin).attr('y2', yMax)
+      .attr('stroke', NAVY).attr('stroke-width', 1.5).attr('opacity', 0.35);
+    depth1.forEach(function (d) {
+      g2.append('line')
+        .attr('x1', railX).attr('x2', d.y)
+        .attr('y1', d.x).attr('y2', d.x)
+        .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.28);
+    });
+  }
+
+  /* Nodes — skip the synthetic root. */
+  var nodes = rootH.descendants().filter(function (d) { return d.depth > 0; });
 
   var knode = g2.selectAll('.emd-knode')
-    .data(root.descendants()).join('g')
+    .data(nodes).join('g')
     .attr('class','emd-knode')
-    .attr('transform', function (d) {
-      return 'rotate(' + (d.x * 180 / Math.PI - 90) + ') translate(' + d.y + ',0)';
-    });
+    .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; });
 
   knode.append('circle')
-    .attr('r', function (d) { return d.depth === 0 ? 6 : (d.depth === 1 ? 4 : 3); })
-    .attr('fill', function (d) { return d.depth === 0 ? NAVY : (typeColor[d.data.type] || NAVY); })
-    .attr('stroke', WHITE).attr('stroke-width', 1);
+    .attr('r', function (d) { return d.depth === 1 ? 5 : 3.5; })
+    .attr('fill', function (d) { return typeColor[d.data.type] || NAVY; })
+    .attr('stroke', WHITE).attr('stroke-width', 1.5);
 
+  /* Field name label */
   knode.append('text')
-    .attr('dy','0.31em')
-    .attr('x', function (d) { return d.x < Math.PI === !d.children ? 8 : -8; })
-    .attr('text-anchor', function (d) { return d.x < Math.PI === !d.children ? 'start' : 'end'; })
-    .attr('transform', function (d) { return d.x >= Math.PI ? 'rotate(180)' : null; })
+    .attr('x', 10).attr('dy', '0.32em')
     .attr('font-family', FONT)
-    .attr('font-size', function (d) { return d.depth === 0 ? 11 : (d.depth === 1 ? 9 : 8); })
-    .attr('font-weight', function (d) { return d.depth <= 1 ? 600 : 400; })
-    .attr('fill', function (d) { return d.depth === 0 ? NAVY : (typeColor[d.data.type] || '#555'); })
+    .attr('font-size', function (d) { return d.depth === 1 ? 11 : 10; })
+    .attr('font-weight', function (d) { return d.depth === 1 ? 600 : 400; })
+    .attr('fill', NAVY)
     .text(function (d) { return d.data.name; });
+
+  /* Type badge to the right of the label */
+  knode.each(function (d) {
+    if (!d.data.type) return;
+    var label = typeLabel[d.data.type] || d.data.type;
+    var nameLen = (d.data.name || '').length;
+    var bx = 10 + nameLen * (d.depth === 1 ? 6.4 : 5.8) + 8;
+    var bw = label.length * 5.5 + 10;
+    var sel = d3.select(this);
+    sel.append('rect')
+      .attr('x', bx).attr('y', -7)
+      .attr('width', bw).attr('height', 14).attr('rx', 7)
+      .attr('fill', typeColor[d.data.type] || NAVY).attr('opacity', 0.12);
+    sel.append('text')
+      .attr('x', bx + bw / 2).attr('y', 0).attr('dy', '0.32em')
+      .attr('text-anchor', 'middle')
+      .attr('font-family', FONT).attr('font-size', 8)
+      .attr('font-weight', 600)
+      .attr('fill', typeColor[d.data.type] || NAVY)
+      .text(label);
+  });
 
   /* Legend */
   var legItems = [
@@ -1152,7 +1281,8 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
 # ── page builder ───────────────────────────────────────────────────────────────
 
 def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
-                link_ordered, text_ordered, cluster_labels, method_str, repo_subdir):
+                link_ordered, text_ordered, cluster_labels, method_str, repo_subdir,
+                raw_size_str="—", data_size_str="—", last_updated_str="—"):
 
     n = len(ordered_ids)
 
@@ -1235,6 +1365,9 @@ def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
         .replace("__N__",        str(n))
         .replace("__ENDPOINT__", ENDPOINT_OVERRIDES.get(stem, stem))
         .replace("__OPTIONS__",  options_html)
+        .replace("__RAW_SIZE__", raw_size_str)
+        .replace("__DATA_SIZE__", data_size_str)
+        .replace("__LAST_UPDATED__", last_updated_str)
         .replace("__DATA__",     payload)
         .replace("__ENTRIES__",  json.dumps(entries, separators=(",", ":")))
         .replace("__SCHEMA__",   json.dumps(schema,  separators=(",", ":")))
@@ -1336,24 +1469,57 @@ def run(use_embeddings=True):
 
             schema = _extract_key_schema(items, max_depth=2)
 
-            # Write .md page
+            # ── Build the group-level dendrogram tree (matches _build_page) ──
+            combined_sim = (link_ordered + text_ordered) / 2
+            np.fill_diagonal(combined_sim, 0.0)
+            dist = 1.0 - np.clip(combined_sim, 0, 1)
+            unique_groups = sorted(set(cluster_labels.tolist()))
+            kgroups = len(unique_groups)
+            group_rows = {g: [i for i, c in enumerate(cluster_labels) if c == g]
+                          for g in unique_groups}
+            if kgroups >= 2:
+                gdist = np.zeros((kgroups, kgroups))
+                for ai, gi in enumerate(unique_groups):
+                    for aj, gj in enumerate(unique_groups):
+                        if ai == aj:
+                            continue
+                        ri, rj = group_rows[gi], group_rows[gj]
+                        gdist[ai, aj] = dist[np.ix_(ri, rj)].mean()
+                group_labels = [ordered_labels[group_rows[g][0]] for g in unique_groups]
+                tree_for_json = _average_linkage_tree(group_labels, gdist)
+            else:
+                tree_for_json = {"name": ordered_labels[0], "leaf": True,
+                                 "spectral_index": 0, "value": 0.0}
+
+            # Write data JSON FIRST so we can include its size in the markdown.
+            data_payload = _build_data_json(
+                stem, items, ordered_labels, ordered_ids,
+                link_ordered, text_ordered, method_str_display,
+                tree_for_json, schema,
+            )
+            data_path.write_text(
+                json.dumps(data_payload, indent=2), encoding="utf-8")
+            data_size = data_path.stat().st_size
+            print(f"  \u2705 JSON written ({data_size // 1024} KB)", flush=True)
+
+            # File-size stats for the page header.
+            raw_size       = raw_path.stat().st_size
+            last_updated   = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+            raw_size_str   = _format_size(raw_size)
+            data_size_str  = _format_size(data_size)
+
+            # Write .md page with stats info embedded.
             md_content = _build_page(
                 stem, items,
                 ordered_labels, ordered_ids, ordered_tags,
                 link_ordered, text_ordered, cluster_labels, method_str_display,
                 repo_subdir,
+                raw_size_str=raw_size_str,
+                data_size_str=data_size_str,
+                last_updated_str=last_updated,
             )
             md_path.write_text(md_content, encoding="utf-8")
             print(f"  \u2705 MD written  ({md_path.stat().st_size // 1024} KB)", flush=True)
-
-            # Write data JSON
-            data_payload = _build_data_json(
-                stem, items, ordered_labels, ordered_ids,
-                link_ordered, text_ordered, method_str_display, tree, schema,
-            )
-            data_path.write_text(
-                json.dumps(data_payload, indent=2), encoding="utf-8")
-            print(f"  \u2705 JSON written ({data_path.stat().st_size // 1024} KB)", flush=True)
 
             ok += 1
 

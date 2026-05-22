@@ -4,16 +4,7 @@
 
 ---
 
-!!! info "Generated files"
-    This page is auto-generated during the build from live registry data. Three files are produced for each record type:
-
-    - **`Horizontal_Computational_Grids.md`** — this page, embedded in the MkDocs site layout
-    - **`Horizontal_Computational_Grids_data.json`** — processed similarity matrices, dendrogram tree, and key schema
-    - **`Horizontal_Computational_Grids_raw.json`** — raw JSON-LD records as fetched from the cmipld registry (depth 2)
-
----
-
-<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 .emd-viz { font-family: 'Source Code Pro', monospace; width: 100%; }
@@ -62,20 +53,46 @@
 .emd-tip-text { color: #f5c842; font-weight: 600; }
 .emd-tip-head { font-weight: 700; font-size: 13px;
   border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 5px; margin-bottom: 5px; }
-/* ── font toggle ── */
+/* ── accessible font toggle ── */
 .emd-font-btn {
   padding: 5px 12px; border-radius: 20px; border: 1.5px solid #ccc;
   background: #fff; font-size: 11px; cursor: pointer;
   font-family: 'Source Code Pro', monospace; color: #888;
   transition: all .2s; white-space: nowrap;
 }
-.emd-font-btn:hover { border-color: #a060c0; color: #602080; }
-.emd-font-btn.active { background: #f3e8ff; border-color: #a060c0;
-  color: #602080; font-family: 'Pacifico', cursive; }
-.emd-viz.pretty svg text { font-family: 'Pacifico', cursive !important; }
-.emd-viz.pretty #emd-entry-select,
-.emd-viz.pretty .emd-stats,
-.emd-viz.pretty .emd-section-label { font-family: 'Pacifico', cursive !important; }
+.emd-font-btn:hover { border-color: #2065a0; color: #1a4a80; }
+.emd-font-btn.active { background: #e8f0ff; border-color: #2065a0;
+  color: #1a4a80; font-family: inherit; font-weight: 600; }
+.emd-viz.accessible svg text,
+.emd-viz.accessible #emd-entry-select,
+.emd-viz.accessible .emd-stats,
+.emd-viz.accessible .emd-stats-grid,
+.emd-viz.accessible .emd-stat-label,
+.emd-viz.accessible .emd-stat-value,
+.emd-viz.accessible .emd-section-label,
+.emd-viz.accessible .emd-fbtn,
+.emd-viz.accessible #emd-go-btn { font-family: inherit !important; }
+/* ── stats grid ── */
+.emd-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 10px 0 18px;
+  padding: 14px 16px;
+  background: #f7f8fa;
+  border-left: 3px solid #0d1035;
+  border-radius: 4px;
+}
+.emd-stat-item { display: flex; flex-direction: column; gap: 3px; }
+.emd-stat-label {
+  font-family: 'Source Code Pro', monospace;
+  color: #888; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.emd-stat-value {
+  font-family: 'Source Code Pro', monospace;
+  color: #0d1035; font-weight: 600; font-size: 13px;
+}
 </style>
 
 <div class="emd-viz">
@@ -98,11 +115,29 @@
     <option value="../Horizontal_Computational_Grids/h104/">h104</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
-  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()">✨ Pretty font</button>
+  <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
 </div>
-<div class="emd-stats">
-  <span><b>11</b> registered entries</span>
-  <span>Endpoint: <b>horizontal_computational_grid</b></span>
+<div class="emd-stats-grid">
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Total Records</span>
+    <span class="emd-stat-value">11</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Endpoint</span>
+    <span class="emd-stat-value">horizontal_computational_grid</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Raw Data</span>
+    <span class="emd-stat-value">3.8 KB</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Processed Data</span>
+    <span class="emd-stat-value">8.5 KB</span>
+  </div>
+  <div class="emd-stat-item">
+    <span class="emd-stat-label">Last Updated</span>
+    <span class="emd-stat-value">2026-05-22 12:28 UTC</span>
+  </div>
 </div>
 </div>
 
@@ -128,7 +163,7 @@
 /* ── injected data ─────────────────────────────────────────────────────── */
 var EMD_DATA    = {"ids":["h105","h106","h107","h108","h101","h110","h102","h109","h103","h100","h104"],"link":[[0.0,0.8888888888888888,0.6129032258064516,0.5666666666666667,0.2962962962962963,0.4444444444444444,0.4444444444444444,0.4444444444444444,0.39999999999999997,0.3333333333333333,0.5925925925925926],[0.8888888888888888,0.0,0.6451612903225806,0.5666666666666667,0.2962962962962963,0.4444444444444444,0.4444444444444444,0.4444444444444444,0.39166666666666666,0.3333333333333333,0.5925925925925926],[0.6129032258064516,0.6451612903225806,0.0,0.5806451612903226,0.2962962962962963,0.4444444444444444,0.4444444444444444,0.4444444444444444,0.4166666666666667,0.3333333333333333,0.40860215053763443],[0.5666666666666667,0.5666666666666667,0.5806451612903226,0.0,0.32244008714596945,0.4836601307189542,0.4836601307189542,0.4611111111111111,0.3833333333333333,0.3333333333333333,0.3666666666666667],[0.2962962962962963,0.2962962962962963,0.2962962962962963,0.32244008714596945,0.0,0.6339869281045751,0.6339869281045751,0.4008714596949891,0.30848196152283885,0.45861689463872607,0.3640046296296296],[0.4444444444444444,0.4444444444444444,0.4444444444444444,0.4836601307189542,0.6339869281045751,0.0,0.9411764705882353,0.6013071895424836,0.3028322440087146,0.4008714596949891,0.2962962962962963],[0.4444444444444444,0.4444444444444444,0.4444444444444444,0.4836601307189542,0.6339869281045751,0.9411764705882353,0.0,0.6209150326797386,0.3028322440087146,0.4008714596949891,0.2962962962962963],[0.4444444444444444,0.4444444444444444,0.4444444444444444,0.4611111111111111,0.4008714596949891,0.6013071895424836,0.6209150326797386,0.0,0.2962962962962963,0.433048433048433,0.2962962962962963],[0.39999999999999997,0.39166666666666666,0.4166666666666667,0.3833333333333333,0.30848196152283885,0.3028322440087146,0.3028322440087146,0.2962962962962963,0.0,0.3505154639175258,0.40208333333333335],[0.3333333333333333,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.45861689463872607,0.4008714596949891,0.4008714596949891,0.433048433048433,0.3505154639175258,0.0,0.3917525773195876],[0.5925925925925926,0.5925925925925926,0.40860215053763443,0.3666666666666667,0.3640046296296296,0.2962962962962963,0.2962962962962963,0.2962962962962963,0.40208333333333335,0.3917525773195876,0.0]],"text":[[0.0,0.2021988937182519,0.2021988937182519,0.2021988937182519,0.0,0.0,0.0,0.0,0.1826577381501586,0.11634348160751108,0.16445971752716915],[0.2021988937182519,0.0,0.2021988937182519,0.2021988937182519,0.0,0.0,0.0,0.0,0.1826577381501586,0.11634348160751108,0.16445971752716915],[0.2021988937182519,0.2021988937182519,0.0,0.2021988937182519,0.0,0.0,0.0,0.0,0.1826577381501586,0.11634348160751108,0.16445971752716915],[0.2021988937182519,0.2021988937182519,0.2021988937182519,0.0,0.0,0.0,0.0,0.0,0.1826577381501586,0.11634348160751108,0.16445971752716915],[0.0,0.0,0.0,0.0,0.0,0.17405887136097445,0.17405887136097445,0.0,0.06629447101180413,0.042226130942784885,0.0],[0.0,0.0,0.0,0.0,0.17405887136097445,0.0,0.15850369353122765,0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0,0.17405887136097445,0.15850369353122765,0.0,0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.1826577381501586,0.1826577381501586,0.1826577381501586,0.1826577381501586,0.06629447101180413,0.0,0.0,0.0,0.0,0.2222640640535794,0.2313758650061243],[0.11634348160751108,0.11634348160751108,0.11634348160751108,0.11634348160751108,0.042226130942784885,0.0,0.0,0.0,0.2222640640535794,0.0,0.1473743952343944],[0.16445971752716915,0.16445971752716915,0.16445971752716915,0.16445971752716915,0.0,0.0,0.0,0.0,0.2313758650061243,0.1473743952343944,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Horizontal Computational Grids","meta":[{"label":"h105","tags":[]},{"label":"h106","tags":[]},{"label":"h107","tags":[]},{"label":"h108","tags":[]},{"label":"h101","tags":[]},{"label":"h110","tags":[]},{"label":"h102","tags":[]},{"label":"h109","tags":[]},{"label":"h103","tags":[]},{"label":"h100","tags":[]},{"label":"h104","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"h101","leaf":true,"spectral_index":1,"value":0.0},{"name":"h109","leaf":true,"spectral_index":2,"value":0.0}],"value":0.7294843863471314},{"name":"","leaf":false,"children":[{"name":"h100","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h103","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"h105","leaf":true,"spectral_index":0,"value":0.0},{"name":"h104","leaf":true,"spectral_index":5,"value":0.0}],"value":0.6727133909377296}],"value":0.6964915992109293}],"value":0.7397361140890114}],"value":0.8151310526242281},"clusters":[0,0,0,0,1,1,1,2,3,4,5],"group_spans":[[0,3],[4,6],[7,7],[8,8],[9,9],[10,10]]};
 var EMD_ENTRIES = [{"label":"h105","url":"../Horizontal_Computational_Grids/h105/"},{"label":"h106","url":"../Horizontal_Computational_Grids/h106/"},{"label":"h107","url":"../Horizontal_Computational_Grids/h107/"},{"label":"h108","url":"../Horizontal_Computational_Grids/h108/"},{"label":"h101","url":"../Horizontal_Computational_Grids/h101/"},{"label":"h110","url":"../Horizontal_Computational_Grids/h110/"},{"label":"h102","url":"../Horizontal_Computational_Grids/h102/"},{"label":"h109","url":"../Horizontal_Computational_Grids/h109/"},{"label":"h103","url":"../Horizontal_Computational_Grids/h103/"},{"label":"h100","url":"../Horizontal_Computational_Grids/h100/"},{"label":"h104","url":"../Horizontal_Computational_Grids/h104/"}];
-var EMD_SCHEMA  = {"name":"record","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
+var EMD_SCHEMA  = {"name":"","children":[{"name":"arrangement","type":"scalar"},{"name":"description","type":"scalar"},{"name":"horizontal_subgrids","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids         = EMD_DATA.ids;
 var link        = EMD_DATA.link;
@@ -210,16 +245,20 @@ if (allTags.length > 0) {
   });
 }
 
-/* ── font toggle ──────────────────────────────────────────────────────── */
+/* ── accessible font toggle ──────────────────────────────────────────── */
 window.emdToggleFont = function () {
   var viz = document.querySelector('.emd-viz');
   var btn = document.getElementById('emd-font-toggle');
-  viz.classList.toggle('pretty');
+  viz.classList.toggle('accessible');
   btn.classList.toggle('active');
 };
 
 /* ── layout constants ──────────────────────────────────────────────────── */
-var cellSize = Math.min(60, Math.floor(Math.min(window.innerWidth * 0.65, 440) / n));
+/* Matrix grows to occupy up to 3/4 of the available container/SVG width. */
+var containerEl = document.querySelector('.emd-viz');
+var containerW  = (containerEl && containerEl.clientWidth) || window.innerWidth * 0.85;
+var availMatW   = containerW * 0.75;
+var cellSize    = Math.min(80, Math.floor(availMatW / n));
 var gap      = Math.max(2, Math.round(cellSize * 0.055));
 var inner    = cellSize - gap;
 var rad      = Math.round(inner * 0.14);
@@ -585,54 +624,126 @@ matG.append('text').attr('x',mustX+barW).attr('y',legY+barH+9).attr('text-anchor
   });
 }());
 
-/* ── key schema radial graph ───────────────────────────────────────────── */
+/* ── key schema horizontal tree ────────────────────────────────────────
+   Cleaner left-to-right layout (replaces the previous radial graph).
+   The root node ("record") is suppressed — its children represent the
+   schema's top-level keys directly. Type-colour-coded nodes with
+   compact badges show whether each key is a scalar, link, or list. */
 (function () {
-  var w  = Math.min(window.innerWidth - 48, 720);
-  var h  = Math.max(360, Math.round(w * 0.6));
-  var cx = w / 2, cy = h / 2;
-  var R  = Math.min(cx, cy) - 90;
+  var schemaData = EMD_SCHEMA || {};
+  var topLevel   = (schemaData.children || []);
+  if (!topLevel.length) {
+    d3.select('#emd-key-graph').append('div')
+      .style('color', '#888').style('font-size', '12px')
+      .style('font-family', FONT).style('padding', '20px 0')
+      .text('No schema fields available for this record type.');
+    return;
+  }
 
-  var root = d3.hierarchy(EMD_SCHEMA).sum(function () { return 1; });
+  /* Wrap the real children under a synthetic root so d3.tree() works,
+     but we will *never* render the synthetic root. */
+  var hierData = {name: '', children: topLevel};
+  var rootH    = d3.hierarchy(hierData);
 
-  var treeLayout = d3.tree()
-    .size([2 * Math.PI, R])
-    .separation(function (a, b) { return (a.parent === b.parent ? 1 : 1.5) / a.depth; });
-  treeLayout(root);
+  /* Count leaves to size the SVG height. */
+  var leaves = rootH.leaves().length;
+  var rowH   = 24;
+  var topPad = 18, botPad = 70;
+  var h      = Math.max(280, leaves * rowH + topPad + botPad);
 
-  var svg2 = d3.select('#emd-key-graph').append('svg').attr('width', w).attr('height', h);
-  var g2   = svg2.append('g').attr('transform', 'translate(' + cx + ',' + cy + ')');
+  /* Width: use container, fall back to viewport. Reserve room for labels. */
+  var contW = (containerEl && containerEl.clientWidth) || window.innerWidth - 48;
+  var w     = Math.min(contW, 820);
 
-  /* Radial curved links */
-  g2.selectAll('.emd-klink')
-    .data(root.links()).join('path')
-    .attr('class','emd-klink')
-    .attr('fill','none').attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.3)
-    .attr('d', d3.linkRadial().angle(function (d) { return d.x; }).radius(function (d) { return d.y; }));
+  var leftPad = 16;
+  var labelReserve = 220;  /* horizontal space reserved for labels on the right */
+
+  var svg2 = d3.select('#emd-key-graph').append('svg')
+    .attr('width', w).attr('height', h)
+    .style('overflow', 'visible');
+
+  var tree = d3.tree()
+    .size([h - topPad - botPad, w - leftPad - labelReserve])
+    .separation(function (a, b) { return a.parent === b.parent ? 1 : 1.3; });
+  tree(rootH);
+
+  var g2 = svg2.append('g')
+    .attr('transform', 'translate(' + leftPad + ',' + topPad + ')');
 
   var typeColor = { scalar: NAVY, link: RED, links: RED, list: MUSTARD };
+  var typeLabel = { scalar: 'value', link: 'link',  links: 'links', list: 'list' };
+
+  /* Links — but skip the edges from the synthetic root, draw a short
+     vertical anchor line on the left instead. */
+  g2.selectAll('.emd-klink')
+    .data(rootH.links().filter(function (d) { return d.source.depth > 0; }))
+    .join('path')
+    .attr('class','emd-klink')
+    .attr('fill','none').attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.28)
+    .attr('d', d3.linkHorizontal()
+      .x(function (d) { return d.y; })
+      .y(function (d) { return d.x; }));
+
+  /* Anchor line + ticks from a virtual rail to each depth-1 node. */
+  var depth1 = rootH.descendants().filter(function (d) { return d.depth === 1; });
+  if (depth1.length > 1) {
+    var railX = depth1[0].y - 18;
+    var yMin  = d3.min(depth1, function (d) { return d.x; });
+    var yMax  = d3.max(depth1, function (d) { return d.x; });
+    g2.append('line')
+      .attr('x1', railX).attr('x2', railX)
+      .attr('y1', yMin).attr('y2', yMax)
+      .attr('stroke', NAVY).attr('stroke-width', 1.5).attr('opacity', 0.35);
+    depth1.forEach(function (d) {
+      g2.append('line')
+        .attr('x1', railX).attr('x2', d.y)
+        .attr('y1', d.x).attr('y2', d.x)
+        .attr('stroke', NAVY).attr('stroke-width', 1.1).attr('opacity', 0.28);
+    });
+  }
+
+  /* Nodes — skip the synthetic root. */
+  var nodes = rootH.descendants().filter(function (d) { return d.depth > 0; });
 
   var knode = g2.selectAll('.emd-knode')
-    .data(root.descendants()).join('g')
+    .data(nodes).join('g')
     .attr('class','emd-knode')
-    .attr('transform', function (d) {
-      return 'rotate(' + (d.x * 180 / Math.PI - 90) + ') translate(' + d.y + ',0)';
-    });
+    .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; });
 
   knode.append('circle')
-    .attr('r', function (d) { return d.depth === 0 ? 6 : (d.depth === 1 ? 4 : 3); })
-    .attr('fill', function (d) { return d.depth === 0 ? NAVY : (typeColor[d.data.type] || NAVY); })
-    .attr('stroke', WHITE).attr('stroke-width', 1);
+    .attr('r', function (d) { return d.depth === 1 ? 5 : 3.5; })
+    .attr('fill', function (d) { return typeColor[d.data.type] || NAVY; })
+    .attr('stroke', WHITE).attr('stroke-width', 1.5);
 
+  /* Field name label */
   knode.append('text')
-    .attr('dy','0.31em')
-    .attr('x', function (d) { return d.x < Math.PI === !d.children ? 8 : -8; })
-    .attr('text-anchor', function (d) { return d.x < Math.PI === !d.children ? 'start' : 'end'; })
-    .attr('transform', function (d) { return d.x >= Math.PI ? 'rotate(180)' : null; })
+    .attr('x', 10).attr('dy', '0.32em')
     .attr('font-family', FONT)
-    .attr('font-size', function (d) { return d.depth === 0 ? 11 : (d.depth === 1 ? 9 : 8); })
-    .attr('font-weight', function (d) { return d.depth <= 1 ? 600 : 400; })
-    .attr('fill', function (d) { return d.depth === 0 ? NAVY : (typeColor[d.data.type] || '#555'); })
+    .attr('font-size', function (d) { return d.depth === 1 ? 11 : 10; })
+    .attr('font-weight', function (d) { return d.depth === 1 ? 600 : 400; })
+    .attr('fill', NAVY)
     .text(function (d) { return d.data.name; });
+
+  /* Type badge to the right of the label */
+  knode.each(function (d) {
+    if (!d.data.type) return;
+    var label = typeLabel[d.data.type] || d.data.type;
+    var nameLen = (d.data.name || '').length;
+    var bx = 10 + nameLen * (d.depth === 1 ? 6.4 : 5.8) + 8;
+    var bw = label.length * 5.5 + 10;
+    var sel = d3.select(this);
+    sel.append('rect')
+      .attr('x', bx).attr('y', -7)
+      .attr('width', bw).attr('height', 14).attr('rx', 7)
+      .attr('fill', typeColor[d.data.type] || NAVY).attr('opacity', 0.12);
+    sel.append('text')
+      .attr('x', bx + bw / 2).attr('y', 0).attr('dy', '0.32em')
+      .attr('text-anchor', 'middle')
+      .attr('font-family', FONT).attr('font-size', 8)
+      .attr('font-weight', 600)
+      .attr('fill', typeColor[d.data.type] || NAVY)
+      .text(label);
+  });
 
   /* Legend */
   var legItems = [
