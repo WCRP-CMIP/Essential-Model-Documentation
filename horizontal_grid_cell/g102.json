@@ -1,27 +1,29 @@
 {
-  "validation_key": "g102",
-  "ui_label": "Ocean tripolar grid with 105704 cells.",
-  "description": "Wrap-around",
-  "grid_mapping": "latitude-longitude",
-  "grid_type": "tripolar",
-  "n_cells": 105704,
-  "region": [
-    "global"
-  ],
-  "southernmost_latitude": "",
-  "temporal_refinement": "static",
-  "truncation_method": "",
-  "truncation_number": "",
-  "westernmost_longitude": "",
-  "x_resolution": "",
-  "y_resolution": "",
-  "alias":["eORCA1"],
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:horizontal_grid_cell",
-    "esgvoc:HorizontalGridCell"
-  ],
-  "@id": "g102",
-  "units": ""
+    "validation_key": "g102",
+    "ui_label": "Ocean tripolar grid with 105704 cells.",
+    "description": "Wrap-around",
+    "alias": [
+        "eORCA1"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 105704,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": "",
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": "",
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "g102"
 }
