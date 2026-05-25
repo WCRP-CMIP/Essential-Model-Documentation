@@ -260,6 +260,28 @@
     "website": "https://confluence.ecmwf.int/display/OIFS"
   },
   {
+    "@id": "classic",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Canadian Land Surface Scheme Including Biogeochemical Cycles (CLASSIC)",
+    "established": 2020,
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+      "https://doi.org/10.5194/gmd-13-2825-2020",
+      "https://doi.org/10.5194/bg-20-1313-2023"
+    ],
+    "representative_member": "CLASSICv1.5",
+    "scientific_domains": "land_surface",
+    "ui_label": "CLASSIC",
+    "validation_key": "CLASSIC",
+    "website": "https://gitlab.com/cccma/canesm/classic"
+  },
+  {
     "@id": "jules",
     "@type": [
       "emd",
@@ -498,6 +520,28 @@
     "ui_label": "CLASS-CTEM",
     "validation_key": "class-ctem",
     "website": ""
+  },
+  {
+    "@id": "classic",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Canadian Land Surface Scheme Including Biogeochemical Cycles (CLASSIC)",
+    "established": 2020,
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+      "https://doi.org/10.5194/gmd-13-2825-2020",
+      "https://doi.org/10.5194/bg-20-1313-2023"
+    ],
+    "representative_member": "CLASSICv1.5",
+    "scientific_domains": "land_surface",
+    "ui_label": "CLASSIC",
+    "validation_key": "CLASSIC",
+    "website": "https://gitlab.com/cccma/canesm/classic"
   },
   {
     "@id": "reprobus",
