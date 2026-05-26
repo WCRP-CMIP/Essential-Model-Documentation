@@ -17,41 +17,9 @@ The resulting config ID (e.g. `ocean_nemo-v3-6_h101_v103`) is used in Stage 4 (M
 > to register it first.
 
 ---",none,false,,,
-2,dropdown,model_component,Model Component,"Select the already-registered component you want to link to grids.
-
-<details markdown=""1"">
-<summary>Detailed Guidance</summary>
-
-**Registered model component**
-
-Choose the component from the list. It must already exist in the EMD registry.
-If it is not listed here, submit a
-[Stage 3: Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml)
-issue first, then return to this form.
-
-</details>",model_component,true,,list_with_na,0
-3,dropdown,horizontal_computational_grid,Horizontal Grid,"The horizontal computational grid (h###) this component configuration uses.
-
-<details markdown=""1"">
-<summary>Detailed Guidance</summary>
-
-**Horizontal grid reference**
-
-Select the h### ID registered in Stage 2a. Leave as 'Not specified' only
-for components with no horizontal dimension (e.g. 1D column models).
-
-</details>",horizontal_computational_grid,true,,list_with_na,0
-4,dropdown,vertical_computational_grid,Vertical Grid,"The vertical computational grid (v###) this component configuration uses.
-
-<details markdown=""1"">
-<summary>Detailed Guidance</summary>
-
-**Vertical grid reference**
-
-Select the v### ID registered in Stage 2b. Leave as 'Not specified' only
-for components with no vertical dimension (e.g. 2D surface models).
-
-</details>",vertical_computational_grid,true,,list_with_na,0
+2,dropdown,model_component,Model Component,Select the already-registered component you want to link to grids.,model_component,true,,list_with_na,0
+3,dropdown,horizontal_computational_grid,Horizontal Grid,The horizontal computational grid (h###) this component configuration uses.,horizontal_computational_grid,true,,list_with_na,0
+4,dropdown,vertical_computational_grid,Vertical Grid,The vertical computational grid (v###) this component configuration uses.,vertical_computational_grid,true,,list_with_na,0
 5,markdown,footer,,"---
 
 ## What happens after submission
