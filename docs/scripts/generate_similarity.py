@@ -1404,7 +1404,169 @@ search:
   margin: 10px 0 0; padding: 12px; background: #0d1035; color: #d4d9ff;
   border-radius: 4px; overflow-x: auto; font-size: 0.78rem; line-height: 1.5;
 }
+
+/* ───────────────────────────────────────────────────────────────
+   Rich "cells" — based on the deactivated jinja templates.
+   These are the per-record-type boxes populated by the JS renderers.
+   ─────────────────────────────────────────────────────────────── */
+
+/* "What is this?" plain-language callout */
+.emd-view-callout {
+  background: #f0f5ff; border-left: 4px solid #1a4a80;
+  padding: 14px 18px; margin: 18px 0; border-radius: 4px;
+  font-size: 0.95rem; line-height: 1.65; color: #2a2e3e;
+}
+.emd-view-callout strong { color: #1a4a80; }
+
+/* Hero stat tiles (big numbers across the top) */
+.emd-view-hero-stats {
+  display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0;
+}
+.emd-view-hero-stat {
+  flex: 1 1 130px; background: #fff; border: 1px solid #e4e6ec;
+  border-radius: 6px; padding: 14px 16px; text-align: center;
+  min-width: 130px;
+}
+.emd-view-hero-stat-value {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1.5rem; font-weight: 800; color: #1a4a80;
+  line-height: 1.1; margin-bottom: 4px;
+}
+.emd-view-hero-stat-value.small { font-size: 0.95rem; padding-top: 4px; }
+.emd-view-hero-stat-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px; font-weight: 700; color: #888;
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
+
+/* Section box (replaces the bare h2 + table) */
+.emd-view-box {
+  margin: 22px 0; border: 1px solid #e4e6ec; border-radius: 8px;
+  background: #fff; overflow: hidden;
+}
+.emd-view-box-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; cursor: pointer;
+  background: linear-gradient(180deg, #fafbfd 0%, #f3f4f8 100%);
+  border-bottom: 1px solid #e4e6ec;
+  user-select: none; transition: background 0.15s;
+}
+.emd-view-box-header:hover { background: #f0f3fa; }
+.emd-view-box-title {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px; font-weight: 700; color: #0d1035;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  display: flex; align-items: center; gap: 10px;
+}
+.emd-view-box-title .emd-view-box-icon {
+  width: 18px; height: 18px; opacity: 0.7;
+}
+.emd-view-box-count {
+  font-weight: 400; color: #888; font-size: 11px; margin-left: 6px;
+}
+.emd-view-box-chevron {
+  color: #888; transition: transform 0.2s; font-size: 11px;
+}
+.emd-view-box.collapsed .emd-view-box-chevron { transform: rotate(-90deg); }
+.emd-view-box.collapsed .emd-view-box-body { display: none; }
+.emd-view-box-body { padding: 16px; }
+
+/* Domain pill (colored badge for component domains) */
+.emd-view-domain-pill {
+  display: inline-flex; align-items: center;
+  padding: 4px 12px; border-radius: 999px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  border: 1.5px solid #1a4a80; color: #1a4a80; background: #e8f0ff;
+}
+.emd-view-domain-pill.atmosphere       { border-color:#3490dc; color:#3490dc; background:#eaf4fd; }
+.emd-view-domain-pill.ocean            { border-color:#1565c0; color:#1565c0; background:#e3f2fd; }
+.emd-view-domain-pill.land-surface     { border-color:#7b6f43; color:#7b6f43; background:#f5efe0; }
+.emd-view-domain-pill.sea-ice          { border-color:#0288d1; color:#0288d1; background:#e1f5fe; }
+.emd-view-domain-pill.land-ice         { border-color:#5e35b1; color:#5e35b1; background:#ede7f6; }
+.emd-view-domain-pill.aerosol          { border-color:#d84315; color:#d84315; background:#fbe9e7; }
+.emd-view-domain-pill.atmospheric-chemistry  { border-color:#558b2f; color:#558b2f; background:#f1f8e9; }
+.emd-view-domain-pill.ocean-biogeochemistry  { border-color:#00695c; color:#00695c; background:#e0f2f1; }
+
+/* References list (clickable DOI/URL items) */
+.emd-view-references { display: flex; flex-direction: column; gap: 8px; }
+.emd-view-reference {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border: 1px solid #e4e6ec; border-radius: 6px;
+  background: #fafbfd; text-decoration: none; color: #1a4a80;
+  font-size: 0.85rem; transition: all 0.15s;
+}
+.emd-view-reference:hover { background: #f0f5ff; border-color: #1a4a80; }
+.emd-view-reference-text { flex: 1; font-family: 'Source Code Pro', monospace; word-break: break-all; }
+.emd-view-reference-arrow { color: #888; font-size: 1rem; }
+
+/* Tag rows (lists of CV values) */
+.emd-view-tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.emd-view-tag-row .emd-view-tag-pill {
+  display: inline-block; padding: 4px 11px; border-radius: 999px;
+  font-size: 11px; border: 1px solid #d6d9e0; color: #555;
+  background: #fafbfd;
+}
+.emd-view-tag-row .emd-view-tag-pill.primary {
+  border-color: #1a4a80; color: #1a4a80; background: #e8f0ff;
+}
+
+/* Code-base / source-repo display (mixed-content row) */
+.emd-view-code-base {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 6px;
+  background: #f3f4f8; font-family: 'Source Code Pro', monospace;
+  font-size: 0.82rem; color: #444;
+}
+.emd-view-code-base.private { background: #fff2e8; color: #b54708; }
+.emd-view-code-base.public a { color: #1a4a80; text-decoration: none; }
+.emd-view-code-base.public a:hover { text-decoration: underline; }
+
+/* Sub-label / explainer text inside a box */
+.emd-view-explainer {
+  margin-top: 10px; font-size: 0.85rem; color: #666; line-height: 1.6;
+}
+
+/* Tech details — small grid for @id, validation_key, types */
+.emd-view-tech-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.emd-view-tech-item {
+  background: #fafbfd; border: 1px solid #eef0f4;
+  border-radius: 4px; padding: 10px 12px;
+}
+.emd-view-tech-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px; font-weight: 700; color: #888;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.emd-view-tech-value {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.82rem; color: #222; word-break: break-all;
+}
+.emd-view-tech-value a { color: #1a4a80; text-decoration: none; }
+.emd-view-tech-value a:hover { text-decoration: underline; }
+.emd-view-type-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.emd-view-type-badge {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px; padding: 2px 7px; border-radius: 4px;
+  background: #e8f0ff; color: #1a4a80; font-weight: 600;
+}
+
+/* Linked-record cards (used in family links, component configs) */
+.emd-view-record-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
 </style>
+
+<!-- JSON-LD recursive expansion library (graceful no-op if unavailable) -->
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-browser.js"></script>
 
 <div class="emd-view">
   <a class="emd-view-back" href="../__STEM__/">\u2190 Back to all __TITLE_PLURAL__</a>
@@ -1434,26 +1596,81 @@ search:
     return;
   }
 
-  /* JSON sits next to the summary page at ../<stem>_raw.json */
-  fetch('../' + STEM + '_raw.json')
-    .then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status + ' fetching ' + STEM + '_raw.json');
-      return r.json();
-    })
-    .then(function (items) {
+  /* JSON sits next to the summary page at ../<stem>_raw.json.
+     Build & log the absolute URL so any 404 is trivially diagnosable. */
+  var jsonRelUrl = '../' + STEM + '_raw.json';
+  var jsonAbsUrl = new URL(jsonRelUrl, window.location.href).href;
+
+  console.group('[EMD view] ' + STEM);
+  console.log('Stem        :', STEM);
+  console.log('Singular    :', SINGULAR);
+  console.log('Entry ID    :', entryId);
+  console.log('Page URL    :', window.location.href);
+  console.log('Fetching    :', jsonRelUrl);
+  console.log('Resolved to :', jsonAbsUrl);
+  console.groupEnd();
+
+  /* CMIP7-experiments-style fetch:
+     1. Plain fetch() first for guaranteed baseline.
+     2. If jsonld-recursive loaded, upgrade to JsonLdExpand.compact(URL, {depth:2}).
+     3. Graceful fallback on any failure.
+     4. Normalise: accept array | {contents:[...]} | {@graph:[...]}. */
+  (async function loadData() {
+    try {
+      console.log('[EMD view] Fetching raw:', jsonAbsUrl);
+      var r = await fetch(jsonAbsUrl);
+      if (!r.ok) {
+        throw new Error('HTTP ' + r.status + ' ' + r.statusText + ' \u2014 ' + jsonAbsUrl);
+      }
+      var raw = await r.json();
+      console.log('[EMD view] Raw JSON:', raw);
+
+      var res = raw;
+      if (window.JsonLdExpand) {
+        try {
+          console.log('[EMD view] Compacting via JsonLdExpand (depth=2)...');
+          res = await JsonLdExpand.compact(jsonAbsUrl, { depth: 2 });
+          console.log('[EMD view] Compacted result:', res);
+        } catch (e) {
+          console.warn('[EMD view] JsonLdExpand failed, falling back to raw:', e);
+          res = raw;
+        }
+      } else {
+        console.log('[EMD view] JsonLdExpand library not loaded \u2014 using raw JSON.');
+      }
+
+      var items;
+      if (Array.isArray(res))                  items = res;
+      else if (Array.isArray(res.contents))    items = res.contents;
+      else if (Array.isArray(res['@graph']))   items = res['@graph'];
+      else                                     items = [];
+
+      console.log('[EMD view] Loaded', items.length, 'items from', STEM + '_raw.json');
+
       var entry = findEntry(items, entryId);
       if (!entry) {
+        console.warn('[EMD view] Entry not found:', entryId,
+                     '\u2014 available ids:', items.map(function (it) { return bestId(it); }));
         contentEl.innerHTML =
-          '<div class="emd-view-error">No entry with id <code>' + escapeHtml(entryId) +
-          '</code> in <code>' + STEM + '_raw.json</code>.</div>';
+          '<div class="emd-view-error">' +
+            'No entry with id <code>' + escapeHtml(entryId) + '</code> in ' +
+            '<code>' + escapeHtml(STEM) + '_raw.json</code>.<br>' +
+            '<small>Available ids logged to browser console.</small>' +
+          '</div>';
         return;
       }
+      console.log('[EMD view] Rendering entry:', bestLabel(entry));
       renderEntry(entry);
-    })
-    .catch(function (err) {
+    } catch (err) {
+      console.error('[EMD view] Fetch failed:', err);
       contentEl.innerHTML =
-        '<div class="emd-view-error">Failed to load: ' + escapeHtml(err.message) + '</div>';
-    });
+        '<div class="emd-view-error">' +
+          '<strong>Failed to load entry data.</strong><br>' +
+          '<small>URL: <code>' + escapeHtml(jsonAbsUrl) + '</code></small><br>' +
+          '<small>Error: ' + escapeHtml(err.message) + '</small>' +
+        '</div>';
+    }
+  }());
 
   /* ── helpers ─────────────────────────────────────────────── */
 
@@ -1569,69 +1786,630 @@ search:
     return escapeHtml(s);
   }
 
-  /* ── main render ─────────────────────────────────────────────── */
+  /* ── reusable building-block cells ────────────────────────────────────
+     These produce the rich boxes you see in the deactivated jinja
+     templates: hero stats, plain-language callouts, collapsible sections,
+     property tables, tag rows, reference lists, code-base displays,
+     domain pills, and tech-details grids. */
 
-  function renderEntry(entry) {
-    var label    = bestLabel(entry);
-    var id       = bestId(entry);
-    var desc     = isNoneVal(entry.description) ? '' : entry.description;
-    var validKey = entry.validation_key || id || lastSeg(entry['@id']);
+  function box(title, bodyHtml, opts) {
+    opts = opts || {};
+    if (!bodyHtml) return '';
+    var count = (opts.count != null)
+      ? ' <span class="emd-view-box-count">(' + escapeHtml(String(opts.count)) + ')</span>'
+      : '';
+    var cls = 'emd-view-box' + (opts.collapsed ? ' collapsed' : '');
+    return '<section class="' + cls + '">' +
+      '<div class="emd-view-box-header" onclick="this.parentElement.classList.toggle(\\'collapsed\\')">' +
+        '<div class="emd-view-box-title">' + escapeHtml(title) + count + '</div>' +
+        '<div class="emd-view-box-chevron">\u25be</div>' +
+      '</div>' +
+      '<div class="emd-view-box-body">' + bodyHtml + '</div>' +
+    '</section>';
+  }
 
+  function heroStat(label, value, opts) {
+    opts = opts || {};
+    var vCls = 'emd-view-hero-stat-value' + (opts.small ? ' small' : '');
+    return '<div class="emd-view-hero-stat">' +
+      '<div class="' + vCls + '">' + escapeHtml(String(value)) + '</div>' +
+      '<div class="emd-view-hero-stat-label">' + escapeHtml(label) + '</div>' +
+    '</div>';
+  }
+
+  function heroStatRow(stats) {
+    if (!stats || !stats.length) return '';
+    return '<div class="emd-view-hero-stats">' +
+      stats.map(function (s) { return heroStat(s.label, s.value, s); }).join('') +
+    '</div>';
+  }
+
+  function propRow(label, valueHtml) {
+    if (valueHtml == null || valueHtml === '') return '';
+    return '<tr><td>' + escapeHtml(label) + '</td><td>' + valueHtml + '</td></tr>';
+  }
+
+  function propTable(rows) {
+    var inner = rows.filter(function (r) { return r; }).join('');
+    if (!inner) return '';
+    return '<table class="emd-view-prop-table">' + inner + '</table>';
+  }
+
+  function callout(html) {
+    return '<div class="emd-view-callout">' + html + '</div>';
+  }
+
+  function tagRow(items, opts) {
+    if (!items) return '';
+    var list = Array.isArray(items) ? items : [items];
+    list = list.filter(function (t) { return !isNoneVal(t); });
+    if (!list.length) return '';
+    opts = opts || {};
+    var pillCls = 'emd-view-tag-pill' + (opts.primary ? ' primary' : '');
+    return '<div class="emd-view-tag-row">' +
+      list.map(function (t) {
+        var name = (typeof t === 'object' && t) ? bestLabel(t) : String(t);
+        var id   = (typeof t === 'object' && t) ? bestId(t)    : name;
+        var href = opts.viewField ? viewUrlFor(opts.viewField, id) : null;
+        var inner = href
+          ? '<a href="' + escapeHtml(href) + '" style="color:inherit;text-decoration:none">' + escapeHtml(name) + '</a>'
+          : escapeHtml(name);
+        return '<span class="' + pillCls + '">' + inner + '</span>';
+      }).join('') +
+    '</div>';
+  }
+
+  function referenceList(refs) {
+    var list = Array.isArray(refs) ? refs : (refs ? [refs] : []);
+    list = list.filter(function (r) { return !isNoneVal(r); });
+    if (!list.length) {
+      return '<p style="color:#666;font-size:0.9rem;margin:0">No references available.</p>';
+    }
+    return '<div class="emd-view-references">' +
+      list.map(function (r) {
+        var s = String(r);
+        return '<a class="emd-view-reference" href="' + escapeHtml(s) +
+          '" target="_blank" rel="noopener">' +
+          '<span class="emd-view-reference-text">' + escapeHtml(s) + '</span>' +
+          '<span class="emd-view-reference-arrow">\u2192</span>' +
+        '</a>';
+      }).join('') +
+    '</div>';
+  }
+
+  function codeBaseBox(codeBase) {
+    if (isNoneVal(codeBase)) return '<span style="color:#aaa">\u2014</span>';
+    var s = String(codeBase).trim();
+    if (s.toLowerCase() === 'private') {
+      return '<span class="emd-view-code-base private">\ud83d\udd12 Private</span>';
+    }
+    if (/^https?:\\/\\//i.test(s)) {
+      var display = s.replace(/^https?:\\/\\//i, '');
+      return '<span class="emd-view-code-base public">\ud83d\udcc2 ' +
+        '<a href="' + escapeHtml(s) + '" target="_blank" rel="noopener">' +
+        escapeHtml(display) + '</a></span>';
+    }
+    return '<span class="emd-view-code-base">' + escapeHtml(s) + '</span>';
+  }
+
+  function domainPill(domain) {
+    if (isNoneVal(domain)) return '';
+    var name = bestLabel(domain);
+    var id   = bestId(domain) || name;
+    var key  = String(id).toLowerCase().replace(/[^a-z0-9-]+/g, '-');
+    return '<div class="emd-view-domain-pill ' + escapeHtml(key) + '">' +
+      escapeHtml(name) + '</div>';
+  }
+
+  function linkRecord(field, value, fallbackLabel) {
+    if (isNoneVal(value)) return '<span style="color:#aaa">\u2014</span>';
+    var label, id;
+    if (typeof value === 'object' && value && !Array.isArray(value)) {
+      label = bestLabel(value); id = bestId(value);
+    } else {
+      id = String(value);
+      label = fallbackLabel || formatKey(id.replace(/[-_]/g, ' '));
+    }
+    var href = viewUrlFor(field, id);
+    if (href) {
+      return '<a class="emd-view-link-card" href="' + escapeHtml(href) + '">' +
+        '<span class="emd-view-link-card-name">' + escapeHtml(label) + '</span>' +
+        '<span class="emd-view-link-card-id">' + escapeHtml(id) + '</span>' +
+      '</a>';
+    }
+    return '<span class="emd-view-tag link">' + escapeHtml(label) +
+      (id !== label ? ' <code>(' + escapeHtml(id) + ')</code>' : '') + '</span>';
+  }
+
+  function recordGrid(field, values) {
+    if (isNoneVal(values)) return '';
+    var list = Array.isArray(values) ? values : [values];
+    list = list.filter(function (v) { return !isNoneVal(v); });
+    if (!list.length) return '';
+    return '<div class="emd-view-record-grid">' +
+      list.map(function (v) { return linkRecord(field, v); }).join('') +
+    '</div>';
+  }
+
+  function fmtNumber(n) {
+    if (typeof n !== 'number') return String(n);
+    return n.toLocaleString('en-US');
+  }
+
+  function techDetails(entry) {
+    var rows = [];
+    rows.push(
+      '<div class="emd-view-tech-item">' +
+        '<div class="emd-view-tech-label">Identifier (@id)</div>' +
+        '<div class="emd-view-tech-value">' + escapeHtml(entry['@id'] || '') + '</div>' +
+      '</div>');
+    rows.push(
+      '<div class="emd-view-tech-item">' +
+        '<div class="emd-view-tech-label">Validation Key</div>' +
+        '<div class="emd-view-tech-value">' + escapeHtml(entry.validation_key || 'N/A') + '</div>' +
+      '</div>');
+    var types = entry['@type'];
+    if (types) {
+      var typeList = Array.isArray(types) ? types : [types];
+      rows.push(
+        '<div class="emd-view-tech-item">' +
+          '<div class="emd-view-tech-label">Resource Types</div>' +
+          '<div class="emd-view-type-badges">' +
+            typeList.map(function (t) {
+              return '<span class="emd-view-type-badge">' + escapeHtml(t) + '</span>';
+            }).join('') +
+          '</div>' +
+        '</div>');
+    }
+    return '<div class="emd-view-tech-grid">' + rows.join('') + '</div>';
+  }
+
+  function rawJsonBox(entry) {
+    return '<details class="emd-view-json-toggle">' +
+      '<summary>View raw JSON</summary>' +
+      '<pre>' + escapeHtml(JSON.stringify(entry, null, 2)) + '</pre>' +
+    '</details>';
+  }
+
+  /* ── header (shared across all renderers) ─────────────────────────── */
+
+  function renderHeader(entry, opts) {
+    opts = opts || {};
+    var label = bestLabel(entry);
+    var validKey = entry.validation_key || bestId(entry) || lastSeg(entry['@id']);
+    var desc  = isNoneVal(entry.description) ? '' : entry.description;
     document.title = label + ' \u2014 ' + SINGULAR;
 
-    var html = '';
-
-    /* Header */
-    html += '<header class="emd-view-header">';
+    var html = '<header class="emd-view-header">';
+    if (opts.beforeBadge) html += opts.beforeBadge;
     html += '<div class="emd-view-badge">' + escapeHtml(BADGE_TEXT) + '</div>';
     html += '<h1 class="emd-view-title">' + escapeHtml(label) + '</h1>';
     if (validKey) html += '<div class="emd-view-id">id: <code>' + escapeHtml(validKey) + '</code></div>';
     if (desc)     html += '<p class="emd-view-desc">' + escapeHtml(desc) + '</p>';
     html += '</header>';
+    return html;
+  }
 
-    /* Quick stats from STAT_KEYS — show fields the script flagged as numeric/important */
+  /* ── leftover-properties helper ───────────────────────────────────────
+     Auto-populate a "Other Properties" box with any fields the type-specific
+     renderer didn't already display. Keeps the page complete even when new
+     fields are added to a schema. */
+
+  function leftoverPropsBox(entry, usedKeys) {
+    var hideKeys = { 'validation_key':1, 'ui_label':1, 'description':1, 'name':1 };
+    usedKeys.forEach(function (k) { hideKeys[k] = 1; });
+    var rows = Object.keys(entry).filter(function (k) {
+      return k.charAt(0) !== '@' && !hideKeys[k] && !isNoneVal(entry[k]);
+    }).map(function (k) {
+      return propRow(formatKey(k), renderValue(k, entry[k]));
+    });
+    var tbl = propTable(rows);
+    return tbl ? box('Other Properties', tbl, {collapsed: true}) : '';
+  }
+
+  /* ── per-record-type renderers ────────────────────────────────────── */
+
+  /* Horizontal Grid Cell — Stage 1 */
+  function renderGridCell(entry) {
+    var used = ['grid_type', 'grid_mapping', 'temporal_refinement', 'n_cells',
+                'x_resolution', 'y_resolution', 'units', 'truncation_method',
+                'truncation_number', 'southernmost_latitude', 'westernmost_longitude',
+                'region', 'alias'];
+
+    var stats = [];
+    if (!isNoneVal(entry.n_cells))
+      stats.push({label:'Cells', value: fmtNumber(entry.n_cells)});
+    if (!isNoneVal(entry.x_resolution) && !isNoneVal(entry.y_resolution))
+      stats.push({label:'Resolution', value: entry.x_resolution + '\u00b0 \u00d7 ' + entry.y_resolution + '\u00b0', small:true});
+    if (!isNoneVal(entry.truncation_number))
+      stats.push({label:'Truncation', value: 'T' + entry.truncation_number});
+    if (!isNoneVal(entry.grid_type))
+      stats.push({label:'Grid Type', value: bestLabel(entry.grid_type), small:true});
+    if (!isNoneVal(entry.temporal_refinement))
+      stats.push({label:'Temporal', value: bestLabel(entry.temporal_refinement), small:true});
+
+    var key = entry.validation_key || bestId(entry);
+    var co  = '<strong>What is this?</strong> Grid cell <strong>' + escapeHtml(key) + '</strong>';
+    if (!isNoneVal(entry.grid_type))    co += ' uses a <strong>' + escapeHtml(bestLabel(entry.grid_type)) + '</strong> grid';
+    if (!isNoneVal(entry.grid_mapping)) co += ' with <strong>' + escapeHtml(bestLabel(entry.grid_mapping)) + '</strong> mapping';
+    if (!isNoneVal(entry.n_cells))      co += ', containing <strong>' + escapeHtml(fmtNumber(entry.n_cells)) + '</strong> cells';
+    co += '.';
+    if (!isNoneVal(entry.x_resolution) && !isNoneVal(entry.y_resolution))
+      co += ' Resolution: <strong>' + entry.x_resolution + '\u00b0 \u00d7 ' + entry.y_resolution + '\u00b0</strong>.';
+    if (!isNoneVal(entry.temporal_refinement))
+      co += ' The grid is <strong>' + escapeHtml(bestLabel(entry.temporal_refinement)) + '</strong> in time.';
+
+    var truncStr = null;
+    if (!isNoneVal(entry.truncation_method) || !isNoneVal(entry.truncation_number)) {
+      truncStr = (entry.truncation_method ? escapeHtml(bestLabel(entry.truncation_method)) + ' ' : '') +
+                 (entry.truncation_number ? 'T' + escapeHtml(String(entry.truncation_number)) : '');
+    }
+
+    var props = propTable([
+      propRow('Grid Type',           !isNoneVal(entry.grid_type)           ? escapeHtml(bestLabel(entry.grid_type)) : null),
+      propRow('Grid Mapping',        !isNoneVal(entry.grid_mapping)        ? escapeHtml(bestLabel(entry.grid_mapping)) : null),
+      propRow('Temporal Refinement', !isNoneVal(entry.temporal_refinement) ? escapeHtml(bestLabel(entry.temporal_refinement)) : null),
+      propRow('Number of Cells',     !isNoneVal(entry.n_cells)             ? fmtNumber(entry.n_cells) : null),
+      propRow('Resolution (x \u00d7 y)',
+        (!isNoneVal(entry.x_resolution) && !isNoneVal(entry.y_resolution))
+          ? entry.x_resolution + '\u00b0 \u00d7 ' + entry.y_resolution + '\u00b0' +
+            (!isNoneVal(entry.units) ? ' (' + escapeHtml(bestLabel(entry.units)) + ')' : '')
+          : null),
+      propRow('Southernmost Latitude', !isNoneVal(entry.southernmost_latitude) ? escapeHtml(String(entry.southernmost_latitude)) + '\u00b0' : null),
+      propRow('Westernmost Longitude', !isNoneVal(entry.westernmost_longitude) ? escapeHtml(String(entry.westernmost_longitude)) + '\u00b0' : null),
+      propRow('Truncation', truncStr),
+      propRow('Alias',  !isNoneVal(entry.alias)  ? escapeHtml(String(entry.alias))  : null),
+    ]);
+
+    var regions = !isNoneVal(entry.region)
+      ? '<div class="emd-view-explainer" style="margin-top:14px"><strong>Region:</strong> ' +
+          tagRow(entry.region, {primary:true}) +
+        '</div>'
+      : '';
+
+    var html = renderHeader(entry);
+    html += heroStatRow(stats);
+    html += callout(co);
+    html += box('Grid Properties', props + regions);
+    html += leftoverPropsBox(entry, used);
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
+
+  /* Horizontal Computational Grid — Stage 2a */
+  function renderHorizontalGrid(entry) {
+    var used = ['arrangement', 'horizontal_subgrids'];
+    var stats = [];
+    if (!isNoneVal(entry.arrangement))
+      stats.push({label:'Arrangement', value: bestLabel(entry.arrangement), small:true});
+    if (Array.isArray(entry.horizontal_subgrids))
+      stats.push({label:'Subgrids', value: entry.horizontal_subgrids.length});
+
+    var key = entry.validation_key || bestId(entry);
+    var co  = '<strong>What is this?</strong> Horizontal computational grid <strong>' +
+              escapeHtml(key) + '</strong>';
+    if (!isNoneVal(entry.arrangement)) co += ' uses an <strong>' + escapeHtml(bestLabel(entry.arrangement)) + '</strong> staggering arrangement';
+    co += '.';
+
+    var subgridsHtml = !isNoneVal(entry.horizontal_subgrids)
+      ? recordGrid('horizontal_subgrids', entry.horizontal_subgrids)
+      : '';
+
+    var html = renderHeader(entry);
+    html += heroStatRow(stats);
+    html += callout(co);
+    if (subgridsHtml) html += box('Horizontal Subgrids', subgridsHtml,
+      {count: Array.isArray(entry.horizontal_subgrids) ? entry.horizontal_subgrids.length : 1});
+    html += leftoverPropsBox(entry, used);
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
+
+  /* Vertical Computational Grid — Stage 2b */
+  function renderVerticalGrid(entry) {
+    var used = ['vertical_coordinate', 'n_z', 'total_thickness',
+                'top_layer_thickness', 'bottom_layer_thickness'];
+    var stats = [];
+    if (!isNoneVal(entry.n_z))             stats.push({label:'Levels', value: fmtNumber(entry.n_z)});
+    if (!isNoneVal(entry.total_thickness)) stats.push({label:'Total Thickness', value: entry.total_thickness, small:true});
+    if (!isNoneVal(entry.vertical_coordinate))
+      stats.push({label:'Coordinate', value: bestLabel(entry.vertical_coordinate), small:true});
+
+    var co = '<strong>What is this?</strong> Vertical grid <strong>' +
+             escapeHtml(entry.validation_key || bestId(entry)) + '</strong>';
+    if (!isNoneVal(entry.vertical_coordinate))
+      co += ' uses <strong>' + escapeHtml(bestLabel(entry.vertical_coordinate)) + '</strong> as its coordinate system';
+    if (!isNoneVal(entry.n_z))
+      co += ' with <strong>' + fmtNumber(entry.n_z) + '</strong> levels';
+    co += '.';
+
+    var props = propTable([
+      propRow('Vertical Coordinate', !isNoneVal(entry.vertical_coordinate) ? escapeHtml(bestLabel(entry.vertical_coordinate)) : null),
+      propRow('Number of Levels',    !isNoneVal(entry.n_z)                 ? fmtNumber(entry.n_z) : null),
+      propRow('Top Layer Thickness',    !isNoneVal(entry.top_layer_thickness)    ? escapeHtml(String(entry.top_layer_thickness))    : null),
+      propRow('Bottom Layer Thickness', !isNoneVal(entry.bottom_layer_thickness) ? escapeHtml(String(entry.bottom_layer_thickness)) : null),
+      propRow('Total Thickness',        !isNoneVal(entry.total_thickness)        ? escapeHtml(String(entry.total_thickness))        : null),
+    ]);
+
+    var html = renderHeader(entry);
+    html += heroStatRow(stats);
+    html += callout(co);
+    if (props) html += box('Vertical Profile', props);
+    html += leftoverPropsBox(entry, used);
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
+
+  /* Component / ESM Family */
+  function renderFamily(entry) {
+    var used = ['primary_institution', 'collaborative_institutions',
+                'scientific_domains', 'shared_code_base', 'source_code_repository',
+                'programming_languages', 'license', 'established', 'evolution',
+                'representative_member', 'family_type', 'website', 'references'];
+
+    var stats = [];
+    if (!isNoneVal(entry.primary_institution))
+      stats.push({label:'Institution', value: bestLabel(entry.primary_institution), small:true});
+    if (!isNoneVal(entry.established))
+      stats.push({label:'Established', value: entry.established});
+    if (!isNoneVal(entry.license))
+      stats.push({label:'License', value: bestLabel(entry.license), small:true});
+
+    var familyType = !isNoneVal(entry.family_type) ? entry.family_type : '';
+    var typeLabel  = familyType === 'model' ? 'ESM Family' : 'Component Family';
+
+    var co = '<strong>What is this?</strong> <strong>' + escapeHtml(bestLabel(entry)) +
+             '</strong> is a <strong>' + escapeHtml(typeLabel) + '</strong>';
+    if (!isNoneVal(entry.primary_institution))
+      co += ' developed by <strong>' + escapeHtml(bestLabel(entry.primary_institution)) + '</strong>';
+    co += '.';
+    if (!isNoneVal(entry.scientific_domains)) {
+      var domList = Array.isArray(entry.scientific_domains) ? entry.scientific_domains : [entry.scientific_domains];
+      var domNames = domList.map(function (d) { return bestLabel(d); }).join(', ');
+      co += ' It covers the <strong>' + escapeHtml(domNames) + '</strong> domain' +
+            (domList.length > 1 ? 's' : '') + '.';
+    }
+
+    /* Institutions box */
+    var instHtml = '';
+    if (!isNoneVal(entry.primary_institution)) {
+      instHtml += '<div class="emd-view-explainer" style="margin:0 0 8px"><strong>Primary:</strong></div>';
+      instHtml += linkRecord('primary_institution', entry.primary_institution);
+    }
+    if (!isNoneVal(entry.collaborative_institutions)) {
+      instHtml += '<div class="emd-view-explainer" style="margin:14px 0 8px"><strong>Collaborators:</strong></div>';
+      instHtml += recordGrid('collaborative_institutions', entry.collaborative_institutions);
+    }
+
+    /* Scientific domains box */
+    var domainsHtml = !isNoneVal(entry.scientific_domains)
+      ? tagRow(entry.scientific_domains, {primary: true})
+      : '';
+
+    /* Code & development box */
+    var devRows = propTable([
+      propRow('Shared Code Base', !isNoneVal(entry.shared_code_base) ? escapeHtml(String(entry.shared_code_base)) : null),
+      propRow('Source Repository', !isNoneVal(entry.source_code_repository) ? codeBaseBox(entry.source_code_repository) : null),
+      propRow('Programming Languages', !isNoneVal(entry.programming_languages) ? tagRow(entry.programming_languages) : null),
+      propRow('License',          !isNoneVal(entry.license)     ? escapeHtml(bestLabel(entry.license)) : null),
+      propRow('Established',      !isNoneVal(entry.established) ? escapeHtml(String(entry.established)) : null),
+      propRow('Website',          !isNoneVal(entry.website)     ? renderValue('website', entry.website) : null),
+      propRow('Representative Member', !isNoneVal(entry.representative_member) ? linkRecord('representative_member', entry.representative_member) : null),
+      propRow('Evolution',        !isNoneVal(entry.evolution)   ? escapeHtml(String(entry.evolution)) : null),
+    ]);
+
+    var html = renderHeader(entry);
+    html += heroStatRow(stats);
+    html += callout(co);
+    if (instHtml)    html += box('Institutions', instHtml);
+    if (domainsHtml) html += box('Scientific Domains', domainsHtml);
+    if (devRows)     html += box('Code & Development', devRows);
+    if (!isNoneVal(entry.references)) {
+      var refCount = Array.isArray(entry.references) ? entry.references.length : 1;
+      html += box('References', referenceList(entry.references), {count: refCount});
+    }
+    html += leftoverPropsBox(entry, used);
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
+
+  /* Model Component — Stage 3 */
+  function renderModelComponent(entry) {
+    var used = ['family', 'component', 'code_base', 'references', 'name'];
+
+    var stats = [];
+    if (!isNoneVal(entry.component))
+      stats.push({label:'Domain', value: bestLabel(entry.component), small:true});
+    if (!isNoneVal(entry.family))
+      stats.push({label:'Family', value: bestLabel(entry.family), small:true});
+    if (!isNoneVal(entry.code_base)) {
+      var cb = String(entry.code_base).toLowerCase();
+      stats.push({label:'Code Base', value: cb === 'private' ? '🔒 Private' : '📂 Public', small:true});
+    }
+
+    var co = '<strong>What is this?</strong> <strong>' + escapeHtml(bestLabel(entry)) +
+             '</strong> is a <strong>model component</strong> that simulates the';
+    co += !isNoneVal(entry.component)
+      ? ' <strong>' + escapeHtml(bestLabel(entry.component)) + '</strong>'
+      : ' physical';
+    co += ' processes within an Earth system model.';
+    if (!isNoneVal(entry.family))
+      co += ' It belongs to the <strong>' + escapeHtml(bestLabel(entry.family)) + '</strong> family.';
+    if (!isNoneVal(entry.code_base)) {
+      co += String(entry.code_base).toLowerCase() === 'private'
+        ? ' The source code is kept private.'
+        : ' The source code is publicly available.';
+    }
+
+    var html = renderHeader(entry, {
+      beforeBadge: !isNoneVal(entry.component) ? domainPill(entry.component) : ''
+    });
+    html += heroStatRow(stats);
+    html += callout(co);
+
+    /* Scientific Domain box (if applicable) */
+    if (!isNoneVal(entry.component)) {
+      html += box('Scientific Domain',
+        '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">' +
+          domainPill(entry.component) +
+          '<span class="emd-view-explainer" style="margin:0">' +
+            'This component operates in the ' + escapeHtml(bestLabel(entry.component)) + ' realm.' +
+          '</span>' +
+        '</div>');
+    }
+
+    /* Family link box */
+    if (!isNoneVal(entry.family)) {
+      html += box('Component Family', linkRecord('family', entry.family));
+    }
+
+    /* Code base box */
+    if (!isNoneVal(entry.code_base)) {
+      html += box('Code Base', codeBaseBox(entry.code_base));
+    }
+
+    /* References */
+    if (!isNoneVal(entry.references)) {
+      var refCount = Array.isArray(entry.references) ? entry.references.length : 1;
+      html += box('References', referenceList(entry.references), {count: refCount});
+    } else {
+      html += box('References', referenceList([]), {count: 0, collapsed: true});
+    }
+
+    html += leftoverPropsBox(entry, used);
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
+
+  /* Model (source_id) — Stage 4 */
+  function renderModel(entry) {
+    var used = ['family', 'release_year', 'calendar', 'name', 'component_configs',
+                'dynamic_components', 'prescribed_components', 'omitted_components',
+                'embedded_components', 'coupling_groups', 'references'];
+
+    var stats = [];
+    if (!isNoneVal(entry.release_year))
+      stats.push({label:'Released', value: entry.release_year});
+    if (!isNoneVal(entry.calendar))
+      stats.push({label:'Calendar', value: bestLabel(entry.calendar), small:true});
+    if (!isNoneVal(entry.family))
+      stats.push({label:'ESM Family', value: bestLabel(entry.family), small:true});
+    if (Array.isArray(entry.component_configs))
+      stats.push({label:'Components', value: entry.component_configs.length});
+
+    var co = '<strong>What is this?</strong> <strong>' + escapeHtml(bestLabel(entry)) +
+             '</strong> is a registered CMIP <code>source_id</code>';
+    if (!isNoneVal(entry.family))
+      co += ' belonging to the <strong>' + escapeHtml(bestLabel(entry.family)) + '</strong> family';
+    co += '.';
+    if (Array.isArray(entry.component_configs)) {
+      co += ' It assembles <strong>' + entry.component_configs.length +
+            '</strong> component configurations into a coupled system.';
+    }
+    if (!isNoneVal(entry.release_year))
+      co += ' Released in <strong>' + escapeHtml(String(entry.release_year)) + '</strong>.';
+
+    var html = renderHeader(entry);
+    html += heroStatRow(stats);
+    html += callout(co);
+
+    if (!isNoneVal(entry.family))
+      html += box('ESM Family', linkRecord('family', entry.family));
+
+    /* Active vs prescribed vs omitted realms */
+    var realmsHtml = '';
+    if (!isNoneVal(entry.dynamic_components)) {
+      realmsHtml += '<div class="emd-view-explainer" style="margin:0 0 6px"><strong>Dynamic (interactive):</strong></div>' +
+        tagRow(entry.dynamic_components, {primary: true});
+    }
+    if (!isNoneVal(entry.prescribed_components)) {
+      realmsHtml += '<div class="emd-view-explainer" style="margin:14px 0 6px"><strong>Prescribed:</strong></div>' +
+        tagRow(entry.prescribed_components);
+    }
+    if (!isNoneVal(entry.omitted_components)) {
+      realmsHtml += '<div class="emd-view-explainer" style="margin:14px 0 6px"><strong>Omitted:</strong></div>' +
+        tagRow(entry.omitted_components);
+    }
+    if (realmsHtml) html += box('Realms', realmsHtml);
+
+    /* Component configurations */
+    if (!isNoneVal(entry.component_configs)) {
+      var cfgCount = Array.isArray(entry.component_configs) ? entry.component_configs.length : 1;
+      html += box('Component Configurations',
+        recordGrid('component_configs', entry.component_configs), {count: cfgCount});
+    }
+
+    /* Embedded components + coupling */
+    if (!isNoneVal(entry.embedded_components))
+      html += box('Embedded Components',
+        renderValue('embedded_components', entry.embedded_components));
+    if (!isNoneVal(entry.coupling_groups))
+      html += box('Coupling Groups',
+        renderValue('coupling_groups', entry.coupling_groups));
+
+    /* Calendar */
+    if (!isNoneVal(entry.calendar))
+      html += box('Calendar', escapeHtml(bestLabel(entry.calendar)));
+
+    /* References */
+    if (!isNoneVal(entry.references)) {
+      var refCount = Array.isArray(entry.references) ? entry.references.length : 1;
+      html += box('References', referenceList(entry.references), {count: refCount});
+    }
+
+    html += leftoverPropsBox(entry, used);
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
+
+  /* Generic fallback — used when no type-specific renderer applies */
+  function renderGeneric(entry) {
     var stats = [];
     STAT_KEYS.forEach(function (k) {
       if (k in entry && !isNoneVal(entry[k])) {
-        stats.push({ label: formatKey(k), value: String(entry[k]) });
+        stats.push({label: formatKey(k), value: bestLabel(entry[k]) || String(entry[k])});
       }
     });
-    if (stats.length) {
-      html += '<div class="emd-view-stat-row">';
-      stats.forEach(function (s) {
-        html += '<div class="emd-view-stat">' +
-          '<div class="emd-view-stat-label">' + escapeHtml(s.label) + '</div>' +
-          '<div class="emd-view-stat-value">' + escapeHtml(s.value) + '</div>' +
-        '</div>';
-      });
-      html += '</div>';
-    }
 
-    /* Properties table */
-    var skip = { 'validation_key': 1, 'ui_label': 1, 'description': 1, 'name': 1 };
+    var html = renderHeader(entry);
+    if (stats.length) html += heroStatRow(stats);
+
+    var skip = { 'validation_key':1, 'ui_label':1, 'description':1, 'name':1 };
     var keys = Object.keys(entry).filter(function (k) {
       return k.charAt(0) !== '@' && !skip[k] && STAT_KEYS.indexOf(k) < 0;
     });
-
     if (keys.length) {
-      html += '<section class="emd-view-section">';
-      html += '<h2 class="emd-view-section-title">Properties</h2>';
-      html += '<table class="emd-view-prop-table">';
-      keys.forEach(function (k) {
-        html += '<tr><td>' + escapeHtml(formatKey(k)) + '</td>' +
-                '<td>' + renderValue(k, entry[k]) + '</td></tr>';
+      var rows = keys.map(function (k) {
+        return propRow(formatKey(k), renderValue(k, entry[k]));
       });
-      html += '</table>';
-      html += '</section>';
+      html += box('Properties', propTable(rows));
     }
+    html += box('Technical Details', techDetails(entry), {collapsed: true});
+    html += rawJsonBox(entry);
+    return html;
+  }
 
-    /* Raw JSON (collapsible) */
-    html += '<details class="emd-view-json-toggle">' +
-      '<summary>View raw JSON</summary>' +
-      '<pre>' + escapeHtml(JSON.stringify(entry, null, 2)) + '</pre>' +
-      '</details>';
+  /* ── dispatch ─────────────────────────────────────────────────────── */
 
-    contentEl.innerHTML = html;
+  var RENDERERS = {
+    'Horizontal_Grid_Cells':           renderGridCell,
+    'Horizontal_Computational_Grids':  renderHorizontalGrid,
+    'Vertical_Computational_Grids':    renderVerticalGrid,
+    'Component_Families':              renderFamily,
+    'Earth_System_Model_Families':     renderFamily,
+    'Model_Components':                renderModelComponent,
+    'Models':                          renderModel
+  };
+
+  function renderEntry(entry) {
+    var renderer = RENDERERS[STEM] || renderGeneric;
+    contentEl.innerHTML = renderer(entry);
   }
 }());
 </script>
@@ -1686,13 +2464,23 @@ STAT_KEYS_BY_STEM = {
 
 
 def _build_view_page(stem, title, singular):
-    """Generate a hidden dynamic-view markdown page for a record type."""
-    import re
+    """Generate a hidden dynamic-view markdown page for a record type.
+
+    Raises ``RuntimeError`` if the template is empty or substitution produces
+    an empty result \u2014 prevents the script from silently writing 0-byte
+    view pages, which was the bug that caused "view pages not loading content".
+    """
     title_plural = title  # e.g. "Horizontal Grid Cells"
     stat_keys = STAT_KEYS_BY_STEM.get(stem, [])
-    # Strip Python-style /* */ comments from the link map since JS doesn't allow them in JSON.
-    link_types_clean = {k: v for k, v in LINK_FIELD_TO_STEM.items()}
-    return (
+    link_types_clean = dict(LINK_FIELD_TO_STEM)
+
+    if not _VIEW_TEMPLATE or len(_VIEW_TEMPLATE) < 100:
+        raise RuntimeError(
+            f"_VIEW_TEMPLATE is empty or truncated ({len(_VIEW_TEMPLATE)} chars). "
+            f"View page for {stem} would be 0 bytes \u2014 refusing to write."
+        )
+
+    out = (
         _VIEW_TEMPLATE
         .replace("__STEM__",         stem)
         .replace("__SINGULAR__",     singular)
@@ -1700,6 +2488,10 @@ def _build_view_page(stem, title, singular):
         .replace("__STAT_KEYS__",    json.dumps(stat_keys, separators=(",", ":")))
         .replace("__LINK_TYPES__",   json.dumps(link_types_clean, separators=(",", ":")))
     )
+    if not out.strip():
+        raise RuntimeError(
+            f"View page for {stem} rendered as empty string \u2014 refusing to write.")
+    return out
 
 
 def _build_page(stem, items, ordered_labels, ordered_ids, ordered_tags,
@@ -1860,8 +2652,25 @@ def run(use_embeddings=True):
         raw_path.write_text(json.dumps(items, indent=2), encoding="utf-8")
         print(f"  \u2705 Raw JSON ({raw_path.stat().st_size // 1024} KB)", flush=True)
 
+        # ── Always write the dynamic view page, even if <2 items or the matrix
+        #    step later fails. This ensures /EMD_Repository/view_<stem>/?id=<id>
+        #    is *always* a routable URL with rendering capability.
+        view_md_path = OUT_DIR / f"view_{stem.lower()}.md"
+        try:
+            view_md = _build_view_page(
+                stem=stem,
+                title=stem.replace("_", " "),
+                singular=SINGULAR_NAMES.get(stem, stem.replace("_", " ").rstrip("s")),
+            )
+            view_md_path.write_text(view_md, encoding="utf-8")
+            print(f"  \u2705 View page written ({view_md_path.name}, "
+                  f"{view_md_path.stat().st_size // 1024} KB)", flush=True)
+        except Exception as ve:
+            print(f"  \u26a0 View page write failed for {stem}: {ve}", flush=True)
+
         if len(items) < 2:
-            print(f"  \u23ed  Skipped \u2014 need \u2265 2 items (got {len(items)})", flush=True)
+            print(f"  \u23ed  Skipped similarity \u2014 need \u2265 2 items "
+                  f"(got {len(items)})", flush=True)
             skipped += 1
             continue
 
@@ -1947,20 +2756,7 @@ def run(use_embeddings=True):
             md_path.write_text(md_content, encoding="utf-8")
             print(f"  \u2705 MD written  ({md_path.stat().st_size // 1024} KB)", flush=True)
 
-            # ── Hidden dynamic-view page (view_<stem-lowercase>.md) ──
-            # Single page per record type — uses JS at runtime to pick the
-            # right entry from the raw JSON via ?id=<entry_id>.
-            view_md_path = OUT_DIR / f"view_{stem.lower()}.md"
-            view_md_path.write_text(
-                _build_view_page(
-                    stem=stem,
-                    title=stem.replace("_", " "),
-                    singular=SINGULAR_NAMES.get(stem, stem.replace("_", " ").rstrip("s")),
-                ),
-                encoding="utf-8",
-            )
-            print(f"  \u2705 View page written ({view_md_path.name})", flush=True)
-
+            # (View page already written above \u2014 don't duplicate the write.)
             ok += 1
 
         except ValueError as e:
