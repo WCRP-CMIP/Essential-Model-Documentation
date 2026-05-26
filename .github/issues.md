@@ -13,7 +13,6 @@ The following forms are available for this repository, and can be used to add or
 ### Stage 3 - Components
 
 - [model_component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml)
-- [link_existing_component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml)
 ### Stage 4 - Model
 
 - [model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml)
