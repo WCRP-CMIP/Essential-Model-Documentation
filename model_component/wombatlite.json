@@ -1,0 +1,18 @@
+{
+    "validation_key": "wombatlite",
+    "ui_label": "WOMBATlite",
+    "description": "The World Ocean Model of Biogeochemistry And Trophic-dynamics (WOMBAT) is based on a NPZD (nutrient–phytoplankton–zooplankton–detritus) model. The \"lite\" version of WOMBAT includes one class each of phytoplankton, zooplankton and sinking detritus, as well as nitrate (NO3), bio-available iron (Fe), dissolved inorganic carbon (DIC), calcium carbonate (CaCO3), alkalinity (ALK), and oxygen (O2). Fe is carried through the zooplankton and detrital pools as well. Gas exchange follows OCMIP2 protocols.",
+    "code_base": "https://doi.org/10.5281/zenodo.17180330",
+    "component": "ocean-biogeochemistry",
+    "family": "wombat",
+    "references": [
+        "https://doi.org/10.5194/bg-22-5349-2025"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "wombatlite"
+}
