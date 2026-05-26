@@ -1,0 +1,18 @@
+{
+    "validation_key": "cice5",
+    "ui_label": "CICE5",
+    "description": "The ice model has a zero layer thermodynamic model that computes local growth rates of snow and sea ice due to vertical conductive, radiative and turbulent fluxes, along with snowfall on sea ice; the ice/snow surface temperature is controlled by the UM atmospheric component. The model represents the ice dynamics, which predicts the velocity field of the ice pack based on a model of the material strength of the ice;  and uses the EVP (elastic-viscous-plastic) rheology. An incremental remapping scheme is used for the advection of the areal concentration, sea ice volumes and other state variables; mechanical redistribution of the ice is carried out by a ridging parameterization that transfers sea ice among the five ice thickness categories based on energetic balances and rates of strain within the ice.",
+    "code_base": "https://github.com/ACCESS-NRI/cice5/releases/tag/2026.01.000",
+    "component": "sea_ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.19207490"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cice5"
+}
