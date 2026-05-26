@@ -61,12 +61,27 @@ jobs:
             --color "$COLOR" --description "$DESC" --force 2>/dev/null || true
           gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "$LABEL"
 
-          # approved or changes_requested: remove changes-made from PR + issues
+          # approved or changes_requested:
+          #   - remove changes-made from PR + issues
+          #   - mirror the review-state label ($LABEL) to linked issues so the
+          #     Progress Tracker (which scans issues, not PRs) can see it
+          #   - remove the opposite review-state label from issues so an issue
+          #     never carries both 'approved' and 'changes-requested' at once
           if [ "$REVIEW_STATE" = "changes_requested" ] || [ "$REVIEW_STATE" = "approved" ]; then
             gh pr edit "$PR_NUMBER" --repo "$REPO" --remove-label "changes-made" 2>/dev/null || true
+
+            if [ "$REVIEW_STATE" = "approved" ]; then
+              OPPOSITE_LABEL="changes-requested"
+            else
+              OPPOSITE_LABEL="approved"
+            fi
+
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
-              gh issue edit "$issue_num" --repo "$REPO" --remove-label "changes-made" 2>/dev/null || true
+              gh issue edit "$issue_num" --repo "$REPO" --remove-label "changes-made"    2>/dev/null || true
+              gh issue edit "$issue_num" --repo "$REPO" --remove-label "$OPPOSITE_LABEL" 2>/dev/null || true
+              gh issue edit "$issue_num" --repo "$REPO" --add-label    "$LABEL"          2>/dev/null || true
+              echo "| #${issue_num} | label set to \`${LABEL}\` |" >> "$GITHUB_STEP_SUMMARY"
             done <<< "$ISSUE_NUMBERS"
             echo "| changes-made | removed ($REVIEW_STATE) |" >> "$GITHUB_STEP_SUMMARY"
           fi

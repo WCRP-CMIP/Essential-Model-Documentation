@@ -1,0 +1,21 @@
+{
+    "validation_key": "cable3",
+    "ui_label": "CABLE3",
+    "description": "The CABLE model (Kowalczyk et al, 2006; Wang and Leuning, 1998) is embedded in the atmosphere and replaces most parts of the MOSES land model (the default land surface model in the UM7.3). Dust source, topographic drag and river routing remain as per MOSES.  Each grid-cell is divided into a variable number of vegetated (up to 13) and non-vegetated (up to 3) tiles. Each tile is independent and has its own soil column and up to three snow layers. Tile fractions are prescribed and change over time to account for land-use change. Compared to ACCESS-ESM1-5 (Ziehn et al., 2020), three new vegetated tiles are included (C4 crops and two Australian-specific tree types). Land biogeochemistry is included using the CASA-CNP module (Wang et al., 2010) simulating carbon, nitrogen and phosphorus cycles. Lakes are not explicitly simulated - lake tiles are permanently saturated soil columns with no vegetation. Wetlands, lake and ice tiles are invariant and grid-cells (primarily Antarctica and Greenland) are either completely ice or ice-free. CABLE code, choice of parameterisations and some parameter values have been updated relative to ACCESS-ESM1-5.",
+    "code_base": "https://github.com/CABLE-LSM/CABLE/releases/tag/2025.11.000",
+    "component": "land_surface",
+    "family": "cable",
+    "references": [
+        "https://doi.org/10.4225/08/58615c6a9a51d",
+        "https://doi.org/10.1016/S0168-1923(98)00061-6",
+        "https://doi.org/10.1071/ES19035",
+        "https://doi.org/10.5194/bg-7-2261-2010"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cable3"
+}
