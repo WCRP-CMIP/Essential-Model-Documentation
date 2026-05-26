@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_olafmorgenstern-1778160439",
+    "ui_label": "Horizontal grid cell with a icosahedral geodesic grid type and 20 x 20 km resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "icosahedral-geodesic",
+    "n_cells": 935760,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -78.56,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 0,
+    "x_resolution": 20,
+    "y_resolution": 20,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-olafmorgenstern-1778160439"
+}
