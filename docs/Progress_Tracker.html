@@ -192,6 +192,51 @@
     border-color: #fca5a5;
   }
 
+  /* Rich (multi-line) error message — used for rate-limit explanation */
+  #status.error.rich {
+    text-align: left;
+    max-width: 640px;
+    line-height: 1.5;
+  }
+  #status.error.rich .rate-limit-msg p {
+    margin: 0.6rem 0;
+  }
+  #status.error.rich .rate-limit-msg ul {
+    margin: 0.4rem 0 0.6rem;
+    padding-left: 1.4rem;
+  }
+  #status.error.rich .rate-limit-msg li {
+    margin: 0.25rem 0;
+  }
+  #status.error.rich .rate-limit-msg a {
+    color: var(--emd-danger);
+    font-weight: 600;
+  }
+  #status.error.rich .reset-time {
+    font-size: 0.8rem;
+    color: var(--emd-text-secondary);
+    margin-top: 0.85rem;
+    font-style: italic;
+  }
+
+  /* Quiet 'cached data' notice — sits where status sits, but not boxed */
+  #status.cached {
+    background: transparent !important;
+    border: none !important;
+    padding: 0.4rem !important;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--emd-text-tertiary);
+    max-width: none;
+    margin: 0 auto 0.5rem !important;
+  }
+  #status.cached a {
+    color: var(--emd-primary);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  #status.cached a:hover { text-decoration: underline; }
+
   .spinner {
     display: inline-block;
     width: 13px;
@@ -776,12 +821,66 @@ function el(tag, attrs, ...children) {
 }
 
 /* ============================================
+   CACHE (sessionStorage, 5-minute TTL)
+
+   Cuts API pressure: a reload within the TTL serves instantly without
+   touching GitHub. Cache is keyed by handle (lowercased) and lives only
+   for the current tab/session — close the tab and it's gone.
+   ============================================ */
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
+function cacheKey(handle) {
+  return `emd-tracker:${handle.toLowerCase()}`;
+}
+
+/* Strip GitHub objects down to just the fields the UI uses, so a power
+   user with 400 issues doesn't blow through sessionStorage quota. */
+function trimIssue(issue) {
+  return {
+    number: issue.number,
+    title: issue.title,
+    state: issue.state,
+    state_reason: issue.state_reason,
+    updated_at: issue.updated_at,
+    html_url: issue.html_url,
+    labels: (issue.labels || []).map(l => typeof l === "string" ? l : { name: l.name })
+  };
+}
+function trimProfile(p) {
+  return { login: p.login, name: p.name, avatar_url: p.avatar_url, html_url: p.html_url };
+}
+
+function getCached(handle) {
+  try {
+    const raw = sessionStorage.getItem(cacheKey(handle));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Date.now() - parsed.ts > CACHE_TTL_MS) return null;
+    return { profile: parsed.profile, issues: parsed.issues, ageMs: Date.now() - parsed.ts };
+  } catch { return null; }
+}
+
+function setCached(handle, profile, issues) {
+  try {
+    sessionStorage.setItem(cacheKey(handle), JSON.stringify({
+      ts: Date.now(),
+      profile: trimProfile(profile),
+      issues: issues.map(trimIssue)
+    }));
+  } catch { /* quota exceeded or storage disabled — skip silently */ }
+}
+
+function clearCached(handle) {
+  try { sessionStorage.removeItem(cacheKey(handle)); } catch {}
+}
+
+/* ============================================
    GITHUB API
    ============================================ */
 async function fetchUserProfile(handle) {
   const r = await fetch(`https://api.github.com/users/${encodeURIComponent(handle)}`);
   if (r.status === 404) throw new Error(`GitHub user "@${handle}" not found.`);
-  if (r.status === 403) throw new Error(rateLimitMessage(r));
+  if (r.status === 403) throw rateLimitMessage(r);
   if (!r.ok) throw new Error(`GitHub API error (${r.status})`);
   return r.json();
 }
@@ -801,7 +900,7 @@ async function fetchUserIssues(handle) {
     const url = `https://api.github.com/search/issues?q=${q}&per_page=100&page=${page}&sort=updated&order=desc`;
     const r = await fetch(url);
 
-    if (r.status === 403) throw new Error(rateLimitMessage(r));
+    if (r.status === 403) throw rateLimitMessage(r);
     if (!r.ok) throw new Error(`Search API error (${r.status})`);
 
     const data = await r.json();
@@ -816,14 +915,49 @@ async function fetchUserIssues(handle) {
   return results;
 }
 
+/* Build a rich, multi-paragraph explanation for the rate-limit case.
+   Returns an Error with a .html property — callers throw it as-is;
+   the catch handler renders .html via innerHTML if present. */
 function rateLimitMessage(response) {
   const reset = response.headers.get("X-RateLimit-Reset");
+  let waitText, resetText;
+
   if (reset) {
     const waitSec = Math.max(0, reset * 1000 - Date.now()) / 1000;
     const mins = Math.ceil(waitSec / 60);
-    return `GitHub rate limit reached. Try again in ${mins} minute${mins === 1 ? "" : "s"}.`;
+    waitText  = `~${mins} minute${mins === 1 ? "" : "s"}`;
+    resetText = new Date(reset * 1000).toLocaleTimeString([], {
+      hour: "2-digit", minute: "2-digit"
+    });
+  } else {
+    waitText  = "a few minutes";
+    resetText = null;
   }
-  return "GitHub rate limit reached. Try again in a minute.";
+
+  const ghLink = `https://github.com/${REPO_OWNER}/${REPO_NAME}/issues?q=is%3Aissue+label%3A${SUBMISSION_LABEL}`;
+
+  const html = `
+    <div class="rate-limit-msg">
+      <p><strong>GitHub rate limit reached</strong> — try again in ${waitText}.</p>
+
+      <p>This page uses GitHub's public API, which allows <strong>60 requests per hour per IP address</strong> (search endpoints are even stricter). Each page load typically costs 2 requests, but up to 6 for users with many submissions.</p>
+
+      <p>If you're on an <strong>institutional network or VPN</strong>, dozens of colleagues may share your public IP — so the limit can be exhausted by other people, even if you've only loaded the page once.</p>
+
+      <p><strong>Things to try:</strong></p>
+      <ul>
+        <li>Wait ${waitText} and reload</li>
+        <li>Try from a <strong>different network</strong> (mobile data, home WiFi, hotspot)</li>
+        <li>Open your submissions directly on <a href="${ghLink}" target="_blank" rel="noopener">GitHub</a> — the GitHub UI doesn't have this limit</li>
+      </ul>
+
+      ${resetText ? `<p class="reset-time">Reset at ${resetText} (local time)</p>` : ""}
+    </div>
+  `;
+
+  const err = new Error("GitHub rate limit reached");
+  err.html = html;
+  return err;
 }
 
 /* ============================================
@@ -1163,6 +1297,27 @@ async function track(handle) {
   url.searchParams.set("handle", handle);
   window.history.replaceState({}, "", url);
 
+  // ── Cache hit: serve instantly, no API call ──────────────────────────
+  const cached = getCached(handle);
+  if (cached) {
+    render(cached.profile, cached.issues);
+    const ageMin  = Math.floor(cached.ageMs / 60000);
+    const ageText = ageMin < 1 ? "just now" : `${ageMin} min ago`;
+    $("status").className = "cached";
+    $("status").innerHTML =
+      `Showing cached data from ${ageText} — ` +
+      `<a href="#" id="cache-refresh">refresh from GitHub</a>`;
+    const refreshLink = document.getElementById("cache-refresh");
+    if (refreshLink) {
+      refreshLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        clearCached(handle);
+        track(handle);
+      });
+    }
+    return;
+  }
+
   $("results").classList.add("hidden");
   $("search-btn").disabled = true;
   $("status").className = "";
@@ -1173,10 +1328,15 @@ async function track(handle) {
       fetchUserProfile(handle),
       fetchUserIssues(handle)
     ]);
+    setCached(handle, profile, issues);
     render(profile, issues);
   } catch (e) {
-    $("status").className = "error";
-    $("status").textContent = e.message || String(e);
+    $("status").className = "error" + (e.html ? " rich" : "");
+    if (e.html) {
+      $("status").innerHTML = e.html;
+    } else {
+      $("status").textContent = e.message || String(e);
+    }
     $("results").classList.add("hidden");
     $("hero").classList.remove("compact");
     postHeight();
