@@ -1,0 +1,18 @@
+{
+    "validation_key": "si3-gosi9",
+    "ui_label": "SI3-GOSI9",
+    "description": "UK global sea-ice configuration of the SI3 model",
+    "code_base": "https://doi.org/10.5281/zenodo.13814369",
+    "component": "sea_ice",
+    "family": "si3",
+    "references": [
+        "https://doi.org/10.5194/gmd-17-6799-2024"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "si3-gosi9"
+}
