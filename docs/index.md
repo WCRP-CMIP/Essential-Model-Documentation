@@ -8,7 +8,7 @@
 
     You *can* view the status of all your submissions using our [submission tracker](Progress_Tracker.html). 
     
-!!! question 
+!!! question ""
 
     For questions or queries, please send an email to emd (at) wcrp-cmip.org . 
 
