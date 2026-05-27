@@ -2,12 +2,13 @@
 
 
 
-!!! info "Progress Tracker"
+!!! tip "Progress Tracker"
     Although it is not possible to track your overall progress (*as we are unaware of what you intend to register*).
 
-    You can now view the status of you current submissions using our [submission tracker](Progress_Tracker.html). 
+    You *can* view the status of all your submissions using our [submission tracker](Progress_Tracker.html). 
     
-    Note that the building of this tool has delayed the EMD by a further few days. 
+!!! note 
+    For questions or queries, please send an email to emd (at) wcrp-cmip.org . 
 
 
 
