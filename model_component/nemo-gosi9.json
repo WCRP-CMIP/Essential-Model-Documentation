@@ -1,0 +1,18 @@
+{
+    "validation_key": "nemo-gosi9",
+    "ui_label": "NEMO-GOSI9",
+    "description": "UK physical global ocean configuration of the NEMO model",
+    "code_base": "https://doi.org/10.5281/zenodo.13814369",
+    "component": "ocean",
+    "family": "nemo",
+    "references": [
+        "https://doi.org/10.5194/gmd-18-377-2025"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "nemo-gosi9"
+}
