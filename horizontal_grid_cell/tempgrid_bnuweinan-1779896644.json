@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_bnuweinan-1779896644",
+    "ui_label": "Horizontal grid cell with a hierarchical discrete global grid grid type and 1.40625 x 1.417 degree resolution.",
+    "description": "A regular latitude-longitude grid for land surface modeling in CoLM (CAS-ESM). The grid has dimensions 256 (longitude) × 128 (latitude), including grid points at both the North and South Poles. The nominal horizontal resolution is approximately 1.4° × 1.4°, corresponding to a longitudinal spacing of 360°/256 = 1.40625° and a latitudinal spacing of approximately 1.417° (180° divided by 127 intervals between the two poles) between adjacent grid points. This is the same grid as g134-mass used in IAP-AGCM.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "hierarchical-discrete-global-grid",
+    "n_cells": 32768,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.40625,
+    "y_resolution": 1.417,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-bnuweinan-1779896644"
+}
