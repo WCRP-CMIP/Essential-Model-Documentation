@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_JanStreffing-1779970339",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-b",
+    "horizontal_subgrids": [
+        "g130-mass",
+        "g132-x-velocity-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-janstreffing-1779970339"
+}
