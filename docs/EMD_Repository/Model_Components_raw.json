@@ -15,6 +15,21 @@
     "validation_key": "wombatlite"
   },
   {
+    "@id": "ifs-cy36r4-l91",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "atmosphere",
+    "description": "The **IFS atmospheric** component is based on a hydrostatic, semi-Lagrangian, semi-implicit dynamical core withcomputations alternated between spectral and reduced Gaussian grid-point representations at each time step. Thevertical discretization is based on a hybrid sigma-pressurecoordinate which is solved by using a finite-element scheme.\u00a0Subgridscale processes are parameterized in terms of the resolvedvariables and include representations of a\u00a0**Radiation Scheme**\u00a0(A Rapid Radiative Transfer Model for shortwave and longwave radiation, including gas, cloud, and aerosol interactions, which is critical for accurate surface and atmospheric heating rates;\u00a0[Morcrette et al., 2008](https://journals.ametsoc.org/view/journals/mwre/136/12/2008mwr2363.1.pdf)), a\u00a0**Convection Scheme**\u00a0(A mass-flux approach that represents deep and shallow convection, including convective momentum transport. It improves precipitation timing and intensity and is crucial for tropical and mid-latitude weather;\u00a0[Bechtold et al., 2008](https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/qj.289)), a\u00a0**Cloud Microphysics Scheme**\u00a0(A prognostic treatment of cloud liquid, ice, rain, snow, and graupel with detailed microphysical processes. It improves cloud cover and precipitation representation, including mixed-phase clouds;\u00a0[Forbes and Tompkins, 2011](https://www.ecmwf.int/sites/default/files/elibrary/2011/17431-improved-representation-cloud-and-precipitation.pdf)), a\u00a0**Turbulence and Boundary Layer Scheme** (Parameterizing the turbulent mixing in the planetary boundary layer, including non-local and local mixing processes. It influences the near-surface weather elements like temperature, humidity, and wind;\u00a0[K\u00f6hler et al., 2011](https://doi.org/10.1002/qj.713)), subgrid-scale orographic drag ([Beljaars et al., 2004](https://rmets.onlinelibrary.wiley.com/doi/abs/10.1256/qj.03.73)), and non-orographicgravity wave drag (Orr et al., 2010). See e.g.\u00a0[Roberts et al.](https://gmd.copernicus.org/articles/11/3681/2018/) (2018, section 2.1).  The\u00a0**Land Surface Scheme**\u00a0in\u00a0**HTESSEL**\u00a0represents vertical transfers of water and energy using four vertical layers to represent soil temperature and moisture. The model evaluates the land surface response to the atmospheric forcing and estimates the surface water and energy fluxes along with the temporal evolution of the snowpack, soil temperature, and moisture. At the interface between the surface and the atmosphere, each grid box is divided into fractions (tiles), with up to six fractions over land (bare ground, low and high vegetation, intercepted water, shaded and exposed snow). Each fraction has its own properties defining separate heat and water fluxes used in the energy-balance equation solved for the tile skin temperature. The snow scheme in HTESSEL is an energy- and mass-balance model that represents an additional layer on top of the upper soil layer, with independent prognostic thermal and mass contents. See\u00a0[Dutra et al.](https://doi.org/10.1175/2010JHM1249.1)\u00a0(2010, section2).",
+    "family": "ifs",
+    "references": "https://gmd.copernicus.org/articles/15/2973/2022/  https://www.ecmwf.int/en/elibrary/74349-ifs-documentation-cy36r1-part-iii-dynamics-and-numerical-procedures https://www.ecmwf.int/en/elibrary/74350-ifs-documentation-cy36r1-part-iv-physical-processes",
+    "ui_label": "IFS cy36r4 L91",
+    "validation_key": "ifs-cy36r4-l91"
+  },
+  {
     "@id": "class-ctem-v3.6.2",
     "@type": [
       "emd",
