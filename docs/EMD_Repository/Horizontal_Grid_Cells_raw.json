@@ -825,6 +825,30 @@
     "y_resolution": 0.7
   },
   {
+    "@id": "g143",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "At the Equator, the grid resolution is 1\u00b0 zonally and 0.25\u00b0 meridionally, gradually approaching more isotropic grid cells at higher latitudes. The longitude and latitude of the two northern poles are (250\u00b0, 62\u00b0) and (70\u00b0, 62\u00b0)",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 138600,
+    "region": "global",
+    "southernmost_latitude": -80.2,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g143",
+    "westernmost_longitude": 250,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g141",
     "@type": [
       "emd",
