@@ -102,6 +102,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v122",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 14.58,
+    "description": "",
+    "n_z": 8,
+    "n_z_range": "",
+    "top_layer_thickness": 0.01,
+    "total_thickness": 21.87,
+    "ui_label": "depth grid with 8 levels.",
+    "validation_key": "v122",
+    "vertical_coordinate": "depth"
+  },
+  {
     "@id": "v107",
     "@type": [
       "wcrp:vertical_computational_grid",

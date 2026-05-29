@@ -1,5 +1,29 @@
 [
   {
+    "@id": "g144",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "yin-yang",
+    "n_cells": 73066,
+    "region": "global",
+    "southernmost_latitude": -89.8780517578125,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a yin yang grid type and 1 x 1 degree resolution.",
+    "units": "degree",
+    "validation_key": "g144",
+    "westernmost_longitude": 58.165245056152344,
+    "x_resolution": 1,
+    "y_resolution": 1
+  },
+  {
     "@id": "g111",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -435,6 +459,30 @@
     "y_resolution": 1.25
   },
   {
+    "@id": "g145",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "yin-yang",
+    "n_cells": 72828,
+    "region": "global",
+    "southernmost_latitude": -89.61133575439453,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a yin yang grid type and 1 x 1 degree resolution.",
+    "units": "degree",
+    "validation_key": "g145",
+    "westernmost_longitude": 269.960693359375,
+    "x_resolution": 1,
+    "y_resolution": 1
+  },
+  {
     "@id": "g127",
     "@type": [
       "emd",
@@ -796,6 +844,30 @@
     "westernmost_longitude": 0.140625,
     "x_resolution": 0.28125,
     "y_resolution": 0.1875
+  },
+  {
+    "@id": "g146",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "yin-yang",
+    "n_cells": 72452,
+    "region": "global",
+    "southernmost_latitude": -89.53690338134766,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a yin yang grid type and 1 x 1 degree resolution.",
+    "units": "degree",
+    "validation_key": "g146",
+    "westernmost_longitude": 158.8311309814453,
+    "x_resolution": 1,
+    "y_resolution": 1
   },
   {
     "@id": "g114",
