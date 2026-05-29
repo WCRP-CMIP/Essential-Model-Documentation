@@ -262,6 +262,7 @@ body:
         - "h109"
         - "h110"
         - "h111"
+        - "h112"
       default: 0
     validations:
       required: true
@@ -285,6 +286,7 @@ body:
         </details>
       options:
         - "Not specified"
+        - "no-vertical"
         - "tempgrid_JamesAnstey-1777265640"
         - "v100"
         - "v101"
