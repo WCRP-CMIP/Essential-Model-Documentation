@@ -177,5 +177,18 @@
     "horizontal_subgrids": "g122-mass",
     "ui_label": "",
     "validation_key": "h106"
+  },
+  {
+    "@id": "h112",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g141-mass-velocity-x-velocity-y-velocity",
+    "ui_label": "",
+    "validation_key": "h112"
   }
 ]
