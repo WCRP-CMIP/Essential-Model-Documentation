@@ -184,6 +184,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "no-vertical",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "The simulation is 2D only. If there is no explicit vertical grid specified use this grid as a reference.",
+    "n_z": 1,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "ui_label": "No vertical component.",
+    "validation_key": "no-vertical",
+    "vertical_coordinate": "./"
+  },
+  {
     "@id": "tempgrid-jamesanstey-1777265640",
     "@type": [
       "wcrp:vertical_computational_grid",
