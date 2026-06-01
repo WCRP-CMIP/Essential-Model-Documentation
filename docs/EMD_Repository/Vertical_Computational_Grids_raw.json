@@ -34,6 +34,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v125",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 10.45,
+    "description": "The Vertical Computational Grid for defining water body states in the Common Land Model.",
+    "n_z": 10,
+    "n_z_range": "",
+    "top_layer_thickness": 0.1,
+    "total_thickness": 50,
+    "ui_label": "depth grid with 10 levels.",
+    "validation_key": "v125",
+    "vertical_coordinate": "depth"
+  },
+  {
     "@id": "v113",
     "@type": [
       "wcrp:vertical_computational_grid",

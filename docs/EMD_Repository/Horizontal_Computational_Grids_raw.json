@@ -34,6 +34,23 @@
     "validation_key": "h101"
   },
   {
+    "@id": "h116",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "A regular latitude-longitude grid on an Arakawa-C staggering for atmospheric modeling in IAP-AGCM and IAP-HAGCM (CAS-ESM). The mass (thermodynamic) subgrid has dimensions 256 (longitude) \u00d7 128 (latitude), including grid points at both the North and South Poles. The zonal velocity (u) subgrid is staggered eastward by half a grid cell, and the meridional velocity (v) subgrid is staggered northward by half a grid cell. The nominal horizontal resolution is approximately 1.4\u00b0 \u00d7 1.4\u00b0, corresponding to a longitudinal spacing of 360\u00b0/256 = 1.40625\u00b0 and a latitudinal spacing of approximately 1.417\u00b0 (180\u00b0 divided by 127 intervals between the two poles) between adjacent mass grid points.",
+    "horizontal_subgrids": [
+      "g134-mass",
+      "g151-x-velocity",
+      "g152-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h116"
+  },
+  {
     "@id": "h113",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -223,5 +240,22 @@
     "horizontal_subgrids": "g141-mass-velocity-x-velocity-y-velocity",
     "ui_label": "",
     "validation_key": "h112"
+  },
+  {
+    "@id": "h115",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g144-mass",
+      "g145-x-velocity",
+      "g146-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h115"
   }
 ]
