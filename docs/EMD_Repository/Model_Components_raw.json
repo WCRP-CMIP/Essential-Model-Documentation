@@ -1,5 +1,20 @@
 [
   {
+    "@id": "glomap-mode",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "aerosol",
+    "description": "GLOMAP-mode is the Global Model of Aerosol Processes, a modal global aerosol microphysics model for UKCA. GLOMAP-mode simulates the multi-component global aerosol, resolving sulfate, sea-salt, dust, black carbon (BC) and particulate organic matter (POM), the latter including primary and biogenic secondary POM. Aerosol processes are simulated in a size-resolved manner including primary emissions, secondary particle formation by binary homogeneous nucleation of sulfuric acid and water, particle growth by coagulation, condensation and cloud-processing and removal by dry deposition, in-cloud and below-cloud scavenging.",
+    "family": "glomap-mode",
+    "references": "https://doi.org/10.5194/gmd-3-519-2010",
+    "ui_label": "GLOMAP-mode",
+    "validation_key": "glomap-mode"
+  },
+  {
     "@id": "wombatlite",
     "@type": [
       "emd",
