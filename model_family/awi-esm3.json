@@ -1,0 +1,32 @@
+{
+    "validation_key": "awi-esm3",
+    "ui_label": "awi-esm3",
+    "description": "Scientific focus and approach  AWI-ESM3 is the Earth System Model line developed at the Alfred Wegener Institute around a globally multi-resolution unstructured-mesh ocean coupled to a state-of-the-art global hydrostatic atmosphere with interactive vegetation. The premise of the line is that climate fidelity in polar regions and along narrow shelves can be improved at controlled global cost by locally refining the ocean mesh under a uniform global atmosphere, rather than by raising resolution everywhere. AWI-ESM3 is configured for historical and scenario CMIP-class simulations and for paleo and pre-CMIP transient experiments. Particular attention is given to the representation of Arctic sea-ice cover and drift, sub-polar gyre variability, the Atlantic Meridional Overturning Circulation, and Antarctic ice-shelf cavity overturning, all of which the underlying components have been developed to address.  Common code base and coupling architecture  AWI-ESM3 members are built from a fixed component stack. OpenIFS provides the atmospheric component. FESOM2 provides the ocean, with sea-ice handled internally through embedded FESIM2. LPJ-GUESS provides the interactive land surface and vegetation. Coupling between OpenIFS and FESOM2 is handled by OASIS3-MCT version 5, with conservative remapping weights between the OpenIFS reduced-Gaussian grid and the FESOM unstructured triangular mesh generated offline through the AWI ocp-tool workflow and the YAC remapping libraries. The same weights deliver atmospheric forcing onto the regular-Gaussian equivalent grid on which LPJ-GUESS is integrated. Atmosphere to ocean coupling exchanges momentum, freshwater and heat fluxes at sub-daily frequency, with sea ice treated as part of FESOM and not as a separate coupling endpoint. Relative to other coupled configurations of OpenIFS and FESOM2, AWI-ESM3 adds a calving and iceberg freshwater channel, an enthalpy-of-fusion correction at solid-runoff entry, and a prognostic exchange of carbon, water and energy between LPJ-GUESS and HTESSEL through OASIS at the atmospheric coupling step. River runoff is routed on the atmospheric grid before delivery to FESOM coastal points. Where active, ice-shelf cavities exchange heat and freshwater with the ocean through a dedicated cavity-flux interface. Build and configuration of the coupled executable is managed through the AWI fork of esm-tools, allowing reproducible bit-identical restarts across all family members.  How family members differ  Members of AWI-ESM3 differ principally along two axes. The first is the horizontal and vertical resolution of the atmosphere and ocean. The second is the choice of cryosphere and biogeochemistry options inherited from the underlying FESOM2 and FESIM2 components.  The horizontal resolution of the atmosphere is set by the truncation of the OpenIFS reduced-Gaussian grid, and the vertical resolution by the choice of OpenIFS level set. The horizontal resolution of the ocean is set by the choice of FESOM unstructured triangular mesh, whose nominal resolution and pattern of regional refinement are mesh-specific. LPJ-GUESS is integrated on the regular-Gaussian equivalent of whichever OpenIFS truncation is used, so that the vegetation grid matches the native atmospheric resolution in each member. Standard-resolution configurations are built around OpenIFS at TCO95 on 91 vertical levels paired with FESOM meshes whose nominal resolution varies between about 20 and 120 km globally and is refined in the polar oceans and along major boundary currents. High-resolution configurations are built around OpenIFS at TCO319 on 137 vertical levels paired with FESOM meshes whose nominal resolution varies between about 5 and 25 km globally and is refined in the Arctic Ocean and in the Southern Ocean, with additional refinement along the major western boundary currents.  Beyond resolution, members may differ in cryosphere and biogeochemistry options. Activation of ice-shelf cavities, of the explicit iceberg drift and melt module, of ocean biogeochemistry through REcoM, and of transient passive tracer panels for CFCs, SF6, radiocarbon and water isotopes are independent compile- and run-time options that may differ between members. Future members are intended to host an interactive land-ice realm through two-way coupling with the Parallel Ice Sheet Model (PISM), and to expand the role of REcoM as a routinely active ocean-biogeochemistry component. Neither is active in the fast-track CMIP7 submissions but both fall under the AWI-ESM3 family for later contributions.",
+    "collaborative_institutions": [
+        "ec-earth-consortium"
+    ],
+    "established": 2025,
+    "family_type": "model",
+    "primary_institution": "awi",
+    "references": [
+        "https://doi.org/10.5194/gmd-15-6399-2022"
+    ],
+    "representative_member": "AWI-ESM3-4-2",
+    "scientific_domains": [
+        "atmosphere",
+        "land-ice",
+        "land_surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea_ice",
+        "aerosol"
+    ],
+    "website": "https://awi-cm3-documentation.readthedocs.io/en/latest/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "awi-esm3"
+}
