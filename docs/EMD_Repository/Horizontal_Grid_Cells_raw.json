@@ -675,6 +675,30 @@
     "y_resolution": ""
   },
   {
+    "@id": "g150",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 64800,
+    "region": "global",
+    "southernmost_latitude": -89.5,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1 x 1 degree resolution.",
+    "units": "degree",
+    "validation_key": "g150",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": 1
+  },
+  {
     "@id": "g121",
     "@type": [
       "emd",
@@ -868,6 +892,30 @@
     "westernmost_longitude": 0.140625,
     "x_resolution": 0.28125,
     "y_resolution": 0.1875
+  },
+  {
+    "@id": "g149",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "eORCA1 v-grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 119160,
+    "region": "global",
+    "southernmost_latitude": -85.710014,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g149",
+    "westernmost_longitude": 0.290484205,
+    "x_resolution": "",
+    "y_resolution": ""
   },
   {
     "@id": "g146",
@@ -1159,5 +1207,29 @@
     "westernmost_longitude": 0,
     "x_resolution": 1.4,
     "y_resolution": 1.4
+  },
+  {
+    "@id": "g148",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "eORCA1 u-grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 119160,
+    "region": "global",
+    "southernmost_latitude": -85.78911202,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g148",
+    "westernmost_longitude": 0.164726182,
+    "x_resolution": "",
+    "y_resolution": ""
   }
 ]
