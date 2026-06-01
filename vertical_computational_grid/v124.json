@@ -1,0 +1,18 @@
+{
+  "validation_key": "v124",
+  "ui_label": "height grid with 3 levels.",
+  "description": "3-layer thermodynamic grid used by LIM2 sea ice model (1 layer of snow and 2 layers of ice). Dynamics (the momentum equation) treats all of these as a single layer.",
+  "bottom_layer_thickness": "",
+  "n_z": 3,
+  "n_z_range": "",
+  "top_layer_thickness": "",
+  "total_thickness": "",
+  "vertical_coordinate": "height",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v124"
+}
