@@ -305,15 +305,25 @@ body:
         
         </details>
       options:
+        - "aerosol_classic_h102_v106"
         - "aerosol_tactic_h100_v100"
         - "atmosphere_arpege-climat-version-6-3_h100_v100"
         - "atmosphere_canam5-1_h108_v114"
+        - "atmosphere_ifs-cy36r4-l91_h112_v110"
         - "atmosphere_um7.3_h102_v106"
         - "atmospheric-chemistry_reprobus-c-v2-0_h100_v100"
         - "land-surface_surfex-v8-modeling-platform_h100_v101"
+        - "land_surface_cable3_h102_v105"
+        - "land_surface_class-ctem-v3.6.2_h108_v120"
+        - "ocean-biogeochemistry_cmoc_h111_tempgrid_jamesanstey-1777265640"
         - "ocean-biogeochemistry_piscesv2-gas_h101_v102"
+        - "ocean-biogeochemistry_wombatlite_h109_v109"
+        - "ocean_cannemo5-1_h111_tempgrid_jamesanstey-1777265640"
+        - "ocean_mom5_h109_v109"
+        - "ocean_nemo-gosi9_h110_v107"
         - "ocean_nemo-v3-6_h101_v102"
         - "sea-ice_gelato_h101_v103"
+        - "sea_ice_si3-gosi9_h110_v107"
     validations:
       required: true
 
