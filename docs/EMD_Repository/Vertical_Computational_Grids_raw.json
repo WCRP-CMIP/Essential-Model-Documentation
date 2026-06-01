@@ -235,6 +235,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v123",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 20,
+    "description": "Soil layers used by CLASSIC as the land surface component of CanESM6-0-MR",
+    "n_z": 20,
+    "n_z_range": "",
+    "top_layer_thickness": 0.1,
+    "total_thickness": 62,
+    "ui_label": "depth grid with 20 levels.",
+    "validation_key": "v123",
+    "vertical_coordinate": "depth"
+  },
+  {
     "@id": "v118",
     "@type": [
       "wcrp:vertical_computational_grid",
