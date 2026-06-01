@@ -267,6 +267,33 @@
     "y_resolution": ""
   },
   {
+    "@id": "g152",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [
+      "IAP-AGCM",
+      "IAP-HAGCM"
+    ],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 32512,
+    "region": "global",
+    "southernmost_latitude": -89.3,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.4 x 1.4 degree resolution.",
+    "units": "degree",
+    "validation_key": "g152",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.4,
+    "y_resolution": 1.4
+  },
+  {
     "@id": "g123",
     "@type": [
       "emd",
@@ -967,6 +994,33 @@
     "westernmost_longitude": 0,
     "x_resolution": 0.7,
     "y_resolution": 0.7
+  },
+  {
+    "@id": "g151",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [
+      "IAP-AGCM",
+      "IAP-HAGCM"
+    ],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 32768,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.4 x 1.4 degree resolution.",
+    "units": "degree",
+    "validation_key": "g151",
+    "westernmost_longitude": 0.7,
+    "x_resolution": 1.4,
+    "y_resolution": 1.4
   },
   {
     "@id": "g143",
