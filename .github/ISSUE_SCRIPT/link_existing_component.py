@@ -106,11 +106,11 @@ def _file_exists_on_src_data(rel_path: str) -> bool:
         return False
 
 
-def _push_file_to_src_data(rel_path: str, data: dict, author: str = '') -> bool:
+def _push_file_to_src_data(rel_path: str, data: dict, author: str = '', collaborators: list = []) -> bool:
     """
     Write data as JSON to rel_path on the src-data branch and push.
     Switches to src-data before committing so the push target is correct.
-    Commits under the issue submitter's name if provided.
+    Commits under the issue submitter's name, with co-authors for collaborators.
     Returns True on success.
     """
     try:
@@ -132,10 +132,16 @@ def _push_file_to_src_data(rel_path: str, data: dict, author: str = '') -> bool:
     try:
         subprocess.run(['git', 'add', rel_path], check=True, cwd=_WORKSPACE)
 
-        commit_cmd = [
-            'git', 'commit',
-            '-m', f'Add component_config: {os.path.basename(rel_path)}',
-        ]
+        # Build commit message with co-author trailers
+        commit_msg = f'Add component_config: {os.path.basename(rel_path)}'
+        if collaborators:
+            coauthors = '\n'.join(
+                f'Co-authored-by: {c} <{c}@users.noreply.github.com>'
+                for c in collaborators if c
+            )
+            commit_msg += f'\n\n{coauthors}'
+
+        commit_cmd = ['git', 'commit', '-m', commit_msg]
         if author:
             author_str = f'{author} <{author}@users.noreply.github.com>'
             commit_cmd += ['--author', author_str]
@@ -232,7 +238,11 @@ def run(parsed_issue, issue, dry_run=False):
 
     # ── Push directly to src-data ──────────────────────────────────────────
     if not dry_run:
-        ok = _push_file_to_src_data(config_path, config_data, author=issue.get('author', ''))
+        ok = _push_file_to_src_data(
+            config_path, config_data,
+            author=issue.get('author', ''),
+            collaborators=contributors,
+        )
         if ok:
             file_url = f'{_BASE_URL}/component_config/{config_id}.json'
             msg = (
