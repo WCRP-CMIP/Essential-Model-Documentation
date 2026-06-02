@@ -11,7 +11,7 @@
 !!! question ""
 
     For questions or queries, please send an email to [emd@wcrp-cmip.org](mailto:emd@wcrp-cmip.org). 
-    Users will need to [subscribe](Contact_us.html) first.   
+    Users may need to [subscribe](Contact_us.html) first.   
 
 
 
