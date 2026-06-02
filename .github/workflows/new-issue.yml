@@ -73,7 +73,10 @@ jobs:
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Configure Git
-        run: git config --global push.default simple
+        run: |
+          git config --global push.default simple
+          git config --global user.email "cmip-ipo@esa.int"
+          git config --global user.name "CMIP IPO Bot"
         shell: bash
 
       - name: Process issue
