@@ -22,6 +22,7 @@ review — the component and both grids are already approved entries.
 import json
 import os
 import subprocess
+import sys
 
 from cmipld.utils.similarity import ReportBuilder
 
@@ -45,9 +46,27 @@ def _clean(s: str) -> str:
     return (s or '').strip().lower()
 
 
-def _build_config_id(component: str, h_grid: str, v_grid: str) -> str:
-    """Compose the config ID from its three parts, skipping 'not specified'."""
-    parts = [component]
+def _get_component_type(component_id: str) -> str:
+    """Look up the model_component record and return its 'component' field."""
+    rel_path = os.path.join('model_component', f'{component_id}.json')
+    full = os.path.join(_WORKSPACE, rel_path)
+    try:
+        with open(full, encoding='utf-8') as f:
+            data = json.load(f)
+        return data.get('component', '').strip().lower()
+    except Exception as e:
+        print(f'\033[93m  ⚠ Could not read model_component record ({rel_path}): {e}\033[0m', flush=True)
+        return ''
+
+
+def _build_config_id(component_type: str, component: str, h_grid: str, v_grid: str) -> str:
+    """Compose the config ID matching the format from model_component.py:
+       {component_type}_{name_slug}_{h###}_{v###}
+    """
+    parts = []
+    if component_type:
+        parts.append(component_type)
+    parts.append(component)
     if h_grid not in _PLACEHOLDER:
         parts.append(h_grid)
     if v_grid not in _PLACEHOLDER:
@@ -134,7 +153,8 @@ def run(parsed_issue, issue, dry_run=False):
         print('\033[91m  ✗ No model_component selected — cannot proceed.\033[0m', flush=True)
         return None
 
-    config_id   = _build_config_id(component, h_grid, v_grid)
+    component_type = _get_component_type(component)
+    config_id   = _build_config_id(component_type, component, h_grid, v_grid)
     config_path = os.path.join('component_config', f'{config_id}.json')
     issue_num   = issue.get('number') or issue.get('issue_number')
 
@@ -200,6 +220,7 @@ def run(parsed_issue, issue, dry_run=False):
             print(f'\033[92m  ✅ Pushed {config_path} to {_BRANCH}\033[0m', flush=True)
         else:
             print(f'\033[91m  ✗ Push failed — issue left open.\033[0m', flush=True)
+            sys.exit(1)
         return None   # no PR needed; we handled everything directly
     else:
         # dry_run: return the data so callers can inspect it
