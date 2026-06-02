@@ -1,6 +1,10 @@
 # EMD Submission Guide
+!!! tip ""
+	All submission forms are available at **[github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose)**. 
 
-All submission forms are available at **[github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose)**. 
+!!! tip "" 
+	Template spreadsheets for internal collaboration can be found on the [FAQ](../FAQ.md) page.  
+
 
 You will need a free GitHub account to submit — [create one here](https://github.com/signup) if you don't already have one.
 
