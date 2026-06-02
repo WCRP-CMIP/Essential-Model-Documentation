@@ -167,6 +167,17 @@ def _post_comment(issue_number: str | int, body: str):
         print(f'\033[91m  ⚠ Could not post comment: {e}\033[0m', flush=True)
 
 
+def _rename_issue(issue_number: str | int, config_id: str):
+    try:
+        subprocess.run(
+            ['gh', 'issue', 'edit', str(issue_number),
+             '--title', f'| {config_id} | Link Component'],
+            check=True, cwd=_WORKSPACE,
+        )
+    except Exception as e:
+        print(f'\033[91m  ⚠ Could not rename issue: {e}\033[0m', flush=True)
+
+
 def _close_issue(issue_number: str | int):
     try:
         subprocess.run(
@@ -214,6 +225,7 @@ def run(parsed_issue, issue, dry_run=False):
         )
         print(f'\033[93m  ⚠ Duplicate detected — closing issue.\033[0m', flush=True)
         if not dry_run and issue_num:
+            _rename_issue(issue_num, config_id)
             _post_comment(issue_num, msg)
             _close_issue(issue_num)
         return None   # signal to new_issue.py: nothing further to do
@@ -258,6 +270,7 @@ def run(parsed_issue, issue, dry_run=False):
                 f'Use **`{config_id}`** in Stage 4 (Model) under `component_configs`.\n\n'
                 f'_This issue has been closed automatically._'
             )
+            _rename_issue(issue_num, config_id)
             _post_comment(issue_num, msg)
             _close_issue(issue_num)
             print(f'\033[92m  ✅ Pushed {config_path} to {_BRANCH}\033[0m', flush=True)
