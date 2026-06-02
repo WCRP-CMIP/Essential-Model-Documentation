@@ -106,14 +106,14 @@ def _file_exists_on_src_data(rel_path: str) -> bool:
         return False
 
 
-def _push_file_to_src_data(rel_path: str, data: dict) -> bool:
+def _push_file_to_src_data(rel_path: str, data: dict, author: str = '') -> bool:
     """
     Write data as JSON to rel_path on the src-data branch and push.
     Switches to src-data before committing so the push target is correct.
+    Commits under the issue submitter's name if provided.
     Returns True on success.
     """
     try:
-        # Ensure src-data is checked out locally
         subprocess.run(
             ['git', 'checkout', '-B', _BRANCH, f'origin/{_BRANCH}'],
             check=True, cwd=_WORKSPACE, capture_output=True,
@@ -131,10 +131,16 @@ def _push_file_to_src_data(rel_path: str, data: dict) -> bool:
 
     try:
         subprocess.run(['git', 'add', rel_path], check=True, cwd=_WORKSPACE)
-        subprocess.run(
-            ['git', 'commit', '-m', f'Add component_config: {os.path.basename(rel_path)}'],
-            check=True, cwd=_WORKSPACE,
-        )
+
+        commit_cmd = [
+            'git', 'commit',
+            '-m', f'Add component_config: {os.path.basename(rel_path)}',
+        ]
+        if author:
+            author_str = f'{author} <{author}@users.noreply.github.com>'
+            commit_cmd += ['--author', author_str]
+
+        subprocess.run(commit_cmd, check=True, cwd=_WORKSPACE)
         subprocess.run(
             ['git', 'push', 'origin', _BRANCH],
             check=True, cwd=_WORKSPACE,
@@ -171,8 +177,10 @@ def _close_issue(issue_number: str | int):
 
 def run(parsed_issue, issue, dry_run=False):
     component = _clean(parsed_issue.get('model_component') or '')
-    h_grid    = _clean(parsed_issue.get('horizontal_computational_grid') or '')
-    v_grid    = _clean(parsed_issue.get('vertical_computational_grid') or '')
+    h_grid    = _clean(parsed_issue.get('horizontal_grid') or
+                       parsed_issue.get('horizontal_computational_grid') or '')
+    v_grid    = _clean(parsed_issue.get('vertical_grid') or
+                       parsed_issue.get('vertical_computational_grid') or '')
 
     if not component or component in _PLACEHOLDER:
         print('\033[91m  ✗ No model_component selected — cannot proceed.\033[0m', flush=True)
@@ -224,7 +232,7 @@ def run(parsed_issue, issue, dry_run=False):
 
     # ── Push directly to src-data ──────────────────────────────────────────
     if not dry_run:
-        ok = _push_file_to_src_data(config_path, config_data)
+        ok = _push_file_to_src_data(config_path, config_data, author=issue.get('author', ''))
         if ok:
             file_url = f'{_BASE_URL}/component_config/{config_id}.json'
             msg = (
