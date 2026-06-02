@@ -1,0 +1,826 @@
+[
+  {
+    "@id": "http://example.org/esgvoc/horizontal_subgrid",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "horizontal_subgrid"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/g141-mass-velocity-x-velocity-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g125-x-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g134-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g118-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g119-x-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g146-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g128-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g152-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g145-x-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g127-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g102-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g116-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g130-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g144-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g104-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g108-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g100-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g114-mass-velocity-x-velocity-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g110-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g101-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g105-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g103-x-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g108-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g122-mass-x-velocity-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g115-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g126-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g124-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g122-mass"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g132-x-velocity-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g120-divergence-mass-vorticity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g109-x-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g109-y-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g108-x-velocity"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g151-x-velocity"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/component_config",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "component_config"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/aerosol-classic-h102-v106"
+      },
+      {
+        "@id": "http://example.org/esgvoc/atmosphere-arpege-climat-version-6-3-h100-v100"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-biogeochemistry-cmoc-h111-tempgrid-jamesanstey-1777265640"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-nemo-v3-6-h101-v102"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-cannemo5-1-h111-tempgrid-jamesanstey-1777265640"
+      },
+      {
+        "@id": "http://example.org/esgvoc/aerosol-glomap-mode-h113-v115"
+      },
+      {
+        "@id": "http://example.org/esgvoc/atmosphere-canam5-1-h108-v114"
+      },
+      {
+        "@id": "http://example.org/esgvoc/atmosphere-um7.3-h102-v106"
+      },
+      {
+        "@id": "http://example.org/esgvoc/sea-ice-si3-gosi9-h110-v107"
+      },
+      {
+        "@id": "http://example.org/esgvoc/land-surface-surfex-v8-modeling-platform-h100-v101"
+      },
+      {
+        "@id": "http://example.org/esgvoc/sea-ice-gelato-h101-v103"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-nemo-gosi9-h110-v107"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-mom5-h109-v109"
+      },
+      {
+        "@id": "http://example.org/esgvoc/atmosphere-ifs-cy36r4-l91-h112-v110"
+      },
+      {
+        "@id": "http://example.org/esgvoc/land-surface-cable3-h102-v105"
+      },
+      {
+        "@id": "http://example.org/esgvoc/atmospheric-chemistry-reprobus-c-v2-0-h100-v100"
+      },
+      {
+        "@id": "http://example.org/esgvoc/land-surface-class-ctem-v3.6.2-h108-v120"
+      },
+      {
+        "@id": "http://example.org/esgvoc/aerosol-tactic-h100-v100"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-biogeochemistry-piscesv2-gas-h101-v102"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ocean-biogeochemistry-wombatlite-h109-v109"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/model_component",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "model_component"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/glomap-mode"
+      },
+      {
+        "@id": "http://example.org/esgvoc/wombatlite"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ifs-cy36r4-l91"
+      },
+      {
+        "@id": "http://example.org/esgvoc/class-ctem-v3.6.2"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cmoc"
+      },
+      {
+        "@id": "http://example.org/esgvoc/gamil3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/fesim-2-7"
+      },
+      {
+        "@id": "http://example.org/esgvoc/lim2"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cable3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/reprobus-c-v2-0"
+      },
+      {
+        "@id": "http://example.org/esgvoc/tactic"
+      },
+      {
+        "@id": "http://example.org/esgvoc/lpj-guess-4.1"
+      },
+      {
+        "@id": "http://example.org/esgvoc/bisicles-ukesm-ismip6-1.0"
+      },
+      {
+        "@id": "http://example.org/esgvoc/piscesv2-gas"
+      },
+      {
+        "@id": "http://example.org/esgvoc/um7.3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/gelato"
+      },
+      {
+        "@id": "http://example.org/esgvoc/arpege-climat-version-6-3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/si3-gosi9"
+      },
+      {
+        "@id": "http://example.org/esgvoc/classic"
+      },
+      {
+        "@id": "http://example.org/esgvoc/fesom-2.7"
+      },
+      {
+        "@id": "http://example.org/esgvoc/openifs-48r1"
+      },
+      {
+        "@id": "http://example.org/esgvoc/clm4"
+      },
+      {
+        "@id": "http://example.org/esgvoc/nemo-v3-6"
+      },
+      {
+        "@id": "http://example.org/esgvoc/canam5-1"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cannemo5-1"
+      },
+      {
+        "@id": "http://example.org/esgvoc/mom5"
+      },
+      {
+        "@id": "http://example.org/esgvoc/surfex-v8-modeling-platform"
+      },
+      {
+        "@id": "http://example.org/esgvoc/nemo-gosi9"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cice5"
+      },
+      {
+        "@id": "http://example.org/esgvoc/hadam3"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/horizontal_computational_grid",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "horizontal_computational_grid"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/h102"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h101"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h116"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h113"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h108"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h110"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h107"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h111"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h104"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h100"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h109"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h114"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h105"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h103"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h106"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h112"
+      },
+      {
+        "@id": "http://example.org/esgvoc/h115"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/vertical_computational_grid",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "vertical_computational_grid"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/v119"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v121"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v125"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v113"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v111"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v114"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v116"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v122"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v107"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v100"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v103"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v112"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v101"
+      },
+      {
+        "@id": "http://example.org/esgvoc/no-vertical"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v124"
+      },
+      {
+        "@id": "http://example.org/esgvoc/tempgrid-jamesanstey-1777265640"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v123"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v118"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v117"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v102"
+      },
+      {
+        "@id": "http://example.org/esgvoc/tempgrid-jamesanstey-1779329743"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v109"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v120"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v105"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v106"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v104"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v108"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v110"
+      },
+      {
+        "@id": "http://example.org/esgvoc/v115"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/model",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "model"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/cnrm-esm2-1e"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/horizontal_grid_cell",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "horizontal_grid_cell"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/g144"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g111"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g107"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g115"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g130"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g118"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g131"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g134"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g139"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g142"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g119"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g152"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g123"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g136"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g154"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g106"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g125"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g129"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g133"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g100"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g109"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g145"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g127"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g112"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g135"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g108"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g132"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g113"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g147"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g126"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g150"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g121"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g153"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g101"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g128"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g140"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g110"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g103"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g122"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g137"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g149"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g146"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g114"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g151"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g143"
+      },
+      {
+        "@id": "http://example.org/esgvoc/tempgrid-robertsmalcolm-1779467587"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g141"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g124"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g138"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g102"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g120"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g104"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g116"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g117"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g105"
+      },
+      {
+        "@id": "http://example.org/esgvoc/g148"
+      }
+    ]
+  },
+  {
+    "@id": "http://example.org/esgvoc/model_family",
+    "@type": [
+      "http://www.w3.org/2004/02/skos/core#Collection"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "model_family"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#member": [
+      {
+        "@id": "http://example.org/esgvoc/glomap-mode"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ukesm1"
+      },
+      {
+        "@id": "http://example.org/esgvoc/jules"
+      },
+      {
+        "@id": "http://example.org/esgvoc/lpj-guess"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ukcm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/canam"
+      },
+      {
+        "@id": "http://example.org/esgvoc/access-esm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cas-fgoals-g3.5"
+      },
+      {
+        "@id": "http://example.org/esgvoc/fgoals"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cmoc"
+      },
+      {
+        "@id": "http://example.org/esgvoc/icon"
+      },
+      {
+        "@id": "http://example.org/esgvoc/bisicles"
+      },
+      {
+        "@id": "http://example.org/esgvoc/colm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/reprobus"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ifs"
+      },
+      {
+        "@id": "http://example.org/esgvoc/geos"
+      },
+      {
+        "@id": "http://example.org/esgvoc/fesim"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cnrm-cm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/tactic"
+      },
+      {
+        "@id": "http://example.org/esgvoc/hadgem3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/metum"
+      },
+      {
+        "@id": "http://example.org/esgvoc/canesm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/miroc"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cesm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/gelato"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cannemo"
+      },
+      {
+        "@id": "http://example.org/esgvoc/nicam"
+      },
+      {
+        "@id": "http://example.org/esgvoc/hadam"
+      },
+      {
+        "@id": "http://example.org/esgvoc/gfdl"
+      },
+      {
+        "@id": "http://example.org/esgvoc/fesom"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cable"
+      },
+      {
+        "@id": "http://example.org/esgvoc/classic"
+      },
+      {
+        "@id": "http://example.org/esgvoc/class-ctem"
+      },
+      {
+        "@id": "http://example.org/esgvoc/bcc-csm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ipsl-cm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/pisces"
+      },
+      {
+        "@id": "http://example.org/esgvoc/clm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/ec-earth"
+      },
+      {
+        "@id": "http://example.org/esgvoc/mpi-esm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cam"
+      },
+      {
+        "@id": "http://example.org/esgvoc/si3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/gfdl-cm4"
+      },
+      {
+        "@id": "http://example.org/esgvoc/arpege-climat"
+      },
+      {
+        "@id": "http://example.org/esgvoc/awi-esm3"
+      },
+      {
+        "@id": "http://example.org/esgvoc/cas-esm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/nemo"
+      },
+      {
+        "@id": "http://example.org/esgvoc/giss-e"
+      },
+      {
+        "@id": "http://example.org/esgvoc/lim"
+      },
+      {
+        "@id": "http://example.org/esgvoc/surfex"
+      },
+      {
+        "@id": "http://example.org/esgvoc/wombat"
+      },
+      {
+        "@id": "http://example.org/esgvoc/giss-e2"
+      },
+      {
+        "@id": "http://example.org/esgvoc/iap-agcm"
+      },
+      {
+        "@id": "http://example.org/esgvoc/hadcm2"
+      }
+    ]
+  }
+]
