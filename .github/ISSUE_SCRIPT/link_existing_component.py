@@ -47,16 +47,30 @@ def _clean(s: str) -> str:
 
 
 def _get_component_type(component_id: str) -> str:
-    """Look up the model_component record and return its 'component' field."""
-    rel_path = os.path.join('model_component', f'{component_id}.json')
+    """Look up the model_component record from src-data and return its 'component' field."""
+    rel_path = f'model_component/{component_id}.json'
+
+    # Try working tree first (e.g. dry-run with src-data checked out)
     full = os.path.join(_WORKSPACE, rel_path)
+    if os.path.exists(full):
+        try:
+            with open(full, encoding='utf-8') as f:
+                return json.load(f).get('component', '').strip().lower()
+        except Exception:
+            pass
+
+    # Fall back to reading directly from the fetched origin/src-data ref
     try:
-        with open(full, encoding='utf-8') as f:
-            data = json.load(f)
-        return data.get('component', '').strip().lower()
+        result = subprocess.run(
+            ['git', 'show', f'origin/{_BRANCH}:{rel_path}'],
+            capture_output=True, text=True, cwd=_WORKSPACE,
+        )
+        if result.returncode == 0:
+            return json.loads(result.stdout).get('component', '').strip().lower()
     except Exception as e:
-        print(f'\033[93m  ⚠ Could not read model_component record ({rel_path}): {e}\033[0m', flush=True)
-        return ''
+        print(f'\033[93m  ⚠ Could not read {rel_path} from origin/{_BRANCH}: {e}\033[0m', flush=True)
+
+    return ''
 
 
 def _build_config_id(component_type: str, component: str, h_grid: str, v_grid: str) -> str:
@@ -95,8 +109,19 @@ def _file_exists_on_src_data(rel_path: str) -> bool:
 def _push_file_to_src_data(rel_path: str, data: dict) -> bool:
     """
     Write data as JSON to rel_path on the src-data branch and push.
+    Switches to src-data before committing so the push target is correct.
     Returns True on success.
     """
+    try:
+        # Ensure src-data is checked out locally
+        subprocess.run(
+            ['git', 'checkout', '-B', _BRANCH, f'origin/{_BRANCH}'],
+            check=True, cwd=_WORKSPACE, capture_output=True,
+        )
+    except subprocess.CalledProcessError as e:
+        print(f'\033[91m  ✗ Could not checkout {_BRANCH}: {e.stderr.decode().strip()}\033[0m', flush=True)
+        return False
+
     full = os.path.join(_WORKSPACE, rel_path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
 
