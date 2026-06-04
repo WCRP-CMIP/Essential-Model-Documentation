@@ -1,5 +1,29 @@
 [
   {
+    "@id": "g155",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "Extended ORCA12 grid (3604 rows) U-points",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 15569280,
+    "region": "global",
+    "southernmost_latitude": -85.652176,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g155",
+    "westernmost_longitude": 198.4477,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g144",
     "@type": [
       "emd",
