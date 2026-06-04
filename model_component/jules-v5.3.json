@@ -1,0 +1,18 @@
+{
+    "validation_key": "jules-v5.3",
+    "ui_label": "JULES v5.3",
+    "description": "The land surface component simulates physical, hydrological, and biogeochemical processes at the land surface, including exchanges of energy, water, and carbon with the atmosphere.",
+    "code_base": "private",
+    "component": "land_surface",
+    "family": "jules",
+    "references": [
+        "https://doi.org/10.5194/gmd-4-677-2011"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "jules-v5.3"
+}
