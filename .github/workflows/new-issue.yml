@@ -30,6 +30,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: new-issue-${{ github.event.issue.number || inputs.issue_number }}
+  cancel-in-progress: false
+
 jobs:
   process-issue:
     name: Issue${{ github.event.issue.number || inputs.issue_number }} processing
