@@ -15,6 +15,10 @@ on:
   schedule:
     - cron: '0 6 * * *'  # daily at 6am UTC
 
+concurrency:
+  group: issue-templates-write
+  cancel-in-progress: false
+
 jobs:
   update_templates:
     runs-on: ubuntu-latest
