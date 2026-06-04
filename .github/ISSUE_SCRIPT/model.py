@@ -114,6 +114,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@type":          ["emd", "wcrp:model", "esgvoc:Model"],
         "validation_key": source_id,
         "ui_label":       source_id,
+        "name":           source_id,
     }
 
     if family and family.lower() not in ('not specified', 'none', ''):
