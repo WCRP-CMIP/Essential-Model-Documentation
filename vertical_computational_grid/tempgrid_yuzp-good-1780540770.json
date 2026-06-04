@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_yuzp-good-1780540770",
+    "ui_label": "depth grid with 30 levels.",
+    "description": "",
+    "bottom_layer_thickness": 713,
+    "n_z": 30,
+    "n_z_range": "",
+    "top_layer_thickness": 10,
+    "total_thickness": 5600,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-yuzp-good-1780540770"
+}
