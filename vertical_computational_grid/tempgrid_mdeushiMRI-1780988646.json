@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_mdeushiMRI-1780988646",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 100 levels.",
+    "description": "",
+    "bottom_layer_thickness": 16.2,
+    "n_z": 100,
+    "n_z_range": "",
+    "top_layer_thickness": 5806,
+    "total_thickness": 80000,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-mdeushimri-1780988646"
+}
