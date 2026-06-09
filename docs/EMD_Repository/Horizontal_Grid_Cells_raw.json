@@ -465,6 +465,35 @@
     "y_resolution": 0.28125
   },
   {
+    "@id": "g158",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [
+      "IAP-AGCM",
+      "IAP-HAGCM",
+      "0.5-degree",
+      "360x720"
+    ],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 259200,
+    "region": "global",
+    "southernmost_latitude": -89.75,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.5 x 0.5 degree resolution.",
+    "units": "degree",
+    "validation_key": "g158",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.5,
+    "y_resolution": 0.5
+  },
+  {
     "@id": "g133",
     "@type": [
       "emd",
