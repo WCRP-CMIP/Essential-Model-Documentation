@@ -214,6 +214,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     model_path = next((p for p in files_to_write if not p.startswith('_')), None)
     model_data = files_to_write.get(model_path, {}) if model_path else {}
 
+
+
+
     crs_errors = model_data.pop('_crs_errors', [])
     if crs_errors:
         print("\033[91m\n⚠  CRS validation errors:\033[0m", flush=True)
@@ -245,7 +248,10 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         if file_path.startswith('_'):
             continue
         # Strip name if JSONValidator re-injected it
-        data.pop('name', None)
+        # data.pop('name', None)
+        data['name'] = source_id  # ensure name matches validation_key/ui_label
+        
+        
         print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
