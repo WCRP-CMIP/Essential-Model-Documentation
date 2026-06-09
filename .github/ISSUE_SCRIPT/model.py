@@ -209,6 +209,7 @@ def run(parsed_issue, issue, dry_run=False):
     }
 
 
+
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     source_id  = files_to_write.get('_source_id', '')
     model_path = next((p for p in files_to_write if not p.startswith('_')), None)
@@ -250,6 +251,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Strip name if JSONValidator re-injected it
         # data.pop('name', None)
         data['name'] = source_id  # ensure name matches validation_key/ui_label
+        print(data)
         
         
         print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
