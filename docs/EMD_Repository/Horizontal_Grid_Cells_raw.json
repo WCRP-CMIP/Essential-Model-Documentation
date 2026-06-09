@@ -219,6 +219,9 @@
     "y_resolution": 1.4
   },
   {
+    "@id": "tempgrid-crgoddard-1780561023"
+  },
+  {
     "@id": "g139",
     "@type": [
       "emd",
@@ -510,6 +513,30 @@
     "y_resolution": 0.9
   },
   {
+    "@id": "g156",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "eORCA1",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 120184,
+    "region": "global",
+    "southernmost_latitude": -85.71001,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g156",
+    "westernmost_longitude": 0.01147,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g109",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -625,6 +652,30 @@
     "ui_label": "Horizontal grid cell with a tripolar grid type.",
     "units": "./",
     "validation_key": "g135",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
+    "@id": "g157",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "eORCA1",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 120184,
+    "region": "global",
+    "southernmost_latitude": -85.78911,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g157",
     "westernmost_longitude": 0,
     "x_resolution": "",
     "y_resolution": ""
