@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_robertsmalcolm-1779456850",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.28125 x 0.1875 degree resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 1230080,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.140625,
+    "x_resolution": 0.28125,
+    "y_resolution": 0.1875,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-robertsmalcolm-1779456850"
+}
