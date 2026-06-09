@@ -1,0 +1,32 @@
+{
+    "validation_key": "tempgrid_czypku-1780322868",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.5 x 0.5 degree resolution.",
+    "description": "",
+    "alias": [
+        "IAP-AGCM",
+        "IAP-HAGCM",
+        "0.5-degree",
+        "361x720"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 259920,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.25,
+    "x_resolution": 0.5,
+    "y_resolution": 0.5,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-czypku-1780322868"
+}
