@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_robertsmalcolm-1780997675",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g154-mass",
+        "g155-x-velocity",
+        "g153-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-robertsmalcolm-1780997675"
+}
