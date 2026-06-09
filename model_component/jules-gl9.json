@@ -1,0 +1,18 @@
+{
+    "validation_key": "jules-gl9",
+    "ui_label": "JULES-GL9",
+    "description": "JULES is the Joint UK Land Environment Simulator (Best et al. 2011) . This was developed from the Met Office Surface Exchange Scheme (MOSES). It can be used as a stand alone land surface model driven by observed forcing data, or coupled to an atmospheric global circulation model. The configuration used is documented by Willett et al 2026 for GA8 with changes in the calculation of surface albedo to improve agreement with observations and remove the previous scaling to climatology, and the soil hydrology parameterisation to improve drainage to lower soil layers (Rostron et al 2026)",
+    "code_base": "private",
+    "component": "land_surface",
+    "family": "jules",
+    "references": [
+        "https://doi.org/10.5194/gmd-4-677-2011 (Best et al. 2011) https://doi.org/10.5194/gmd-19-1473-2026 (Willett et al 2026) https://doi.org/10.5194/egusphere-2026-1676 (Rostron et al 2026)"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "jules-gl9"
+}
