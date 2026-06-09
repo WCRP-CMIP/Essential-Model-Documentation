@@ -170,6 +170,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v126",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 48,
+    "description": "There are 35 vertical levels from surface (\u03c3=1) to model top at ~41.7 km. Layer thicknesses given are nominal values at reference surface pressure (101325 Pa) and actually vary with surface topography due to the terrain-following property. Used in IAP-AGCM and IAP-HAGCM (CAS-ESM).",
+    "n_z": 35,
+    "n_z_range": "",
+    "top_layer_thickness": 5870,
+    "total_thickness": 41711,
+    "ui_label": "atmosphere-sigma-coordinate grid with 35 levels.",
+    "validation_key": "v126",
+    "vertical_coordinate": "atmosphere-sigma-coordinate"
+  },
+  {
     "@id": "v100",
     "@type": [
       "emd",
