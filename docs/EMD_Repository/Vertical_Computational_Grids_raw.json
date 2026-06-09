@@ -541,5 +541,22 @@
     "ui_label": "atmosphere-hybrid-height-coordinate grid with 85 levels.",
     "validation_key": "v115",
     "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
+  },
+  {
+    "@id": "v127",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 1.5058,
+    "description": "The Vertical Computational Grid for defining soil states in the Common Land Model.",
+    "n_z": 10,
+    "n_z_range": "",
+    "top_layer_thickness": 0.0175,
+    "total_thickness": 3.8019,
+    "ui_label": "depth grid with 10 levels.",
+    "validation_key": "v127",
+    "vertical_coordinate": "depth"
   }
 ]
