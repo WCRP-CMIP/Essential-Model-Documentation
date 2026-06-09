@@ -112,6 +112,7 @@ def run(parsed_issue, issue, dry_run=False):
         "@context":       "_context",
         "@id":            source_id,
         "@type":          ["emd", "wcrp:model", "esgvoc:Model"],
+        "name":           source_id,
         "validation_key": source_id,
         "ui_label":       source_id,
     }
