@@ -98,9 +98,6 @@
     "validation_key": "h110"
   },
   {
-    "@id": "tempgrid-jamesanstey-1780370267"
-  },
-  {
     "@id": "h107",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -129,6 +126,23 @@
     ],
     "ui_label": "",
     "validation_key": "h111"
+  },
+  {
+    "@id": "h117",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g147-mass",
+      "g148-x-velocity",
+      "g149-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h117"
   },
   {
     "@id": "h104",
