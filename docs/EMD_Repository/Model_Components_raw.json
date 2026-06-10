@@ -441,6 +441,21 @@
     "validation_key": "mom5"
   },
   {
+    "@id": "canam5-1-aerosol",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.com/cccma/canam",
+    "component": "aerosol",
+    "description": "Aerosols in CanAM5.1 are parameterized using a prognostic scheme for bulk concentrations of natural and anthropogenic aerosols, including sulfate, black and organic carbon, sea salt, and mineral dust; parameterizations for emissions, transport, gas-phase and aqueous-phase chemistry; and dry and wet deposition account for interactions with simulated meteorology.",
+    "family": "canam",
+    "references": "https://doi.org/10.5194/gmd-12-4823-2019 https://doi.org/10.5194/gmd-16-5427-2023",
+    "ui_label": "CanAM5-1-aerosol",
+    "validation_key": "canam5-1-aerosol"
+  },
+  {
     "@id": "surfex-v8-modeling-platform",
     "@type": [
       "emd",
