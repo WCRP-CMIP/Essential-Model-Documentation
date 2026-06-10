@@ -41,7 +41,9 @@ IGNORE = {
     'references', 'reference_dois',
     'embedded_components',
     'coupling_group_1', 'coupling_group_2', 'coupling_group_3',
-    'coupling_group_4', 'coupling_group_5',
+    'coupling_group_4', 'coupling_group_5', 'coupling_group_6',
+    'coupling_group_7', 'coupling_group_8', 'coupling_group_9',
+    'coupling_group_10',
 }
 
 
@@ -149,7 +151,7 @@ def run(parsed_issue, issue, dry_run=False):
 
     # Coupling groups
     coupling_groups = []
-    for i in range(1, 6):
+    for i in range(1, 11):
         raw = parsed_issue.get(f'coupling_group_{i}', '')
         if raw:
             group = _parse_list(raw, lowercase=True)
