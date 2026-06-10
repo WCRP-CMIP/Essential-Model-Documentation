@@ -49,6 +49,7 @@ body:
         - "bisicles-ukesm-ismip6-1_0"
         - "cable3"
         - "canam5-1"
+        - "canam5-1-aerosol"
         - "cannemo5-1"
         - "cice5"
         - "class-ctem-v3.6.2"
@@ -172,6 +173,7 @@ body:
         - "v126"
         - "v127"
         - "v128"
+        - "v129"
       default: 0
     validations:
       required: true
