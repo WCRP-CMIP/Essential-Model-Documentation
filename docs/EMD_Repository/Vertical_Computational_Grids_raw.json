@@ -371,6 +371,23 @@
     "vertical_coordinate": "ocean-sigma-z-coordinate"
   },
   {
+    "@id": "v129",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 126,
+    "description": "",
+    "n_z": 69,
+    "n_z_range": "",
+    "top_layer_thickness": 4800,
+    "total_thickness": 80000,
+    "ui_label": "atmosphere-sigma-coordinate grid with 69 levels.",
+    "validation_key": "v129",
+    "vertical_coordinate": "atmosphere-sigma-coordinate"
+  },
+  {
     "@id": "tempgrid-jamesanstey-1779329743",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -575,8 +592,5 @@
     "ui_label": "atmosphere hybrid sigma ln pressure coordinate grid with 49 levels.",
     "validation_key": "v128",
     "vertical_coordinate": "atmosphere_hybrid_sigma_ln_pressure_coordinate"
-  },
-  {
-    "@id": "tempgrid-czypku-1780838424"
   }
 ]
