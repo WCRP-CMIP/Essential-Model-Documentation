@@ -60,9 +60,26 @@ def _parse_refs(value) -> list:
     return [v.strip() for v in re.split(r'[,\s]+', str(value)) if v.strip()]
 
 
+# Multi-char arrow separators for embedded-component pairs.  Bare '>' is
+# intentionally absent — it appears inside valid IDs such as 'no-vertical'
+# and 'h114_no-vertical' and cannot be used as a safe split point.
+_ARROW_RE = re.compile(r'\s*(?:->|→|=>|==>)\s*')
+
+
 def _parse_embedded(raw) -> list:
     def _clean(s: str) -> str:
         return re.sub(r'\s*-\s*$', '', s.strip()).strip().lower()
+
+    def _split_pair(item: str):
+        """Return [child, parent] if item contains a recognised separator, else None."""
+        m = _ARROW_RE.search(item)
+        if m:
+            return [_clean(item[:m.start()]), _clean(item[m.end():])]
+        # bare ' - ' (space-dash-space) won't appear inside valid IDs
+        if ' - ' in item:
+            parts = item.split(' - ', 1)
+            return [_clean(parts[0]), _clean(parts[1])]
+        return None
 
     if isinstance(raw, list):
         result = []
@@ -70,15 +87,9 @@ def _parse_embedded(raw) -> list:
             if isinstance(item, list) and len(item) >= 2:
                 result.append([_clean(str(item[0])), _clean(str(item[1]))])
             elif isinstance(item, str):
-                if ' - ' in item:
-                    parts = item.split(' - ', 1)
-                    result.append([_clean(parts[0]), _clean(parts[1])])
-                else:
-                    for sep in ('=', '>', ':'):
-                        if sep in item:
-                            parts = item.split(sep, 1)
-                            result.append([_clean(parts[0]), _clean(parts[1])])
-                            break
+                pair = _split_pair(item)
+                if pair:
+                    result.append(pair)
         return result
 
     if not raw:
@@ -89,16 +100,27 @@ def _parse_embedded(raw) -> list:
         line = line.strip()
         if not line:
             continue
-        if ' - ' in line:
-            parts = line.split(' - ', 1)
-            result.append([_clean(parts[0]), _clean(parts[1])])
-        else:
-            for sep in ('=', '>', ':'):
-                if sep in line:
-                    parts = line.split(sep, 1)
-                    result.append([_clean(parts[0]), _clean(parts[1])])
-                    break
+        pair = _split_pair(line)
+        if pair:
+            result.append(pair)
     return result
+
+
+# Mapping from free-text component names (as typed in the issue form) to the
+# canonical CV slugs expected by _crs.validate / _crs.build.
+_COMPONENT_NORM = {
+    'sea ice':                     'sea_ice',
+    'land surface and subsurface': 'land_surface',
+    'land surface':                'land_surface',
+    'land ice':                    'land_ice',
+    'ocean biogeochemistry':       'ocean_biogeochemistry',
+    'atmospheric chemistry':       'atmospheric_chemistry',
+}
+
+
+def _norm_component(s: str) -> str:
+    sl = s.strip().lower()
+    return _COMPONENT_NORM.get(sl, sl.replace(' ', '_'))
 
 
 def run(parsed_issue, issue, dry_run=False):
@@ -183,9 +205,10 @@ def run(parsed_issue, issue, dry_run=False):
         if k not in data:
             data[k] = []
 
-    # Build and validate CRS
-    dynamic = (data.get('dynamic_components', []) +
-               data.get('prescribed_components', []))
+    # Build and validate CRS — normalise free-text component names to CV slugs first
+    dynamic = [_norm_component(c) for c in
+               (data.get('dynamic_components', []) +
+                data.get('prescribed_components', []))]
     crs_errors = _crs.validate(dynamic, embedded_pairs, coupling_groups)
     if crs_errors:
         for e in crs_errors:
@@ -209,14 +232,10 @@ def run(parsed_issue, issue, dry_run=False):
     }
 
 
-
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     source_id  = files_to_write.get('_source_id', '')
     model_path = next((p for p in files_to_write if not p.startswith('_')), None)
     model_data = files_to_write.get(model_path, {}) if model_path else {}
-
-
-
 
     crs_errors = model_data.pop('_crs_errors', [])
     if crs_errors:
@@ -251,9 +270,6 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Strip name if JSONValidator re-injected it
         # data.pop('name', None)
         data['name'] = source_id  # ensure name matches validation_key/ui_label
-        print(data)
-        
-        
         print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
         try:
             data['_validation_report'] = ReportBuilder(
