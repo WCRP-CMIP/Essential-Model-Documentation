@@ -50,11 +50,9 @@ jobs:
           fetch-depth: 0
 
       # ── Filter labels for use in the status-marker job name ─────────────
-      # Keep only labels that contain '_' (the typed CV labels like
-      # horizontal_grid_cell, model_component, etc.) and explicitly drop
-      # 'pull_req'. This strips noisy bot/state labels (Review, needs-review,
-      # changes-requested, changes-made, emd-submission, approved, ...) so
-      # the run shows just the data-type label that matters at a glance.
+      # Keep CV-type labels: those containing '_' (e.g. horizontal_grid_cell)
+      # OR the short single-word type labels (model, model_family, etc.).
+      # Drops noisy bot/state labels (Review, needs-review, pull_req, ...).
       - name: Filter labels
         id: filter_labels
         env:
@@ -62,11 +60,16 @@ jobs:
         run: |
           FILTERED=$(printf '%s' "${LABELS_JSON:-[]}" | python3 -c "
           import json, sys
+          SINGLE_WORD_TYPES = {'model', 'model_family', 'model_component',
+                               'component_config', 'horizontal_grid_cell',
+                               'vertical_computational_grid',
+                               'horizontal_computational_grid'}
           try:
               labels = json.load(sys.stdin) or []
           except json.JSONDecodeError:
               labels = []
-          kept = [l for l in labels if '_' in l and l != 'pull_req']
+          kept = [l for l in labels
+                  if ('_' in l or l in SINGLE_WORD_TYPES) and l != 'pull_req']
           print('|'.join(kept))
           ")
           echo "filtered=$FILTERED" >> "$GITHUB_OUTPUT"
