@@ -1,36 +1,22 @@
 [
   {
-    "@id": "glomap-mode",
+    "@id": "bisicles-ukesm-ismip6-1.0",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
-    "code_base": "private",
-    "component": "aerosol",
-    "description": "GLOMAP-mode is the Global Model of Aerosol Processes, a modal global aerosol microphysics model for UKCA. GLOMAP-mode simulates the multi-component global aerosol, resolving sulfate, sea-salt, dust, black carbon (BC) and particulate organic matter (POM), the latter including primary and biogenic secondary POM. Aerosol processes are simulated in a size-resolved manner including primary emissions, secondary particle formation by binary homogeneous nucleation of sulfuric acid and water, particle growth by coagulation, condensation and cloud-processing and removal by dry deposition, in-cloud and below-cloud scavenging.",
-    "family": "glomap-mode",
-    "references": "https://doi.org/10.5194/gmd-3-519-2010",
-    "ui_label": "GLOMAP-mode",
-    "validation_key": "glomap-mode"
+    "code_base": "none",
+    "component": "land-ice",
+    "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
+    "family": "bisicles",
+    "name": "BISICLES-UKESM-ISMIP6-1.0",
+    "references": "https://doi.org/10.1029/2021MS002520",
+    "ui_label": "",
+    "validation_key": "bisicles-ukesm-ismip6-1_0"
   },
   {
-    "@id": "wombatlite",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://doi.org/10.5281/zenodo.17180330",
-    "component": "ocean-biogeochemistry",
-    "description": "The World Ocean Model of Biogeochemistry And Trophic-dynamics (WOMBAT) is based on a NPZD (nutrient\u2013phytoplankton\u2013zooplankton\u2013detritus) model. The \"lite\" version of WOMBAT includes one class each of phytoplankton, zooplankton and sinking detritus, as well as nitrate (NO3), bio-available iron (Fe), dissolved inorganic carbon (DIC), calcium carbonate (CaCO3), alkalinity (ALK), and oxygen (O2). Fe is carried through the zooplankton and detrital pools as well. Gas exchange follows OCMIP2 protocols.",
-    "family": "wombat",
-    "references": "https://doi.org/10.5194/bg-22-5349-2025",
-    "ui_label": "WOMBATlite",
-    "validation_key": "wombatlite"
-  },
-  {
-    "@id": "ifs-cy36r4-l91",
+    "@id": "gamil3",
     "@type": [
       "emd",
       "wcrp:model_component",
@@ -38,26 +24,42 @@
     ],
     "code_base": "private",
     "component": "atmosphere",
-    "description": "The **IFS atmospheric** component is based on a hydrostatic, semi-Lagrangian, semi-implicit dynamical core withcomputations alternated between spectral and reduced Gaussian grid-point representations at each time step. Thevertical discretization is based on a hybrid sigma-pressurecoordinate which is solved by using a finite-element scheme.\u00a0Subgridscale processes are parameterized in terms of the resolvedvariables and include representations of a\u00a0**Radiation Scheme**\u00a0(A Rapid Radiative Transfer Model for shortwave and longwave radiation, including gas, cloud, and aerosol interactions, which is critical for accurate surface and atmospheric heating rates;\u00a0[Morcrette et al., 2008](https://journals.ametsoc.org/view/journals/mwre/136/12/2008mwr2363.1.pdf)), a\u00a0**Convection Scheme**\u00a0(A mass-flux approach that represents deep and shallow convection, including convective momentum transport. It improves precipitation timing and intensity and is crucial for tropical and mid-latitude weather;\u00a0[Bechtold et al., 2008](https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/qj.289)), a\u00a0**Cloud Microphysics Scheme**\u00a0(A prognostic treatment of cloud liquid, ice, rain, snow, and graupel with detailed microphysical processes. It improves cloud cover and precipitation representation, including mixed-phase clouds;\u00a0[Forbes and Tompkins, 2011](https://www.ecmwf.int/sites/default/files/elibrary/2011/17431-improved-representation-cloud-and-precipitation.pdf)), a\u00a0**Turbulence and Boundary Layer Scheme** (Parameterizing the turbulent mixing in the planetary boundary layer, including non-local and local mixing processes. It influences the near-surface weather elements like temperature, humidity, and wind;\u00a0[K\u00f6hler et al., 2011](https://doi.org/10.1002/qj.713)), subgrid-scale orographic drag ([Beljaars et al., 2004](https://rmets.onlinelibrary.wiley.com/doi/abs/10.1256/qj.03.73)), and non-orographicgravity wave drag (Orr et al., 2010). See e.g.\u00a0[Roberts et al.](https://gmd.copernicus.org/articles/11/3681/2018/) (2018, section 2.1).  The\u00a0**Land Surface Scheme**\u00a0in\u00a0**HTESSEL**\u00a0represents vertical transfers of water and energy using four vertical layers to represent soil temperature and moisture. The model evaluates the land surface response to the atmospheric forcing and estimates the surface water and energy fluxes along with the temporal evolution of the snowpack, soil temperature, and moisture. At the interface between the surface and the atmosphere, each grid box is divided into fractions (tiles), with up to six fractions over land (bare ground, low and high vegetation, intercepted water, shaded and exposed snow). Each fraction has its own properties defining separate heat and water fluxes used in the energy-balance equation solved for the tile skin temperature. The snow scheme in HTESSEL is an energy- and mass-balance model that represents an additional layer on top of the upper soil layer, with independent prognostic thermal and mass contents. See\u00a0[Dutra et al.](https://doi.org/10.1175/2010JHM1249.1)\u00a0(2010, section2).",
-    "family": "ifs",
-    "references": "https://gmd.copernicus.org/articles/15/2973/2022/  https://www.ecmwf.int/en/elibrary/74349-ifs-documentation-cy36r1-part-iii-dynamics-and-numerical-procedures https://www.ecmwf.int/en/elibrary/74350-ifs-documentation-cy36r1-part-iv-physical-processes",
-    "ui_label": "IFS cy36r4 L91",
-    "validation_key": "ifs-cy36r4-l91"
+    "description": "GAMIL3 is the atmospheric component of the FGOALS-g3.5 coupled climate system model, developed by the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). 1.  Main processes simulated: - Global atmospheric circulation, including large-scale dynamics, and radiation processes. - Full treatment of moist convection, boundary layer processes, and cloud microphysics. 2.  Key physics/parameterizations: - Updated Zhang-McFarlane convection scheme with modifications for tropical convection. - Improved two-moment cloud microphysics and boundary layer turbulence scheme. - Hybrid sigma-pressure vertical coordinates with 26 levels up to ~2.194 hPa (42 km). 3.  Notable features: - Uses a 2.0\u00b0 \u00d7 2.0\u00b0 regular latitude-longitude grid in the horizontal. - Coupled to the CAS-LSM land model, LICOM3 ocean model, and Los Alamos sea ice model within FGOALS-g3.5. - Optimized for long-term climate simulations and CMIP7 experiments. - The freshwater exchange process between river model and the ocean model employs the nearest mapping method rather than the area conservative mapping method, as the former ensures that the ocean sufficiently receives the riverine freshwater input.",
+    "family": "./",
+    "references": "https://doi.org/10.1029/2020JD032574",
+    "ui_label": "GAMIL3",
+    "validation_key": "gamil3"
   },
   {
-    "@id": "jules-gl9",
+    "@id": "lim2",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "",
+    "component": "sea_ice",
+    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography (https://www.cmcc.it/models/lim).  The LIM2 sea-ice model with parameters adjusted was used in CanESM5 (Swart et al. 2019, https://doi.org/10.5194/gmd-12-4823-2019)",
+    "family": "lim",
+    "references": "https://doi.org/10.1016/j.ocemod.2009.01.004",
+    "ui_label": "LIM2",
+    "validation_key": "lim2"
+  },
+  {
+    "@id": "arpege-climat-version-6-3",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
     "code_base": "private",
-    "component": "land_surface",
-    "description": "JULES is the Joint UK Land Environment Simulator (Best et al. 2011) . This was developed from the Met Office Surface Exchange Scheme (MOSES). It can be used as a stand alone land surface model driven by observed forcing data, or coupled to an atmospheric global circulation model. The configuration used is documented by Willett et al 2026 for GA8 with changes in the calculation of surface albedo to improve agreement with observations and remove the previous scaling to climatology, and the soil hydrology parameterisation to improve drainage to lower soil layers (Rostron et al 2026)",
-    "family": "jules",
-    "references": "https://doi.org/10.5194/gmd-4-677-2011 (Best et al. 2011) https://doi.org/10.5194/gmd-19-1473-2026 (Willett et al 2026) https://doi.org/10.5194/egusphere-2026-1676 (Rostron et al 2026)",
-    "ui_label": "JULES-GL9",
-    "validation_key": "jules-gl9"
+    "component": "atmosphere",
+    "description": "ARPEGE-Climat Version 6.3 is the atmospheric component of the CNRM climate and Earth System models (CNRM-CM6-1 and CNRM-ESM2-1).",
+    "family": "arpege-climat",
+    "name": "Arpege-Climat Version 6.3",
+    "references": "https://doi.org/10.1029/2020MS002075",
+    "ui_label": "",
+    "validation_key": "arpege-climat_version_6_3"
   },
   {
     "@id": "class-ctem-v3.6.2",
@@ -90,7 +92,7 @@
     "validation_key": "cmoc"
   },
   {
-    "@id": "gamil3",
+    "@id": "ifs-cy36r4-l91",
     "@type": [
       "emd",
       "wcrp:model_component",
@@ -98,11 +100,26 @@
     ],
     "code_base": "private",
     "component": "atmosphere",
-    "description": "GAMIL3 is the atmospheric component of the FGOALS-g3.5 coupled climate system model, developed by the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). 1.  Main processes simulated: - Global atmospheric circulation, including large-scale dynamics, and radiation processes. - Full treatment of moist convection, boundary layer processes, and cloud microphysics. 2.  Key physics/parameterizations: - Updated Zhang-McFarlane convection scheme with modifications for tropical convection. - Improved two-moment cloud microphysics and boundary layer turbulence scheme. - Hybrid sigma-pressure vertical coordinates with 26 levels up to ~2.194 hPa (42 km). 3.  Notable features: - Uses a 2.0\u00b0 \u00d7 2.0\u00b0 regular latitude-longitude grid in the horizontal. - Coupled to the CAS-LSM land model, LICOM3 ocean model, and Los Alamos sea ice model within FGOALS-g3.5. - Optimized for long-term climate simulations and CMIP7 experiments. - The freshwater exchange process between river model and the ocean model employs the nearest mapping method rather than the area conservative mapping method, as the former ensures that the ocean sufficiently receives the riverine freshwater input.",
-    "family": "./",
-    "references": "https://doi.org/10.1029/2020JD032574",
-    "ui_label": "GAMIL3",
-    "validation_key": "gamil3"
+    "description": "The **IFS atmospheric** component is based on a hydrostatic, semi-Lagrangian, semi-implicit dynamical core withcomputations alternated between spectral and reduced Gaussian grid-point representations at each time step. Thevertical discretization is based on a hybrid sigma-pressurecoordinate which is solved by using a finite-element scheme.\u00a0Subgridscale processes are parameterized in terms of the resolvedvariables and include representations of a\u00a0**Radiation Scheme**\u00a0(A Rapid Radiative Transfer Model for shortwave and longwave radiation, including gas, cloud, and aerosol interactions, which is critical for accurate surface and atmospheric heating rates;\u00a0[Morcrette et al., 2008](https://journals.ametsoc.org/view/journals/mwre/136/12/2008mwr2363.1.pdf)), a\u00a0**Convection Scheme**\u00a0(A mass-flux approach that represents deep and shallow convection, including convective momentum transport. It improves precipitation timing and intensity and is crucial for tropical and mid-latitude weather;\u00a0[Bechtold et al., 2008](https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/qj.289)), a\u00a0**Cloud Microphysics Scheme**\u00a0(A prognostic treatment of cloud liquid, ice, rain, snow, and graupel with detailed microphysical processes. It improves cloud cover and precipitation representation, including mixed-phase clouds;\u00a0[Forbes and Tompkins, 2011](https://www.ecmwf.int/sites/default/files/elibrary/2011/17431-improved-representation-cloud-and-precipitation.pdf)), a\u00a0**Turbulence and Boundary Layer Scheme** (Parameterizing the turbulent mixing in the planetary boundary layer, including non-local and local mixing processes. It influences the near-surface weather elements like temperature, humidity, and wind;\u00a0[K\u00f6hler et al., 2011](https://doi.org/10.1002/qj.713)), subgrid-scale orographic drag ([Beljaars et al., 2004](https://rmets.onlinelibrary.wiley.com/doi/abs/10.1256/qj.03.73)), and non-orographicgravity wave drag (Orr et al., 2010). See e.g.\u00a0[Roberts et al.](https://gmd.copernicus.org/articles/11/3681/2018/) (2018, section 2.1).  The\u00a0**Land Surface Scheme**\u00a0in\u00a0**HTESSEL**\u00a0represents vertical transfers of water and energy using four vertical layers to represent soil temperature and moisture. The model evaluates the land surface response to the atmospheric forcing and estimates the surface water and energy fluxes along with the temporal evolution of the snowpack, soil temperature, and moisture. At the interface between the surface and the atmosphere, each grid box is divided into fractions (tiles), with up to six fractions over land (bare ground, low and high vegetation, intercepted water, shaded and exposed snow). Each fraction has its own properties defining separate heat and water fluxes used in the energy-balance equation solved for the tile skin temperature. The snow scheme in HTESSEL is an energy- and mass-balance model that represents an additional layer on top of the upper soil layer, with independent prognostic thermal and mass contents. See\u00a0[Dutra et al.](https://doi.org/10.1175/2010JHM1249.1)\u00a0(2010, section2).",
+    "family": "ifs",
+    "references": "https://gmd.copernicus.org/articles/15/2973/2022/  https://www.ecmwf.int/en/elibrary/74349-ifs-documentation-cy36r1-part-iii-dynamics-and-numerical-procedures https://www.ecmwf.int/en/elibrary/74350-ifs-documentation-cy36r1-part-iv-physical-processes",
+    "ui_label": "IFS cy36r4 L91",
+    "validation_key": "ifs-cy36r4-l91"
+  },
+  {
+    "@id": "canam5-1",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.com/cccma/canam",
+    "component": "atmosphere",
+    "description": "CanAM5.1 (T63L49 native atmosphere, T63 Linear Gaussian Grid; 128 x 64 longitude/latitude; 49 levels; top level 1 hPa.  Aerosols are parameterized using a prognostic scheme for bulk concentrations of natural and anthropogenic aerosols, including sulfate, black and organic carbon, sea salt, and mineral dust; parameterizations for emissions, transport, gas-phase and aqueous-phase chemistry; and dry and wet deposition account for interactions with simulated meteorology.",
+    "family": "canam",
+    "references": "https://doi.org/10.5194/gmd-16-5427-2023",
+    "ui_label": "CanAM5-1",
+    "validation_key": "canam5-1"
   },
   {
     "@id": "fesim-2-7",
@@ -120,19 +137,81 @@
     "validation_key": "fesim-2-7"
   },
   {
-    "@id": "lim2",
+    "@id": "co2box-v1-0",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
     "code_base": "",
-    "component": "sea_ice",
-    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography (https://www.cmcc.it/models/lim).  The LIM2 sea-ice model with parameters adjusted was used in CanESM5 (Swart et al. 2019, https://doi.org/10.5194/gmd-12-4823-2019)",
-    "family": "lim",
-    "references": "https://doi.org/10.1016/j.ocemod.2009.01.004",
-    "ui_label": "LIM2",
-    "validation_key": "lim2"
+    "component": "atmospheric-chemistry",
+    "description": "The co2box v1.0 is a simple CO2 box model with just one global grid point.",
+    "family": "./",
+    "references": "A description paper for the EC-Earth3-ESM-1 model configuration is in preparation (submission medio 2026).",
+    "ui_label": "co2box-v1-0",
+    "validation_key": "co2box-v1-0"
+  },
+  {
+    "@id": "gelato",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "sea-ice",
+    "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean.",
+    "family": "gelato",
+    "name": "GELATO",
+    "references": "https://doi.org/10.1029/2019MS001683",
+    "ui_label": "",
+    "validation_key": "gelato"
+  },
+  {
+    "@id": "wombatlite",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://doi.org/10.5281/zenodo.17180330",
+    "component": "ocean-biogeochemistry",
+    "description": "The World Ocean Model of Biogeochemistry And Trophic-dynamics (WOMBAT) is based on a NPZD (nutrient\u2013phytoplankton\u2013zooplankton\u2013detritus) model. The \"lite\" version of WOMBAT includes one class each of phytoplankton, zooplankton and sinking detritus, as well as nitrate (NO3), bio-available iron (Fe), dissolved inorganic carbon (DIC), calcium carbonate (CaCO3), alkalinity (ALK), and oxygen (O2). Fe is carried through the zooplankton and detrital pools as well. Gas exchange follows OCMIP2 protocols.",
+    "family": "wombat",
+    "references": "https://doi.org/10.5194/bg-22-5349-2025",
+    "ui_label": "WOMBATlite",
+    "validation_key": "wombatlite"
+  },
+  {
+    "@id": "classic",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "aerosol",
+    "description": "The aerosol module is the Coupled Large-scale Aerosol Simulator for Studies In Climate (CLASSIC) as in HadGEM2 (Bellouin et al., 2011). It represents tropospheric aerosol species:  sulphate, mineral dust, sea salt, fossil fuel black carbon, fossil fuel organic carbon, biomass burning aerosols, secondary organic (also called biogenic) aerosols. Emissions of mineral dust and sea salt are interactive. Emissions for other species or their precursors are prescribed. Transported species experience boundary layer and convective mixing and are removed by dry and wet deposition.",
+    "family": "./",
+    "references": "https://doi.org/10.1029/2011JD016074",
+    "ui_label": "CLASSIC",
+    "validation_key": "classic"
+  },
+  {
+    "@id": "hadam3",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "none",
+    "component": "atmosphere",
+    "description": "HadAM3 is the atmospheric component of HadCM3, a coupled atmosphere-ocean general circulation model developed at the UK Met Office Hadley Centre.",
+    "family": "hadam",
+    "name": "HadAM3",
+    "references": [],
+    "ui_label": "",
+    "validation_key": "hadam3"
   },
   {
     "@id": "cable3",
@@ -155,84 +234,6 @@
     "validation_key": "cable3"
   },
   {
-    "@id": "reprobus-c-v2-0",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "atmospheric-chemistry",
-    "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
-    "family": "reprobus",
-    "name": "REPROBUS-C (v2.0)",
-    "references": "https://doi.org/10.1029/2019MS001816",
-    "ui_label": "",
-    "validation_key": "reprobus-c_v2_0"
-  },
-  {
-    "@id": "tactic",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "aerosol",
-    "description": "TACTIC (Tropospheric Aerosols for ClimaTe In CNRM) is an interactive tropospheric aerosol scheme, able to represent the main anthropogenic and natural aerosol types in the troposphere.",
-    "family": "tactic",
-    "name": "TACTIC",
-    "references": "https://doi.org/10.1029/2019MS001816",
-    "ui_label": "",
-    "validation_key": "tactic"
-  },
-  {
-    "@id": "lpj-guess-4.1",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "land_surface",
-    "description": "1. Main processes simulated (additions only) Adds methane emissions from natural wetlands and peatlands as a standard feature, lifting them from earlier branch-only configurations into the main release. Emissions of nitrogen-based trace gases (N\u2082O, NO, NH\u2083) from soils are simulated in the coupled C\u2013N cycle.  2. Key physics / parameterisations (new or upgraded) New process-based wildfire scheme as the default fire module, replacing the previous simpler default. Peatland-specific plant functional types and a dedicated peatland hydrology integrated into the main code path. Multi-layer soil temperature and freeze\u2013thaw scheme available in the standard configuration, enabling permafrost dynamics outside the dedicated arctic branches. Soil nitrogen chemistry extended to support consistent trace-gas production alongside leaching and plant\u2013microbial competition.  3. Notable features of this version First release of LPJ-GUESS, available directly from the project website. Consolidates previously branch-specific developments (high-latitude soil physics, methane, advanced fire) into a single, supported mainline code base.",
-    "family": "lpj-guess",
-    "references": "https://doi.org/10.5281/zenodo.8065736",
-    "ui_label": "LPJ-Guess 4.1",
-    "validation_key": "lpj-guess-4.1"
-  },
-  {
-    "@id": "bisicles-ukesm-ismip6-1.0",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "none",
-    "component": "land-ice",
-    "description": "UniCiCles (Unified Model-CISM-BISICLES) is a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data.",
-    "family": "bisicles",
-    "name": "BISICLES-UKESM-ISMIP6-1.0",
-    "references": "https://doi.org/10.1029/2021MS002520",
-    "ui_label": "",
-    "validation_key": "bisicles-ukesm-ismip6-1_0"
-  },
-  {
-    "@id": "co2box-v1-0",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "",
-    "component": "atmospheric-chemistry",
-    "description": "The co2box v1.0 is a simple CO2 box model with just one global grid point.",
-    "family": "./",
-    "references": "A description paper for the EC-Earth3-ESM-1 model configuration is in preparation (submission medio 2026).",
-    "ui_label": "co2box-v1-0",
-    "validation_key": "co2box-v1-0"
-  },
-  {
     "@id": "piscesv2-gas",
     "@type": [
       "emd",
@@ -253,98 +254,6 @@
     "validation_key": "piscesv2-gas"
   },
   {
-    "@id": "um7.3",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "atmosphere",
-    "description": "The model represents atmospheric circulation and includes submodels for radiation, cloud microphysics, convection and boundary layer processes. The atmosphere configuration is as used for ACCESS-ESM1.5 (Ziehn et al., 2020) with a minor change to convective momentum transport and is similar to the atmosphere configuration of HADGEM2 (r1.0) (The HadGEM2 Development Team, 2011 ) but with the PC2 cloud scheme as for HADGEM2 (r1.1) (Hewitt et al, 2011).",
-    "family": "hadam",
-    "references": "https://doi.org/10.1071/ES19035 https://doi.org/10.5194/gmd-4-723-2011 https://doi.org/10.5194/gmd-4-223-2011",
-    "ui_label": "UM7.3",
-    "validation_key": "um7.3"
-  },
-  {
-    "@id": "gelato",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "sea-ice",
-    "description": "Global Experimental Leads and sea ice for ATmosphere and Ocean.",
-    "family": "gelato",
-    "name": "GELATO",
-    "references": "https://doi.org/10.1029/2019MS001683",
-    "ui_label": "",
-    "validation_key": "gelato"
-  },
-  {
-    "@id": "arpege-climat-version-6-3",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "atmosphere",
-    "description": "ARPEGE-Climat Version 6.3 is the atmospheric component of the CNRM climate and Earth System models (CNRM-CM6-1 and CNRM-ESM2-1).",
-    "family": "arpege-climat",
-    "name": "Arpege-Climat Version 6.3",
-    "references": "https://doi.org/10.1029/2020MS002075",
-    "ui_label": "",
-    "validation_key": "arpege-climat_version_6_3"
-  },
-  {
-    "@id": "si3-gosi9",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://doi.org/10.5281/zenodo.13814369",
-    "component": "sea_ice",
-    "description": "UK global sea-ice configuration of the SI3 model",
-    "family": "si3",
-    "references": "https://doi.org/10.5194/gmd-17-6799-2024",
-    "ui_label": "SI3-GOSI9",
-    "validation_key": "si3-gosi9"
-  },
-  {
-    "@id": "classic",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "aerosol",
-    "description": "The aerosol module is the Coupled Large-scale Aerosol Simulator for Studies In Climate (CLASSIC) as in HadGEM2 (Bellouin et al., 2011). It represents tropospheric aerosol species:  sulphate, mineral dust, sea salt, fossil fuel black carbon, fossil fuel organic carbon, biomass burning aerosols, secondary organic (also called biogenic) aerosols. Emissions of mineral dust and sea salt are interactive. Emissions for other species or their precursors are prescribed. Transported species experience boundary layer and convective mixing and are removed by dry and wet deposition.",
-    "family": "./",
-    "references": "https://doi.org/10.1029/2011JD016074",
-    "ui_label": "CLASSIC",
-    "validation_key": "classic"
-  },
-  {
-    "@id": "fesom-2.7",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.7.0",
-    "component": "ocean",
-    "description": "1. Main processes simulated (additions only) Adds an explicit iceberg drift-and-melt module (with wave-induced erosion) that can run together with active ice-shelf cavities. Transient passive tracers (CFCs, SF6, radiocarbon) and water isotopes (\u03b418O, \u03b4D) are supported as production features, including consistent cold-start and land-ice flux handling.  2. Key physics / parameterisations (new or upgraded) Combined harmonic + biharmonic momentum viscosity as a single namelist-selectable closure. Dynamic kinetic-energy backscatter, including advection of the unresolved-eddy-kinetic-energy variable. Restructured CVmix interface, unified across vertical-mixing branches. Hardened ice-shelf cavity treatment: rigid-lid/free-surface consistency, water-flux closure, and vertical-velocity reset for the CFLz check. Updated global-tides module.  3. Notable features of this version First phase of OpenACC port: the dynamical core can run on GPUs alongside the existing MPI CPU path. CMIP7-oriented diagnostics via ldiag_cmor, producing 0-dimensional global diagnostics with one file per simulated year. MultIO 2.6 output back-end, providing asynchronous parallel I/O in addition to the native and XIOS paths. Coupled-system robustness for IFS-based configurations: reproducibility under frequent restarts, corrected wind coupling, reworked calving/enthalpy logic, and reduced coupling memory footprint. Build & test infrastructure: ecbundle support, separable mesh-partitioner build, multi-environment CI, ctest regression tests including cavity and iceberg setups, and auto-download of standard test meshes.",
-    "family": "fesom",
-    "references": "https://doi.org/10.5194/gmd-10-765-2017 https://doi.org/10.5194/gmd-12-4875-2019 https://doi.org/10.5194/gmd-15-335-2022 https://doi.org/10.5194/gmd-12-3991-2019",
-    "ui_label": "FESOM 2.7",
-    "validation_key": "fesom-2.7"
-  },
-  {
     "@id": "openifs-48r1",
     "@type": [
       "emd",
@@ -360,51 +269,51 @@
     "validation_key": "openifs-48r1"
   },
   {
-    "@id": "clm4",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "none",
-    "component": "land-surface",
-    "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
-    "family": "clm",
-    "name": "CLM4",
-    "references": "https://doi.org/10.5194/gmd-5-1341-2012",
-    "ui_label": "",
-    "validation_key": "clm4"
-  },
-  {
-    "@id": "nemo-v3-6",
+    "@id": "reprobus-c-v2-0",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
     "code_base": "private",
-    "component": "ocean",
-    "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
-    "family": "nemo",
-    "name": "NEMO v3.6",
-    "references": "https://doi.org/10.1029/2019MS001791",
+    "component": "atmospheric-chemistry",
+    "description": "The chemistry scheme of CNRM-ESM2 is an on-line scheme whereby the chemistry routines are part of the physics of the atmospheric climate model.",
+    "family": "reprobus",
+    "name": "REPROBUS-C (v2.0)",
+    "references": "https://doi.org/10.1029/2019MS001816",
     "ui_label": "",
-    "validation_key": "nemo_v3_6"
+    "validation_key": "reprobus-c_v2_0"
   },
   {
-    "@id": "canam5-1",
+    "@id": "nemo-gosi9",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
-    "code_base": "https://gitlab.com/cccma/canam",
-    "component": "atmosphere",
-    "description": "CanAM5.1 (T63L49 native atmosphere, T63 Linear Gaussian Grid; 128 x 64 longitude/latitude; 49 levels; top level 1 hPa.  Aerosols are parameterized using a prognostic scheme for bulk concentrations of natural and anthropogenic aerosols, including sulfate, black and organic carbon, sea salt, and mineral dust; parameterizations for emissions, transport, gas-phase and aqueous-phase chemistry; and dry and wet deposition account for interactions with simulated meteorology.",
-    "family": "canam",
-    "references": "https://doi.org/10.5194/gmd-16-5427-2023",
-    "ui_label": "CanAM5-1",
-    "validation_key": "canam5-1"
+    "code_base": "https://doi.org/10.5281/zenodo.13814369",
+    "component": "ocean",
+    "description": "UK physical global ocean configuration of the NEMO model",
+    "family": "nemo",
+    "references": "https://doi.org/10.5194/gmd-18-377-2025",
+    "ui_label": "NEMO-GOSI9",
+    "validation_key": "nemo-gosi9"
+  },
+  {
+    "@id": "tactic",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "aerosol",
+    "description": "TACTIC (Tropospheric Aerosols for ClimaTe In CNRM) is an interactive tropospheric aerosol scheme, able to represent the main anthropogenic and natural aerosol types in the troposphere.",
+    "family": "tactic",
+    "name": "TACTIC",
+    "references": "https://doi.org/10.1029/2019MS001816",
+    "ui_label": "",
+    "validation_key": "tactic"
   },
   {
     "@id": "cannemo5-1",
@@ -441,40 +350,66 @@
     "validation_key": "mom5"
   },
   {
-    "@id": "surfex-v8-modeling-platform",
+    "@id": "clm4",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
-    "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
+    "code_base": "none",
     "component": "land-surface",
-    "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
-    "family": "surfex",
-    "name": "SURFEX v8 modeling platform",
-    "references": [
-      "https://doi.org/10.1029/2018MS001545",
-      "https://doi.org/10.1029/2019MS001886",
-      "https://doi.org/10.3402/tellusa.v68.31274",
-      "https://doi.org/10.5194/gmd-10-4207-2017"
-    ],
+    "description": "The Community Land Model represents several aspects of the land surface including surface heterogeneity through a nested subgrid hierarchy.",
+    "family": "clm",
+    "name": "CLM4",
+    "references": "https://doi.org/10.5194/gmd-5-1341-2012",
     "ui_label": "",
-    "validation_key": "surfex_v8_modeling_platform"
+    "validation_key": "clm4"
   },
   {
-    "@id": "nemo-gosi9",
+    "@id": "fesom-2.7",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
-    "code_base": "https://doi.org/10.5281/zenodo.13814369",
+    "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.7.0",
     "component": "ocean",
-    "description": "UK physical global ocean configuration of the NEMO model",
+    "description": "1. Main processes simulated (additions only) Adds an explicit iceberg drift-and-melt module (with wave-induced erosion) that can run together with active ice-shelf cavities. Transient passive tracers (CFCs, SF6, radiocarbon) and water isotopes (\u03b418O, \u03b4D) are supported as production features, including consistent cold-start and land-ice flux handling.  2. Key physics / parameterisations (new or upgraded) Combined harmonic + biharmonic momentum viscosity as a single namelist-selectable closure. Dynamic kinetic-energy backscatter, including advection of the unresolved-eddy-kinetic-energy variable. Restructured CVmix interface, unified across vertical-mixing branches. Hardened ice-shelf cavity treatment: rigid-lid/free-surface consistency, water-flux closure, and vertical-velocity reset for the CFLz check. Updated global-tides module.  3. Notable features of this version First phase of OpenACC port: the dynamical core can run on GPUs alongside the existing MPI CPU path. CMIP7-oriented diagnostics via ldiag_cmor, producing 0-dimensional global diagnostics with one file per simulated year. MultIO 2.6 output back-end, providing asynchronous parallel I/O in addition to the native and XIOS paths. Coupled-system robustness for IFS-based configurations: reproducibility under frequent restarts, corrected wind coupling, reworked calving/enthalpy logic, and reduced coupling memory footprint. Build & test infrastructure: ecbundle support, separable mesh-partitioner build, multi-environment CI, ctest regression tests including cavity and iceberg setups, and auto-download of standard test meshes.",
+    "family": "fesom",
+    "references": "https://doi.org/10.5194/gmd-10-765-2017 https://doi.org/10.5194/gmd-12-4875-2019 https://doi.org/10.5194/gmd-15-335-2022 https://doi.org/10.5194/gmd-12-3991-2019",
+    "ui_label": "FESOM 2.7",
+    "validation_key": "fesom-2.7"
+  },
+  {
+    "@id": "nemo-v3-6",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "ocean",
+    "description": "Nucleus for European Modelling of the Ocean version 3.6 (OPA).",
     "family": "nemo",
-    "references": "https://doi.org/10.5194/gmd-18-377-2025",
-    "ui_label": "NEMO-GOSI9",
-    "validation_key": "nemo-gosi9"
+    "name": "NEMO v3.6",
+    "references": "https://doi.org/10.1029/2019MS001791",
+    "ui_label": "",
+    "validation_key": "nemo_v3_6"
+  },
+  {
+    "@id": "um7.3",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "atmosphere",
+    "description": "The model represents atmospheric circulation and includes submodels for radiation, cloud microphysics, convection and boundary layer processes. The atmosphere configuration is as used for ACCESS-ESM1.5 (Ziehn et al., 2020) with a minor change to convective momentum transport and is similar to the atmosphere configuration of HADGEM2 (r1.0) (The HadGEM2 Development Team, 2011 ) but with the PC2 cloud scheme as for HADGEM2 (r1.1) (Hewitt et al, 2011).",
+    "family": "hadam",
+    "references": "https://doi.org/10.1071/ES19035 https://doi.org/10.5194/gmd-4-723-2011 https://doi.org/10.5194/gmd-4-223-2011",
+    "ui_label": "UM7.3",
+    "validation_key": "um7.3"
   },
   {
     "@id": "metum-ga9",
@@ -498,6 +433,21 @@
     "validation_key": "metum-ga9"
   },
   {
+    "@id": "si3-gosi9",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://doi.org/10.5281/zenodo.13814369",
+    "component": "sea_ice",
+    "description": "UK global sea-ice configuration of the SI3 model",
+    "family": "si3",
+    "references": "https://doi.org/10.5194/gmd-17-6799-2024",
+    "ui_label": "SI3-GOSI9",
+    "validation_key": "si3-gosi9"
+  },
+  {
     "@id": "cice5",
     "@type": [
       "emd",
@@ -513,19 +463,69 @@
     "validation_key": "cice5"
   },
   {
-    "@id": "hadam3",
+    "@id": "lpj-guess-4.1",
     "@type": [
       "emd",
       "wcrp:model_component",
       "esgvoc:ModelComponent"
     ],
-    "code_base": "none",
-    "component": "atmosphere",
-    "description": "HadAM3 is the atmospheric component of HadCM3, a coupled atmosphere-ocean general circulation model developed at the UK Met Office Hadley Centre.",
-    "family": "hadam",
-    "name": "HadAM3",
-    "references": [],
+    "code_base": "private",
+    "component": "land_surface",
+    "description": "1. Main processes simulated (additions only) Adds methane emissions from natural wetlands and peatlands as a standard feature, lifting them from earlier branch-only configurations into the main release. Emissions of nitrogen-based trace gases (N\u2082O, NO, NH\u2083) from soils are simulated in the coupled C\u2013N cycle.  2. Key physics / parameterisations (new or upgraded) New process-based wildfire scheme as the default fire module, replacing the previous simpler default. Peatland-specific plant functional types and a dedicated peatland hydrology integrated into the main code path. Multi-layer soil temperature and freeze\u2013thaw scheme available in the standard configuration, enabling permafrost dynamics outside the dedicated arctic branches. Soil nitrogen chemistry extended to support consistent trace-gas production alongside leaching and plant\u2013microbial competition.  3. Notable features of this version First release of LPJ-GUESS, available directly from the project website. Consolidates previously branch-specific developments (high-latitude soil physics, methane, advanced fire) into a single, supported mainline code base.",
+    "family": "lpj-guess",
+    "references": "https://doi.org/10.5281/zenodo.8065736",
+    "ui_label": "LPJ-Guess 4.1",
+    "validation_key": "lpj-guess-4.1"
+  },
+  {
+    "@id": "surfex-v8-modeling-platform",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://www.umr-cnrm.fr/surfex/spip.php?rubrique8",
+    "component": "land-surface",
+    "description": "SURFEXv8.0 encompasses several submodules for modeling the interactions between the atmosphere, the ocean, the lakes and the land surface.",
+    "family": "surfex",
+    "name": "SURFEX v8 modeling platform",
+    "references": [
+      "https://doi.org/10.1029/2018MS001545",
+      "https://doi.org/10.1029/2019MS001886",
+      "https://doi.org/10.3402/tellusa.v68.31274",
+      "https://doi.org/10.5194/gmd-10-4207-2017"
+    ],
     "ui_label": "",
-    "validation_key": "hadam3"
+    "validation_key": "surfex_v8_modeling_platform"
+  },
+  {
+    "@id": "jules-gl9",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "land_surface",
+    "description": "JULES is the Joint UK Land Environment Simulator (Best et al. 2011) . This was developed from the Met Office Surface Exchange Scheme (MOSES). It can be used as a stand alone land surface model driven by observed forcing data, or coupled to an atmospheric global circulation model. The configuration used is documented by Willett et al 2026 for GA8 with changes in the calculation of surface albedo to improve agreement with observations and remove the previous scaling to climatology, and the soil hydrology parameterisation to improve drainage to lower soil layers (Rostron et al 2026)",
+    "family": "jules",
+    "references": "https://doi.org/10.5194/gmd-4-677-2011 (Best et al. 2011) https://doi.org/10.5194/gmd-19-1473-2026 (Willett et al 2026) https://doi.org/10.5194/egusphere-2026-1676 (Rostron et al 2026)",
+    "ui_label": "JULES-GL9",
+    "validation_key": "jules-gl9"
+  },
+  {
+    "@id": "glomap-mode",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "aerosol",
+    "description": "GLOMAP-mode is the Global Model of Aerosol Processes, a modal global aerosol microphysics model for UKCA. GLOMAP-mode simulates the multi-component global aerosol, resolving sulfate, sea-salt, dust, black carbon (BC) and particulate organic matter (POM), the latter including primary and biogenic secondary POM. Aerosol processes are simulated in a size-resolved manner including primary emissions, secondary particle formation by binary homogeneous nucleation of sulfuric acid and water, particle growth by coagulation, condensation and cloud-processing and removal by dry deposition, in-cloud and below-cloud scavenging.",
+    "family": "glomap-mode",
+    "references": "https://doi.org/10.5194/gmd-3-519-2010",
+    "ui_label": "GLOMAP-mode",
+    "validation_key": "glomap-mode"
   }
 ]
