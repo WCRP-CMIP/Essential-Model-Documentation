@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_mdeushiMRI-1781054721",
+    "ui_label": "depth grid with 7 levels.",
+    "description": "Soil layers used by iSiB as the land surface component of MRI-AGCM4-4",
+    "bottom_layer_thickness": 1.5,
+    "n_z": 7,
+    "n_z_range": "",
+    "top_layer_thickness": 0.02,
+    "total_thickness": 3.49,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-mdeushimri-1781054721"
+}
