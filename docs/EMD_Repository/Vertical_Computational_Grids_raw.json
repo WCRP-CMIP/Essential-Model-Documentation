@@ -337,9 +337,6 @@
     "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
   },
   {
-    "@id": "tempgrid-mdeushimri-1781071519"
-  },
-  {
     "@id": "v117",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -595,5 +592,22 @@
     "ui_label": "atmosphere hybrid sigma ln pressure coordinate grid with 49 levels.",
     "validation_key": "v128",
     "vertical_coordinate": "atmosphere_hybrid_sigma_ln_pressure_coordinate"
+  },
+  {
+    "@id": "v130",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 700,
+    "description": "The reported bottom layer thickness is that of the 60th layer.  The 61st layer is used for our bottom boundary layer parameterization and its thickness is 50 m.",
+    "n_z": 61,
+    "n_z_range": "",
+    "top_layer_thickness": 2,
+    "total_thickness": 6550,
+    "ui_label": "z-star grid with 61 levels.",
+    "validation_key": "v130",
+    "vertical_coordinate": "z-star"
   }
 ]
