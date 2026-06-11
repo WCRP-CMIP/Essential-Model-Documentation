@@ -388,6 +388,23 @@
     "vertical_coordinate": "atmosphere-sigma-coordinate"
   },
   {
+    "@id": "v131",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 1.5,
+    "description": "Soil layers used by iSiB as the land surface component of MRI-AGCM4-4",
+    "n_z": 7,
+    "n_z_range": "",
+    "top_layer_thickness": 0.02,
+    "total_thickness": 3.49,
+    "ui_label": "depth grid with 7 levels.",
+    "validation_key": "v131",
+    "vertical_coordinate": "depth"
+  },
+  {
     "@id": "tempgrid-jamesanstey-1779329743",
     "@type": [
       "wcrp:vertical_computational_grid",
