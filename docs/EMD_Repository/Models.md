@@ -103,7 +103,7 @@
 <div class="emd-stats-grid">
   <div class="emd-stat-item">
     <span class="emd-stat-label">Total Records</span>
-    <span class="emd-stat-value">2</span>
+    <span class="emd-stat-value">3</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Endpoint</span>
@@ -115,11 +115,11 @@
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Processed Data</span>
-    <span class="emd-stat-value">2.0 KB</span>
+    <span class="emd-stat-value">2.5 KB</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-06-11 14:32 UTC</span>
+    <span class="emd-stat-value">2026-06-11 15:04 UTC</span>
   </div>
 </div>
 
@@ -130,6 +130,7 @@
     <option value="">Select an entry…</option>
     <option value="../view_models/?id=cnrm-esm2-1e">cnrm-esm2-1e</option>
     <option value="../view_models/?id=access-esm1-6">access-esm1-6</option>
+    <option value="../view_models/?id=awi-esm3-4-2-veg-hr">awi-esm3-4-2-veg-hr</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
@@ -156,8 +157,8 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["cnrm-esm2-1e","access-esm1-6"],"link":[[0.0,0.0],[0.0,0.0]],"text":[[0.0,0.0],[0.0,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Models","meta":[{"label":"cnrm-esm2-1e","tags":[]},{"label":"access-esm1-6","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"cnrm-esm2-1e","leaf":true,"spectral_index":0,"value":0.0},{"name":"access-esm1-6","leaf":true,"spectral_index":1,"value":0.0}],"value":1.0},"clusters":[0,1],"group_spans":[[0,0],[1,1]]};
-var EMD_ENTRIES = [{"label":"cnrm-esm2-1e","url":"../view_models/?id=cnrm-esm2-1e"},{"label":"access-esm1-6","url":"../view_models/?id=access-esm1-6"}];
+var EMD_DATA    = {"ids":["cnrm-esm2-1e","access-esm1-6","awi-esm3-4-2-veg-hr"],"link":[[0.0,0.0,0.0],[0.0,0.0,1.0],[0.0,1.0,0.0]],"text":[[0.0,0.0,0.0],[0.0,0.0,1.0],[0.0,1.0,0.0]],"method":"field-level | link: jaccard | order: spectral graph components","folder":"Models","meta":[{"label":"cnrm-esm2-1e","tags":[]},{"label":"access-esm1-6","tags":[]},{"label":"awi-esm3-4-2-veg-hr","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"cnrm-esm2-1e","leaf":true,"spectral_index":0,"value":0.0},{"name":"","leaf":false,"children":[{"name":"access-esm1-6","leaf":true,"spectral_index":1,"value":0.0},{"name":"awi-esm3-4-2-veg-hr","leaf":true,"spectral_index":2,"value":0.0}],"value":0.0}],"value":1.0},"clusters":[0,1,2],"group_spans":[[0,0],[1,1],[2,2]]};
+var EMD_ENTRIES = [{"label":"cnrm-esm2-1e","url":"../view_models/?id=cnrm-esm2-1e"},{"label":"access-esm1-6","url":"../view_models/?id=access-esm1-6"},{"label":"awi-esm3-4-2-veg-hr","url":"../view_models/?id=awi-esm3-4-2-veg-hr"}];
 var EMD_SCHEMA  = {"name":"","children":[{"name":"calendar","type":"scalar"},{"name":"component_configs","type":"list"},{"name":"coupling_groups","type":"list"},{"name":"crs","type":"scalar"},{"name":"description","type":"scalar"},{"name":"dynamic_components","type":"list"},{"name":"embedded_components","type":"list"},{"name":"family","type":"scalar"},{"name":"name","type":"scalar"},{"name":"omitted_components","type":"scalar"},{"name":"prescribed_components","type":"scalar"},{"name":"references","type":"list"},{"name":"release_year","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids         = EMD_DATA.ids;
