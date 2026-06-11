@@ -20,6 +20,9 @@ on:
         description: 'Space-separated tempgrid file paths (overrides discovery)'
         required: false
         type: string
+  schedule:
+    - cron: '0 4 * * *'  # daily at 6am UTC
+
 jobs:
   rename_tempgrid:
     if: >
@@ -29,8 +32,6 @@ jobs:
 
     runs-on: ubuntu-latest
     concurrency:
-      # Stable group: each run scans ALL tempgrid files, so a newer run fully
-      # supersedes any in-progress one. Cancel the previous and keep only the latest.
       group: tempgrid-rename
       cancel-in-progress: true
 
@@ -42,44 +43,40 @@ jobs:
       MANUAL_FILES: ${{ github.event.inputs.files }}
 
     steps:
-      # ── 1. Checkout src-data (full history + production for PR resolution) ──
       - name: Checkout src-data branch
         uses: actions/checkout@v4
         with:
           ref: src-data
           fetch-depth: 0
 
-      - name: Fetch production ref
-        run: git fetch origin production:refs/remotes/origin/production || true
+      - name: Fetch integration refs
+        run: |
+          git fetch origin production:refs/remotes/origin/production 2>/dev/null || true
+          git fetch origin main:refs/remotes/origin/main 2>/dev/null || true
 
       - name: Configure Git
         run: |
           git config user.name  "cmip-ipo"
           git config user.email "actions@wcrp-cmip.org"
 
-      # ── 2. Build the list of tempgrid files to process ─────────────────────
       - name: Discover tempgrid files
         id: discover
         run: |
-          # Priority: explicit files > single PR's files > scan all on src-data
           if [ -n "$MANUAL_FILES" ]; then
             echo "Mode: explicit file list"
             FILES=$(echo "$MANUAL_FILES" | tr ' ' '\n' | grep -E 'tempgrid' || true)
-
           elif [ -n "$MANUAL_PR_NUMBER" ] || [ -n "$EVENT_PR" ]; then
             PR="${MANUAL_PR_NUMBER:-$EVENT_PR}"
             echo "Mode: single PR #$PR"
             FILES=$(gh pr view "$PR" --repo "$REPO" \
               --json files --jq '.files[].path' 2>/dev/null \
               | grep -E '(^|/)([^/]*tempgrid[^/]*)$' || true)
-
           else
             echo "Mode: scan ALL tempgrid files on src-data"
             FILES=$(find horizontal_grid_cell horizontal_computational_grid vertical_computational_grid \
               -maxdepth 1 -name 'tempgrid*.json' 2>/dev/null | sort || true)
           fi
 
-          # Keep only files that actually exist on src-data right now
           EXISTING=""
           while IFS= read -r f; do
             [ -z "$f" ] && continue
@@ -98,8 +95,6 @@ jobs:
             echo "$FILES"
             echo "FILES_EOF"
           } >> "$GITHUB_OUTPUT"
-
-      # ── 3. Resolve each file's PR + issue, rename, update @id ──────────────
       - name: Process tempgrid files
         id: rename
         run: |
@@ -121,27 +116,37 @@ jobs:
             echo "Processing: $filepath"
             dir=$(dirname "$filepath")
 
-            # ── Resolve PR + issue from git merge history ───────────────────
-            INTRO_COMMIT=$(git log --all --diff-filter=A --follow \
+            # Commit that ADDED this exact path (no --follow: avoids jumping
+            # rename chains into unrelated files).
+            INTRO_COMMIT=$(git log --all --diff-filter=A \
               --pretty=format:"%H" -- "$filepath" 2>/dev/null | tail -1)
+
+            # PR merge commit records 'Merge pull request #M from OWNER/issue_N_...'.
+            # Try whichever integration ref is present; take the FIRST such merge.
             MERGE_MSG=""
             if [ -n "$INTRO_COMMIT" ]; then
-              MERGE_MSG=$(git log --merges --ancestry-path \
-                "${INTRO_COMMIT}..origin/production" \
-                --pretty=format:"%s" 2>/dev/null \
-                | grep -i 'pull request' | tail -1)
+              for tgt in origin/production production HEAD origin/main main; do
+                git rev-parse --verify "$tgt" >/dev/null 2>&1 || continue
+                MERGE_MSG=$(git log --merges --ancestry-path --reverse \
+                  --pretty=format:"%s" "${INTRO_COMMIT}..${tgt}" 2>/dev/null \
+                  | grep -i 'pull request' | head -1)
+                [ -n "$MERGE_MSG" ] && break
+              done
             fi
             PR_NUM=$(echo "$MERGE_MSG"  | grep -oE 'pull request #[0-9]+' | grep -oE '[0-9]+' | head -1)
             ISSUE_NUM=$(echo "$MERGE_MSG" | grep -oE 'issue_[0-9]+' | grep -oE '[0-9]+' | head -1)
             echo "  PR: ${PR_NUM:-?}  Issue: ${ISSUE_NUM:-?}  (merge: ${MERGE_MSG:-none})"
 
-            # ── Collect authors ─────────────────────────────────────────────
+            # Authors: ONLY from the commit that added this file (full history
+            # would pull in bulk automated commits whose Co-authored-by trailers
+            # belong to OTHER grids). Plus the PR author if resolvable.
             AUTHORS_FILE=$(mktemp)
-            git log --follow --diff-filter=A --format="%an <%ae>" -- "$filepath" \
-              2>/dev/null >> "$AUTHORS_FILE" || true
-            git log --follow --format="%B" -- "$filepath" 2>/dev/null \
-              | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
-              | sed 's/Co-authored-by: //' >> "$AUTHORS_FILE" || true
+            if [ -n "$INTRO_COMMIT" ]; then
+              git show -s --format="%an <%ae>" "$INTRO_COMMIT" >> "$AUTHORS_FILE" || true
+              git show -s --format="%B" "$INTRO_COMMIT" \
+                | grep -oE 'Co-authored-by: [A-Za-z0-9 _.-]+ <[A-Za-z0-9._%+!-]+@[A-Za-z0-9.-]+>' \
+                | sed 's/Co-authored-by: //' >> "$AUTHORS_FILE" || true
+            fi
             if [ -n "$PR_NUM" ]; then
               PR_LOGIN=$(gh pr view "$PR_NUM" --repo "$REPO" --json author --jq '.author.login' 2>/dev/null || true)
               if [ -n "$PR_LOGIN" ] && ! echo "$PR_LOGIN" | grep -qE '(\[bot\]|^app/|-bot$)'; then
@@ -151,14 +156,15 @@ jobs:
               fi
             fi
             AUTHOR_NAMES=$(sort -u "$AUTHORS_FILE" \
-              | grep -vE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com)' \
+              | grep -viE '(cmip-ipo|github-actions|\[bot\]|noreply@github\.com|^no response)' \
               | grep -E '^[A-Za-z0-9]' | sed 's/ <.*//' | paste -sd ', ')
             rm -f "$AUTHORS_FILE"
 
-            LAST_MSG=$(git log --follow -1 --format="%s" -- "$filepath" 2>/dev/null || true)
+            LAST_MSG=$(git log -1 --format="%s" -- "$filepath" 2>/dev/null || true)
             OLD_ID=$(basename "$filepath" .json)
+            LAST_MSG_JSON=$(echo "$LAST_MSG" | jq -Rs .)
 
-            # ── Duplicate check against existing numbered files ─────────────
+            # Duplicate check against existing numbered files
             JQ_STRIP='del(.["@id"], .["@type"], .validation_key, .ui_label, .alias) | to_entries | sort_by(.key) | from_entries'
             CANDIDATE_SIG=$(jq -c "$JQ_STRIP" "$filepath")
             EXISTING_ID=""
@@ -169,8 +175,6 @@ jobs:
               fi
             done
 
-            LAST_MSG_JSON=$(echo "$LAST_MSG" | jq -Rs .)
-
             if [ -n "$EXISTING_ID" ]; then
               echo "  DUPLICATE of $EXISTING_ID — removing tempgrid"
               git rm "$filepath"
@@ -180,7 +184,7 @@ jobs:
               continue
             fi
 
-            # ── Next sequential ID ──────────────────────────────────────────
+            # Next sequential ID
             LETTER=""; MAX_NUM=-1
             for existing in "$dir"/[sghvSGHV]*[0-9].json; do
               [ -e "$existing" ] || continue
@@ -213,8 +217,6 @@ jobs:
           done <<< "$FILES"
           echo "mapping_json=[${MAPPING_JSON}]" >> "$GITHUB_OUTPUT"
           fi
-
-      # ── 4. Commit all renames at once ──────────────────────────────────────
       - name: Commit renames to src-data
         run: |
           git add -A
@@ -224,7 +226,6 @@ jobs:
           git commit -m "Rename tempgrid files with sequential ids [auto]"
           git push origin src-data
 
-      # ── 5. Retrigger src-data-change ───────────────────────────────────────
       - name: Cancel and retrigger src-data-change
         if: ${{ !cancelled() }}
         run: |
@@ -233,7 +234,6 @@ jobs:
           for run_id in $RUNS; do gh run cancel "$run_id" --repo "$REPO" || true; done
           gh workflow run src-data-change.yml --repo "$REPO" --ref src-data
 
-      # ── 6. Per-PR: comment, retitle, close issues, delete branch ───────────
       - name: Update PRs and linked issues
         if: ${{ !cancelled() }}
         env:
@@ -243,7 +243,6 @@ jobs:
             echo "Nothing to update."; exit 0
           fi
 
-          # Group mapping entries by PR number
           PRS=$(echo "$MAPPING_JSON" | jq -r '[.[].pr] | unique | .[]')
 
           for PR in $PRS; do
@@ -278,7 +277,6 @@ jobs:
             echo "> Use the permanent ID in subsequent registration steps." >> "$BODY_FILE"
             COMMENT_BODY=$(cat "$BODY_FILE"); rm -f "$BODY_FILE"
 
-            # Comment + retitle PR
             OLD_PR_TITLE=$(gh pr view "$PR" --repo "$REPO" --json title --jq '.title' 2>/dev/null || true)
             if [ -n "$OLD_PR_TITLE" ]; then
               CLEAN=$(echo "$OLD_PR_TITLE" | sed 's/^|[^|]*| *//')
@@ -287,7 +285,6 @@ jobs:
               gh pr comment "$PR" --repo "$REPO" --body "$COMMENT_BODY" || true
             fi
 
-            # Linked issues: from mapping (branch-derived) + PR body
             ISSUES=$(echo "$SUBSET" | jq -r '[.[].issue] | unique | .[]' | grep -E '^[0-9]+$' || true)
             BODY_ISSUES=$(gh pr view "$PR" --repo "$REPO" --json body --jq '.body' 2>/dev/null \
               | tr '\n' ' ' | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
@@ -307,7 +304,6 @@ jobs:
               echo "  issue #$issue_num updated + closed"
             done
 
-            # Delete the PR's head branch
             BRANCH=$(gh pr view "$PR" --repo "$REPO" --json headRefName --jq '.headRefName' 2>/dev/null || true)
             if [ -n "$BRANCH" ]; then
               gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" 2>/dev/null \
