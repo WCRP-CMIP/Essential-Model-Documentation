@@ -26,7 +26,7 @@ jobs:
 
     runs-on: ubuntu-latest
     concurrency:
-      group: production-deploy
+      group: tempgrid-rename-pr-${{ github.event.inputs.pr_number || github.event.pull_request.number }}
       cancel-in-progress: false
 
     env:
