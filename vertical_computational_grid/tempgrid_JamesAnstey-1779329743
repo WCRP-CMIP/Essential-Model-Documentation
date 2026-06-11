@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_JamesAnstey-1779329743",
+    "ui_label": "height grid with 6 levels.",
+    "description": "6-layer thermodynamic grid used by SI3 sea ice model (1 layer of snow and 5 layers of ice). Dynamics (the momentum equation) treats all of these as a single layer.",
+    "bottom_layer_thickness": "",
+    "n_z": 6,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-jamesanstey-1779329743"
+}
