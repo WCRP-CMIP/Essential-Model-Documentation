@@ -268,6 +268,21 @@
     "validation_key": "um7.3"
   },
   {
+    "@id": "cannemo6-0",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.com/cccma/cannemo",
+    "component": "ocean",
+    "description": "Adapted version of NEMO4.2.2 on the eORCA1 grid",
+    "family": "cannemo",
+    "references": "https://doi.org/10.5194/gmd-12-4823-2019 https://doi.org/10.5194/gmd-16-6553-2023 CanESM6 model description paper in preparation (Sep/Oct 2026)",
+    "ui_label": "CanNEMO6-0",
+    "validation_key": "cannemo6-0"
+  },
+  {
     "@id": "gelato",
     "@type": [
       "emd",
