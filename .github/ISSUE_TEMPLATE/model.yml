@@ -10,20 +10,6 @@ body:
         |:---:|:---:|:---:|:---:|
         | [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | **🟢 Model** |
         
-        # Registered Models
-        
-        > [!TIP]
-        > **Using a pre-registered model?** Select from the list below to auto-populate fields.
-        >
-        > NOTE: You must right-click and select `Open in New Window` or press `Ctrl+R` to refresh after selecting in order for the pre-filled links to update.
-        
-        <details>
-        <summary>Pre-registered Models (must be opened in a new window)</summary>
-        
-        {prefill_links}
-        
-        </details>
-        
         # Stage 4: Model (source_id)
         
         This form has three sections:
@@ -529,6 +515,86 @@ body:
         - "Ocean Biogeochemistry"
         - "Sea Ice"
 
+  - type: dropdown
+    id: coupling_group_6
+    attributes:
+      multiple: true
+      label: Coupling Group 6
+      description: Sixth group of mutually coupled components (if needed). **Select TWO only.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_7
+    attributes:
+      multiple: true
+      label: Coupling Group 7
+      description: Seventh group of mutually coupled components (if needed). **Select TWO only.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_8
+    attributes:
+      multiple: true
+      label: Coupling Group 8
+      description: Eighth group of mutually coupled components (if needed). **Select TWO only.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_9
+    attributes:
+      multiple: true
+      label: Coupling Group 9
+      description: Ninth group of mutually coupled components (if needed). **Select TWO only.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
+  - type: dropdown
+    id: coupling_group_10
+    attributes:
+      multiple: true
+      label: Coupling Group 10
+      description: Tenth group of mutually coupled components (if needed). **Select TWO only.**
+      options:
+        - "Aerosol"
+        - "Atmosphere"
+        - "Atmospheric Chemistry"
+        - "Land Ice"
+        - "Land Surface and Subsurface"
+        - "Ocean"
+        - "Ocean Biogeochemistry"
+        - "Sea Ice"
+
   - type: markdown
     attributes:
       value: |
@@ -559,4 +625,4 @@ body:
       label: Additional Collaborators
       description: |
         To add attribution to additional members include their GitHub usernames (only) separated by a comma.
-      placeholder: "user1,user2,user3,..."
+      placeholder: "user1,user2,user3..."
