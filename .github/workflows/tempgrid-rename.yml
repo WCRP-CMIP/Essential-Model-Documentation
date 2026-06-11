@@ -20,6 +20,8 @@ on:
         description: 'Space-separated tempgrid file paths (overrides discovery)'
         required: false
         type: string
+  schedule:
+    - cron: '0 4 * * *'  # daily at 6am UTC
 
 jobs:
   rename_tempgrid:
