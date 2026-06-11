@@ -19,8 +19,7 @@ def graph_entry_with_retry(url, depth=2, max_retries=3):
                 raise
 
 DATA = {
-    'institution': [i.get('id') for i in requests.get('https://esgvoc.ipsl.fr/api/v1/universe/data_descriptors/organisation/terms').json()]
-        # graph_entry_with_retry('constants:organisation/_graph.json'),
+    'institution': [i.get('id') for i in requests.get('https://esgvoc.ipsl.fr/api/v1/universe/data_descriptors/organisation/terms').json()],
     'component': graph_entry_with_retry('constants:scientific_domain/_graph.json'),
     'family_type': ['model', 'component'],
     'issue_kind': ['New', 'Modify']

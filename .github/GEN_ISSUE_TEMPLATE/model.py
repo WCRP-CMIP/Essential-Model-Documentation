@@ -1,7 +1,6 @@
 # Model Template Data
 import cmipld
 from cmipld.utils.ldparse import graph_entry, name_entry
-from cmipld.generate.template_utils import get_existing_entries_markdown
 
 # Get scientific domains with ui_labels
 domains_data = cmipld.get('constants:scientific_domain/_graph.json', 2).get('contents', [])
@@ -34,5 +33,4 @@ DATA = {
     'embedded_pairs': sorted(embedded_pairs),
     'domains': sorted(domain_labels),
     'issue_kind': ['New', 'Modify'],
-    # 'prefill_links': get_existing_entries_markdown('model', issue_kind='New')  # temporarily disabled
 }

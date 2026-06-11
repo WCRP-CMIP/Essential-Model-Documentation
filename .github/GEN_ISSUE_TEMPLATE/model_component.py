@@ -1,7 +1,6 @@
 # Model Component Template Data
 import cmipld
 from cmipld.utils.ldparse import graph_entry, name_entry
-from cmipld.generate.template_utils import get_existing_entries_markdown
 
 # Get component families (only those marked as 'component' type)
 component_family = name_entry(
@@ -17,5 +16,4 @@ DATA = {
     'horizontal_grid': graph_entry('emd:horizontal_computational_grid/_graph.json'),
     'vertical_grid': graph_entry('emd:vertical_computational_grid/_graph.json'),
     'issue_kind': ['New', 'Modify'],
-    # 'prefill_links': get_existing_entries_markdown('model_component', issue_kind='New')  # temporarily disabled
 }
