@@ -1,262 +1,30 @@
 [
   {
-    "@id": "ukesm1",
+    "@id": "gfdl",
     "@type": [
       "emd",
       "wcrp:model_family",
       "esgvoc:ModelFamily"
     ],
-    "collaborative_institutions": [
-      "ncas",
-      "noc",
-      "bas"
-    ],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "UK Earth System Model - based on HadGEM3 with additional Earth system components including interactive atmospheric chemistry and ocean biogeochemistry.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
+    "collaborative_institutions": "./",
+    "description": "Coupled models using the GFDL atmosphere, land, sea ice, and ocean components making use of the Flexible Modeling System coupling infrastructure starting with the GFDL-CM2 series (Delworth et al., 2006) in CMIP3, GFDL-CM3 and GFDL-ESM2 series in CMIP5, and GFDL-ESM4.1 in CMIP6.  Delworth, T. L., and Coauthors, 2006: GFDL\u2019s CM2 global coupled climate models. Part I: Formulation and simulation characteristics. J. Climate, 19, 643\u2013674.",
+    "established": 2004,
     "family_type": "model",
-    "license": "none",
-    "primary_institution": "mohc",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "ocean_biogeochemistry",
-      "atmospheric_chemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "UKESM1",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "ukcm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "nerc",
-    "description": "UKCM is the UK Coupled Model, a physical counterpart to the UKESM model series, which has been referred to in previous iterations of CMIP and other projects under the HadGEM label.",
-    "established": "",
-    "family_type": "model",
-    "primary_institution": "mohc",
-    "references": "./",
-    "representative_member": "UKCM2-0-LL",
+    "primary_institution": "noaa-gfdl",
+    "references": "https://doi.org/10.1029/2019MS002015",
+    "representative_member": "GFDL-ESM4.1",
     "scientific_domains": [
       "aerosol",
       "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice"
-    ],
-    "ui_label": "UKCM",
-    "validation_key": "UKCM",
-    "website": ""
-  },
-  {
-    "@id": "access-esm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "access-nri",
-    "description": "The Australian Community Climate and Earth System Simulator (ACCESS) is a group of model versions used in Australia for all timescales from numerical weather prediction to centennial-scale climate simulations. Component models used in ACCESS vary for applications at different timescales. ACCESS-ESM is the earth system model version used for centennial-scale simulations, including an interactive carbon cycle. ACCESS-ESM comprises the UK Met Office Unified Model atmosphere, the CABLE land surface model including land biogeochemistry, the MOM ocean model with WOMBAT for ocean biogeochemistry and the CICE sea-ice model. OASIS-MCT has been used for coupling but ACCESS-ESM3 (under development) will use NUOPC.",
-    "established": 2014,
-    "family_type": "model",
-    "primary_institution": "csiro",
-    "references": [
-      "https://doi.org/10.5194/gmd-10-2567-2017",
-      "https://doi.org/10.1071/ES19035"
-    ],
-    "representative_member": "ACCESS-ESM1-5",
-    "scientific_domains": [
-      "aerosol",
-      "atmosphere",
+      "atmospheric-chemistry",
       "land_surface",
       "ocean",
       "ocean-biogeochemistry",
       "sea_ice"
     ],
-    "ui_label": "ACCESS-ESM",
-    "validation_key": "access-esm",
-    "website": "https://www.access-nri.org.au/models/earth-system-model-esm/"
-  },
-  {
-    "@id": "cas-fgoals-g3.5",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "cas",
-    "description": "The four component models of FGOALS-g3.5 include Version 3 of the Grid-Point Atmospheric Model of LASG-IAP (GAMIL3) for the atmosphere, Version 3 of the LASG-IAP Climate System Ocean Model (LICOM3) for the ocean, Version 4 of the Los Alamos sea ice model for sea ice, and the CAS-Land Surface Model (CAS-LSM) for the land. In LICOM3, the freshwater exchange process between river model and the ocean model employs the nearest mapping method rather than the area conservative mapping method, as the former ensures that the ocean sufficiently receives the riverine freshwater input.",
-    "established": 2019,
-    "family_type": "model",
-    "primary_institution": "cas",
-    "references": "https://doi.org/10.1029/2019MS002012",
-    "representative_member": "CAS-FGOALS-g3",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice"
-    ],
-    "ui_label": "CAS-FGOALS-g3.5",
-    "validation_key": "cas-fgoals-g3.5",
-    "website": "https://No website"
-  },
-  {
-    "@id": "fgoals",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Flexible Global Ocean-Atmosphere-Land System Model - developed by the Institute of Atmospheric Physics, Chinese Academy of Sciences.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "cas",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "FGOALS",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "icon",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "mpi-m",
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "dwd",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "ICON",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "cnrm-cm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "cnrm-cerfacs",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land-surface",
-      "ocean"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "CNRM-CM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "hadgem3",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "ncas",
-      "noc",
-      "bas"
-    ],
-    "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
-    "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
-    "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
-    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
-    "established": "2009",
-    "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
-    "family_type": "model",
-    "license": "Registration Required",
-    "primary_institution": "mohc",
-    "programming_languages": [
-      "Fortran 90",
-      "Fortran 95",
-      "C"
-    ],
-    "references": "REF015",
-    "representative_member": "HadGEM3-GC31-LL",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean",
-      "land_surface",
-      "sea_ice",
-      "ocean_biogeochemistry",
-      "atmospheric_chemistry"
-    ],
-    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
-    "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
-    "source_code_repository": "https://code.metoffice.gov.uk/",
-    "ui_label": "",
-    "validation_key": "HadGEM3",
-    "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
-    "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model"
+    "ui_label": "GFDL",
+    "validation_key": "gfdl",
+    "website": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019MS002015"
   },
   {
     "@id": "canesm",
@@ -287,335 +55,28 @@
     "website": ""
   },
   {
-    "@id": "miroc",
+    "@id": "cas-fgoals-g3.5",
     "@type": [
       "emd",
       "wcrp:model_family",
       "esgvoc:ModelFamily"
     ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Model for Interdisciplinary Research on Climate - jointly developed by JAMSTEC, AORI, and NIES.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "miroc",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "MIROC",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "cesm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Community Earth System Model - a fully-coupled global climate model developed at NCAR providing simulations of the Earth's past, present, and future climate states.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "ncar",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "sea_ice",
-      "ocean_biogeochemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "CESM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "gfdl",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "Coupled models using the GFDL atmosphere, land, sea ice, and ocean components making use of the Flexible Modeling System coupling infrastructure starting with the GFDL-CM2 series (Delworth et al., 2006) in CMIP3, GFDL-CM3 and GFDL-ESM2 series in CMIP5, and GFDL-ESM4.1 in CMIP6.  Delworth, T. L., and Coauthors, 2006: GFDL\u2019s CM2 global coupled climate models. Part I: Formulation and simulation characteristics. J. Climate, 19, 643\u2013674.",
-    "established": 2004,
-    "family_type": "model",
-    "primary_institution": "noaa-gfdl",
-    "references": "https://doi.org/10.1029/2019MS002015",
-    "representative_member": "GFDL-ESM4.1",
-    "scientific_domains": [
-      "aerosol",
-      "atmosphere",
-      "atmospheric-chemistry",
-      "land_surface",
-      "ocean",
-      "ocean-biogeochemistry",
-      "sea_ice"
-    ],
-    "ui_label": "GFDL",
-    "validation_key": "gfdl",
-    "website": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019MS002015"
-  },
-  {
-    "@id": "bcc-csm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Beijing Climate Center Climate System Model.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "bcc",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "BCC-CSM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "ipsl-cm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Institut Pierre-Simon Laplace coupled climate model family.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "ipsl",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "ocean_biogeochemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "IPSL-CM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "ec-earth",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "dmi",
-      "smhi",
-      "knmi",
-      "cnr",
-      "fmi",
-      "ichec"
-    ],
-    "description": "Community-developed Earth system model based on model components like:  1. The ECMWF Integrated Forecasting System (IFS) for the atmosphere 2. The Nucleus for European Modelling of the Ocean (NEMO) 3. A dynamic vegetation model (LPJ-GUESS)",
-    "established": 2006,
-    "family_type": "model",
-    "primary_institution": "ec-earth-consortium",
-    "references": [
-      "https://doi.org/10.5194/gmd-15-2973-2022",
-      "https://doi.org/10.1007/s00382-011-1228-5"
-    ],
-    "representative_member": "EC-Earth3",
-    "scientific_domains": [
-      "atmosphere",
-      "ocean",
-      "sea-ice",
-      "ocean-biogeochemistry",
-      "land-surface",
-      "land-ice",
-      "atmospheric-chemistry",
-      "aerosol"
-    ],
-    "ui_label": "EC-Earth",
-    "validation_key": "ec-earth",
-    "website": "https://ec-earth.org/"
-  },
-  {
-    "@id": "mpi-esm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "Max Planck Institute Earth System Model.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "mpi-m",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "ocean_biogeochemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "MPI-ESM",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "gfdl-cm4",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [],
-    "common_scientific_basis": "none",
-    "computational_requirements": "none",
-    "description": "NOAA Geophysical Fluid Dynamics Laboratory coupled climate model family.",
-    "documentation": "none",
-    "established": "none",
-    "evolution": "none",
-    "family_type": "model",
-    "license": "none",
-    "primary_institution": "noaa-gfdl",
-    "programming_languages": "none",
-    "references": [],
-    "representative_member": "none",
-    "scientific_domains": [
-      "atmosphere",
-      "land_surface",
-      "ocean",
-      "ocean_biogeochemistry"
-    ],
-    "shared_code_base": "none",
-    "software_dependencies": "none",
-    "source_code_repository": "none",
-    "ui_label": "",
-    "validation_key": "GFDL-CM4",
-    "variation_dimensions": "none",
-    "website": "none"
-  },
-  {
-    "@id": "awi-esm3",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "ec-earth-consortium",
-    "description": "Scientific focus and approach  AWI-ESM3 is the Earth System Model line developed at the Alfred Wegener Institute around a globally multi-resolution unstructured-mesh ocean coupled to a state-of-the-art global hydrostatic atmosphere with interactive vegetation. The premise of the line is that climate fidelity in polar regions and along narrow shelves can be improved at controlled global cost by locally refining the ocean mesh under a uniform global atmosphere, rather than by raising resolution everywhere. AWI-ESM3 is configured for historical and scenario CMIP-class simulations and for paleo and pre-CMIP transient experiments. Particular attention is given to the representation of Arctic sea-ice cover and drift, sub-polar gyre variability, the Atlantic Meridional Overturning Circulation, and Antarctic ice-shelf cavity overturning, all of which the underlying components have been developed to address.  Common code base and coupling architecture  AWI-ESM3 members are built from a fixed component stack. OpenIFS provides the atmospheric component. FESOM2 provides the ocean, with sea-ice handled internally through embedded FESIM2. LPJ-GUESS provides the interactive land surface and vegetation. Coupling between OpenIFS and FESOM2 is handled by OASIS3-MCT version 5, with conservative remapping weights between the OpenIFS reduced-Gaussian grid and the FESOM unstructured triangular mesh generated offline through the AWI ocp-tool workflow and the YAC remapping libraries. The same weights deliver atmospheric forcing onto the regular-Gaussian equivalent grid on which LPJ-GUESS is integrated. Atmosphere to ocean coupling exchanges momentum, freshwater and heat fluxes at sub-daily frequency, with sea ice treated as part of FESOM and not as a separate coupling endpoint. Relative to other coupled configurations of OpenIFS and FESOM2, AWI-ESM3 adds a calving and iceberg freshwater channel, an enthalpy-of-fusion correction at solid-runoff entry, and a prognostic exchange of carbon, water and energy between LPJ-GUESS and HTESSEL through OASIS at the atmospheric coupling step. River runoff is routed on the atmospheric grid before delivery to FESOM coastal points. Where active, ice-shelf cavities exchange heat and freshwater with the ocean through a dedicated cavity-flux interface. Build and configuration of the coupled executable is managed through the AWI fork of esm-tools, allowing reproducible bit-identical restarts across all family members.  How family members differ  Members of AWI-ESM3 differ principally along two axes. The first is the horizontal and vertical resolution of the atmosphere and ocean. The second is the choice of cryosphere and biogeochemistry options inherited from the underlying FESOM2 and FESIM2 components.  The horizontal resolution of the atmosphere is set by the truncation of the OpenIFS reduced-Gaussian grid, and the vertical resolution by the choice of OpenIFS level set. The horizontal resolution of the ocean is set by the choice of FESOM unstructured triangular mesh, whose nominal resolution and pattern of regional refinement are mesh-specific. LPJ-GUESS is integrated on the regular-Gaussian equivalent of whichever OpenIFS truncation is used, so that the vegetation grid matches the native atmospheric resolution in each member. Standard-resolution configurations are built around OpenIFS at TCO95 on 91 vertical levels paired with FESOM meshes whose nominal resolution varies between about 20 and 120 km globally and is refined in the polar oceans and along major boundary currents. High-resolution configurations are built around OpenIFS at TCO319 on 137 vertical levels paired with FESOM meshes whose nominal resolution varies between about 5 and 25 km globally and is refined in the Arctic Ocean and in the Southern Ocean, with additional refinement along the major western boundary currents.  Beyond resolution, members may differ in cryosphere and biogeochemistry options. Activation of ice-shelf cavities, of the explicit iceberg drift and melt module, of ocean biogeochemistry through REcoM, and of transient passive tracer panels for CFCs, SF6, radiocarbon and water isotopes are independent compile- and run-time options that may differ between members. Future members are intended to host an interactive land-ice realm through two-way coupling with the Parallel Ice Sheet Model (PISM), and to expand the role of REcoM as a routinely active ocean-biogeochemistry component. Neither is active in the fast-track CMIP7 submissions but both fall under the AWI-ESM3 family for later contributions.",
-    "established": 2025,
-    "family_type": "model",
-    "primary_institution": "awi",
-    "references": "https://doi.org/10.5194/gmd-15-6399-2022",
-    "representative_member": "AWI-ESM3-4-2",
-    "scientific_domains": [
-      "atmosphere",
-      "land-ice",
-      "land_surface",
-      "ocean",
-      "ocean-biogeochemistry",
-      "sea_ice",
-      "aerosol"
-    ],
-    "ui_label": "awi-esm3",
-    "validation_key": "awi-esm3",
-    "website": "https://awi-cm3-documentation.readthedocs.io/en/latest/"
-  },
-  {
-    "@id": "cas-esm",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": [
-      "bnu",
-      "sysu"
-    ],
-    "description": "The Chinese Academy of Sciences Earth System Model (CAS-ESM) family is an independently developed Earth system modeling framework designed to simulate the coupled evolution of the climate system and related biogeochemical processes. It provides a flexible numerical platform for representing interactions among major Earth system components, including the atmosphere, ocean, land surface, sea ice, aerosols, atmospheric chemistry, terrestrial ecosystems, fire processes, ocean biogeochemistry, and other relevant processes. The CAS-ESM family supports a wide range of applications, including historical climate simulation, future climate projection, climate variability and predictability studies, carbon\u2013climate feedback analysis, and regional climate downscaling. Different members of the family are configured with varying levels of component complexity, spatial and vertical resolutions, model domains or model tops, process representations, and parameter settings. These configurations enable CAS-ESM to address scientific questions across multiple temporal and spatial scales, from regional climate processes to global Earth system change.",
-    "established": 1986,
+    "collaborative_institutions": "cas",
+    "description": "The four component models of FGOALS-g3.5 include Version 3 of the Grid-Point Atmospheric Model of LASG-IAP (GAMIL3) for the atmosphere, Version 3 of the LASG-IAP Climate System Ocean Model (LICOM3) for the ocean, Version 4 of the Los Alamos sea ice model for sea ice, and the CAS-Land Surface Model (CAS-LSM) for the land. In LICOM3, the freshwater exchange process between river model and the ocean model employs the nearest mapping method rather than the area conservative mapping method, as the former ensures that the ocean sufficiently receives the riverine freshwater input.",
+    "established": 2019,
     "family_type": "model",
     "primary_institution": "cas",
-    "references": [
-      "https://doi.org/10.1029/2020MS002210",
-      "https://doi.org/10.11871/jfdc.issn.2096-742X.2020.01.004",
-      "https://doi.org/10.1007/s13351-025-4915-6"
-    ],
-    "representative_member": "CAS-ESM1.0, CAS-ESM2.0",
+    "references": "https://doi.org/10.1029/2019MS002012",
+    "representative_member": "CAS-FGOALS-g3",
     "scientific_domains": [
       "atmosphere",
       "land_surface",
       "ocean",
-      "sea_ice",
-      "ocean-biogeochemistry",
-      "atmospheric-chemistry",
-      "aerosol",
-      "land-ice"
+      "sea_ice"
     ],
-    "ui_label": "CAS-ESM",
-    "validation_key": "CAS-ESM",
-    "website": ""
+    "ui_label": "CAS-FGOALS-g3.5",
+    "validation_key": "cas-fgoals-g3.5",
+    "website": "https://No website"
   },
   {
     "@id": "giss-e",
@@ -711,6 +172,512 @@
     "website": ""
   },
   {
+    "@id": "icon",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "mpi-m",
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "ICOsahedral Nonhydrostatic model - jointly developed by DWD and MPI-M for weather and climate applications.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "dwd",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "ICON",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "ukcm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "nerc",
+    "description": "UKCM is the UK Coupled Model, a physical counterpart to the UKESM model series, which has been referred to in previous iterations of CMIP and other projects under the HadGEM label.",
+    "established": "",
+    "family_type": "model",
+    "primary_institution": "mohc",
+    "references": "./",
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+      "aerosol",
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "ui_label": "UKCM",
+    "validation_key": "UKCM",
+    "website": ""
+  },
+  {
+    "@id": "awi-esm3",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "ec-earth-consortium",
+    "description": "Scientific focus and approach  AWI-ESM3 is the Earth System Model line developed at the Alfred Wegener Institute around a globally multi-resolution unstructured-mesh ocean coupled to a state-of-the-art global hydrostatic atmosphere with interactive vegetation. The premise of the line is that climate fidelity in polar regions and along narrow shelves can be improved at controlled global cost by locally refining the ocean mesh under a uniform global atmosphere, rather than by raising resolution everywhere. AWI-ESM3 is configured for historical and scenario CMIP-class simulations and for paleo and pre-CMIP transient experiments. Particular attention is given to the representation of Arctic sea-ice cover and drift, sub-polar gyre variability, the Atlantic Meridional Overturning Circulation, and Antarctic ice-shelf cavity overturning, all of which the underlying components have been developed to address.  Common code base and coupling architecture  AWI-ESM3 members are built from a fixed component stack. OpenIFS provides the atmospheric component. FESOM2 provides the ocean, with sea-ice handled internally through embedded FESIM2. LPJ-GUESS provides the interactive land surface and vegetation. Coupling between OpenIFS and FESOM2 is handled by OASIS3-MCT version 5, with conservative remapping weights between the OpenIFS reduced-Gaussian grid and the FESOM unstructured triangular mesh generated offline through the AWI ocp-tool workflow and the YAC remapping libraries. The same weights deliver atmospheric forcing onto the regular-Gaussian equivalent grid on which LPJ-GUESS is integrated. Atmosphere to ocean coupling exchanges momentum, freshwater and heat fluxes at sub-daily frequency, with sea ice treated as part of FESOM and not as a separate coupling endpoint. Relative to other coupled configurations of OpenIFS and FESOM2, AWI-ESM3 adds a calving and iceberg freshwater channel, an enthalpy-of-fusion correction at solid-runoff entry, and a prognostic exchange of carbon, water and energy between LPJ-GUESS and HTESSEL through OASIS at the atmospheric coupling step. River runoff is routed on the atmospheric grid before delivery to FESOM coastal points. Where active, ice-shelf cavities exchange heat and freshwater with the ocean through a dedicated cavity-flux interface. Build and configuration of the coupled executable is managed through the AWI fork of esm-tools, allowing reproducible bit-identical restarts across all family members.  How family members differ  Members of AWI-ESM3 differ principally along two axes. The first is the horizontal and vertical resolution of the atmosphere and ocean. The second is the choice of cryosphere and biogeochemistry options inherited from the underlying FESOM2 and FESIM2 components.  The horizontal resolution of the atmosphere is set by the truncation of the OpenIFS reduced-Gaussian grid, and the vertical resolution by the choice of OpenIFS level set. The horizontal resolution of the ocean is set by the choice of FESOM unstructured triangular mesh, whose nominal resolution and pattern of regional refinement are mesh-specific. LPJ-GUESS is integrated on the regular-Gaussian equivalent of whichever OpenIFS truncation is used, so that the vegetation grid matches the native atmospheric resolution in each member. Standard-resolution configurations are built around OpenIFS at TCO95 on 91 vertical levels paired with FESOM meshes whose nominal resolution varies between about 20 and 120 km globally and is refined in the polar oceans and along major boundary currents. High-resolution configurations are built around OpenIFS at TCO319 on 137 vertical levels paired with FESOM meshes whose nominal resolution varies between about 5 and 25 km globally and is refined in the Arctic Ocean and in the Southern Ocean, with additional refinement along the major western boundary currents.  Beyond resolution, members may differ in cryosphere and biogeochemistry options. Activation of ice-shelf cavities, of the explicit iceberg drift and melt module, of ocean biogeochemistry through REcoM, and of transient passive tracer panels for CFCs, SF6, radiocarbon and water isotopes are independent compile- and run-time options that may differ between members. Future members are intended to host an interactive land-ice realm through two-way coupling with the Parallel Ice Sheet Model (PISM), and to expand the role of REcoM as a routinely active ocean-biogeochemistry component. Neither is active in the fast-track CMIP7 submissions but both fall under the AWI-ESM3 family for later contributions.",
+    "established": 2025,
+    "family_type": "model",
+    "primary_institution": "awi",
+    "references": "https://doi.org/10.5194/gmd-15-6399-2022",
+    "representative_member": "AWI-ESM3-4-2",
+    "scientific_domains": [
+      "atmosphere",
+      "land-ice",
+      "land_surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea_ice",
+      "aerosol"
+    ],
+    "ui_label": "awi-esm3",
+    "validation_key": "awi-esm3",
+    "website": "https://awi-cm3-documentation.readthedocs.io/en/latest/"
+  },
+  {
+    "@id": "cesm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Community Earth System Model - a fully-coupled global climate model developed at NCAR providing simulations of the Earth's past, present, and future climate states.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "ncar",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice",
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "ec-earth",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "dmi",
+      "smhi",
+      "knmi",
+      "cnr",
+      "fmi",
+      "ichec"
+    ],
+    "description": "Community-developed Earth system model based on model components like:  1. The ECMWF Integrated Forecasting System (IFS) for the atmosphere 2. The Nucleus for European Modelling of the Ocean (NEMO) 3. A dynamic vegetation model (LPJ-GUESS)",
+    "established": 2006,
+    "family_type": "model",
+    "primary_institution": "ec-earth-consortium",
+    "references": [
+      "https://doi.org/10.5194/gmd-15-2973-2022",
+      "https://doi.org/10.1007/s00382-011-1228-5"
+    ],
+    "representative_member": "EC-Earth3",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean",
+      "sea-ice",
+      "ocean-biogeochemistry",
+      "land-surface",
+      "land-ice",
+      "atmospheric-chemistry",
+      "aerosol"
+    ],
+    "ui_label": "EC-Earth",
+    "validation_key": "ec-earth",
+    "website": "https://ec-earth.org/"
+  },
+  {
+    "@id": "ipsl-cm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Institut Pierre-Simon Laplace coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "ipsl",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "IPSL-CM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "bcc-csm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Beijing Climate Center Climate System Model.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "bcc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "BCC-CSM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "hadgem3",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "ncas",
+      "noc",
+      "bas"
+    ],
+    "common_scientific_basis": "Non-hydrostatic atmospheric dynamics, primitive equation ocean dynamics, comprehensive land surface biogeophysics.",
+    "computational_requirements": "100s to 1000s of processor cores, 2-8 GB memory per core",
+    "description": "HadGEM3 is a family of Met Office Hadley Centre climate models forming the basis for UK Earth system modeling.",
+    "documentation": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models",
+    "established": "2009",
+    "evolution": "Evolved from HadGEM1/2, transitioned to NEMO ocean, enhanced resolution capabilities.",
+    "family_type": "model",
+    "license": "Registration Required",
+    "primary_institution": "mohc",
+    "programming_languages": [
+      "Fortran 90",
+      "Fortran 95",
+      "C"
+    ],
+    "references": "REF015",
+    "representative_member": "HadGEM3-GC31-LL",
+    "scientific_domains": [
+      "atmosphere",
+      "ocean",
+      "land_surface",
+      "sea_ice",
+      "ocean_biogeochemistry",
+      "atmospheric_chemistry"
+    ],
+    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
+    "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
+    "source_code_repository": "https://code.metoffice.gov.uk/",
+    "ui_label": "",
+    "validation_key": "HadGEM3",
+    "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
+    "website": "https://www.metoffice.gov.uk/research/modelling-systems/unified-model"
+  },
+  {
+    "@id": "ukesm1",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "ncas",
+      "noc",
+      "bas"
+    ],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "UK Earth System Model - based on HadGEM3 with additional Earth system components including interactive atmospheric chemistry and ocean biogeochemistry.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "mohc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean_biogeochemistry",
+      "atmospheric_chemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "UKESM1",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "fgoals",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Flexible Global Ocean-Atmosphere-Land System Model - developed by the Institute of Atmospheric Physics, Chinese Academy of Sciences.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "cas",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "FGOALS",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "access-esm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "access-nri",
+    "description": "The Australian Community Climate and Earth System Simulator (ACCESS) is a group of model versions used in Australia for all timescales from numerical weather prediction to centennial-scale climate simulations. Component models used in ACCESS vary for applications at different timescales. ACCESS-ESM is the earth system model version used for centennial-scale simulations, including an interactive carbon cycle. ACCESS-ESM comprises the UK Met Office Unified Model atmosphere, the CABLE land surface model including land biogeochemistry, the MOM ocean model with WOMBAT for ocean biogeochemistry and the CICE sea-ice model. OASIS-MCT has been used for coupling but ACCESS-ESM3 (under development) will use NUOPC.",
+    "established": 2014,
+    "family_type": "model",
+    "primary_institution": "csiro",
+    "references": [
+      "https://doi.org/10.5194/gmd-10-2567-2017",
+      "https://doi.org/10.1071/ES19035"
+    ],
+    "representative_member": "ACCESS-ESM1-5",
+    "scientific_domains": [
+      "aerosol",
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea_ice"
+    ],
+    "ui_label": "ACCESS-ESM",
+    "validation_key": "access-esm",
+    "website": "https://www.access-nri.org.au/models/earth-system-model-esm/"
+  },
+  {
+    "@id": "mpi-esm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Max Planck Institute Earth System Model.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "mpi-m",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "MPI-ESM",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "cas-esm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [
+      "bnu",
+      "sysu"
+    ],
+    "description": "The Chinese Academy of Sciences Earth System Model (CAS-ESM) family is an independently developed Earth system modeling framework designed to simulate the coupled evolution of the climate system and related biogeochemical processes. It provides a flexible numerical platform for representing interactions among major Earth system components, including the atmosphere, ocean, land surface, sea ice, aerosols, atmospheric chemistry, terrestrial ecosystems, fire processes, ocean biogeochemistry, and other relevant processes. The CAS-ESM family supports a wide range of applications, including historical climate simulation, future climate projection, climate variability and predictability studies, carbon\u2013climate feedback analysis, and regional climate downscaling. Different members of the family are configured with varying levels of component complexity, spatial and vertical resolutions, model domains or model tops, process representations, and parameter settings. These configurations enable CAS-ESM to address scientific questions across multiple temporal and spatial scales, from regional climate processes to global Earth system change.",
+    "established": 1986,
+    "family_type": "model",
+    "primary_institution": "cas",
+    "references": [
+      "https://doi.org/10.1029/2020MS002210",
+      "https://doi.org/10.11871/jfdc.issn.2096-742X.2020.01.004",
+      "https://doi.org/10.1007/s13351-025-4915-6"
+    ],
+    "representative_member": "CAS-ESM1.0, CAS-ESM2.0",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice",
+      "ocean-biogeochemistry",
+      "atmospheric-chemistry",
+      "aerosol",
+      "land-ice"
+    ],
+    "ui_label": "CAS-ESM",
+    "validation_key": "CAS-ESM",
+    "website": ""
+  },
+  {
+    "@id": "miroc",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Model for Interdisciplinary Research on Climate - jointly developed by JAMSTEC, AORI, and NIES.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "miroc",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "MIROC",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
+    "@id": "gfdl-cm4",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "NOAA Geophysical Fluid Dynamics Laboratory coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "noaa-gfdl",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land_surface",
+      "ocean",
+      "ocean_biogeochemistry"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "GFDL-CM4",
+    "variation_dimensions": "none",
+    "website": "none"
+  },
+  {
     "@id": "hadcm2",
     "@type": [
       "emd",
@@ -744,5 +711,38 @@
     "validation_key": "HadCM2",
     "variation_dimensions": "Resolution configurations, parameter tuning, physics parameterization choices, domain configurations.",
     "website": "https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/climate-models"
+  },
+  {
+    "@id": "cnrm-cm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": [],
+    "common_scientific_basis": "none",
+    "computational_requirements": "none",
+    "description": "Centre National de Recherches M\u00e9t\u00e9orologiques coupled climate model family.",
+    "documentation": "none",
+    "established": "none",
+    "evolution": "none",
+    "family_type": "model",
+    "license": "none",
+    "primary_institution": "cnrm-cerfacs",
+    "programming_languages": "none",
+    "references": [],
+    "representative_member": "none",
+    "scientific_domains": [
+      "atmosphere",
+      "land-surface",
+      "ocean"
+    ],
+    "shared_code_base": "none",
+    "software_dependencies": "none",
+    "source_code_repository": "none",
+    "ui_label": "",
+    "validation_key": "CNRM-CM",
+    "variation_dimensions": "none",
+    "website": "none"
   }
 ]
