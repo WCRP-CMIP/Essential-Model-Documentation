@@ -8,22 +8,6 @@
     "Review"
   ],
   "issue_category": "model",
-  "dropdown_title": "Detailed Guidance",
-  "prefill_sources": {
-    "model": {
-      "display_name": "name",
-      "subtitle": "family",
-      "fields": [
-        "name", "family", "description",
-        "dynamic_components", "prescribed_components", "omitted_components",
-        "embedded_components",
-        "coupling_group_1", "coupling_group_2", "coupling_group_3",
-        "coupling_group_4", "coupling_group_5",
-        "calendar", "release_year", "reference_dois"
-      ],
-      "link_type": "prefill"
-    }
-  },
   "field_guidance": {
     "name": "**Model name (source_id)**\n\nFull identifier including family and version.\n\nFor CMIP, this becomes the official **source_id**.\n\n**Examples:** CNRM-ESM2-1, HadGEM3-GC31-LL, CESM2, ACCESS-ESM1-5",
     "family": "**Model family**\n\nEarth System family this model belongs to.\n\n**Leave as 'Not applicable' if:**\n- Standalone model\n- Family not yet registered",
