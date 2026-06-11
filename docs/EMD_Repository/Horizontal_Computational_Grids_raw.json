@@ -1,35 +1,5 @@
 [
   {
-    "@id": "h111",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-c",
-    "description": "",
-    "horizontal_subgrids": [
-      "g127-mass",
-      "g119-x-velocity",
-      "g128-y-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h111"
-  },
-  {
-    "@id": "h104",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "Arakawa-A (unstaggered) regular lat-lon grid, 1.875x1.25 degree.",
-    "horizontal_subgrids": "g108-mass",
-    "ui_label": "",
-    "validation_key": "h104"
-  },
-  {
     "@id": "h102",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -47,38 +17,38 @@
     "validation_key": "h102"
   },
   {
-    "@id": "h117",
+    "@id": "h101",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
       "emd"
     ],
     "arrangement": "arakawa-c",
-    "description": "",
+    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
     "horizontal_subgrids": [
-      "g147-mass",
-      "g148-x-velocity",
-      "g149-y-velocity"
+      "g102-mass",
+      "g103-x-velocity",
+      "g104-y-velocity"
     ],
     "ui_label": "",
-    "validation_key": "h117"
+    "validation_key": "h101"
   },
   {
-    "@id": "h115",
+    "@id": "h116",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
       "emd"
     ],
     "arrangement": "arakawa-c",
-    "description": "",
+    "description": "A regular latitude-longitude grid on an Arakawa-C staggering for atmospheric modeling in IAP-AGCM and IAP-HAGCM (CAS-ESM). The mass (thermodynamic) subgrid has dimensions 256 (longitude) \u00d7 128 (latitude), including grid points at both the North and South Poles. The zonal velocity (u) subgrid is staggered eastward by half a grid cell, and the meridional velocity (v) subgrid is staggered northward by half a grid cell. The nominal horizontal resolution is approximately 1.4\u00b0 \u00d7 1.4\u00b0, corresponding to a longitudinal spacing of 360\u00b0/256 = 1.40625\u00b0 and a latitudinal spacing of approximately 1.417\u00b0 (180\u00b0 divided by 127 intervals between the two poles) between adjacent mass grid points.",
     "horizontal_subgrids": [
-      "g144-mass",
-      "g145-x-velocity",
-      "g146-y-velocity"
+      "g134-mass",
+      "g151-x-velocity",
+      "g152-y-velocity"
     ],
     "ui_label": "",
-    "validation_key": "h115"
+    "validation_key": "h116"
   },
   {
     "@id": "h113",
@@ -96,6 +66,19 @@
     ],
     "ui_label": "",
     "validation_key": "h113"
+  },
+  {
+    "@id": "h108",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g120-divergence-mass-vorticity",
+    "ui_label": "",
+    "validation_key": "h108"
   },
   {
     "@id": "h110",
@@ -128,30 +111,51 @@
     "validation_key": "h107"
   },
   {
-    "@id": "h108",
+    "@id": "h111",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
       "emd"
     ],
-    "arrangement": "arakawa-a",
+    "arrangement": "arakawa-c",
     "description": "",
-    "horizontal_subgrids": "g120-divergence-mass-vorticity",
+    "horizontal_subgrids": [
+      "g127-mass",
+      "g119-x-velocity",
+      "g128-y-velocity"
+    ],
     "ui_label": "",
-    "validation_key": "h108"
+    "validation_key": "h111"
   },
   {
-    "@id": "h112",
+    "@id": "h117",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g147-mass",
+      "g148-x-velocity",
+      "g149-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h117"
+  },
+  {
+    "@id": "h104",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
       "emd"
     ],
     "arrangement": "arakawa-a",
-    "description": "",
-    "horizontal_subgrids": "g141-mass-velocity-x-velocity-y-velocity",
+    "description": "Arakawa-A (unstaggered) regular lat-lon grid, 1.875x1.25 degree.",
+    "horizontal_subgrids": "g108-mass",
     "ui_label": "",
-    "validation_key": "h112"
+    "validation_key": "h104"
   },
   {
     "@id": "h100",
@@ -187,49 +191,6 @@
     "validation_key": "h109"
   },
   {
-    "@id": "h106",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "",
-    "horizontal_subgrids": "g122-mass",
-    "ui_label": "",
-    "validation_key": "h106"
-  },
-  {
-    "@id": "h105",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "",
-    "horizontal_subgrids": "g110-mass",
-    "ui_label": "",
-    "validation_key": "h105"
-  },
-  {
-    "@id": "h116",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-c",
-    "description": "A regular latitude-longitude grid on an Arakawa-C staggering for atmospheric modeling in IAP-AGCM and IAP-HAGCM (CAS-ESM). The mass (thermodynamic) subgrid has dimensions 256 (longitude) \u00d7 128 (latitude), including grid points at both the North and South Poles. The zonal velocity (u) subgrid is staggered eastward by half a grid cell, and the meridional velocity (v) subgrid is staggered northward by half a grid cell. The nominal horizontal resolution is approximately 1.4\u00b0 \u00d7 1.4\u00b0, corresponding to a longitudinal spacing of 360\u00b0/256 = 1.40625\u00b0 and a latitudinal spacing of approximately 1.417\u00b0 (180\u00b0 divided by 127 intervals between the two poles) between adjacent mass grid points.",
-    "horizontal_subgrids": [
-      "g134-mass",
-      "g151-x-velocity",
-      "g152-y-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h116"
-  },
-  {
     "@id": "h114",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -246,21 +207,17 @@
     "validation_key": "h114"
   },
   {
-    "@id": "h101",
+    "@id": "h105",
     "@type": [
       "wcrp:horizontal_computational_grid",
       "esgvoc:HorizontalComputationalGrid",
       "emd"
     ],
-    "arrangement": "arakawa-c",
-    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
-    "horizontal_subgrids": [
-      "g102-mass",
-      "g103-x-velocity",
-      "g104-y-velocity"
-    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g110-mass",
     "ui_label": "",
-    "validation_key": "h101"
+    "validation_key": "h105"
   },
   {
     "@id": "h103",
@@ -274,5 +231,48 @@
     "horizontal_subgrids": "g114-mass-velocity-x-velocity-y-velocity",
     "ui_label": "",
     "validation_key": "h103"
+  },
+  {
+    "@id": "h106",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g122-mass",
+    "ui_label": "",
+    "validation_key": "h106"
+  },
+  {
+    "@id": "h112",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g141-mass-velocity-x-velocity-y-velocity",
+    "ui_label": "",
+    "validation_key": "h112"
+  },
+  {
+    "@id": "h115",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g144-mass",
+      "g145-x-velocity",
+      "g146-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h115"
   }
 ]
