@@ -103,7 +103,7 @@
 <div class="emd-stats-grid">
   <div class="emd-stat-item">
     <span class="emd-stat-label">Total Records</span>
-    <span class="emd-stat-value">5</span>
+    <span class="emd-stat-value">9</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Endpoint</span>
@@ -111,15 +111,15 @@
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Raw Data</span>
-    <span class="emd-stat-value">2.0 KB</span>
+    <span class="emd-stat-value">20.6 KB</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Processed Data</span>
-    <span class="emd-stat-value">2.7 KB</span>
+    <span class="emd-stat-value">7.4 KB</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-06-12 12:34 UTC</span>
+    <span class="emd-stat-value">2026-06-15 09:45 UTC</span>
   </div>
 </div>
 
@@ -128,11 +128,15 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
-    <option value="../view_models/?id=ukcm2-0-ll">ukcm2-0-ll</option>
+    <option value="../view_models/?id=CanESM5-1">CanESM5-1</option>
+    <option value="../view_models/?id=CanESM5-1">CanESM5-1</option>
+    <option value="../view_models/?id=UKCM2-0-LL">UKCM2-0-LL</option>
+    <option value="../view_models/?id=UKCM2-0-LL">UKCM2-0-LL</option>
+    <option value="../view_models/?id=ACCESS-ESM1-6">ACCESS-ESM1-6</option>
+    <option value="../view_models/?id=ACCESS-ESM1-6">ACCESS-ESM1-6</option>
+    <option value="../view_models/?id=AWI-ESM3-4-2-veg-HR">AWI-ESM3-4-2-veg-HR</option>
+    <option value="../view_models/?id=AWI-ESM3-4-2-veg-HR">AWI-ESM3-4-2-veg-HR</option>
     <option value="../view_models/?id=cnrm-esm2-1e">cnrm-esm2-1e</option>
-    <option value="../view_models/?id=access-esm1-6">access-esm1-6</option>
-    <option value="../view_models/?id=canesm5-1">canesm5-1</option>
-    <option value="../view_models/?id=awi-esm3-4-2-veg-hr">awi-esm3-4-2-veg-hr</option>
   </select>
   <button id="emd-go-btn" onclick="emdGotoEntry()">Open →</button>
   <button class="emd-font-btn" id="emd-font-toggle" onclick="emdToggleFont()" title="Switch to the page's default font for improved readability">Accessible font</button>
@@ -159,9 +163,9 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["ukcm2-0-ll","cnrm-esm2-1e","access-esm1-6","canesm5-1","awi-esm3-4-2-veg-hr"],"link":[[0.0,0.0,1.0,1.0,1.0],[0.0,0.0,0.0,0.0,0.0],[1.0,0.0,0.0,1.0,1.0],[1.0,0.0,1.0,0.0,1.0],[1.0,0.0,1.0,1.0,0.0]],"text":[[0.0,0.0,1.0,1.0,1.0],[0.0,0.0,0.0,0.0,0.0],[1.0,0.0,0.0,1.0,1.0],[1.0,0.0,1.0,0.0,1.0],[1.0,0.0,1.0,1.0,0.0]],"method":"field-level | link: jaccard | order: spectral graph components","folder":"Models","meta":[{"label":"ukcm2-0-ll","tags":[]},{"label":"cnrm-esm2-1e","tags":[]},{"label":"access-esm1-6","tags":[]},{"label":"canesm5-1","tags":[]},{"label":"awi-esm3-4-2-veg-hr","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"cnrm-esm2-1e","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"ukcm2-0-ll","leaf":true,"spectral_index":0,"value":0.0},{"name":"access-esm1-6","leaf":true,"spectral_index":2,"value":0.0}],"value":0.0},{"name":"","leaf":false,"children":[{"name":"canesm5-1","leaf":true,"spectral_index":3,"value":0.0},{"name":"awi-esm3-4-2-veg-hr","leaf":true,"spectral_index":4,"value":0.0}],"value":0.0}],"value":0.0}],"value":1.0},"clusters":[0,1,2,3,4],"group_spans":[[0,0],[1,1],[2,2],[3,3],[4,4]]};
-var EMD_ENTRIES = [{"label":"ukcm2-0-ll","url":"../view_models/?id=ukcm2-0-ll"},{"label":"cnrm-esm2-1e","url":"../view_models/?id=cnrm-esm2-1e"},{"label":"access-esm1-6","url":"../view_models/?id=access-esm1-6"},{"label":"canesm5-1","url":"../view_models/?id=canesm5-1"},{"label":"awi-esm3-4-2-veg-hr","url":"../view_models/?id=awi-esm3-4-2-veg-hr"}];
-var EMD_SCHEMA  = {"name":"","children":[]};
+var EMD_DATA    = {"ids":["CanESM5-1","CanESM5-1","UKCM2-0-LL","UKCM2-0-LL","ACCESS-ESM1-6","ACCESS-ESM1-6","AWI-ESM3-4-2-veg-HR","AWI-ESM3-4-2-veg-HR","cnrm-esm2-1e"],"link":[[0.0,1.0,0.24509360654250567,0.24509360654250567,0.3442035091881486,0.3442035091881486,0.1320778547629261,0.1320778547629261,0.0847307431424815],[1.0,0.0,0.24509360654250567,0.24509360654250567,0.3442035091881486,0.3442035091881486,0.1320778547629261,0.1320778547629261,0.0847307431424815],[0.24509360654250567,0.24509360654250567,0.0,1.0,0.2138783524061121,0.2138783524061121,0.133502953641638,0.133502953641638,0.13356553055854628],[0.24509360654250567,0.24509360654250567,1.0,0.0,0.2138783524061121,0.2138783524061121,0.133502953641638,0.133502953641638,0.13356553055854628],[0.3442035091881486,0.3442035091881486,0.2138783524061121,0.2138783524061121,0.0,1.0,0.2746654857493453,0.2746654857493453,0.04908914356601879],[0.3442035091881486,0.3442035091881486,0.2138783524061121,0.2138783524061121,1.0,0.0,0.2746654857493453,0.2746654857493453,0.04908914356601879],[0.1320778547629261,0.1320778547629261,0.133502953641638,0.133502953641638,0.2746654857493453,0.2746654857493453,0.0,1.0,0.05312447211060109],[0.1320778547629261,0.1320778547629261,0.133502953641638,0.133502953641638,0.2746654857493453,0.2746654857493453,1.0,0.0,0.05312447211060109],[0.0847307431424815,0.0847307431424815,0.13356553055854628,0.13356553055854628,0.04908914356601879,0.04908914356601879,0.05312447211060109,0.05312447211060109,0.0]],"text":[[0.0,1.0,0.24509360654250567,0.24509360654250567,0.3442035091881486,0.3442035091881486,0.1320778547629261,0.1320778547629261,0.0847307431424815],[1.0,0.0,0.24509360654250567,0.24509360654250567,0.3442035091881486,0.3442035091881486,0.1320778547629261,0.1320778547629261,0.0847307431424815],[0.24509360654250567,0.24509360654250567,0.0,1.0,0.2138783524061121,0.2138783524061121,0.133502953641638,0.133502953641638,0.13356553055854628],[0.24509360654250567,0.24509360654250567,1.0,0.0,0.2138783524061121,0.2138783524061121,0.133502953641638,0.133502953641638,0.13356553055854628],[0.3442035091881486,0.3442035091881486,0.2138783524061121,0.2138783524061121,0.0,1.0,0.2746654857493453,0.2746654857493453,0.04908914356601879],[0.3442035091881486,0.3442035091881486,0.2138783524061121,0.2138783524061121,1.0,0.0,0.2746654857493453,0.2746654857493453,0.04908914356601879],[0.1320778547629261,0.1320778547629261,0.133502953641638,0.133502953641638,0.2746654857493453,0.2746654857493453,0.0,1.0,0.05312447211060109],[0.1320778547629261,0.1320778547629261,0.133502953641638,0.133502953641638,0.2746654857493453,0.2746654857493453,1.0,0.0,0.05312447211060109],[0.0847307431424815,0.0847307431424815,0.13356553055854628,0.13356553055854628,0.04908914356601879,0.04908914356601879,0.05312447211060109,0.05312447211060109,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Models","meta":[{"label":"CanESM5-1","tags":[]},{"label":"CanESM5-1","tags":[]},{"label":"UKCM2-0-LL","tags":[]},{"label":"UKCM2-0-LL","tags":[]},{"label":"ACCESS-ESM1-6","tags":[]},{"label":"ACCESS-ESM1-6","tags":[]},{"label":"AWI-ESM3-4-2-veg-HR","tags":[]},{"label":"AWI-ESM3-4-2-veg-HR","tags":[]},{"label":"cnrm-esm2-1e","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"cnrm-esm2-1e","leaf":true,"spectral_index":4,"value":0.0},{"name":"","leaf":false,"children":[{"name":"AWI-ESM3-4-2-veg-HR","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"UKCM2-0-LL","leaf":true,"spectral_index":1,"value":0.0},{"name":"","leaf":false,"children":[{"name":"CanESM5-1","leaf":true,"spectral_index":0,"value":0.0},{"name":"ACCESS-ESM1-6","leaf":true,"spectral_index":2,"value":0.0}],"value":0.6557964908118514}],"value":0.7705140205256911}],"value":0.8199179019486968}],"value":0.919872527655588},"clusters":[0,0,1,1,2,2,3,3,4],"group_spans":[[0,1],[2,3],[4,5],[6,7],[8,8]]};
+var EMD_ENTRIES = [{"label":"CanESM5-1","url":"../view_models/?id=CanESM5-1"},{"label":"CanESM5-1","url":"../view_models/?id=CanESM5-1"},{"label":"UKCM2-0-LL","url":"../view_models/?id=UKCM2-0-LL"},{"label":"UKCM2-0-LL","url":"../view_models/?id=UKCM2-0-LL"},{"label":"ACCESS-ESM1-6","url":"../view_models/?id=ACCESS-ESM1-6"},{"label":"ACCESS-ESM1-6","url":"../view_models/?id=ACCESS-ESM1-6"},{"label":"AWI-ESM3-4-2-veg-HR","url":"../view_models/?id=AWI-ESM3-4-2-veg-HR"},{"label":"AWI-ESM3-4-2-veg-HR","url":"../view_models/?id=AWI-ESM3-4-2-veg-HR"},{"label":"cnrm-esm2-1e","url":"../view_models/?id=cnrm-esm2-1e"}];
+var EMD_SCHEMA  = {"name":"","children":[{"name":"calendar","type":"scalar"},{"name":"coupled_components","type":"list"},{"name":"description","type":"scalar"},{"name":"dynamic_components","type":"list"},{"name":"embedded_components","type":"list"},{"name":"family","type":"scalar"},{"name":"model_components","type":"list"},{"name":"name","type":"scalar"},{"name":"omitted_components","type":"scalar"},{"name":"prescribed_components","type":"list"},{"name":"references","type":"list"},{"name":"release_year","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids         = EMD_DATA.ids;
 var link        = EMD_DATA.link;
