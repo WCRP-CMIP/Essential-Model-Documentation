@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_rjstouffer-1781365364",
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 3.75 x 2.25 degree resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 7680,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -88.29,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 3.75,
+    "y_resolution": 2.25,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-rjstouffer-1781365364"
+}
