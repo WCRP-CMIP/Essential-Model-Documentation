@@ -1,9 +1,18 @@
 {
-  "validation_key": "g106-y-velocity",
-  "description": "Y-velocity (V-grid) on ocean tripolar grid (eORCA1).",
-  "cell_variable_type": ["y-velocity"],
-  "horizontal_grid_cells": ["g106"],
-  "@context": "_context",
-  "@type": ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
-  "@id": "g106-y-velocity"
+    "validation_key": "g106-y-velocity",
+    "ui_label": "",
+    "description": "Y-velocity (V-grid) on ocean tripolar grid (eORCA1).",
+    "cell_variable_type": [
+        "y-velocity"
+    ],
+    "horizontal_grid_cells": [
+        "g106"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g106-y-velocity"
 }
