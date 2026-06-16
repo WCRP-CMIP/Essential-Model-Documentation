@@ -39,7 +39,12 @@ Register it using [this form](https://github.com/WCRP-CMIP/WCRP-constants/issues
 Yes. Use the **Additional Collaborators** field in the issue form — they will receive notifications and can contribute.
 
 **Does grid registration need to be completed in one go?**  
-Ideally yes, but future edits are possible. Note that grids require more rigorous review than other fields, so they take the longest to process.
+Ideally yes. Note that grids require more rigorous review than other fields because grid labels form part of the in-file metadata.
+
+**Can I change a grid description that has already been registered?** <br>
+No. Your grid description may have been used by another modelling group so we would ask you to submit a new grid description.
+
+
 
 ---
 
