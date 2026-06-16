@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_johndunne13-1781298705",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 0.25 x 0.16 degree resolution.",
+    "description": "",
+    "alias": [
+        "GFDL 0.25 Deg OM5/MOM6 Tracer Grid"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 1671840,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -88.5208813286,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.125,
+    "x_resolution": 0.25,
+    "y_resolution": 0.16,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-johndunne13-1781298705"
+}
