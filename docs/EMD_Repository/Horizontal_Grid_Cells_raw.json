@@ -733,6 +733,30 @@
     "y_resolution": 80
   },
   {
+    "@id": "g174",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "GFDL AM4 C96 Cube Sphere X-velocity Grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 49536,
+    "region": "global",
+    "southernmost_latitude": -89.27,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 0.9375 x 0.9375 degree resolution.",
+    "units": "degree",
+    "validation_key": "g174",
+    "westernmost_longitude": 0.02061,
+    "x_resolution": 0.9375,
+    "y_resolution": 0.9375
+  },
+  {
     "@id": "g138",
     "@type": [
       "emd",
@@ -1251,6 +1275,30 @@
     "y_resolution": 0.28125
   },
   {
+    "@id": "g175",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "GFDL AM4 C96 Cube Sphere Y-velocity Grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 49536,
+    "region": "global",
+    "southernmost_latitude": -89.27,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 0.9375 x 0.9375 degree resolution.",
+    "units": "degree",
+    "validation_key": "g175",
+    "westernmost_longitude": 0.04433,
+    "x_resolution": 0.9375,
+    "y_resolution": 0.9375
+  },
+  {
     "@id": "g158",
     "@type": [
       "emd",
@@ -1737,6 +1785,30 @@
     "westernmost_longitude": 58.165245056152344,
     "x_resolution": 1,
     "y_resolution": 1
+  },
+  {
+    "@id": "g173",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "GFDL AM4 C96 Cube Sphere Tracer Grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 49536,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 0.9375 x 0.9375 degree resolution.",
+    "units": "degree",
+    "validation_key": "g173",
+    "westernmost_longitude": 0.04433,
+    "x_resolution": 0.9375,
+    "y_resolution": 0.9375
   },
   {
     "@id": "g135",
