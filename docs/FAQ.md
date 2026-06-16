@@ -19,7 +19,7 @@ Only horizontal grids are required for output files. If there is no vertical gri
 **Can grids be shared across model families?**  
 Yes. Grids are reusable — even ones you didn't create. The same applies to model components. A similarity checker is available to help identify existing grids.
 
-**How do I describe a staggered grid?**<br>
+**How do I describe a staggered grid?** <br>
 If you have an Arakawa-B grid you will need to register two grids and if you have an Arakawa-C grid you will need to register three grids. The stagger locations of these grids is captured when you provide the lat-lon location of the western-most of the southern-most grid cells for each grid. For more information see section 7.3 about grid arrangement in the [EMD documentation](https://zenodo.org/records/17853724) 
 
 ---
@@ -58,6 +58,9 @@ You will receive a GitHub notification. The [Progress Tracker](Progress_Tracker.
 
 **Should I reply in the pull request or the issue?**  
 Always reply in the **pull request**. Replies in the issue will eventually be picked up, but the PR is the primary place for review conversation.
+
+**How do I find our where I am in the EMD registration process** <br>
+The [Progress Tracker](Progress_Tracker.html) will show you where you are in the EMD registration process.
 
 ---
 
