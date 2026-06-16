@@ -19,6 +19,9 @@ Only horizontal grids are required for output files. If there is no vertical gri
 **Can grids be shared across model families?**  
 Yes. Grids are reusable — even ones you didn't create. The same applies to model components. A similarity checker is available to help identify existing grids.
 
+**How do I describe a staggered grid?**
+If you have an Arakawa-B grid you will need to register two grids and if you have an Arakawa-C grid you will need to register three grids. The stagger locations of these grids is captured when you provide the lat-lon location of the western-most of the southern-most grid cells for each grid.
+
 ---
 
 ## Registration Process
