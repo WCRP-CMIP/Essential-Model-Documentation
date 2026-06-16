@@ -54,13 +54,13 @@ No. Your grid description may have been used by another modelling group so we wo
 There is no fixed date, but EMD registration must be completed **before any data is submitted to ESGF**. Plan around your own publication timeline.
 
 **How do I know when action is required during review?**  
-You will receive a GitHub notification. The [Progress Tracker](Progress_Tracker.html) is the easiest place to check — entries needing action are flagged with a flashing red **"Changes Requested"** label.
+You will receive a GitHub notification. The [Progress Tracker](https://emd.mipcvs.dev/docs/Progress_Tracker) is the easiest place to check — entries needing action are flagged with a flashing red **"Changes Requested"** label.
 
 **Should I reply in the pull request or the issue?**  
 Always reply in the **pull request**. Replies in the issue will eventually be picked up, but the PR is the primary place for review conversation.
 
 **How do I find our where I am in the EMD registration process** <br>
-The [Progress Tracker](Progress_Tracker.html) will show you where you are in the EMD registration process.
+The [Progress Tracker](https://emd.mipcvs.dev/docs/Progress_Tracker) will show you where you are in the EMD registration process.
 
 ---
 
