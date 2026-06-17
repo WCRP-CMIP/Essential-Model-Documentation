@@ -77,49 +77,65 @@ hide:
   background: var(--emd-bg);
   border: 1px solid var(--emd-border);
   border-left: 4px solid var(--emd-border);
-  border-radius: 10px;
-  margin-bottom: 0.65rem;
+  border-radius: 8px;
+  margin-bottom: 0.4rem;
   overflow: hidden;
   transition: box-shadow 0.15s;
   cursor: pointer;
 }
-.emd-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.emd-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
 
-.emd-card-header {
+.emd-card-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  min-height: 2.2rem;
 }
 
 .emd-card-stamp {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--emd-text);
   flex: 1;
-}
-
-.emd-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0 1rem 0.6rem;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .emd-badge {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 10px;
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-.emd-date {
+.emd-card-spacer { flex: 1; }
+
+.emd-issue-link {
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem;
-  color: var(--emd-text-tertiary);
+  font-weight: 600;
+  color: var(--emd-primary);
+  text-decoration: none;
+  opacity: 0.7;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
+.emd-issue-link:hover { opacity: 1; text-decoration: underline; }
+
+.emd-date {
+  font-size: 0.68rem;
+  color: var(--emd-text-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 
 /* avatar */
 .emd-avatar-stack { display: flex; }
@@ -171,14 +187,12 @@ hide:
 }
 .emd-card.open .emd-body { display: block; }
 .emd-body a { color: var(--emd-primary); }
-.emd-body img { max-width: 100%; border-radius: 4px; }
-.emd-body code {
-  background: var(--emd-bg-tertiary);
-  padding: 0.1em 0.3em;
-  border-radius: 3px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.85em;
-}
+.emd-body-content { font-size: 0.8rem; line-height: 1.6; color: var(--emd-text-secondary); }
+.emd-body-content h2,
+.emd-body-content h3,
+.emd-body-content h4 { margin: 0.5rem 0 0.25rem; color: var(--emd-text); font-size: 0.85rem; }
+.emd-body-content pre { background: var(--emd-bg-tertiary); border-radius: 4px; padding: 0.5rem 0.75rem; overflow-x: auto; margin: 0.4rem 0; }
+.emd-body-content code { background: var(--emd-bg-tertiary); padding: 0.1em 0.3em; border-radius: 3px; font-family: "JetBrains Mono", monospace; font-size: 0.8em; }
 
 .emd-empty {
   text-align: center;
@@ -310,10 +324,37 @@ function buildItems(raw) {
       avatar:    issue.user ? issue.user.avatar_url : '',
       closedAt:  issue.closed_at,
       url:       issue.html_url,
+      body:      issue.body || '',
     });
   });
   out.sort(function(a,b) { return new Date(b.closedAt) - new Date(a.closedAt); });
   return out;
+}
+
+function renderBody(md) {
+  if (!md) return '';
+  // Strip the emd-bot-issue-status comment block entirely
+  md = md.replace(/<!--\s*emd-bot-issue-status\s*-->[\s\S]*/i, '').trim();
+  if (!md) return '';
+  // Light markdown → HTML conversion
+  var html = esc(md)
+    // code blocks
+    .replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+    // inline code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // bold
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    // italic
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    // headings
+    .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+    .replace(/^## (.+)$/gm,  '<h3>$1</h3>')
+    .replace(/^# (.+)$/gm,   '<h2>$1</h2>')
+    // links  [text](url)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" onclick="event.stopPropagation()">$1</a>')
+    // line breaks → <br> (but not inside pre)
+    .replace(/\n/g, '<br>');
+  return '<div class="emd-body-content">' + html + '</div>';
 }
 
 function buildFilterBar(items) {
@@ -352,22 +393,20 @@ function renderCards() {
   }
 
   container.innerHTML = filtered.map(function(item, idx) {
+    var bodyHtml = renderBody(item.body);
     return '<div class="emd-card" id="emd-card-' + idx + '" style="border-left-color:' + item.color + '" onclick="emdToggle(' + idx + ')">' +
-      '<div class="emd-card-header">' +
-        '<div class="emd-avatar-stack">' +
-          (item.avatar ? '<a href="https://github.com/' + esc(item.submitter) + '" target="_blank" onclick="event.stopPropagation()" title="' + esc(item.submitter) + '">' +
-            '<img class="emd-avatar" src="' + esc(item.avatar) + '?size=32" alt="' + esc(item.submitter) + '">' +
-          '</a>' : '') +
-        '</div>' +
+      '<div class="emd-card-row">' +
         '<span class="emd-card-stamp">' + esc(item.stamp) + '</span>' +
-        '<a class="emd-gh-link" href="' + esc(item.url) + '" target="_blank" onclick="event.stopPropagation()" title="View issue #' + item.number + '">' + GH_ICON + '</a>' +
+        '<a class="emd-issue-link" href="' + esc(item.url) + '" target="_blank" onclick="event.stopPropagation()" title="View issue #' + item.number + '">#' + item.number + '</a>' +
+        '<span class="emd-card-spacer"></span>' +
+        '<span class="emd-badge" style="background:' + item.color + '">' + esc(item.category.replace(/_/g,' ')) + '</span>' +
+        (item.avatar ? '<a href="https://github.com/' + esc(item.submitter) + '" target="_blank" onclick="event.stopPropagation()" title="' + esc(item.submitter) + '">' +
+          '<img class="emd-avatar" src="' + esc(item.avatar) + '?size=26" alt="' + esc(item.submitter) + '">' +
+        '</a>' : '') +
+        '<span class="emd-date">' + timeAgo(item.closedAt) + '</span>' +
         '<span class="emd-chevron">▼</span>' +
       '</div>' +
-      '<div class="emd-card-meta">' +
-        '<span class="emd-badge" style="background:' + item.color + '">' + esc(item.category.replace(/_/g,' ')) + '</span>' +
-        '<span class="emd-date">' + timeAgo(item.closedAt) + '</span>' +
-        '<span class="emd-date" style="margin-left:auto">@' + esc(item.submitter) + '</span>' +
-      '</div>' +
+      (bodyHtml ? '<div class="emd-body">' + bodyHtml + '</div>' : '') +
     '</div>';
   }).join('');
 }
