@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_JanStreffing-1779176244",
+    "ui_label": "height grid with 1 levels.",
+    "description": "This vertical grid is for zero layer thermodynamics sea ice models",
+    "bottom_layer_thickness": "",
+    "n_z": 1,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-janstreffing-1779176244"
+}
