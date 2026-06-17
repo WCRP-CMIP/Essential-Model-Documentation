@@ -60,6 +60,12 @@ Reviewing oldest first is a requirement — it ensures submitters are not left w
 
 ---
 
+## Confidence and Collaboration
+
+Reviewers should ping others @EMD-reviewers if not confident about a submission. Domain expertise or clarification from another team member is always welcome and encouraged. Use the `needs-checking` label when escalating to another reviewer for a second opinion.
+
+---
+
 ## General Rules
 
 **IDs and naming**

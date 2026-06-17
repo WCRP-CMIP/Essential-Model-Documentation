@@ -711,6 +711,7 @@ const TYPE_KEYS = [
   "vertical_computational_grid",
   "model_component",
   "component_config",
+  "link_existing_component",
   "model"
 ];
 
@@ -766,7 +767,7 @@ const STAGES = [
       {
         key: "model_component",
         title: "model_component  +  component_config",
-        labels: ["model_component", "component_config"],
+        labels: ["model_component", "component_config", "link_existing_component"],
         requires: ["horizontal_computational_grid", "vertical_computational_grid"],
         newUrl: NEW_ISSUE("model_component.yml")
       }
@@ -1089,12 +1090,17 @@ function sortIssues(issues) {
 /* ============================================
    CATEGORIZATION
    ============================================ */
+function isSkipped(issue) {
+  return /\|\s*skip\s*\|/i.test(issue.title);
+}
+
 function categorize(issues) {
   const buckets = {};
   for (const stage of STAGES) {
     for (const s of stage.sections) buckets[s.key] = [];
   }
   for (const issue of issues) {
+    if (isSkipped(issue)) continue;
     const labels = getLabels(issue);
     let placed = false;
     for (const stage of STAGES) {
@@ -1115,10 +1121,11 @@ function categorize(issues) {
    RENDERING
    ============================================ */
 function renderSummary(profile, issues) {
-  const total  = issues.length;
-  const merged = issues.filter(isMerged).length;
-  const open   = issues.filter(i => i.state === "open").length;
-  const needsAction = issues.filter(i => {
+  const visible = issues.filter(i => !isSkipped(i));
+  const total  = visible.length;
+  const merged = visible.filter(isMerged).length;
+  const open   = visible.filter(i => i.state === "open").length;
+  const needsAction = visible.filter(i => {
     if (i.state !== "open") return false;
     const l = getLabels(i);
     return l.includes("changes-requested") && !l.includes("changes-made") && !l.includes("approved");
