@@ -1691,6 +1691,30 @@
     "y_resolution": 1.4
   },
   {
+    "@id": "g179",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "N48 T points",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 7008,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 3.75 x 2.5 degree resolution.",
+    "units": "degree",
+    "validation_key": "g179",
+    "westernmost_longitude": 0,
+    "x_resolution": 3.75,
+    "y_resolution": 2.5
+  },
+  {
     "@id": "g102",
     "@type": [
       "emd",
