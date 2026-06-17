@@ -1,0 +1,18 @@
+{
+    "validation_key": "not-real-01",
+    "ui_label": "not-real-01",
+    "description": "A unreal component for the IF MIP senarios.",
+    "code_base": "wcrp-cmip.org",
+    "component": "atmosphere",
+    "family": "ifs",
+    "references": [
+        "nature.wcrp-cmip.org"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "not-real-01"
+}
