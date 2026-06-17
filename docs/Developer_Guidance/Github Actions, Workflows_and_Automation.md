@@ -77,6 +77,19 @@ Pull requests follow a shorter cycle of 30 days to stale and 7 days to closure. 
 
 ---
 
+## Maintenance Scripts
+
+### `emd_rss.py`
+
+Reads all closed `emd-submission` issues with a pipe stamp and prints a table of merged submissions — stamped ID, category, submitter, and closing timestamp. Intended as the data source for an RSS feed.
+
+```bash
+python scripts/emd_rss.py
+python scripts/emd_rss.py --since 2025-01-01
+```
+
+---
+
 ## Workflow Dependency Diagram
 
 The diagram below shows how the workflows connect to one another, which branches they read from and write to, and what triggers each step. Solid arrows indicate direct triggers; dashed arrows indicate indirect triggers (one workflow dispatching another).

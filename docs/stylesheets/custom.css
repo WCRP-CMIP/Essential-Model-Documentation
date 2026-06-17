@@ -43,32 +43,42 @@ svg tspan {
 }
 
 .dark {
-  --emd-primary: #bbdefb;
-  --emd-primary-light: rgba(255, 255, 255, 0.1);
-  --emd-primary-dark: #2196f3;
-  --emd-text: #f1f5f9;
-  --emd-text-secondary: #cbd5e1;
-  --emd-text-tertiary: #64748b;
-  --emd-bg: #0f172a;
-  --emd-bg-secondary: #1e293b;
-  --emd-bg-tertiary: #334155;
-  --emd-border: #334155;
-  --emd-border-light: #1e293b;
-  
+  /* Backgrounds — true slate, no blue tint */
+  --emd-bg:           #1a1d20;
+  --emd-bg-secondary: #22262b;
+  --emd-bg-tertiary:  #2b3038;
+
+  /* Borders — visible but not harsh */
+  --emd-border:       #3a4048;
+  --emd-border-light: #2b3038;
+
+  /* Text — high contrast white/light-grey hierarchy */
+  --emd-text:           #f0f2f4;
+  --emd-text-secondary: #c8cdd4;
+  --emd-text-tertiary:  #7e8894;
+
+  /* Accent — lighter sky blue that pops on dark slate */
+  --emd-primary:      #60a5fa;
+  --emd-primary-light: rgba(96, 165, 250, 0.15);
+  --emd-primary-dark: #93c5fd;
+
   color: var(--emd-text);
-}
-  --emd-border-light: #1e293b;
-  
-  /* Map shadcn theme variables to emd-primary blue (dark mode) */
+
+  /* shadcn theme token overrides */
   --primary: 213 94% 68%;
-  --primary-foreground: 222.2 47.4% 11.2%;
+  --primary-foreground: 220 13% 10%;
   --accent: 213 94% 68%;
-  --accent-foreground: 222.2 47.4% 11.2%;
+  --accent-foreground: 220 13% 10%;
   --sidebar-primary: 213 94% 68%;
-  --sidebar-primary-foreground: 222.2 47.4% 11.2%;
-  --ring: 213 94% 68%;
-  
-  color: var(--emd-text);
+  --sidebar-primary-foreground: 220 13% 10%;
+  --ring: 213 70% 60%;
+  --background: 220 10% 11%;
+  --foreground: 213 10% 95%;
+  --card: 220 10% 13%;
+  --card-foreground: 213 10% 95%;
+  --muted: 220 9% 17%;
+  --muted-foreground: 213 8% 55%;
+  --border: 220 8% 23%;
 }
 
 /* ============================================
