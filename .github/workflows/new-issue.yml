@@ -38,12 +38,29 @@ jobs:
   process-issue:
     name: Issue${{ github.event.issue.number || inputs.issue_number }} processing
     runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.issue.labels.*.name, 'emd-submission')
     outputs:
       pr_number:       ${{ steps.find_pr.outputs.pr_number }}
       validation:      ${{ steps.run_issue.outputs.validation }}
       labels_filtered: ${{ steps.filter_labels.outputs.filtered }}
     steps:
+      - name: Check for skip flag
+        id: skip_check
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          if echo "$ISSUE_TITLE" | grep -qP '\|\s*skip\s*\|'; then
+            echo "Issue title contains |skip| — skipping processing."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
       - name: Checkout main
+        if: steps.skip_check.outputs.skip != 'true'
         uses: actions/checkout@v4
         with:
           ref: main
@@ -55,6 +72,7 @@ jobs:
       # Drops noisy bot/state labels (Review, needs-review, pull_req, ...).
       - name: Filter labels
         id: filter_labels
+        if: steps.skip_check.outputs.skip != 'true'
         env:
           LABELS_JSON: ${{ toJSON(github.event.issue.labels.*.name) }}
         run: |
@@ -77,9 +95,11 @@ jobs:
         shell: bash
 
       - name: Install CMIPLD
+        if: steps.skip_check.outputs.skip != 'true'
         uses: WCRP-CMIP/CMIPLD/actions/cmipld@main
 
       - name: Configure Git
+        if: steps.skip_check.outputs.skip != 'true'
         run: |
           git config --global push.default simple
           git config --global user.email "cmip-ipo@esa.int"
@@ -88,6 +108,7 @@ jobs:
 
       - name: Process issue
         id: run_issue
+        if: steps.skip_check.outputs.skip != 'true'
         env:
           ISSUE_NUMBER:      ${{ github.event.inputs.issue_number || github.event.issue.number }}
           ISSUE_SUBMITTER:   ${{ github.event.issue.user.login }}
@@ -143,6 +164,7 @@ jobs:
 
       - name: Find PR for this issue
         id: find_pr
+        if: steps.skip_check.outputs.skip != 'true'
         env:
           GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
           ISSUE_NUMBER: ${{ github.event.inputs.issue_number || github.event.issue.number }}
