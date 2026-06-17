@@ -1,0 +1,30 @@
+{
+    "validation_key": "HadeGem5",
+    "ui_label": "HadeGem5",
+    "description": "A new version of Hadgema version 5. Same code. Noo changes.",
+    "collaborative_institutions": [
+        "aemet",
+        "ciat"
+    ],
+    "established": 2028,
+    "family_type": "model",
+    "primary_institution": "anu",
+    "references": [
+        "wcrp-cmip.org/doi"
+    ],
+    "representative_member": "Base configuration.",
+    "scientific_domains": [
+        "ocean",
+        "land_ice",
+        "atmosphere",
+        "aerosol"
+    ],
+    "website": "https://wcrp-cmip.org",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "hadegem5"
+}
