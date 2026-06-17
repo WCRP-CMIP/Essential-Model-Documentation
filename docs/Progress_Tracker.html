@@ -988,7 +988,14 @@ function getPipeId(title) {
    is the explicit reason used for withdrawals and duplicate-detection
    auto-closes. Pre-state_reason legacy issues are null — treat as merged. */
 function isMerged(issue) {
-  return issue.state === "closed" && issue.state_reason !== "not_planned";
+  if (issue.state !== "closed") return false;
+  if (issue.state_reason === "not_planned") return false;
+  // model and model_component submissions are not pipe-stamped on merge,
+  // so fall back to closed+not_abandoned for those types.
+  const labels = getLabels(issue);
+  if (labels.includes("model") || labels.includes("model_component")) return true;
+  // All other types get a | zzxz | stamp on merge — require it as proof.
+  return getPipeId(issue.title) !== null;
 }
 
 /* Determine the closed-card state:
