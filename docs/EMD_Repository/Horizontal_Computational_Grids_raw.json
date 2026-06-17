@@ -281,6 +281,19 @@
     "validation_key": "h116"
   },
   {
+    "@id": "h121",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Horizontal Computational Grid for the Common Land Model (CoLM) when coupled with IAP-AGCM in CAS-ESM.",
+    "horizontal_subgrids": "g134-mass",
+    "ui_label": "",
+    "validation_key": "h121"
+  },
+  {
     "@id": "h114",
     "@type": [
       "wcrp:horizontal_computational_grid",
