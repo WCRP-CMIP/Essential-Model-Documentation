@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_treerink-1773672118",
+    "ui_label": "Horizontal grid cell with a reduced_gaussian grid type.",
+    "description": "Spectral representation with triangular truncation at wavenumber 255 with a linear N128 reduced Gaussian grid.",
+    "alias": [],
+    "grid_mapping": "latitude_longitude",
+    "grid_type": "reduced_gaussian",
+    "n_cells": 92000,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 255,
+    "units": "",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-treerink-1773672118"
+}
