@@ -351,21 +351,56 @@ function esc(s) {
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-async function fetchAll() {
-  var items = [];
-  var page  = 1;
-  while (true) {
-    var url = API + '?state=closed&labels=' + LABEL + '&per_page=100&page=' + page;
-    var r = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
-    if (!r.ok) throw new Error('GitHub API ' + r.status);
-    var batch = await r.json();
-    batch = batch.filter(function(i) { return !i.pull_request; });
-    items = items.concat(batch);
-    if (batch.length < 100) break;
-    page++;
-  }
-  return items;
+async function fetchPage(page) {
+  var url = API + '?state=closed&labels=' + LABEL + '&per_page=100&page=' + page;
+  var r = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
+  if (!r.ok) throw new Error('GitHub API ' + r.status);
+  var batch = await r.json();
+  return batch.filter(function(i) { return !i.pull_request; });
 }
+
+window.emdRefresh = async function() {
+  var btn = document.getElementById('emd-refresh-btn');
+  btn.disabled = true; btn.textContent = '…';
+  allItems = [];
+  activeFilter = 'all';
+  document.getElementById('emd-cards').innerHTML = '<div class="emd-loading"><span class="emd-spinner"></span>Fetching submissions…</div>';
+  document.getElementById('emd-filter-bar').innerHTML = '';
+
+  try {
+    // ── Page 1: fetch and render immediately ──
+    var first = await fetchPage(1);
+    allItems = buildItems(first);
+    buildFilterBar(allItems);
+    renderCards();
+    setStatus('Loaded ' + allItems.length + ' · fetching more…');
+
+    // ── Remaining pages: stream in the background ──
+    if (first.length === 100) {
+      var page = 2;
+      while (true) {
+        var batch = await fetchPage(page);
+        if (!batch.length) break;
+        allItems = allItems.concat(buildItems(batch));
+        // Re-sort after each page (new pages are older, so append is fine but re-sort for safety)
+        allItems.sort(function(a,b) { return new Date(b.closedAt) - new Date(a.closedAt); });
+        buildFilterBar(allItems);
+        renderCards();
+        setStatus('Loaded ' + allItems.length + (batch.length === 100 ? ' · fetching more…' : ' · done'));
+        if (batch.length < 100) break;
+        page++;
+      }
+    }
+
+    setStatus('Updated ' + new Date().toLocaleTimeString() + ' · ' + allItems.length + ' submissions');
+  } catch(e) {
+    setStatus('Error: ' + e.message);
+    if (!allItems.length) {
+      document.getElementById('emd-cards').innerHTML = '<div class="emd-empty">Could not load submissions — ' + esc(e.message) + '</div>';
+    }
+  }
+  btn.disabled = false; btn.textContent = '↻ Refresh';
+};
 
 function buildItems(raw) {
   var out = [];
@@ -453,6 +488,7 @@ function renderCards() {
     return '<div class="emd-card" id="emd-card-' + idx + '" style="border-left-color:' + item.color + '" onclick="emdToggle(' + idx + ')">' +
       '<div class="emd-card-row">' +
         '<a class="emd-issue-num" href="' + esc(item.url) + '" target="_blank" onclick="event.stopPropagation()" title="Issue #' + item.number + '">#' + item.number + '</a>' +
+        (item.avatar ? '<a href="https://github.com/' + esc(item.submitter) + '" target="_blank" onclick="event.stopPropagation()" title="@' + esc(item.submitter) + '"><img class="emd-avatar" src="' + esc(item.avatar) + '?size=22" alt="' + esc(item.submitter) + '"></a>' : '') +
         '<span class="emd-card-stamp">' + esc(item.stamp) + '</span>' +
         '<span class="emd-card-spacer"></span>' +
         (item.prUrl ? '<a class="emd-issue-link" href="' + esc(item.prUrl) + '" target="_blank" onclick="event.stopPropagation()" title="PR #' + item.prNumber + '">PR #' + item.prNumber + '</a>' : '') +
@@ -473,23 +509,6 @@ window.emdToggle = function(idx) {
 function setStatus(msg) {
   document.getElementById('emd-status').textContent = msg;
 }
-
-window.emdRefresh = async function() {
-  var btn = document.getElementById('emd-refresh-btn');
-  btn.disabled = true; btn.textContent = '…';
-  document.getElementById('emd-cards').innerHTML = '<div class="emd-loading"><span class="emd-spinner"></span>Fetching submissions…</div>';
-  try {
-    var raw = await fetchAll();
-    allItems = buildItems(raw);
-    buildFilterBar(allItems);
-    renderCards();
-    setStatus('Updated ' + new Date().toLocaleTimeString() + ' · ' + allItems.length + ' submissions');
-  } catch(e) {
-    setStatus('Error: ' + e.message);
-    document.getElementById('emd-cards').innerHTML = '<div class="emd-empty">Could not load submissions — ' + esc(e.message) + '</div>';
-  }
-  btn.disabled = false; btn.textContent = '↻ Refresh';
-};
 
 // Set RSS link to the emd_rss.xml relative to the current site root
 (function() {
