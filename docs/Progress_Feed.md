@@ -111,7 +111,9 @@ hide:
   letter-spacing: 0.05em;
   padding: 0.15rem 0.5rem;
   border-radius: 10px;
-  color: #fff;
+  color: var(--badge-color);
+  background: transparent;
+  border: 1.5px solid var(--badge-color);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -128,6 +130,17 @@ hide:
   white-space: nowrap;
 }
 .emd-issue-link:hover { opacity: 1; text-decoration: underline; }
+
+.emd-issue-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--emd-text-tertiary);
+  text-decoration: none;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.emd-issue-num:hover { color: var(--emd-primary); text-decoration: underline; }
 
 .emd-date {
   font-size: 0.68rem;
@@ -218,14 +231,34 @@ hide:
   vertical-align: -4px;
   margin-right: 0.5rem;
 }
-@keyframes emd-spin { to { transform: rotate(360deg); } }
+.emd-rss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  border: 1.5px solid #e8601a;
+  border-radius: 6px;
+  color: #e8601a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.emd-rss-link:hover { background: #e8601a; color: #fff; }
+
 </style>
 
 <div class="emd-feed-wrap">
 
 <div class="emd-feed-topbar">
   <span class="emd-feed-status" id="emd-status">Loading…</span>
-  <button class="emd-refresh-btn" id="emd-refresh-btn" onclick="emdRefresh()">↻ Refresh</button>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a class="emd-rss-link" id="emd-rss-link" href="#" title="Subscribe to RSS feed" target="_blank">
+      <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM2 5h1.5A5.5 5.5 0 0 1 9 10.5V12H7.5v-1.5A4 4 0 0 0 3.5 7H2V5zm0 3.5h1.5a2 2 0 0 1 2 2V12H4v-1.5A.5.5 0 0 0 3.5 10H2V8.5z"/></svg>
+      RSS
+    </a>
+    <button class="emd-refresh-btn" id="emd-refresh-btn" onclick="emdRefresh()">↻ Refresh</button>
+  </div>
 </div>
 
 <div class="emd-filter-bar" id="emd-filter-bar"></div>
@@ -241,7 +274,14 @@ hide:
 var REPO  = 'WCRP-CMIP/Essential-Model-Documentation';
 var API   = 'https://api.github.com/repos/' + REPO + '/issues';
 var LABEL = 'emd-submission';
-var STAMP_RE = /^\s*\|\s*([^|]+?)\s*\|/;
+var STAMP_RE   = /^\s*\|\s*([^|]+?)\s*\|/;
+var PR_LINK_RE = /\/pull\/(\d+)/;
+
+function extractPR(body) {
+  if (!body) return null;
+  var m = PR_LINK_RE.exec(body);
+  return m ? m[1] : null;
+}
 
 var CATEGORY_COLORS = {
   horizontal_grid_cell:          '#2980b9',
@@ -300,7 +340,6 @@ async function fetchAll() {
     var r = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
     if (!r.ok) throw new Error('GitHub API ' + r.status);
     var batch = await r.json();
-    // exclude PRs
     batch = batch.filter(function(i) { return !i.pull_request; });
     items = items.concat(batch);
     if (batch.length < 100) break;
@@ -315,6 +354,8 @@ function buildItems(raw) {
     var s = stamp(issue.title);
     if (!s || s.toLowerCase() === 'skip') return;
     var cat = category(issue.labels);
+    var body = issue.body || '';
+    var prNumber = extractPR(body);
     out.push({
       number:    issue.number,
       stamp:     s,
@@ -324,7 +365,9 @@ function buildItems(raw) {
       avatar:    issue.user ? issue.user.avatar_url : '',
       closedAt:  issue.closed_at,
       url:       issue.html_url,
-      body:      issue.body || '',
+      prNumber:  prNumber,
+      prUrl:     prNumber ? 'https://github.com/' + REPO + '/pull/' + prNumber : null,
+      body:      body,
     });
   });
   out.sort(function(a,b) { return new Date(b.closedAt) - new Date(a.closedAt); });
@@ -333,28 +376,22 @@ function buildItems(raw) {
 
 function renderBody(md) {
   if (!md) return '';
-  // Strip the emd-bot-issue-status comment block entirely
   md = md.replace(/<!--\s*emd-bot-issue-status\s*-->[\s\S]*/i, '').trim();
   if (!md) return '';
-  // Light markdown → HTML conversion
+  // Compact 3+ consecutive blank lines down to 1
+  md = md.replace(/\n{3,}/g, '\n\n');
   var html = esc(md)
-    // code blocks
     .replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-    // inline code
     .replace(/`([^`]+)`/g, '<code>$1</code>')
-    // bold
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    // italic
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    // headings
     .replace(/^### (.+)$/gm, '<h4>$1</h4>')
     .replace(/^## (.+)$/gm,  '<h3>$1</h3>')
     .replace(/^# (.+)$/gm,   '<h2>$1</h2>')
-    // links  [text](url)
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" onclick="event.stopPropagation()">$1</a>')
-    // line breaks → <br> (but not inside pre)
+    .replace(/\n\n/g, '</p><p>')
     .replace(/\n/g, '<br>');
-  return '<div class="emd-body-content">' + html + '</div>';
+  return '<div class="emd-body-content"><p>' + html + '</p></div>';
 }
 
 function buildFilterBar(items) {
@@ -396,10 +433,11 @@ function renderCards() {
     var bodyHtml = renderBody(item.body);
     return '<div class="emd-card" id="emd-card-' + idx + '" style="border-left-color:' + item.color + '" onclick="emdToggle(' + idx + ')">' +
       '<div class="emd-card-row">' +
+        '<a class="emd-issue-num" href="' + esc(item.url) + '" target="_blank" onclick="event.stopPropagation()" title="Issue #' + item.number + '">#' + item.number + '</a>' +
         '<span class="emd-card-stamp">' + esc(item.stamp) + '</span>' +
-        '<a class="emd-issue-link" href="' + esc(item.url) + '" target="_blank" onclick="event.stopPropagation()" title="View issue #' + item.number + '">#' + item.number + '</a>' +
         '<span class="emd-card-spacer"></span>' +
-        '<span class="emd-badge" style="background:' + item.color + '">' + esc(item.category.replace(/_/g,' ')) + '</span>' +
+        (item.prUrl ? '<a class="emd-issue-link" href="' + esc(item.prUrl) + '" target="_blank" onclick="event.stopPropagation()" title="PR #' + item.prNumber + '">PR #' + item.prNumber + '</a>' : '') +
+        '<span class="emd-badge" style="--badge-color:' + item.color + '">' + esc(item.category.replace(/_/g,' ')) + '</span>' +
         (item.avatar ? '<a href="https://github.com/' + esc(item.submitter) + '" target="_blank" onclick="event.stopPropagation()" title="' + esc(item.submitter) + '">' +
           '<img class="emd-avatar" src="' + esc(item.avatar) + '?size=26" alt="' + esc(item.submitter) + '">' +
         '</a>' : '') +
@@ -435,6 +473,20 @@ window.emdRefresh = async function() {
   }
   btn.disabled = false; btn.textContent = '↻ Refresh';
 };
+
+// Set RSS link to the emd_rss.xml relative to the current site root
+(function() {
+  var origin = window.location.origin;
+  var path = window.location.pathname;
+  // Walk up to site root (strip page path, keep base)
+  var parts = path.replace(/\/$/, '').split('/');
+  // Find the root: drop the last segment (the page name)
+  parts.pop();
+  var base = origin + (parts.length ? parts.join('/') : '');
+  var rssUrl = base.replace(/\/$/, '') + '/emd_rss.xml';
+  var link = document.getElementById('emd-rss-link');
+  if (link) link.href = rssUrl;
+}());
 
 emdRefresh();
 }());
