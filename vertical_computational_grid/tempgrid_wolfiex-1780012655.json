@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_wolfiex-1780012655",
+    "ui_label": "undefined grid with 1 levels.",
+    "description": "The simulation is 2D only. If there is no explicit vertical grid specified use this grid as a reference.",
+    "bottom_layer_thickness": "",
+    "n_z": 1,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "undefined",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-wolfiex-1780012655"
+}
