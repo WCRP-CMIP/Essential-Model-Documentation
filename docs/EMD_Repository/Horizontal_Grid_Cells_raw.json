@@ -408,6 +408,30 @@
     "y_resolution": 0.1875
   },
   {
+    "@id": "g176",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The Y resolution varies within the range of 1.11209 to 1.12149 degrees.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 42440,
+    "region": "global",
+    "southernmost_latitude": -89.14152,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 159,
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+    "units": "degree",
+    "validation_key": "g176",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 1.12
+  },
+  {
     "@id": "g145",
     "@type": [
       "emd",
@@ -1102,6 +1126,30 @@
     "westernmost_longitude": 199.7664,
     "x_resolution": "",
     "y_resolution": ""
+  },
+  {
+    "@id": "g177",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The Y resolution varies within the range of 1.84964 to 1.86526 degrees.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 16128,
+    "region": "global",
+    "southernmost_latitude": -88.57217,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 95,
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+    "units": "degree",
+    "validation_key": "g177",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 1.86
   },
   {
     "@id": "g152",
