@@ -2753,7 +2753,10 @@ def run(use_embeddings=True):
                 data_size_str=data_size_str,
                 last_updated_str=last_updated,
             )
-            md_path.write_text(md_content, encoding="utf-8")
+            md_path.write_text(
+                md_content.encode("utf-8", errors="replace").decode("utf-8"),
+                encoding="utf-8",
+            )
             print(f"  \u2705 MD written  ({md_path.stat().st_size // 1024} KB)", flush=True)
 
             # (View page already written above \u2014 don't duplicate the write.)
