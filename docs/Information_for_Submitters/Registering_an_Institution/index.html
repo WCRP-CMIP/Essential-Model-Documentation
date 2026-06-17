@@ -14,7 +14,7 @@
     
 
 
-<title>Reviewer Information</title>
+<title>Registering an Institution</title>
 
 
 
@@ -26,18 +26,18 @@
 
 
 
-<link rel="canonical" href="https://emd.mipcvs.dev/Reviewer_Guidance/Reviewer_Information/">
+<link rel="canonical" href="https://emd.mipcvs.dev/Information_for_Submitters/Registering_an_Institution/">
 
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="Reviewer Information">
+<meta property="og:title" content="Registering an Institution">
 
 
 
 
 
-<meta property="og:url" content="https://emd.mipcvs.dev/Reviewer_Guidance/Reviewer_Information/">
+<meta property="og:url" content="https://emd.mipcvs.dev/Information_for_Submitters/Registering_an_Institution/">
 
 
 
@@ -46,7 +46,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="Reviewer Information">
+<meta name="twitter:title" content="Registering an Institution">
 
 
 
@@ -258,12 +258,12 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          Reviewer Information
+          Registering an Institution
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
           <button
-    onclick="fetch(`https://emd.mipcvs.dev/Reviewer_Guidance/Reviewer_Information.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
+    onclick="fetch(`https://emd.mipcvs.dev/Information_for_Submitters/Registering_an_Institution.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
     data-slot="button" class="secondary cursor-pointer">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
@@ -279,7 +279,7 @@
             data-slot="button"
             id="previous-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Reviewer_Guidance/Review_Options/"
+            href="/Information_for_Submitters/Error_Meanings/"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -301,6 +301,31 @@
           </a>
            
           
+          <a
+            data-slot="button"
+            id="next-button"
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
+            href="/Information_for_Submitters/Submission-Guide/"
+          >
+            <span class="sr-only">Next</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="tabler-icon tabler-icon-arrow-right"
+            >
+              <path d="M5 12l14 0"></path>
+              <path d="M13 18l6 -6"></path>
+              <path d="M13 6l6 6"></path>
+            </svg>
+          </a>
+          
         </div>
       </div>
       
@@ -310,213 +335,76 @@
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-    <div class="admonition warning">
-<p class="admonition-title">Reviewers only</p>
-<p>The following information is for the EMD review team. Some features described may not be accessible to those outside the team. If you are interested in helping with the review process, <a href="https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form">sign up here</a>.</p>
-</div>
+    <p>If your institution is not yet available in the EMD dropdown, you need to register it in the CMIP7 CVs before you can complete your model submission.</p>
 <hr />
-<h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h2>
-<h3 id="for-submitters">For Submitters<a class="headerlink" href="#for-submitters" title="Permanent link">&para;</a></h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Link</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">New submission</a></td>
-<td>Open the form chooser to start a new grid, component, family, or model submission</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me">Track my submissions</a></td>
-<td>All issues you have opened, including their current review status</td>
-</tr>
-<tr>
-<td><a href="https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&amp;size=flexible">How to edit an issue and rerun actions</a></td>
-<td>Step-by-step guide for making corrections after submission</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="for-reviewers">For Reviewers<a class="headerlink" href="#for-reviewers" title="Permanent link">&para;</a></h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Link</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc">All open PRs — oldest first</a></td>
-<td>The full PR queue sorted by age — <strong>review in this order</strong></td>
-</tr>
-<tr>
-<td><a href="https://scribehow.com/embed-preview/Reviewing_a_Pull_Reqiest__lI5FFHj-Rz2dcvD9-JEe5g?as=slides&amp;size=flexible">How to submit a review on GitHub</a></td>
-<td>Step-by-step walkthrough of the review and merge process</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+review%3Anone">PRs needing a first review</a></td>
-<td>Open PRs that have not yet received any reviewer engagement</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+review%3Aapproved">Approved PRs awaiting merge</a></td>
-<td>PRs that have passed review and are ready for a sanity check and merge</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Aopen+is%3Apr+label%3Achanges-requested">PRs with changes requested</a></td>
-<td>Submissions awaiting corrections from the submitter</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Aopen+is%3Apr+label%3Achanges-requested+label%3Aapproved">PRs approved after changes</a></td>
-<td>Submitter made changes and a reviewer has since approved — ready to merge</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Aopen+is%3Apr+label%3Areviewer-comment">PRs with reviewer comments</a></td>
-<td>Reviewer has left feedback without blocking or approving — may need a decision</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+label%3Achanges-made">PRs where changes have been made</a></td>
-<td>Submitter has responded — needs re-review</td>
-</tr>
-<tr>
-<td><a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+user-review-requested%3A%40me">PRs assigned to me</a></td>
-<td>PRs where you have been explicitly requested as a reviewer</td>
-</tr>
-<tr>
-<td><a href="https://github.com/orgs/WCRP-CMIP/projects/8?pane=info">Reviewer project board</a></td>
-<td>Kanban view of all active submissions, organised by stage and review status</td>
-</tr>
-<tr>
-<td><a href="https://zenodo.org/records/17853724">EMD specification</a></td>
-<td>The authoritative reference for all field definitions and controlled vocabularies</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="labels">Labels<a class="headerlink" href="#labels" title="Permanent link">&para;</a></h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Label</th>
-<th>Set by</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>needs-review</code></td>
-<td>Automatic on submission</td>
-<td>PR is in the review queue. Removed automatically on approval. <strong>Do not add or remove manually.</strong></td>
-</tr>
-<tr>
-<td><code>approved</code></td>
-<td>Automatic on reviewer approval</td>
-<td>PR has passed review</td>
-</tr>
-<tr>
-<td><code>changes-requested</code></td>
-<td>Automatic when reviewer requests changes</td>
-<td>Submitter must edit their issue</td>
-</tr>
-<tr>
-<td><code>changes-made</code></td>
-<td>Automatic when submitter edits issue (if <code>changes-requested</code> present)</td>
-<td>Submitter has responded — re-review needed</td>
-</tr>
-<tr>
-<td><code>reviewer-comment</code></td>
-<td>Automatic when reviewer leaves a comment review</td>
-<td>Reviewer has left feedback without blocking or approving</td>
-</tr>
-<tr>
-<td><code>needs checking</code></td>
-<td>Manual</td>
-<td>Escalating to another reviewer; conditional approval requiring a second opinion</td>
-</tr>
-<tr>
-<td><code>priority</code> / <code>urgent</code></td>
-<td>Manual</td>
-<td>To be defined on a case-by-case basis</td>
-</tr>
-</tbody>
-</table></div>
-<hr />
-<h2 id="review-procedure">Review Procedure<a class="headerlink" href="#review-procedure" title="Permanent link">&para;</a></h2>
-<p>Reviewing oldest first is a requirement — it ensures submitters are not left waiting indefinitely.</p>
-<ol>
-<li>Open the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls?q=is%3Apr+is%3Aopen+sort%3Acreated-asc">oldest-first PR queue</a>.</li>
-<li>Read the automated summary report posted as a comment, then examine the JSON diff.</li>
-<li>Submit your review using GitHub's <strong>Review changes</strong> panel — see <a href="Review_Options/">Review Options</a> for guidance on when to approve, request changes, or comment.</li>
-<li>Your review body is automatically copied to the linked issue so the submitter is notified.</li>
-<li>On approval, a second reviewer or maintainer performs a sanity check and merges.</li>
-</ol>
+<h2 id="how-institutions-are-structured">How institutions are structured<a class="headerlink" href="#how-institutions-are-structured" title="Permanent link">&para;</a></h2>
+<p>Institutions in CMIP7 are registered as <strong>institution members</strong> — each record specifies which member organisations belong to an institution and the DRS name (institution ID) that will appear in file paths and global attributes.</p>
+<p>This structure supports both:</p>
+<ul>
+<li><strong>Single-member institutes</strong> — one organisation, one institution ID.</li>
+<li><strong>Consortia</strong> — multiple member organisations listed under a shared institution ID (e.g. EC-Earth). If a consortium also has its own ROR, it can list itself as a member too.</li>
+</ul>
+<p>ROR identifiers are attached to the individual member records, not the top-level institution.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All review comments must go through the GitHub <strong>Review</strong> panel on the pull request. Comments left directly on the Conversation tab or on the issue are not formal reviews and do not trigger the label and notification workflow.</p>
+<p>In the CMIP7 CVs the top-level collection is called <code>institutions</code>, but internally this links to the WCRP universe <code>organisations</code> directory. The member records that carry ROR identifiers end up in the universe <code>institutions</code> directory. This is a known inconsistency that will be tidied up in CMIP8 — for now, you do not need to worry about it.</p>
 </div>
 <hr />
-<h2 id="confidence-and-collaboration">Confidence and Collaboration<a class="headerlink" href="#confidence-and-collaboration" title="Permanent link">&para;</a></h2>
-<p>Reviewers should ping others @EMD-reviewers if not confident about a submission. Domain expertise or clarification from another team member is always welcome and encouraged. Use the <code>needs-checking</code> label when escalating to another reviewer for a second opinion.</p>
+<h2 id="how-to-register">How to register<a class="headerlink" href="#how-to-register" title="Permanent link">&para;</a></h2>
+<p>Submit the institution member form on the CMIP7-CVs repository:</p>
+<p><strong><a href="https://github.com/WCRP-CMIP/CMIP7-CVs/issues/new?template=register-institution-member.yml">Register institution member →</a></strong></p>
+<p>The form asks you to specify your member organisation(s) and the DRS institution ID you want to use.</p>
 <hr />
-<h2 id="general-rules">General Rules<a class="headerlink" href="#general-rules" title="Permanent link">&para;</a></h2>
-<p><strong>IDs and naming</strong></p>
-<ul>
-<li>IDs must not contain underscores or spaces.</li>
-<li>Any periods <code>.</code> must be replaced with hyphens <code>-</code>. This applies to source IDs, model family names, and component version strings.</li>
-<li>Confirm this for every identifier in the submitted record.</li>
-</ul>
-<p><strong>Links and references</strong></p>
-<ul>
-<li>All links must point to permanent locations: version control platforms (GitHub, GitLab, Bitbucket) or DOIs.</li>
-<li>If a submitter needs a DOI for an otherwise unpublished resource, <a href="https://zenodo.org/">Zenodo</a> can mint one for free.</li>
-</ul>
-<p><strong>Grid descriptions</strong></p>
-<ul>
-<li>A description field on a grid record should only exist to document a difference between two otherwise identical parameter sets that cannot be captured by any structured field.</li>
-<li>Do not accept descriptions that simply restate the grid type or parameters already present in other fields.</li>
-</ul>
+<h2 id="how-long-it-takes">How long it takes<a class="headerlink" href="#how-long-it-takes" title="Permanent link">&para;</a></h2>
+<p>Registration involves several steps across different systems. Here is a realistic timeline:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Who</th>
+<th>Typical wait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Submit the form</td>
+<td>You</td>
+<td>~5 minutes</td>
+</tr>
+<tr>
+<td>PR reviewed and merged into <code>esgvoc_dev</code></td>
+<td>Laurent or Daniel</td>
+<td>~1 day</td>
+</tr>
+<tr>
+<td>CMIP7 CVs and universe synced in esgvoc</td>
+<td><a href="https://github.com/ltroussellier">@ltroussellier</a></td>
+<td>~every 2 days</td>
+</tr>
+<tr>
+<td>Web CVs API updated to serve the new data</td>
+<td><a href="https://github.com/ltroussellier">@ltroussellier</a></td>
+<td>TBC</td>
+</tr>
+<tr>
+<td>EMD forms updated to include the new institution</td>
+<td><a href="https://github.com/wolfiex">@wolfiex</a></td>
+<td>~daily (scheduled)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The maximum end-to-end wait is currently around 3–5 days.</strong></p>
+<p>If you are working to a deadline, submit the institution form as early as possible — ideally before starting your EMD grid submissions.</p>
 <hr />
-<h2 id="reading-an-emd-report">Reading an EMD Report<a class="headerlink" href="#reading-an-emd-report" title="Permanent link">&para;</a></h2>
-<p>Every pull request includes an automated summary report as a comment. Read it before examining the raw diff.</p>
-<p><strong>Check the overall structure.</strong> Ensure all required sections are present and populated. Compare against the latest <a href="https://zenodo.org/records/17853724">EMD specification</a>.</p>
-<p><strong>Review validation outputs.</strong> Errors indicate mandatory issues that must be fixed before merging. Warnings highlight potential inconsistencies — use your judgement on whether they need addressing.</p>
-<p><strong>Inspect identifiers and references.</strong> Confirm IDs follow the naming rules above. Ensure any referenced entities (grids, component configs, families) already exist in the registry and are correctly linked.</p>
-<p><strong>Assess the semantic content.</strong> Check that descriptions are meaningful and not duplicated unnecessarily.</p>
-<p><strong>Follow all links.</strong> Verify that references resolve and point to stable, permanent resources. A link to a personal Dropbox or an unversioned URL should be flagged.</p>
-<hr />
-<h2 id="grid-similarity">Grid Similarity<a class="headerlink" href="#grid-similarity" title="Permanent link">&para;</a></h2>
-<p>Duplicate or near-duplicate grid submissions are common. Before approving any grid record:</p>
-<ul>
-<li>Check whether a similar or identical grid already exists. The automated duplicate-detection comment is a starting point, but apply your own judgement.</li>
-<li>Minor differences in naming or description do not justify a new record. A new entry is warranted only when there are structural differences (resolution, topology, cell count, indexing) or when the physical interpretation differs in a way no existing field can capture.</li>
-<li>If unsure, tag the PR with <code>needs checking</code> and request input from a domain expert.</li>
-</ul>
-<hr />
-<h2 id="requesting-changes">Requesting Changes<a class="headerlink" href="#requesting-changes" title="Permanent link">&para;</a></h2>
-<p>When requesting changes, provide clear and pasteable guidance so the submitter knows exactly what to do. Always include what needs to change, in which field, and what the correct value should be. See <a href="Review_Comments/">Review Comments</a> for templates and examples.</p>
-<p>Leave change requests via the <strong>Request changes</strong> review option — not as free-form issue comments. When the submitter edits their issue in response, a <code>changes-made</code> label is added automatically so you know to look again.</p>
-<hr />
-<h2 id="project-board">Project Board<a class="headerlink" href="#project-board" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/orgs/WCRP-CMIP/projects/8?pane=info">project board</a> provides a consolidated view of all active submissions organised by stage and review status. Columns are managed via issue labels. On approval, the automated action removes <code>needs-review</code> and the PR moves to the Done column.</p>
-<hr />
-<h2 id="command-line-helper">Command Line Helper<a class="headerlink" href="#command-line-helper" title="Permanent link">&para;</a></h2>
-<p>A helper script is available on the <code>main</code> branch for reviewers who prefer the terminal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>.github/pr_issue_map.sh
-</code></pre></div>
-<p>Filter flags: <code>--approved</code>, <code>--needs-review</code>, <code>--json</code>.</p>
-<hr />
-<h2 id="using-copilot">Using Copilot<a class="headerlink" href="#using-copilot" title="Permanent link">&para;</a></h2>
-<p>Copilot may be added as a reviewer <strong>only after you have completed your own manual review</strong>. It must not be used as a primary reviewer.</p>
-<p>Appropriate uses: sanity checking your conclusions, flagging weaknesses you may have missed, suggesting grammar improvements in description fields.</p>
-<p>When working with Copilot suggestions: never use "Fix all", manually review each suggestion, resolve irrelevant conversations, and do not ask Copilot to review subgrid records (these are auto-generated).</p>
+<h2 id="once-registered">Once registered<a class="headerlink" href="#once-registered" title="Permanent link">&para;</a></h2>
+<p>Once your institution ID appears in the EMD dropdown, you can proceed with your model submission as normal. See the <a href="Submission-Guide/">Submission Guide</a> for the full four-stage process.</p>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 shadow-none"
-        href="/Reviewer_Guidance/Review_Options/">
+        href="/Information_for_Submitters/Error_Meanings/">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-left ">
@@ -524,9 +412,22 @@
             <path d="M5 12l6 6"></path>
             <path d="M5 12l6 -6"></path>
         </svg>
-        <span class="max-[500px]:hidden">Review Options</span>
+        <span class="max-[500px]:hidden">Error Meanings</span>
     </a>
     
+    
+    <a data-slot="button"
+        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 ml-auto shadow-none"
+        href="/Information_for_Submitters/Submission-Guide/">
+        <span class="max-[500px]:hidden">Submission Guide</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="tabler-icon tabler-icon-arrow-right ">
+            <path d="M5 12l14 0"></path>
+            <path d="M13 18l6 -6"></path>
+            <path d="M13 6l6 6"></path>
+        </svg>
+    </a>
     
 </div>
                                 <dialog id="bottom-sidebar" onclick="onBottomSidebarDialogClick(event)" class="bg-transparent"
@@ -685,31 +586,31 @@
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Error_Meanings/">
+                        <a class="text-2xl font-medium" href="../Error_Meanings/">
                             
                             Error Meanings
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Registering_an_Institution/">
+                        <a class="text-2xl font-medium" href="./">
                             
                             Registering an Institution
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Submission-Guide/">
+                        <a class="text-2xl font-medium" href="../Submission-Guide/">
                             
                             Submission Guide
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Using_GitHub_Forms/">
+                        <a class="text-2xl font-medium" href="../Using_GitHub_Forms/">
                             
                             Using GitHub Forms
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/What_to_expect_on_submission/">
+                        <a class="text-2xl font-medium" href="../What_to_expect_on_submission/">
                             
                             What to expect on submission
                             
@@ -724,25 +625,25 @@
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../Interpreting_The_Review_Summary/">
+                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Interpreting_The_Review_Summary/">
                             
                             Interpreting The Review Summary
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../Review_Comments/">
+                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Review_Comments/">
                             
                             Review Comments
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../Review_Options/">
+                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Review_Options/">
                             
                             Review Options
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="./">
+                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Reviewer_Information/">
                             
                             Reviewer Information
                             
@@ -771,102 +672,34 @@
         
         
         
-        <a href="#quick-links"
+        <a href="#how-institutions-are-structured"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#quick-links');">
-            Quick Links
-        </a>
-        
-        
-        <a href="#for-submitters"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#for-submitters');">
-            For Submitters
-        </a>
-        
-        <a href="#for-reviewers"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#for-reviewers');">
-            For Reviewers
-        </a>
-        
-        <a href="#labels"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#labels');">
-            Labels
-        </a>
-        
-        
-
-        
-        <a href="#review-procedure"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#review-procedure');">
-            Review Procedure
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-institutions-are-structured');">
+            How institutions are structured
         </a>
         
 
         
-        <a href="#confidence-and-collaboration"
+        <a href="#how-to-register"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#confidence-and-collaboration');">
-            Confidence and Collaboration
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-to-register');">
+            How to register
         </a>
         
 
         
-        <a href="#general-rules"
+        <a href="#how-long-it-takes"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#general-rules');">
-            General Rules
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#how-long-it-takes');">
+            How long it takes
         </a>
         
 
         
-        <a href="#reading-an-emd-report"
+        <a href="#once-registered"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#reading-an-emd-report');">
-            Reading an EMD Report
-        </a>
-        
-
-        
-        <a href="#grid-similarity"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#grid-similarity');">
-            Grid Similarity
-        </a>
-        
-
-        
-        <a href="#requesting-changes"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#requesting-changes');">
-            Requesting Changes
-        </a>
-        
-
-        
-        <a href="#project-board"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#project-board');">
-            Project Board
-        </a>
-        
-
-        
-        <a href="#command-line-helper"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#command-line-helper');">
-            Command Line Helper
-        </a>
-        
-
-        
-        <a href="#using-copilot"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#using-copilot');">
-            Using Copilot
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#once-registered');">
+            Once registered
         </a>
         
 
