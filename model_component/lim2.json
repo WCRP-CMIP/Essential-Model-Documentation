@@ -1,12 +1,12 @@
 {
     "validation_key": "lim2",
     "ui_label": "LIM2",
-    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography (https://www.cmcc.it/models/lim).  The LIM2 sea-ice model with parameters adjusted was used in CanESM5 (Swart et al. 2019, https://doi.org/10.5194/gmd-12-4823-2019)",
-    "code_base": "",
+    "description": "CanESM5.1 uses the LIM2 sea-ice model with parameters adjusted. LIM2 is run within the NEMO framework.",
+    "code_base": "https://gitlab.com/cccma/cannemo",
     "component": "sea_ice",
     "family": "lim",
     "references": [
-        "https://doi.org/10.1016/j.ocemod.2009.01.004"
+        "https://doi.org/10.1029/97JC00480 https://doi.org/10.1016/j.ocemod.2009.01.004 https://doi.org/10.5194/gmd-12-4823-2019"
     ],
     "@context": "_context",
     "@type": [
