@@ -88,22 +88,63 @@ hide:
 .emd-card-row {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
   padding: 0.45rem 0.75rem;
   min-height: 2.2rem;
 }
 
-.emd-card-stamp {
+/* Issue number — mono, muted, left anchor */
+.emd-issue-num {
   font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--emd-text-tertiary);
+  text-decoration: none;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.emd-issue-num:hover { color: var(--emd-primary); }
+
+/* Stamp — mono, takes remaining space */
+.emd-card-stamp {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--emd-text);
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+  letter-spacing: -0.01em;
 }
+
+.emd-card-spacer { flex: 1; }
+
+/* PR link */
+.emd-issue-link {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--emd-primary);
+  text-decoration: none;
+  opacity: 0.75;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.emd-issue-link:hover { opacity: 1; text-decoration: underline; }
+
+/* Submitter name */
+.emd-submitter {
+  font-size: 0.65rem;
+  color: var(--emd-text-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.emd-submitter:hover { color: var(--emd-primary); }
+
+/* Category badge — outline style */
 .emd-badge {
   font-size: 0.6rem;
   font-weight: 700;
@@ -117,33 +158,9 @@ hide:
   white-space: nowrap;
   flex-shrink: 0;
 }
-.emd-card-spacer { flex: 1; }
-
-.emd-issue-link {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--emd-primary);
-  text-decoration: none;
-  opacity: 0.7;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-.emd-issue-link:hover { opacity: 1; text-decoration: underline; }
-
-.emd-issue-num {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--emd-text-tertiary);
-  text-decoration: none;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-.emd-issue-num:hover { color: var(--emd-primary); text-decoration: underline; }
 
 .emd-date {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--emd-text-tertiary);
   white-space: nowrap;
   flex-shrink: 0;
@@ -191,21 +208,23 @@ hide:
 /* expanded description */
 .emd-body {
   display: none;
-  padding: 0.75rem 1rem 1rem;
+  padding: 0.5rem 0.75rem 0.6rem 2.2rem;
   background: var(--emd-bg-secondary);
   border-top: 1px solid var(--emd-border-light);
-  font-size: 0.85rem;
-  color: var(--emd-text-secondary);
-  line-height: 1.6;
 }
 .emd-card.open .emd-body { display: block; }
 .emd-body a { color: var(--emd-primary); }
-.emd-body-content { font-size: 0.8rem; line-height: 1.6; color: var(--emd-text-secondary); }
+.emd-body-content {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--emd-text-secondary);
+}
+.emd-body-content p { margin: 0.2rem 0; }
 .emd-body-content h2,
 .emd-body-content h3,
-.emd-body-content h4 { margin: 0.5rem 0 0.25rem; color: var(--emd-text); font-size: 0.85rem; }
-.emd-body-content pre { background: var(--emd-bg-tertiary); border-radius: 4px; padding: 0.5rem 0.75rem; overflow-x: auto; margin: 0.4rem 0; }
-.emd-body-content code { background: var(--emd-bg-tertiary); padding: 0.1em 0.3em; border-radius: 3px; font-family: "JetBrains Mono", monospace; font-size: 0.8em; }
+.emd-body-content h4 { margin: 0.4rem 0 0.1rem; color: var(--emd-text); font-size: 0.75rem; font-weight: 600; }
+.emd-body-content pre { background: var(--emd-bg-tertiary); border-radius: 3px; padding: 0.3rem 0.5rem; overflow-x: auto; margin: 0.3rem 0; font-size: 0.68rem; }
+.emd-body-content code { background: var(--emd-bg-tertiary); padding: 0.05em 0.25em; border-radius: 2px; font-family: "JetBrains Mono", monospace; font-size: 0.85em; }
 
 .emd-empty {
   text-align: center;
@@ -437,10 +456,8 @@ function renderCards() {
         '<span class="emd-card-stamp">' + esc(item.stamp) + '</span>' +
         '<span class="emd-card-spacer"></span>' +
         (item.prUrl ? '<a class="emd-issue-link" href="' + esc(item.prUrl) + '" target="_blank" onclick="event.stopPropagation()" title="PR #' + item.prNumber + '">PR #' + item.prNumber + '</a>' : '') +
+        (item.avatar ? '<a class="emd-submitter" href="https://github.com/' + esc(item.submitter) + '" target="_blank" onclick="event.stopPropagation()">@' + esc(item.submitter) + '</a>' : '') +
         '<span class="emd-badge" style="--badge-color:' + item.color + '">' + esc(item.category.replace(/_/g,' ')) + '</span>' +
-        (item.avatar ? '<a href="https://github.com/' + esc(item.submitter) + '" target="_blank" onclick="event.stopPropagation()" title="' + esc(item.submitter) + '">' +
-          '<img class="emd-avatar" src="' + esc(item.avatar) + '?size=26" alt="' + esc(item.submitter) + '">' +
-        '</a>' : '') +
         '<span class="emd-date">' + timeAgo(item.closedAt) + '</span>' +
         '<span class="emd-chevron">▼</span>' +
       '</div>' +
