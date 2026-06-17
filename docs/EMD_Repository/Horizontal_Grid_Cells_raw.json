@@ -781,6 +781,30 @@
     "y_resolution": 0.9375
   },
   {
+    "@id": "g178",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The Y resolution varies within the range of 2.76727 to 2.79062 degrees.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 7488,
+    "region": "global",
+    "southernmost_latitude": -87.8638,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 42,
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+    "units": "degree",
+    "validation_key": "g178",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 2.79
+  },
+  {
     "@id": "g138",
     "@type": [
       "emd",
