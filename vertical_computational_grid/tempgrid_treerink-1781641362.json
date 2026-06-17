@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_treerink-1781641362",
+    "ui_label": "height grid with 31 levels.",
+    "description": "The vertical grid of a classic land ice sheet model typically consists of a fixed number of layers which are scaled for each horizontal grid point individually per time step matching the total ice thickness at this horizontal point. Near the bottom of the ice body often the layers are relative closer to each other than at the ice sheet surface. So the layer thickness varies for each horizontal point and per layer, where the vertical coordinate is always zero at the surface and one at the bottom of the ice body.",
+    "bottom_layer_thickness": 36.6667,
+    "n_z": 31,
+    "n_z_range": "",
+    "top_layer_thickness": 230,
+    "total_thickness": 4000,
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-treerink-1781641362"
+}
