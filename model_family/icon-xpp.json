@@ -1,0 +1,33 @@
+{
+    "validation_key": "ICON-XPP",
+    "ui_label": "ICON-XPP",
+    "description": "1. ICON-XPP combines the ICON-A non-hydrostatic atmosphere model (80 km resolution) derived from the ICON NWP model used by DWD and other weather centres, the ICON-O hydrostatic ocean model (20 km resolution), sea ice, land (JSBACH or QUINCY), the HAMOCC ocean BGC model, and the HD river discharge model. Its underlying philosophy is to well represent past and future climate with an acceptably low degree of complexity so as to permit century-scale simulations at a feasible computational cost. 2. For CMIP7 the model comes in two variants which share the atmosphere, ocean, sea ice, and ocean biogeochemistry modules, but differ in the land component. They also come at the same resolutions in both the atmosphere and the ocean. 3. The two variants differ in that ICON-XPP (used for concentration-driven experiments) uses JSBACH, whereas for emission-driven simulations QUINCY is used. QUINCY has been derived from JSBACH but differs in how the land carbon is handled.",
+    "collaborative_institutions": [
+        "dkrz",
+        "mpi-b",
+        "mpi-m",
+        "uhh"
+    ],
+    "established": 2025,
+    "family_type": "model",
+    "primary_institution": "dwd",
+    "references": [
+        "https://gmd.copernicus.org/articles/18/9385/2025/gmd-18-9385-2025.pdf"
+    ],
+    "representative_member": "ICON-XPP",
+    "scientific_domains": [
+        "atmosphere",
+        "land_surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea_ice"
+    ],
+    "website": "https://www.nat-esm.de/services/models/icon-xpp",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "icon-xpp"
+}
