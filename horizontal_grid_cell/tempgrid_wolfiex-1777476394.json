@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_wolfiex-1777476394",
+    "ui_label": "Horizontal grid cell with a hierarchical discrete global grid grid type.",
+    "description": "",
+    "alias": [
+        "test grid"
+    ],
+    "grid_mapping": "lambert-conformal-conic",
+    "grid_type": "hierarchical-discrete-global-grid",
+    "n_cells": "",
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": "",
+    "temporal_refinement": "dynamically-stretched",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": "",
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-wolfiex-1777476394"
+}
