@@ -269,7 +269,7 @@ hide:
 
 <div class="emd-feed-wrap">
 
-<div class="emd-feed-topbar">
+<div class="emd-feed-topbar" id="emd-topbar">
   <span class="emd-feed-status" id="emd-status">Loading…</span>
   <div style="display:flex;gap:0.5rem;align-items:center;">
     <a class="emd-rss-link" id="emd-rss-link" href="#" title="Subscribe to RSS feed" target="_blank">
@@ -295,6 +295,11 @@ var API   = 'https://api.github.com/repos/' + REPO + '/issues';
 var LABEL = 'emd-submission';
 var STAMP_RE   = /^\s*\|\s*([^|]+?)\s*\|/;
 var PR_LINK_RE = /\/pull\/(\d+)/;
+
+// ── URL query params ──────────────────────────────────────
+var _params  = new URLSearchParams(window.location.search);
+var LIMIT    = parseInt(_params.get('limit') || '0', 10);   // 0 = no limit
+var MINIMAL  = _params.get('minimal') === 'true';           // hide chrome
 
 function extractPR(body) {
   if (!body) return null;
@@ -361,45 +366,67 @@ async function fetchPage(page) {
 
 window.emdRefresh = async function() {
   var btn = document.getElementById('emd-refresh-btn');
-  btn.disabled = true; btn.textContent = '…';
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
   allItems = [];
   activeFilter = 'all';
   document.getElementById('emd-cards').innerHTML = '<div class="emd-loading"><span class="emd-spinner"></span>Fetching submissions…</div>';
-  document.getElementById('emd-filter-bar').innerHTML = '';
+  var filterBar = document.getElementById('emd-filter-bar');
+  if (filterBar) filterBar.innerHTML = '';
+
+  // Minimal mode: strip entire DOM except #emd-cards and <style> elements
+  if (MINIMAL) {
+    var doWipe = function() {
+      var cards = document.getElementById('emd-cards');
+      var styles = Array.from(document.querySelectorAll('style'));
+      cards.parentNode.removeChild(cards);
+      document.body.innerHTML = '';
+      styles.forEach(function(s) { document.head.appendChild(s); });
+      cards.style.margin = '0 10px';
+      document.body.appendChild(cards);
+      // Re-run after a tick to catch anything injected late
+      setTimeout(function() {
+        var injected = document.body.querySelectorAll('div:not(#emd-cards):not([id^="emd-card-"]), button, nav, header, footer');
+        injected.forEach(function(el) {
+          if (!document.getElementById('emd-cards').contains(el)) el.remove();
+        });
+      }, 300);
+    };
+    // Delay wipe so other scripts finish injecting first
+    setTimeout(doWipe, 50);
+  }
 
   try {
-    // ── Page 1: fetch and render immediately ──
     var first = await fetchPage(1);
     allItems = buildItems(first);
-    buildFilterBar(allItems);
+    if (LIMIT) allItems = allItems.slice(0, LIMIT);
+    if (!MINIMAL) buildFilterBar(allItems);
     renderCards();
-    setStatus('Loaded ' + allItems.length + ' · fetching more…');
+    if (!MINIMAL) setStatus('Loaded ' + allItems.length + ((!LIMIT && first.length === 100) ? ' · fetching more…' : ''));
 
-    // ── Remaining pages: stream in the background ──
-    if (first.length === 100) {
+    // Stream remaining pages only if no limit
+    if (!LIMIT && first.length === 100) {
       var page = 2;
       while (true) {
         var batch = await fetchPage(page);
         if (!batch.length) break;
         allItems = allItems.concat(buildItems(batch));
-        // Re-sort after each page (new pages are older, so append is fine but re-sort for safety)
         allItems.sort(function(a,b) { return new Date(b.closedAt) - new Date(a.closedAt); });
-        buildFilterBar(allItems);
+        if (!MINIMAL) buildFilterBar(allItems);
         renderCards();
-        setStatus('Loaded ' + allItems.length + (batch.length === 100 ? ' · fetching more…' : ' · done'));
+        if (!MINIMAL) setStatus('Loaded ' + allItems.length + (batch.length === 100 ? ' · fetching more…' : ''));
         if (batch.length < 100) break;
         page++;
       }
     }
 
-    setStatus('Updated ' + new Date().toLocaleTimeString() + ' · ' + allItems.length + ' submissions');
+    if (!MINIMAL) setStatus('Updated ' + new Date().toLocaleTimeString() + ' · ' + allItems.length + ' submissions');
   } catch(e) {
-    setStatus('Error: ' + e.message);
+    if (!MINIMAL) setStatus('Error: ' + e.message);
     if (!allItems.length) {
       document.getElementById('emd-cards').innerHTML = '<div class="emd-empty">Could not load submissions — ' + esc(e.message) + '</div>';
     }
   }
-  btn.disabled = false; btn.textContent = '↻ Refresh';
+  if (btn) { btn.disabled = false; btn.textContent = '↻ Refresh'; }
 };
 
 function buildItems(raw) {

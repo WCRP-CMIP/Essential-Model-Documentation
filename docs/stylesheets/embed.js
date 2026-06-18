@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize
     cleanupOldButtons();
-    addFloatingExpandButton();
+    // addFloatingExpandButton(); // removed
     addKeyboardShortcuts();
     enhanceTables();
     setupTableFooterControls();
