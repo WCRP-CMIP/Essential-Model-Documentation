@@ -1,4 +1,3 @@
-cat > .github/workflows/block-tempgrid-compliance.yml <<'YAML'
 name: Block PRs with tempgrid references
 
 permissions:
@@ -117,4 +116,3 @@ jobs:
               "MAPPING:",
               "- tempgrid_jamesanstey-1777265640 -> v133",
               "- tempgrid_j](#)
-
