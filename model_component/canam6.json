@@ -1,0 +1,18 @@
+{
+    "validation_key": "canam6",
+    "ui_label": "CanAM6",
+    "description": "Canadian Atmospheric Model version 6 (CanAM6), based on the CanAM6 physics package and the GEM dynamical core, discretized on 1 degree Yin Yang grids.",
+    "code_base": "https://gitlab.com/cccma/canam",
+    "component": "atmosphere",
+    "family": "canam",
+    "references": [
+        "https://doi.org/10.5194/gmd-16-5427-2023 https://doi.org/10.5194/gmd-12-4823-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "canam6"
+}
