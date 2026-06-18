@@ -1,0 +1,154 @@
+name: 🚫 Block PRs with tempgrid references
+
+permissions:
+  pull-requests: write
+  checks: write
+  statuses: write
+
+on:
+  pull_request:
+    paths:
+      - '**.json'
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  block-tempgrid:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get committed files in PR
+        id: files
+        run: |
+          # Get base and head refs
+          BASE_REF="${{ github.base_ref }}"
+          HEAD_REF="${{ github.head_ref }}"
+          
+          # Fetch base ref to ensure we have it
+          git fetch origin "$BASE_REF" --depth=1
+          
+          # Get all added and modified JSON files
+          COMMITTED_FILES=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- '*.json' 2>/dev/null || echo "")
+          
+          echo "committed_files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$COMMITTED_FILES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Validate tempgrid compliance
+        id: validate
+        run: |
+          VIOLATIONS=""
+          EXIT_CODE=0
+          FILE_COUNT=0
+          
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+            
+            FILE_COUNT=$((FILE_COUNT + 1))
+            
+            # Check 1: @id field must NOT contain 'tempgrid' (case-insensitive)
+            if jq -e '.["@id"]? | test("tempgrid"; "i")' "$file" >/dev/null 2>&1; then
+              ID_VALUE=$(jq -r '.["@id"]' "$file" 2>/dev/null)
+              VIOLATIONS+="❌ **$file**: @id contains 'tempgrid' → \`$ID_VALUE\`
+"
+              EXIT_CODE=1
+            fi
+            
+            # Check 2: No string value in the file should contain 'tempgrid'
+            TEMPGRID_VALUES=$(jq -r 'walk(
+              if type == "string" then 
+                select(test("tempgrid"; "i"))
+              else 
+                empty 
+              end
+            )' "$file" 2>/dev/null | sort -u)
+            
+            if [ -n "$TEMPGRID_VALUES" ]; then
+              VIOLATIONS+="❌ **$file**: contains 'tempgrid' in values:
+"
+              while IFS= read -r val; do
+                [ -n "$val" ] && VIOLATIONS+="   • \`$val\`
+"
+              done <<< "$TEMPGRID_VALUES"
+              EXIT_CODE=1
+            fi
+          done <<< "${{ steps.files.outputs.committed_files }}"
+          
+          echo "violations<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$VIOLATIONS" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          
+          echo "exit_code=$EXIT_CODE" >> "$GITHUB_OUTPUT"
+          echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
+          
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "❌ Tempgrid validation failed"
+            exit 1
+          else
+            echo "✅ All files passed tempgrid validation ($FILE_COUNT files checked)"
+          fi
+
+      - name: Comment on PR if violations found
+        if: failure() && steps.validate.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const violations = `${{ steps.validate.outputs.violations }}`;
+            const fileCount = `${{ steps.validate.outputs.file_count }}`;
+            
+            const comment = `## 🚫 Tempgrid Compliance Check Failed
+
+Tempgrid references are not allowed in committed files. Temporary grid identifiers should be replaced with their permanent sequential IDs (v-numbers).
+
+**Violations found** (${fileCount} files checked):
+
+${violations}
+
+### Requirements:
+- ✅ @id field must NOT contain 'tempgrid' (case-insensitive)
+- ✅ No string values in the file should contain 'tempgrid' (case-insensitive)
+
+### What to do:
+Replace any tempgrid references with their corresponding permanent v-number IDs:
+- \`tempgrid_jamesanstey-1777265640\` → \`v133\`
+- \`tempgrid_jamesanstey-1779329580\` → \`v124\`
+
+**Reference:** Tempgrid files are temporary placeholders. Once finalized, they receive permanent sequential IDs. All files must use these permanent IDs.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Set commit status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const exitCode = '${{ steps.validate.outputs.exit_code }}';
+            const fileCount = '${{ steps.validate.outputs.file_count }}';
+            const state = exitCode === '0' ? 'success' : 'failure';
+            const description = exitCode === '0' 
+              ? `Tempgrid check passed (${fileCount} files)`
+              : 'Tempgrid compliance check failed - merge blocked';
+            
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha,
+              state: state,
+              description: description,
+              context: 'tempgrid-compliance-check'
+            });
