@@ -21,9 +21,9 @@ model_family = name_entry(
     key='validation_key'
 )
 
-# Get component configs for dropdown (deduplicated)
+# Get component configs for dropdown (deduplicated) - filter out tempgrid entries
 component_configs_raw = graph_entry('emd:component_config/_graph.json')
-component_configs = sorted(list(set(component_configs_raw)))
+component_configs = sorted(list(set([c for c in component_configs_raw if 'tempgrid' not in c.lower()])))
 
 DATA = {
     'component': sorted(domain_labels),

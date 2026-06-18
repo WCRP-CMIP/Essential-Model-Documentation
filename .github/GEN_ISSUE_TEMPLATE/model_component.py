@@ -13,7 +13,7 @@ component_family = name_entry(
 DATA = {
     'component_type': graph_entry('constants:scientific_domain/_graph.json'),
     'component_family': component_family,
-    'horizontal_grid': graph_entry('emd:horizontal_computational_grid/_graph.json'),
-    'vertical_grid': graph_entry('emd:vertical_computational_grid/_graph.json'),
+    'horizontal_grid': [entry for entry in graph_entry('emd:horizontal_computational_grid/_graph.json') if 'tempgrid' not in entry.lower()],
+    'vertical_grid': [entry for entry in graph_entry('emd:vertical_computational_grid/_graph.json') if 'tempgrid' not in entry.lower()],
     'issue_kind': ['New', 'Modify'],
 }
