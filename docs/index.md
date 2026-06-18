@@ -1,20 +1,16 @@
 # Essential Model Documentation (EMD)
 
+The Essential Model Documentation (EMD) is CMIP7's structured registry of climate model configurations — capturing grids, components, and how they fit together. [Submit a new entry](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose), track progress in the [Progress Tracker](Progress_Tracker.html), or browse approved submissions in the [Feed](Progress_Feed.md).
 
+Recent updates include:
 
-!!! tip "Progress Tracker"
+1. **Progress tracker** : View the status of all your submissions using our [submission tracker](Progress_Tracker.html). 
+2. **Questions** : Please send an email to [emd@wcrp-cmip.org](mailto:emd@wcrp-cmip.org). Users may need to [subscribe](Contact_us.html) first.   
+3. **Submission and Escalation Protocol**: Coming soon. 
 
-    Although it is not possible to track your overall progress (*as we are unaware of what you intend to register*).
-
-    You *can* view the status of all your submissions using our [submission tracker](Progress_Tracker.html). 
-    
-!!! question ""
-
-    For questions or queries, please send an email to [emd@wcrp-cmip.org](mailto:emd@wcrp-cmip.org). 
-    Users may need to [subscribe](Contact_us.html) first.   
-
-
-
+### Latest EMD approvals
+<iframe src="./Progress_Feed/?limit=10&minimal=true" style="width:100%;border:none;max-height:600px;min-height:400"></iframe>
+[See all approved EMD items](./Progress_Feed/)
 
 ## Registering a new item in the EMD
 Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
