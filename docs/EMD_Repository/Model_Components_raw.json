@@ -427,6 +427,21 @@
     "validation_key": "nemo_v3_6"
   },
   {
+    "@id": "jules-v5.3",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "land_surface",
+    "description": "The land surface component simulates physical, hydrological, and biogeochemical processes at the land surface, including exchanges of energy, water, and carbon with the atmosphere.",
+    "family": "jules",
+    "references": "https://doi.org/10.5194/gmd-4-677-2011",
+    "ui_label": "JULES v5.3",
+    "validation_key": "jules-v5.3"
+  },
+  {
     "@id": "um7.3",
     "@type": [
       "emd",
