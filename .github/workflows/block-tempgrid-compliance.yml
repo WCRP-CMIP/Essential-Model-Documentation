@@ -1,0 +1,118 @@
+name: Block PRs with tempgrid references
+
+permissions:
+  pull-requests: write
+  checks: write
+  statuses: write
+
+on:
+  pull_request:
+    paths:
+      - '**.json'
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+      - ready_for_review
+  merge_group:
+    paths:
+      - '**.json'
+
+jobs:
+  block-tempgrid:
+    runs-on: ubuntu-latest
+    name: tempgrid-compliance-check
+    
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get committed files in PR
+        id: files
+        run: |
+          BASE_REF="${{ github.base_ref }}"
+          git fetch origin "$BASE_REF" --depth=1
+          COMMITTED_FILES=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- '*.json' 2>/dev/null || echo "")
+          {
+            echo "committed_files<<EOFFILES"
+            echo "$COMMITTED_FILES"
+            echo "EOFFILES"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Validate tempgrid compliance
+        id: validate
+        run: |
+          VIOLATIONS_FILE=$(mktemp)
+          EXIT_CODE=0
+          FILE_COUNT=0
+          
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+            
+            FILE_COUNT=$((FILE_COUNT + 1))
+            
+            if jq -e '.["@id"]? | test("tempgrid"; "i")' "$file" >/dev/null 2>&1; then
+              ID_VALUE=$(jq -r '.["@id"]' "$file" 2>/dev/null)
+              echo "[FAIL] $file: @id contains tempgrid: $ID_VALUE" >> "$VIOLATIONS_FILE"
+              EXIT_CODE=1
+            fi
+            
+            TEMPGRID_VALUES=$(jq -r 'walk(if type == "string" then select(test("tempgrid"; "i")) else empty end)' "$file" 2>/dev/null | sort -u)
+            
+            if [ -n "$TEMPGRID_VALUES" ]; then
+              echo "[FAIL] $file: contains tempgrid in values:" >> "$VIOLATIONS_FILE"
+              while IFS= read -r val; do
+                [ -n "$val" ] && echo "  - $val" >> "$VIOLATIONS_FILE"
+              done <<< "$TEMPGRID_VALUES"
+              EXIT_CODE=1
+            fi
+          done <<< "${{ steps.files.outputs.committed_files }}"
+          
+          {
+            echo "violations<<EOFVIOL"
+            cat "$VIOLATIONS_FILE" 2>/dev/null || echo ""
+            echo "EOFVIOL"
+          } >> "$GITHUB_OUTPUT"
+          
+          echo "exit_code=$EXIT_CODE" >> "$GITHUB_OUTPUT"
+          echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
+          
+          rm -f "$VIOLATIONS_FILE"
+          
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "[ERROR] Tempgrid validation failed"
+            exit 1
+          else
+            echo "[OK] All files passed tempgrid validation"
+          fi
+
+      - name: Comment on PR if violations found
+        if: failure() && steps.validate.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const violations = "${{ steps.validate.outputs.violations }}";
+            const fileCount = "${{ steps.validate.outputs.file_count }}";
+            
+            const lines = [
+              "TEMPGRID COMPLIANCE CHECK FAILED",
+              "",
+              "Tempgrid references are not allowed in committed files.",
+              "Temporary grid identifiers must be replaced with permanent sequential IDs.",
+              "",
+              "VIOLATIONS FOUND (" + fileCount + " files checked):",
+              "",
+              violations,
+              "",
+              "REQUIREMENTS:",
+              "- @id field must NOT contain 'tempgrid' (case-insensitive)",
+              "- No string values should contain 'tempgrid' (case-insensitive)",
+              "",
+              "MAPPING:",
+              "- tempgrid_jamesanstey-1777265640 -> v133",
+              "- tempgrid_j](#)
