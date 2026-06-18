@@ -72,6 +72,30 @@
     "y_resolution": 2.8
   },
   {
+    "@id": "g180",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 7680,
+    "region": "global",
+    "southernmost_latitude": -88.288,
+    "temporal_refinement": "static",
+    "truncation_method": "rhomboidal",
+    "truncation_number": 30,
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 3.75 x 2.25 degree resolution.",
+    "units": "degree",
+    "validation_key": "g180",
+    "westernmost_longitude": 0,
+    "x_resolution": 3.75,
+    "y_resolution": 2.25
+  },
+  {
     "@id": "g127",
     "@type": [
       "emd",
