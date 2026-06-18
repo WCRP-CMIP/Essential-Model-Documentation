@@ -1,0 +1,86 @@
+name: ⟳ Audit unstamped closed issues
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: read
+  pull-requests: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO:     ${{ github.repository }}
+
+    steps:
+      - name: Find closed unstamped issues and their PR status
+        run: |
+          echo "## Unstamped closed issues" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Issue | Title | Linked PR | PR Status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+
+          PAGE=1
+          FOUND=0
+
+          while true; do
+            BATCH=$(gh issue list --repo "$REPO" \
+              --state closed \
+              --label emd-submission \
+              --limit 100 \
+              --json number,title,body \
+              --jq '.[]' \
+              2>/dev/null || true)
+
+            [ -z "$BATCH" ] && break
+
+            while IFS= read -r ISSUE_JSON; do
+              NUMBER=$(echo "$ISSUE_JSON" | jq -r '.number')
+              TITLE=$(echo "$ISSUE_JSON"  | jq -r '.title')
+              BODY=$(echo "$ISSUE_JSON"   | jq -r '.body // ""')
+
+              # Skip if already stamped
+              if echo "$TITLE" | grep -qE '^\s*\|'; then
+                continue
+              fi
+
+              FOUND=$((FOUND + 1))
+
+              # Find linked PR from issue body
+              PR_NUM=$(echo "$BODY" | tr '\n' ' ' \
+                | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+                | grep -oE '[0-9]+' | head -1 || true)
+
+              # Also search for PRs that reference this issue in their branch name
+              if [ -z "$PR_NUM" ]; then
+                PR_NUM=$(gh pr list --repo "$REPO" --state all --limit 200 \
+                  --json number,headRefName \
+                  --jq "[.[] | select(.headRefName | test(\"_${NUMBER}_|[-_]${NUMBER}$\"))] | .[0].number" \
+                  2>/dev/null || true)
+                [ "$PR_NUM" = "null" ] && PR_NUM=""
+              fi
+
+              if [ -z "$PR_NUM" ]; then
+                echo "| #${NUMBER} | \`${TITLE}\` | _none found_ | – |" >> "$GITHUB_STEP_SUMMARY"
+                continue
+              fi
+
+              PR_STATUS=$(gh pr view "$PR_NUM" --repo "$REPO" \
+                --json state,mergedAt \
+                --jq 'if .mergedAt then "merged" else .state | ascii_downcase end' \
+                2>/dev/null || echo "unknown")
+
+              echo "| #${NUMBER} | \`${TITLE}\` | #${PR_NUM} | ${PR_STATUS} |" >> "$GITHUB_STEP_SUMMARY"
+
+            done <<< "$(echo "$BATCH" | jq -c '.')"
+
+            # gh issue list doesn't paginate via --page, so we break after one pass
+            # (--limit 100 covers most repos; increase if needed)
+            break
+          done
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "_Total unstamped closed issues: ${FOUND}_" >> "$GITHUB_STEP_SUMMARY"
+          echo "Found $FOUND unstamped closed issues."

@@ -1,15 +1,15 @@
 {
+    "validation_key": "atmosphere_openifs-48r1_h107_v113",
+    "ui_label": "atmosphere_openifs-48r1_h107_v113",
+    "description": "",
+    "horizontal_computational_grid": "h107",
+    "model_component": "openifs-48r1",
+    "vertical_computational_grid": "v113",
     "@context": "_context",
-    "@id": "atmosphere_openifs-48r1_h107_v113",
     "@type": [
         "emd",
         "wcrp:component_config",
         "esgvoc:ComponentConfig"
     ],
-    "validation_key": "atmosphere_openifs-48r1_h107_v113",
-    "ui_label": "atmosphere_openifs-48r1_h107_v113",
-    "model_component": "openifs-48r1",
-    "horizontal_computational_grid": "h107",
-    "vertical_computational_grid": "v113",
-    "description": ""
+    "@id": "atmosphere-openifs-48r1-h107-v113"
 }
