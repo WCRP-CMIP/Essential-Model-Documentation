@@ -1,0 +1,35 @@
+{
+    "validation_key": "BCC-CSM3-MR",
+    "ui_label": "BCC-CSM3-MR",
+    "description": "Wu, T., Lu, Y., Fang, Y., Xin, X., Li, L., Li, W., et al. (2019). The Beijing Climate center climate System model (BCC‐CSM): The main progress from CMIP5 to CMIP6. Geoscientific Model Development, 12(4), 1573–1600.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [],
+    "crs": "ALOSi",
+    "dynamic_components": [
+        "atmosphere",
+        "ocean",
+        "sea ice",
+        "land surface and subsurface"
+    ],
+    "embedded_components": [],
+    "family": "bcc-csm",
+    "model_components": [
+        "atmosphere_arpege-climat-version-6-3_h100_v100"
+    ],
+    "name": "BCC-CSM3-MR",
+    "omitted_components": [],
+    "prescribed_components": [],
+    "references": [
+        "https://doi.org/10.5194/gmd-12-1573-2019"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "bcc-csm3-mr"
+}
