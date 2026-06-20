@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_rjstouffer-1781954822",
+    "ui_label": "",
+    "description": "Transform grid for a spectral atmospheric model, R30 resolution",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g180-mass-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-rjstouffer-1781954822"
+}
