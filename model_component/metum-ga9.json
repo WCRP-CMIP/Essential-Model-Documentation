@@ -1,0 +1,22 @@
+{
+    "validation_key": "metum-ga9",
+    "ui_label": "MetUM-GA9",
+    "description": "The Global Atmosphere 9 configuration of the Unified Model.  The main new developments in this configuration are: - The introduction of a prognostic-based convective entrainment rate (Willet et al., submitted). - Alignment of mid- and deep-level convection (with deep convection subsequently switched off). - A new parameterisation for riming (Furtado et al., 2017). - Bimodal cloud initiation (Weverberg et al., 2021a, b). - Several changes to improve the large-scale circulation (Williams et al., 2020).",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "metum",
+    "references": [
+        "\"The Met Office Unified Model Global Atmosphere and Land 9.0 configuration\" (Willet et al. in prep)",
+        "https://doi.org/10.1175/JAS-D-16-0165.1 (Furtado et al. 2017)",
+        "https://doi.org/10.1175/MWR-D-20-0224.1 (Weverberg et al. 2021a)",
+        "https://doi.org/10.1175/MWR-D-20-0230.1 (Weverberg et al. 2021b)",
+        "https://doi.org/10.1002/qj.3807 (Williams et al. 2020)"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "metum-ga9"
+}

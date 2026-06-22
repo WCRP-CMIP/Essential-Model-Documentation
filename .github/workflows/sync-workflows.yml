@@ -24,6 +24,9 @@ env:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    concurrency:
+      group: branch-write-${{ matrix.branch }}
+      cancel-in-progress: true
     strategy:
       matrix:
         branch:
