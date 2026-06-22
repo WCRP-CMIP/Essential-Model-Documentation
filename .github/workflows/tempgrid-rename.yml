@@ -310,3 +310,88 @@ jobs:
                 && echo "  deleted branch $BRANCH" || echo "  branch $BRANCH already gone"
             fi
           done
+
+  # ── Stamp | name | on PR/issue titles for model, model_family, model_component ──
+  # Runs only on real PR merges (not schedule/dispatch) where no tempgrid files
+  # were involved. Extracts the name from the issue title:
+  #   "<type_label> : <name>"  →  "| <name> | <original title>"
+  stamp_named_types:
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true
+    needs: rename_tempgrid
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO:     ${{ github.repository }}
+      PR:       ${{ github.event.pull_request.number }}
+
+    steps:
+      - name: Check for tempgrid files in this PR
+        id: check_tempgrid
+        run: |
+          HAS_TEMPGRID=$(gh pr view "$PR" --repo "$REPO" \
+            --json files --jq '.files[].path' 2>/dev/null \
+            | grep -cE '(^|/)([^/]*tempgrid[^/]*)$' || echo 0)
+          echo "has_tempgrid=$HAS_TEMPGRID" >> "$GITHUB_OUTPUT"
+          echo "Tempgrid files in PR: $HAS_TEMPGRID"
+
+      - name: Stamp issue and PR titles
+        if: steps.check_tempgrid.outputs.has_tempgrid == '0'
+        run: |
+          NAMED_TYPES="model model_family model_component"
+
+          # Collect all issues linked to this PR (from PR body Closes/Fixes/Resolves)
+          ALL_ISSUES=$(gh pr view "$PR" --repo "$REPO" --json body --jq '.body' 2>/dev/null \
+            | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          for ISSUE_NUM in $ALL_ISSUES; do
+            [ -z "$ISSUE_NUM" ] && continue
+
+            ISSUE_TITLE=$(gh issue view "$ISSUE_NUM" --repo "$REPO" \
+              --json title --jq '.title' 2>/dev/null || true)
+            [ -z "$ISSUE_TITLE" ] && continue
+
+            # Skip if already stamped
+            if echo "$ISSUE_TITLE" | grep -qE '^\|'; then
+              echo "Issue #$ISSUE_NUM already stamped — skipping."
+              continue
+            fi
+
+            # Check title contains "<type> : <name>" anywhere (case-insensitive)
+            MATCHED=false
+            for TYPE in $NAMED_TYPES; do
+              if echo "$ISSUE_TITLE" | grep -qiE "${TYPE}\s*:"; then
+                MATCHED=true; break
+              fi
+            done
+            if [ "$MATCHED" = "false" ]; then
+              echo "Issue #$ISSUE_NUM title does not match a named type — skipping."
+              continue
+            fi
+
+            # Extract name: everything after the first ':'
+            NAME=$(echo "$ISSUE_TITLE" | sed 's/^[^:]*:[[:space:]]*//' | xargs)
+            if [ -z "$NAME" ]; then
+              echo "Issue #$ISSUE_NUM: could not extract name from title — skipping."
+              continue
+            fi
+
+            echo "Issue #$ISSUE_NUM: stamping | $NAME |"
+
+            NEW_ISSUE_TITLE="| ${NAME} | ${ISSUE_TITLE}"
+            gh issue edit "$ISSUE_NUM" --repo "$REPO" --title "$NEW_ISSUE_TITLE" || true
+            gh issue close "$ISSUE_NUM" --repo "$REPO" || true
+
+            OLD_PR_TITLE=$(gh pr view "$PR" --repo "$REPO" --json title --jq '.title' 2>/dev/null || true)
+            if [ -n "$OLD_PR_TITLE" ]; then
+              CLEAN_PR=$(echo "$OLD_PR_TITLE" | sed 's/^|[^|]*| *//')
+              NEW_PR_TITLE="| ${NAME} | ${CLEAN_PR}"
+              [ "$OLD_PR_TITLE" != "$NEW_PR_TITLE" ] && \
+                gh pr edit "$PR" --repo "$REPO" --title "$NEW_PR_TITLE" || true
+            fi
+
+            echo "  ✓ Issue #$ISSUE_NUM and PR #$PR stamped with | $NAME |" >> "$GITHUB_STEP_SUMMARY"
+          done
