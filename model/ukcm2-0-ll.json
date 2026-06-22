@@ -1,0 +1,62 @@
+{
+    "validation_key": "UKCM2-0-LL",
+    "ui_label": "UKCM2-0-LL",
+    "description": "UKCM2-0-LL includes dynamically evolving MetUM GA9 dynamical atmosphere with the embedded GLOMAP-mode aerosol scheme coupled to the JULES  GL9 land surface and the GOSI9 configuration of the NEMO ocean and the embedded SI3 sea-ice model.  Land ice is represented through JULES. The ice surface is taken to be one of the surface tile types, and all surface tiles share the same soil information for temperature and moisture in JULES. The specification of land ice gridboxes is done through the tile fractions information. Atmospheric chemistry. UKCM2-0-LL has a very simplified treatment of aerosol chemistry using prescribed trace gas oxidants. GHGs/CFCs are prescribed from CMIP7 forcings as annual mean global constant values.  UKCM2-0-LL does not include an ocean biogeochemistry model.",
+    "calendar": [
+        "standard"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ]
+    ],
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "land surface and subsurface",
+        "ocean",
+        "sea ice"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "sea ice",
+            "ocean"
+        ],
+        [
+            "land surface and subsurface",
+            "atmosphere"
+        ]
+    ],
+    "family": "ukcm",
+    "model_components": [
+        "aerosol_glomap-mode_h113_v115",
+        "sea_ice_si3-gosi9_h110_v107",
+        "ocean_nemo-gosi9_h110_v107",
+        "atmosphere_metum-ga9_h113_v115",
+        "land_surface_jules-gl9_h113_v117"
+    ],
+    "name": "UKCM2-0-LL",
+    "omitted_components": [
+        "ocean biogeochemistry"
+    ],
+    "prescribed_components": [
+        "land ice",
+        "atmospheric chemistry"
+    ],
+    "references": [
+        "https://doi.org/10.5194/egusphere-2026-1676"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "ukcm2-0-ll"
+}
