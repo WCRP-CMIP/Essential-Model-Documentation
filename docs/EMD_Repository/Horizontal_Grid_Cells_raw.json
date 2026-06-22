@@ -96,6 +96,34 @@
     "y_resolution": 2.25
   },
   {
+    "@id": "g181",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [
+      "LICOM3.0",
+      "360x218",
+      "1-degree"
+    ],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 78480,
+    "region": "global",
+    "southernmost_latitude": -76,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 1 x 0.9 degree resolution.",
+    "units": "degree",
+    "validation_key": "g181",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": 0.9
+  },
+  {
     "@id": "g127",
     "@type": [
       "emd",
