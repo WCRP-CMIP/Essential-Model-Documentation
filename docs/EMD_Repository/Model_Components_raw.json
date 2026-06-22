@@ -380,6 +380,21 @@
     "validation_key": "mom5"
   },
   {
+    "@id": "colm2024",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://github.com/CoLM-SYSU/CoLM/tree/CoLM2024-CMIP7",
+    "component": "land_surface",
+    "description": "CoLM2024 is a comprehensive land-surface simulation platform that integrates a model system, data sets, and performance evaluation in a single framework. It is designed to support high-resolution, multi-scale land modeling and coupling with weather, climate, and Earth-system models.  Its main simulated processes include surface energy and water exchanges, radiation transfer, turbulent fluxes, canopy interception, vegetation hydraulics, soil water and heat transport, hydrology and routing, biogeochemical cycling, fire, ozone ecological stress, urban processes, crop growth, and atmospheric forcing downscaling. These process modules make CoLM2024 suitable for studies ranging from point-scale land-atmosphere exchange to regional and global environmental change.  The key physics and parameterizations have been substantially upgraded. CoLM2024 introduces three-dimensional vegetation shortwave and longwave radiation schemes, SNICAR-based snow radiative transfer, and improved two-stream vegetation radiation. It strengthens turbulence formulations across dense-to-sparse canopy conditions, adds multi-layer canopy interception, and replaces empirical water-stress treatment with a Darcy-law-based plant hydraulics scheme. Hydrology is also modernized through a variable-saturation soil moisture solver and scale-dependent lateral flow/routing treatments, including a modular and bidirectionally coupled CaMa-Flood implementation.  Notable features of this version include new grid structures beyond latitude\u2013longitude grids, namely unstructured grids and basin-unit grids; new vegetation subgrid representations based on PFTs and plant communities (PC); substantially updated high-resolution global data sets for land cover, soil, vegetation, hydrology, urban areas, and rivers; and improved portability, parallel performance, and namelist-based configurability. In addition, CoLM2024 adds an accelerated biogeochemistry spin-up method, urban 3D radiative-transfer and turbulence schemes, crop modules, fire and ozone-stress parameterizations, and machine-learning-assisted forcing downscaling.",
+    "family": "colm",
+    "references": "https://doi.org/10.1175/BAMS-84-8-1013 https://doi.org/10.5194/gmd-18-6517-2025 https://doi.org/10.1029/2025GL116015 https://doi.org/10.1038/s41597-025-04729-y https://doi.org/10.1007/s00376-024-3338-0 https://doi.org/10.1029/2024JD041520 https://doi.org/10.1029/2024JD041338 https://doi.org/10.5194/essd-17-517-2025 https://doi.org/10.1029/2023GL107059 https://doi.org/10.5194/essd-17-117-2025 https://doi.org/10.1029/2022MS003567 https://doi.org/10.3390/rs15071780 https://doi.org/10.1029/2022GL101754 https://doi.org/10.1029/2021WR031589 https://doi.org/10.3390/f12060722 https://doi.org/10.1029/2019MS001723 https://doi.org/10.1029/2019WR025368 https://doi.org/10.1029/2019MS001784 https://doi.org/10.1016/j.agrformet.2019.02.006",
+    "ui_label": "CoLM2024",
+    "validation_key": "colm2024"
+  },
+  {
     "@id": "iap-agcm5.0",
     "@type": [
       "emd",
