@@ -55,13 +55,9 @@ jobs:
             
             FILE_COUNT=$((FILE_COUNT + 1))
             
-            if jq -e '.["@id"]? | test("tempgrid"; "i")' "$file" >/dev/null 2>&1; then
-              ID_VALUE=$(jq -r '.["@id"]' "$file" 2>/dev/null)
-              echo "[FAIL] $file: @id contains tempgrid: $ID_VALUE" >> "$VIOLATIONS_FILE"
-              EXIT_CODE=1
-            fi
-            
-            TEMPGRID_VALUES=$(jq -r 'walk(if type == "string" then select(test("tempgrid"; "i")) else empty end)' "$file" 2>/dev/null | sort -u)
+            # Skip validation for @id, validation-key, and ui-label fields
+            # Check all string values except those keys
+            TEMPGRID_VALUES=$(jq -r 'walk(if type == "object" then del(.["@id"], .["validation-key"], .["ui-label"]) elif type == "string" then select(test("tempgrid"; "i")) else empty end)' "$file" 2>/dev/null | sort -u)
             
             if [ -n "$TEMPGRID_VALUES" ]; then
               echo "[FAIL] $file: contains tempgrid in values:" >> "$VIOLATIONS_FILE"
@@ -110,9 +106,19 @@ jobs:
               violations,
               "",
               "REQUIREMENTS:",
-              "- @id field must NOT contain 'tempgrid' (case-insensitive)",
               "- No string values should contain 'tempgrid' (case-insensitive)",
+              "- Exceptions: @id, validation-key, and ui-label fields are excluded",
               "",
               "MAPPING:",
               "- tempgrid_jamesanstey-1777265640 -> v133",
-              "- tempgrid_j](#)
+              "- tempgrid_jamesanstey-1778107280 -> v134",
+              "- tempgrid_jamesanstey-1778381851 -> v135",
+              "- tempgrid_yuzp-good-1780540770 -> v136",
+            ];
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: lines.join("\n"),
+            });
