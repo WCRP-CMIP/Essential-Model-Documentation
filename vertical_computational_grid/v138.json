@@ -1,0 +1,18 @@
+{
+  "validation_key": "v138",
+  "ui_label": "atmosphere-sigma-coordinate grid with 14 levels.",
+  "description": "Used top grid point to estimate total thickness. Used a standard atmosphere for all calculations. The top grid box thickness is not well defined. The model uses sigma coordinates and the top grid box edge is 0 (0 HPa).",
+  "bottom_layer_thickness": 58,
+  "n_z": 14,
+  "n_z_range": "",
+  "top_layer_thickness": "",
+  "total_thickness": 29000,
+  "vertical_coordinate": "atmosphere-sigma-coordinate",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v138"
+}
