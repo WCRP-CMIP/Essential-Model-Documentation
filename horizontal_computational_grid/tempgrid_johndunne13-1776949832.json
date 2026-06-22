@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_johndunne13-1776949832",
+    "ui_label": "",
+    "description": "GFDL 0.25 Deg OM5/MOM6 Grid",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g170-mass",
+        "g171-x-velocity",
+        "g172-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-johndunne13-1776949832"
+}
