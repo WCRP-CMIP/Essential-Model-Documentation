@@ -1,5 +1,29 @@
 [
   {
+    "@id": "g184",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 48600,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 1.00 x 1.00 degree resolution.",
+    "units": "degree",
+    "validation_key": "g184",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": 1
+  },
+  {
     "@id": "g156",
     "@type": [
       "emd",
