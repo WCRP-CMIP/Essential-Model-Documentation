@@ -523,6 +523,21 @@
     "validation_key": "cice5"
   },
   {
+    "@id": "icon-o-1.1",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads",
+    "component": "ocean",
+    "description": "1. This component simulates ocean physics and dynamics. The model is described here: https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021MS002952. The model operates on a triangular grid at a nominal 20 km resolution. The grid is organized such that interior land points have been removed from the grid. The model vertical coordinate system is depth-based with a maximum depth of 5900 m. 2. Key physics parameterizations Physics parameterizations are described / referenced by Korn et al. (https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021MS002952) for velocity dissipation, vertical mixing, and eddy diffusion and advection, 3. Notable features Care was taken to increase resolution to the point that the model now operates in the eddy-permitting domain.",
+    "family": "./",
+    "references": "https://doi.org/10.1029/2021MS002952",
+    "ui_label": "ICON-O 1.1",
+    "validation_key": "icon-o-1.1"
+  },
+  {
     "@id": "lpj-guess-4.1",
     "@type": [
       "emd",
