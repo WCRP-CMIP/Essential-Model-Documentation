@@ -30,6 +30,23 @@
     "validation_key": "h104"
   },
   {
+    "@id": "h123",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "GFDL 0.25 Deg OM5/MOM6 Grid",
+    "horizontal_subgrids": [
+      "g170-mass",
+      "g171-x-velocity",
+      "g172-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h123"
+  },
+  {
     "@id": "h102",
     "@type": [
       "wcrp:horizontal_computational_grid",

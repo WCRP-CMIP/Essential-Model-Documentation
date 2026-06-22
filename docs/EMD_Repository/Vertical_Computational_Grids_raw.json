@@ -405,6 +405,23 @@
     "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
   },
   {
+    "@id": "v141",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 100,
+    "description": "",
+    "n_z": 73,
+    "n_z_range": "",
+    "top_layer_thickness": 3000,
+    "total_thickness": 65000,
+    "ui_label": "atmosphere-sigma-coordinate grid with 73 levels.",
+    "validation_key": "v141",
+    "vertical_coordinate": "atmosphere-sigma-coordinate"
+  },
+  {
     "@id": "v105",
     "@type": [
       "wcrp:vertical_computational_grid",
