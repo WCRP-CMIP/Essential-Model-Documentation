@@ -7,6 +7,8 @@ permissions:
 
 on:
   pull_request:
+    branches:
+      - src-data
     paths:
       - '**.json'
     types:
@@ -16,8 +18,13 @@ on:
       - edited
       - ready_for_review
   merge_group:
+    branches:
+      - src-data
     paths:
       - '**.json'
+  push:
+    branches:
+      - src-data
 
 jobs:
   block-tempgrid:
@@ -33,9 +40,19 @@ jobs:
       - name: Get committed files in PR
         id: files
         run: |
-          BASE_REF="${{ github.base_ref }}"
-          git fetch origin "$BASE_REF" --depth=1
-          COMMITTED_FILES=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- '*.json' 2>/dev/null || echo "")
+          if [ "${{ github.event_name }}" = "push" ]; then
+            BEFORE="${{ github.event.before }}"
+            AFTER="${{ github.sha }}"
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              COMMITTED_FILES=$(git diff-tree --no-commit-id --name-only -r "$AFTER" -- '*.json' 2>/dev/null || echo "")
+            else
+              COMMITTED_FILES=$(git diff --name-only --diff-filter=AM "$BEFORE...$AFTER" -- '*.json' 2>/dev/null || echo "")
+            fi
+          else
+            BASE_REF="${{ github.base_ref }}"
+            git fetch origin "$BASE_REF" --depth=1
+            COMMITTED_FILES=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- '*.json' 2>/dev/null || echo "")
+          fi
           {
             echo "committed_files<<EOFFILES"
             echo "$COMMITTED_FILES"
