@@ -1,0 +1,17 @@
+{
+    "validation_key": "g120-mass-vorticity",
+    "ui_label": "",
+    "description": "",
+    "cell_variable_type": [
+        "mass",
+        "vorticity"
+    ],
+    "horizontal_grid_cells": "g120",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g120-mass-vorticity"
+}
