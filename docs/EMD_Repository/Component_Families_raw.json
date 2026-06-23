@@ -190,6 +190,24 @@
     "website": "none"
   },
   {
+    "@id": "no-family",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "No-family",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "./",
+    "references": "./",
+    "scientific_domains": [],
+    "ui_label": "no-family",
+    "validation_key": "no-family",
+    "website": ""
+  },
+  {
     "@id": "cmoc",
     "@type": [
       "emd",
