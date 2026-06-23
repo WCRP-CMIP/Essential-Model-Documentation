@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_olafmorgenstern-1782202805",
+    "ui_label": "Horizontal grid cell with a icosahedral geodesic dual grid type and 80 x 80 km resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "icosahedral-geodesic-dual",
+    "n_cells": 122880,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.56,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 0,
+    "x_resolution": 80,
+    "y_resolution": 80,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-olafmorgenstern-1782202805"
+}
