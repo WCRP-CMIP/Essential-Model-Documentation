@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_olafmorgenstern-1778154923",
+    "ui_label": "model levels grid with 130 levels.",
+    "description": "height-based coordinate system.",
+    "bottom_layer_thickness": 20,
+    "n_z": 130,
+    "n_z_range": "",
+    "top_layer_thickness": 1414.98,
+    "total_thickness": 75000,
+    "vertical_coordinate": "model levels",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-olafmorgenstern-1778154923"
+}
