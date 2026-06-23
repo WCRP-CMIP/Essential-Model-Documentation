@@ -33,7 +33,6 @@ block-tempgrid:
 runs-on: ubuntu-latest
 name: tempgrid-compliance-check
 
-```
 steps:
   - name: Checkout PR code
     uses: actions/checkout@v4
