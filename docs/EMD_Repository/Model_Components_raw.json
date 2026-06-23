@@ -538,6 +538,21 @@
     "validation_key": "cice5"
   },
   {
+    "@id": "si3-cannemo",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.com/cccma/cannemo",
+    "component": "sea_ice",
+    "description": "CanNEMO configuration of the SI3 sea ice model.",
+    "family": "si3",
+    "references": "https://doi.org/10.5194/gmd-12-4823-2019",
+    "ui_label": "SI3-CanNEMO",
+    "validation_key": "si3-cannemo"
+  },
+  {
     "@id": "icon-o-1.1",
     "@type": [
       "emd",
