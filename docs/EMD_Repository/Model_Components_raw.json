@@ -183,6 +183,21 @@
     "validation_key": "gelato"
   },
   {
+    "@id": "canam6",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.com/cccma/canam",
+    "component": "atmosphere",
+    "description": "Canadian Atmospheric Model version 6 (CanAM6), based on the CanAM6 physics package and the GEM dynamical core, discretized on 1 degree Yin Yang grids.",
+    "family": "canam",
+    "references": "https://doi.org/10.5194/gmd-16-5427-2023 https://doi.org/10.5194/gmd-12-4823-2019",
+    "ui_label": "CanAM6",
+    "validation_key": "canam6"
+  },
+  {
     "@id": "wombatlite",
     "@type": [
       "emd",
