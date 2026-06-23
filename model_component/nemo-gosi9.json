@@ -1,7 +1,7 @@
 {
     "validation_key": "nemo-gosi9",
     "ui_label": "NEMO-GOSI9",
-    "description": "UK physical global ocean configuration of the NEMO model",
+    "description": "This is the UK physical global ocean configuration of the NEMO (Nucleus for European Modelling of the Ocean) model. Updates to the ocean configuration GOSI9 compared to the GO6 ocean used in CMIP6 include an update to the NEMO 4.0 code base, a change in the sea ice model SI3, use of the TEOS-10 equation of state, updates to the time stepping and numerical mixing schemes, tuning of southern ocean performance in higher resolution models, and an update to the iceberg climatology used. For a full description of changes see Guiavarc'h et al, 2025.",
     "code_base": "https://doi.org/10.5281/zenodo.13814369",
     "component": "ocean",
     "family": "nemo",
