@@ -50,6 +50,8 @@ body:
         - "cable3"
         - "canam5-1"
         - "canam5-1-aerosol"
+        - "canam6"
+        - "canam6-aerosol"
         - "cannemo5-1"
         - "cannemo6-0"
         - "cice5"
@@ -59,6 +61,7 @@ body:
         - "clm4"
         - "cmoc"
         - "co2box-v1-0"
+        - "colm2024"
         - "fesim-2-7"
         - "fesom-2.7"
         - "gamil3"
@@ -73,12 +76,14 @@ body:
         - "lim2"
         - "lpj-guess-4.1"
         - "metum-ga9"
+        - "metum-ga9a"
         - "mom5"
         - "nemo-gosi9"
         - "nemo_v3_6"
         - "openifs-48r1"
         - "piscesv2-gas"
         - "reprobus-c_v2_0"
+        - "si3-cannemo"
         - "si3-gosi9"
         - "surfex_v8_modeling_platform"
         - "tactic"
@@ -129,6 +134,7 @@ body:
         - "h120"
         - "h121"
         - "h122"
+        - "h123"
       default: 0
     validations:
       required: true
@@ -191,6 +197,9 @@ body:
         - "v136"
         - "v137"
         - "v138"
+        - "v139"
+        - "v140"
+        - "v141"
       default: 0
     validations:
       required: true
