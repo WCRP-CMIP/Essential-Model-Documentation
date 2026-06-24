@@ -36,7 +36,7 @@ def _parse_list(value: str) -> list:
 
 
 def run(parsed_issue, issue, dry_run=False):
-    component_type = (parsed_issue.get('component_type') or '').strip().lower()
+    component_type = (parsed_issue.get('component_type') or '').strip().lower().replace('_', '-')
     component_name = (parsed_issue.get('component_name') or '').strip()
     h_grid         = (parsed_issue.get('horizontal_grid') or '').strip().lower()
     v_grid         = (parsed_issue.get('vertical_grid') or '').strip().lower()
