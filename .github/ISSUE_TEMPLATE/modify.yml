@@ -1,0 +1,121 @@
+name: "Modify: change a field in an existing entry"
+description: Update a single JSON field in any existing src-data file (opens a PR for review)
+title: "[EMD] Modify: [do not edit]"
+labels: ['emd-submission', 'modify', 'Review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Modify an existing entry
+        
+        Use this form to change a single field in an existing JSON file on `src-data`. The change is opened as a pull request for review — nothing is pushed directly.
+        
+        > [!NOTE]
+        > If the file or folder does not exist the submission will fail. Use the relevant **stage** form to create new entries.
+
+  - type: dropdown
+    id: folder
+    attributes:
+      label: Folder
+      description: |
+        The data folder containing the file you want to modify.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Data folder**
+        
+        Pick the folder that contains the file you want to change.
+        
+        If you're not sure which folder a given entry lives in, browse `src-data` on GitHub.
+        
+        </details>
+      options:
+        - "component_config"
+        - "horizontal_computational_grid"
+        - "horizontal_grid_cell"
+        - "horizontal_subgrid"
+        - "model"
+        - "model_component"
+        - "model_family"
+        - "vertical_computational_grid"
+    validations:
+      required: true
+
+  - type: input
+    id: filename
+    attributes:
+      label: Filename
+      description: |
+        Filename to modify (with or without `.json`).
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Existing filename**
+        
+        The `@id` of the file you want to change. With or without the trailing `.json` — the handler will add it if missing.
+        
+        **Example:** for `model/canesm5-1.json` enter `canesm5-1`.
+        
+        If the file does not exist the submission will fail.
+        
+        </details>
+      placeholder: "canesm5-1"
+    validations:
+      required: true
+
+  - type: input
+    id: key
+    attributes:
+      label: Field name
+      description: |
+        The JSON key (top-level only) to add or replace.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Field name**
+        
+        The JSON key to update. Nested keys are supported with dot notation, e.g. `metadata.version`.
+        
+        **The key must already exist on the file** — if it does not, the submission will fail. Use the relevant stage form to add new fields.
+        
+        </details>
+      placeholder: "description"
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: New value
+      description: |
+        The new value. If it parses as JSON (e.g. a list, number, boolean, or object) it is stored as that type; otherwise it is stored as a string.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **New value**
+        
+        Write the new value as you want it to appear in the JSON. Examples:
+        
+        - A string: `My new description`
+        - A list: `["https://doi.org/...", "https://doi.org/..."]`
+        - A number: `2024`
+        - A boolean: `true`
+        - An object: `{"key": "value"}`
+        
+        If the value parses as JSON it is stored as that type; otherwise it is kept as a string.
+        
+        </details>
+      placeholder: "A scientific overview of the model..."
+    validations:
+      required: true
+
+  - type: input
+    id: collaborators
+    attributes:
+      label: Additional Collaborators
+      description: GitHub usernames of additional contributors (comma-separated).
+      placeholder: "user1,user2,user3,..."
