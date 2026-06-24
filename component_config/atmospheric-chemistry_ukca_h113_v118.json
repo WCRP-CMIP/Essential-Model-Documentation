@@ -1,15 +1,15 @@
 {
-  "validation_key": "ukca_h113_v118",
-  "ui_label": "ukca_h113_v118",
-  "description": "",
-  "horizontal_computational_grid": "h113",
-  "model_component": "ukca",
-  "vertical_computational_grid": "v118",
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:component_config",
-    "esgvoc:ComponentConfig"
-  ],
-  "@id": "ukca_h113_v118"
+    "validation_key": "atmospheric-chemistry-ukca_h113_v118",
+    "ui_label": "atmospheric-chemistry-ukca_h113_v118",
+    "description": "",
+    "horizontal_computational_grid": "h113",
+    "model_component": "ukca",
+    "vertical_computational_grid": "v118",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "atmospheric-chemistry-ukca_h113_v118"
 }
