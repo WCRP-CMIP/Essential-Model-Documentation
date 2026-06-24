@@ -1,18 +1,18 @@
 {
-    "validation_key": "classicv1.5",
-    "ui_label": "CLASSICv1.5",
-    "description": "The Canadian Land Surface Scheme Including Biogeochemical Cycles (CLASSIC) land model is the successor to and is based on the coupled Canadian Land Surface Scheme (CLASS) and the Canadian Terrestrial Ecosystem Model (CTEM). The basis of the modelling of physical and biogeochemical processes in CLASSIC comes from CLASS and CTEM, respectively, both of which have a long history of development. CLASSIC simulates land–atmosphere fluxes of water, energy, and momentum based on its physics and fluxes of CO2, CH4, N2O, NOx, and NH3 based on its biogeochemical processes. The representation of the terrestrial N cycle is a new addition to CLASSIC and allows for the simulation of the interactions between the C and N cycles explicitly.",
-    "code_base": "https://gitlab.com/cccma/classic",
-    "component": "land_surface",
-    "family": "classic",
-    "references": [
-        "https://doi.org/10.5194/gmd-13-2825-2020 https://doi.org/10.5194/bg-20-1313-2023"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "classicv1.5"
+  "validation_key": "classicv1-5",
+  "ui_label": "CLASSICv1.5",
+  "description": "The Canadian Land Surface Scheme Including Biogeochemical Cycles (CLASSIC) land model is the successor to and is based on the coupled Canadian Land Surface Scheme (CLASS) and the Canadian Terrestrial Ecosystem Model (CTEM). The basis of the modelling of physical and biogeochemical processes in CLASSIC comes from CLASS and CTEM, respectively, both of which have a long history of development. CLASSIC simulates land–atmosphere fluxes of water, energy, and momentum based on its physics and fluxes of CO2, CH4, N2O, NOx, and NH3 based on its biogeochemical processes. The representation of the terrestrial N cycle is a new addition to CLASSIC and allows for the simulation of the interactions between the C and N cycles explicitly.",
+  "code_base": "https://gitlab.com/cccma/classic",
+  "component": "land-surface",
+  "family": "classic",
+  "references": [
+    "https://doi.org/10.5194/gmd-13-2825-2020 https://doi.org/10.5194/bg-20-1313-2023"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "classicv1-5"
 }

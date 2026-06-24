@@ -1,18 +1,18 @@
 {
-    "validation_key": "fesim-2-7",
-    "ui_label": "FESIM 2-7",
-    "description": "Main processes simulated (additions only) Within FESOM 2.7, FESIM 2.7 gains tighter coupling to an explicit iceberg drift-and-melt module (with wave-induced erosion), so that calved icebergs are treated as an external freshwater/heat source distinct from the resolved sea-ice cover. Consistent handling of land-ice and ice-shelf freshwater fluxes alongside sea-ice melt/growth is hardened, including the cold-start pathway used for transient passive tracers (CFCs, SF6, radiocarbon) and water isotopes (δ18O, δD) that interact with the ice–ocean interface.  Key physics / parameterisations (new or upgraded) Continued use of the modified elastic–viscous–plastic (mEVP) rheology on collocated triangular vertex meshes, with subcycle counts exposed via namelist. Flux-corrected transport advection of ice and snow mean thicknesses and concentration, unchanged in formulation but cleaned up at the interface to the restructured CVmix vertical-mixing layer of the host ocean. Improved ice–ocean–ice-shelf cavity consistency: rigid-lid/free-surface treatment under cavities, water-flux closure at the ice base, and a vertical-velocity reset that participates in the CFLz check. Calving/enthalpy logic reworked for stability under frequent restarts in coupled IFS-based configurations.  Notable features of this version First-phase OpenACC port: the FESIM dynamical kernels run alongside the FESOM 2.7 dynamical core on GPUs while retaining the existing MPI CPU path. CMIP7-oriented sea-ice diagnostics exposed via the ldiag_cmor diagnostic layer, with 0-dimensional global metrics written one file per simulated year. Asynchronous parallel sea-ice output through the MultIO 2.6 back-end, in addition to the native and XIOS paths. Coupled-system robustness improvements relevant to sea ice: corrected wind coupling at the ice surface, reproducibility under frequent restarts, and reduced coupling memory footprint. Build & test infrastructure: ecbundle support, multi-environment CI, and ctest regression tests that exercise cavity and iceberg setups together with the sea-ice component.",
-    "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.7.0",
-    "component": "sea_ice",
-    "family": "fesim",
-    "references": [
-        "https://doi.org/10.5194/gmd-8-1747-2015 https://doi.org/10.5194/gmd-10-765-2017 https://doi.org/10.5194/gmd-15-335-2022"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "fesim-2-7"
+  "validation_key": "fesim-2-7",
+  "ui_label": "FESIM 2-7",
+  "description": "Main processes simulated (additions only) Within FESOM 2.7, FESIM 2.7 gains tighter coupling to an explicit iceberg drift-and-melt module (with wave-induced erosion), so that calved icebergs are treated as an external freshwater/heat source distinct from the resolved sea-ice cover. Consistent handling of land-ice and ice-shelf freshwater fluxes alongside sea-ice melt/growth is hardened, including the cold-start pathway used for transient passive tracers (CFCs, SF6, radiocarbon) and water isotopes (δ18O, δD) that interact with the ice–ocean interface.  Key physics / parameterisations (new or upgraded) Continued use of the modified elastic–viscous–plastic (mEVP) rheology on collocated triangular vertex meshes, with subcycle counts exposed via namelist. Flux-corrected transport advection of ice and snow mean thicknesses and concentration, unchanged in formulation but cleaned up at the interface to the restructured CVmix vertical-mixing layer of the host ocean. Improved ice–ocean–ice-shelf cavity consistency: rigid-lid/free-surface treatment under cavities, water-flux closure at the ice base, and a vertical-velocity reset that participates in the CFLz check. Calving/enthalpy logic reworked for stability under frequent restarts in coupled IFS-based configurations.  Notable features of this version First-phase OpenACC port: the FESIM dynamical kernels run alongside the FESOM 2.7 dynamical core on GPUs while retaining the existing MPI CPU path. CMIP7-oriented sea-ice diagnostics exposed via the ldiag_cmor diagnostic layer, with 0-dimensional global metrics written one file per simulated year. Asynchronous parallel sea-ice output through the MultIO 2.6 back-end, in addition to the native and XIOS paths. Coupled-system robustness improvements relevant to sea ice: corrected wind coupling at the ice surface, reproducibility under frequent restarts, and reduced coupling memory footprint. Build & test infrastructure: ecbundle support, multi-environment CI, and ctest regression tests that exercise cavity and iceberg setups together with the sea-ice component.",
+  "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.7.0",
+  "component": "sea-ice",
+  "family": "fesim",
+  "references": [
+    "https://doi.org/10.5194/gmd-8-1747-2015 https://doi.org/10.5194/gmd-10-765-2017 https://doi.org/10.5194/gmd-15-335-2022"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "fesim-2-7"
 }

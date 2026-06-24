@@ -1,18 +1,18 @@
 {
-    "validation_key": "co2box-v1-0",
-    "ui_label": "co2box-v1-0",
-    "description": "The co2box v1.0 is a simple CO2 box model with just one global grid point.",
-    "code_base": "",
-    "component": "atmospheric-chemistry",
-    "family": "",
-    "references": [
-        "A description paper for the EC-Earth3-ESM-1 model configuration is in preparation (submission medio 2026)."
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "co2box-v1-0"
+  "validation_key": "co2box-v1-0",
+  "ui_label": "co2box-v1-0",
+  "description": "The co2box v1.0 is a simple CO2 box model with just one global grid point.",
+  "code_base": "",
+  "component": "atmospheric-chemistry",
+  "family": "",
+  "references": [
+    "A description paper for the EC-Earth3-ESM-1 model configuration is in preparation (submission medio 2026)."
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "co2box-v1-0"
 }

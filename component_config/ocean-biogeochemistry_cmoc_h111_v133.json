@@ -1,15 +1,1 @@
-{
-    "validation_key": "ocean-biogeochemistry-cmoc_h111_v133",
-    "ui_label": "ocean-biogeochemistry-cmoc_h111_v133",
-    "description": "",
-    "horizontal_computational_grid": "h111",
-    "model_component": "cmoc",
-    "vertical_computational_grid": "v133",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:component_config",
-        "esgvoc:ComponentConfig"
-    ],
-    "@id": "ocean-biogeochemistry-cmoc_h111_v133"
-}
+{"validation_key": "ocean-biogeochemistry_cmoc_h111_v133", "ui_label": "ocean-biogeochemistry_cmoc_h111_v133", "description": "", "horizontal_computational_grid": "h111", "model_component": "cmoc", "vertical_computational_grid": "v133", "@context": "_context", "@type": ["emd", "wcrp:component_config", "esgvoc:ComponentConfig"], "@id": "ocean-biogeochemistry_cmoc_h111_v133"}
