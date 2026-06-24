@@ -70,6 +70,7 @@ jobs:
           template_update || echo "template_update not available"
 
       - name: Commit changes
+        continue-on-error: true
         uses: EndBug/add-and-commit@v9
         with:
           add: '.github/'
