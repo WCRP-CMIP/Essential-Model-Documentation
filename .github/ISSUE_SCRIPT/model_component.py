@@ -13,7 +13,7 @@ e.g.  ocean_nemo-v3-6_h101_v103
 
 import os
 import re
-from cmipld.utils.similarity import ReportBuilder
+# from cmipld.utils.similarity import ReportBuilder  # disabled for non-grid types
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -210,16 +210,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         # Strip name if JSONValidator re-injected it
         data.pop('name', None)
-        print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
-        report_kind = 'component_config' if 'component_config' in file_path else 'model_component'
-        try:
-            data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{report_kind}", kind=report_kind,
-                item=data, link_threshold=80.0,
-            ).build()
-        except Exception as e:
-            print(f"\033[91m  ⚠ Report generation failed: {e}\033[0m", flush=True)
-            data['_validation_report'] = ''
+        # Lightweight check: flag suspiciously similar existing names in the same folder.
+        from _name_similarity import build_similarity_report
+        folder = os.path.dirname(file_path)
+        proposed_id = data.get('@id', '')
+        data['_validation_report'] = build_similarity_report(proposed_id, folder)
 
     if config_id and config_data:
         import json

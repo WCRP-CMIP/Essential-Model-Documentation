@@ -24,7 +24,7 @@ import os
 import subprocess
 import sys
 
-from cmipld.utils.similarity import ReportBuilder
+# from cmipld.utils.similarity import ReportBuilder  # imported but never called here
 
 kind = __file__.split('/')[-1].replace('.py', '')   # "link_existing_component"
 

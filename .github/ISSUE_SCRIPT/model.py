@@ -13,7 +13,7 @@ Schema field names (from esgvoc):
 import os
 import re
 import json
-from cmipld.utils.similarity import ReportBuilder
+# from cmipld.utils.similarity import ReportBuilder  # disabled for non-grid types
 from cmipld.utils import crs as _crs
 
 kind = __file__.split('/')[-1].replace('.py', '')
@@ -274,15 +274,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Strip name if JSONValidator re-injected it
         # data.pop('name', None)
         data['name'] = source_id  # ensure name matches validation_key/ui_label
-        print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
-        try:
-            data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{kind}", kind=kind,
-                item=data, link_threshold=80.0,
-            ).build()
-        except Exception as e:
-            print(f"\033[91m  ⚠ Report generation failed: {e}\033[0m", flush=True)
-            data['_validation_report'] = ''
+        # Lightweight check: flag suspiciously similar existing names in the same folder.
+        from _name_similarity import build_similarity_report
+        folder = os.path.dirname(file_path) or 'model'
+        proposed_id = data.get('@id') or source_id
+        data['_validation_report'] = build_similarity_report(proposed_id, folder)
 
     if model_data and source_id:
         clean = {k: v for k, v in model_data.items() if not k.startswith('_')}
