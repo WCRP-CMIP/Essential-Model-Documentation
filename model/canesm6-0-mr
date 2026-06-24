@@ -1,0 +1,70 @@
+{
+    "validation_key": "CanESM6-0-MR",
+    "ui_label": "CanESM6-0-MR",
+    "description": "CanESM6-0-MR is a fully coupled ESM developed by CCCma with a nominal resolution of 1 degree. It includes the Canadian Atmospheric Model version 6 (CanAM6), based on the GEM dynamical core and Yin Yang grids, with the Canadian Land Surface Scheme including Biogeochemical Cycles (CLASSICv1.5) embedded. The ocean is represented via an adapted version of the NEMO4.2.2 ocean model with the Canadian Model of Ocean Carbon (CMOC) and the NEMO Sea Ice Engine (SI3) embedded on the eORCA1 grid. The model components are coupled together based on a bespoke Canadian Coupler (CanCPL), built on the ESMF infrastructure. This version of the model does not simulate prognostic atmospheric chemistry. Land ice is specified and static.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ]
+    ],
+    "dynamic_components": [
+        "atmosphere",
+        "aerosol",
+        "land surface and subsurface",
+        "ocean",
+        "ocean biogeochemistry",
+        "sea ice"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "land surface and subsurface",
+            "atmosphere"
+        ],
+        [
+            "ocean biogeochemistry",
+            "ocean"
+        ],
+        [
+            "sea ice",
+            "ocean"
+        ]
+    ],
+    "family": "canesm",
+    "model_components": [
+        "atmosphere_canam6_h115_v128",
+        "aerosol_canam6-aerosol_h115_v128",
+        "land_surface_classicv1.5_h115_v123",
+        "ocean_cannemo6-0_h117_v107",
+        "ocean-biogeochemistry_cmoc_h117_v107",
+        "sea_ice_si3-cannemo_h117_v134"
+    ],
+    "name": "CanESM6-0-MR",
+    "omitted_components": [],
+    "prescribed_components": [
+        "atmospheric chemistry",
+        "land ice"
+    ],
+    "references": [
+        "https://doi.org/10.5194/gmd-12-4823-2019",
+        "https://doi.org/10.5194/gmd-16-5427-2023",
+        "https://doi.org/10.5194/gmd-15-4393-2022",
+        "https://doi.org/10.5194/bg-20-1313-2023",
+        "https://doi.org/10.5194/gmd-13-2825-2020"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "canesm6-0-mr"
+}

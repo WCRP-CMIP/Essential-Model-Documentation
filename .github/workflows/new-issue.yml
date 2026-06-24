@@ -40,7 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      contains(github.event.issue.labels.*.name, 'emd-submission')
+      (contains(github.event.issue.labels.*.name, 'emd-submission') &&
+       github.event.issue.state != 'closed')
     outputs:
       pr_number:       ${{ steps.find_pr.outputs.pr_number }}
       validation:      ${{ steps.run_issue.outputs.validation }}
