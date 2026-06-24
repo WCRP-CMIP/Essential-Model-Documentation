@@ -353,9 +353,15 @@ jobs:
               --json title --jq '.title' 2>/dev/null || true)
             [ -z "$ISSUE_TITLE" ] && continue
 
-            # Skip if already stamped
+            # Skip if already stamped — but still close modify issues, which
+            # are pre-stamped by the modify handler before the PR is opened.
             if echo "$ISSUE_TITLE" | grep -qE '^\|'; then
-              echo "Issue #$ISSUE_NUM already stamped — skipping."
+              if echo "$ISSUE_TITLE" | grep -qE '^\|[[:space:]]*Modify '; then
+                echo "Issue #$ISSUE_NUM is a pre-stamped modify — closing."
+                gh issue close "$ISSUE_NUM" --repo "$REPO" || true
+              else
+                echo "Issue #$ISSUE_NUM already stamped — skipping."
+              fi
               continue
             fi
 
