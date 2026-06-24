@@ -523,6 +523,21 @@
     "validation_key": "metum-ga9"
   },
   {
+    "@id": "ukca",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "atmospheric-chemistry",
+    "description": "The atmospheric chemistry component simulates gas-phase chemical processes in the atmosphere, including the production and loss of key oxidants and trace gases, enabling interactions between atmospheric composition, radiation, and climate.",
+    "family": "./",
+    "references": "https://doi.org/10.5194/gmd-13-1223-2020",
+    "ui_label": "UKCA",
+    "validation_key": "ukca"
+  },
+  {
     "@id": "si3-gosi9",
     "@type": [
       "emd",
