@@ -11,8 +11,16 @@ on:
   push:
     branches:
       - "src-data"
-
       - "docs"
+    paths:
+      - "component_config/**"
+      - "horizontal_computational_grid/**"
+      - "horizontal_grid_cell/**"
+      - "horizontal_subgrid/**"
+      - "model/**"
+      - "model_component/**"
+      - "model_family/**"
+      - "vertical_computational_grid/**"
 
   workflow_dispatch:
 
