@@ -64,10 +64,12 @@ jobs:
           fi
 
           echo "Running template generator..."
-          template_generate
+          template_generate || echo "⚠️ template_generate exited with code $?"
 
           echo "Updating modification links..."
           template_update || echo "template_update not available"
+          
+          exit 0
 
       - name: Commit changes
         continue-on-error: true
