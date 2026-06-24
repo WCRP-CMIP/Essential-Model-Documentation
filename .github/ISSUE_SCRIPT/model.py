@@ -130,15 +130,16 @@ def run(parsed_issue, issue, dry_run=False):
     if not source_id:
         return None
 
+    source_id_lower = source_id.lower()
     family = (parsed_issue.get('model_family') or parsed_issue.get('family') or '').strip()
 
     data = {
         "@context":       "_context",
-        "@id":            source_id,
+        "@id":            source_id_lower,
         "@type":          ["emd", "wcrp:model", "esgvoc:Model"],
-        "validation_key": source_id,
+        "validation_key": source_id_lower,
         "ui_label":       source_id,
-        "name":           source_id,
+        "name":           source_id_lower,
     }
 
     if family and family.lower() not in ('not specified', 'none', ''):
@@ -227,11 +228,11 @@ def run(parsed_issue, issue, dry_run=False):
                    if collab_str else []
 
     return {
-        os.path.join('model', f"{source_id}.json"): data,
+        os.path.join('model', f"{source_id_lower}.json"): data,
         '_author':       issue.get('author'),
         '_contributors': contributors,
         '_make_pull':    True,
-        '_source_id':    source_id,
+        '_source_id':    source_id_lower,
     }
 
 
