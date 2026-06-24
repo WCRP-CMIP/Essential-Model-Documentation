@@ -598,6 +598,21 @@
     "validation_key": "canam6-aerosol"
   },
   {
+    "@id": "pism-v1-2-line",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://github.com/pism/pism",
+    "component": "land-ice",
+    "description": "The Parallel Ice Sheet Model (PISM) is an open source, parallel, high-resolution land ice (i.e. ice sheet) model, principally driven by gravity and the surface mass balance. Gravity is partly balanced by lateral and bottom friction, the resulting shear stress balance in the ice body (which depends on the ice temperature field via a polythermal, enthalpy-based energy-conserving scheme) determines the ice flow. PISM includes marine ice sheet physics with dynamic calving fronts.  Here the PISM v1.2-line is used which is slightly modified by DMI in the context of coupling PISM with the ESM EC-Earth3-ESM-1-1. I. e. PISM is forced via the climatological fields coming from EC-Earth3-ESM-1-1 which are down-scaled to a mass-balance over the Greenland ice sheet  forcing PISMs ice mechanics. PISM provides the fresh water input for the ocean and updates of the Greenland surface topography for the atmosphere component of EC-Earth3-ESM-1-1. The albedo is determined by the interaction of the components.",
+    "family": "pism",
+    "references": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2008JF001179 https://tc.copernicus.org/articles/5/715/2011/ https://zenodo.org/records/19443904",
+    "ui_label": "PISM v1-2-line",
+    "validation_key": "pism-v1-2-line"
+  },
+  {
     "@id": "jules-v5-3",
     "@type": [
       "emd",
