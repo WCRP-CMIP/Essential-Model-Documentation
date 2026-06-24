@@ -1,1 +1,338 @@
-[]
+[
+  {
+    "@id": "canesm5-1",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "365-day",
+    "coupled_components": [
+      "atmosphere",
+      "ocean"
+    ],
+    "description": "CanESM5-1 is a fully coupled atmosphere-ocean-land ESM, which is scientifically very similar to CanESM5, and includes major technical upgrades within the model components, as well as addressing some key scientific issues, like stratospheric dust spikes.",
+    "dynamic_components": [
+      "atmosphere",
+      "aerosol",
+      "land surface and subsurface",
+      "ocean",
+      "ocean biogeochemistry",
+      "sea ice"
+    ],
+    "embedded_components": [
+      "aerosol",
+      "atmosphere",
+      "land surface and subsurface",
+      "atmosphere",
+      "ocean biogeochemistry",
+      "ocean",
+      "sea ice",
+      "ocean"
+    ],
+    "family": "canesm",
+    "model_components": [
+      "atmosphere_canam5-1_h108_v114",
+      "aerosol_canam5-1-aerosol_h108_v114",
+      "land_surface_class-ctem-v3.6.2_h108_v120",
+      "ocean_cannemo5-1_h111_v133",
+      "ocean-biogeochemistry_cmoc_h111_v133",
+      "sea_ice_lim2_h111_v124"
+    ],
+    "name": "CanESM5-1",
+    "omitted_components": [],
+    "prescribed_components": [
+      "atmospheric chemistry",
+      "land ice"
+    ],
+    "references": [
+      "https://doi.org/10.5194/gmd-12-4823-2019",
+      "https://doi.org/10.5194/gmd-14-6863-2021",
+      "https://doi.org/10.5194/gmd-15-4393-2022",
+      "https://doi.org/10.5194/gmd-16-5427-2023",
+      "https://doi.org/10.5194/gmd-16-6553-2023"
+    ],
+    "release_year": 2022,
+    "ui_label": "CanESM5-1",
+    "validation_key": "CanESM5-1"
+  },
+  {
+    "@id": "ukcm2-0-ll",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "standard",
+    "coupled_components": [
+      "atmosphere",
+      "ocean"
+    ],
+    "description": "UKCM2-0-LL includes dynamically evolving MetUM GA9 dynamical atmosphere with the embedded GLOMAP-mode aerosol scheme coupled to the JULES  GL9 land surface and the GOSI9 configuration of the NEMO ocean and the embedded SI3 sea-ice model.  Land ice is represented through JULES. The ice surface is taken to be one of the surface tile types, and all surface tiles share the same soil information for temperature and moisture in JULES. The specification of land ice gridboxes is done through the tile fractions information. Atmospheric chemistry. UKCM2-0-LL has a very simplified treatment of aerosol chemistry using prescribed trace gas oxidants. GHGs/CFCs are prescribed from CMIP7 forcings as annual mean global constant values.  UKCM2-0-LL does not include an ocean biogeochemistry model.",
+    "dynamic_components": [
+      "aerosol",
+      "atmosphere",
+      "land surface and subsurface",
+      "ocean",
+      "sea ice"
+    ],
+    "embedded_components": [
+      "aerosol",
+      "atmosphere",
+      "sea ice",
+      "ocean",
+      "land surface and subsurface",
+      "atmosphere"
+    ],
+    "family": "ukcm",
+    "model_components": [
+      "aerosol_glomap-mode_h113_v115",
+      "sea_ice_si3-gosi9_h110_v107",
+      "ocean_nemo-gosi9_h110_v107",
+      "atmosphere_metum-ga9_h113_v115",
+      "land_surface_jules-gl9_h113_v117"
+    ],
+    "name": "UKCM2-0-LL",
+    "omitted_components": "ocean biogeochemistry",
+    "prescribed_components": [
+      "land ice",
+      "atmospheric chemistry"
+    ],
+    "references": "https://doi.org/10.5194/egusphere-2026-1676",
+    "release_year": 2026,
+    "ui_label": "UKCM2-0-LL",
+    "validation_key": "UKCM2-0-LL"
+  },
+  {
+    "@id": "cnrm-esm2-1e",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "standard",
+    "component_configs": [
+      "atmosphere_arpege-climat-version-6-3_h100_v100",
+      "land-surface_surfex-v8-modeling-platform_h100_v101",
+      "ocean_nemo-v3-6_h101_v102",
+      "aerosol_tactic_h100_v100",
+      "atmospheric-chemistry_reprobus-c-v2-0_h100_v100",
+      "sea-ice_gelato_h101_v103",
+      "ocean-biogeochemistry_piscesv2-gas_h101_v102"
+    ],
+    "coupling_groups": [
+      "atmosphere",
+      "land-surface",
+      "ocean"
+    ],
+    "crs": "A[AeAc](L,O)L(O)O[SiOb]",
+    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (S\u00e9f\u00e9rian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
+    "dynamic_components": [
+      "aerosol",
+      "atmosphere",
+      "atmospheric-chemistry",
+      "land-surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea-ice"
+    ],
+    "embedded_components": [
+      "atmosphere",
+      "aerosol",
+      "atmosphere",
+      "atmospheric-chemistry",
+      "ocean",
+      "sea-ice",
+      "ocean",
+      "ocean-biogeochemistry"
+    ],
+    "family": "cnrm-cm",
+    "name": "CNRM-ESM2-1e",
+    "omitted_components": "land-ice",
+    "prescribed_components": [],
+    "references": [
+      "https://doi.org/10.1029/2019MS001791",
+      "https://doi.org/10.1029/2019MS001683"
+    ],
+    "release_year": 2018,
+    "ui_label": "",
+    "validation_key": "cnrm-esm2-1e"
+  },
+  {
+    "@id": "canesm6-0-mr",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "365-day",
+    "coupled_components": [
+      "atmosphere",
+      "ocean"
+    ],
+    "description": "CanESM6-0-MR is a fully coupled ESM developed by CCCma with a nominal resolution of 1 degree. It includes the Canadian Atmospheric Model version 6 (CanAM6), based on the GEM dynamical core and Yin Yang grids, with the Canadian Land Surface Scheme including Biogeochemical Cycles (CLASSICv1.5) embedded. The ocean is represented via an adapted version of the NEMO4.2.2 ocean model with the Canadian Model of Ocean Carbon (CMOC) and the NEMO Sea Ice Engine (SI3) embedded on the eORCA1 grid. The model components are coupled together based on a bespoke Canadian Coupler (CanCPL), built on the ESMF infrastructure. This version of the model does not simulate prognostic atmospheric chemistry. Land ice is specified and static.",
+    "dynamic_components": [
+      "atmosphere",
+      "aerosol",
+      "land surface and subsurface",
+      "ocean",
+      "ocean biogeochemistry",
+      "sea ice"
+    ],
+    "embedded_components": [
+      "aerosol",
+      "atmosphere",
+      "land surface and subsurface",
+      "atmosphere",
+      "ocean biogeochemistry",
+      "ocean",
+      "sea ice",
+      "ocean"
+    ],
+    "family": "canesm",
+    "model_components": [
+      "atmosphere_canam6_h115_v128",
+      "aerosol_canam6-aerosol_h115_v128",
+      "land_surface_classicv1.5_h115_v123",
+      "ocean_cannemo6-0_h117_v107",
+      "ocean-biogeochemistry_cmoc_h117_v107",
+      "sea_ice_si3-cannemo_h117_v134"
+    ],
+    "name": "CanESM6-0-MR",
+    "omitted_components": [],
+    "prescribed_components": [
+      "atmospheric chemistry",
+      "land ice"
+    ],
+    "references": [
+      "https://doi.org/10.5194/gmd-12-4823-2019",
+      "https://doi.org/10.5194/gmd-16-5427-2023",
+      "https://doi.org/10.5194/gmd-15-4393-2022",
+      "https://doi.org/10.5194/bg-20-1313-2023",
+      "https://doi.org/10.5194/gmd-13-2825-2020"
+    ],
+    "release_year": 2026,
+    "ui_label": "CanESM6-0-MR",
+    "validation_key": "CanESM6-0-MR"
+  },
+  {
+    "@id": "awi-esm3-4-2-veg-hr",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "proleptic-gregorian",
+    "coupled_components": [
+      "atmosphere",
+      "ocean",
+      "atmosphere",
+      "land surface and subsurface"
+    ],
+    "description": "AWI-ESM3-veg is the third generation of the AWI Earth System Model, configured here in its high resolution variant with dynamic vegetation. It is a successor to the AWI-CM3 system described in Streffing et al. (2022, doi:10.5194/gmd-15-6399-2022), now with updated atmosphere and ocean cycles plus the addition of LPJ-GUESS for dynamic vegetation. The components are coupled through OASIS3-MCT5.  1. Dynamic components Atmosphere: OpenIFS 48r1 on a TCO319 reduced Gaussian grid with 137 hybrid sigma-pressure levels. Ocean: FESOM2.7 on the DARS2 unstructured triangular mesh of about 3.15 M surface vertices and 6.23 M elements, on 57 z-levels. Horizontal resolution varies from about 5 km in dynamically active regions to about 25 km in the bulk interior. Sea ice: FESIM2.7 with zero-layer thermodynamics, embedded in FESOM2 and sharing its surface mesh. Land surface and dynamic vegetation: LPJ-GUESS 4.1, running on the OpenIFS horizontal grid.  2. Prescribed components Tropospheric anthropogenic aerosol: MACv2-SP (Stevens et al. 2017), the simple-plumes climatology that supplies direct and first indirect aerosol effects from a prescribed plume description. Stratospheric aerosol: prescribed from the CMIP7 stratospheric aerosol forcing dataset. Atmospheric chemistry: not interactive; ozone is taken from the CMIP7 ozone forcing dataset. Greenhouse gases: prescribed concentrations throughout.  3. Omitted components Ocean biogeochemistry: REcoM is planned to couple into FESOM2 in a future submission within the awi-esm3 family, but is not part of this fast-track configuration. Dynamic land ice: PISM is planned to couple into AWI-ESM3 in a future submission, but is not part of this fast-track configuration.",
+    "dynamic_components": [
+      "atmosphere",
+      "ocean",
+      "sea ice",
+      "land surface and subsurface"
+    ],
+    "embedded_components": [
+      "sea ice",
+      "ocean"
+    ],
+    "family": "awi-esm3",
+    "model_components": [
+      "atmosphere_openifs-48r1_h107_v113",
+      "ocean_fesom-2.7_h114_v116",
+      "land_surface_lpj-guess-4.1_h106_v112",
+      "sea_ice_fesim-2-7_h114_no-vertical"
+    ],
+    "name": "AWI-ESM3-4-2-veg-HR",
+    "omitted_components": [
+      "land ice",
+      "ocean biogeochemistry"
+    ],
+    "prescribed_components": [
+      "aerosol",
+      "atmospheric chemistry"
+    ],
+    "references": [
+      "https://doi.org/10.5194/gmd-15-6399-2022",
+      "\"AWI-ESM3",
+      "Earth",
+      "system",
+      "model",
+      "for",
+      "the",
+      "Coupled",
+      "Model",
+      "Intercomparison",
+      "Project",
+      "7\"",
+      "(Streffing",
+      "et",
+      "al.",
+      "in",
+      "preparation",
+      "target",
+      "GMD",
+      "2027)"
+    ],
+    "release_year": 2026,
+    "ui_label": "AWI-ESM3-4-2-veg-HR",
+    "validation_key": "AWI-ESM3-4-2-veg-HR"
+  },
+  {
+    "@id": "access-esm1-6",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "proleptic-gregorian",
+    "coupled_components": [
+      "atmosphere",
+      "ocean",
+      "atmosphere",
+      "sea ice",
+      "ocean",
+      "sea ice"
+    ],
+    "description": "The model is an updated version of ACCESS-ESM1-5, as used for CMIP6 (Ziehn et al., 2020). Its dynamic components are the UK Met Office Unified Model atmosphere (v7.3) in a configuration similar to HadGEM2 including CLASSIC aerosols, with the CABLE land surface model (v3) including land biogeochemistry. The atmosphere is coupled to the MOM5 ocean with WOMBATlite biogeochemistry and CICE5 sea-ice using the OASIS-MCT coupler. Chemistry is prescribed including monthly mean, zonally-averaged ozone. Volcano forcing is prescribed as stratospheric optical depth as monthly means in four equal area latitude bands. Land-ice is represented by an ice tile in the land surface model. A grid-cell is either completely ice or ice-free and the ice tile distribution does not change in time. The main differences from ACCESS-ESM1.5 include corrections to how convective momentum transport had been applied in the atmosphere, a change to ocean albedo to better match observations, a correction to the passing of ocean carbon fluxes into the atmosphere, updates to improve energy and water conservation across the land and atmosphere, inclusion of 3 new plant functional types (c4 crops and two Australian tree types), improvements to the treatment of land-use change, updates to some of the land parameterisations or parameter values, the inclusion of a pseudo-iceberg scheme for distributing runoff from Antarctica and Greenland and a substantial update to ocean biogeochemistry. Many aspects of the model infrastructure have also been improved to ensure greater provenance, better support for users and enhanced model throughput. A manuscript describing ACCESS-ESM1.6 is in preparation (Ziehn et al.).",
+    "dynamic_components": [
+      "atmosphere",
+      "land surface and subsurface",
+      "aerosol",
+      "ocean",
+      "ocean biogeochemistry",
+      "sea ice"
+    ],
+    "embedded_components": [
+      "aerosol",
+      "atmosphere",
+      "land surface and subsurface",
+      "atmosphere",
+      "ocean biogeochemistry",
+      "ocean"
+    ],
+    "family": "access-esm",
+    "model_components": [
+      "aerosol_classic_h102_v106",
+      "atmosphere_um7.3_h102_v106",
+      "land_surface_cable3_h102_v105",
+      "ocean-biogeochemistry_wombatlite_h109_v109",
+      "ocean_mom5_h109_v109",
+      "sea_ice_cice5_h109_no-vertical"
+    ],
+    "name": "ACCESS-ESM1-6",
+    "omitted_components": [],
+    "prescribed_components": [
+      "atmospheric chemistry",
+      "land ice"
+    ],
+    "references": "https://doi.org/10.1071/ES19035",
+    "release_year": 2026,
+    "ui_label": "ACCESS-ESM1-6",
+    "validation_key": "ACCESS-ESM1-6"
+  }
+]
