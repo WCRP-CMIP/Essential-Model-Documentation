@@ -1,20 +1,20 @@
 {
-    "validation_key": "mom5",
-    "ui_label": "MOM5",
-    "description": "Version 5 of the Modular Ocean Model (MOM5, Griffies 2012) is a hydrostatic generalized level coordinate numerical ocean model with mass-conserving non-Boussinesq or volume-conserving Boussinesq kinematics on an Arakawa B-grid. ACCESS-ESM1.6 uses a Boussinesq configuration of MOM5 with a free surface and ‘z-star’ vertical coordinates which spread changes associated with the free surface throughout the water column. The grid resolution, bathymetry and parameterisations are unchanged from ACCESS-ESM1.5 (Ziehn et al., 2020).",
-    "code_base": "https://github.com/ACCESS-NRI/MOM5/releases/tag/2025.05.000",
-    "component": "ocean",
-    "family": "",
-    "references": [
-        "https://doi.org/10.5281/zenodo.19200080",
-        "https://doi.org/10.1016/j.ocemod.2017.03.016",
-        "https://doi.org/10.1071/ES19035"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "mom5"
+  "validation_key": "mom5",
+  "ui_label": "MOM5",
+  "description": "Version 5 of the Modular Ocean Model (MOM5, Griffies 2012) is a hydrostatic generalized level coordinate numerical ocean model with mass-conserving non-Boussinesq or volume-conserving Boussinesq kinematics on an Arakawa B-grid. ACCESS-ESM1.6 uses a Boussinesq configuration of MOM5 with a free surface and ‘z-star’ vertical coordinates which spread changes associated with the free surface throughout the water column. The grid resolution, bathymetry and parameterisations are unchanged from ACCESS-ESM1.5 (Ziehn et al., 2020).",
+  "code_base": "https://github.com/ACCESS-NRI/MOM5/releases/tag/2025.05.000",
+  "component": "ocean",
+  "family": "",
+  "references": [
+    "https://doi.org/10.5281/zenodo.19200080",
+    "https://doi.org/10.1016/j.ocemod.2017.03.016",
+    "https://doi.org/10.1071/ES19035"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "mom5"
 }

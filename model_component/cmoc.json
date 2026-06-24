@@ -1,18 +1,18 @@
 {
-    "validation_key": "cmoc",
-    "ui_label": "CMOC",
-    "description": "The Canadian Model of Ocean Carbon (CMOC) includes carbon chemistry and biology. The biological component is a simple nutrient–phytoplankton–zooplankton–detritus (NPZD) model, with fixed Redfield stoichiometry, and simple parameterizations of iron limitation, nitrogen fixation, and export flux of calcium carbonate. CMOC was migrated into the NEMO modelling system, and the following important modifications were made: (i) oxygen was added as a passive tracer with no feedback on biology; (ii) carbon chemistry routines were updated to conform to the OMIP-BGC protocol (Orr et al., 2017, https://doi.org/10.5194/gmd-10-2169-2017); (iii) additional passive tracers requested by OMIP were added, including natural and abiotic dissolved inorganic carbon (DIC) as well as the inert tracers (CFC11, CFC12, and SF6).",
-    "code_base": "https://gitlab.com/cccma/cannemo",
-    "component": "ocean-biogeochemistry",
-    "family": "cmoc",
-    "references": [
-        "https://doi.org/10.5194/gmd-12-4823-2019 https://doi.org/10.5194/gmd-15-4393-2022"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "cmoc"
+  "validation_key": "cmoc",
+  "ui_label": "CMOC",
+  "description": "The Canadian Model of Ocean Carbon (CMOC) includes carbon chemistry and biology. The biological component is a simple nutrient–phytoplankton–zooplankton–detritus (NPZD) model, with fixed Redfield stoichiometry, and simple parameterizations of iron limitation, nitrogen fixation, and export flux of calcium carbonate. CMOC was migrated into the NEMO modelling system, and the following important modifications were made: (i) oxygen was added as a passive tracer with no feedback on biology; (ii) carbon chemistry routines were updated to conform to the OMIP-BGC protocol (Orr et al., 2017, https://doi.org/10.5194/gmd-10-2169-2017); (iii) additional passive tracers requested by OMIP were added, including natural and abiotic dissolved inorganic carbon (DIC) as well as the inert tracers (CFC11, CFC12, and SF6).",
+  "code_base": "https://gitlab.com/cccma/cannemo",
+  "component": "ocean-biogeochemistry",
+  "family": "cmoc",
+  "references": [
+    "https://doi.org/10.5194/gmd-12-4823-2019 https://doi.org/10.5194/gmd-15-4393-2022"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "cmoc"
 }

@@ -1,18 +1,18 @@
 {
-    "validation_key": "metum-ga9a",
-    "ui_label": "MetUM-GA9a",
-    "description": "The Global Atmosphere 9 configuration of the Unified Model. The main new developments in this configuration are:  The introduction of a prognostic-based convective entrainment rate (Willet et al., 2026). A new parameterisation for riming (Furtado et al., 2017). Bimodal cloud initiation (Weverberg et al., 2021a, b). Several changes to improve the large-scale circulation (Williams et al., 2020).  The configuration of MetUM-GA9a used here is different from GA9 due to the incorporation of the CoMorph convection scheme (Lavender et al., 2024) in its A9 configuration (Lock et al., 2024) with associated changes.",
-    "code_base": "private",
-    "component": "atmosphere",
-    "family": "metum",
-    "references": [
-        "https://gmd.copernicus.org/articles/19/1473/2026/ https://doi.org/10.1175/JAS-D-16-0165.1 https://doi.org/10.1175/MWR-D-20-0224.1 https://doi.org/10.1175/MWR-D-20-0230.1 https://doi.org/10.1002/qj.3807 https://doi.org/10.1002/qj.4660 https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.4781"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "metum-ga9a"
+  "validation_key": "metum-ga9a",
+  "ui_label": "MetUM-GA9a",
+  "description": "The Global Atmosphere 9 configuration of the Unified Model. The main new developments in this configuration are:  The introduction of a prognostic-based convective entrainment rate (Willet et al., 2026). A new parameterisation for riming (Furtado et al., 2017). Bimodal cloud initiation (Weverberg et al., 2021a, b). Several changes to improve the large-scale circulation (Williams et al., 2020).  The configuration of MetUM-GA9a used here is different from GA9 due to the incorporation of the CoMorph convection scheme (Lavender et al., 2024) in its A9 configuration (Lock et al., 2024) with associated changes.",
+  "code_base": "private",
+  "component": "atmosphere",
+  "family": "metum",
+  "references": [
+    "https://gmd.copernicus.org/articles/19/1473/2026/ https://doi.org/10.1175/JAS-D-16-0165.1 https://doi.org/10.1175/MWR-D-20-0224.1 https://doi.org/10.1175/MWR-D-20-0230.1 https://doi.org/10.1002/qj.3807 https://doi.org/10.1002/qj.4660 https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.4781"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "metum-ga9a"
 }

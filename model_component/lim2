@@ -1,18 +1,18 @@
 {
-    "validation_key": "lim2",
-    "ui_label": "LIM2",
-    "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography (https://www.cmcc.it/models/lim).  The LIM2 sea-ice model with parameters adjusted was used in CanESM5 (Swart et al. 2019, https://doi.org/10.5194/gmd-12-4823-2019)",
-    "code_base": "",
-    "component": "sea_ice",
-    "family": "lim",
-    "references": [
-        "https://doi.org/10.1016/j.ocemod.2009.01.004"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "lim2"
+  "validation_key": "lim2",
+  "ui_label": "LIM2",
+  "description": "LIM is a numerical model of sea ice designed for climate studies and operational oceanography (https://www.cmcc.it/models/lim).  The LIM2 sea-ice model with parameters adjusted was used in CanESM5 (Swart et al. 2019, https://doi.org/10.5194/gmd-12-4823-2019)",
+  "code_base": "",
+  "component": "sea-ice",
+  "family": "lim",
+  "references": [
+    "https://doi.org/10.1016/j.ocemod.2009.01.004"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "lim2"
 }

@@ -1,0 +1,18 @@
+{
+  "validation_key": "iap-agcm5-0",
+  "ui_label": "IAP-AGCM5.0",
+  "description": "The current version, IAP AGCM5.0, is the fifth-generation global grid-point atmospheric model developed by the Institute of Atmospheric Physics, Chinese Academy of Sciences. It uses a finite-difference dynamical core with a terrain-following σ coordinate and is designed to simulate large-scale atmospheric circulation and key physical processes, including convection, clouds, turbulence, radiation, precipitation, aerosol–cloud interactions, and orographic gravity wave drag. Compared with earlier versions, IAP AGCM5.0 has evolved substantially through its distinctive dynamical core, increased lower-tropospheric vertical resolution, and improved parallel scalability. Its physical parameterization suite builds on the CAM physics package, with major updates including a two-plume convection scheme for deep and shallow convection, revised cloud macrophysics and microphysics, RRTMG radiation, and an anisotropic orographic gravity wave parameterization.",
+  "code_base": "",
+  "component": "atmosphere",
+  "family": "iap-agcm",
+  "references": [
+    "https://doi.org/10.1029/2020MS002210"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "iap-agcm5-0"
+}

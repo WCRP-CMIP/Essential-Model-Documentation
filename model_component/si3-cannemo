@@ -1,18 +1,18 @@
 {
-    "validation_key": "si3-cannemo",
-    "ui_label": "SI3-CanNEMO",
-    "description": "CanNEMO configuration of the SI3 sea ice model.",
-    "code_base": "https://gitlab.com/cccma/cannemo",
-    "component": "sea_ice",
-    "family": "si3",
-    "references": [
-        "https://doi.org/10.5194/gmd-12-4823-2019"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "si3-cannemo"
+  "validation_key": "si3-cannemo",
+  "ui_label": "SI3-CanNEMO",
+  "description": "CanNEMO configuration of the SI3 sea ice model.",
+  "code_base": "https://gitlab.com/cccma/cannemo",
+  "component": "sea-ice",
+  "family": "si3",
+  "references": [
+    "https://doi.org/10.5194/gmd-12-4823-2019"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "si3-cannemo"
 }

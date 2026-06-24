@@ -1,18 +1,18 @@
 {
-    "validation_key": "cannemo5-1",
-    "ui_label": "CanNEMO5-1",
-    "description": "CanNEMO introduces modifications to mesoscale and small-scale mixing physics to NEMO3.4.1 (ORCA1 tripolar grid, 1 deg with refinement to 1/3 deg within 20 degrees of the equator; 360 x 291 longitude/latitude; 45 vertical levels; top grid cell 0-6.19 m)",
-    "code_base": "https://gitlab.com/cccma/cannemo",
-    "component": "ocean",
-    "family": "cannemo",
-    "references": [
-        "https://doi.org/10.5194/gmd-12-4823-2019"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "cannemo5-1"
+  "validation_key": "cannemo5-1",
+  "ui_label": "CanNEMO5-1",
+  "description": "CanNEMO introduces modifications to mesoscale and small-scale mixing physics to NEMO3.4.1 (ORCA1 tripolar grid, 1 deg with refinement to 1/3 deg within 20 degrees of the equator; 360 x 291 longitude/latitude; 45 vertical levels; top grid cell 0-6.19 m)",
+  "code_base": "https://gitlab.com/cccma/cannemo",
+  "component": "ocean",
+  "family": "cannemo",
+  "references": [
+    "https://doi.org/10.5194/gmd-12-4823-2019"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "cannemo5-1"
 }

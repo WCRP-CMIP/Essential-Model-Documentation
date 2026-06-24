@@ -1,18 +1,18 @@
 {
-    "validation_key": "canam6-aerosol",
-    "ui_label": "CanAM6-aerosol",
-    "description": "Aerosols in CanAM6 are parameterized using a prognostic scheme for bulk concentrations of natural and anthropogenic aerosols including sulfate, black and organic carbon, sea salt, and mineral dust; parameterizations for emissions, transport, gas-phase and aqueous-phase chemistry; and dry and wet deposition account for interactions with simulated meteorology.",
-    "code_base": "https://gitlab.com/cccma/canam",
-    "component": "aerosol",
-    "family": "canam",
-    "references": [
-        "https://doi.org/10.5194/gmd-12-4823-2019 https://doi.org/10.5194/gmd-16-5427-2023"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "canam6-aerosol"
+  "validation_key": "canam6-aerosol",
+  "ui_label": "CanAM6-aerosol",
+  "description": "Aerosols in CanAM6 are parameterized using a prognostic scheme for bulk concentrations of natural and anthropogenic aerosols including sulfate, black and organic carbon, sea salt, and mineral dust; parameterizations for emissions, transport, gas-phase and aqueous-phase chemistry; and dry and wet deposition account for interactions with simulated meteorology.",
+  "code_base": "https://gitlab.com/cccma/canam",
+  "component": "aerosol",
+  "family": "canam",
+  "references": [
+    "https://doi.org/10.5194/gmd-12-4823-2019 https://doi.org/10.5194/gmd-16-5427-2023"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "canam6-aerosol"
 }
