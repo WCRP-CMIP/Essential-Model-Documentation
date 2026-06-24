@@ -17,6 +17,23 @@
     "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
+    "@id": "v143",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 366.8618,
+    "description": "",
+    "n_z": 50,
+    "n_z_range": "",
+    "top_layer_thickness": 10,
+    "total_thickness": 5500,
+    "ui_label": "z-star grid with 50 levels.",
+    "validation_key": "v143",
+    "vertical_coordinate": "z-star"
+  },
+  {
     "@id": "v117",
     "@type": [
       "wcrp:vertical_computational_grid",
