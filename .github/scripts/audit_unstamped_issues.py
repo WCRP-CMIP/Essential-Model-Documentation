@@ -104,6 +104,16 @@ REQUIREMENTS
 
 
 
+# Detect current repository (overridable via --repo).
+try:
+    REPO_DEFAULT = subprocess.run(
+        ["gh", "repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"],
+        capture_output=True, text=True, check=True,
+    ).stdout.strip()
+except Exception:
+    REPO_DEFAULT = ""
+
+
 # Stamped = starts with | xxx | or [closed]
 STAMP_RE      = re.compile(r"^\s*\|\s*\S+.*\|\s*|^\[closed\]", re.IGNORECASE)
 LINK_RE = re.compile(
@@ -136,10 +146,15 @@ def gh(*args):
     return result.stdout.strip()
 
 
-def fetch_closed_issues(repo):
-    """Fetch all closed AND open emd-submission issues without a stamp."""
+def fetch_closed_issues(repo, closed_only=False):
+    """Fetch emd-submission issues without a stamp.
+
+    By default fetches both closed and open issues; pass closed_only=True to
+    skip the open pass.
+    """
     all_issues = []
-    for state in ("closed", "open"):
+    states = ("closed",) if closed_only else ("closed", "open")
+    for state in states:
         page = 1
         while True:
             raw = gh("api", f"repos/{repo}/issues",
@@ -301,6 +316,8 @@ def main():
                         help="Show all unstamped issues and type-match result")
     parser.add_argument("--merged",  action="store_true",
                         help="Show all issues that have a merged PR (ignores stamp filter)")
+    parser.add_argument("--closed-only", action="store_true",
+                        help="Only scan closed issues (skip open ones)")
     args = parser.parse_args()
 
     if args.man:
@@ -313,8 +330,9 @@ def main():
             print("Aborting — disable the new-issue workflow first to avoid conflicts.")
             return
 
-    print(f"Fetching emd-submission issues (open + closed) from {args.repo}...")
-    issues = fetch_closed_issues(args.repo)
+    scope = "closed" if args.closed_only else "open + closed"
+    print(f"Fetching emd-submission issues ({scope}) from {args.repo}...")
+    issues = fetch_closed_issues(args.repo, closed_only=args.closed_only)
     print(f"  {len(issues)} issues fetched.")
 
     if args.merged:
