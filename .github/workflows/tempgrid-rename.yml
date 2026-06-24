@@ -337,7 +337,6 @@ jobs:
           echo "Tempgrid files in PR: $HAS_TEMPGRID"
 
       - name: Stamp issue and PR titles
-        if: steps.check_tempgrid.outputs.has_tempgrid == '0'
         run: |
           NAMED_TYPES="model model_family model_component"
 
@@ -395,3 +394,10 @@ jobs:
 
             echo "  ✓ Issue #$ISSUE_NUM and PR #$PR stamped with | $NAME |" >> "$GITHUB_STEP_SUMMARY"
           done
+
+          # Delete the PR branch
+          BRANCH=$(gh pr view "$PR" --repo "$REPO" --json headRefName --jq '.headRefName' 2>/dev/null || true)
+          if [ -n "$BRANCH" ]; then
+            gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" 2>/dev/null \
+              && echo "  deleted branch $BRANCH" || echo "  branch $BRANCH already gone"
+          fi
