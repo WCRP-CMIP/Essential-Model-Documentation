@@ -36,7 +36,7 @@ LIST_FIELDS = {
 }
 
 IGNORE = {
-    'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+    'issue_category', 'additional_collaborators', 'collaborators', 'approval',
     'model_name', 'model_family', 'name',
     'references', 'reference_dois',
     'embedded_components',

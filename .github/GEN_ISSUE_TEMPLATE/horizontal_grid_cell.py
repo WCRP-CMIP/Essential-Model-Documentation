@@ -10,5 +10,4 @@ DATA = {
     'truncation_method': graph_entry('constants:truncation_method/_graph.json', entry='ui_label'),
     'cell_variable_type': graph_entry('constants:cell_variable_type/_graph.json', entry='ui_label'),
     'subgrid_option': ['Create new subgrid', 'No subgrid (grid cell only)'],
-    'issue_kind': ['New', 'Modify'],
 }

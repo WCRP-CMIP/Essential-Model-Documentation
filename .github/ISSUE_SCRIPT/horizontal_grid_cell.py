@@ -18,7 +18,7 @@ from cmipld.utils.ldparse import ui_label_to_key
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+IGNORE = {'issue_category', 'additional_collaborators', 'collaborators',
           'additional_information'}
 
 FIELD_MAP = {
@@ -114,7 +114,7 @@ def run(parsed_issue, issue, dry_run=False):
         
     data['grid_type'] = grid_type
 
-    skip = IGNORE | {'issue_kind', 'issue_type', 'region', 'units', 'horizontal_units', 'description', 'additional_information','grid_type'}
+    skip = IGNORE | {'issue_type', 'region', 'units', 'horizontal_units', 'description', 'additional_information','grid_type'}
     for key, val in parsed_issue.items():
         if key in skip or not val or key in data:
             continue

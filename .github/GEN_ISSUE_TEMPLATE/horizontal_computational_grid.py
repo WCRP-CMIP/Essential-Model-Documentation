@@ -6,5 +6,4 @@ DATA = {
     'cell_variable_type': graph_entry('constants:cell_variable_type/_graph.json'),
     'horizontal_grid_cells': graph_entry('emd:horizontal_grid_cell/_graph.json'),
     'subgrids': graph_entry('emd:horizontal_subgrid/_graph.json'),
-    'issue_kind': ['New', 'Modify']
 }

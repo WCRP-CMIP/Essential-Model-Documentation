@@ -19,7 +19,7 @@ from cmipld.utils.similarity.report_builder import build_subgrid_report
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+IGNORE = {'issue_category', 'additional_collaborators', 'collaborators',
           'arrangement', 'additional_information', 'description'}
 
 

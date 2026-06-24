@@ -18,7 +18,7 @@ LIST_FIELDS = {'collaborative_institutions', 'scientific_domains', 'reference_do
 LINKED_FIELDS = {'collaborative_institutions', 'scientific_domains', 'primary_institution'}
 
 # Fields to drop entirely from the final JSON
-IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+IGNORE = {'issue_category', 'additional_collaborators', 'collaborators',
           'family_type', 'family_name', 'name'}
 
 # Bare (non-@) keys that JSONValidator may inject — must not appear in output
