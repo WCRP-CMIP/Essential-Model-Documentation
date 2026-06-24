@@ -1,9 +1,9 @@
 {
-    "validation_key": "ocean_nemo-gosi9_h118_v107",
-    "ui_label": "ocean_nemo-gosi9_h118_v107",
+    "validation_key": "sea_ice_si3-gosi9_h118_v107",
+    "ui_label": "sea_ice_si3-gosi9_h118_v107",
     "description": "",
     "horizontal_computational_grid": "h118",
-    "model_component": "nemo-gosi9",
+    "model_component": "si3-gosi9",
     "vertical_computational_grid": "v107",
     "@context": "_context",
     "@type": [
@@ -11,5 +11,5 @@
         "wcrp:component_config",
         "esgvoc:ComponentConfig"
     ],
-    "@id": "ocean-nemo-gosi9-h118-v107"
+    "@id": "sea-ice-si3-gosi9-h118-v107"
 }
