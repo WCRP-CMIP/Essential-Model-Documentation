@@ -59,11 +59,11 @@ jobs:
           fi
         shell: bash
 
-      - name: Checkout main
+      - name: Checkout src-data
         if: steps.skip_check.outputs.skip != 'true'
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: src-data
           fetch-depth: 0
 
       # ── Filter labels for use in the status-marker job name ─────────────

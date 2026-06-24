@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - src-data
     paths:
       - '.github/GEN_ISSUE_TEMPLATE/**'
   workflow_dispatch:
