@@ -26,6 +26,7 @@ def _slugify(s: str) -> str:
     s = s.strip().lower()
     s = re.sub(r'[\s_]+', '-', s)
     s = re.sub(r'[^a-z0-9\-\.]', '', s)
+    s = s.replace('.', '-')
     return s.strip('-')
 
 
