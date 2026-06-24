@@ -13,7 +13,17 @@ e.g.  ocean_nemo-v3-6_h101_v103
 
 import os
 import re
+import importlib.util as _importlib_util
 # from cmipld.utils.similarity import ReportBuilder  # disabled for non-grid types
+
+# Load sibling helper by absolute path (handler runs with arbitrary cwd)
+_spec = _importlib_util.spec_from_file_location(
+    '_name_similarity',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_name_similarity.py'),
+)
+_name_similarity = _importlib_util.module_from_spec(_spec)
+_spec.loader.exec_module(_name_similarity)
+build_similarity_report = _name_similarity.build_similarity_report
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -211,7 +221,6 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Strip name if JSONValidator re-injected it
         data.pop('name', None)
         # Lightweight check: flag suspiciously similar existing names in the same folder.
-        from _name_similarity import build_similarity_report
         folder = os.path.dirname(file_path)
         proposed_id = data.get('@id', '')
         data['_validation_report'] = build_similarity_report(proposed_id, folder)
