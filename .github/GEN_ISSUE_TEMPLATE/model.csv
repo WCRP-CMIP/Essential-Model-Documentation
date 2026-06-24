@@ -11,7 +11,7 @@ This form has three sections:
 3. **Coupling Configuration** — Defines how components interact
 
 > [!NOTE]
-> Please ensure you are familiar with the completion guidance in the collapsible dropdown where it exists. Failure to do so will result in a failed submission.
+> Most fields have a **Detailed Guidance** dropdown. Please read it before completing that field — submissions that do not follow the guidance will fail validation.
 
 ---
 
@@ -78,4 +78,10 @@ Each group represents one coupling relationship between two components.
 - Creates `model` entry with CMIP source_id
 - Registration complete — model can be used in CMIP activities
 - [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,FALSE,,,
-27,dropdown,issue_kind,Issue Kind,Whether this is a new submission or a modification to an existing entry.,issue_kind,TRUE,,list_with_na,0
+
+27,markdown,agreement,,"---
+
+## Agreement
+
+By clicking submit I agree that the content provided is accurate and complete to the best of my knowledge and acknowledge that it is the responsibility of the modelling groups publishing data to ensure that appropriate licenses are in place for any models, software or data used.",none,FALSE,,,
+28,dropdown,approval,Approval,Select **I approve** to confirm you agree with the statement above.,approval,TRUE,,list,

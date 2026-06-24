@@ -28,7 +28,7 @@ from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')   # "link_existing_component"
 
-IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators'}
+IGNORE = {'issue_category', 'additional_collaborators', 'collaborators'}
 
 _PLACEHOLDER = {'not specified', 'none', '_no response_', ''}
 

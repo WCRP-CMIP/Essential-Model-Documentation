@@ -24,7 +24,7 @@ FIELD_MAP = {
     'number_of_levels':           'n_z',
     'number_of_levels_(range)':   'n_z_range',
 }
-IGNORE = {'issue_kind', 'additional_collaborators', 'collaborators', 'issue_category',
+IGNORE = {'additional_collaborators', 'collaborators', 'issue_category',
           'additional_information', 'description'}
 
 
@@ -67,7 +67,7 @@ def run(parsed_issue, issue, dry_run=False):
     if description and description.lower() not in ('_no response_', 'none', 'not specified'):
         data['description'] = description
 
-    skip = IGNORE | {'issue_kind', 'issue_type'}
+    skip = IGNORE | {'issue_type'}
     for raw_key, val in parsed_issue.items():
         if raw_key in skip or not val:
             continue

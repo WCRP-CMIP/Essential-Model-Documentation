@@ -22,5 +22,4 @@ DATA = {
     'institution': [i.get('id') for i in requests.get('https://esgvoc.ipsl.fr/api/v1/universe/data_descriptors/organisation/terms').json()],
     'component': graph_entry_with_retry('constants:scientific_domain/_graph.json'),
     'family_type': ['model', 'component'],
-    'issue_kind': ['New', 'Modify']
 }

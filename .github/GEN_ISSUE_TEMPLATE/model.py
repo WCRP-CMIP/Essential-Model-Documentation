@@ -32,5 +32,5 @@ DATA = {
     'component_configs': component_configs,
     'embedded_pairs': sorted(embedded_pairs),
     'domains': sorted(domain_labels),
-    'issue_kind': ['New', 'Modify'],
+    'approval': ['I approve'],
 }

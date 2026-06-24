@@ -17,7 +17,7 @@ from cmipld.utils.similarity import ReportBuilder
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
-IGNORE = {'issue_kind', 'issue_category', 'additional_collaborators', 'collaborators',
+IGNORE = {'issue_category', 'additional_collaborators', 'collaborators',
           'component_type', 'component_name', 'component_family',
           'horizontal_grid', 'vertical_grid', 'name'}
 
