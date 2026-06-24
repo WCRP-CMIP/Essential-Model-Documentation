@@ -1,5 +1,5 @@
 name: ↻ Sync Workflows
-description: Sync shared workflows and files from main to other branches
+description: Sync shared workflows and files from src-data to other branches
 
 permissions:
   contents: write
@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - src-data
     paths:
       - '.github/workflows/**'
 
@@ -43,38 +43,38 @@ jobs:
           ref: ${{ matrix.branch }}
           fetch-depth: 0
 
-      - name: Fetch main branch
-        run: git fetch origin main --depth=1
+      - name: Fetch src-data branch
+        run: git fetch origin src-data --depth=1
 
-      - name: Replace .github/workflows from main
+      - name: Replace .github/workflows from src-data
         run: |
-          echo "Replacing .github/workflows on ${{ matrix.branch }} with main..."
+          echo "Replacing .github/workflows on ${{ matrix.branch }} with src-data..."
           rm -rf .github/workflows
           mkdir -p .github/workflows
-          git checkout origin/main -- ".github/workflows/"
+          git checkout origin/src-data -- ".github/workflows/"
           echo "Workflows replaced."
 
-      - name: Sync other folders from main
+      - name: Sync other folders from src-data
         run: |
           for folder in $SYNC_FOLDERS; do
             echo "Syncing folder: .github/$folder"
             mkdir -p ".github/$folder"
-            if git ls-tree -r origin/main --name-only | grep -q "^.github/$folder/"; then
-              git checkout origin/main -- ".github/$folder/" 2>/dev/null || \
-                echo "  Folder .github/$folder not found on main"
+            if git ls-tree -r origin/src-data --name-only | grep -q "^.github/$folder/"; then
+              git checkout origin/src-data -- ".github/$folder/" 2>/dev/null || \
+                echo "  Folder .github/$folder not found on src-data"
             else
-              echo "  Folder .github/$folder not found on main"
+              echo "  Folder .github/$folder not found on src-data"
             fi
           done
 
-      - name: Sync files from main
+      - name: Sync files from src-data
         run: |
           for file in $SYNC_FILES; do
             echo "Syncing file: .github/$file"
-            if git cat-file -e "origin/main:.github/$file" 2>/dev/null; then
-              git checkout origin/main -- ".github/$file"
+            if git cat-file -e "origin/src-data:.github/$file" 2>/dev/null; then
+              git checkout origin/src-data -- ".github/$file"
             else
-              echo "  File .github/$file not found on main"
+              echo "  File .github/$file not found on src-data"
             fi
           done
 
@@ -84,5 +84,5 @@ jobs:
           add: '.github/'
           author_name: 'cmip-ipo'
           author_email: 'actions@wcrp-cmip.org'
-          message: 'Sync .github files from main'
+          message: 'Sync .github files from src-data'
           push: true
