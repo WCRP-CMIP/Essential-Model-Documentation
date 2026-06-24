@@ -43,30 +43,40 @@ _WORKSPACE   = os.environ.get('GITHUB_WORKSPACE', os.getcwd())
 # ---------------------------------------------------------------------------
 
 def _clean(s: str) -> str:
-    return (s or '').strip().lower()
+    return (s or '').strip().lower().replace('.', '-')
 
 
 def _get_component_type(component_id: str) -> str:
-    """Look up the model_component record from src-data and return its 'component' field."""
-    rel_path = f'model_component/{component_id}.json'
+    """Look up the model_component record and return its realm (@id of component field)."""
+    import cmipld
 
-    # Try working tree first (e.g. dry-run with src-data checked out)
+    # Try live graph first (authoritative)
+    try:
+        record = cmipld.get(f'emd:model_component/{component_id}')
+        realm = record.get('component', '').strip().lower()
+        if realm:
+            return realm.replace('_', '-')
+    except Exception:
+        pass
+
+    # Fall back to working tree
+    rel_path = f'model_component/{component_id}.json'
     full = os.path.join(_WORKSPACE, rel_path)
     if os.path.exists(full):
         try:
             with open(full, encoding='utf-8') as f:
-                return json.load(f).get('component', '').strip().lower()
+                return json.load(f).get('component', '').strip().lower().replace('_', '-')
         except Exception:
             pass
 
-    # Fall back to reading directly from the fetched origin/src-data ref
+    # Fall back to origin/src-data
     try:
         result = subprocess.run(
             ['git', 'show', f'origin/{_BRANCH}:{rel_path}'],
             capture_output=True, text=True, cwd=_WORKSPACE,
         )
         if result.returncode == 0:
-            return json.loads(result.stdout).get('component', '').strip().lower()
+            return json.loads(result.stdout).get('component', '').strip().lower().replace('_', '-')
     except Exception as e:
         print(f'\033[93m  ⚠ Could not read {rel_path} from origin/{_BRANCH}: {e}\033[0m', flush=True)
 
@@ -232,15 +242,15 @@ def run(parsed_issue, issue, dry_run=False):
 
     # ── Build the config record ────────────────────────────────────────────
     config_data = {
-        '@context':                      '_context',
-        '@id':                           config_id,
-        '@type':                         ['emd', 'wcrp:component_config', 'esgvoc:ComponentConfig'],
         'validation_key':                config_id,
         'ui_label':                      config_id,
-        'model_component':               component,
-        'horizontal_computational_grid': h_grid if h_grid not in _PLACEHOLDER else '',
-        'vertical_computational_grid':   v_grid if v_grid not in _PLACEHOLDER else '',
         'description':                   '',
+        'horizontal_computational_grid': h_grid if h_grid not in _PLACEHOLDER else '',
+        'model_component':               component,
+        'vertical_computational_grid':   v_grid if v_grid not in _PLACEHOLDER else '',
+        '@context':                      '_context',
+        '@type':                         ['emd', 'wcrp:component_config', 'esgvoc:ComponentConfig'],
+        '@id':                           config_id,
     }
 
     collab_str   = parsed_issue.get('additional_collaborators',
