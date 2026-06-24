@@ -1,0 +1,708 @@
+[
+  {
+    "author": {
+      "id": "U_kgDODSPimw",
+      "is_bot": false,
+      "login": "SiyunKim67",
+      "name": ""
+    },
+    "body": "### Grid Type\n\nhierarchical_discrete_global_grid\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n1.25\n\n### Y Resolution\n\n0.9424\n\n### Units\n\ndegree\n\n### Number of Cells\n\n_No response_\n\n### Southernmost Latitude\n\n-90\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Description\n\n_No response_\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-16T08:42:05Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      }
+    ],
+    "number": 147,
+    "title": "New Horizontal_grid_cell : tempgrid_SiyunKim67-1776328925"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB49hWw",
+      "is_bot": false,
+      "login": "rml599gh",
+      "name": ""
+    },
+    "body": "### Grid Type\n\ntripolar\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n_No response_\n\n### Y Resolution\n\n_No response_\n\n### Units\n\nNot specified\n\n### Number of Cells\n\n108000\n\n### Southernmost Latitude\n\n-77.7532\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nSouth of 65\u00b0N, the resolution of the model is 1\u00b0 along the zonal direction. In the meridional direction the grid spacing is nominally 1\u00b0 resolution, with the following three refinements: a) tripolar Arctic north of 65\u00b0N (poles at 65\u00b0N, 80\u00b0E and 65\u00b0N, 260\u00b0E); b) equatorial refinement to 1/3\u00b0 between 10\u00b0S and 10\u00b0N; and c) a Mercator (cosine-dependent) implementation for the southern hemisphere, ranging from 0.25\u00b0 at 78\u00b0S to 1\u00b0 at 30\u00b0S.\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-13T00:23:01Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      }
+    ],
+    "number": 138,
+    "title": "New Horizontal_grid_cell : tempgrid_rml599gh-1776039781"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB49hWw",
+      "is_bot": false,
+      "login": "rml599gh",
+      "name": ""
+    },
+    "body": "### Grid Type\n\ntripolar\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n_No response_\n\n### Y Resolution\n\n_No response_\n\n### Units\n\nNot specified\n\n### Number of Cells\n\n108000\n\n### Southernmost Latitude\n\n-77.8766\n\n### Westernmost Longitude\n\n0.5\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nSouth of 65\u00b0N, the resolution of the model is 1\u00b0 along the zonal direction. In the meridional direction the grid spacing is nominally 1\u00b0 resolution, with the following three refinements: a) tripolar Arctic north of 65\u00b0N (poles at 65\u00b0N, 80\u00b0E and 65\u00b0N, 260\u00b0E); b) equatorial refinement to 1/3\u00b0 between 10\u00b0S and 10\u00b0N; and c) a Mercator (cosine-dependent) implementation for the southern hemisphere, ranging from 0.25\u00b0 at 78\u00b0S to 1\u00b0 at 30\u00b0S.\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-13T00:20:25Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      }
+    ],
+    "number": 136,
+    "title": "New Horizontal_grid_cell : tempgrid_rml599gh-1776039625"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NzMzMDY4",
+      "is_bot": false,
+      "login": "treerink",
+      "name": "Thomas Reerink"
+    },
+    "body": "### Vertical Coordinate\n\natmosphere_hybrid_sigma_pressure_coordinate\n\n### n_z\n\n91\n\n### n_z_range\n\n_No response_\n\n### Top Layer Thickness (m)\n\n7000\n\n### Bottom Layer Thickness (m)\n\n10\n\n### Total Thickness (m)\n\n80000\n\n### Additional Information\n\nThis is the vertical grid of the IFS cy36r4 L91 model.\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n@klauswyser",
+    "createdAt": "2026-04-09T09:32:37Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACX6tQ8g",
+        "name": "vertical_computational_grid",
+        "description": "vertical_computational_grid",
+        "color": "8378C0"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      }
+    ],
+    "number": 133,
+    "title": "New Vertical_computational_grid : tempgrid_treerink-1775727157"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NzMzMDY4",
+      "is_bot": false,
+      "login": "treerink",
+      "name": "Thomas Reerink"
+    },
+    "body": "### Grid Type\n\nregular_gaussian\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n0.7\n\n### Y Resolution\n\n0.7\n\n### Units\n\ndegree\n\n### Number of Cells\n\n131072\n\n### Southernmost Latitude\n\n-89.4628215685774\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nThis grid serves for delivering the data, this data is regridded from the IFS cy36r4 model grid (which is a spectral representation with triangular truncation at wavenumber 255 with a linear N128 reduced Gaussian grid).\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n@klauswyser",
+    "createdAt": "2026-04-09T08:55:11Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 131,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a regular gaussian grid type and 0.7 x 0.7 degree resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDg0MDYw",
+      "is_bot": false,
+      "login": "JamesAnstey",
+      "name": "James Anstey"
+    },
+    "body": "### Grid Type\n\ntripolar\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n1\n\n### Y Resolution\n\n1\n\n### Units\n\ndegree\n\n### Number of Cells\n\n104760\n\n### Southernmost Latitude\n\n-78.29248047\n\n### Westernmost Longitude\n\n0.5\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nStandard ORCA1 grid\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-08T14:32:25Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 126,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDg0MDYw",
+      "is_bot": false,
+      "login": "JamesAnstey",
+      "name": "James Anstey"
+    },
+    "body": "### Grid Type\n\ntripolar\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n1\n\n### Y Resolution\n\n1\n\n### Units\n\ndegree\n\n### Number of Cells\n\n104760\n\n### Southernmost Latitude\n\n-78.39350128\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nStandard ORCA1 grid\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-08T14:30:40Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 125,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDg0MDYw",
+      "is_bot": false,
+      "login": "JamesAnstey",
+      "name": "James Anstey"
+    },
+    "body": "### Grid Type\n\ntripolar\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n1\n\n### Y Resolution\n\n1\n\n### Units\n\ndegree\n\n### Number of Cells\n\n104760\n\n### Southernmost Latitude\n\n-78.39350128\n\n### Westernmost Longitude\n\n0.5\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nStandard ORCA1 grid\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-08T14:28:08Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 124,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDg0MDYw",
+      "is_bot": false,
+      "login": "JamesAnstey",
+      "name": "James Anstey"
+    },
+    "body": "### Grid Type\n\nspectral_gaussian\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n2.8\n\n### Y Resolution\n\n2.8\n\n### Units\n\ndegree\n\n### Number of Cells\n\n8192\n\n### Southernmost Latitude\n\n-87.86379884\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\ntriangular\n\n### Truncation Number\n\n63\n\n### Additional Information\n\nTriangular truncation at total wavenumber 63 (T63) corresponding to an approximate isotropic resolution of 2.8 degrees in both latitude and longitude\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-08T14:12:55Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 122,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a spectral gaussian grid type and 2.8 x 2.8 degree resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NDgzNjY1",
+      "is_bot": false,
+      "login": "JanStreffing",
+      "name": "Jan Streffing"
+    },
+    "body": "### Grid Type\n\nregular_latitude_longitude\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n31\n\n### Y Resolution\n\n31\n\n### Units\n\nkm\n\n### Number of Cells\n\n829440\n\n### Southernmost Latitude\n\n-89.859375\n\n### Westernmost Longitude\n\n0.1389\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\n31km gr mesh to capture information present on TCo319 grid.\n\n### Issue Kind\n\nModify\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-07T08:07:20Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 114,
+    "title": "Modify Horizontal_grid_cell : Horizontal grid cell with a regular latitude longitude grid type and 31 x 31 km resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NDgzNjY1",
+      "is_bot": false,
+      "login": "JanStreffing",
+      "name": "Jan Streffing"
+    },
+    "body": "### Grid Type\n\nunstructured_triangular\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n9\n\n### Y Resolution\n\n9\n\n### Units\n\nkm\n\n### Number of Cells\n\n6229020\n\n### Southernmost Latitude\n\n-78.626\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nFESOM2 DARS2 element-based sub grid for velocities\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-01T18:19:04Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 107,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a unstructured triangular grid type and 9 x 9 km resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NDgzNjY1",
+      "is_bot": false,
+      "login": "JanStreffing",
+      "name": "Jan Streffing"
+    },
+    "body": "### Grid Type\n\nunstructured_triangular\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n9\n\n### Y Resolution\n\n9\n\n### Units\n\nkm\n\n### Number of Cells\n\n3146761\n\n### Southernmost Latitude\n\n-78.626\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Additional Information\n\nnode-based sub grid for mass variables\n\n### Issue Kind\n\nModify\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-01T18:15:31Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 105,
+    "title": "Modify Horizontal_grid_cell : Horizontal grid cell with a unstructured triangular grid type and 9 x 9 km resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NDgzNjY1",
+      "is_bot": false,
+      "login": "JanStreffing",
+      "name": "Jan Streffing"
+    },
+    "body": "### Grid Type\n\nreduced_gaussian\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n36\n\n### Y Resolution\n\n36\n\n### Units\n\nkm\n\n### Number of Cells\n\n421120\n\n### Southernmost Latitude\n\n-89.785\n\n### Westernmost Longitude\n\n0\n\n### Truncation Method\n\ntriangular\n\n### Truncation Number\n\n319\n\n### Additional Information\n\nOpenIFS TCo319 Grid used by AWI-ESM3\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-04-01T18:06:27Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZWJ6_g",
+        "name": "horizontal_grid_cell",
+        "description": "",
+        "color": "26b1ed"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 104,
+    "title": "New Horizontal_grid_cell : Horizontal grid cell with a reduced gaussian grid type and 36 x 36 km resolution."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NTgyNTc3",
+      "is_bot": false,
+      "login": "wolfiex",
+      "name": "Dan Ellis"
+    },
+    "body": "### Vertical Coordinate\n\natmosphere_hybrid_height_coordinate\n\n### n_z\n\n85\n\n### n_z_range\n\n_No response_\n\n### Top Layer Thickness (m)\n\n10\n\n### Bottom Layer Thickness (m)\n\n100\n\n### Total Thickness (m)\n\n84763.34\n\n### Additional Information\n\n_No response_\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\nkyungon,hyomeelee,jhlee00",
+    "createdAt": "2026-03-27T16:23:39Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACX6tQ8g",
+        "name": "vertical_computational_grid",
+        "description": "vertical_computational_grid",
+        "color": "8378C0"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 77,
+    "title": "New Vertical_computational_grid : tempgrid_wolfiex-1774628619"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NTgyNTc3",
+      "is_bot": false,
+      "login": "wolfiex",
+      "name": "Dan Ellis"
+    },
+    "body": "### Vertical Coordinate\n\natmosphere_hybrid_height_coordinate\n\n### n_z\n\n85\n\n### n_z_range\n\nNo response\n\n### Top Layer Thickness (m)\n\n5899.99\n\n### Bottom Layer Thickness (m)\n\n19.99\n\n### Total Thickness (m)\n\n85000\n\n### Additional Information\n\n_No response_\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\nkyungon,hyomeelee,jhlee00",
+    "createdAt": "2026-03-27T16:23:35Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACX6tQ8g",
+        "name": "vertical_computational_grid",
+        "description": "vertical_computational_grid",
+        "color": "8378C0"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACaDVjeQ",
+        "name": "needs-review",
+        "description": "needs-review",
+        "color": "BDCC1A"
+      }
+    ],
+    "number": 76,
+    "title": "New Vertical_computational_grid : tempgrid_wolfiex-1774628615"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NzMzMDY4",
+      "is_bot": false,
+      "login": "treerink",
+      "name": "Thomas Reerink"
+    },
+    "body": "### Family Name\n\nEC-Earth\n\n### Family Type\n\nmodel\n\n### Description\n\nCommunity-developed Earth system model based on model components like:\n\n1. The ECMWF Integrated Forecasting System (IFS) for the atmosphere\n2. The Nucleus for European Modelling of the Ocean (NEMO)\n3. A dynamic vegetation model (LPJ-GUESS)\n\n\n### Primary Institution\n\nEC-Earth-Consortium\n\n### Collaborative Institutions\n\nDMI, SMHI, KNMI, CNR, FMI, ICHEC\n\n### Scientific Domains\n\natmosphere, ocean, sea_ice, ocean_biogeochemistry, land_surface, land_ice, atmospheric_chemistry, aerosol\n\n### Year Established\n\n2006\n\n### Representative Member\n\nEC-Earth3\n\n### Website\n\nhttps://ec-earth.org/\n\n### Reference DOIs\n\nhttps://doi.org/10.5194/gmd-15-2973-2022\n\nhttps://doi.org/10.1007/s00382-011-1228-5\n\n### Issue Kind\n\nModify\n\n### Additional Collaborators\n\n@klauswyser",
+    "createdAt": "2026-03-13T14:04:16Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUVMh_w",
+        "name": "keep-open",
+        "description": "Safety label \u2014 do not close this issue automatically.",
+        "color": "b60205"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACX6tReA",
+        "name": "model_family",
+        "description": "model_family",
+        "color": "750CE8"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACZzGqjg",
+        "name": "pull_req",
+        "description": "Has an open pull request",
+        "color": "0075ca"
+      }
+    ],
+    "number": 39,
+    "title": "Modify Model_family : ec-earth"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5OTM0Mzk=",
+      "is_bot": false,
+      "login": "taylor13",
+      "name": ""
+    },
+    "body": "### Grid Type\n\nregular_latitude_longitude\n\n### Coordinate System\n\nlatitude_longitude\n\n### Region\n\nglobal\n\n### Temporal Refinement\n\nstatic\n\n### X Resolution\n\n1.875\n\n### Y Resolution\n\n1.25\n\n### Units\n\ndegree\n\n### Number of Cells\n\n27648\n\n### Southernmost Latitude\n\n-89.375\n\n### Westernmost Longitude\n\n0.9375\n\n### Truncation Method\n\nNot specified\n\n### Truncation Number\n\n_No response_\n\n### Issue Kind\n\nNew\n\n### Additional Collaborators\n\n_No response_",
+    "createdAt": "2026-03-02T19:19:35Z",
+    "labels": [
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8ciQ",
+        "name": "emd-submission",
+        "description": "emd-submission",
+        "color": "432FDF"
+      },
+      {
+        "id": "LA_kwDOPFGq9s8AAAACUs8dPQ",
+        "name": "Review",
+        "description": "Review",
+        "color": "2595AF"
+      }
+    ],
+    "number": 24,
+    "title": "[EMD] Stage 1: Horizontal Grid Cells: [do not edit]"
+  }
+]
