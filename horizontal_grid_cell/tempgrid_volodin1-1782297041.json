@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_volodin1-1782297041",
+    "ui_label": "Horizontal grid cell with a displaced pole grid type and 0.5 x 0.25 degree resolution.",
+    "description": "Generalized spherical latitude-longitude grid with model South Pole located at geographical South Pole, and model North Pole located in Siberia in a point with geographic coodinates 60N, 90E",
+    "alias": [],
+    "grid_mapping": "rotated-latitude-longitude",
+    "grid_type": "displaced-pole",
+    "n_cells": 518400,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.875,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.5,
+    "y_resolution": 0.25,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-volodin1-1782297041"
+}
