@@ -1,15 +1,15 @@
 {
-    "validation_key": "aerosol_canam6-aerosol_h115_v128",
-    "ui_label": "aerosol_canam6-aerosol_h115_v128",
-    "description": "",
-    "horizontal_computational_grid": "h115",
-    "model_component": "canam6-aerosol",
-    "vertical_computational_grid": "v128",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:component_config",
-        "esgvoc:ComponentConfig"
-    ],
-    "@id": "aerosol-canam6-aerosol-h115-v128"
+  "validation_key": "aerosol-canam6-aerosol_h115_v128",
+  "ui_label": "aerosol-canam6-aerosol_h115_v128",
+  "description": "",
+  "horizontal_computational_grid": "h115",
+  "model_component": "canam6-aerosol",
+  "vertical_computational_grid": "v128",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "aerosol-canam6-aerosol_h115_v128"
 }

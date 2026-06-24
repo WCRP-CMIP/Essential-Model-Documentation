@@ -1,15 +1,15 @@
 {
-    "validation_key": "ocean_mom5_h109_v109",
-    "ui_label": "ocean_mom5_h109_v109",
-    "description": "",
-    "horizontal_computational_grid": "h109",
-    "model_component": "mom5",
-    "vertical_computational_grid": "v109",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:component_config",
-        "esgvoc:ComponentConfig"
-    ],
-    "@id": "ocean-mom5-h109-v109"
+  "validation_key": "ocean-mom5_h109_v109",
+  "ui_label": "ocean-mom5_h109_v109",
+  "description": "",
+  "horizontal_computational_grid": "h109",
+  "model_component": "mom5",
+  "vertical_computational_grid": "v109",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "ocean-mom5_h109_v109"
 }

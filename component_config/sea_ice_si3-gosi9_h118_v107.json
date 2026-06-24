@@ -1,15 +1,15 @@
 {
-    "validation_key": "sea_ice_si3-gosi9_h118_v107",
-    "ui_label": "sea_ice_si3-gosi9_h118_v107",
-    "description": "",
-    "horizontal_computational_grid": "h118",
-    "model_component": "si3-gosi9",
-    "vertical_computational_grid": "v107",
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:component_config",
-        "esgvoc:ComponentConfig"
-    ],
-    "@id": "sea-ice-si3-gosi9-h118-v107"
+  "validation_key": "si3-gosi9_h118_v107",
+  "ui_label": "si3-gosi9_h118_v107",
+  "description": "",
+  "horizontal_computational_grid": "h118",
+  "model_component": "si3-gosi9",
+  "vertical_computational_grid": "v107",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:component_config",
+    "esgvoc:ComponentConfig"
+  ],
+  "@id": "si3-gosi9_h118_v107"
 }
