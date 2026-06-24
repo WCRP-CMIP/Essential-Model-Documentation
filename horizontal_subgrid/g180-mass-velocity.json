@@ -1,0 +1,17 @@
+{
+    "validation_key": "g180-mass-velocity",
+    "ui_label": "",
+    "description": "",
+    "cell_variable_type": [
+        "mass",
+        "velocity"
+    ],
+    "horizontal_grid_cells": "g180",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g180-mass-velocity"
+}
