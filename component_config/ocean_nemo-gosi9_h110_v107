@@ -1,15 +1,15 @@
 {
-  "validation_key": "nemo-gosi9_h110_v107",
-  "ui_label": "nemo-gosi9_h110_v107",
-  "description": "",
-  "horizontal_computational_grid": "h110",
-  "model_component": "nemo-gosi9",
-  "vertical_computational_grid": "v107",
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:component_config",
-    "esgvoc:ComponentConfig"
-  ],
-  "@id": "nemo-gosi9_h110_v107"
+    "validation_key": "ocean-nemo-gosi9_h110_v107",
+    "ui_label": "ocean-nemo-gosi9_h110_v107",
+    "description": "",
+    "horizontal_computational_grid": "h110",
+    "model_component": "nemo-gosi9",
+    "vertical_computational_grid": "v107",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "ocean-nemo-gosi9_h110_v107"
 }
