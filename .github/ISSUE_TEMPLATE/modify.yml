@@ -113,9 +113,30 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: |
+        Explain why this change is needed. Reviewers will use this to decide whether to approve the change.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Why this change?**
+        
+        A short explanation that reviewers can use to decide whether to approve. Be specific about what was wrong before and why the new value is correct — cite a paper, a release note, or a model card if you can.
+        
+        </details>
+      placeholder: "e.g. The release_year was originally entered as 2022 but the model paper was published in 2024."
+    validations:
+      required: true
+
   - type: input
     id: collaborators
     attributes:
       label: Additional Collaborators
       description: GitHub usernames of additional contributors (comma-separated).
       placeholder: "user1,user2,user3,..."
+    validations:
+      required: true

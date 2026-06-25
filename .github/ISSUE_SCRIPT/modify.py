@@ -24,7 +24,7 @@ import subprocess
 kind = __file__.split('/')[-1].replace('.py', '')  # "modify"
 
 IGNORE = {'issue_category', 'additional_collaborators', 'collaborators',
-          'folder', 'filename', 'key', 'value'}
+          'folder', 'filename', 'key', 'value', 'justification'}
 
 _PLACEHOLDER = {'', 'not specified', 'none', '_no response_'}
 
@@ -107,10 +107,11 @@ def _retitle_issue(issue_number, title: str):
 # ---------------------------------------------------------------------------
 
 def run(parsed_issue, issue, dry_run=False):
-    folder   = _clean(parsed_issue.get('folder'))
-    filename = _clean(parsed_issue.get('filename'))
-    key      = _clean(parsed_issue.get('key'))
-    raw_val  = parsed_issue.get('value', '')
+    folder        = _clean(parsed_issue.get('folder'))
+    filename      = _clean(parsed_issue.get('filename'))
+    key           = _clean(parsed_issue.get('key'))
+    raw_val       = parsed_issue.get('value', '')
+    justification = _clean(parsed_issue.get('justification'))
 
     issue_number = issue.get('number') or issue.get('issue_number')
 
@@ -134,6 +135,12 @@ def run(parsed_issue, issue, dry_run=False):
 
     if key.lower() in _PLACEHOLDER:
         msg = '## ❌ Cannot modify: field name (key) is required.'
+        if not dry_run and issue_number:
+            _post_comment(issue_number, msg)
+        return None
+
+    if justification.lower() in _PLACEHOLDER:
+        msg = '## ❌ Cannot modify: justification is required.'
         if not dry_run and issue_number:
             _post_comment(issue_number, msg)
         return None
@@ -214,17 +221,42 @@ def run(parsed_issue, issue, dry_run=False):
                    if collab_str else []
 
     return {
-        rel_path:        data,
-        '_author':       issue.get('author'),
-        '_contributors': contributors,
-        '_make_pull':    True,
+        rel_path:         data,
+        '_author':        issue.get('author'),
+        '_contributors':  contributors,
+        '_make_pull':     True,
+        '_justification': justification,
+        '_modify_key':    key,
+        '_modify_old':    old_value,
+        '_modify_new':    new_value,
     }
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
-    """No post-write work needed — the file has already been mutated by run()."""
+    """Attach a justification block to the PR description via _validation_report."""
+    justification = files_to_write.get('_justification', '') or ''
+    mod_key       = files_to_write.get('_modify_key', '') or ''
+    mod_old       = files_to_write.get('_modify_old', '')
+    mod_new       = files_to_write.get('_modify_new', '')
+
+    # Truncate huge values so the report stays readable
+    def _short(v):
+        s = json.dumps(v, ensure_ascii=False)
+        return s if len(s) <= 400 else s[:400] + '…'
+
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
             continue
-        # No similarity report for modify — the diff IS the review.
-        data['_validation_report'] = ''
+        report_lines = ['## Modify request', '']
+        if mod_key:
+            report_lines += [
+                f'**Field:** `{mod_key}`',
+                '',
+                '| Before | After |',
+                '|---|---|',
+                f'| `{_short(mod_old)}` | `{_short(mod_new)}` |',
+                '',
+            ]
+        if justification:
+            report_lines += ['### Justification', '', justification]
+        data['_validation_report'] = '\n'.join(report_lines)
