@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_mdeushiMRI-1781780302",
+    "ui_label": "",
+    "description": "Mass and veocities at cell centers",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g176-mass",
+        "g176-x-velocity",
+        "g176-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-mdeushimri-1781780302"
+}
