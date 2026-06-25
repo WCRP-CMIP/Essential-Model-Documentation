@@ -1,0 +1,18 @@
+{
+    "validation_key": "m-sim",
+    "ui_label": "M-SIM",
+    "description": "M-SIM is a multi-scale sea ice model. It includes a suite of new and improved thermodynamic parameterizations that comprehensively represent processes at surface, interior, side, and bottom of sea ice. These parameterizations include a maximum-entropy-production scheme for air-ice turbulent heat fluxes, a melt-pond size distribution function, prognostic sea-ice salinity and its thermodynamic effects, effects of ice-microstructure based inherent optical properties, floe size and thickness joint distribution and lateral melting, and turbulent heat and salinity flux exchanges across the thin ice-ocean transition layer.  In terms of dynamics, M-SIM retains the core CICE6 capabilities, including the Elastic-Viscous-Plastic (EVP) and Elastic-Anisotropic-Plastic (EAP) solvers and the multi-category ice thickness distribution (ITD) transport framework. M-SIM further introduces important process-based extensions, including sea ice-wave interactions and floe size evolution, and lagrangian tracking of sea ice. Together, these developments enable M-SIM to provide more complete and physically consistent description of coupled thermodynamic-dynamic sea-ice evolution.",
+    "code_base": "",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1016/j.accre.2021.07.003; https://doi.org/10.5194/gmd-14-4891-2021; https://doi.org/10.1007/s00376-022-1316-y; https://doi.org/10.5194/tc-18-1215-2024; https://doi.org/10.3390/rs16091494;  https://doi.org/10.1016/j.ocemod.2025.102640"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "m-sim"
+}
