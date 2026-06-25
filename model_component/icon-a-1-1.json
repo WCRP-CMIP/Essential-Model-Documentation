@@ -1,0 +1,18 @@
+{
+    "validation_key": "icon-a-1-1",
+    "ui_label": "ICON-A 1.1",
+    "description": "1. This component simulates atmospheric dynamics and physics, solving the fully compressible non-hydrostatic Navier-Stokes equations on the sphere (https://doi.org/10.1002/qj.2378), using the \"NWP\" physics package (https://docs.icon-model.org/documentation/atmosphere/atmosphere.html#ref-atmosphere-nwp-physics) 2. Key physics formulations include ecRad (https://doi.org/10.1029/2018MS001364), the single-moment microphysics scheme after Doms et al. (https://www.cosmo-model.org/content/model/cosmo/coreDocumentation/cosmo_physics_5.00.pdf), convection after Bechtold et al. (https://doi.org/10.1002/qj.289) and other parameterizations. The effects of aerosols are prescribed using the MACv2 simple-plume scheme (https://doi.org/10.5194/gmd-10-433-2017). 3. The model uses a prescribed cloud droplet number concentration climatology derived from satellite data. Over the Southern Ocean and Antarctica in summer, this climatology has been artificially increased to counteract a radiation bias resulting in an SST warm bias and substantial cumulative impacts on the ocean heat content. With this increase in place, designed to counteract insufficient cloud cover, the model simulates a much decreased warm bias in the Southern-Ocean region.",
+    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1002/qj.2378 https://doi.org/10.1029/2018MS001364 https://doi.org/10.1002/qj.289 https://doi.org/10.5194/gmd-10-433-2017"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "icon-a-1-1"
+}
