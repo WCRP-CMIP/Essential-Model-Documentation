@@ -9,4 +9,5 @@ Use this form to change a single field in an existing JSON file on `src-data`. T
 3,input,filename,Filename,"Filename to modify (with or without `.json`).",none,true,canesm5-1,,
 4,input,key,Field name,"The JSON key (top-level only) to add or replace.",none,true,description,,
 5,textarea,value,New value,"The new value. If it parses as JSON (e.g. a list, number, boolean, or object) it is stored as that type; otherwise it is stored as a string.","none",true,"A scientific overview of the model...",,
-6,input,collaborators,Additional Collaborators,GitHub usernames of additional contributors (comma-separated).,none,false,"user1,user2,user3,...",,
+6,textarea,justification,Justification,"Explain why this change is needed. Reviewers will use this to decide whether to approve the change.",none,true,"e.g. The release_year was originally entered as 2022 but the model paper was published in 2024.",,
+7,input,collaborators,Additional Collaborators,GitHub usernames of additional contributors (comma-separated).,none,true,"user1,user2,user3,...",,

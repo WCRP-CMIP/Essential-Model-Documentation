@@ -12,6 +12,7 @@
     "folder": "**Data folder**\n\nPick the folder that contains the file you want to change.\n\nIf you're not sure which folder a given entry lives in, browse `src-data` on GitHub.",
     "filename": "**Existing filename**\n\nThe `@id` of the file you want to change. With or without the trailing `.json` — the handler will add it if missing.\n\n**Example:** for `model/canesm5-1.json` enter `canesm5-1`.\n\nIf the file does not exist the submission will fail.",
     "key": "**Field name**\n\nThe JSON key to update. Nested keys are supported with dot notation, e.g. `metadata.version`.\n\n**The key must already exist on the file** — if it does not, the submission will fail. Use the relevant stage form to add new fields.",
-    "value": "**New value**\n\nWrite the new value as you want it to appear in the JSON. Examples:\n\n- A string: `My new description`\n- A list: `[\"https://doi.org/...\", \"https://doi.org/...\"]`\n- A number: `2024`\n- A boolean: `true`\n- An object: `{\"key\": \"value\"}`\n\nIf the value parses as JSON it is stored as that type; otherwise it is kept as a string."
+    "value": "**New value**\n\nWrite the new value as you want it to appear in the JSON. Examples:\n\n- A string: `My new description`\n- A list: `[\"https://doi.org/...\", \"https://doi.org/...\"]`\n- A number: `2024`\n- A boolean: `true`\n- An object: `{\"key\": \"value\"}`\n\nIf the value parses as JSON it is stored as that type; otherwise it is kept as a string.",
+    "justification": "**Why this change?**\n\nA short explanation that reviewers can use to decide whether to approve. Be specific about what was wrong before and why the new value is correct — cite a paper, a release note, or a model card if you can."
   }
 }
