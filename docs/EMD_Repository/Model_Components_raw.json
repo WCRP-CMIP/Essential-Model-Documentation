@@ -30,6 +30,21 @@
     "validation_key": "lim2"
   },
   {
+    "@id": "colm2014",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "",
+    "component": "land-surface",
+    "description": "The Common Land Model (CoLM) is a process-based land surface model designed to represent exchanges of energy, water, momentum, and carbon between the land surface and the atmosphere. It simulates the major terrestrial processes relevant to climate and Earth-system modeling, including canopy radiation transfer, photosynthesis and stomatal conductance, evapotranspiration, soil heat and moisture transport, snow accumulation and melt, frozen-soil hydrology, runoff generation, terrestrial carbon cycling, and land\u2013atmosphere CO2 exchange. In coupled Earth system applications, CoLM also supports dynamic vegetation, fire-related processes, and interactions with atmospheric dust and biogeochemical modules.  A key feature of CoLM is its physically based treatment of land heterogeneity and vegetation\u2013soil processes. The model originated by integrating strengths from BATS, IAP94, and the NCAR land surface model, but has since evolved substantially. Its canopy radiative transfer uses an improved two-stream approximation with separate treatment of sunlit and shaded leaves. Photosynthesis and stomatal conductance are also calculated separately for sunlit and shaded foliage, allowing simultaneous exchanges of CO2 and water vapor. The soil column is vertically resolved with multiple soil layers and snow layers, enabling more realistic simulation of soil thermal and hydrological states. Important parameterizations include organic-matter thermal insulation, supercooled liquid water in frozen soils, frost and thaw fronts, vertical soil organic carbon mixing, and carbon\u2013nitrogen interactions.  In this version, CoLM is notable for its expanded role within Earth system modeling. It includes deep soil representation for permafrost and active-layer dynamics, anthropogenic water use, riverine nitrogen discharge and transport, and coupling with a dynamic global vegetation model that represents plant functional types, vegetation establishment, and fire disturbance. These developments make CoLM suitable not only for surface climate simulation, but also for studies of terrestrial ecosystems, carbon\u2013nitrogen feedbacks, permafrost processes, and human impacts on land hydrology and biogeochemistry.",
+    "family": "colm",
+    "references": "https://doi.org/10.5194/gmd-7-2039-2014 https://doi.org/10.1029/2020MS002210",
+    "ui_label": "CoLM2014",
+    "validation_key": "colm2014"
+  },
+  {
     "@id": "arpege-climat-version-6-3",
     "@type": [
       "emd",
