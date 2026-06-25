@@ -361,6 +361,22 @@
     "validation_key": "h122"
   },
   {
+    "@id": "h125",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-b",
+    "description": "Mass at cell vertices, velocities at cell centers.",
+    "horizontal_subgrids": [
+      "g161-mass",
+      "g164-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h125"
+  },
+  {
     "@id": "h124",
     "@type": [
       "wcrp:horizontal_computational_grid",
