@@ -7,7 +7,17 @@ Handles both:
 """
 
 import os
-from cmipld.utils.similarity import ReportBuilder
+import importlib.util as _importlib_util
+# from cmipld.utils.similarity import ReportBuilder  # disabled for non-grid types
+
+# Load sibling helper by absolute path (handler runs with arbitrary cwd)
+_spec = _importlib_util.spec_from_file_location(
+    '_name_similarity',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_name_similarity.py'),
+)
+_name_similarity = _importlib_util.module_from_spec(_spec)
+_spec.loader.exec_module(_name_similarity)
+build_similarity_report = _name_similarity.build_similarity_report
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -136,11 +146,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         for key in BAD_KEYS | {'name'}:
             data.pop(key, None)
 
-        print(f"\033[92m  Generating review report for {file_path} …\033[0m", flush=True)
-        try:
-            data['_validation_report'] = ReportBuilder(
-                folder_url=f"emd:{kind}", kind=kind, item=data, link_threshold=80.0
-            ).build()
-        except Exception as e:
-            print(f"\033[91m  ⚠ Report generation failed: {e}\033[0m", flush=True)
-            data['_validation_report'] = ''
+        # Lightweight check: flag suspiciously similar existing names in the same folder.
+        folder = os.path.dirname(file_path) or 'model_family'
+        proposed_id = data.get('@id', '')
+        data['_validation_report'] = build_similarity_report(proposed_id, folder)

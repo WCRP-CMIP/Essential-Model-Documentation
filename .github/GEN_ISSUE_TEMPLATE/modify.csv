@@ -1,0 +1,12 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"# Modify an existing entry
+
+Use this form to change a single field in an existing JSON file on `src-data`. The change is opened as a pull request for review — nothing is pushed directly.
+
+> [!NOTE]
+> If the file or folder does not exist the submission will fail. Use the relevant **stage** form to create new entries.",none,false,,,
+2,dropdown,folder,Folder,The data folder containing the file you want to modify.,folder,true,,list,
+3,input,filename,Filename,"Filename to modify (with or without `.json`).",none,true,canesm5-1,,
+4,input,key,Field name,"The JSON key (top-level only) to add or replace.",none,true,description,,
+5,textarea,value,New value,"The new value. If it parses as JSON (e.g. a list, number, boolean, or object) it is stored as that type; otherwise it is stored as a string.","none",true,"A scientific overview of the model...",,
+6,input,collaborators,Additional Collaborators,GitHub usernames of additional contributors (comma-separated).,none,false,"user1,user2,user3,...",,
