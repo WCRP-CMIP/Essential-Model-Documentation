@@ -238,6 +238,23 @@
     "validation_key": "h118"
   },
   {
+    "@id": "h126",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Mass and veocities at cell centers",
+    "horizontal_subgrids": [
+      "g176-mass",
+      "g176-x-velocity",
+      "g176-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h126"
+  },
+  {
     "@id": "h119",
     "@type": [
       "wcrp:horizontal_computational_grid",
