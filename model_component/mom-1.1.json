@@ -1,0 +1,27 @@
+{
+    "validation_key": "mom-1.1",
+    "ui_label": "MOM 1.1",
+    "description": "The Modular Ocean Module (MOM) version 1 simulates several tracers (T,S,age) and velocities on a static depth based grid. It uses a rigid lid assumption to damp sound waves. There is a relaxation solver to compute the barotropic and baroclinic velocity components. A sea ice model is embedded in the code. This is a close relative to the Bryan-Cox model developed in the 1970's at GFDL.",
+    "code_base": "",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "Pacanowski",
+        "R.C.",
+        "K.W. Dixon",
+        "and A. Rosati",
+        "1991: The GFDL Modular Ocean Model User Guide",
+        "Version 1.0. GFDL Ocean Group Technical Report No. 2",
+        "NOAA/Geophysical Fluid Dynamics Laboratory",
+        "Princeton",
+        "NJ",
+        "342 pp."
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mom-1.1"
+}
