@@ -1,0 +1,18 @@
+{
+    "validation_key": "mri-agcm4-4",
+    "ui_label": "MRI-AGCM4-4",
+    "description": "The land surface physics component of MRI-ESM3.4 (Deushi et al., 2026) uses the improved Simple Biosphere model (iSiB), derived from the Japan Meteorological Agency’s global model, replacing HAL used in MRI-ESM2.0 (Yukimoto et al., 2019). The land surface model represents land surface processes and simulates exchanges of momentum, heat, water vapor, and radiation between the land surface and the atmosphere. The land carbon cycle component of MRI ESM3.4 is the dynamic global vegetation–wildfire model MRI-LPJ-LCF version 1.0. This model simulates land carbon budgets and natural and human-induced fire activities. The model uses daily climate forcing provided by the atmospheric component of MRI-ESM3.4. The human-induced fire ignitions are represented as a function of population density. The establishment of grass plant functional types is calculated daily, whereas the allocation and establishment of tree plant functional types are calculated annually. Leaf phenology is calculated daily using past information, such as temperature and day length. Land use is simplified into natural and agricultural tiles, with associated carbon flux adjustments. MRI-ESM3.4 incorporates GRiveT2, an updated river and lake model, and a simple glacier model (SMIST), both inherited from MRI-CGCM3 (Yukimoto et al., 2012), with a major improvement for representing large lakes such as the Caspian Sea.",
+    "code_base": "",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.2151/jmsj.2019-051 https://doi.org/10.2151/jmsj.2012-A02"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mri-agcm4-4"
+}
