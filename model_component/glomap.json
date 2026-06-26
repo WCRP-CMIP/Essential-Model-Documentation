@@ -1,0 +1,18 @@
+{
+    "validation_key": "glomap",
+    "ui_label": "GLOMAP",
+    "description": "The aerosol component simulates aerosol microphysical and chemical processes in the atmosphere, including the evolution of aerosol mass and number, and their interactions with radiation, clouds, and atmospheric chemistry.",
+    "code_base": "private",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2018MS001464"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "glomap"
+}
