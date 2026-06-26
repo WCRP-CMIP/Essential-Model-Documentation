@@ -673,6 +673,21 @@
     "validation_key": "si3-cannemo"
   },
   {
+    "@id": "mri-ccm3-2",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "",
+    "component": "atmospheric-chemistry",
+    "description": "The atmospheric chemistry component of MRI-ESM3.4 (Deushi et al., 2026) uses the MRI Chemistry Climate Model version 3.2 (MRI-CCM3.2), which simulates ozone and other trace gases in the troposphere and middle atmosphere. MRI-CCM3.2 is an updated version of MRI-CCM2.1, compared with MRI-ESM2.0 (Yukimoto et al., 2019). In the simulations, meteorological fields and aerosol surface area density are provided to MRI-CCM3.2 from the interactively coupled atmosphere component MRI-AGCM4.4 and aerosol component MASINGAR mk-3r2, respectively. In turn, ozone and methane concentrations are supplied to MRI-AGCM4.4, while concentrations of HO\u2093 and O\u2093 species are supplied to MASINGAR mk-3r2.",
+    "family": "./",
+    "references": "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.2151/jmsj.2019-051",
+    "ui_label": "MRI-CCM3-2",
+    "validation_key": "mri-ccm3-2"
+  },
+  {
     "@id": "canam6-aerosol",
     "@type": [
       "emd",
