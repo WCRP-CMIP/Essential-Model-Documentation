@@ -1,0 +1,18 @@
+{
+    "validation_key": "mricom-5-4",
+    "ui_label": "MRICOM-5-4",
+    "description": "The ocean biogeochemistry component of MRI-ESM3.4 (Deushi et al., 2026) simulates the carbon cycle using formulations for air–sea gas exchange and carbonate chemistry following the OMIP CMIP6 protocol (Orr et al., 2017) together with biological processes represented by an NPZD-type marine ecosystem model based on Schmittner et al. (2008, 2009). A key update is the revision of biological production rates, whereby the previous implicit representation of micronutrient limitation—through a globally low maximum production rate—has been replaced by an approach that increases this rate and explicitly accounts for iron limitation based on dissolved iron concentrations (Tsujino et al., 2026), compared with the previous versions described by Adachi et al. (2013).",
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.5194/gmd-10-2169-2017 https://doi.org/10.1029/2007GB002953 https://doi.org/10.1029/2009GB003577 https://doi.org/10.1029/2025MS005395 https://doi.org/10.2467/mripapers.64.1"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mricom-5-4"
+}
