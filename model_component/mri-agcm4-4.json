@@ -1,0 +1,18 @@
+{
+    "validation_key": "mri-agcm4-4",
+    "ui_label": "MRI-AGCM4-4",
+    "description": "The atmospheric component of MRI-ESM3.4 (Deushi et al., 2026) is the MRI Atmospheric General Circulation Model version 4.4 (MRI-AGCM4.4), an updated version of MRI-AGCM3.5 (Yukimoto et al., 2011). MRI-AGCM4.4 is a global spectral atmospheric model that uses a semi-implicit semi-Lagrangian scheme and a sigma-pressure hybrid vertical coordinate system. The model resolution for the CMIP7 experiments is TL159L100, corresponding to approximately 120 km horizontally and 100 vertical levels, compared with 80 vertical levels in CMIP6. The dynamical framework has been updated based on the Japan Meteorological Agency’s Global Spectral Model version 1705 (Japan Meteorological Agency, 2019). The physical schemes include updates to cloud macro- and microphysics, cumulus convection, radiation, subgrid orographic and non-orographic gravity wave drag, and the skin SST scheme, as well as a newly introduced EDMF boundary layer scheme.",
+    "code_base": "",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.11483/mritechrepo.64 https://www.jma.go.jp/jma/jma-eng/jma-center/nwp/outline2019-nwp/index.htm"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mri-agcm4-4"
+}
