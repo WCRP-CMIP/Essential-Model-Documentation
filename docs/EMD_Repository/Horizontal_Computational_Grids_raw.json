@@ -378,6 +378,19 @@
     "validation_key": "h122"
   },
   {
+    "@id": "h127",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Mass at cell centers",
+    "horizontal_subgrids": "g177-mass",
+    "ui_label": "",
+    "validation_key": "h127"
+  },
+  {
     "@id": "h125",
     "@type": [
       "wcrp:horizontal_computational_grid",
