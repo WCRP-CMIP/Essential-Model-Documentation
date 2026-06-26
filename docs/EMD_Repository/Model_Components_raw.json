@@ -182,6 +182,21 @@
     "validation_key": "gelato"
   },
   {
+    "@id": "mri-agcm4-4",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "",
+    "component": "atmosphere",
+    "description": "The atmospheric component of MRI-ESM3.4 (Deushi et al., 2026) is the MRI Atmospheric General Circulation Model version 4.4 (MRI-AGCM4.4), an updated version of MRI-AGCM3.5 (Yukimoto et al., 2011). MRI-AGCM4.4 is a global spectral atmospheric model that uses a semi-implicit semi-Lagrangian scheme and a sigma-pressure hybrid vertical coordinate system. The model resolution for the CMIP7 experiments is TL159L100, corresponding to approximately 120 km horizontally and 100 vertical levels, compared with 80 vertical levels in CMIP6. The dynamical framework has been updated based on the Japan Meteorological Agency\u2019s Global Spectral Model version 1705 (Japan Meteorological Agency, 2019). The physical schemes include updates to cloud macro- and microphysics, cumulus convection, radiation, subgrid orographic and non-orographic gravity wave drag, and the skin SST scheme, as well as a newly introduced EDMF boundary layer scheme.",
+    "family": "./",
+    "references": "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.11483/mritechrepo.64 https://www.jma.go.jp/jma/jma-eng/jma-center/nwp/outline2019-nwp/index.htm",
+    "ui_label": "MRI-AGCM4-4",
+    "validation_key": "mri-agcm4-4"
+  },
+  {
     "@id": "lpj-guess-4-1",
     "@type": [
       "emd",
@@ -520,6 +535,21 @@
     "references": "https://doi.org/10.1016/j.accre.2021.07.003; https://doi.org/10.5194/gmd-14-4891-2021; https://doi.org/10.1007/s00376-022-1316-y; https://doi.org/10.5194/tc-18-1215-2024; https://doi.org/10.3390/rs16091494;  https://doi.org/10.1016/j.ocemod.2025.102640",
     "ui_label": "M-SIM",
     "validation_key": "m-sim"
+  },
+  {
+    "@id": "mricom-5-4-ocean-biogeochemistry",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "description": "The ocean biogeochemistry component of MRI-ESM3.4 (Deushi et al., 2026) simulates the carbon cycle using formulations for air\u2013sea gas exchange and carbonate chemistry following the OMIP CMIP6 protocol (Orr et al., 2017) together with biological processes represented by an NPZD-type marine ecosystem model based on Schmittner et al. (2008, 2009). A key update is the revision of biological production rates, whereby the previous implicit representation of micronutrient limitation\u2014through a globally low maximum production rate\u2014has been replaced by an approach that increases this rate and explicitly accounts for iron limitation based on dissolved iron concentrations (Tsujino et al., 2026), compared with the previous versions described by Adachi et al. (2013).",
+    "family": "./",
+    "references": "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.5194/gmd-10-2169-2017 https://doi.org/10.1029/2007GB002953 https://doi.org/10.1029/2009GB003577 https://doi.org/10.1029/2025MS005395 https://doi.org/10.2467/mripapers.64.1",
+    "ui_label": "MRICOM-5-4-ocean-biogeochemistry",
+    "validation_key": "mricom-5-4-ocean-biogeochemistry"
   },
   {
     "@id": "icon-o-1-1",
