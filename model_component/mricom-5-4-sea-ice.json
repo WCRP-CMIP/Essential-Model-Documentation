@@ -1,0 +1,18 @@
+{
+    "validation_key": "mricom-5-4-sea-ice",
+    "ui_label": "MRICOM-5-4-sea-ice",
+    "description": "The sea-ice component of MRI-ESM3.4 (Deushi et al., 2026) uses an OGCM developed at the Meteorological Research Institute (MRI) named MRI.COM version 5 (Sakamoto et al., 2023). It is based on the model of Mellor and Kantha (1989) and incorporates some additional processes/schemes, such as categorization by thickness, ridging and rheology, from the Los Alamos sea ice model (CICE) (Hunke and Lipscomb, 2010). The number of sea-ice categories is 8 with their upper boundaries of 0.1, 0.3, 0.6, 1.4, 2.4, 3.6, 5.0 and 30 m, respectively. The following new processes/schemes are incorporated in the current version. Following Toyoda et al. (2024), the model takes into account variable sea-ice salinity and revises the snow ice formation process. It also adopts the grease ice scheme of Mackie et al. (2020). These updates represent improvements compared with MRI-ESM2.0 (Yukimoto et al., 2019).",
+    "code_base": "",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.11483/mritechrepo.87 https://doi.org/10.1029/JC094iC08p10937 https://csdms.colorado.edu/w/images/CICE_documentation_and_software_user's_manual.pdf https://doi.org/10.1016/j.ocemod.2023.102288 https://doi.org/10.1029/2020MS002103 https://doi.org/10.2151/jmsj.2019-051"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mricom-5-4-sea-ice"
+}
