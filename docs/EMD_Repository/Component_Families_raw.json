@@ -230,6 +230,31 @@
     "website": ""
   },
   {
+    "@id": "M-SIM",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "cas",
+    "description": "M-SIM (Multiscale Sea Ice Model) is the sea ice component model. It includes a variety of improved and new sea ice thermodynamic and dynamic parameterizations and numerical methods that are suitable to simulate multi-scale changes of sea ice under rapidly changing polar climate. The code base follows the physics common to the CMIP7 family, and aligns with Earth System Models standardized by the World Climate Research Programme.",
+    "established": 2024,
+    "family_type": "component",
+    "primary_institution": "sysu",
+    "references": [
+      "https://doi.org/10.1016/j.accre.2021.07.003;",
+      "https://doi.org/10.5194/gmd-14-4891-2021;",
+      "https://doi.org/10.1007/s00376-022-1316-y;",
+      "https://doi.org/10.5194/tc-18-1215-2024;",
+      "https://doi.org/10.3390/rs16091494;",
+      "https://doi.org/10.1016/j.ocemod.2025.102640"
+    ],
+    "scientific_domains": "sea_ice",
+    "ui_label": "M-SIM",
+    "validation_key": "M-SIM",
+    "website": "https://private"
+  },
+  {
     "@id": "canam",
     "@type": [
       "emd",
@@ -552,6 +577,31 @@
     "validation_key": "hadam",
     "variation_dimensions": "none",
     "website": "none"
+  },
+  {
+    "@id": "M-SIM",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "cas",
+    "description": "M-SIM (Multiscale Sea Ice Model) is the sea ice component model. It includes a variety of improved and new sea ice thermodynamic and dynamic parameterizations and numerical methods that are suitable to simulate multi-scale changes of sea ice under rapidly changing polar climate. The code base follows the physics common to the CMIP7 family, and aligns with Earth System Models standardized by the World Climate Research Programme.",
+    "established": 2024,
+    "family_type": "component",
+    "primary_institution": "sysu",
+    "references": [
+      "https://doi.org/10.1016/j.accre.2021.07.003;",
+      "https://doi.org/10.5194/gmd-14-4891-2021;",
+      "https://doi.org/10.1007/s00376-022-1316-y;",
+      "https://doi.org/10.5194/tc-18-1215-2024;",
+      "https://doi.org/10.3390/rs16091494;",
+      "https://doi.org/10.1016/j.ocemod.2025.102640"
+    ],
+    "scientific_domains": "sea_ice",
+    "ui_label": "M-SIM",
+    "validation_key": "M-SIM",
+    "website": "https://private"
   },
   {
     "@id": "bisicles",
