@@ -204,6 +204,31 @@
     "website": "none"
   },
   {
+    "@id": "arts-esm",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "./",
+    "description": "Family includes Earth System models with common code base, physics and numerical methods. Family members have different resolution, some used numerical methods and tuned parameters  also can be different.",
+    "established": 2026,
+    "family_type": "model",
+    "primary_institution": "inm",
+    "references": "./",
+    "representative_member": "ARTS-ESM-L, ARTS-ESM-M",
+    "scientific_domains": [
+      "atmosphere",
+      "aerosol",
+      "land_surface",
+      "ocean",
+      "sea_ice"
+    ],
+    "ui_label": "ARTS-ESM",
+    "validation_key": "ARTS-ESM",
+    "website": ""
+  },
+  {
     "@id": "ukcm",
     "@type": [
       "emd",
