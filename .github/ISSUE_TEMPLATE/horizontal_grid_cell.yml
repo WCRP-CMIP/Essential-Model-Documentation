@@ -189,7 +189,10 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "Not specified"
+        - "Adaptive"
+        - "Dynamically Stretched"
+        - "Static"
       default: 0
     validations:
       required: true
