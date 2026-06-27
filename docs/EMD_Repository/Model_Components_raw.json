@@ -1,5 +1,20 @@
 [
   {
+    "@id": "mricom-5-4",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "",
+    "component": "ocean",
+    "description": "The ocean component of MRI-ESM3.4 (Deushi et al., 2026) uses an OGCM developed at the Meteorological Research Institute (MRI) named MRI.COM version 5 (Sakamoto et al., 2023). It solves the primitive equations under the Boussinesq approximation. This model uses a mixed-precision version (Nakano et al., 2025) of the SOM scheme (Prather, 1986) for active tracers and the PPM scheme (Colella and Woodward, 1984) for passive tracers. It updates parameterizations of neutral physics (Gent et al., 1995; Shao et al., 2020), mixed layer eddies (Fox-Kemper et al., 2011), tide-induced vertical mixing (Kawasaki et al., 2021), and sub-grid scale convection (G\u00fclk et al., 2024), compared with MRI-ESM2.0 (Yukimoto et al., 2019).",
+    "family": "./",
+    "references": "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.11483/mritechrepo.87 https://doi.org/10.1016/j.ocemod.2024.102495 https://doi.org/10.1029/JD091iD06p06671 https://doi.org/10.1016/0021-9991(84)90143-8 https://doi.org/10.1175/1520-0485(1995)025%3C0463:PEITTI%3E2.0.CO;2 https://doi.org/10.1029/2019MS001992 https://doi.org/10.1016/j.ocemod.2010.09.002 https://doi.org/10.1007/s10872-020-00584-0 https://doi.org/10.1029/2023MS004106 https://doi.org/10.2151/jmsj.2019-051",
+    "ui_label": "MRICOM-5-4",
+    "validation_key": "mricom-5-4"
+  },
+  {
     "@id": "gamil3",
     "@type": [
       "emd",
