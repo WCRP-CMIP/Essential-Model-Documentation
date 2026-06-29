@@ -330,13 +330,22 @@ jobs:
       - name: Check for tempgrid files in this PR
         id: check_tempgrid
         run: |
+          # grep -c outputs 0 AND exits 1 when there are no matches, so
+          # `|| echo 0` would add a SECOND "0" line and break GITHUB_OUTPUT.
+          # Use `|| true` to swallow the exit code; grep -c already prints 0.
           HAS_TEMPGRID=$(gh pr view "$PR" --repo "$REPO" \
             --json files --jq '.files[].path' 2>/dev/null \
-            | grep -cE '(^|/)([^/]*tempgrid[^/]*)$' || echo 0)
+            | grep -cE '(^|/)([^/]*tempgrid[^/]*)$' || true)
+          # Normalise: keep only the first integer (defensive — strips any stray output)
+          HAS_TEMPGRID=$(echo "$HAS_TEMPGRID" | head -n1 | tr -cd '0-9')
+          HAS_TEMPGRID=${HAS_TEMPGRID:-0}
           echo "has_tempgrid=$HAS_TEMPGRID" >> "$GITHUB_OUTPUT"
           echo "Tempgrid files in PR: $HAS_TEMPGRID"
 
       - name: Stamp issue and PR titles
+        # Skip when this PR contains tempgrid files — those are handled by
+        # the rename_tempgrid job which stamps titles with the new grid ID.
+        if: steps.check_tempgrid.outputs.has_tempgrid == '0'
         run: |
           NAMED_TYPES="model model_family model_component"
 
