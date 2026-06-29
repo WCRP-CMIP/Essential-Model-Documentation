@@ -460,6 +460,30 @@
     "y_resolution": ""
   },
   {
+    "@id": "g187",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "icosahedral-geodesic-dual",
+    "n_cells": 1411768,
+    "region": "global",
+    "southernmost_latitude": -78.63,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a icosahedral geodesic dual grid type and 20 x 20 km resolution.",
+    "units": "km",
+    "validation_key": "g187",
+    "westernmost_longitude": 189.11,
+    "x_resolution": 20,
+    "y_resolution": 20
+  },
+  {
     "@id": "g154",
     "@type": [
       "emd",
