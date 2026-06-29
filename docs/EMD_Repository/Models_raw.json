@@ -15,7 +15,7 @@
     "dynamic_components": [
       "atmosphere",
       "aerosol",
-      "land-surface-and-subsurface",
+      "land-surface",
       "ocean",
       "ocean-biogeochemistry",
       "sea-ice"
@@ -23,7 +23,7 @@
     "embedded_components": [
       "aerosol",
       "atmosphere",
-      "land-surface-and-subsurface",
+      "land-surface",
       "atmosphere",
       "ocean-biogeochemistry",
       "ocean",
@@ -72,7 +72,7 @@
     "dynamic_components": [
       "aerosol",
       "atmosphere",
-      "land-surface-and-subsurface",
+      "land-surface",
       "ocean",
       "sea-ice"
     ],
@@ -81,7 +81,7 @@
       "atmosphere",
       "sea-ice",
       "ocean",
-      "land-surface-and-subsurface",
+      "land-surface",
       "atmosphere"
     ],
     "family": "ukcm",
@@ -174,7 +174,7 @@
     "dynamic_components": [
       "atmosphere",
       "aerosol",
-      "land-surface-and-subsurface",
+      "land-surface",
       "ocean",
       "ocean-biogeochemistry",
       "sea-ice"
@@ -182,7 +182,7 @@
     "embedded_components": [
       "aerosol",
       "atmosphere",
-      "land-surface-and-subsurface",
+      "land-surface",
       "atmosphere",
       "ocean-biogeochemistry",
       "ocean",
@@ -227,14 +227,14 @@
       "atmosphere",
       "ocean",
       "atmosphere",
-      "land-surface-and-subsurface"
+      "land-surface"
     ],
     "description": "AWI-ESM3-veg is the third generation of the AWI Earth System Model, configured here in its high resolution variant with dynamic vegetation. It is a successor to the AWI-CM3 system described in Streffing et al. (2022, doi:10.5194/gmd-15-6399-2022), now with updated atmosphere and ocean cycles plus the addition of LPJ-GUESS for dynamic vegetation. The components are coupled through OASIS3-MCT5.  1. Dynamic components Atmosphere: OpenIFS 48r1 on a TCO319 reduced Gaussian grid with 137 hybrid sigma-pressure levels. Ocean: FESOM2.7 on the DARS2 unstructured triangular mesh of about 3.15 M surface vertices and 6.23 M elements, on 57 z-levels. Horizontal resolution varies from about 5 km in dynamically active regions to about 25 km in the bulk interior. Sea ice: FESIM2.7 with zero-layer thermodynamics, embedded in FESOM2 and sharing its surface mesh. Land surface and dynamic vegetation: LPJ-GUESS 4.1, running on the OpenIFS horizontal grid.  2. Prescribed components Tropospheric anthropogenic aerosol: MACv2-SP (Stevens et al. 2017), the simple-plumes climatology that supplies direct and first indirect aerosol effects from a prescribed plume description. Stratospheric aerosol: prescribed from the CMIP7 stratospheric aerosol forcing dataset. Atmospheric chemistry: not interactive; ozone is taken from the CMIP7 ozone forcing dataset. Greenhouse gases: prescribed concentrations throughout.  3. Omitted components Ocean biogeochemistry: REcoM is planned to couple into FESOM2 in a future submission within the awi-esm3 family, but is not part of this fast-track configuration. Dynamic land-ice: PISM is planned to couple into AWI-ESM3 in a future submission, but is not part of this fast-track configuration.",
     "dynamic_components": [
       "atmosphere",
       "ocean",
       "sea-ice",
-      "land-surface-and-subsurface"
+      "land-surface"
     ],
     "embedded_components": [
       "sea-ice",
@@ -301,7 +301,7 @@
     "description": "The model is an updated version of ACCESS-ESM1-5, as used for CMIP6 (Ziehn et al., 2020). Its dynamic components are the UK Met Office Unified Model atmosphere (v7.3) in a configuration similar to HadGEM2 including CLASSIC aerosols, with the CABLE land surface model (v3) including land biogeochemistry. The atmosphere is coupled to the MOM5 ocean with WOMBATlite biogeochemistry and CICE5 sea-ice using the OASIS-MCT coupler. Chemistry is prescribed including monthly mean, zonally-averaged ozone. Volcano forcing is prescribed as stratospheric optical depth as monthly means in four equal area latitude bands. Land-ice is represented by an ice tile in the land surface model. A grid-cell is either completely ice or ice-free and the ice tile distribution does not change in time. The main differences from ACCESS-ESM1.5 include corrections to how convective momentum transport had been applied in the atmosphere, a change to ocean albedo to better match observations, a correction to the passing of ocean carbon fluxes into the atmosphere, updates to improve energy and water conservation across the land and atmosphere, inclusion of 3 new plant functional types (c4 crops and two Australian tree types), improvements to the treatment of land-use change, updates to some of the land parameterisations or parameter values, the inclusion of a pseudo-iceberg scheme for distributing runoff from Antarctica and Greenland and a substantial update to ocean-biogeochemistry. Many aspects of the model infrastructure have also been improved to ensure greater provenance, better support for users and enhanced model throughput. A manuscript describing ACCESS-ESM1.6 is in preparation (Ziehn et al.).",
     "dynamic_components": [
       "atmosphere",
-      "land-surface-and-subsurface",
+      "land-surface",
       "aerosol",
       "ocean",
       "ocean-biogeochemistry",
@@ -310,7 +310,7 @@
     "embedded_components": [
       "aerosol",
       "atmosphere",
-      "land-surface-and-subsurface",
+      "land-surface",
       "atmosphere",
       "ocean-biogeochemistry",
       "ocean"
