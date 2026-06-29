@@ -1,7 +1,7 @@
 {
     "validation_key": "UKCM2-0-LL",
     "ui_label": "UKCM2-0-LL",
-    "description": "UKCM2-0-LL includes dynamically evolving MetUM GA9 dynamical atmosphere with the embedded GLOMAP-mode aerosol scheme coupled to the JULES  GL9 land surface and the GOSI9 configuration of the NEMO ocean and the embedded SI3 sea-ice model.  Land ice is represented through JULES. The ice surface is taken to be one of the surface tile types, and all surface tiles share the same soil information for temperature and moisture in JULES. The specification of land ice gridboxes is done through the tile fractions information. Atmospheric chemistry. UKCM2-0-LL has a very simplified treatment of aerosol chemistry using prescribed trace gas oxidants. GHGs/CFCs are prescribed from CMIP7 forcings as annual mean global constant values.  UKCM2-0-LL does not include an ocean biogeochemistry model.",
+    "description": "UKCM2-0-LL includes dynamically evolving MetUM GA9 dynamical atmosphere with the embedded GLOMAP-mode aerosol scheme coupled to the JULES  GL9 land surface and the GOSI9 configuration of the NEMO ocean and the embedded SI3 sea-ice model.  Land ice is represented through JULES. The ice surface is taken to be one of the surface tile types, and all surface tiles share the same soil information for temperature and moisture in JULES. The specification of land-ice gridboxes is done through the tile fractions information. Atmospheric chemistry. UKCM2-0-LL has a very simplified treatment of aerosol chemistry using prescribed trace gas oxidants. GHGs/CFCs are prescribed from CMIP7 forcings as annual mean global constant values.  UKCM2-0-LL does not include an ocean-biogeochemistry model.",
     "calendar": [
         "standard"
     ],
@@ -14,9 +14,9 @@
     "dynamic_components": [
         "aerosol",
         "atmosphere",
-        "land surface and subsurface",
+        "land-surface-and-subsurface",
         "ocean",
-        "sea ice"
+        "sea-ice"
     ],
     "embedded_components": [
         [
@@ -24,11 +24,11 @@
             "atmosphere"
         ],
         [
-            "sea ice",
+            "sea-ice",
             "ocean"
         ],
         [
-            "land surface and subsurface",
+            "land-surface-and-subsurface",
             "atmosphere"
         ]
     ],
@@ -42,11 +42,11 @@
     ],
     "name": "UKCM2-0-LL",
     "omitted_components": [
-        "ocean biogeochemistry"
+        "ocean-biogeochemistry"
     ],
     "prescribed_components": [
-        "land ice",
-        "atmospheric chemistry"
+        "land-ice",
+        "atmospheric-chemistry"
     ],
     "references": [
         "https://doi.org/10.5194/egusphere-2026-1676"
