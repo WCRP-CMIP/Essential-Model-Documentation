@@ -78,9 +78,26 @@ def _parse_refs(value) -> list:
 _ARROW_RE = re.compile(r'\s*(?:->|→|=>|==>)\s*')
 
 
+# Mapping from free-text component names (as typed in the issue form) to the
+# canonical CV slugs expected by _crs.validate / _crs.build.
+_COMPONENT_NORM = {
+    'sea ice':                     'sea-ice',
+    'land surface and subsurface': 'land-surface',
+    'land surface':                'land-surface',
+    'land ice':                    'land-ice',
+    'ocean biogeochemistry':       'ocean-biogeochemistry',
+    'atmospheric chemistry':       'atmospheric-chemistry',
+}
+
+
+def _norm_component(s: str) -> str:
+    sl = s.strip().lower()
+    return _COMPONENT_NORM.get(sl, sl.replace(' ', '_'))
+
+
 def _parse_embedded(raw) -> list:
     def _clean(s: str) -> str:
-        return re.sub(r'\s*-\s*$', '', s.strip()).strip().lower()
+        return _norm_component(re.sub(r'\s*-\s*$', '', s.strip()))
 
     def _split_pair(item: str):
         """Return [child, parent] if item contains a recognised separator, else None."""
@@ -117,22 +134,6 @@ def _parse_embedded(raw) -> list:
             result.append(pair)
     return result
 
-
-# Mapping from free-text component names (as typed in the issue form) to the
-# canonical CV slugs expected by _crs.validate / _crs.build.
-_COMPONENT_NORM = {
-    'sea ice':                     'sea_ice',
-    'land surface and subsurface': 'land_surface',
-    'land surface':                'land_surface',
-    'land ice':                    'land_ice',
-    'ocean biogeochemistry':       'ocean_biogeochemistry',
-    'atmospheric chemistry':       'atmospheric_chemistry',
-}
-
-
-def _norm_component(s: str) -> str:
-    sl = s.strip().lower()
-    return _COMPONENT_NORM.get(sl, sl.replace(' ', '_'))
 
 
 def run(parsed_issue, issue, dry_run=False):
