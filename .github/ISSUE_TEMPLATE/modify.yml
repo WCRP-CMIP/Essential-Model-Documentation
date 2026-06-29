@@ -1,4 +1,4 @@
-name: "Modify: change a field in an existing entry"
+name: "Modify: change a field in an existing EMD entry"
 description: Update a single JSON field in any existing src-data file (opens a PR for review)
 title: "[EMD] Modify: [do not edit]"
 labels: ['emd-submission', 'modify', 'Review']
@@ -138,5 +138,3 @@ body:
       label: Additional Collaborators
       description: GitHub usernames of additional contributors (comma-separated).
       placeholder: "user1,user2,user3,..."
-    validations:
-      required: true
