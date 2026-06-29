@@ -14,10 +14,10 @@
     "dynamic_components": [
         "atmosphere",
         "aerosol",
-        "land surface and subsurface",
+        "land-surface-and-subsurface",
         "ocean",
-        "ocean biogeochemistry",
-        "sea ice"
+        "ocean-biogeochemistry",
+        "sea-ice"
     ],
     "embedded_components": [
         [
@@ -25,15 +25,15 @@
             "atmosphere"
         ],
         [
-            "land surface and subsurface",
+            "land-surface-and-subsurface",
             "atmosphere"
         ],
         [
-            "ocean biogeochemistry",
+            "ocean-biogeochemistry",
             "ocean"
         ],
         [
-            "sea ice",
+            "sea-ice",
             "ocean"
         ]
     ],
@@ -49,8 +49,8 @@
     "name": "CanESM5-1",
     "omitted_components": [],
     "prescribed_components": [
-        "atmospheric chemistry",
-        "land ice"
+        "atmospheric-chemistry",
+        "land-ice"
     ],
     "references": [
         "https://doi.org/10.5194/gmd-12-4823-2019",
