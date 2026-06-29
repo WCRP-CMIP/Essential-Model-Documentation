@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Timeline — Essential Model Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================
+     THEME — matches custom.css EMD palette
+     ============================================ */
+  :root {
+    --emd-primary:        #2196f3;
+    --emd-primary-light:  #bbdefb;
+    --emd-primary-dark:   #1976d2;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    --emd-text-tertiary:  #94a3b8;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-bg-tertiary:    #f1f5f9;
+    --emd-border:         #e2e8f0;
+    --emd-border-light:   #f1f5f9;
+    --emd-success:        #10b981;
+    --emd-success-light:  #d1fae5;
+    --emd-warning:        #f59e0b;
+    --emd-warning-light:  #fef3c7;
+    --emd-danger:         #ef4444;
+    --emd-danger-light:   #fee2e2;
+    --emd-info:           #3b82f6;
+    --emd-info-light:     #dbeafe;
+    --emd-purple:         #7c3aed;
+    --emd-purple-light:   #ede9fe;
+
+    /* event type colours */
+    --ev-opened:          #2196f3;
+    --ev-body:            #f59e0b;
+    --ev-comment:         #94a3b8;
+    --ev-review-comment:  #14b8a6;
+    --ev-review-approved: #10b981;
+    --ev-review-changes:  #ef4444;
+    --ev-review-other:    #7c3aed;
+    --ev-merged:          #8957e5;
+    --ev-closed:          #ef4444;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    color: var(--emd-text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+  }
+
+  /* ============================================
+     PAGE HEADER
+     ============================================ */
+  .page-header {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--emd-border-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--emd-text);
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.02em;
+  }
+
+  .page-header .subtitle {
+    color: var(--emd-text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .page-header .subtitle code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.82rem;
+    color: var(--emd-text-tertiary);
+    background: var(--emd-bg-secondary);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    border: 1px solid var(--emd-border);
+  }
+
+  /* ============================================
+     SUMMARY STRIP
+     ============================================ */
+  .summary {
+    background: var(--emd-bg-secondary);
+    border: 1px solid var(--emd-border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .summary-stat { text-align: center; }
+  .summary-stat .val {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--emd-text);
+    line-height: 1;
+    font-feature-settings: "tnum";
+  }
+  .summary-stat .label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--emd-text-tertiary);
+    margin-top: 0.3rem;
+    font-weight: 600;
+  }
+
+  .summary-divider {
+    width: 1px;
+    height: 2rem;
+    background: var(--emd-border);
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     TOOLBAR
+     ============================================ */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .toolbar input[type="search"] {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.45rem 0.75rem;
+    min-width: 260px;
+    border: 1px solid var(--emd-border);
+    border-radius: 7px;
+    background: var(--emd-bg);
+    color: var(--emd-text);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .toolbar input[type="search"]::placeholder { color: var(--emd-text-tertiary); }
+  .toolbar input[type="search"]:focus {
+    border-color: var(--emd-primary);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+  }
+
+  .toolbar button {
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.45rem 0.85rem;
+    cursor: pointer;
+    border: 1px solid var(--emd-border);
+    border-radius: 7px;
+    background: var(--emd-bg);
+    color: var(--emd-text-secondary);
+    transition: all 0.15s;
+  }
+  .toolbar button:hover {
+    border-color: var(--emd-primary);
+    color: var(--emd-primary);
+    background: var(--emd-bg-secondary);
+  }
+
+  .toolbar-hint {
+    font-size: 0.73rem;
+    color: var(--emd-text-tertiary);
+    margin-left: auto;
+  }
+
+  /* ============================================
+     LEGEND
+     ============================================ */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.73rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--emd-border);
+    background: var(--emd-bg);
+    color: var(--emd-text-secondary);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+  }
+  .legend-item:hover { border-color: var(--emd-primary); color: var(--emd-primary); }
+  .legend-item.off { opacity: .3; text-decoration: line-through; }
+
+  .legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     CHART CONTAINER
+     ============================================ */
+  .chart-wrap {
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  #chart svg { display: block; width: 100%; height: auto; }
+
+  /* SVG internals */
+  .lane-band-even { fill: var(--emd-bg-secondary); }
+  .lane-band-odd  { fill: var(--emd-bg); }
+
+  .lane-label {
+    font-size: 0.7rem;
+    fill: var(--emd-text-secondary);
+    font-family: "JetBrains Mono", monospace;
+    cursor: pointer;
+  }
+  .lane-label:hover { fill: var(--emd-primary); }
+  .lane.dim { opacity: 0.1; }
+
+  .lifeline {
+    stroke: var(--emd-border);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .gridline {
+    stroke: var(--emd-border-light);
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  .axis text {
+    fill: var(--emd-text-tertiary);
+    font-size: 0.67rem;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  .axis-top text { font-weight: 600; fill: var(--emd-text-secondary); }
+  .axis path, .axis line { stroke: var(--emd-border); }
+
+  .mark {
+    cursor: pointer;
+    stroke: var(--emd-bg);
+    stroke-width: 0.75;
+  }
+
+  /* ============================================
+     METRIC COLUMNS
+     ============================================ */
+  .col-header {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    fill: var(--emd-text-tertiary);
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  .col-value {
+    font-size: 0.67rem;
+    font-weight: 500;
+    fill: var(--emd-text-secondary);
+    font-family: "JetBrains Mono", monospace;
+    font-feature-settings: "tnum";
+  }
+
+  .col-null { fill: var(--emd-text-tertiary); }
+
+  .col-divider {
+    stroke: var(--emd-border);
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  /* resolution pill colours */
+  .col-merged { fill: var(--emd-success); }
+  .col-closed { fill: var(--emd-purple);  }
+
+  /* submission type colours */
+  .col-type-grid-cell  { fill: #2980b9; }
+  .col-type-vert-grid  { fill: #16a085; }
+  .col-type-horiz-grid { fill: #3498db; }
+  .col-type-other      { fill: var(--emd-text-tertiary); }
+
+  /* review status colours */
+  .col-status-approved       { fill: var(--emd-success);  font-weight: 600; }
+  .col-status-changes-req-   { fill: var(--emd-danger);   }
+  .col-status-changes-made   { fill: var(--emd-info);     }
+  .col-status-commented      { fill: var(--emd-warning);  }
+  .col-status-none           { fill: var(--emd-text-tertiary); }
+
+  /* ============================================
+     TOOLTIP
+     ============================================ */
+  #tip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    background: var(--emd-bg);
+    color: var(--emd-text);
+    border: 1px solid var(--emd-border);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.75rem;
+    max-width: 300px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.1s;
+    line-height: 1.5;
+  }
+  #tip .tip-type {
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    margin-bottom: 0.15rem;
+  }
+  #tip .tip-date { color: var(--emd-text-secondary); }
+  #tip .tip-actor { color: var(--emd-text-secondary); }
+  #tip .tip-actor code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--emd-text);
+  }
+  #tip .tip-detail { color: var(--emd-text-tertiary); font-size: 0.7rem; }
+  #tip .tip-pr {
+    margin-top: 0.35rem;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--emd-border-light);
+    color: var(--emd-text-tertiary);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ============================================
+     LOAD FALLBACK
+     ============================================ */
+  #drop {
+    border: 2px dashed var(--emd-border);
+    border-radius: 10px;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--emd-text-tertiary);
+    font-size: 0.9rem;
+    background: var(--emd-bg-secondary);
+  }
+  #drop strong { color: var(--emd-text-secondary); }
+  #drop code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.82rem;
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: 4px;
+    padding: 0.1rem 0.3rem;
+  }
+  #drop input { display: block; margin: 1rem auto 0; }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 1.4rem; }
+    .toolbar-hint { display: none; }
+    .summary { gap: 1rem; }
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="page-header">
+    <h1>PR Timeline</h1>
+    <p class="subtitle" id="subtitle">Loading data…</p>
+  </header>
+
+  <div class="summary hidden" id="summary">
+    <div class="summary-stat"><div class="val" id="s-prs">—</div><div class="label">Merged PRs</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-stat"><div class="val" id="s-events">—</div><div class="label">Events</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-stat"><div class="val" id="s-span">—</div><div class="label">Date span</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-stat"><div class="val" id="s-people">—</div><div class="label">Contributors</div></div>
+  </div>
+
+  <div class="toolbar hidden" id="toolbar">
+    <input type="search" id="filter" placeholder="Filter by PR title, author, or #number…" />
+    <button id="btn-reset">Reset zoom</button>
+    <span class="toolbar-hint">Scroll or drag to zoom &amp; pan · click a row to open the PR</span>
+  </div>
+
+  <div class="legend hidden" id="legend"></div>
+
+  <div class="chart-wrap hidden" id="chart-wrap">
+    <div id="chart"></div>
+  </div>
+
+  <div id="drop" class="hidden">
+    <strong>Data file not found.</strong><br><br>
+    Expected <code>assets/pr_timeline_data.json</code> — run <code>pr_timeline.py</code> to generate it,
+    or load it manually:
+    <input type="file" id="file-input" accept="application/json,.json">
+  </div>
+
+</div>
+
+<div id="tip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+"use strict";
+
+// ── constants & helpers ──────────────────────────────────────────────────────
+const LEGEND_DEF = [
+  { id: "opened",          label: "Opened",            color: "#2196f3", sym: d3.symbolTriangle },
+  { id: "body_edit",       label: "Body edit",         color: "#f59e0b", sym: d3.symbolStar     },
+  { id: "review_comment",  label: "Review comment",    color: "#14b8a6", sym: d3.symbolCircle   },
+  { id: "review_approved", label: "Review · approved", color: "#10b981", sym: d3.symbolSquare   },
+  { id: "review_changes",  label: "Review · changes",  color: "#ef4444", sym: d3.symbolSquare   },
+  { id: "merged",          label: "Merged",            color: "#8957e5", sym: d3.symbolDiamond  },
+  { id: "closed",          label: "Closed",            color: "#ef4444", sym: d3.symbolCross    },
+];
+const BY_ID   = Object.fromEntries(LEGEND_DEF.map(d => [d.id, d]));
+const hidden  = new Set();
+const parseT  = d3.utcParse("%Y-%m-%dT%H:%M:%SZ");
+const fmtDate = d3.utcFormat("%d %b %Y");
+const fmtFull = d3.utcFormat("%d %b %Y, %H:%M UTC");
+let   RENDER  = null;
+
+const AV_R    = 9;   // avatar circle radius px
+const AV_GAP  = 3;   // gap between avatar circles
+
+function legendId(ev) {
+  if (ev.type === "comment") return null;           // skip plain comments
+  if (ev.type !== "review") return ev.type;
+  const s = (ev.detail && ev.detail.state) || "";
+  if (s === "APPROVED") return "review_approved";
+  if (s === "CHANGES_REQUESTED") return "review_changes";
+  return "review_comment";                          // COMMENTED review → same as review_comment
+}
+
+function avatarUrl(login) {
+  return `https://github.com/${encodeURIComponent(login)}.png?size=${AV_R * 2}`;
+}
+
+// ── data loading ─────────────────────────────────────────────────────────────
+const CANDIDATES = ["assets/pr_timeline_data.json", "pr_timeline_data.json"];
+
+(async () => {
+  for (const url of CANDIDATES) {
+    try {
+      const r = await fetch(url, { cache: "no-store" });
+      if (r.ok) { boot(await r.json()); return; }
+    } catch {}
+  }
+  document.getElementById("subtitle").textContent = "Could not load data file.";
+  document.getElementById("drop").classList.remove("hidden");
+  document.getElementById("file-input").addEventListener("change", ev => {
+    const f = ev.target.files[0]; if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        document.getElementById("drop").classList.add("hidden");
+        boot(JSON.parse(reader.result));
+      } catch (err) { alert("Invalid JSON: " + err.message); }
+    };
+    reader.readAsText(f);
+  });
+})();
+
+// ── boot ─────────────────────────────────────────────────────────────────────
+function boot(data) {
+  window.__data = data;
+  const m = data.meta || {};
+
+  const sub = document.getElementById("subtitle");
+  sub.innerHTML = `<code>${m.repository || "?"}</code> &mdash; generated ${
+    m.generated_at ? fmtDate(new Date(m.generated_at)) : "?"}`;
+
+  const PIPE_RE = /\|\s*([^|]+?)\s*\|/;
+  const BOT_RE  = /\[bot\]$|^copilot$/i;
+  const SLUG_RE = /tempgrid_([a-zA-Z0-9]+)-\d+/;
+
+  // stamp prefix → submission type label
+  const STAMP_TYPE = { g: "grid-cell", v: "vert-grid", h: "horiz-grid" };
+
+  // label → review status (pick highest-priority label present)
+  const LABEL_PRIORITY = ["approved","changes-requested","changes-made","reviewer-comment","emd-submission"];
+  const LABEL_DISPLAY  = {
+    "approved":          "approved",
+    "changes-requested": "changes req.",
+    "changes-made":      "changes made",
+    "reviewer-comment":  "commented",
+    "emd-submission":    "submitted",
+  };
+
+  const prs = (data.pull_requests || [])
+    .filter(p => p.created_at && PIPE_RE.test(p.title))
+    .sort((a, b) => d3.ascending(a.created_at, b.created_at));
+
+  const evByPr = d3.group(data.events || [], e => e.pr);
+
+  prs.forEach(p => {
+    p._stamp = p.title.match(PIPE_RE)[1].trim();
+
+    const evs = (evByPr.get(p.number) || [])
+      .slice().sort((a, b) => d3.ascending(a.timestamp, b.timestamp));
+
+    const t0 = new Date(p.created_at);
+    const t1 = new Date(p.merged_at || p.closed_at);
+
+    // resolution: only "merged" if merged_at is set, else "closed"
+    p._resolution = p.merged_at ? "merged" : "closed";
+
+    // submission type from stamp prefix
+    const prefix = p._stamp[0].toLowerCase();
+    p._type = STAMP_TYPE[prefix] || p._stamp.replace(/\d+$/, "").toLowerCase() || "other";
+
+    // review status from labels (highest priority label wins)
+    const labelSet = new Set(p.labels || []);
+    const statusLabel = LABEL_PRIORITY.find(l => labelSet.has(l));
+    p._status = statusLabel ? LABEL_DISPLAY[statusLabel] : null;
+
+    p._hrsClose = (t1 - t0) / 36e5;
+
+    // first formal review with a decision (APPROVED or CHANGES_REQUESTED)
+    const firstFormalReview = evs.find(e =>
+      e.type === "review" &&
+      e.actor && !BOT_RE.test(e.actor) &&
+      e.detail && (e.detail.state === "APPROVED" || e.detail.state === "CHANGES_REQUESTED"));
+    p._hrsResponse = firstFormalReview
+      ? (new Date(firstFormalReview.timestamp) - t0) / 36e5 : null;
+
+    // unique human reviewers — exclude bots
+    p._reviewers = [...new Set(
+      evs.filter(e => e.type === "review" && e.actor && !BOT_RE.test(e.actor))
+         .map(e => e.actor))];
+
+    // unique human reviewers — first (so we can exclude them from submitter)
+    p._reviewers = [...new Set(
+      evs.filter(e => e.type === "review" && e.actor && !BOT_RE.test(e.actor))
+         .map(e => e.actor))];
+    
+    // submitter: PR author + commenters, EXCLUDING reviewers
+    const submitterLogins = new Set();
+    if (p.author && !BOT_RE.test(p.author)) submitterLogins.add(p.author);
+    const reviewerSet = new Set(p._reviewers);
+    evs.forEach(e => {
+      if (e.type === "review_comment" &&
+          e.actor && !BOT_RE.test(e.actor) &&
+          e.actor !== p.merged_by &&
+          !reviewerSet.has(e.actor)) {
+        submitterLogins.add(e.actor);
+      }
+    });
+    p._submitter = [...submitterLogins];
+  });
+
+  const prIdx = new Map(prs.map((p, i) => [p.number, i]));
+
+  const events = (data.events || []).flatMap(e => {
+    const date = parseT(e.timestamp); if (!date) return [];
+    const row  = prIdx.get(e.pr);    if (row === undefined) return [];
+    const lid  = legendId(e);
+    if (!lid) return [];                            // skip plain comments
+    const def  = BY_ID[lid] || {};
+    return [{ ...e, date, row, lid, color: def.color || "#999", sym: def.sym || d3.symbolCircle }];
+  });
+
+  // collect every unique human login across all stamped PRs for avatar defs
+  const allLogins = new Set();
+  prs.forEach(p => {
+    if (Array.isArray(p._submitter)) {
+      p._submitter.forEach(s => allLogins.add(s));
+    } else if (p._submitter) {
+      allLogins.add(p._submitter);
+    }
+    p._reviewers.forEach(r => allLogins.add(r));
+  });
+  allLogins.delete("?");
+
+  const people = new Set(events.map(e => e.actor).filter(Boolean));
+  const [t0, t1] = d3.extent(events, e => e.date);
+  document.getElementById("s-prs").textContent    = prs.length;
+  document.getElementById("s-events").textContent = events.length;
+  document.getElementById("s-people").textContent = people.size;
+  document.getElementById("s-span").textContent   =
+    t0 ? `${fmtDate(t0)} – ${fmtDate(t1)}` : "—";
+
+  ["summary","toolbar","legend","chart-wrap"].forEach(id =>
+    document.getElementById(id).classList.remove("hidden"));
+
+  buildLegend();
+  render(prs, prIdx, events, allLogins);
+  wireControls(prs);
+}
+
+// ── legend ───────────────────────────────────────────────────────────────────
+function buildLegend() {
+  const box = document.getElementById("legend");
+  box.innerHTML = "";
+  for (const d of LEGEND_DEF) {
+    const item = document.createElement("span");
+    item.className = "legend-item";
+    item.dataset.id = d.id;
+    item.innerHTML =
+      `<span class="legend-swatch" style="background:${d.color}"></span>${d.label}`;
+    item.addEventListener("click", () => {
+      if (hidden.has(d.id)) hidden.delete(d.id); else hidden.add(d.id);
+      item.classList.toggle("off", hidden.has(d.id));
+      if (RENDER) RENDER.applyVisibility();
+    });
+    box.appendChild(item);
+  }
+}
+
+// ── avatar helpers ────────────────────────────────────────────────────────────
+// Register one <clipPath> + <image> pair per unique login in SVG <defs>.
+// Each avatar is a circle of radius AV_R; referenced by id "av-<login>".
+// drawAvatars(g, logins, cx, cy) draws a left-centred row of avatar circles.
+
+function registerAvatarDefs(defs, logins) {
+  for (const login of logins) {
+    const id = `av-${login}`;
+    // circular clip
+    defs.append("clipPath").attr("id", `clip-${id}`)
+      .append("circle").attr("r", AV_R).attr("cx", AV_R).attr("cy", AV_R);
+    // pre-load image into defs (browsers cache by href)
+    defs.append("image")
+      .attr("id", id)
+      .attr("href", avatarUrl(login))
+      .attr("width", AV_R * 2).attr("height", AV_R * 2)
+      // fallback: grey circle if image fails
+      .on("error", function() { d3.select(this).attr("href", null); });
+  }
+}
+
+// Draw avatar row centred on (cx, cy). logins is an array.
+// reviewers (optional set) determines which avatars get a thick border.
+function drawAvatars(parent, logins, cx, cy, reviewers = new Set()) {
+  if (!logins.length) return;
+  const total = logins.length * (AV_R * 2) + (logins.length - 1) * AV_GAP;
+  let x = cx - total / 2;
+
+  logins.forEach(login => {
+    const g = parent.append("g")
+      .attr("transform", `translate(${x},${cy - AV_R})`)
+      .style("cursor", "pointer")
+      .on("click", () => window.open(`https://github.com/${login}`, "_blank"));
+
+    // background circle (shown if image fails to load)
+    g.append("circle")
+      .attr("cx", AV_R).attr("cy", AV_R).attr("r", AV_R)
+      .attr("fill", "#e2e8f0");
+
+    // avatar image clipped to circle
+    g.append("image")
+      .attr("href", avatarUrl(login))
+      .attr("width", AV_R * 2).attr("height", AV_R * 2)
+      .attr("clip-path", `circle(${AV_R}px at ${AV_R}px ${AV_R}px)`);
+
+    // border ring: thick for reviewers, thin for others
+    const isReviewer = reviewers.has(login);
+    g.append("circle")
+      .attr("cx", AV_R).attr("cy", AV_R).attr("r", AV_R - 0.5)
+      .attr("fill", "none")
+      .attr("stroke", "var(--emd-border)")
+      .attr("stroke-width", isReviewer ? 2.5 : 1);
+
+    // tooltip via shared #tip (replaces unreliable SVG <title>)
+    g.on("mousemove", (ev) => {
+        const t = document.getElementById("tip");
+        t.innerHTML = `<div class="tip-type">${login}</div>` +
+          (isReviewer ? `<div class="tip-detail">reviewer</div>` : "");
+        t.style.opacity = "1";
+        const pad = 14, w = t.offsetWidth, h = t.offsetHeight;
+        let lx = ev.clientX + pad, ly = ev.clientY + pad;
+        if (lx + w > innerWidth)  lx = ev.clientX - w - pad;
+        if (ly + h > innerHeight) ly = ev.clientY - h - pad;
+        t.style.left = lx + "px";
+        t.style.top  = ly + "px";
+      })
+      .on("mouseleave", () => { document.getElementById("tip").style.opacity = "0"; });
+
+    x += AV_R * 2 + AV_GAP;
+  });
+}
+
+// ── render ───────────────────────────────────────────────────────────────────
+function fmtDuration(hrs) {
+  if (hrs === null || hrs === undefined) return "—";
+  if (hrs < 1)   return "<1h";
+  if (hrs < 48)  return Math.round(hrs) + "h";
+  return Math.round(hrs / 24) + "d";
+}
+
+function render(prs, prIdx, events, allLogins) {
+  const ROW_H   = 22;
+  const COL_W   = 46;   // timing columns
+  const COL_WS  = 42;   // resolution column
+  // people columns: wide enough for up to ~5 avatars side by side
+  const COL_WP  = Math.max(110, 5 * (AV_R * 2 + AV_GAP) + 10);
+  const GAP     = 4;
+  const LABEL_W = 90;
+
+  const wrap  = document.getElementById("chart");
+  const width = Math.max(900, wrap.clientWidth);
+
+  // column x-centres built right-to-left
+  const cols = {};
+  let cx = 8;
+  cx += COL_WP / 2; cols.reviewers  = cx; cx += COL_WP / 2 + GAP;
+  cx += COL_WP / 2; cols.submitter  = cx; cx += COL_WP / 2 + GAP;
+  cx += COL_WS / 2; cols.type       = cx; cx += COL_WS / 2 + GAP;
+  cx += COL_WS / 2; cols.resolution = cx; cx += COL_WS / 2 + GAP;
+  cx += COL_W  / 2; cols.close      = cx; cx += COL_W  / 2 + GAP;
+  cx += COL_W  / 2; cols.response   = cx; cx += COL_W  / 2 + GAP;
+  const RIGHT_TOTAL = cx;
+  const toX = v => width - v;
+  Object.keys(cols).forEach(k => { cols[k] = toX(cols[k]); });
+  const dividerX = toX(RIGHT_TOTAL);
+
+  const M      = { top: 40, right: RIGHT_TOTAL, left: LABEL_W, bottom: 30 };
+  const innerW = width - M.left - M.right;
+  const innerH = prs.length * ROW_H;
+  const height = M.top + innerH + M.bottom;
+
+  d3.select("#chart").selectAll("svg").remove();
+
+  const svg = d3.select("#chart").append("svg")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("width", width).attr("height", height);
+
+  // defs: plot clip + avatar images (one per unique login)
+  const defs = svg.append("defs");
+  defs.append("clipPath").attr("id", "plot-clip")
+    .append("rect")
+    .attr("x", 0).attr("y", -M.top)
+    .attr("width", innerW).attr("height", height);
+
+  const plot = svg.append("g").attr("transform", `translate(${M.left},${M.top})`);
+
+  const gGrid  = plot.append("g").attr("clip-path", "url(#plot-clip)");
+  const gBands = plot.append("g");
+  const gBars  = plot.append("g").attr("clip-path", "url(#plot-clip)");
+  const gMarks = plot.append("g").attr("clip-path", "url(#plot-clip)");
+  const gAxTop = svg.append("g").attr("class","axis axis-top")
+    .attr("transform", `translate(${M.left},${M.top - 4})`);
+  const gAxBot = svg.append("g").attr("class","axis")
+    .attr("transform", `translate(${M.left},${M.top + innerH + 4})`);
+
+  // time scale
+  const [t0, t1] = d3.extent(events, e => e.date);
+  const pad = Math.max(1, (+t1 - +t0) * 0.02);
+  const x   = d3.scaleUtc()
+    .domain([new Date(+t0 - pad), new Date(+t1 + pad)])
+    .range([0, innerW]);
+
+  // lane bands + labels
+  const laneG = gBands.selectAll("g.lane").data(prs).join("g")
+    .attr("class", "lane")
+    .attr("transform", (_, i) => `translate(0,${i * ROW_H})`);
+
+  laneG.append("rect")
+    .attr("x", -M.left).attr("y", 0)
+    .attr("width", M.left + innerW).attr("height", ROW_H)
+    .attr("class", (_, i) => i % 2 === 0 ? "lane-band-even" : "lane-band-odd");
+
+  laneG.append("text")
+    .attr("class", "lane-label")
+    .attr("x", -M.left + 8).attr("y", ROW_H / 2)
+    .attr("dominant-baseline", "central")
+    .text(d => `#${d.number}  ${d._stamp}`)
+    .on("click", (_, d) => { if (d.url) window.open(d.url, "_blank"); })
+    .append("title").text(d => `#${d.number} · ${d.title}\nby ${d.author || "?"}`);
+
+  // ── metric columns ────────────────────────────────────────────────────────
+  const HDRS = [
+    { key: "response",   label: "1st review" },
+    { key: "close",      label: "close"      },
+    { key: "resolution", label: "resolution" },
+    { key: "type",       label: "type"       },
+    { key: "reviewers",  label: "reviewers"  },
+    { key: "submitter",  label: "submitter"  },
+  ];
+
+  svg.append("line")
+    .attr("x1", dividerX).attr("x2", dividerX)
+    .attr("y1", M.top - 18).attr("y2", M.top + innerH)
+    .attr("class", "col-divider");
+
+  const hdrY = M.top - 8;
+  const colHdr = svg.append("g");
+  HDRS.forEach(h => {
+    colHdr.append("text")
+      .attr("x", cols[h.key]).attr("y", hdrY)
+      .attr("text-anchor", "middle")
+      .attr("class", "col-header")
+      .text(h.label);
+  });
+
+  const gCols = svg.append("g");
+  prs.forEach((p, i) => {
+    const y  = M.top + i * ROW_H + ROW_H / 2;
+    const bg = i % 2 === 0 ? "var(--emd-bg-secondary)" : "var(--emd-bg)";
+
+    gCols.append("rect")
+      .attr("x", dividerX).attr("y", M.top + i * ROW_H)
+      .attr("width", width - dividerX).attr("height", ROW_H)
+      .attr("fill", bg);
+
+    // 1st review (text)
+    const resp = fmtDuration(p._hrsResponse);
+    gCols.append("text")
+      .attr("x", cols.response).attr("y", y)
+      .attr("text-anchor", "middle").attr("dominant-baseline", "central")
+      .attr("class", "col-value" + (resp === "—" ? " col-null" : ""))
+      .text(resp);
+
+    // close (text)
+    gCols.append("text")
+      .attr("x", cols.close).attr("y", y)
+      .attr("text-anchor", "middle").attr("dominant-baseline", "central")
+      .attr("class", "col-value")
+      .text(fmtDuration(p._hrsClose));
+
+    // resolution (text, coloured)
+    gCols.append("text")
+      .attr("x", cols.resolution).attr("y", y)
+      .attr("text-anchor", "middle").attr("dominant-baseline", "central")
+      .attr("class", "col-value col-" + p._resolution)
+      .text(p._resolution[0]);
+
+    // type (from stamp prefix)
+    gCols.append("text")
+      .attr("x", cols.type).attr("y", y)
+      .attr("text-anchor", "middle").attr("dominant-baseline", "central")
+      .attr("class", "col-value col-type-" + p._type.replace(/[^a-z]/g, "-"))
+      .text(p._type);
+
+    
+
+    
+
+    // reviewers (avatar row - all have thick border)
+    if (p._reviewers.length) {
+      const reviewerSet = new Set(p._reviewers);
+      drawAvatars(gCols, p._reviewers, cols.reviewers, y, reviewerSet);
+    }
+
+    // submitter (all committers: author + commenters, with thick border for reviewers)
+    if (p._submitter.length) {
+      const reviewerSet = new Set(p._reviewers);
+      drawAvatars(gCols, p._submitter, cols.submitter, y, reviewerSet);
+    }
+  
+  });
+
+  // ── timeline ──────────────────────────────────────────────────────────────
+  const bars = prs.flatMap(p => {
+    const start = parseT(p.created_at);
+    const end   = parseT(p.merged_at || p.closed_at);
+    if (!start || !end) return [];
+    return [{ row: prIdx.get(p.number), start, end }];
+  });
+
+  const barSel = gBars.selectAll("line.lifeline").data(bars).join("line")
+    .attr("class", "lifeline")
+    .attr("y1", b => b.row * ROW_H + ROW_H / 2)
+    .attr("y2", b => b.row * ROW_H + ROW_H / 2);
+
+  const sym  = d3.symbol().size(46);
+  const markSel = gMarks.selectAll("path.mark").data(events).join("path")
+    .attr("class", "mark")
+    .attr("d", e => sym.type(e.sym)())
+    .attr("fill", e => e.color)
+    .on("mousemove", showTip)
+    .on("mouseleave", hideTip)
+    .on("click", (_, e) => {
+      const p = prs[e.row]; if (p && p.url) window.open(p.url, "_blank");
+    });
+
+  function drawAxes(zx) {
+    const ticks = Math.max(3, Math.floor(innerW / 100));
+    gAxTop.call(d3.axisTop(zx).ticks(ticks).tickFormat(d3.utcFormat("%b %Y")));
+    gAxBot.call(d3.axisBottom(zx).ticks(ticks).tickFormat(d3.utcFormat("%b %Y")));
+    const gl = gGrid.selectAll("line.gridline").data(zx.ticks(ticks));
+    gl.join(
+      e => e.append("line").attr("class", "gridline"),
+      u => u,
+      e => e.remove()
+    ).attr("x1", d => zx(d)).attr("x2", d => zx(d))
+     .attr("y1", 0).attr("y2", innerH);
+  }
+
+  function update(zx) {
+    drawAxes(zx);
+    barSel.attr("x1", b => zx(b.start)).attr("x2", b => zx(b.end));
+    markSel.attr("transform", e => `translate(${zx(e.date)},${e.row * ROW_H + ROW_H / 2})`);
+  }
+
+  function applyVisibility() {
+    markSel.attr("display", e => hidden.has(e.lid) ? "none" : null);
+  }
+
+  const zoom = d3.zoom()
+    .scaleExtent([1, 80])
+    .translateExtent([[0, 0], [innerW, innerH]])
+    .extent([[0, 0], [innerW, innerH]])
+    .on("zoom", ev => update(ev.transform.rescaleX(x)));
+
+  svg.append("rect")
+    .attr("x", M.left).attr("y", M.top)
+    .attr("width", innerW).attr("height", innerH)
+    .attr("fill", "transparent")
+    .style("cursor", "ew-resize")
+    .call(zoom);
+
+  update(x);
+  applyVisibility();
+
+  RENDER = {
+    applyVisibility,
+    resetZoom: () => svg.select("rect")
+      .transition().duration(400)
+      .call(zoom.transform, d3.zoomIdentity),
+  };
+}
+
+// ── tooltip ──────────────────────────────────────────────────────────────────
+const tip = document.getElementById("tip");
+
+function showTip(ev, e) {
+  const def  = BY_ID[e.lid] || {};
+  const type = def.label || e.type;
+  let actor  = e.actor ? `by <code>${e.actor}</code>` : "";
+  if (e.detail && e.detail.state)
+    actor += (actor ? " &mdash; " : "") + e.detail.state.toLowerCase().replace("_", " ");
+
+  tip.innerHTML =
+    `<div class="tip-type" style="color:${def.color || "inherit"}">${type}</div>` +
+    `<div class="tip-date">${fmtFull(e.date)}</div>` +
+    (actor ? `<div class="tip-actor">${actor}</div>` : "") +
+    (e.detail && e.detail.path
+      ? `<div class="tip-detail"><code>${e.detail.path}</code></div>` : "") +
+    `<div class="tip-pr">#${e.pr} &nbsp;${e.title}</div>`;
+
+  tip.style.opacity = "1";
+  const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+  let lx = ev.clientX + pad, ly = ev.clientY + pad;
+  if (lx + w > innerWidth)  lx = ev.clientX - w - pad;
+  if (ly + h > innerHeight) ly = ev.clientY - h - pad;
+  tip.style.left = lx + "px";
+  tip.style.top  = ly + "px";
+}
+
+function hideTip() { tip.style.opacity = "0"; }
+
+// ── controls ─────────────────────────────────────────────────────────────────
+function wireControls(prs) {
+  document.getElementById("btn-reset").addEventListener("click", () => {
+    if (RENDER) RENDER.resetZoom();
+  });
+
+  document.getElementById("filter").addEventListener("input", ev => {
+    const q = ev.target.value.trim().toLowerCase();
+    d3.selectAll("#chart g.lane").classed("dim", d => {
+      if (!q) return false;
+      return !`#${d.number} ${d._stamp} ${d._submitter} ${d._reviewers.join(" ")}`.toLowerCase().includes(q);
+    });
+  });
+
+  let raf, lastW = document.getElementById("chart").clientWidth;
+  new ResizeObserver(() => {
+    const w = document.getElementById("chart").clientWidth;
+    if (Math.abs(w - lastW) < 8) return;
+    lastW = w;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => { if (window.__data) boot(window.__data); });
+  }).observe(document.getElementById("chart"));
+}
+</script>
+
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/geist.css"><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
+
+(function(){
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Progress Tracker", "url": "/Progress_Tracker.html"}, {"type": "group", "label": "Information for Submitters", "url": "/Information_for_Submitters/", "children": [{"type": "link", "label": "Submission Guide", "url": "/Information_for_Submitters/Submission-Guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Information_for_Submitters/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an Institution", "url": "/Information_for_Submitters/Registering_an_Institution/"}, {"type": "link", "label": "Using GitHub Forms", "url": "/Information_for_Submitters/Using_GitHub_Forms/"}, {"type": "link", "label": "Error Meanings", "url": "/Information_for_Submitters/Error_Meanings/"}]}, {"type": "group", "label": "Developer Guidance", "url": "/Developer_Guidance/", "children": [{"type": "link", "label": "Find your submissions", "url": "/Developer_Guidance/find_your_submissions.html"}, {"type": "link", "label": "Github Actions, Workflows and Automation", "url": "/Developer_Guidance/Github Actions, Workflows_and_Automation/"}, {"type": "link", "label": "Issue Templates", "url": "/Developer_Guidance/Issue_Templates/"}, {"type": "link", "label": "PR Timeline", "url": "/Developer_Guidance/PR_Timeline.html"}]}, {"type": "group", "label": "EMD Repository", "url": "/EMD_Repository/", "children": [{"type": "link", "label": "Component Families", "url": "/EMD_Repository/Component_Families/"}, {"type": "link", "label": "Earth System Model Families", "url": "/EMD_Repository/Earth_System_Model_Families/"}, {"type": "link", "label": "Horizontal Computational Grids", "url": "/EMD_Repository/Horizontal_Computational_Grids/"}, {"type": "link", "label": "Horizontal Grid Cells", "url": "/EMD_Repository/Horizontal_Grid_Cells/"}, {"type": "link", "label": "Model Components", "url": "/EMD_Repository/Model_Components/"}, {"type": "link", "label": "Models", "url": "/EMD_Repository/Models/"}, {"type": "link", "label": "Vertical Computational Grids", "url": "/EMD_Repository/Vertical_Computational_Grids/"}]}, {"type": "group", "label": "Reviewer Guidance", "url": "/Reviewer_Guidance/", "children": [{"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Guidance/Reviewer_Information/"}, {"type": "link", "label": "Interpreting The Review Summary", "url": "/Reviewer_Guidance/Interpreting_The_Review_Summary/"}, {"type": "link", "label": "Review Comments", "url": "/Reviewer_Guidance/Review_Comments/"}, {"type": "link", "label": "Review Options", "url": "/Reviewer_Guidance/Review_Options/"}]}, {"type": "link", "label": "Progress Feed", "url": "/Progress_Feed/"}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}];
+var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
+function rel(u){return PFX+(u||'').replace(/^\//,'');}
+function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
+function active(u){
+  if(!u)return false;
+  /* Home: key off u==='/' BEFORE resolving rel() — on a sub-path
+     deployment rel('/') resolves to e.g. '/docs', not '', so the old
+     p==='' guard was never reached and Home matched every page. */
+  if(u==='/'){
+    var a=document.createElement('a');a.href=rel(u);
+    var p=a.pathname.replace(/\/$/,'');
+    var c=cur();
+    return c===p||(p===''&&(c===''||c=='/'));
+  }
+  var a=document.createElement('a');a.href=rel(u);
+  var p=a.pathname.replace(/\/$/,'');
+  var c=cur();
+  return c===p||c.startsWith(p+'/');
+}
+var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+function grpActive(g){
+  for(var i=0;i<(g.children||[]).length;i++){
+    var c=g.children[i];
+    if(c.type==='link'&&active(c.url))return true;
+    if(c.type==='group'&&grpActive(c))return true;
+  }
+  return g.url&&active(g.url);
+}
+function render(items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    if(it.type==='link'){
+      h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>'+it.label+'</a>';
+    } else {
+      var on=grpActive(it);
+      var col=on?'':' collapsed';
+      var id='g'+Math.random().toString(36).slice(2);
+      h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
+      h+='<div id="'+id+'" class="nav-group-children'+col+'">';
+      /* Overview link intentionally omitted — group URL is the section header */
+      h+=render(it.children||[]);
+      h+='</div></div>';
+    }
+  }
+  return h;
+}
+window.toggleNav=function(el,id){
+  el.classList.toggle('collapsed');
+  document.getElementById(id).classList.toggle('collapsed');
+};
+function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+}
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
+}
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
+if(document.readyState==='loading')
+  document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+</body>
+</html>

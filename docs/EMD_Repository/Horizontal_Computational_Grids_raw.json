@@ -234,6 +234,22 @@
     "validation_key": "h109"
   },
   {
+    "@id": "h129",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g136-mass",
+      "g187-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h129"
+  },
+  {
     "@id": "h118",
     "@type": [
       "wcrp:horizontal_computational_grid",
