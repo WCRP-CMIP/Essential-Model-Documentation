@@ -109,8 +109,10 @@ def _retitle_issue(issue_number, title: str):
 def run(parsed_issue, issue, dry_run=False):
     folder        = _clean(parsed_issue.get('folder'))
     filename      = _clean(parsed_issue.get('filename'))
-    key           = _clean(parsed_issue.get('key'))
-    raw_val       = parsed_issue.get('value', '')
+    # issue form heading "### Field name" parses to 'field_name'; 'key' is legacy
+    key           = _clean(parsed_issue.get('field_name') or parsed_issue.get('key', ''))
+    # issue form heading "### New value" parses to 'new_value'; 'value' is legacy
+    raw_val       = parsed_issue.get('new_value') or parsed_issue.get('value', '')
     justification = _clean(parsed_issue.get('justification'))
 
     issue_number = issue.get('number') or issue.get('issue_number')
@@ -138,6 +140,14 @@ def run(parsed_issue, issue, dry_run=False):
         if not dry_run and issue_number:
             _post_comment(issue_number, msg)
         return None
+
+    # ── Map JSON-LD shorthand aliases to the actual key names used in files ──
+    _KEY_ALIASES = {
+        '@id':   'validation_key',
+        '@type': 'type',
+    }
+    if key in _KEY_ALIASES:
+        key = _KEY_ALIASES[key]
 
     if justification.lower() in _PLACEHOLDER:
         msg = '## ❌ Cannot modify: justification is required.'
@@ -187,11 +197,14 @@ def run(parsed_issue, issue, dry_run=False):
     # ── Locate key ────────────────────────────────────────────────────────
     parent, leaf, exists = _walk_to_key(data, key)
     if not exists:
+        available = ', '.join(f'`{k}`' for k in sorted(data.keys()))
         msg = (
             f'## ❌ Cannot modify: field not found\n\n'
+            f'You submitted field name: `{key}`\n\n'
             f'`{rel_path}` has no field `{key}`. '
             f'This form modifies existing fields only; new fields must be '
-            f'added via the relevant stage form.'
+            f'added via the relevant stage form.\n\n'
+            f'**Available fields:** {available}'
         )
         if not dry_run and issue_number:
             _post_comment(issue_number, msg)
