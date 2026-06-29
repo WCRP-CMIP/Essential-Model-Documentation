@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_johndunne13-1782748594",
+    "ui_label": "",
+    "description": "GFDL AM4 C96 C96 Cube Sphere Computational grids for tracers, x-velocity, and y-velocity",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g173-mass",
+        "g174-x-velocity",
+        "g175-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_johndunne13-1782748594"
+}
