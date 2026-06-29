@@ -905,6 +905,30 @@
     "y_resolution": 2.79
   },
   {
+    "@id": "g186",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 120184,
+    "region": "global",
+    "southernmost_latitude": -85.71,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g186",
+    "westernmost_longitude": 198.8595,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g138",
     "@type": [
       "emd",
