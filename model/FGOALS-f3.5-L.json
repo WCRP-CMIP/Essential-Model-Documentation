@@ -1,0 +1,44 @@
+{
+    "validation_key": "FGOALS-f3.5-L",
+    "ui_label": "FGOALS-f3.5-L",
+    "description": "1. Dynamics components are Atmopshere, Ocean, Sea ice, Land surface and Subsurface 2. Prescribed components: Aerosol 3. Omitted Components: Atmospheric Chemistry, Ocean Biogeochemistry",
+    "calendar": [
+        "standard"
+    ],
+    "coupled_components": [],
+    "crs": "AAeLOSi",
+    "dynamic_components": [
+        "atmosphere",
+        "ocean",
+        "sea ice",
+        "land surface and subsurface"
+    ],
+    "embedded_components": [],
+    "family": "fgoals",
+    "model_components": [
+        "atmosphere_um7.3_h102_v106",
+        "land-surface_surfex-v8-modeling-platform_h100_v101",
+        "ocean_nemo-v3-6_h101_v102",
+        "sea-ice_gelato_h101_v103"
+    ],
+    "name": "FGOALS-f3.5-L",
+    "omitted_components": [
+        "atmospheric chemistry",
+        "ocean biogeochemistry",
+        "land ice"
+    ],
+    "prescribed_components": [
+        "aerosol"
+    ],
+    "references": [
+        "https://doi.org/10.1007/s00376-019-9027-8"
+    ],
+    "release_year": 2019,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "fgoals-f3.5-l"
+}
