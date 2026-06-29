@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_olafmorgenstern-1778154482",
+    "ui_label": "",
+    "description": "This is the grid most variables of the atmosphere model (ICON-A) are reported on. Note that this is not the computational grid.",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g150-mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_olafmorgenstern-1778154482"
+}
