@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_gavinny-1782740517",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-d",
+    "horizontal_subgrids": [
+        "g184-mass",
+        "g184-x-velocity",
+        "g184-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_gavinny-1782740517"
+}
