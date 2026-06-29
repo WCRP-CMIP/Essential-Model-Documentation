@@ -396,11 +396,14 @@
       "emd"
     ],
     "arrangement": "arakawa-c",
-    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
+    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1), plus a regular latitude-longitude 1x1 degree output grid.",
     "horizontal_subgrids": [
       "g102-mass",
       "g103-x-velocity",
-      "g104-y-velocity"
+      "g104-y-velocity",
+      "g106-mass",
+      "g106-x-velocity",
+      "g106-y-velocity"
     ],
     "ui_label": "",
     "validation_key": "h101"
