@@ -546,6 +546,21 @@
     "validation_key": "nemo_v3_6"
   },
   {
+    "@id": "giss-ocean-model",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
+    "component": "ocean",
+    "description": "GISS Ocean model. Non-boussinesq, mass conserving, natural boundary conditions, p-star vertical coordinate (like z-star but in mass). Variable resolution, standard lat-lon grid or stretched in latitude for additional tropical detail. Focused on climate responses to multiple forcings. Optional ocean-biogeochemistry and full carbon cycle.",
+    "family": "./",
+    "references": "https://dx.doi.org/10.1029/2019MS002025",
+    "ui_label": "GISS Ocean Model.",
+    "validation_key": "giss-ocean-model"
+  },
+  {
     "@id": "metum-ga9",
     "@type": [
       "emd",
