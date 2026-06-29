@@ -17,6 +17,23 @@
     "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
+    "@id": "v145",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 1.137,
+    "description": "There are ten layers in the vertical of the land surface model BCC-AVIM3.0.",
+    "n_z": 10,
+    "n_z_range": "",
+    "top_layer_thickness": 0.018,
+    "total_thickness": 3.433,
+    "ui_label": "height grid with 10 levels.",
+    "validation_key": "v145",
+    "vertical_coordinate": "height"
+  },
+  {
     "@id": "v143",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -219,6 +236,23 @@
     "ui_label": "depth grid with 20 levels.",
     "validation_key": "v136",
     "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v146",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "The ocean vertical coordinate is a hybrid between fixed pressure levels towards the upper boundary and potential density, with reference pressure at 2000 dbar, below. Using high-order vertical reconstructions of potential temperature and salinity, the vertical position of a layer interface is continuously nudged to minimise the difference between the interface and its associated reference potential density. Thereafter, a prescribed minimum pressure thickness per layer is enforced towards the upper boundary. The interface reference potential densities are allowed to slowly vary in time to optimise the global potential density range as the model state evolves. Since the model layers have spatially and temporally varying thickness at depth, a fixed bottom layer thickness is not specified.",
+    "n_z": 72,
+    "n_z_range": "",
+    "top_layer_thickness": 2,
+    "total_thickness": 9341,
+    "ui_label": "ocean-hybrid-pressure-isopycnic-coordinate grid with 72 levels.",
+    "validation_key": "v146",
+    "vertical_coordinate": "ocean-hybrid-pressure-isopycnic-coordinate"
   },
   {
     "@id": "v140",
