@@ -30,6 +30,36 @@
     "validation_key": "h104"
   },
   {
+    "@id": "h128",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Mass at cell centers",
+    "horizontal_subgrids": "g178-mass",
+    "ui_label": "",
+    "validation_key": "h128"
+  },
+  {
+    "@id": "h123",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "GFDL 0.25 Deg OM5/MOM6 Grid",
+    "horizontal_subgrids": [
+      "g170-mass",
+      "g171-x-velocity",
+      "g172-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h123"
+  },
+  {
     "@id": "h102",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -221,6 +251,23 @@
     "validation_key": "h118"
   },
   {
+    "@id": "h126",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Mass and veocities at cell centers",
+    "horizontal_subgrids": [
+      "g176-mass",
+      "g176-x-velocity",
+      "g176-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h126"
+  },
+  {
     "@id": "h119",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -325,6 +372,65 @@
     ],
     "ui_label": "",
     "validation_key": "h101"
+  },
+  {
+    "@id": "h122",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": [
+      "g159-mass",
+      "g163-x-velocity",
+      "g158-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h122"
+  },
+  {
+    "@id": "h127",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "Mass at cell centers",
+    "horizontal_subgrids": "g177-mass",
+    "ui_label": "",
+    "validation_key": "h127"
+  },
+  {
+    "@id": "h125",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-b",
+    "description": "Mass at cell vertices, velocities at cell centers.",
+    "horizontal_subgrids": [
+      "g161-mass",
+      "g164-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h125"
+  },
+  {
+    "@id": "h124",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "",
+    "horizontal_subgrids": "g185-mass-velocity-x-velocity-y-velocity",
+    "ui_label": "",
+    "validation_key": "h124"
   },
   {
     "@id": "h103",

@@ -17,6 +17,23 @@
     "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
+    "@id": "v143",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 366.8618,
+    "description": "",
+    "n_z": 50,
+    "n_z_range": "",
+    "top_layer_thickness": 10,
+    "total_thickness": 5500,
+    "ui_label": "z-star grid with 50 levels.",
+    "validation_key": "v143",
+    "vertical_coordinate": "z-star"
+  },
+  {
     "@id": "v117",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -83,6 +100,23 @@
     "ui_label": "height grid with 31 levels.",
     "validation_key": "v135",
     "vertical_coordinate": "height"
+  },
+  {
+    "@id": "v142",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 713,
+    "description": "",
+    "n_z": 30,
+    "n_z_range": "",
+    "top_layer_thickness": 10,
+    "total_thickness": 5600,
+    "ui_label": "depth grid with 30 levels.",
+    "validation_key": "v142",
+    "vertical_coordinate": "depth"
   },
   {
     "@id": "v116",
@@ -170,6 +204,40 @@
     "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
+    "@id": "v136",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 616,
+    "description": "",
+    "n_z": 20,
+    "n_z_range": "",
+    "top_layer_thickness": 10,
+    "total_thickness": 5500,
+    "ui_label": "depth grid with 20 levels.",
+    "validation_key": "v136",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v140",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 100,
+    "description": "",
+    "n_z": 72,
+    "n_z_range": "",
+    "top_layer_thickness": 2690,
+    "total_thickness": 77560,
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 72 levels.",
+    "validation_key": "v140",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
+  },
+  {
     "@id": "v119",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -184,6 +252,40 @@
     "total_thickness": 4.1,
     "ui_label": "depth grid with 3 levels.",
     "validation_key": "v119",
+    "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v144",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 20,
+    "description": "height-based coordinate system.",
+    "n_z": 130,
+    "n_z_range": "",
+    "top_layer_thickness": 1414.98,
+    "total_thickness": 75000,
+    "ui_label": "model levels grid with 130 levels.",
+    "validation_key": "v144",
+    "vertical_coordinate": "model levels"
+  },
+  {
+    "@id": "v139",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 455,
+    "description": "",
+    "n_z": 55,
+    "n_z_range": "",
+    "top_layer_thickness": 5,
+    "total_thickness": 5600,
+    "ui_label": "depth grid with 55 levels.",
+    "validation_key": "v139",
     "vertical_coordinate": "depth"
   },
   {
@@ -233,6 +335,23 @@
     "ui_label": "No vertical component.",
     "validation_key": "no-vertical",
     "vertical_coordinate": "./"
+  },
+  {
+    "@id": "v137",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 1.137,
+    "description": "",
+    "n_z": 10,
+    "n_z_range": "",
+    "top_layer_thickness": 0.0175,
+    "total_thickness": 3.433,
+    "ui_label": "depth grid with 10 levels.",
+    "validation_key": "v137",
+    "vertical_coordinate": "depth"
   },
   {
     "@id": "v123",
@@ -335,6 +454,23 @@
     "ui_label": "atmosphere-hybrid-height-coordinate grid with 85 levels.",
     "validation_key": "v118",
     "vertical_coordinate": "atmosphere-hybrid-height-coordinate"
+  },
+  {
+    "@id": "v141",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 100,
+    "description": "",
+    "n_z": 73,
+    "n_z_range": "",
+    "top_layer_thickness": 3000,
+    "total_thickness": 65000,
+    "ui_label": "atmosphere-sigma-coordinate grid with 73 levels.",
+    "validation_key": "v141",
+    "vertical_coordinate": "atmosphere-sigma-coordinate"
   },
   {
     "@id": "v105",
@@ -541,6 +677,23 @@
     "ui_label": "depth grid with 4 levels.",
     "validation_key": "v108",
     "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v138",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 58,
+    "description": "Used top grid point to estimate total thickness. Used a standard atmosphere for all calculations. The top grid box thickness is not well defined. The model uses sigma coordinates and the top grid box edge is 0 (0 HPa).",
+    "n_z": 14,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": 29000,
+    "ui_label": "atmosphere-sigma-coordinate grid with 14 levels.",
+    "validation_key": "v138",
+    "vertical_coordinate": "atmosphere-sigma-coordinate"
   },
   {
     "@id": "v133",

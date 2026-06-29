@@ -1,5 +1,29 @@
 [
   {
+    "@id": "g184",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 48600,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 1.00 x 1.00 degree resolution.",
+    "units": "degree",
+    "validation_key": "g184",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": 1
+  },
+  {
     "@id": "g156",
     "@type": [
       "emd",
@@ -70,6 +94,58 @@
     "westernmost_longitude": 0,
     "x_resolution": 2.8,
     "y_resolution": 2.8
+  },
+  {
+    "@id": "g180",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 7680,
+    "region": "global",
+    "southernmost_latitude": -88.288,
+    "temporal_refinement": "static",
+    "truncation_method": "rhomboidal",
+    "truncation_number": 30,
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 3.75 x 2.25 degree resolution.",
+    "units": "degree",
+    "validation_key": "g180",
+    "westernmost_longitude": 0,
+    "x_resolution": 3.75,
+    "y_resolution": 2.25
+  },
+  {
+    "@id": "g181",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [
+      "LICOM3.0",
+      "360x218",
+      "1-degree"
+    ],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 78480,
+    "region": "global",
+    "southernmost_latitude": -76,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 1 x 0.9 degree resolution.",
+    "units": "degree",
+    "validation_key": "g181",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": 0.9
   },
   {
     "@id": "g127",
@@ -288,6 +364,30 @@
     "y_resolution": ""
   },
   {
+    "@id": "g185",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The standard parallel is 70 degrees in the Polar Stereographic projection. The Cartesian regular rectangular grid shape is NX = 305 by NY = 541.",
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 165005,
+    "region": "greenland",
+    "southernmost_latitude": "",
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 5 x 5 km resolution.",
+    "units": "km",
+    "validation_key": "g185",
+    "westernmost_longitude": "",
+    "x_resolution": 5,
+    "y_resolution": 5
+  },
+  {
     "@id": "g119",
     "@type": [
       "emd",
@@ -360,6 +460,30 @@
     "y_resolution": ""
   },
   {
+    "@id": "g187",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "icosahedral-geodesic-dual",
+    "n_cells": 1411768,
+    "region": "global",
+    "southernmost_latitude": -78.63,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a icosahedral geodesic dual grid type and 20 x 20 km resolution.",
+    "units": "km",
+    "validation_key": "g187",
+    "westernmost_longitude": 189.11,
+    "x_resolution": 20,
+    "y_resolution": 20
+  },
+  {
     "@id": "g154",
     "@type": [
       "emd",
@@ -406,6 +530,30 @@
     "westernmost_longitude": 0.140625,
     "x_resolution": 0.28125,
     "y_resolution": 0.1875
+  },
+  {
+    "@id": "g176",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The Y resolution varies within the range of 1.11209 to 1.12149 degrees.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 42440,
+    "region": "global",
+    "southernmost_latitude": -89.14152,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 159,
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+    "units": "degree",
+    "validation_key": "g176",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 1.12
   },
   {
     "@id": "g145",
@@ -757,6 +905,54 @@
     "y_resolution": 0.9375
   },
   {
+    "@id": "g178",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The Y resolution varies within the range of 2.76727 to 2.79062 degrees.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 7488,
+    "region": "global",
+    "southernmost_latitude": -87.8638,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 42,
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+    "units": "degree",
+    "validation_key": "g178",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 2.79
+  },
+  {
+    "@id": "g186",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 120184,
+    "region": "global",
+    "southernmost_latitude": -85.71,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "units": "./",
+    "validation_key": "g186",
+    "westernmost_longitude": 198.8595,
+    "x_resolution": "",
+    "y_resolution": ""
+  },
+  {
     "@id": "g138",
     "@type": [
       "emd",
@@ -1102,6 +1298,30 @@
     "westernmost_longitude": 199.7664,
     "x_resolution": "",
     "y_resolution": ""
+  },
+  {
+    "@id": "g177",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "The Y resolution varies within the range of 1.84964 to 1.86526 degrees.",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "spectral-reduced-gaussian",
+    "n_cells": 16128,
+    "region": "global",
+    "southernmost_latitude": -88.57217,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 95,
+    "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+    "units": "degree",
+    "validation_key": "g177",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 1.86
   },
   {
     "@id": "g152",
@@ -1619,6 +1839,54 @@
     "y_resolution": 1.4
   },
   {
+    "@id": "g183",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 7680,
+    "region": "global",
+    "southernmost_latitude": -88.29,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 3.75 x 2.25 degree resolution.",
+    "units": "degree",
+    "validation_key": "g183",
+    "westernmost_longitude": 0,
+    "x_resolution": 3.75,
+    "y_resolution": 2.25
+  },
+  {
+    "@id": "g179",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "N48 T points",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 7008,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 3.75 x 2.5 degree resolution.",
+    "units": "degree",
+    "validation_key": "g179",
+    "westernmost_longitude": 0,
+    "x_resolution": 3.75,
+    "y_resolution": 2.5
+  },
+  {
     "@id": "g102",
     "@type": [
       "emd",
@@ -1739,6 +2007,30 @@
     "y_resolution": 1.25
   },
   {
+    "@id": "g188",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "icosahedral-geodesic-dual",
+    "n_cells": 122880,
+    "region": "global",
+    "southernmost_latitude": -89.56,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a icosahedral geodesic dual grid type and 80 x 80 km resolution.",
+    "units": "km",
+    "validation_key": "g188",
+    "westernmost_longitude": 0,
+    "x_resolution": 80,
+    "y_resolution": 80
+  },
+  {
     "@id": "g107",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -1857,5 +2149,29 @@
     "westernmost_longitude": 0.678886796,
     "x_resolution": "",
     "y_resolution": ""
+  },
+  {
+    "@id": "g182",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 990720,
+    "region": "global",
+    "southernmost_latitude": -81.875,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 0.25 x 0.25 degree resolution.",
+    "units": "degree",
+    "validation_key": "g182",
+    "westernmost_longitude": 80.125,
+    "x_resolution": 0.25,
+    "y_resolution": 0.25
   }
 ]
