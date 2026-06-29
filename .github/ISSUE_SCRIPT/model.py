@@ -57,25 +57,6 @@ IGNORE = {
 }
 
 
-def _parse_list(value, lowercase=False) -> list:
-    if isinstance(value, list):
-        items = [str(v).strip() for v in value if str(v).strip()]
-    else:
-        delim = '\n' if '\n' in str(value) else ','
-        items = [v.strip() for v in str(value).split(delim) if v.strip()]
-    return [i.lower() for i in items] if lowercase else items
-
-
-def _parse_refs(value) -> list:
-    if isinstance(value, list):
-        return [str(v).strip() for v in value if str(v).strip()]
-    return [v.strip() for v in re.split(r'[,\s]+', str(value)) if v.strip()]
-
-
-# Multi-char arrow separators for embedded-component pairs.  Bare '>' is
-# intentionally absent — it appears inside valid IDs such as 'no-vertical'
-# and 'h114_no-vertical' and cannot be used as a safe split point.
-_ARROW_RE = re.compile(r'\s*(?:->|→|=>|==>)\s*')
 
 
 # Mapping from free-text component names (as typed in the issue form) to the
@@ -93,6 +74,29 @@ _COMPONENT_NORM = {
 def _norm_component(s: str) -> str:
     sl = s.strip().lower()
     return _COMPONENT_NORM.get(sl, sl.replace(' ', '_'))
+
+
+def _parse_list(value, lowercase=False) -> list:
+    if isinstance(value, list):
+        items = [str(v).strip() for v in value if str(v).strip()]
+    else:
+        delim = '\n' if '\n' in str(value) else ','
+        items = [v.strip() for v in str(value).split(delim) if v.strip()]
+    return [_norm_component(i) for i in items] if lowercase else items
+
+
+def _parse_refs(value) -> list:
+    if isinstance(value, list):
+        return [str(v).strip() for v in value if str(v).strip()]
+    return [v.strip() for v in re.split(r'[,\s]+', str(value)) if v.strip()]
+
+
+# Multi-char arrow separators for embedded-component pairs.  Bare '>' is
+# intentionally absent — it appears inside valid IDs such as 'no-vertical'
+# and 'h114_no-vertical' and cannot be used as a safe split point.
+_ARROW_RE = re.compile(r'\s*(?:->|→|=>|==>)\s*')
+
+
 
 
 def _parse_embedded(raw) -> list:
