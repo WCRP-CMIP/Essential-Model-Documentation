@@ -1,0 +1,18 @@
+{
+    "validation_key": "bcc-agcm4-mr",
+    "ui_label": "BCC-AGCM4-MR",
+    "description": "BCC-AGCM4-MR is the fourth-generation upgrade of BCC-AGCM3, which serves as the atmospheric component of the BCC-CSM2-MR model. Its dynamical core retains the spectral framework described in Wu et al. (2008), while the flux-form semi-Lagrangian (FFSL) tracer transport scheme has been adopted to replace the original semi-Lagrangian transport scheme for water vapor, liquid cloud water, and ice cloud water. Relative to its predecessors used in the CMIP6 experiments (Wu et al., 2019), the main physical parameterizations in BCC-AGCM4-MR have been updated, including those for cloud microphysics, deep and shallow cumulus convection, boundary layer turbulence, and gravity waves.",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-1573-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "bcc-agcm4-mr"
+}
