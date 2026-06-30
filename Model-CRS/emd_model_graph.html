@@ -23,6 +23,7 @@
 
     --dynamic: #d4760a;
     --embedded: #f2c200;
+    --nest: #9a8b6d;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink);
@@ -36,7 +37,7 @@
   select, input, .controls button { font: inherit; font-size: 0.8rem; }
   select, input[type=text] { padding: 0.3rem 0.5rem; border: 1px solid var(--line); border-radius: 3px;
     background: var(--paper); color: var(--ink); }
-  input[type=text] { width: 15rem; }
+  input[type=text] { width: 16rem; }
   input[type=number] { width: 3.4rem; padding: 0.3rem 0.4rem; border: 1px solid var(--line);
     border-radius: 3px; background: var(--paper); color: var(--ink); }
   .controls button { padding: 0.32rem 0.8rem; border: 1px solid var(--c-model);
@@ -49,6 +50,7 @@
   .swatch { width: 0.9rem; height: 0.9rem; border-radius: 2px; border: 1px solid rgba(0,0,0,0.2); display: inline-block; }
   .swatch.dyn { background: var(--paper); border: 2.5px solid var(--dynamic); }
   .swatch.emb { background: var(--embedded); border: 1px solid var(--dynamic); }
+  .swatch.nest { background: transparent; border: 1.5px dashed var(--nest); }
 
   #status { padding: 0.35rem 1.4rem; font-size: 0.75rem; color: var(--muted);
     min-height: 1.4rem; border-bottom: 1px solid var(--line); background: var(--panel); }
@@ -58,13 +60,24 @@
   svg { width: 100%; height: 100%; display: block; cursor: grab; }
   svg:active { cursor: grabbing; }
 
-  /* zoom controls */
-  .zoombar { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column;
-    gap: 4px; }
+  .zoombar { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 4px; }
   .zoombar button { width: 30px; height: 30px; font-size: 1rem; line-height: 1; border: 1px solid var(--line);
     background: var(--panel); color: var(--ink); border-radius: 5px; cursor: pointer; }
   .zoombar button:hover { background: var(--c-model); color: #fff; border-color: var(--c-model); }
   .zoombar button.fit { font-size: 0.62rem; letter-spacing: 0.04em; }
+
+  .nest rect {
+    fill: rgba(154,139,109,0.06);
+    stroke: var(--nest);
+    stroke-width: 1.5px;
+    stroke-dasharray: 5 4;
+    rx: 8; ry: 8;
+  }
+  .nest text {
+    font-size: 9.5px; fill: var(--nest);
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+    pointer-events: none;
+  }
 
   .link { fill: none; stroke: var(--line); stroke-width: 1.3px; }
   .link.family { stroke: var(--c-family); stroke-dasharray: 4 3; stroke-width: 1.4px; }
@@ -77,9 +90,9 @@
   .node.dynamic rect { stroke-width: 3.4px; }
   .node { cursor: pointer; }
 
-  /* hover focus */
   .focusmode .link { opacity: 0.08; }
   .focusmode .node { opacity: 0.18; }
+  .focusmode .nest { opacity: 0.35; }
   .link.hot { opacity: 1 !important; stroke: var(--c-model); stroke-width: 2px; }
   .link.family.hot { stroke: var(--c-family); }
   .node.hot { opacity: 1 !important; }
@@ -93,7 +106,7 @@
   <div class="controls">
     <label for="model">Model</label>
     <select id="model"></select>
-    <input id="custom" type="text" placeholder="…or model/<id>" spellcheck="false" />
+    <input id="custom" type="text" placeholder="…or any model id" spellcheck="false" />
     <label for="depth">Depth</label>
     <input id="depth" type="number" min="1" max="12" value="6" />
     <button id="go">Render</button>
@@ -106,7 +119,7 @@
 <div id="wrap">
   <svg id="canvas"></svg>
   <div class="zoombar">
-    <button id="zin" title="Zoom in">+</button>
+    <button id="zin"  title="Zoom in">+</button>
     <button id="zout" title="Zoom out">&minus;</button>
     <button id="zfit" class="fit" title="Fit to view">FIT</button>
   </div>
@@ -114,21 +127,28 @@
 
 <script>
 // ===========================================================================
-// EMD model graph — resolution happens in the browser. JSON-LD pulled straight
-// from static hosting; @id refs followed depth-deep, flattened to {nodes,links},
-// rendered with a tiered force layout (no overlap) in D3. No build, no server.
+// EMD model graph
 //
-//  * Each component_config is collapsed to a REALM cell (atmosphere, ocean, …)
-//    with its model component nested inside; that cell routes on to the grids.
-//  * Force layout keeps the tier rows (model top, grid cells bottom) but adds
-//    collision so nodes never overlap.
-//  * Hover a node to spotlight it, its parents and its children.
+// Data is always fetched from
+//   https://wcrp-cmip.github.io/Essential-Model-Documentation/<folder>/<id>.json
+// (overridable with ?base=...). The model id is taken from ?model=<id>.
+//
+// Physics:
+//   * Each node's y is HARD-LOCKED to its tier (model on top, grid cells at the
+//     bottom). Vertical position is not negotiable — only x is solved.
+//   * Strong many-body repulsion + a generous collision radius means nodes do
+//     not touch each other.
+//   * embedded_components pairs cluster (parent + its embedded children share
+//     a dashed parent-nest box); nests are then pushed apart by a custom
+//     pair-wise repulsion so two nests can't overlap.
+//   * Nodes are seeded far apart on their row so the simulation has room to
+//     reorder them into a sensible left-to-right arrangement before collisions
+//     pack them in.
 // ===========================================================================
 
-const BASES = [
-  new URL("../", document.baseURI).href,
-  "https://wcrp-cmip.github.io/Essential-Model-Documentation/",
-];
+const PARAMS = new URLSearchParams(location.search);
+const BASE   = (PARAMS.get("base") || "https://wcrp-cmip.github.io/Essential-Model-Documentation/")
+                 .replace(/\/?$/, "/");
 
 const KNOWN_MODELS = [
   "access-esm1-6", "awi-esm3-4-2-veg-hr", "canesm5-1", "canesm6-0-mr",
@@ -180,21 +200,18 @@ const ROW_NAME = { "-1":"family","0":"model","1":"realm · component",
   "2":"vertical grid","3":"horizontal grid","4":"subgrid","5":"grid cell" };
 
 // ---------------------------------------------------------------------------
-// fetch + cache
+// fetch + cache (always against the configured BASE — never relative)
 // ---------------------------------------------------------------------------
 const cache = new Map();
 async function fetchJson(folder, id) {
   const key = `${folder}/${id}`;
   if (cache.has(key)) return cache.get(key);
-  let lastErr;
-  for (const base of BASES) {
-    try {
-      const res = await fetch(base + key + ".json", { headers: { Accept: "application/json" } });
-      if (res.ok) { const doc = await res.json(); cache.set(key, doc); return doc; }
-      lastErr = new Error(`${res.status} ${res.statusText}`);
-    } catch (e) { lastErr = e; }
-  }
-  throw lastErr || new Error(`not found: ${key}`);
+  const url = BASE + key + ".json";
+  const res = await fetch(url, { headers: { Accept: "application/json" }, mode: "cors" });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${url}`);
+  const doc = await res.json();
+  cache.set(key, doc);
+  return doc;
 }
 
 // ---------------------------------------------------------------------------
@@ -227,7 +244,7 @@ function metaFor(type, n) {
 }
 
 // ---------------------------------------------------------------------------
-// resolve the model n-deep and build the graph
+// resolve model n-deep -> {nodes, links, nests, embedLinks}
 // ---------------------------------------------------------------------------
 async function buildGraph(modelId, depth) {
   const model = await fetchJson("model", modelId);
@@ -250,10 +267,11 @@ async function buildGraph(modelId, depth) {
   };
   const link = (a, b, kind = "ref") => links.push({ source: a, target: b, kind });
 
-  add(model["@id"], "model");
+  const rootId = model["@id"] || modelId;
+  add(rootId, "model");
 
   const fam = model.family;
-  if (fam) { const f = nameOf(fam); add(f, "model_family"); link(model["@id"], f, "family"); }
+  if (fam) { const f = nameOf(fam); add(f, "model_family"); link(rootId, f, "family"); }
 
   async function walk(node, parentId, edgeKey, d) {
     if (Array.isArray(node)) { for (const v of node) await walk(v, parentId, edgeKey, d); return; }
@@ -262,7 +280,7 @@ async function buildGraph(modelId, depth) {
       if (!parentId || !type) return;
       if (d > 0 && FOLDER[edgeKey]) {
         try { await emit(await fetchJson(FOLDER[edgeKey], node), parentId, edgeKey, d); return; }
-        catch (_) { /* stub */ }
+        catch (e) { console.warn(`could not resolve ${FOLDER[edgeKey]}/${node}:`, e.message); }
       }
       add(node, type, []);
       if (parentId !== node) link(parentId, node);
@@ -277,18 +295,14 @@ async function buildGraph(modelId, depth) {
     const id = node["@id"];
 
     if (type === "component_config") {
-      // Collapse config -> realm cell, with the model component nested inside.
       const realm = id.split("_")[0];
       let comp = nameOf(node.model_component);
       if (!comp && node.model_component) comp = vocab(node.model_component);
       add(id, type, [], {
-        label: realm,
-        inside: comp || "",
-        dynamic: dyn.has(realm),
-        embedded: embChild.has(realm),
+        label: realm, inside: comp || "", realm,
+        dynamic: dyn.has(realm), embedded: embChild.has(realm),
       });
       if (parentId && parentId !== id) link(parentId, id);
-      // route on to the grids only (skip model_component — it lives inside)
       for (const k of ["horizontal_computational_grid", "vertical_computational_grid"]) {
         if (node[k] !== undefined) await walk(node[k], id, k, d - 1);
       }
@@ -311,14 +325,38 @@ async function buildGraph(modelId, depth) {
             - (KEY_ORDER.indexOf(b) < 0 ? 99 : KEY_ORDER.indexOf(b)));
   for (const k of keys) {
     if (META.has(k) || MODEL_META.has(k) || INLINE_VOCAB.has(k) || SCALAR.has(k)) continue;
-    await walk(model[k], model["@id"], k, depth);
+    await walk(model[k], rootId, k, depth);
   }
 
-  return { rootId: model["@id"], nodes: [...nodes.values()], links };
+  // parent nests
+  const byRealm = new Map();
+  for (const n of nodes.values())
+    if (n.type === "component_config" && n.realm) byRealm.set(n.realm, n);
+  const grouped = new Map();
+  for (const [childRealm, parentRealm] of embChild) {
+    const childNode = byRealm.get(childRealm);
+    if (!childNode) continue;
+    if (!grouped.has(parentRealm)) grouped.set(parentRealm, []);
+    grouped.get(parentRealm).push(childNode);
+  }
+  const nests = [], embedLinks = [];
+  for (const [parentRealm, childNodes] of grouped) {
+    const parentNode = byRealm.get(parentRealm);
+    if (!parentNode) continue;
+    nests.push({ id: `nest:${parentRealm}`, parent: parentRealm,
+                 members: [parentNode, ...childNodes] });
+    for (const child of childNodes) embedLinks.push({ source: parentNode.id, target: child.id });
+  }
+  // assign each node its nest (or null) for the repulsion force
+  const nestByNode = new Map();
+  nests.forEach(n => n.members.forEach(m => nestByNode.set(m.id, n)));
+  nodes.forEach(n => { n.nest = nestByNode.get(n.id) || null; });
+
+  return { rootId, nodes: [...nodes.values()], links, nests, embedLinks };
 }
 
 // ---------------------------------------------------------------------------
-// sizing
+// node sizing
 // ---------------------------------------------------------------------------
 function sizeNode(d) {
   const lines = [d.label, ...(d.inside ? [d.inside] : []), ...(d.meta || [])];
@@ -328,17 +366,18 @@ function sizeNode(d) {
 }
 
 // ---------------------------------------------------------------------------
-// D3 tiered force layout
+// D3 render
 // ---------------------------------------------------------------------------
 const svg = d3.select("#canvas");
 const statusEl = document.getElementById("status");
 const setStatus = (m, e) => { statusEl.textContent = m; statusEl.className = e ? "error" : ""; };
 
-let zoom, rootG, currentSim;
+let zoom, rootG, currentSim, currentGraph;
 
 function render(graph) {
   if (currentSim) currentSim.stop();
   svg.selectAll("*").remove();
+  currentGraph = graph;
   const W = document.getElementById("wrap").clientWidth;
   const H = document.getElementById("wrap").clientHeight;
   rootG = svg.append("g");
@@ -346,14 +385,28 @@ function render(graph) {
   const byId = new Map(graph.nodes.map(n => [n.id, n]));
   graph.nodes.forEach(n => { n.tier = TYPES[n.type]?.tier ?? 3; sizeNode(n); });
 
-  // tier -> row y
   const tiersPresent = [...new Set(graph.nodes.map(n => n.tier))].sort((a, b) => a - b);
-  const rowGap = Math.max(110, (H - 90) / Math.max(tiersPresent.length, 1));
+  const rowGap = Math.max(120, (H - 90) / Math.max(tiersPresent.length, 1));
   const marginTop = 55;
   const rowY = new Map(tiersPresent.map((t, i) => [t, marginTop + i * rowGap]));
-  graph.nodes.forEach(n => { n.targetY = rowY.get(n.tier); if (n.x == null) { n.x = W / 2 + (Math.random() - 0.5) * 200; n.y = n.targetY; } });
 
-  // adjacency for hover
+  // ---- initial layout: spread each tier across a wide range so the sim can
+  // discover a good ordering before collide forces compress them.
+  const SPREAD = Math.max(W * 2.5, 1800);
+  const tierBuckets = d3.groups(graph.nodes, n => n.tier);
+  tierBuckets.forEach(([tier, members]) => {
+    const y = rowY.get(tier);
+    members.sort((a, b) => a.id.localeCompare(b.id));
+    const step = SPREAD / Math.max(members.length, 1);
+    members.forEach((n, i) => {
+      n.targetY = y;
+      n.y  = y;
+      n.fy = y;                     // HARD LOCK to tier row — y is fixed
+      n.x  = W / 2 - SPREAD / 2 + step * (i + 0.5);
+    });
+  });
+
+  // adjacency (for hover spotlight)
   const parents = new Map(), children = new Map();
   graph.nodes.forEach(n => { parents.set(n.id, new Set()); children.set(n.id, new Set()); });
   graph.links.forEach(l => {
@@ -362,14 +415,22 @@ function render(graph) {
     children.get(s)?.add(t); parents.get(t)?.add(s);
   });
 
-  // row labels (fixed, not zoomed-out of place — they live in rootG so they pan/zoom too)
+  // nests (drawn behind everything)
+  const nestG = rootG.append("g").attr("class", "nests");
+  const nestSel = nestG.selectAll("g.nest").data(graph.nests).join("g").attr("class", "nest");
+  nestSel.append("rect");
+  nestSel.append("text").text(d => d.parent);
+
+  // row labels
   rootG.append("g").selectAll("text.row-label").data(tiersPresent).join("text")
     .attr("class", "row-label").attr("x", 12)
     .attr("y", t => rowY.get(t) - 26).text(t => ROW_NAME[String(t)] || "");
 
+  // links
   const linkSel = rootG.append("g").selectAll("path").data(graph.links).join("path")
     .attr("class", d => "link" + (d.kind === "family" ? " family" : ""));
 
+  // nodes
   const nodeSel = rootG.append("g").selectAll("g.node").data(graph.nodes).join("g")
     .attr("class", d => "node" + (d.dynamic ? " dynamic" : ""));
 
@@ -390,7 +451,7 @@ function render(graph) {
       tx.append("tspan").attr("class", "meta").attr("x", 0).attr("dy", 12).text(m));
   });
 
-  // hover: spotlight node + direct parents + direct children
+  // hover: spotlight self + parents + children
   nodeSel
     .on("mouseenter", (event, d) => {
       const hot = new Set([d.id, ...parents.get(d.id), ...children.get(d.id)]);
@@ -408,18 +469,46 @@ function render(graph) {
       linkSel.classed("hot", false);
     });
 
-  // force simulation — tiers pinned in y, repulsion + collision in x
+  // ---- custom force: push nests apart when they overlap horizontally
+  function forceNestRepulsion(alpha) {
+    const ns = graph.nests;
+    if (!ns || ns.length < 2) return;
+    const metrics = ns.map(nest => {
+      let lo = Infinity, hi = -Infinity, sum = 0;
+      nest.members.forEach(n => { lo = Math.min(lo, n.x - n.w / 2); hi = Math.max(hi, n.x + n.w / 2); sum += n.x; });
+      return { lo, hi, cx: sum / nest.members.length, w: hi - lo };
+    });
+    const GAP = 120;
+    for (let i = 0; i < ns.length; i++) {
+      for (let j = i + 1; j < ns.length; j++) {
+        const a = metrics[i], b = metrics[j];
+        const dx = b.cx - a.cx;
+        const minSep = (a.w + b.w) / 2 + GAP;
+        if (Math.abs(dx) >= minSep) continue;
+        const overlap = minSep - Math.abs(dx);
+        const push = overlap * alpha * 0.5;
+        const sign = dx === 0 ? 1 : Math.sign(dx);
+        ns[i].members.forEach(n => { n.vx = (n.vx || 0) - sign * push; });
+        ns[j].members.forEach(n => { n.vx = (n.vx || 0) + sign * push; });
+      }
+    }
+  }
+
+  // ---- force simulation: y is locked, x is solved
   const sim = d3.forceSimulation(graph.nodes)
-    .force("y", d3.forceY(d => d.targetY).strength(1))
-    .force("x", d3.forceX(W / 2).strength(0.012))
-    .force("charge", d3.forceManyBody().strength(-60))
-    .force("link", d3.forceLink(graph.links).id(d => d.id).distance(0).strength(0.06))
-    .force("collide", d3.forceCollide(d => d.r + 7).strength(1).iterations(2))
+    .force("x",        d3.forceX(W / 2).strength(0.02))
+    .force("charge",   d3.forceManyBody().strength(-450).distanceMax(500))
+    .force("link",     d3.forceLink(graph.links).id(d => d.id).distance(0).strength(0.1))
+    .force("embed",    d3.forceLink(graph.embedLinks || []).id(d => d.id)
+                         .distance(d => (d.source.w + d.target.w) / 2 + 18)
+                         .strength(0.55))
+    .force("collide",  d3.forceCollide(d => d.r + 14).strength(1).iterations(3))
+    .force("nestRepel", forceNestRepulsion)
+    .alphaDecay(0.018)
     .on("tick", ticked);
   currentSim = sim;
 
   function ticked() {
-    graph.nodes.forEach(n => { n.y = n.targetY + (n.y - n.targetY) * 0.5; }); // keep rows tight
     linkSel.attr("d", d => {
       const s = d.source, t = d.target;
       const sy = s.y + s.h / 2, ty = t.y - t.h / 2;
@@ -427,33 +516,59 @@ function render(graph) {
       return `M${s.x},${sy} C${s.x},${my} ${t.x},${my} ${t.x},${ty}`;
     });
     nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
+
+    // nest rectangles follow the live bounding boxes of their members
+    const PAD = 14;
+    nestSel.each(function (nest) {
+      let lx = Infinity, rx = -Infinity, ty = Infinity, by = -Infinity;
+      nest.members.forEach(n => {
+        lx = Math.min(lx, n.x - n.w / 2); rx = Math.max(rx, n.x + n.w / 2);
+        ty = Math.min(ty, n.y - n.h / 2); by = Math.max(by, n.y + n.h / 2);
+      });
+      const x = lx - PAD, y = ty - PAD - 4, w = (rx - lx) + 2 * PAD, h = (by - ty) + 2 * PAD + 4;
+      const g = d3.select(this);
+      g.select("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h);
+      g.select("text").attr("x", x + 9).attr("y", y + 14);
+    });
   }
 
-  // drag
+  // drag — horizontal only (y stays locked to tier)
   nodeSel.call(d3.drag()
-    .on("start", (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-    .on("drag",  (e, d) => { d.fx = e.x; d.fy = e.y; })
-    .on("end",   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+    .on("start", (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; })
+    .on("drag",  (e, d) => { d.fx = e.x; })
+    .on("end",   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; }));
 
   // zoom / pan
-  zoom = d3.zoom().scaleExtent([0.15, 4]).on("zoom", e => rootG.attr("transform", e.transform));
+  zoom = d3.zoom().scaleExtent([0.03, 4]).on("zoom", e => rootG.attr("transform", e.transform));
   svg.call(zoom);
 
-  // run a few hundred ticks off-screen, then fit
+  // settle off-screen, fit, then refit when simulation truly ends
   sim.alpha(1).restart();
-  for (let i = 0; i < 120; i++) sim.tick();
+  for (let i = 0; i < 600; i++) sim.tick();
   ticked();
-  fit(graph, W, H);
+  fit(graph);
+  sim.on("end.fit", () => fit(graph));
 }
 
-function fit(graph, W, H) {
-  const pad = 70;
-  const xs = graph.nodes.map(n => n.x), ys = graph.nodes.map(n => n.y);
-  const minX = d3.min(xs) - pad, maxX = d3.max(xs) + pad;
-  const minY = d3.min(ys) - pad, maxY = d3.max(ys) + pad;
-  const scale = Math.min(W / (maxX - minX), H / (maxY - minY), 1.3);
+function fit(graph) {
+  if (!zoom || !graph) return;
+  const W = document.getElementById("wrap").clientWidth;
+  const H = document.getElementById("wrap").clientHeight;
+  const pad = 60;
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  graph.nodes.forEach(n => {
+    minX = Math.min(minX, n.x - n.w / 2);
+    maxX = Math.max(maxX, n.x + n.w / 2);
+    minY = Math.min(minY, n.y - n.h / 2);
+    maxY = Math.max(maxY, n.y + n.h / 2);
+  });
+  minX = Math.min(minX, 8);
+  minX -= pad; maxX += pad; minY -= pad; maxY += pad;
+  const scale = Math.min(W / Math.max(maxX - minX, 10), H / Math.max(maxY - minY, 10));
+  const tx = (W - (minX + maxX) * scale) / 2;
+  const ty = (H - (minY + maxY) * scale) / 2;
   svg.transition().duration(400).call(zoom.transform,
-    d3.zoomIdentity.translate((W - (minX + maxX) * scale) / 2, (H - (minY + maxY) * scale) / 2).scale(scale));
+    d3.zoomIdentity.translate(tx, ty).scale(scale));
 }
 
 function buildLegend() {
@@ -465,45 +580,99 @@ function buildLegend() {
   ];
   document.getElementById("legend").innerHTML =
     items.map(([n, c]) => `<span><i class="swatch" style="background:${c}"></i>${n}</span>`).join("")
-    + `<span><i class="swatch dyn"></i>dynamic</span><span><i class="swatch emb"></i>embedded</span>`;
+    + `<span><i class="swatch dyn"></i>dynamic</span>`
+    + `<span><i class="swatch emb"></i>embedded</span>`
+    + `<span><i class="swatch nest"></i>parent nest</span>`;
+}
+
+// ---------------------------------------------------------------------------
+// URL ↔ UI sync (history.replaceState wrapped because file:// origins fail it)
+// ---------------------------------------------------------------------------
+function normaliseId(s) {
+  return (s || "").trim().replace(/^model\//, "").replace(/\.json$/i, "");
+}
+function readQuery() {
+  const p = new URLSearchParams(location.search);
+  return {
+    model: normaliseId(p.get("model") || p.get("id") || ""),
+    depth: parseInt(p.get("depth"), 10) || 6,
+  };
+}
+function writeQuery(id, depth) {
+  const p = new URLSearchParams();
+  if (id)                    p.set("model", id);
+  if (depth && depth !== 6)  p.set("depth", String(depth));
+  if (PARAMS.get("base"))    p.set("base", PARAMS.get("base"));
+  const next = location.pathname + (p.toString() ? "?" + p.toString() : "");
+  try { history.replaceState(null, "", next); }
+  catch (_) { /* file:// origins reject replaceState in some browsers — ignore */ }
 }
 
 // ---------------------------------------------------------------------------
 // controls
 // ---------------------------------------------------------------------------
-let lastGraph = null;
-async function run() {
-  const custom = document.getElementById("custom").value.trim();
-  const sel = document.getElementById("model").value;
-  let id = (custom || sel).replace(/^model\//, "").replace(/\.json$/, "");
-  const depth = parseInt(document.getElementById("depth").value, 10) || 6;
-  setStatus(`Resolving ${id} (depth ${depth})…`);
+async function run(id, depth) {
+  id    = normaliseId(id);
+  depth = depth || 6;
+  if (!id) { setStatus("No model id."); return; }
+  setStatus(`Resolving ${id} (depth ${depth}) from ${BASE}…`);
   try {
     cache.clear();
-    lastGraph = await buildGraph(id, depth);
-    render(lastGraph);
-    setStatus(`${lastGraph.nodes.length} nodes · ${lastGraph.links.length} links · ${id}`);
-  } catch (e) { console.error(e); setStatus(`Error: ${e.message}`, true); }
+    const graph = await buildGraph(id, depth);
+    render(graph);
+    setStatus(`${graph.nodes.length} nodes · ${graph.links.length} links · ${graph.nests.length} nests · ${id}`);
+    writeQuery(id, depth);
+  } catch (e) {
+    console.error(e);
+    setStatus(`Error: ${e.message}`, true);
+  }
+}
+
+function currentId() {
+  const custom = document.getElementById("custom").value.trim();
+  return normaliseId(custom || document.getElementById("model").value);
+}
+function currentDepth() {
+  return parseInt(document.getElementById("depth").value, 10) || 6;
 }
 
 function init() {
   buildLegend();
   const sel = document.getElementById("model");
   sel.innerHTML = KNOWN_MODELS.map(id => `<option value="${id}">${id}</option>`).join("");
-  sel.value = KNOWN_MODELS.includes("cnrm-esm2-1e") ? "cnrm-esm2-1e" : KNOWN_MODELS[0];
-  sel.addEventListener("change", () => { document.getElementById("custom").value = ""; run(); });
-  document.getElementById("go").addEventListener("click", run);
-  document.getElementById("custom").addEventListener("keydown", e => { if (e.key === "Enter") run(); });
 
-  document.getElementById("zin").addEventListener("click", () => svg.transition().duration(200).call(zoom.scaleBy, 1.4));
-  document.getElementById("zout").addEventListener("click", () => svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.4));
-  document.getElementById("zfit").addEventListener("click", () => {
-    if (lastGraph) fit(lastGraph, document.getElementById("wrap").clientWidth, document.getElementById("wrap").clientHeight);
+  const q = readQuery();
+  const startId = q.model || "cnrm-esm2-1e";
+  document.getElementById("depth").value = q.depth;
+  if (KNOWN_MODELS.includes(startId)) { sel.value = startId; document.getElementById("custom").value = ""; }
+  else { sel.value = KNOWN_MODELS[0]; document.getElementById("custom").value = startId; }
+
+  sel.addEventListener("change", () => {
+    document.getElementById("custom").value = "";
+    run(sel.value, currentDepth());
+  });
+  document.getElementById("go").addEventListener("click", () => run(currentId(), currentDepth()));
+  document.getElementById("custom").addEventListener("keydown", e => { if (e.key === "Enter") run(currentId(), currentDepth()); });
+  document.getElementById("depth").addEventListener("change", () => run(currentId(), currentDepth()));
+  window.addEventListener("popstate", () => {
+    const q = readQuery();
+    if (!q.model) return;
+    if (KNOWN_MODELS.includes(q.model)) { sel.value = q.model; document.getElementById("custom").value = ""; }
+    else { document.getElementById("custom").value = q.model; }
+    document.getElementById("depth").value = q.depth;
+    run(q.model, q.depth);
   });
 
+  document.getElementById("zin").addEventListener("click",
+    () => svg.transition().duration(200).call(zoom.scaleBy, 1.4));
+  document.getElementById("zout").addEventListener("click",
+    () => svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.4));
+  document.getElementById("zfit").addEventListener("click", () => fit(currentGraph));
+
   let rT;
-  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(run, 250); });
-  run();
+  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => fit(currentGraph), 250); });
+
+  run(startId, q.depth);
 }
 
 document.getElementById("dl").addEventListener("click", () => {
@@ -511,8 +680,7 @@ document.getElementById("dl").addEventListener("click", () => {
     { type: "image/svg+xml" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  const id = (document.getElementById("custom").value || document.getElementById("model").value || "emd");
-  a.download = id.split("/").pop() + ".svg";
+  a.download = (currentId() || "emd") + ".svg";
   a.click();
 });
 
