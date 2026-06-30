@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_TongwenWu-1781748684",
+    "ui_label": "height grid with 4 levels.",
+    "description": "There are four vertical layers, with the maximum total sea ice thickness of 10m. Both the surface layer and the bottom layer each account for one-third of the total thickness.",
+    "bottom_layer_thickness": "",
+    "n_z": 4,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid-tongwenwu-1781748684"
+}
