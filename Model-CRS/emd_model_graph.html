@@ -16,7 +16,6 @@
     --c-model: #1f4e79;
     --c-family: #6a3aa8;
     --c-config: #2b3a55;
-    --c-component: #7a8499;
     --c-hgrid: #1565c0;
     --c-vgrid: #4a90d9;
     --c-subgrid: #6b7280;
@@ -37,7 +36,7 @@
   select, input, .controls button { font: inherit; font-size: 0.8rem; }
   select, input[type=text] { padding: 0.3rem 0.5rem; border: 1px solid var(--line); border-radius: 3px;
     background: var(--paper); color: var(--ink); }
-  input[type=text] { width: 16rem; }
+  input[type=text] { width: 15rem; }
   input[type=number] { width: 3.4rem; padding: 0.3rem 0.4rem; border: 1px solid var(--line);
     border-radius: 3px; background: var(--paper); color: var(--ink); }
   .controls button { padding: 0.32rem 0.8rem; border: 1px solid var(--c-model);
@@ -55,9 +54,17 @@
     min-height: 1.4rem; border-bottom: 1px solid var(--line); background: var(--panel); }
   #status.error { color: #b3261e; }
 
-  #wrap { width: 100%; height: calc(100vh - 9.5rem); overflow: hidden; }
+  #wrap { position: relative; width: 100%; height: calc(100vh - 9.5rem); overflow: hidden; }
   svg { width: 100%; height: 100%; display: block; cursor: grab; }
   svg:active { cursor: grabbing; }
+
+  /* zoom controls */
+  .zoombar { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column;
+    gap: 4px; }
+  .zoombar button { width: 30px; height: 30px; font-size: 1rem; line-height: 1; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); border-radius: 5px; cursor: pointer; }
+  .zoombar button:hover { background: var(--c-model); color: #fff; border-color: var(--c-model); }
+  .zoombar button.fit { font-size: 0.62rem; letter-spacing: 0.04em; }
 
   .link { fill: none; stroke: var(--line); stroke-width: 1.3px; }
   .link.family { stroke: var(--c-family); stroke-dasharray: 4 3; stroke-width: 1.4px; }
@@ -66,7 +73,16 @@
   .node text { font-size: 11px; fill: var(--ink); pointer-events: none; }
   .node .nid { font-weight: 700; }
   .node .meta { fill: var(--muted); font-size: 9.5px; }
+  .node .inside { font-size: 10px; font-weight: 600; }
   .node.dynamic rect { stroke-width: 3.4px; }
+  .node { cursor: pointer; }
+
+  /* hover focus */
+  .focusmode .link { opacity: 0.08; }
+  .focusmode .node { opacity: 0.18; }
+  .link.hot { opacity: 1 !important; stroke: var(--c-model); stroke-width: 2px; }
+  .link.family.hot { stroke: var(--c-family); }
+  .node.hot { opacity: 1 !important; }
 
   .row-label { font-size: 9px; fill: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
 </style>
@@ -87,31 +103,38 @@
 
 <div class="legend" id="legend"></div>
 <div id="status"></div>
-<div id="wrap"><svg id="canvas"></svg></div>
+<div id="wrap">
+  <svg id="canvas"></svg>
+  <div class="zoombar">
+    <button id="zin" title="Zoom in">+</button>
+    <button id="zout" title="Zoom out">&minus;</button>
+    <button id="zfit" class="fit" title="Fit to view">FIT</button>
+  </div>
+</div>
 
 <script>
 // ===========================================================================
-// EMD model graph — all resolution happens here in the browser.
-// JSON-LD files are pulled straight from static hosting (GitHub Pages); the JS
-// follows @id references the same way cmipld.get(depth=N) would, then flattens
-// to a {nodes, links} graph and renders it with D3. No build step, no server.
+// EMD model graph — resolution happens in the browser. JSON-LD pulled straight
+// from static hosting; @id refs followed depth-deep, flattened to {nodes,links},
+// rendered with a tiered force layout (no overlap) in D3. No build, no server.
+//
+//  * Each component_config is collapsed to a REALM cell (atmosphere, ocean, …)
+//    with its model component nested inside; that cell routes on to the grids.
+//  * Force layout keeps the tier rows (model top, grid cells bottom) but adds
+//    collision so nodes never overlap.
+//  * Hover a node to spotlight it, its parents and its children.
 // ===========================================================================
 
-// Base URL of the published EMD vocabulary. When this page is served from the
-// same site, the relative fallback ("../") is tried first so it also works on
-// a local checkout / preview.
 const BASES = [
   new URL("../", document.baseURI).href,
   "https://wcrp-cmip.github.io/Essential-Model-Documentation/",
 ];
 
-// Known models for the dropdown. Anything not listed can be typed into the box.
 const KNOWN_MODELS = [
   "access-esm1-6", "awi-esm3-4-2-veg-hr", "canesm5-1", "canesm6-0-mr",
   "cnrm-esm2-1e", "ec-earth3-esm-1-1", "ukcm2-0-ll", "ukcm2a-0-hh",
 ];
 
-// field name -> repo folder, used to locate a referenced id
 const FOLDER = {
   "component_configs":             "component_config",
   "horizontal_computational_grid": "horizontal_computational_grid",
@@ -121,14 +144,12 @@ const FOLDER = {
   "model_component":               "model_component",
   "family":                        "model_family",
 };
-// field name -> structural type (also used to type a still-unresolved string)
 const FIELD_TYPE = {
   "component_configs":             "component_config",
   "horizontal_computational_grid": "horizontal_computational_grid",
   "vertical_computational_grid":   "vertical_computational_grid",
   "horizontal_subgrids":           "horizontal_subgrid",
   "horizontal_grid_cell":          "horizontal_grid_cell",
-  "model_component":               "model_component",
   "family":                        "model_family",
 };
 
@@ -144,24 +165,22 @@ const SCALAR = new Set(["n_cells","n_z","n_z_range","x_resolution","y_resolution
   "bottom_layer_thickness","top_layer_thickness","total_thickness"]);
 
 const KEY_ORDER = ["horizontal_computational_grid","horizontal_subgrids",
-  "horizontal_grid_cell","vertical_computational_grid","model_component",
-  "component_configs"];
+  "horizontal_grid_cell","vertical_computational_grid","component_configs"];
 
 const TYPES = {
-  "model":                         { color:"var(--c-model)",     tier:0,  fill:"#1f4e79", text:"#fff" },
-  "model_family":                  { color:"var(--c-family)",    tier:-1, fill:"#efe3ff", text:"#3a1b5e" },
-  "component_config":              { color:"var(--c-config)",    tier:1,  fill:"#ffffff", text:"#14223a" },
-  "model_component":               { color:"var(--c-component)", tier:2,  fill:"#eef0f4", text:"#14223a" },
-  "vertical_computational_grid":   { color:"var(--c-vgrid)",     tier:2,  fill:"#e3f0fb", text:"#14223a" },
-  "horizontal_computational_grid": { color:"var(--c-hgrid)",     tier:3,  fill:"#d3e6fb", text:"#14223a" },
-  "horizontal_subgrid":            { color:"var(--c-subgrid)",   tier:4,  fill:"#ffffff", text:"#14223a" },
-  "horizontal_grid_cell":          { color:"var(--c-cell)",      tier:5,  fill:"#e3f3e9", text:"#14223a" },
+  "model":                         { color:"var(--c-model)",   tier:0,  fill:"#1f4e79", text:"#fff" },
+  "model_family":                  { color:"var(--c-family)",  tier:-1, fill:"#efe3ff", text:"#3a1b5e" },
+  "component_config":              { color:"var(--c-config)",  tier:1,  fill:"#ffffff", text:"#14223a" },
+  "vertical_computational_grid":   { color:"var(--c-vgrid)",   tier:2,  fill:"#e3f0fb", text:"#14223a" },
+  "horizontal_computational_grid": { color:"var(--c-hgrid)",   tier:3,  fill:"#d3e6fb", text:"#14223a" },
+  "horizontal_subgrid":            { color:"var(--c-subgrid)", tier:4,  fill:"#ffffff", text:"#14223a" },
+  "horizontal_grid_cell":          { color:"var(--c-cell)",    tier:5,  fill:"#e3f3e9", text:"#14223a" },
 };
-const ROW_NAME = { "-1":"family","0":"model","1":"component config",
-  "2":"component · vertical grid","3":"horizontal grid","4":"subgrid","5":"grid cell" };
+const ROW_NAME = { "-1":"family","0":"model","1":"realm · component",
+  "2":"vertical grid","3":"horizontal grid","4":"subgrid","5":"grid cell" };
 
 // ---------------------------------------------------------------------------
-// fetch + cache (tries each base URL in turn)
+// fetch + cache
 // ---------------------------------------------------------------------------
 const cache = new Map();
 async function fetchJson(folder, id) {
@@ -203,8 +222,6 @@ function metaFor(type, n) {
     const vc = vocab(n.vertical_coordinate); if (vc) out.push(vc);
   } else if (type === "horizontal_subgrid") {
     const c = vocab(n.cell_variable_type); if (c) out.push(c);
-  } else if (type === "model_component") {
-    const r = vocab(n.realm); if (r) out.push(`(${r})`);
   }
   return out;
 }
@@ -236,47 +253,50 @@ async function buildGraph(modelId, depth) {
   add(model["@id"], "model");
 
   const fam = model.family;
-  if (fam) {
-    const famId = nameOf(fam);
-    add(famId, "model_family");
-    link(model["@id"], famId, "family");
-  }
+  if (fam) { const f = nameOf(fam); add(f, "model_family"); link(model["@id"], f, "family"); }
 
-  // walk a resolved object n-deep, fetching child refs as needed
   async function walk(node, parentId, edgeKey, d) {
     if (Array.isArray(node)) { for (const v of node) await walk(v, parentId, edgeKey, d); return; }
-
-    // string ref -> fetch if we have budget + know where it lives, else stub
     if (typeof node === "string") {
       const type = FIELD_TYPE[edgeKey];
       if (!parentId || !type) return;
       if (d > 0 && FOLDER[edgeKey]) {
-        try {
-          const child = await fetchJson(FOLDER[edgeKey], node);
-          await emit(child, parentId, edgeKey, d);
-          return;
-        } catch (_) { /* fall through to stub */ }
+        try { await emit(await fetchJson(FOLDER[edgeKey], node), parentId, edgeKey, d); return; }
+        catch (_) { /* stub */ }
       }
-      add(node, type, []);                       // unresolved stub keeps the chain visible
+      add(node, type, []);
       if (parentId !== node) link(parentId, node);
       return;
     }
-    if (node && typeof node === "object" && node["@id"]) {
-      await emit(node, parentId, edgeKey, d);
-    }
+    if (node && typeof node === "object" && node["@id"]) await emit(node, parentId, edgeKey, d);
   }
 
   async function emit(node, parentId, edgeKey, d) {
-    const type = FIELD_TYPE[edgeKey] || "model";
+    const type = FIELD_TYPE[edgeKey];
     if (!TYPES[type]) return;
     const id = node["@id"];
-    const realm = type === "component_config" ? id.split("_")[0] : null;
-    add(id, type, metaFor(type, node),
-        type === "component_config"
-          ? { dynamic: dyn.has(realm), embedded: embChild.has(realm) }
-          : {});
-    if (parentId && parentId !== id) link(parentId, id);
 
+    if (type === "component_config") {
+      // Collapse config -> realm cell, with the model component nested inside.
+      const realm = id.split("_")[0];
+      let comp = nameOf(node.model_component);
+      if (!comp && node.model_component) comp = vocab(node.model_component);
+      add(id, type, [], {
+        label: realm,
+        inside: comp || "",
+        dynamic: dyn.has(realm),
+        embedded: embChild.has(realm),
+      });
+      if (parentId && parentId !== id) link(parentId, id);
+      // route on to the grids only (skip model_component — it lives inside)
+      for (const k of ["horizontal_computational_grid", "vertical_computational_grid"]) {
+        if (node[k] !== undefined) await walk(node[k], id, k, d - 1);
+      }
+      return;
+    }
+
+    add(id, type, metaFor(type, node));
+    if (parentId && parentId !== id) link(parentId, id);
     const keys = Object.keys(node).sort(
       (a, b) => (KEY_ORDER.indexOf(a) < 0 ? 99 : KEY_ORDER.indexOf(a))
               - (KEY_ORDER.indexOf(b) < 0 ? 99 : KEY_ORDER.indexOf(b)));
@@ -286,7 +306,6 @@ async function buildGraph(modelId, depth) {
     }
   }
 
-  // expand the model's own structural fields
   const keys = Object.keys(model).sort(
     (a, b) => (KEY_ORDER.indexOf(a) < 0 ? 99 : KEY_ORDER.indexOf(a))
             - (KEY_ORDER.indexOf(b) < 0 ? 99 : KEY_ORDER.indexOf(b)));
@@ -299,82 +318,148 @@ async function buildGraph(modelId, depth) {
 }
 
 // ---------------------------------------------------------------------------
-// D3 layered render — model top, grid cells bottom
+// sizing
+// ---------------------------------------------------------------------------
+function sizeNode(d) {
+  const lines = [d.label, ...(d.inside ? [d.inside] : []), ...(d.meta || [])];
+  d.w = Math.max(92, d3.max(lines, s => (s ? s.length : 0) * 6.6) + 18);
+  d.h = 24 + (lines.length - 1) * 12;
+  d.r = Math.hypot(d.w / 2, d.h / 2);
+}
+
+// ---------------------------------------------------------------------------
+// D3 tiered force layout
 // ---------------------------------------------------------------------------
 const svg = d3.select("#canvas");
 const statusEl = document.getElementById("status");
 const setStatus = (m, e) => { statusEl.textContent = m; statusEl.className = e ? "error" : ""; };
 
+let zoom, rootG, currentSim;
+
 function render(graph) {
+  if (currentSim) currentSim.stop();
   svg.selectAll("*").remove();
   const W = document.getElementById("wrap").clientWidth;
   const H = document.getElementById("wrap").clientHeight;
-  const root = svg.append("g");
+  rootG = svg.append("g");
 
   const byId = new Map(graph.nodes.map(n => [n.id, n]));
-  graph.nodes.forEach(n => { n.tier = TYPES[n.type]?.tier ?? 3; });
+  graph.nodes.forEach(n => { n.tier = TYPES[n.type]?.tier ?? 3; sizeNode(n); });
 
-  const tiers = d3.groups(graph.nodes, n => n.tier).sort((a, b) => a[0] - b[0]);
-  const tierIndex = new Map(tiers.map((t, i) => [t[0], i]));
-  const rowGap = Math.max(95, (H - 80) / Math.max(tiers.length, 1));
-  const marginX = 100, marginTop = 50;
+  // tier -> row y
+  const tiersPresent = [...new Set(graph.nodes.map(n => n.tier))].sort((a, b) => a - b);
+  const rowGap = Math.max(110, (H - 90) / Math.max(tiersPresent.length, 1));
+  const marginTop = 55;
+  const rowY = new Map(tiersPresent.map((t, i) => [t, marginTop + i * rowGap]));
+  graph.nodes.forEach(n => { n.targetY = rowY.get(n.tier); if (n.x == null) { n.x = W / 2 + (Math.random() - 0.5) * 200; n.y = n.targetY; } });
 
-  tiers.forEach(([tier, members]) => {
-    const y = marginTop + tierIndex.get(tier) * rowGap;
-    const step = Math.max(W - marginX * 2, 200) / Math.max(members.length, 1);
-    members.sort((a, b) => a.id.localeCompare(b.id));
-    members.forEach((n, i) => { n.x = marginX + step * (i + 0.5); n.y = y; });
+  // adjacency for hover
+  const parents = new Map(), children = new Map();
+  graph.nodes.forEach(n => { parents.set(n.id, new Set()); children.set(n.id, new Set()); });
+  graph.links.forEach(l => {
+    const s = typeof l.source === "object" ? l.source.id : l.source;
+    const t = typeof l.target === "object" ? l.target.id : l.target;
+    children.get(s)?.add(t); parents.get(t)?.add(s);
   });
 
-  const linkGen = d3.linkVertical().x(d => d.x).y(d => d.y);
-  root.append("g").selectAll("path").data(graph.links).join("path")
-    .attr("class", d => "link" + (d.kind === "family" ? " family" : ""))
-    .attr("d", d => {
-      const s = byId.get(d.source), t = byId.get(d.target);
-      if (!s || !t) return null;
-      return linkGen({ source: { x: s.x, y: s.y + 14 }, target: { x: t.x, y: t.y - 14 } });
-    });
-
-  root.append("g").selectAll("text.row-label").data(tiers).join("text")
+  // row labels (fixed, not zoomed-out of place — they live in rootG so they pan/zoom too)
+  rootG.append("g").selectAll("text.row-label").data(tiersPresent).join("text")
     .attr("class", "row-label").attr("x", 12)
-    .attr("y", ([tier]) => marginTop + tierIndex.get(tier) * rowGap - 24)
-    .text(([tier]) => ROW_NAME[String(tier)] || "");
+    .attr("y", t => rowY.get(t) - 26).text(t => ROW_NAME[String(t)] || "");
 
-  const node = root.append("g").selectAll("g.node").data(graph.nodes).join("g")
-    .attr("class", d => "node" + (d.dynamic ? " dynamic" : ""))
-    .attr("transform", d => `translate(${d.x},${d.y})`);
+  const linkSel = rootG.append("g").selectAll("path").data(graph.links).join("path")
+    .attr("class", d => "link" + (d.kind === "family" ? " family" : ""));
 
-  node.each(function (d) {
+  const nodeSel = rootG.append("g").selectAll("g.node").data(graph.nodes).join("g")
+    .attr("class", d => "node" + (d.dynamic ? " dynamic" : ""));
+
+  nodeSel.each(function (d) {
     const g = d3.select(this), cfg = TYPES[d.type] || {};
-    const lines = [d.label, ...(d.meta || [])];
-    const w = Math.max(96, d3.max(lines, s => s.length * 6.6) + 18);
-    const h = 26 + (lines.length - 1) * 12;
     g.append("rect")
-      .attr("x", -w / 2).attr("y", -h / 2).attr("width", w).attr("height", h)
+      .attr("x", -d.w / 2).attr("y", -d.h / 2).attr("width", d.w).attr("height", d.h)
       .attr("rx", 4).attr("ry", 4)
       .attr("fill", d.embedded ? "var(--embedded)" : (cfg.fill || "#fff"))
       .attr("stroke", d.dynamic ? "var(--dynamic)" : (cfg.color || "#333"));
-    const tx = g.append("text").attr("text-anchor", "middle").attr("y", -h / 2 + 15);
+    const tx = g.append("text").attr("text-anchor", "middle").attr("y", -d.h / 2 + 14);
     tx.append("tspan").attr("class", "nid").attr("x", 0)
       .attr("fill", d.embedded ? "#3a2a00" : (cfg.text || "var(--ink)")).text(d.label);
+    if (d.inside)
+      tx.append("tspan").attr("class", "inside").attr("x", 0).attr("dy", 12)
+        .attr("fill", d.embedded ? "#5a3a00" : "var(--c-config)").text(d.inside);
     (d.meta || []).forEach(m =>
       tx.append("tspan").attr("class", "meta").attr("x", 0).attr("dy", 12).text(m));
   });
 
-  const zoom = d3.zoom().scaleExtent([0.2, 3]).on("zoom", e => root.attr("transform", e.transform));
+  // hover: spotlight node + direct parents + direct children
+  nodeSel
+    .on("mouseenter", (event, d) => {
+      const hot = new Set([d.id, ...parents.get(d.id), ...children.get(d.id)]);
+      svg.classed("focusmode", true);
+      nodeSel.classed("hot", n => hot.has(n.id));
+      linkSel.classed("hot", l => {
+        const s = typeof l.source === "object" ? l.source.id : l.source;
+        const t = typeof l.target === "object" ? l.target.id : l.target;
+        return (s === d.id && hot.has(t)) || (t === d.id && hot.has(s));
+      });
+    })
+    .on("mouseleave", () => {
+      svg.classed("focusmode", false);
+      nodeSel.classed("hot", false);
+      linkSel.classed("hot", false);
+    });
+
+  // force simulation — tiers pinned in y, repulsion + collision in x
+  const sim = d3.forceSimulation(graph.nodes)
+    .force("y", d3.forceY(d => d.targetY).strength(1))
+    .force("x", d3.forceX(W / 2).strength(0.012))
+    .force("charge", d3.forceManyBody().strength(-60))
+    .force("link", d3.forceLink(graph.links).id(d => d.id).distance(0).strength(0.06))
+    .force("collide", d3.forceCollide(d => d.r + 7).strength(1).iterations(2))
+    .on("tick", ticked);
+  currentSim = sim;
+
+  function ticked() {
+    graph.nodes.forEach(n => { n.y = n.targetY + (n.y - n.targetY) * 0.5; }); // keep rows tight
+    linkSel.attr("d", d => {
+      const s = d.source, t = d.target;
+      const sy = s.y + s.h / 2, ty = t.y - t.h / 2;
+      const my = (sy + ty) / 2;
+      return `M${s.x},${sy} C${s.x},${my} ${t.x},${my} ${t.x},${ty}`;
+    });
+    nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
+  }
+
+  // drag
+  nodeSel.call(d3.drag()
+    .on("start", (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on("drag",  (e, d) => { d.fx = e.x; d.fy = e.y; })
+    .on("end",   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+  // zoom / pan
+  zoom = d3.zoom().scaleExtent([0.15, 4]).on("zoom", e => rootG.attr("transform", e.transform));
   svg.call(zoom);
-  const xs = graph.nodes.map(n => n.x), ys = graph.nodes.map(n => n.y), pad = 80;
+
+  // run a few hundred ticks off-screen, then fit
+  sim.alpha(1).restart();
+  for (let i = 0; i < 120; i++) sim.tick();
+  ticked();
+  fit(graph, W, H);
+}
+
+function fit(graph, W, H) {
+  const pad = 70;
+  const xs = graph.nodes.map(n => n.x), ys = graph.nodes.map(n => n.y);
   const minX = d3.min(xs) - pad, maxX = d3.max(xs) + pad;
   const minY = d3.min(ys) - pad, maxY = d3.max(ys) + pad;
-  const scale = Math.min(W / (maxX - minX), H / (maxY - minY), 1.2);
-  svg.call(zoom.transform,
+  const scale = Math.min(W / (maxX - minX), H / (maxY - minY), 1.3);
+  svg.transition().duration(400).call(zoom.transform,
     d3.zoomIdentity.translate((W - (minX + maxX) * scale) / 2, (H - (minY + maxY) * scale) / 2).scale(scale));
 }
 
 function buildLegend() {
   const items = [
     ["model","var(--c-model)"],["family","var(--c-family)"],
-    ["component config","var(--c-config)"],["model component","var(--c-component)"],
+    ["realm · component","var(--c-config)"],
     ["horizontal grid","var(--c-hgrid)"],["vertical grid","var(--c-vgrid)"],
     ["subgrid","var(--c-subgrid)"],["grid cell","var(--c-cell)"],
   ];
@@ -386,22 +471,19 @@ function buildLegend() {
 // ---------------------------------------------------------------------------
 // controls
 // ---------------------------------------------------------------------------
+let lastGraph = null;
 async function run() {
   const custom = document.getElementById("custom").value.trim();
   const sel = document.getElementById("model").value;
-  let id = custom || sel;
-  id = id.replace(/^model\//, "").replace(/\.json$/, "");   // accept "model/x" or "x"
+  let id = (custom || sel).replace(/^model\//, "").replace(/\.json$/, "");
   const depth = parseInt(document.getElementById("depth").value, 10) || 6;
   setStatus(`Resolving ${id} (depth ${depth})…`);
   try {
     cache.clear();
-    const graph = await buildGraph(id, depth);
-    render(graph);
-    setStatus(`${graph.nodes.length} nodes · ${graph.links.length} links · ${id}`);
-  } catch (e) {
-    console.error(e);
-    setStatus(`Error: ${e.message}`, true);
-  }
+    lastGraph = await buildGraph(id, depth);
+    render(lastGraph);
+    setStatus(`${lastGraph.nodes.length} nodes · ${lastGraph.links.length} links · ${id}`);
+  } catch (e) { console.error(e); setStatus(`Error: ${e.message}`, true); }
 }
 
 function init() {
@@ -412,7 +494,15 @@ function init() {
   sel.addEventListener("change", () => { document.getElementById("custom").value = ""; run(); });
   document.getElementById("go").addEventListener("click", run);
   document.getElementById("custom").addEventListener("keydown", e => { if (e.key === "Enter") run(); });
-  window.addEventListener("resize", run);
+
+  document.getElementById("zin").addEventListener("click", () => svg.transition().duration(200).call(zoom.scaleBy, 1.4));
+  document.getElementById("zout").addEventListener("click", () => svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.4));
+  document.getElementById("zfit").addEventListener("click", () => {
+    if (lastGraph) fit(lastGraph, document.getElementById("wrap").clientWidth, document.getElementById("wrap").clientHeight);
+  });
+
+  let rT;
+  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(run, 250); });
   run();
 }
 
