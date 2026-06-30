@@ -155,7 +155,10 @@ const KNOWN_MODELS = [
   "cnrm-esm2-1e", "ec-earth3-esm-1-1", "ukcm2-0-ll", "ukcm2a-0-hh",
 ];
 
+// `model_components` is the canonical field on a model file; older CNRM data
+// used `component_configs` for the same list — both are accepted.
 const FOLDER = {
+  "model_components":              "component_config",
   "component_configs":             "component_config",
   "horizontal_computational_grid": "horizontal_computational_grid",
   "vertical_computational_grid":   "vertical_computational_grid",
@@ -165,6 +168,7 @@ const FOLDER = {
   "family":                        "model_family",
 };
 const FIELD_TYPE = {
+  "model_components":              "component_config",
   "component_configs":             "component_config",
   "horizontal_computational_grid": "horizontal_computational_grid",
   "vertical_computational_grid":   "vertical_computational_grid",
@@ -175,7 +179,7 @@ const FIELD_TYPE = {
 
 const META = new Set(["@context","@type","@id","validation_key","ui_label",
   "description","alias","references","release_year","calendar","crs","name"]);
-const MODEL_META = new Set(["coupling_groups","omitted_components",
+const MODEL_META = new Set(["coupling_groups","coupled_components","omitted_components",
   "prescribed_components","dynamic_components","embedded_components","family"]);
 const INLINE_VOCAB = new Set(["arrangement","grid_mapping","grid_type",
   "cell_variable_type","vertical_coordinate","realm","units","region",
@@ -185,7 +189,8 @@ const SCALAR = new Set(["n_cells","n_z","n_z_range","x_resolution","y_resolution
   "bottom_layer_thickness","top_layer_thickness","total_thickness"]);
 
 const KEY_ORDER = ["horizontal_computational_grid","horizontal_subgrids",
-  "horizontal_grid_cell","vertical_computational_grid","component_configs"];
+  "horizontal_grid_cell","vertical_computational_grid",
+  "model_components","component_configs"];
 
 const TYPES = {
   "model":                         { color:"var(--c-model)",   tier:0,  fill:"#1f4e79", text:"#fff" },
@@ -249,14 +254,52 @@ function metaFor(type, n) {
 async function buildGraph(modelId, depth) {
   const model = await fetchJson("model", modelId);
 
-  const dyn = new Set((model.dynamic_components || []).map(nameOf).filter(Boolean));
+  // Every realm mentioned anywhere in the model file — used to extract the
+  // realm prefix from a component_config id (some models hyphenate compound
+  // realm names like "land-surface", others underscore them as "land_surface").
+  const knownRealms = new Set();
+  const flat = v => Array.isArray(v) ? v.flat(Infinity) : (v ? [v] : []);
+  for (const k of ["dynamic_components","prescribed_components","omitted_components"])
+    flat(model[k]).forEach(x => { const n = nameOf(x); if (n) knownRealms.add(n); });
+  for (const k of ["coupling_groups","coupled_components","embedded_components"])
+    flat(model[k]).forEach(x => { const n = nameOf(x); if (n) knownRealms.add(n); });
+
+  // Realms that show up in coupling_groups / coupled_components are the
+  // "host" realms — used to disambiguate embedded_components orientation.
+  const coupled = new Set();
+  for (const k of ["coupling_groups","coupled_components"])
+    flat(model[k]).forEach(x => { const n = nameOf(x); if (n) coupled.add(n); });
+
+  // Build [child -> parent] map from embedded_components.
+  // CNRM data uses [parent, child]; ACCESS uses [child, parent]; we detect
+  // orientation per-pair by checking which side is a coupled host realm.
   const embChild = new Map();
   (model.embedded_components || []).forEach(p => {
-    if (Array.isArray(p) && p.length === 2) {
-      const c = nameOf(p[1]), par = nameOf(p[0]);
-      if (c && par) embChild.set(c, par);
-    }
+    if (!Array.isArray(p) || p.length !== 2) return;
+    const a = nameOf(p[0]), b = nameOf(p[1]);
+    if (!a || !b) return;
+    let parent, child;
+    if (coupled.has(a) && !coupled.has(b))      { parent = a; child = b; }
+    else if (coupled.has(b) && !coupled.has(a)) { parent = b; child = a; }
+    else                                        { parent = a; child = b; }
+    embChild.set(child, parent);
   });
+  const dyn = new Set(flat(model.dynamic_components).map(nameOf).filter(Boolean));
+
+  // Extract the realm slug from a component_config id by matching the longest
+  // known realm prefix, tolerating "-" <-> "_" substitution.
+  function extractRealm(id) {
+    const candidates = [];
+    for (const r of knownRealms) {
+      candidates.push([r.length, r, r]);
+      if (r.includes("-")) candidates.push([r.length, r.replace(/-/g, "_"), r]);
+    }
+    candidates.sort((a, b) => b[0] - a[0]);
+    for (const [, prefix, realm] of candidates) {
+      if (id.startsWith(prefix + "_")) return realm;
+    }
+    return id.split(/[-_]/)[0];
+  }
 
   const nodes = new Map();
   const links = [];
@@ -295,7 +338,7 @@ async function buildGraph(modelId, depth) {
     const id = node["@id"];
 
     if (type === "component_config") {
-      const realm = id.split("_")[0];
+      const realm = extractRealm(id);
       let comp = nameOf(node.model_component);
       if (!comp && node.model_component) comp = vocab(node.model_component);
       add(id, type, [], {
