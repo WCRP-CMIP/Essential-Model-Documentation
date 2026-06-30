@@ -1,0 +1,18 @@
+{
+    "validation_key": "unified-model-v11.2",
+    "ui_label": "Unified Model v11.2",
+    "description": "The atmospheric component simulates the dynamical, thermodynamical, and physical processes of the atmosphere, including large-scale circulation, radiation, clouds, and convection, and provides the framework for the transport of tracers and interactions with other Earth system components.",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-1909-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "unified-model-v11.2"
+}
