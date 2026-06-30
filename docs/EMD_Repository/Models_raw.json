@@ -163,6 +163,62 @@
     "validation_key": "ec-earth3-esm-1-1"
   },
   {
+    "@id": "mri-esm3-4",
+    "@type": [
+      "emd",
+      "wcrp:model",
+      "esgvoc:Model"
+    ],
+    "calendar": "proleptic-gregorian",
+    "coupled_components": [
+      "atmosphere",
+      "aerosol",
+      "atmosphere",
+      "atmospheric-chemistry",
+      "atmosphere",
+      "ocean",
+      "aerosol",
+      "ocean",
+      "aerosol",
+      "atmospheric-chemistry"
+    ],
+    "description": "MRI-ESM3.4 is a fully coupled ESM developed by MRI/JMA. It consists of four major component models coupled through the Scup coupler: an atmospheric general circulation model (MRI-AGCM4.4) with embedded land surface processes (iSiB) and terrestrial biogeochemical processes (MRI-LPJ-LCF1.0), an ocean\u2013sea-ice general circulation model (MRI.COM version 5.4) with embedded ocean biogeochemical processes, an aerosol model (MASINGAR mk-3r2), and an atmospheric chemistry model (MRI-CCM3.2).  Land ice is specified and static.",
+    "dynamic_components": [
+      "atmosphere",
+      "aerosol",
+      "atmospheric-chemistry",
+      "land-surface",
+      "ocean",
+      "ocean-biogeochemistry",
+      "sea-ice"
+    ],
+    "embedded_components": [
+      "land-surface",
+      "atmosphere",
+      "sea-ice",
+      "ocean",
+      "ocean-biogeochemistry",
+      "ocean"
+    ],
+    "family": "./",
+    "model_components": [
+      "atmosphere_mri-agcm4-4_h126_v132",
+      "aerosol_masingar-mk-3r2_h127_v132",
+      "atmospheric-chemistry_mri-ccm3-2_h128_v132",
+      "land-surface_mri-agcm4-4-land-surface_h126_v131",
+      "ocean_mricom-5-4_h125_v130",
+      "ocean-biogeochemistry_mricom-5-4-ocean-biogeochemistry_h125_v130",
+      "sea-ice_mricom-5-4-sea-ice_h125"
+    ],
+    "name": "mri-esm3-4",
+    "omitted_components": [],
+    "prescribed_components": "land-ice",
+    "references": "https://doi.org/10.5281/zenodo.20839616",
+    "release_year": 2026,
+    "ui_label": "MRI-ESM3-4",
+    "validation_key": "mri-esm3-4"
+  },
+  {
     "@id": "ukcm2-0-ll",
     "@type": [
       "emd",
