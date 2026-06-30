@@ -514,6 +514,21 @@
     "validation_key": "colm2024"
   },
   {
+    "@id": "matrix",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
+    "component": "aerosol",
+    "description": "MATRIX aerosols. Mode based aerosol code for climate change applications.",
+    "family": "./",
+    "references": "https://dx.doi.org/10.5194/acp-8-6003-2008 https://dx.doi.org/10.1029/2019MS001978",
+    "ui_label": "MATRIX",
+    "validation_key": "matrix"
+  },
+  {
     "@id": "clm4",
     "@type": [
       "emd",
