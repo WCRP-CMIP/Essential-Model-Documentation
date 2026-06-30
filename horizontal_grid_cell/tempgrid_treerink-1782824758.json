@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_treerink-1782824758",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 360 x 180 degree resolution.",
+    "description": "A single grid cell for the entire globe.",
+    "alias": [],
+    "grid_mapping": "",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 1,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 360,
+    "y_resolution": 180,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_treerink-1782824758"
+}
