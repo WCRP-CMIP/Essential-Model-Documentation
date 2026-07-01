@@ -778,6 +778,21 @@
     "validation_key": "canam6-aerosol"
   },
   {
+    "@id": "giss-atmospheric-model-v3-1",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
+    "component": "atmosphere",
+    "description": "GISS Atmospheric Model. Flexible model top (0.1 hPa or 0.002 hPa), flexible composition (fixed, one-moment-aerosol, MATRIX aerosol, w/ or w/o G-PUCCINI chemistry). Focus on response to diverse climate forcing across range of time scales. v3 is based on a cubed sphere grid.",
+    "family": "./",
+    "references": "https://dx.doi.org/10.1002/2013MS000265 https://dx.doi.org/10.1029/2019MS002025",
+    "ui_label": "GISS Atmospheric Model v3.1",
+    "validation_key": "giss-atmospheric-model-v3-1"
+  },
+  {
     "@id": "pism-v1-2-line",
     "@type": [
       "emd",
