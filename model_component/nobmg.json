@@ -1,0 +1,18 @@
+{
+    "validation_key": "nobmg",
+    "ui_label": "NOBMg",
+    "description": "The ocean carbon cycle model is based on the NASA Ocean Biogeochemistry Model (NOBM), 166 originally developed at the NASA-Global Modeling and Assimilation Office  (Gregg and Casey 2007) and later coupled coupled to the GISS climate model under prescribed atmospheric concentrations (Romanou et al., 2013; 2014) and under prescribed emissions (Ito et al, 2020). The model includes four phytoplankton species (diatoms, chlorophytes, cyanobacteria, and coccolithophores), four nutrient species (nitrate, silicate, ammonia, and iron), three detrital pools (nitrate/carbon, silicate, and iron) and one heterotroph species (Fig. 2). Carbon cycling is represented through dissolved organic (DOC) and inorganic carbon (DIC), where carbonate chemistry is solved using MOCSY. Ocean carbon interacts with atmospheric CO2 through gas exchange parameterization, following the CMIP6 protocol. The current version of NOBM (NOBMg) has been expanded to include  oxygen and alkalinity (Lerner et al., 2021; 2024) and an updated treatment of iron scavenging.",
+    "code_base": "https://www.giss.nasa.gov/tools/modelE/index.html",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/egusphere-2025-4839 https://doi.org/10.1016/j.ocemod.2023.102303 https://doi.org/10.1029/2019MS002028 https://doi.org/10.5194/bg-11-1137-2014 https://doi.org/10.1016/j.ocemod.2013.01.008"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "nobmg"
+}
