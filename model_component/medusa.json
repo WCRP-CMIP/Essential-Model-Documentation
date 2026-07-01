@@ -1,0 +1,18 @@
+{
+    "validation_key": "medusa",
+    "ui_label": "MEDUSA",
+    "description": "MEDUSA (Model of Ecosystem Dynamics, nutrient Utilisation, Sequestration and Acidification) has been developed as an \"intermediate complexity\" plankton ecosystem model to study the biogeochemical response, and especially that of the so-called \"biological pump\", to anthropogenically driven change in the ocean.  This version of MEDUSA includes additional state variables for dissolved inorganic carbon, alkalinity, dissolved oxygen and detritus carbon (permitting variable C:N in exported organic matter), as well as a simple benthic formulation and extended parameterizations of phytoplankton growth, calcification and detritus remineralisation.",
+    "code_base": "private",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/gmd-6-1767-2013 https://doi.org/10.5194/gmd-14-3437-2021"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "medusa"
+}
