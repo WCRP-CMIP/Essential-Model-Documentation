@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_bnuweinan-1782384676",
+    "ui_label": "depth grid with 15 levels.",
+    "description": "The Vertical Computational Grid for defining soil states in the Common Land Model version2014.",
+    "bottom_layer_thickness": 13.8512,
+    "n_z": 15,
+    "n_z_range": "",
+    "top_layer_thickness": 0.0175,
+    "total_thickness": 42.1032,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_bnuweinan-1782384676"
+}
