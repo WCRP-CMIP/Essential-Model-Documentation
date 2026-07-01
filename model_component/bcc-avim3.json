@@ -1,0 +1,18 @@
+{
+    "validation_key": "bcc-avim3",
+    "ui_label": "BCC-AVIM3",
+    "description": "BCC‑AVIM3 is an upgraded version of BCC‑AVIM2, serving as the land surface component of BCC‑CSM2. It comprises three sub‑modules that simulate biogeophysical, ecophysiological, and soil carbon–nitrogen dynamic processes. The terrestrial carbon cycle is represented through a series of biochemical and physiological processes associated with vegetation photosynthesis and respiration. Carbohydrate allocation to leaves, stems, and roots varies seasonally, depending on the prognostic leaf area index (LAI). Parameterization in BCC‑AVIM3 has been improved in several key areas, including snow cover, soil freeze–thaw dynamics, rice paddy fields and ground energy balance. Additional enhancements include the treatment of organic matter and a prognostic phenology scheme based on the carbon budget of plant functional types.",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https:// doi: 10.1007/s13351-019-9016-y https://doi.org/10.1016/j.accre.2023.02.001"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "bcc-avim3"
+}
