@@ -1,0 +1,18 @@
+{
+    "validation_key": "cam-ice1",
+    "ui_label": "CAM-ICE1",
+    "description": "CAM-ICE1.0 is developed by Fang et al (2022) based on the the Sea Ice Simulator (SIS; Winton 2000), but the vertical resolution is increased to four layers. Sea ice is divided into five categories according to thickness. The redistribution between different sea ice types is based on a simple enthalpy conservation principle. The effect of snow heat capacity parameterization schemes for vertical salinity profile and heat conductivity of sea ice are introduced. Modified parameterizations for lateral melting and collection thickness of new ice are included to improve the Antarctic sea ice simulations (Fang et al., 2023, 2024).",
+    "code_base": "private",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1016/j.ocemod.2022.102096 https://doi.org/10.1088/1748-9326/acfe20 https://doi.org/10.1029/2024GL110166"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam-ice1"
+}
