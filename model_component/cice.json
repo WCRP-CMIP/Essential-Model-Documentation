@@ -1,0 +1,18 @@
+{
+    "validation_key": "cice",
+    "ui_label": "CICE",
+    "description": "This is the sea-ice component of the HadGEM3-GC3.1 physical climate model, and of the UKESM1 Earth System Model.  The inclusion of multi-layer thermodynamics has required a semi-implicit coupling scheme between atmosphere and sea ice to ensure the stability of the solver.",
+    "code_base": "private",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/gmd-11-713-2018"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cice"
+}
