@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_matsbn-1782344969",
+    "ui_label": "land-ice-sigma-coordinate grid with 11 levels.",
+    "description": "The sigma coordinate is layer height above the base of the ice sheet, normalised by the local ice thickness. Top layer thickness, bottom layer thickness and total thickness are unspecified because they may vary temporally.",
+    "bottom_layer_thickness": "",
+    "n_z": 11,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "land-ice-sigma-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_matsbn-1782344969"
+}
