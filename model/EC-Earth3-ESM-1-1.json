@@ -1,0 +1,87 @@
+{
+    "validation_key": "EC-Earth3-ESM-1-1",
+    "ui_label": "EC-Earth3-ESM-1-1",
+    "description": "1. Dynamic included components are: Atmosphere (with an embedded soil component), Ocean (with embedded Sea Ice & Ocean Biogeochemistry components) , Land Surface & Subsurface Vegetation, Land Ice for Greenland. An emulator for simulating the Antarctic freshwater flux (on the ocean grid) and a simple yet fast atmosphere CO2 box model  (one global grid point) that replaces the CO2-only version of the TM5 model as a CO2 tracer transport model for closing the carbon cycle. 2. The Atmospheric Chemistry and Aerosols are prescribed. 3. The Antarctic Ice sheet is not modeled itself.",
+    "calendar": [
+        "proleptic-gregorian"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "atmosphere",
+            "land surface and subsurface"
+        ],
+        [
+            "atmosphere",
+            "land ice"
+        ],
+        [
+            "ocean",
+            "land ice"
+        ]
+    ],
+    "dynamic_components": [
+        "atmosphere",
+        "ocean",
+        "land surface and subsurface",
+        "land ice",
+        "sea ice",
+        "ocean biogeochemistry"
+    ],
+    "embedded_components": [
+        [
+            "sea ice",
+            "ocean"
+        ],
+        [
+            "ocean biogeochemistry",
+            "ocean"
+        ],
+        [
+            "land surface and subsurface",
+            "atmosphere"
+        ]
+    ],
+    "family": "ec-earth",
+    "model_components": [
+        "atmosphere_ifs-cy36r4-l91_h112_v110",
+        "ocean_nemo-v3-6_h101_v102",
+        "lpj-guess-4-1_h112_v112"
+    ],
+    "name": "EC-Earth3-ESM-1-1",
+    "omitted_components": [
+        "land ice"
+    ],
+    "prescribed_components": [
+        "aerosol",
+        "atmospheric chemistry"
+    ],
+    "references": [
+        "A",
+        "description",
+        "paper",
+        "for",
+        "the",
+        "EC-Earth3-ESM-1",
+        "model",
+        "configuration",
+        "is",
+        "in",
+        "preparation",
+        "(submission",
+        "medio",
+        "2026).",
+        "https://doi.org/10.5194/gmd-15-2973-2022"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "ec-earth3-esm-1-1"
+}
