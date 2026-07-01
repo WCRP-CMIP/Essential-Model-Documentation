@@ -373,6 +373,21 @@
     "validation_key": "openifs-48r1"
   },
   {
+    "@id": "fesim2",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads",
+    "component": "sea-ice",
+    "description": "1. The FESIM2 sea-ice component simulates sea-ice dynamics. Sea ice thermodynamics (heat transfer through sea ice, melting, freezing etc) is handled by the atmosphere model ICON-A on the atmosphere grid. 2. FESIM2 solves the elastic-viscous-plastic (EVP) equations for sea ice evolution. FESIM2 operates with a single sea-ice layer (i.e. there is no \"vertical grid\"). 3. Fine-tuning of the ocean heat content was done using the parameters governing sea ice albedo",
+    "family": "./",
+    "references": "https://doi.org/10.1016/j.jcp.2020.110086 https://doi.org/10.5194/gmd-8-1747-2015",
+    "ui_label": "FESIM2",
+    "validation_key": "fesim2"
+  },
+  {
     "@id": "mricom-5-4-sea-ice",
     "@type": [
       "emd",
