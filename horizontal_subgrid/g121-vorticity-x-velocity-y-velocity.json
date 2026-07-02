@@ -1,0 +1,18 @@
+{
+    "validation_key": "g121-vorticity-x-velocity-y-velocity",
+    "ui_label": "",
+    "description": "",
+    "cell_variable_type": [
+        "vorticity",
+        "x-velocity",
+        "y-velocity"
+    ],
+    "horizontal_grid_cells": "g121",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g121-vorticity-x-velocity-y-velocity"
+}
