@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_mdeushiMRI-1782976686",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.0 x 1.0 degree resolution.",
+    "description": "A regular latitude–longitude grid with 1-degree spacing, used for World Ocean Atlas climatological ocean data.",
+    "alias": [
+        "WOA1x1"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 64800,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.5,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.5,
+    "x_resolution": 1,
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_mdeushiMRI-1782976686"
+}
