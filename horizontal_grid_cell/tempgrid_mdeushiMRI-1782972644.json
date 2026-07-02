@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_mdeushiMRI-1782972644",
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type and 1.125 x 1.12 degree resolution.",
+    "description": "The Y resolution varies within the range of 1.11209 to 1.12149 degrees.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 51200,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.14152,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.125,
+    "y_resolution": 1.12,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_mdeushiMRI-1782972644"
+}
