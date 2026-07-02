@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_volodin1-1781518992",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.25 x 1.0 degree resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 51840,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.5,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 180,
+    "x_resolution": 1.25,
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid-volodin1-1781518992"
+}
