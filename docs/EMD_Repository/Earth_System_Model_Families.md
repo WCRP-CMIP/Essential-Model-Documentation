@@ -119,7 +119,7 @@
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-07-01 14:25 UTC</span>
+    <span class="emd-stat-value">2026-07-03 15:50 UTC</span>
   </div>
 </div>
 
