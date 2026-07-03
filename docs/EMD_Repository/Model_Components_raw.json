@@ -559,6 +559,21 @@
     "validation_key": "colm2024"
   },
   {
+    "@id": "jules-vn5-1",
+    "@type": [
+      "emd",
+      "wcrp:model_component",
+      "esgvoc:ModelComponent"
+    ],
+    "code_base": "private",
+    "component": "land-surface",
+    "description": "The Joint UK Land Environment Simulator (JULES) is the land surface scheme of the UK Earth System Model (UKESM).    JULES vn5.1 incorporates an implementation of the terrestrial nitrogen cycle. The inclusion of a prognostic land N scheme marks a step forward in functionality and realism for the JULES and UKESM models.",
+    "family": "jules",
+    "references": "https://doi.org/10.5194/gmd-4-677-2011 https://doi.org/10.5194/gmd-4-701-2011 https://doi.org/10.5194/gmd-14-2161-2021",
+    "ui_label": "JULES vn5.1",
+    "validation_key": "jules-vn5-1"
+  },
+  {
     "@id": "matrix",
     "@type": [
       "emd",
