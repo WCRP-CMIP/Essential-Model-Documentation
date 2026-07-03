@@ -1,0 +1,28 @@
+{
+    "validation_key": "LICOM",
+    "ui_label": "LICOM",
+    "description": "The LICOM ocean general circulation model is a global ocean circulation model independently developed by the Ocean Modelling Group at the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). It aims to provide a numerical ocean model capable of simulating large-scale wind-driven circulation and thermohaline circulation, serving as the oceanic component of coupled climate models (referred to as the climate ocean model). LICOM is based on the primitive equations, continuity equation, equation of state of seawater, and conservation equations for temperature and salinity. Under given initial and boundary conditions, it is numerically solved using the finite difference method. After more than 30 years of continuous development, LICOM has now reached its third version (LICOM3), which features multiple resolutions and parameterization schemes.",
+    "collaborative_institutions": "",
+    "established": null,
+    "family_type": "component",
+    "primary_institution": "cas the institute of atmospheric physics (iap), chinese academy of sciences (cas)",
+    "references": [
+        "https://doi.org/10.1007/s00376-019-9208-5",
+        "https://doi.org/10.1007/s13351-012-0305-y",
+        "https://doi.org/10.1016/j.ocemod.2022.102063",
+        "https://doi.org/10.1007/s00376-020-0150-3",
+        "https://doi.org/10.1007/s00376-020-0057-z"
+    ],
+    "representative_member": "LICOM3",
+    "scientific_domains": [
+        "ocean"
+    ],
+    "website": "https://earthlab-data.iap.ac.cn/LFS/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "LICOM"
+}
