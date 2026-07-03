@@ -1,0 +1,18 @@
+{
+    "validation_key": "metum-ga7-1",
+    "ui_label": "MetUM-GA7.1",
+    "description": "We describe Global Atmosphere 7.0 and Global Land 7.0 (GA7.0/GL7.0), the latest science configurations of the Met Office Unified Model (UM) and the Joint UK Land Environment Simulator (JULES) land surface model developed for use across weather and climate timescales. GA7.0 and GL7.0 include incremental developments and targeted improvements that, between them, address four critical errors identified in previous configurations: excessive precipitation biases over India, warm and moist biases in the tropical tropopause layer (TTL), a source of energy non-conservation in the advection scheme and excessive surface radiation biases over the Southern Ocean. They also include two new parametrisations, namely the UK Chemistry and Aerosol (UKCA) GLOMAP-mode (Global Model of Aerosol Processes) aerosol scheme and the JULES multi-layer snow scheme, which improve the fidelity of the simulation and were required for inclusion in the Global Atmosphere/Global Land configurations ahead of the 6th Coupled Model Intercomparison Project (CMIP6).  In addition, we describe the GA7.1 branch configuration, which reduces an overly negative anthropogenic aerosol effective radiative forcing (ERF) in GA7.0 whilst maintaining the quality of simulations of the present-day climate. GA7.1/GL7.0 will form the physical atmosphere/land component in the HadGEM3–GC3.1 and UKESM1 climate model submissions to the CMIP6.",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "metum",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-1909-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "metum-ga7-1"
+}
