@@ -1,0 +1,18 @@
+{
+    "validation_key": "hd-hydrological-discharge",
+    "ui_label": "HD hydrological discharge",
+    "description": "1. The HD model simulates the global river discharge. 2. HD separates the lateral water flow into the three flow processes of overland flow, baseflow, and riverflow. Overland flow and baseflow represent the fast and slow lateral flow processes within a grid box, while riverflow represents the lateral flow between grid boxes. 3. HD assumes \"rivers\" to exist in Antarctica and Greenland, to compensate for the absence of glacial flow in the ICON model. This assumption is necessary to close the water budget.",
+    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads  ## References  Hagemann, S., Dümenil, L. A parametrization of the lateral waterflow for the global scale. Climate Dynamics 14, 17–31 (1997). https://doi.org/10.1007/s003820050205 Hagemann, S., and L. D. Gates (2001), Validation of the hydrological cycle of ECMWF and NCEP reanalyses using the MPI hydrological discharge model, J. Geophys. Res., 106(D2), 1503–1510, doi:10.1029/2000JD900568.",
+    "component": "",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s003820050205 https://doi.org/10.1029/2000JD900568"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hd-hydrological-discharge"
+}
