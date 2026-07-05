@@ -10,6 +10,8 @@ import { el, clear } from "./dom.js";
 import { mountHeader } from "./components/header.js";
 import { mountOverview } from "./components/overview.js";
 import { mountComponents } from "./components/components-grid.js";
+import { mountLinkedInfo } from "./components/linked-info.js";
+import { mountGrids } from "./components/grids.js";
 import { mountReferences } from "./components/references.js";
 import { mountCrsDiagram } from "./components/crs-diagram.js";
 import { mountHierarchy } from "./components/hierarchy.js";
@@ -63,20 +65,24 @@ async function main() {
     renderHeader(models);
     window._rerenderPicker = list => { models = list; if (current) renderHeader(list); };
 
-    // body grid
+    // body — single column, references inline after the components
     const body = el("div", { class: "page-body" }); shell.appendChild(body);
     const colMain = el("div", { class: "col-main" });
-    const colSide = el("div", { class: "col-side" });
-    body.appendChild(colMain); body.appendChild(colSide);
+    body.appendChild(colMain);
 
     mountOverview(colMain, model);
     mountCrsDiagram(colMain, model);
     mountComponents(colMain, model, { base: BASE });
-    mountReferences(colSide, model);
+    mountReferences(colMain, model);
 
     // hierarchy spans full width below
     const full = el("div", { class: "page-full" }); shell.appendChild(full);
     mountHierarchy(full, { modelId: current, base: BASE, depth: DEPTH });
+
+    // linked records + grids (async — resolve component_config → model_component
+    // → component family, and the grids each component uses)
+    mountLinkedInfo(full, model, { base: BASE });
+    mountGrids(full, model, { base: BASE });
   }
 
   window.addEventListener("popstate", () => {

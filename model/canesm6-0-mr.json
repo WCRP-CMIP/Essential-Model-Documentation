@@ -1,6 +1,6 @@
 {
     "validation_key": "CanESM6-0-MR",
-    "ui_label": "CanESM6-0-MR",
+    "ui_label": "CanESM6.0-MR",
     "description": "CanESM6-0-MR is a fully coupled ESM developed by CCCma with a nominal resolution of 1 degree. It includes the Canadian Atmospheric Model version 6 (CanAM6), based on the GEM dynamical core and Yin Yang grids, with the Canadian Land Surface Scheme including Biogeochemical Cycles (CLASSICv1.5) embedded. The ocean is represented via an adapted version of the NEMO4.2.2 ocean model with the Canadian Model of Ocean Carbon (CMOC) and the NEMO Sea Ice Engine (SI3) embedded on the eORCA1 grid. The model components are coupled together based on a bespoke Canadian Coupler (CanCPL), built on the ESMF infrastructure. This version of the model does not simulate prognostic atmospheric-chemistry. Land ice is specified and static.",
     "calendar": [
         "365-day"

@@ -22,14 +22,17 @@ const TYPES = {
   "model":                         { tier: 0,  fill: "#1f4e79", stroke: "#1f4e79", text: "#fff" },
   "model_family":                  { tier: -1, fill: "#efe3ff", stroke: "#6a3aa8", text: "#3a1b5e" },
   "component_config":              { tier: 1,  fill: "#ffffff", stroke: "#2b3a55", text: "#14223a" },
-  "vertical_computational_grid":   { tier: 2,  fill: "#e3f0fb", stroke: "#4a90d9", text: "#14223a" },
-  "horizontal_computational_grid": { tier: 3,  fill: "#d3e6fb", stroke: "#1565c0", text: "#14223a" },
-  "horizontal_subgrid":            { tier: 4,  fill: "#ffffff", stroke: "#6b7280", text: "#14223a" },
-  "horizontal_grid_cell":          { tier: 5,  fill: "#e3f3e9", stroke: "#2d6a4f", text: "#14223a" },
+  "model_component":               { tier: 2,  fill: "#fff3e0", stroke: "#c77d24", text: "#5a3d10" },
+  "component_family":              { tier: 3,  fill: "#efe3ff", stroke: "#6a3aa8", text: "#3a1b5e" },
+  "vertical_computational_grid":   { tier: 4,  fill: "#e3f0fb", stroke: "#4a90d9", text: "#14223a" },
+  "horizontal_computational_grid": { tier: 5,  fill: "#d3e6fb", stroke: "#1565c0", text: "#14223a" },
+  "horizontal_subgrid":            { tier: 6,  fill: "#ffffff", stroke: "#6b7280", text: "#14223a" },
+  "horizontal_grid_cell":          { tier: 7,  fill: "#e3f3e9", stroke: "#2d6a4f", text: "#14223a" },
 };
-const ROW_NAME = { "-1": "family", "0": "model", "1": "realm · component",
-  "2": "vertical grid", "3": "horizontal grid", "4": "subgrid", "5": "grid cell" };
-const LEFT_RAIL = 80;
+const ROW_NAME = { "-1": "family", "0": "model", "1": "realm · config",
+  "2": "component", "3": "component family",
+  "4": "vertical grid", "5": "horizontal grid", "6": "subgrid", "7": "grid cell" };
+const LEFT_RAIL = 120;
 
 const vocab = v =>
   typeof v === "string" ? short(v)
@@ -116,9 +119,29 @@ async function buildGraph(resolver, modelId, depth) {
     const id = node["@id"];
     if (type === "component_config") {
       const realm = REALM_OF(id);
-      let comp = nameOf(node.model_component); if (!comp && node.model_component) comp = vocab(node.model_component);
-      add(id, type, [], { label: realm, inside: comp || "", realm, embedded: embChild.has(realm) });
+      const compId = nameOf(node.model_component);
+      add(id, type, [], { label: realm, realm, embedded: embChild.has(realm) });
       if (parentId && parentId !== id) link(parentId, id);
+
+      // model_component as its own node, and its component family beyond that.
+      if (compId) {
+        let compDoc = null;
+        if (d > 0) { try { compDoc = await resolver.fetchDoc("model_component", compId); } catch (_) {} }
+        add(compId, "model_component",
+            compDoc ? [compDoc.component ? vocab(compDoc.component) : ""].filter(Boolean) : [],
+            { label: (compDoc && (compDoc.name || compDoc.ui_label)) ? (compDoc.name || compDoc.ui_label) : compId });
+        link(id, compId);
+        const cfam = compDoc && nameOf(compDoc.family);
+        if (cfam) {
+          let famDoc = null;
+          if (d > 1) { try { famDoc = await resolver.fetchDoc("model_family", cfam); } catch (_) {} }
+          add(cfam, "component_family",
+              famDoc && famDoc.primary_institution ? [vocab(famDoc.primary_institution)] : [],
+              { label: (famDoc && (famDoc.ui_label || famDoc.validation_key)) ? (famDoc.ui_label || famDoc.validation_key) : cfam });
+          link(compId, cfam);
+        }
+      }
+
       for (const k of ["horizontal_computational_grid", "vertical_computational_grid"])
         if (node[k] !== undefined) await walk(node[k], id, k, d - 1);
       return;
@@ -172,16 +195,24 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
 
   const wrap = document.createElement("section");
   wrap.className = "card hierarchy";
-  wrap.innerHTML = `<h2 class="card-title">Grid hierarchy</h2>
-    <p class="card-sub">Model → realm · component → vertical &amp; horizontal grids → subgrids → grid cells.
-    Hover any node to highlight its parents and children; embedded realms are wrapped in a dashed nest; dashed arcs show couplings.</p>`;
+  wrap.innerHTML = `<h2 class="card-title">EMD schema</h2>
+    <dl class="h-key">
+      <dt>structure</dt><dd>Model → realm · component → vertical &amp; horizontal grids → subgrids → grid cells</dd>
+      <dt>hover</dt><dd>highlights a node's parents and children</dd>
+      <dt>dashed nest</dt><dd>embedded realms wrapped inside their host</dd>
+      <dt>dashed arc</dt><dd>couplings between realms</dd>
+    </dl>`;
   const holder = document.createElement("div");
   holder.className = "hierarchy-canvas";
   const svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   holder.appendChild(svgEl);
   const zoombar = document.createElement("div");
   zoombar.className = "hierarchy-zoom";
-  zoombar.innerHTML = `<button data-z="in">+</button><button data-z="out">−</button><button data-z="fit">FIT</button>`;
+  zoombar.innerHTML = `<button data-z="in" title="Zoom in" aria-label="Zoom in">+</button>` +
+    `<button data-z="out" title="Zoom out" aria-label="Zoom out">−</button>` +
+    `<button data-z="fit" title="Fit to view" aria-label="Fit to view">` +
+      `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">` +
+      `<path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/></svg></button>`;
   holder.appendChild(zoombar);
   wrap.appendChild(holder);
   root.appendChild(wrap);
@@ -331,7 +362,8 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
   }
 
   zoombar.addEventListener("click", e => {
-    const z = e.target.dataset.z; if (!z) return;
+    const btn = e.target.closest("button"); if (!btn) return;
+    const z = btn.dataset.z; if (!z) return;
     if (z === "in") svg.transition().duration(200).call(zoom.scaleBy, 1.4);
     else if (z === "out") svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.4);
     else if (z === "fit" && holder._fit) holder._fit();
