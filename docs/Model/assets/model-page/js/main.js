@@ -38,7 +38,7 @@ async function main() {
   let models = FALLBACK.slice();
   resolver.modelList().then(list => { if (list.length) { models = list; if (window._rerenderPicker) window._rerenderPicker(list); } }).catch(() => {});
 
-  let current = norm(PARAMS.get("model") || PARAMS.get("id")) || "cnrm-esm2-1e";
+  let current = norm(PARAMS.get("model") || PARAMS.get("id")) || "ec-earth3-esm-1-1";
 
   async function load(id) {
     current = norm(id);
@@ -81,8 +81,8 @@ async function main() {
     await mountModelFamily(full, model, { base: BASE });
     mountHierarchy(full, { modelId: current, base: BASE, depth: DEPTH });
     await mountComponentsDetail(full, model, { base: BASE });
-    mountGrids(full, model, { base: BASE });
-    mountRawJson(full, model, { base: BASE });
+    await mountGrids(full, model, { base: BASE });
+    mountRawJson(full, model, { base: BASE });   // always the very last section
   }
 
   window.addEventListener("popstate", () => {

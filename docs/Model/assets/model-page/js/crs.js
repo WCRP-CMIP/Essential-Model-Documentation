@@ -22,17 +22,18 @@ export const CANONICAL_ORDER = ["A", "Ac", "Ae", "Li", "L", "O", "Ob", "Si"];
 
 // Per-realm label + accent colour — the single source of truth for realm
 // colours across the whole page (CRS spheres, hierarchy nodes, component rows,
-// grid "used by" tags, etc.). Palette is chosen to be mutually distinct and to
-// avoid clashing with the terracotta coupling colour (--coupling).
+// grid "used by" tags, etc.). This is the documentation's earth-tone spectral
+// palette, matching docs/stylesheets/scientific_domains.css (.sd-* tokens):
+// a warm→cool ramp running atmosphere (terracotta) → land (green) → ocean (teal).
 export const REALM_META = {
-  "atmosphere":            { label: "Atmosphere",             color: "#4a90d9" },  // sky blue
-  "atmospheric-chemistry": { label: "Atmospheric chemistry",  color: "#8e7cc3" },  // violet
-  "aerosol":               { label: "Aerosol",                color: "#d9a441" },  // amber
-  "land-surface":          { label: "Land surface",           color: "#5a9e6f" },  // green
-  "land-ice":              { label: "Land ice",               color: "#9dc3d4" },  // pale ice
-  "ocean":                 { label: "Ocean",                  color: "#2f6f9f" },  // deep blue
-  "ocean-biogeochemistry": { label: "Ocean biogeochemistry",  color: "#3f8f8f" },  // teal
-  "sea-ice":               { label: "Sea ice",                color: "#7fc4d6" },  // cyan
+  "atmosphere":            { label: "Atmosphere",             color: "#e76f51" },  // terracotta
+  "atmospheric-chemistry": { label: "Atmospheric chemistry",  color: "#f4a261" },  // sandy orange
+  "aerosol":               { label: "Aerosol",                color: "#e9c46a" },  // gold
+  "land-surface":          { label: "Land surface",           color: "#8ab17d" },  // sage green
+  "land-ice":              { label: "Land ice",               color: "#7cadbe" },  // dusty blue
+  "ocean":                 { label: "Ocean",                  color: "#264653" },  // deep teal-navy
+  "ocean-biogeochemistry": { label: "Ocean biogeochemistry",  color: "#287271" },  // teal
+  "sea-ice":               { label: "Sea ice",                color: "#2a9d8f" },  // green-teal
 };
 
 // Convenience: plain {realm-name: colour} and {CODE: colour} maps, in case a

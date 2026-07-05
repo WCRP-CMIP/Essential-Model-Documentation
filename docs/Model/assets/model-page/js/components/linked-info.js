@@ -9,7 +9,7 @@
 //   mountModelFamily      — "Model family" card
 //   mountComponentsDetail — "Components in detail" card (one row per realm)
 
-import { el, card, refNode } from "../dom.js";
+import { el, card, refNode, mdToHtml, clampedMd } from "../dom.js";
 import { Resolver, short } from "../resolver.js";
 import { realmLabel, realmColor, toCode } from "../crs.js";
 
@@ -18,28 +18,6 @@ const isNone = v => { const s = clean(v).toLowerCase(); return !s || s === "none
 const orgLabel = id => short(id).replace(/-/g, " ").toUpperCase();
 
 const REALM_OF = id => String(id).split("_")[0];
-
-// Truncated description that expands on click.
-const TRUNCATE = 220;
-function truncatedDesc(text) {
-  const full = clean(text);
-  if (!full) return null;
-  if (full.length <= TRUNCATE) return el("p", { class: "comp-desc" }, full);
-  const p = el("p", { class: "comp-desc clamped" });
-  const short = full.slice(0, TRUNCATE).replace(/\s+\S*$/, "") + "…";
-  const textNode = document.createTextNode(short);
-  const toggle = el("button", { class: "desc-toggle", type: "button" }, "more");
-  let expanded = false;
-  toggle.addEventListener("click", e => {
-    e.preventDefault(); e.stopPropagation();
-    expanded = !expanded;
-    textNode.textContent = expanded ? full + " " : short;
-    toggle.textContent = expanded ? "less" : "more";
-    p.classList.toggle("clamped", !expanded);
-  });
-  p.appendChild(textNode); p.appendChild(toggle);
-  return p;
-}
 
 function familyCard(fam) {
   if (!fam) return null;
@@ -66,7 +44,7 @@ function familyCard(fam) {
       el("span", { class: "family-name" }, fam.ui_label || fam.validation_key || short(fam["@id"])),
       links.length ? el("span", { class: "family-links" }, links) : null,
     ]),
-    !isNone(fam.description) ? el("p", { class: "family-desc" }, fam.description) : null,
+    !isNone(fam.description) ? el("div", { class: "family-desc", html: mdToHtml(fam.description) }) : null,
     rows.length ? el("dl", { class: "kv" }, rows.flatMap(([k, v]) => [
       el("dt", {}, k), el("dd", {}, v),
     ])) : null,
@@ -96,7 +74,7 @@ function componentRow(realm, comp, compFamily, base, ccId) {
       el("span", { class: "comp-realm" }, realmLabel(realm)),
       comp ? el("span", { class: "comp-name" }, comp.name || comp.ui_label || short(comp["@id"])) : null,
     ]),
-    comp ? truncatedDesc(comp.description) : null,
+    comp ? clampedMd(comp.description, { lines: 2, cls: "comp-desc" }) : null,
     el("div", { class: "comp-meta" }, [
       compFamily ? el("span", { class: "comp-tag" }, [
         el("span", { class: "kv-key" }, "family"),

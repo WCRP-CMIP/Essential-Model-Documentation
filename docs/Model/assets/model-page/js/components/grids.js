@@ -7,7 +7,7 @@
 // its variable type, grid type and resolution) for H grids; level/coordinate
 // facts for V grids.
 
-import { el, card } from "../dom.js";
+import { el, card, clampedMd } from "../dom.js";
 import { Resolver, short } from "../resolver.js";
 import { realmLabel, realmColor } from "../crs.js";
 
@@ -38,12 +38,12 @@ function hGridCard(id, doc, subgrids, usedBy) {
   if (!isNone(doc.arrangement)) rows.push(["Arrangement", vocabLabel(doc.arrangement)]);
 
   const body = [
-    !isNone(doc.description) ? el("p", { class: "grid-desc" }, doc.description) : null,
+    clampedMd(doc.description, { lines: 2, cls: "grid-desc" }),
     rows.length ? el("dl", { class: "kv kv-tight" }, rows.flatMap(([k, v]) => [
       el("dt", {}, k), el("dd", {}, v),
     ])) : null,
-    subgrids.length ? el("div", { class: "subgrid-block" }, [
-      el("div", { class: "subgrid-head" }, subgrids.length === 1 ? "1 subgrid" : `${subgrids.length} subgrids`),
+    subgrids.length ? el("details", { class: "subgrid-block" }, [
+      el("summary", { class: "subgrid-head" }, subgrids.length === 1 ? "1 subgrid" : `${subgrids.length} subgrids`),
       el("ul", { class: "subgrid-list" }, subgrids.map(subgridRow)),
     ]) : null,
   ];
@@ -54,14 +54,24 @@ function vGridCard(id, doc, usedBy) {
   const rows = [];
   if (Number.isFinite(doc.n_z)) rows.push(["Levels", String(doc.n_z)]);
   if (!isNone(doc.vertical_coordinate)) rows.push(["Coordinate", vocabLabel(doc.vertical_coordinate)]);
-  if (Number.isFinite(doc.top_layer_thickness)) rows.push(["Top layer", `${doc.top_layer_thickness} m`]);
-  if (Number.isFinite(doc.bottom_layer_thickness)) rows.push(["Bottom layer", `${doc.bottom_layer_thickness} m`]);
-  if (Number.isFinite(doc.total_thickness)) rows.push(["Total depth", `${(doc.total_thickness / 1000).toFixed(1)} km`]);
+
+  // Layer thicknesses grouped into a collapsed "Layer info" box.
+  const layerRows = [];
+  if (Number.isFinite(doc.top_layer_thickness)) layerRows.push(["Top layer", `${doc.top_layer_thickness} m`]);
+  if (Number.isFinite(doc.bottom_layer_thickness)) layerRows.push(["Bottom layer", `${doc.bottom_layer_thickness} m`]);
+  if (Number.isFinite(doc.total_thickness)) layerRows.push(["Total depth", `${(doc.total_thickness / 1000).toFixed(1)} km`]);
+
   const body = [
-    !isNone(doc.description) ? el("p", { class: "grid-desc" }, doc.description) : null,
+    clampedMd(doc.description, { lines: 2, cls: "grid-desc" }),
     rows.length ? el("dl", { class: "kv kv-tight" }, rows.flatMap(([k, v]) => [
       el("dt", {}, k), el("dd", {}, v),
     ])) : null,
+    layerRows.length ? el("details", { class: "subgrid-block" }, [
+      el("summary", { class: "subgrid-head" }, "Layer info"),
+      el("dl", { class: "kv kv-tight" }, layerRows.flatMap(([k, v]) => [
+        el("dt", {}, k), el("dd", {}, v),
+      ])),
+    ]) : null,
   ];
   return gridCard("vertical", id, doc, body, usedBy);
 }
