@@ -1,6 +1,6 @@
 {
     "validation_key": "CanESM5-1",
-    "ui_label": "CanESM5-1",
+    "ui_label": "CanESM5.1",
     "description": "CanESM5-1 is a fully coupled atmosphere-ocean-land ESM, which is scientifically very similar to CanESM5, and includes major technical upgrades within the model components, as well as addressing some key scientific issues, like stratospheric dust spikes.",
     "calendar": [
         "365-day"
@@ -38,13 +38,14 @@
         ]
     ],
     "family": "canesm",
+    "crs": "A[AeL](O)O[ObSi]Ac^Li^",
     "model_components": [
         "atmosphere_canam5-1_h108_v114",
         "aerosol_canam5-1-aerosol_h108_v114",
-        "land_surface_class-ctem-v3.6.2_h108_v120",
+        "land-surface_class-ctem-v3-6-2_h108_v120",
         "ocean_cannemo5-1_h111_v133",
         "ocean-biogeochemistry_cmoc_h111_v133",
-        "sea_ice_lim2_h111_v124"
+        "sea-ice_lim2_h111_v124"
     ],
     "name": "CanESM5-1",
     "omitted_components": [],

@@ -1,6 +1,6 @@
 {
     "validation_key": "AWI-ESM3-4-2-veg-HR",
-    "ui_label": "AWI-ESM3-4-2-veg-HR",
+    "ui_label": "AWI-ESM3.4.2-veg-HR",
     "description": "AWI-ESM3-veg is the third generation of the AWI Earth System Model, configured here in its high resolution variant with dynamic vegetation. It is a successor to the AWI-CM3 system described in Streffing et al. (2022, doi:10.5194/gmd-15-6399-2022), now with updated atmosphere and ocean cycles plus the addition of LPJ-GUESS for dynamic vegetation. The components are coupled through OASIS3-MCT5.  1. Dynamic components Atmosphere: OpenIFS 48r1 on a TCO319 reduced Gaussian grid with 137 hybrid sigma-pressure levels. Ocean: FESOM2.7 on the DARS2 unstructured triangular mesh of about 3.15 M surface vertices and 6.23 M elements, on 57 z-levels. Horizontal resolution varies from about 5 km in dynamically active regions to about 25 km in the bulk interior. Sea ice: FESIM2.7 with zero-layer thermodynamics, embedded in FESOM2 and sharing its surface mesh. Land surface and dynamic vegetation: LPJ-GUESS 4.1, running on the OpenIFS horizontal grid.  2. Prescribed components Tropospheric anthropogenic aerosol: MACv2-SP (Stevens et al. 2017), the simple-plumes climatology that supplies direct and first indirect aerosol effects from a prescribed plume description. Stratospheric aerosol: prescribed from the CMIP7 stratospheric aerosol forcing dataset. Atmospheric chemistry: not interactive; ozone is taken from the CMIP7 ozone forcing dataset. Greenhouse gases: prescribed concentrations throughout.  3. Omitted components Ocean biogeochemistry: REcoM is planned to couple into FESOM2 in a future submission within the awi-esm3 family, but is not part of this fast-track configuration. Dynamic land-ice: PISM is planned to couple into AWI-ESM3 in a future submission, but is not part of this fast-track configuration.",
     "calendar": [
         "proleptic-gregorian"
@@ -28,11 +28,12 @@
         ]
     ],
     "family": "awi-esm3",
+    "crs": "A(L,O)LO[Si]Ac^Ae^",
     "model_components": [
         "atmosphere_openifs-48r1_h107_v113",
-        "ocean_fesom-2.7_h114_v116",
-        "land_surface_lpj-guess-4.1_h106_v112",
-        "sea_ice_fesim-2-7_h114_no-vertical"
+        "ocean_fesom-2-7_h114_v116",
+        "land-surface_lpj-guess-4-1_h106_v112",
+        "sea-ice_fesim-2-7_h114_no-vertical"
     ],
     "name": "AWI-ESM3-4-2-veg-HR",
     "omitted_components": [
@@ -45,25 +46,7 @@
     ],
     "references": [
         "https://doi.org/10.5194/gmd-15-6399-2022",
-        "\"AWI-ESM3",
-        "Earth",
-        "system",
-        "model",
-        "for",
-        "the",
-        "Coupled",
-        "Model",
-        "Intercomparison",
-        "Project",
-        "7\"",
-        "(Streffing",
-        "et",
-        "al.",
-        "in",
-        "preparation",
-        "target",
-        "GMD",
-        "2027)"
+        "AWI-ESM3, Earth system model for the Coupled Model Intercomparison Project 7 (Streffing et al. in preparation, target GMD 2027)"
     ],
     "release_year": 2026,
     "@context": "_context",

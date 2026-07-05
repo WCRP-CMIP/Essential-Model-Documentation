@@ -1,11 +1,11 @@
 {
     "validation_key": "cnrm-esm2-1e",
-    "ui_label": "",
-    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
+    "ui_label": "CNRM-ESM2.1e",
+    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (S\u00e9f\u00e9rian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
     "calendar": [
         "standard"
     ],
-    "component_configs": [
+    "model_components": [
         "atmosphere_arpege-climat-version-6-3_h100_v100",
         "land-surface_surfex-v8-modeling-platform_h100_v101",
         "ocean_nemo-v3-6_h101_v102",
@@ -14,14 +14,21 @@
         "sea-ice_gelato_h101_v103",
         "ocean-biogeochemistry_piscesv2-gas_h101_v102"
     ],
-    "coupling_groups": [
+    "coupled_components": [
         [
             "atmosphere",
+            "land-surface"
+        ],
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
             "land-surface",
             "ocean"
         ]
     ],
-    "crs": "A[AeAc](L,O)L(O)O[SiOb]",
+    "crs": "A[AcAe](L,O)L(O)O[ObSi]",
     "dynamic_components": [
         "aerosol",
         "atmosphere",
@@ -33,20 +40,20 @@
     ],
     "embedded_components": [
         [
-            "atmosphere",
-            "aerosol"
+            "aerosol",
+            "atmosphere"
         ],
         [
-            "atmosphere",
-            "atmospheric-chemistry"
+            "atmospheric-chemistry",
+            "atmosphere"
         ],
         [
-            "ocean",
-            "sea-ice"
+            "sea-ice",
+            "ocean"
         ],
         [
-            "ocean",
-            "ocean-biogeochemistry"
+            "ocean-biogeochemistry",
+            "ocean"
         ]
     ],
     "family": "cnrm-cm",

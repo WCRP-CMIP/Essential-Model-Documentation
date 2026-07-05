@@ -1,6 +1,6 @@
 {
     "validation_key": "ukcm2a-0-hh",
-    "ui_label": "UKCM2a-0-HH",
+    "ui_label": "UKCM2a.0-HH",
     "description": "UKCM2a-0-HH is a very-high resolution counterpart to UKCM2-0-LL using an N640 atmosphere grid (20 km in mid latitudes, 31 km at the equator) and a 1/12 degree (8 km) extended ORCA ocean grid. With the exception of the COMORPH A9 convection scheme this model is otherwise equivalent to UKCM2-0-LL.  UKCM2a-0-HH includes a dynamically evolving MetUM GA9a dynamical atmosphere with the embedded GLOMAP-mode aerosol scheme coupled to the JULES GL9 land surface and the GOSI9 configuration of the NEMO ocean and the embedded SI3 sea-ice model.  Land ice is represented through JULES. The ice surface is taken to be one of the surface tile types, and all surface tiles share the same soil information for temperature and moisture in JULES. The specification of land ice gridboxes is done through the tile fractions information. Atmospheric chemistry. UKCM2a-0-HH has a very simplified treatment of aerosol chemistry using prescribed trace gas oxidants. GHGs/CFCs are prescribed from CMIP7 forcings as annual mean global constant values.  UKCM2a-0-HH does not include an ocean biogeochemistry model.",
     "calendar": [
         "standard"
@@ -29,16 +29,17 @@
         ],
         [
             "land-surface",
-            "aerosol"
+            "atmosphere"
         ]
     ],
     "family": "ukcm",
+    "crs": "A[AeL](O)O[Si]Ac^Li^",
     "model_components": [
         "atmosphere_metum-ga9a_h119_v115",
         "aerosol_glomap-mode_h119_v115",
-        "land_surface_jules-gl9_h119_v117",
+        "land-surface_jules-gl9_h119_v117",
         "ocean_nemo-gosi9_h118_v107",
-        "sea_ice_si3-gosi9_h118_v107"
+        "sea-ice_si3-gosi9_h118_v107"
     ],
     "name": "ukcm2a-0-hh",
     "omitted_components": [
