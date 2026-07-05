@@ -48,6 +48,52 @@ export const frag = (children = []) => {
   return f;
 };
 
+// --- minimal Markdown → HTML (inline emphasis, code, links, paragraphs) ----
+// Descriptions in the EMD records are free text that may contain light
+// markdown; parse it before inserting as HTML rather than dumping raw text.
+export function mdToHtml(src) {
+  const s = String(src == null ? "" : src).trim();
+  if (!s) return "";
+  const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const inline = t => {
+    let x = esc(t);
+    // links [text](url) — do first so URL punctuation isn't touched by emphasis
+    x = x.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    // inline code
+    x = x.replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`);
+    // bold then italic
+    x = x.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    x = x.replace(/__([^_]+)__/g, "<strong>$1</strong>");
+    x = x.replace(/(^|[^*])\*([^*\s][^*]*?)\*(?!\*)/g, "$1<em>$2</em>");
+    return x;
+  };
+  return s.split(/\n{2,}/).map(p => `<p>${inline(p).replace(/\n/g, "<br>")}</p>`).join("");
+}
+
+// A description clamped to `lines` lines with a more/less toggle. Renders md.
+// The toggle hides itself if the content doesn't actually overflow.
+export function clampedMd(text, { lines = 2, cls = "" } = {}) {
+  const html = mdToHtml(text);
+  if (!html) return null;
+  const body = el("div", { class: `clamp ${cls}`.trim(), html });
+  body.style.setProperty("--clamp-lines", String(lines));
+  const toggle = el("button", { class: "clamp-toggle", type: "button" }, "more");
+  let expanded = false;
+  toggle.addEventListener("click", e => {
+    e.preventDefault(); e.stopPropagation();
+    expanded = !expanded;
+    body.classList.toggle("expanded", expanded);
+    toggle.textContent = expanded ? "less" : "more";
+  });
+  const wrap = el("div", { class: "clamp-wrap" }, [body, toggle]);
+  // Hide the toggle when the text fits within the clamp (measured post-layout).
+  requestAnimationFrame(() => {
+    if (body.scrollHeight - body.clientHeight < 2) toggle.style.display = "none";
+  });
+  return wrap;
+}
+
 // Format a reference (DOI URL or free-text citation) into an anchor or span.
 export function refNode(ref) {
   const s = String(ref).trim();

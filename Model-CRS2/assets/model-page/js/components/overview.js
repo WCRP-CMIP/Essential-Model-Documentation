@@ -1,5 +1,5 @@
 // components/overview.js — description + key-facts card.
-import { el, card } from "../dom.js";
+import { el, card, mdToHtml } from "../dom.js";
 import { parse, realmLabel } from "../crs.js";
 
 export function mountOverview(root, model) {
@@ -21,7 +21,7 @@ export function mountOverview(root, model) {
   ]);
 
   const body = [
-    desc ? el("p", { class: "overview-desc" }, desc) : null,
+    desc ? el("div", { class: "overview-desc", html: mdToHtml(desc) }) : null,
     el("div", { class: "stat-row" }, [
       stat(dyn, dyn === 1 ? "dynamic realm" : "dynamic realms"),
       pre ? stat(pre, "prescribed") : null,

@@ -96,6 +96,30 @@
     "y_resolution": 2.8
   },
   {
+    "@id": "g189",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": "HadCM3 ocean velocity grid",
+    "description": "",
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 41184,
+    "region": "global",
+    "southernmost_latitude": -88.75,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.25 x 1.25 degree resolution.",
+    "units": "degree",
+    "validation_key": "g189",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.25,
+    "y_resolution": 1.25
+  },
+  {
     "@id": "g180",
     "@type": [
       "emd",
@@ -482,6 +506,30 @@
     "westernmost_longitude": 189.11,
     "x_resolution": 20,
     "y_resolution": 20
+  },
+  {
+    "@id": "g190",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "A single grid cell for the entire globe.",
+    "grid_mapping": "./",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 1,
+    "region": "global",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 360 x 180 degree resolution.",
+    "units": "degree",
+    "validation_key": "g190",
+    "westernmost_longitude": 0,
+    "x_resolution": 360,
+    "y_resolution": 180
   },
   {
     "@id": "g154",
