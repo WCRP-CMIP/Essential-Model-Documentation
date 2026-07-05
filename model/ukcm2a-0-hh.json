@@ -29,16 +29,17 @@
         ],
         [
             "land-surface",
-            "aerosol"
+            "atmosphere"
         ]
     ],
     "family": "ukcm",
+    "crs": "A[AeL](O)O[Si]Ac^Li^",
     "model_components": [
         "atmosphere_metum-ga9a_h119_v115",
         "aerosol_glomap-mode_h119_v115",
-        "land_surface_jules-gl9_h119_v117",
+        "land-surface_jules-gl9_h119_v117",
         "ocean_nemo-gosi9_h118_v107",
-        "sea_ice_si3-gosi9_h118_v107"
+        "sea-ice_si3-gosi9_h118_v107"
     ],
     "name": "ukcm2a-0-hh",
     "omitted_components": [

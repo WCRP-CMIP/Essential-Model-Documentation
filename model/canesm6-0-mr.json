@@ -38,13 +38,14 @@
         ]
     ],
     "family": "canesm",
+    "crs": "A[AeL](O)O[ObSi]Ac^Li^",
     "model_components": [
         "atmosphere_canam6_h115_v128",
         "aerosol_canam6-aerosol_h115_v128",
-        "land_surface_classicv1.5_h115_v123",
+        "land-surface_classicv1-5_h115_v123",
         "ocean_cannemo6-0_h117_v107",
         "ocean-biogeochemistry_cmoc_h117_v107",
-        "sea_ice_si3-cannemo_h117_v134"
+        "sea-ice_si3-cannemo_h117_v134"
     ],
     "name": "CanESM6-0-MR",
     "omitted_components": [],

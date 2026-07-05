@@ -8,8 +8,16 @@
             "@context": "https://constants.mipcvs.dev/calendar/_context",
             "@type": "@id"
         },
-        "component_configs": {
+        "model_components": {
             "@context": "https://emd.mipcvs.dev/component_config/_context",
+            "@type": "@id"
+        },
+        "coupled_components": {
+            "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
+            "@type": "@id"
+        },
+        "embedded_components": {
+            "@context": "https://constants.mipcvs.dev/scientific_domain/_context",
             "@type": "@id"
         },
         "dynamic_components": {

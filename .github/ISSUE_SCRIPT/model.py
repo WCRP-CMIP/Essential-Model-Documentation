@@ -225,16 +225,15 @@ def run(parsed_issue, issue, dry_run=False):
             data[k] = []
 
     # Build and validate CRS — normalise free-text component names to CV slugs first
-    dynamic = [_norm_component(c) for c in
-               (data.get('dynamic_components', []) +
-                data.get('prescribed_components', []))]
-    crs_errors = _crs.validate(dynamic, embedded_pairs, coupling_groups)
+    dynamic = [_norm_component(c) for c in data.get('dynamic_components', [])]
+    prescribed = [_norm_component(c) for c in data.get('prescribed_components', [])]
+    crs_errors = _crs.validate(dynamic, embedded_pairs, coupling_groups, prescribed=prescribed)
     if crs_errors:
         for e in crs_errors:
             print(f"\033[91m  ⚠ CRS: {e}\033[0m", flush=True)
         data['_crs_errors'] = crs_errors
     else:
-        data['crs'] = _crs.build(dynamic, embedded_pairs, coupling_groups)
+        data['crs'] = _crs.build(dynamic, embedded_pairs, coupling_groups, prescribed=prescribed)
         print(f"\033[92m  ✓ CRS: {data['crs']}\033[0m", flush=True)
 
     collab_str   = parsed_issue.get('additional_collaborators',

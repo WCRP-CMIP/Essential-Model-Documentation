@@ -42,13 +42,14 @@
         ]
     ],
     "family": "access-esm",
+    "crs": "A[AeL](O,Si)O[Ob](Si)SiAc^Li^",
     "model_components": [
         "aerosol_classic_h102_v106",
-        "atmosphere_um7.3_h102_v106",
-        "land_surface_cable3_h102_v105",
+        "atmosphere_um7-3_h102_v106",
+        "land-surface_cable3_h102_v105",
         "ocean-biogeochemistry_wombatlite_h109_v109",
         "ocean_mom5_h109_v109",
-        "sea_ice_cice5_h109_no-vertical"
+        "sea-ice_cice5_h109_no-vertical"
     ],
     "name": "ACCESS-ESM1-6",
     "omitted_components": [],

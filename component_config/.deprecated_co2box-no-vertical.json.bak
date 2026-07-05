@@ -1,8 +1,8 @@
 {
     "validation_key": "atmospheric-chemistry_co2box-v1-0_no-vertical",
     "ui_label": "atmospheric-chemistry_co2box-v1-0_no-vertical",
-    "description": "",
-    "horizontal_computational_grid": "",
+    "description": "A simple, fast atmosphere CO2 box model (one global grid point) used to close the carbon cycle. It has no explicit horizontal or vertical grid.",
+    "horizontal_computational_grid": "no-horizontal",
     "model_component": "co2box-v1-0",
     "vertical_computational_grid": "no-vertical",
     "@context": "_context",

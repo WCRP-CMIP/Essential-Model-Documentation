@@ -55,6 +55,7 @@
         ]
     ],
     "family": "ec-earth",
+    "crs": "A(Ac,Li,L,O)Ac(L,O)Li(O)LO[ObSi]Ae^",
     "model_components": [
         "atmosphere_ifs-cy36r4-l91_h112_v110",
         "ocean_nemo-v3-6_h101_v102",
@@ -68,7 +69,6 @@
         "aerosol"
     ],
     "references": [
-        "https://in-preperation.2026",
         "https://doi.org/10.5194/gmd-15-2973-2022"
     ],
     "release_year": 2026,

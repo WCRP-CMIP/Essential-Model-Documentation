@@ -24,6 +24,7 @@
     --dynamic: #d4760a;
     --embedded: #f2c200;
     --nest: #9a8b6d;
+    --coupling: #d36a52;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink);
@@ -53,8 +54,49 @@
   .swatch.nest { background: transparent; border: 1.5px dashed var(--nest); }
 
   #status { padding: 0.35rem 1.4rem; font-size: 0.75rem; color: var(--muted);
-    min-height: 1.4rem; border-bottom: 1px solid var(--line); background: var(--panel); }
+    min-height: 1.4rem; border-bottom: 1px solid var(--line); background: var(--panel);
+    display: flex; align-items: center; gap: 0.6rem; }
   #status.error { color: #b3261e; }
+  .spinner {
+    width: 0.9rem; height: 0.9rem; border-radius: 50%;
+    border: 2px solid var(--line); border-top-color: var(--c-model);
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  body.loading .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  #wrap.loading::after {
+    content: ""; position: absolute;
+    top: 0; right: 0; bottom: 0;
+    left: var(--rail-w, 110px);     /* don't dim the row-label rail */
+    background: rgba(247, 245, 239, 0.55);
+    backdrop-filter: blur(1px);
+    pointer-events: none;
+    animation: pulse 1.4s ease-in-out infinite;
+    z-index: 4;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 0.85; } }
+  .spinner-overlay {
+    position: absolute;
+    top: 50%;
+    /* centre inside the graph area (right of the rail) */
+    left: calc(50% + var(--rail-w, 110px) / 2);
+    /* translate is part of the keyframe below so the rotation doesn't
+       overwrite the centring transform */
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 3px solid rgba(31, 78, 121, 0.18);
+    border-top-color: var(--c-model);
+    animation: spin-centred 0.9s linear infinite;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    display: none;
+  }
+  @keyframes spin-centred {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  #wrap.loading .spinner-overlay { display: block; }
 
   #wrap { position: relative; width: 100%; height: calc(100vh - 9.5rem); overflow: hidden; }
   svg { width: 100%; height: 100%; display: block; cursor: grab; }
@@ -82,6 +124,19 @@
   .link { fill: none; stroke: var(--line); stroke-width: 1.3px; }
   .link.family { stroke: var(--c-family); stroke-dasharray: 4 3; stroke-width: 1.4px; }
 
+  .coupling {
+    fill: none;
+    stroke: var(--coupling);
+    stroke-width: 1.6px;
+    stroke-dasharray: 6 4;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .coupling-dot {
+    fill: var(--coupling);
+    pointer-events: none;
+  }
+
   .node rect { stroke-width: 1.3px; }
   .node text { font-size: 11px; fill: var(--ink); pointer-events: none; }
   .node .nid { font-weight: 700; }
@@ -93,11 +148,23 @@
   .focusmode .link { opacity: 0.08; }
   .focusmode .node { opacity: 0.18; }
   .focusmode .nest { opacity: 0.35; }
+  .focusmode .coupling, .focusmode .coupling-dot { opacity: 0.12; }
   .link.hot { opacity: 1 !important; stroke: var(--c-model); stroke-width: 2px; }
   .link.family.hot { stroke: var(--c-family); }
+  .coupling.hot, .coupling-dot.hot { opacity: 1 !important; }
   .node.hot { opacity: 1 !important; }
 
   .row-label { font-size: 9px; fill: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .row-rail-bg { fill: var(--paper); }
+  .row-rail-sep { stroke: var(--line); stroke-width: 1; }
+  .row-label-rail {
+    font-size: 0.56rem;
+    fill: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-anchor: end;
+    dominant-baseline: middle;
+  }
 </style>
 </head>
 <body>
@@ -106,18 +173,15 @@
   <div class="controls">
     <label for="model">Model</label>
     <select id="model"></select>
-    <input id="custom" type="text" placeholder="…or any model id" spellcheck="false" />
-    <label for="depth">Depth</label>
-    <input id="depth" type="number" min="1" max="12" value="6" />
-    <button id="go">Render</button>
     <button id="dl">Download SVG</button>
   </div>
 </header>
 
 <div class="legend" id="legend"></div>
-<div id="status"></div>
+<div id="status"><span class="spinner" aria-hidden="true"></span><span id="status-text"></span></div>
 <div id="wrap">
   <svg id="canvas"></svg>
+  <div class="spinner-overlay" aria-hidden="true"></div>
   <div class="zoombar">
     <button id="zin"  title="Zoom in">+</button>
     <button id="zout" title="Zoom out">&minus;</button>
@@ -150,10 +214,30 @@ const PARAMS = new URLSearchParams(location.search);
 const BASE   = (PARAMS.get("base") || "https://wcrp-cmip.github.io/Essential-Model-Documentation/")
                  .replace(/\/?$/, "/");
 
-const KNOWN_MODELS = [
+// Used only as a fallback if model/_graph.json is unreachable.
+const FALLBACK_MODELS = [
   "access-esm1-6", "awi-esm3-4-2-veg-hr", "canesm5-1", "canesm6-0-mr",
   "cnrm-esm2-1e", "ec-earth3-esm-1-1", "ukcm2-0-ll", "ukcm2a-0-hh",
 ];
+
+// Fetch the model index (folder-level JSON-LD graph) at depth=1 and pull out
+// every model id. The EMD index files store their entries under `contents`,
+// so we read that array and extract each entry's `@id`.
+async function loadModelList() {
+  const url = BASE + "model/_graph.json";
+  const res = await fetch(url, { headers: { Accept: "application/json" }, mode: "cors" });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${url}`);
+  const doc = await res.json();
+
+  const entries = Array.isArray(doc.contents) ? doc.contents : [];
+  const ids = entries
+    .map(e => (typeof e === "string" ? e : e && e["@id"]))
+    .filter(Boolean)
+    .map(id => id.split("/").pop().split(":").pop())   // strip prefix / path
+    .filter(id => id && !id.startsWith("_"));
+
+  return [...new Set(ids)].sort();
+}
 
 // `model_components` is the canonical field on a model file; older CNRM data
 // used `component_configs` for the same list — both are accepted.
@@ -164,6 +248,7 @@ const FOLDER = {
   "vertical_computational_grid":   "vertical_computational_grid",
   "horizontal_subgrids":           "horizontal_subgrid",
   "horizontal_grid_cell":          "horizontal_grid_cell",
+  "horizontal_grid_cells":         "horizontal_grid_cell",
   "model_component":               "model_component",
   "family":                        "model_family",
 };
@@ -174,6 +259,7 @@ const FIELD_TYPE = {
   "vertical_computational_grid":   "vertical_computational_grid",
   "horizontal_subgrids":           "horizontal_subgrid",
   "horizontal_grid_cell":          "horizontal_grid_cell",
+  "horizontal_grid_cells":         "horizontal_grid_cell",
   "family":                        "model_family",
 };
 
@@ -203,6 +289,7 @@ const TYPES = {
 };
 const ROW_NAME = { "-1":"family","0":"model","1":"realm · component",
   "2":"vertical grid","3":"horizontal grid","4":"subgrid","5":"grid cell" };
+const LEFT_RAIL = 80;   // px reserved for the row-label column
 
 // ---------------------------------------------------------------------------
 // fetch + cache (always against the configured BASE — never relative)
@@ -265,26 +352,50 @@ async function buildGraph(modelId, depth) {
     flat(model[k]).forEach(x => { const n = nameOf(x); if (n) knownRealms.add(n); });
 
   // Realms that show up in coupling_groups / coupled_components are the
-  // "host" realms — used to disambiguate embedded_components orientation.
+  // "host" realms — used to disambiguate any legacy [parent, child] data.
   const coupled = new Set();
   for (const k of ["coupling_groups","coupled_components"])
     flat(model[k]).forEach(x => { const n = nameOf(x); if (n) coupled.add(n); });
 
-  // Build [child -> parent] map from embedded_components.
-  // CNRM data uses [parent, child]; ACCESS uses [child, parent]; we detect
-  // orientation per-pair by checking which side is a coupled host realm.
+  // Canonical convention: embedded_components pairs are [child, parent].
+  // Older CNRM data used [parent, child]; if one element of a pair is in the
+  // coupled set and the other isn't, we treat the coupled one as the parent.
   const embChild = new Map();
   (model.embedded_components || []).forEach(p => {
     if (!Array.isArray(p) || p.length !== 2) return;
     const a = nameOf(p[0]), b = nameOf(p[1]);
     if (!a || !b) return;
     let parent, child;
-    if (coupled.has(a) && !coupled.has(b))      { parent = a; child = b; }
-    else if (coupled.has(b) && !coupled.has(a)) { parent = b; child = a; }
-    else                                        { parent = a; child = b; }
+    if (coupled.has(b) && !coupled.has(a))      { parent = b; child = a; }
+    else if (coupled.has(a) && !coupled.has(b)) { parent = a; child = b; }
+    else                                        { parent = b; child = a; }  // assume [child, parent]
     embChild.set(child, parent);
   });
   const dyn = new Set(flat(model.dynamic_components).map(nameOf).filter(Boolean));
+
+  // Coupling pairs (realm names, unordered, deduped).
+  const couplingPairs = [];
+  {
+    const seen = new Set();
+    const addPair = (a, b) => {
+      if (!a || !b || a === b) return;
+      const k = [a, b].sort().join("\u0000");
+      if (seen.has(k)) return;
+      seen.add(k);
+      couplingPairs.push([a, b]);
+    };
+    // pair-wise direct pairs
+    (model.coupled_components || []).forEach(p => {
+      if (Array.isArray(p) && p.length === 2) addPair(nameOf(p[0]), nameOf(p[1]));
+    });
+    // legacy coupling_groups: every realm in a group couples with every other
+    (model.coupling_groups || []).forEach(g => {
+      if (!Array.isArray(g)) return;
+      const m = g.map(nameOf).filter(Boolean);
+      for (let i = 0; i < m.length; i++)
+        for (let j = i + 1; j < m.length; j++) addPair(m[i], m[j]);
+    });
+  }
 
   // Extract the realm slug from a component_config id by matching the longest
   // known realm prefix, tolerating "-" <-> "_" substitution.
@@ -329,7 +440,16 @@ async function buildGraph(modelId, depth) {
       if (parentId !== node) link(parentId, node);
       return;
     }
-    if (node && typeof node === "object" && node["@id"]) await emit(node, parentId, edgeKey, d);
+    if (node && typeof node === "object" && node["@id"]) {
+      // Object stub like {"@id": "g105"} — try to resolve to the full file so
+      // the resulting node carries cell metadata (n_cells, grid_type, ...).
+      const ref = node["@id"];
+      if (d > 0 && FOLDER[edgeKey] && Object.keys(node).length <= 3) {
+        try { await emit(await fetchJson(FOLDER[edgeKey], ref), parentId, edgeKey, d); return; }
+        catch (e) { console.warn(`could not resolve stub ${FOLDER[edgeKey]}/${ref}:`, e.message); }
+      }
+      await emit(node, parentId, edgeKey, d);
+    }
   }
 
   async function emit(node, parentId, edgeKey, d) {
@@ -390,12 +510,19 @@ async function buildGraph(modelId, depth) {
                  members: [parentNode, ...childNodes] });
     for (const child of childNodes) embedLinks.push({ source: parentNode.id, target: child.id });
   }
+  // resolve couplings to realm-cell node ids
+  const couplings = [];
+  for (const [ra, rb] of couplingPairs) {
+    const a = byRealm.get(ra), b = byRealm.get(rb);
+    if (a && b) couplings.push({ source: a.id, target: b.id, ra, rb });
+  }
+
   // assign each node its nest (or null) for the repulsion force
   const nestByNode = new Map();
   nests.forEach(n => n.members.forEach(m => nestByNode.set(m.id, n)));
   nodes.forEach(n => { n.nest = nestByNode.get(n.id) || null; });
 
-  return { rootId, nodes: [...nodes.values()], links, nests, embedLinks };
+  return { rootId, nodes: [...nodes.values()], links, nests, embedLinks, couplings };
 }
 
 // ---------------------------------------------------------------------------
@@ -412,8 +539,15 @@ function sizeNode(d) {
 // D3 render
 // ---------------------------------------------------------------------------
 const svg = d3.select("#canvas");
-const statusEl = document.getElementById("status");
-const setStatus = (m, e) => { statusEl.textContent = m; statusEl.className = e ? "error" : ""; };
+const statusEl     = document.getElementById("status");
+const statusTextEl = document.getElementById("status-text");
+const wrapEl       = document.getElementById("wrap");
+wrapEl.style.setProperty("--rail-w", LEFT_RAIL + "px");
+const setStatus = (m, e) => { statusTextEl.textContent = m; statusEl.className = e ? "error" : ""; };
+const setLoading = on => {
+  document.body.classList.toggle("loading", on);
+  wrapEl.classList.toggle("loading", on);
+};
 
 let zoom, rootG, currentSim, currentGraph;
 
@@ -449,13 +583,21 @@ function render(graph) {
     });
   });
 
-  // adjacency (for hover spotlight)
-  const parents = new Map(), children = new Map();
-  graph.nodes.forEach(n => { parents.set(n.id, new Set()); children.set(n.id, new Set()); });
+  // adjacency (for hover spotlight) — includes parent/child edges AND coupling partners
+  const parents = new Map(), children = new Map(), coupledWith = new Map();
+  graph.nodes.forEach(n => {
+    parents.set(n.id, new Set());
+    children.set(n.id, new Set());
+    coupledWith.set(n.id, new Set());
+  });
   graph.links.forEach(l => {
     const s = typeof l.source === "object" ? l.source.id : l.source;
     const t = typeof l.target === "object" ? l.target.id : l.target;
     children.get(s)?.add(t); parents.get(t)?.add(s);
+  });
+  (graph.couplings || []).forEach(c => {
+    coupledWith.get(c.source)?.add(c.target);
+    coupledWith.get(c.target)?.add(c.source);
   });
 
   // nests (drawn behind everything)
@@ -464,14 +606,20 @@ function render(graph) {
   nestSel.append("rect");
   nestSel.append("text").text(d => d.parent);
 
-  // row labels
-  rootG.append("g").selectAll("text.row-label").data(tiersPresent).join("text")
-    .attr("class", "row-label").attr("x", 12)
-    .attr("y", t => rowY.get(t) - 26).text(t => ROW_NAME[String(t)] || "");
+  // (Row labels are drawn outside rootG below so they're never panned/zoomed.)
 
   // links
   const linkSel = rootG.append("g").selectAll("path").data(graph.links).join("path")
     .attr("class", d => "link" + (d.kind === "family" ? " family" : ""));
+
+  // coupling arcs (dashed bilinks between coupled realm cells)
+  const coupleG = rootG.append("g").attr("class", "couplings");
+  const coupleSel = coupleG.selectAll("path.coupling").data(graph.couplings || []).join("path")
+    .attr("class", "coupling");
+  const coupleDotSel = coupleG.selectAll("g.coupling-ends").data(graph.couplings || []).join("g")
+    .attr("class", "coupling-ends");
+  coupleDotSel.append("circle").attr("class", "coupling-dot").attr("r", 2.6);
+  coupleDotSel.append("circle").attr("class", "coupling-dot end-b").attr("r", 2.6);
 
   // nodes
   const nodeSel = rootG.append("g").selectAll("g.node").data(graph.nodes).join("g")
@@ -497,7 +645,8 @@ function render(graph) {
   // hover: spotlight self + parents + children
   nodeSel
     .on("mouseenter", (event, d) => {
-      const hot = new Set([d.id, ...parents.get(d.id), ...children.get(d.id)]);
+      const hot = new Set([d.id,
+        ...parents.get(d.id), ...children.get(d.id), ...coupledWith.get(d.id)]);
       svg.classed("focusmode", true);
       nodeSel.classed("hot", n => hot.has(n.id));
       linkSel.classed("hot", l => {
@@ -505,11 +654,15 @@ function render(graph) {
         const t = typeof l.target === "object" ? l.target.id : l.target;
         return (s === d.id && hot.has(t)) || (t === d.id && hot.has(s));
       });
+      coupleSel.classed("hot", c => c.source === d.id || c.target === d.id);
+      coupleDotSel.classed("hot", c => c.source === d.id || c.target === d.id);
     })
     .on("mouseleave", () => {
       svg.classed("focusmode", false);
       nodeSel.classed("hot", false);
       linkSel.classed("hot", false);
+      coupleSel.classed("hot", false);
+      coupleDotSel.classed("hot", false);
     });
 
   // ---- custom force: push nests apart when they overlap horizontally
@@ -560,6 +713,30 @@ function render(graph) {
     });
     nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
 
+    // coupling arcs — bow UPWARD above the realm row so they stay clear of
+    // the downward tree edges
+    const byId = new Map(graph.nodes.map(n => [n.id, n]));
+    coupleSel.attr("d", c => {
+      const s = byId.get(c.source), t = byId.get(c.target);
+      if (!s || !t) return null;
+      const x1 = s.x, y1 = s.y - s.h / 2;
+      const x2 = t.x, y2 = t.y - t.h / 2;
+      const mx = (x1 + x2) / 2;
+      const dx = Math.abs(x2 - x1);
+      const lift = Math.min(120, 30 + dx * 0.18);
+      const cy = Math.min(y1, y2) - lift;
+      return `M${x1},${y1} Q${mx},${cy} ${x2},${y2}`;
+    });
+    coupleDotSel.each(function (c) {
+      const s = byId.get(c.source), t = byId.get(c.target);
+      if (!s || !t) return;
+      const g = d3.select(this);
+      g.selectAll("circle").nodes().forEach((node, i) => {
+        const target = i === 0 ? s : t;
+        d3.select(node).attr("cx", target.x).attr("cy", target.y - target.h / 2);
+      });
+    });
+
     // nest rectangles follow the live bounding boxes of their members
     const PAD = 14;
     nestSel.each(function (nest) {
@@ -581,9 +758,30 @@ function render(graph) {
     .on("drag",  (e, d) => { d.fx = e.x; })
     .on("end",   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; }));
 
-  // zoom / pan
-  zoom = d3.zoom().scaleExtent([0.03, 4]).on("zoom", e => rootG.attr("transform", e.transform));
+  // zoom / pan — rootG is the zoomable layer; the row rail (added below)
+  // stays in screen coords and is updated on every zoom event.
+  zoom = d3.zoom().scaleExtent([0.03, 4]).on("zoom", e => {
+    rootG.attr("transform", e.transform);
+    updateRail(e.transform);
+  });
   svg.call(zoom);
+
+  // ---- fixed left rail: row descriptions, drawn ON TOP of the graph so the
+  // graph can never bleed into the label column.
+  const railG = svg.append("g").attr("class", "row-rail").style("pointer-events", "none");
+  railG.append("rect").attr("class", "row-rail-bg")
+    .attr("x", 0).attr("y", 0).attr("width", LEFT_RAIL).attr("height", "100%");
+  railG.append("line").attr("class", "row-rail-sep")
+    .attr("x1", LEFT_RAIL).attr("y1", 0).attr("x2", LEFT_RAIL).attr("y2", "100%");
+  const railSel = railG.selectAll("text.row-label-rail").data(tiersPresent).join("text")
+    .attr("class", "row-label-rail")
+    .attr("x", LEFT_RAIL - 8)
+    .text(t => ROW_NAME[String(t)] || "");
+
+  function updateRail(t) {
+    railSel.attr("y", tier => t.y + t.k * rowY.get(tier));
+  }
+  updateRail(d3.zoomIdentity);   // initial — before fit fires its zoom event
 
   // settle off-screen, fit, then refit when simulation truly ends
   sim.alpha(1).restart();
@@ -597,7 +795,7 @@ function fit(graph) {
   if (!zoom || !graph) return;
   const W = document.getElementById("wrap").clientWidth;
   const H = document.getElementById("wrap").clientHeight;
-  const pad = 60;
+  const padR = 40, padTB = 50;
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   graph.nodes.forEach(n => {
     minX = Math.min(minX, n.x - n.w / 2);
@@ -605,27 +803,23 @@ function fit(graph) {
     minY = Math.min(minY, n.y - n.h / 2);
     maxY = Math.max(maxY, n.y + n.h / 2);
   });
-  minX = Math.min(minX, 8);
-  minX -= pad; maxX += pad; minY -= pad; maxY += pad;
-  const scale = Math.min(W / Math.max(maxX - minX, 10), H / Math.max(maxY - minY, 10));
-  const tx = (W - (minX + maxX) * scale) / 2;
-  const ty = (H - (minY + maxY) * scale) / 2;
+  const spanX = Math.max(maxX - minX, 10);
+  const spanY = Math.max(maxY - minY, 10);
+  const availW = Math.max(W - LEFT_RAIL - padR, 100);
+  const availH = Math.max(H - 2 * padTB, 100);
+  const scale  = Math.min(availW / spanX, availH / spanY);
+  const tx = LEFT_RAIL + (availW - scale * spanX) / 2 - scale * minX;
+  const ty = padTB     + (availH - scale * spanY) / 2 - scale * minY;
   svg.transition().duration(400).call(zoom.transform,
     d3.zoomIdentity.translate(tx, ty).scale(scale));
 }
 
 function buildLegend() {
-  const items = [
-    ["model","var(--c-model)"],["family","var(--c-family)"],
-    ["realm · component","var(--c-config)"],
-    ["horizontal grid","var(--c-hgrid)"],["vertical grid","var(--c-vgrid)"],
-    ["subgrid","var(--c-subgrid)"],["grid cell","var(--c-cell)"],
-  ];
   document.getElementById("legend").innerHTML =
-    items.map(([n, c]) => `<span><i class="swatch" style="background:${c}"></i>${n}</span>`).join("")
-    + `<span><i class="swatch dyn"></i>dynamic</span>`
+      `<span><i class="swatch dyn"></i>dynamic</span>`
     + `<span><i class="swatch emb"></i>embedded</span>`
-    + `<span><i class="swatch nest"></i>parent nest</span>`;
+    + `<span><i class="swatch nest"></i>parent nest</span>`
+    + `<span><svg width="22" height="10" style="vertical-align:middle"><path d="M2,8 Q11,1 20,8" stroke="var(--coupling)" stroke-width="1.6" stroke-dasharray="6 4" fill="none"/></svg>coupling</span>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -656,54 +850,65 @@ function writeQuery(id, depth) {
 // ---------------------------------------------------------------------------
 async function run(id, depth) {
   id    = normaliseId(id);
-  depth = depth || 6;
+  depth = depth || DEFAULT_DEPTH;
   if (!id) { setStatus("No model id."); return; }
-  setStatus(`Resolving ${id} (depth ${depth}) from ${BASE}…`);
+  setLoading(true);
+  setStatus(`Loading ${id}…`);
   try {
     cache.clear();
     const graph = await buildGraph(id, depth);
     render(graph);
-    setStatus(`${graph.nodes.length} nodes · ${graph.links.length} links · ${graph.nests.length} nests · ${id}`);
+    setStatus(`${graph.nodes.length} nodes · ${graph.links.length} links · ${graph.couplings.length} couplings · ${id}`);
     writeQuery(id, depth);
   } catch (e) {
     console.error(e);
     setStatus(`Error: ${e.message}`, true);
+  } finally {
+    setLoading(false);
   }
 }
 
-function currentId() {
-  const custom = document.getElementById("custom").value.trim();
-  return normaliseId(custom || document.getElementById("model").value);
-}
-function currentDepth() {
-  return parseInt(document.getElementById("depth").value, 10) || 6;
-}
+const DEFAULT_DEPTH = 8;
 
-function init() {
+function currentId() { return normaliseId(document.getElementById("model").value); }
+
+async function init() {
   buildLegend();
   const sel = document.getElementById("model");
-  sel.innerHTML = KNOWN_MODELS.map(id => `<option value="${id}">${id}</option>`).join("");
+  sel.innerHTML = `<option>loading…</option>`;
+  sel.disabled = true;
 
   const q = readQuery();
   const startId = q.model || "cnrm-esm2-1e";
-  document.getElementById("depth").value = q.depth;
-  if (KNOWN_MODELS.includes(startId)) { sel.value = startId; document.getElementById("custom").value = ""; }
-  else { sel.value = KNOWN_MODELS[0]; document.getElementById("custom").value = startId; }
 
-  sel.addEventListener("change", () => {
-    document.getElementById("custom").value = "";
-    run(sel.value, currentDepth());
-  });
-  document.getElementById("go").addEventListener("click", () => run(currentId(), currentDepth()));
-  document.getElementById("custom").addEventListener("keydown", e => { if (e.key === "Enter") run(currentId(), currentDepth()); });
-  document.getElementById("depth").addEventListener("change", () => run(currentId(), currentDepth()));
+  // Kick off render immediately using the URL/default model — don't make the
+  // user wait for the index to come back.
+  run(startId, q.depth || DEFAULT_DEPTH);
+
+  // Populate the dropdown asynchronously.
+  let knownModels;
+  try {
+    knownModels = await loadModelList();
+    if (!knownModels.length) throw new Error("empty model index");
+  } catch (e) {
+    console.warn("model/_graph.json fetch failed, using fallback list:", e.message);
+    knownModels = FALLBACK_MODELS.slice();
+  }
+  if (startId && !knownModels.includes(startId)) knownModels = [startId, ...knownModels];
+
+  sel.innerHTML = knownModels.map(id => `<option value="${id}">${id}</option>`).join("");
+  sel.value = startId;
+  sel.disabled = false;
+
+  sel.addEventListener("change", () => run(sel.value, DEFAULT_DEPTH));
   window.addEventListener("popstate", () => {
     const q = readQuery();
     if (!q.model) return;
-    if (KNOWN_MODELS.includes(q.model)) { sel.value = q.model; document.getElementById("custom").value = ""; }
-    else { document.getElementById("custom").value = q.model; }
-    document.getElementById("depth").value = q.depth;
-    run(q.model, q.depth);
+    if (!Array.from(sel.options).some(o => o.value === q.model)) {
+      sel.insertAdjacentHTML("afterbegin", `<option value="${q.model}">${q.model}</option>`);
+    }
+    sel.value = q.model;
+    run(q.model, DEFAULT_DEPTH);
   });
 
   document.getElementById("zin").addEventListener("click",
@@ -713,9 +918,10 @@ function init() {
   document.getElementById("zfit").addEventListener("click", () => fit(currentGraph));
 
   let rT;
-  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => fit(currentGraph), 250); });
-
-  run(startId, q.depth);
+  window.addEventListener("resize", () => {
+    clearTimeout(rT);
+    rT = setTimeout(() => { if (currentGraph) render(currentGraph); }, 250);
+  });
 }
 
 document.getElementById("dl").addEventListener("click", () => {

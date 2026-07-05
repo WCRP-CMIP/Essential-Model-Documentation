@@ -28,11 +28,12 @@
         ]
     ],
     "family": "awi-esm3",
+    "crs": "A(L,O)LO[Si]Ac^Ae^",
     "model_components": [
         "atmosphere_openifs-48r1_h107_v113",
-        "ocean_fesom-2.7_h114_v116",
-        "land_surface_lpj-guess-4.1_h106_v112",
-        "sea_ice_fesim-2-7_h114_no-vertical"
+        "ocean_fesom-2-7_h114_v116",
+        "land-surface_lpj-guess-4-1_h106_v112",
+        "sea-ice_fesim-2-7_h114_no-vertical"
     ],
     "name": "AWI-ESM3-4-2-veg-HR",
     "omitted_components": [
@@ -45,25 +46,7 @@
     ],
     "references": [
         "https://doi.org/10.5194/gmd-15-6399-2022",
-        "\"AWI-ESM3",
-        "Earth",
-        "system",
-        "model",
-        "for",
-        "the",
-        "Coupled",
-        "Model",
-        "Intercomparison",
-        "Project",
-        "7\"",
-        "(Streffing",
-        "et",
-        "al.",
-        "in",
-        "preparation",
-        "target",
-        "GMD",
-        "2027)"
+        "AWI-ESM3, Earth system model for the Coupled Model Intercomparison Project 7 (Streffing et al. in preparation, target GMD 2027)"
     ],
     "release_year": 2026,
     "@context": "_context",
