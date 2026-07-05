@@ -3,8 +3,8 @@
 // Driven entirely by the parsed CRS string (via crs.js parse(), which handles
 // the '^' prescribed marker). Root realms are drawn as circles laid out on a
 // ring; embedded realms are packed inside their parent circle; couplings are
-// drawn as dashed double-headed arcs between roots; prescribed ('^') realms get
-// a dashed ring and a tag. Pure SVG + a light force-free radial layout — no D3.
+// drawn as dashed curved arcs between roots; prescribed ('^') realms get a
+// dashed halo ring and a tag. Pure SVG + a light force-free radial layout — no D3.
 
 import { parse, toName, realmLabel, realmColor, sortCodes } from "../crs.js";
 import { card } from "../dom.js";

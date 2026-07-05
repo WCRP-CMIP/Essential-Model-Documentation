@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMD · Model documentation</title>
+
+<!-- D3 v7 is required by the hierarchy diagram -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<!-- page styles -->
+<link rel="stylesheet" href="assets/model-page/css/theme.css" />
+<style>
+  html, body { margin: 0; background: #f7f5ef; }
+</style>
+</head>
+<body>
+
+<!-- The page renders into this element. In mkdocs, drop the same three lines
+     (the d3 script, the stylesheet link, this div, and the module script below)
+     into a Markdown page and point the src paths at your assets folder. -->
+<div id="emd-model-page"></div>
+
+<script type="module" src="assets/model-page/js/main.js"></script>
+
+</body>
+</html>
