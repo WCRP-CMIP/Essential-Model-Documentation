@@ -1,0 +1,16 @@
+{
+  "validation_key": "h133",
+  "ui_label": "",
+  "description": "Transform grid for a spectral atmospheric model, R30 resolution",
+  "arrangement": "arakawa-a",
+  "horizontal_subgrids": [
+    "g180-mass-x_velocity-y_velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid",
+    "emd"
+  ],
+  "@id": "h133"
+}
