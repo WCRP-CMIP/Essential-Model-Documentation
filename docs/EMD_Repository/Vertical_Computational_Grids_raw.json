@@ -289,6 +289,26 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v154",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 222,
+    "description": "This is a p-star grid, which is close to z-star but using mass as the vertical coordinate, not height.",
+    "n_z": "",
+    "n_z_range": [
+      2,
+      40
+    ],
+    "top_layer_thickness": 10,
+    "total_thickness": 5008,
+    "ui_label": "z-star grid.",
+    "validation_key": "v154",
+    "vertical_coordinate": "z-star"
+  },
+  {
     "@id": "v147",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -864,6 +884,23 @@
     "ui_label": "depth grid with 45 levels.",
     "validation_key": "v133",
     "vertical_coordinate": "depth"
+  },
+  {
+    "@id": "v155",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 100,
+    "description": "",
+    "n_z": 110,
+    "n_z_range": "",
+    "top_layer_thickness": 6000,
+    "total_thickness": 89000,
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 110 levels.",
+    "validation_key": "v155",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
     "@id": "v106",
