@@ -230,6 +230,23 @@
     "validation_key": "h120"
   },
   {
+    "@id": "h132",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-d",
+    "description": "",
+    "horizontal_subgrids": [
+      "g184-mass",
+      "g184-x-velocity",
+      "g184-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h132"
+  },
+  {
     "@id": "h100",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -371,6 +388,23 @@
     ],
     "ui_label": "",
     "validation_key": "h116"
+  },
+  {
+    "@id": "h131",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-c",
+    "description": "GFDL AM4 C96 C96 Cube Sphere Computational grids for tracers, x-velocity, and y-velocity",
+    "horizontal_subgrids": [
+      "g173-mass",
+      "g174-x-velocity",
+      "g175-y-velocity"
+    ],
+    "ui_label": "",
+    "validation_key": "h131"
   },
   {
     "@id": "h121",
