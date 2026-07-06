@@ -163,6 +163,8 @@ body:
         - "h128"
         - "h129"
         - "h130"
+        - "h131"
+        - "h132"
         - "no-horizontal"
       default: 0
     validations:
@@ -234,6 +236,7 @@ body:
         - "v144"
         - "v145"
         - "v146"
+        - "v147"
       default: 0
     validations:
       required: true
