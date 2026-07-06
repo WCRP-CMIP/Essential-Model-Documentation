@@ -1,0 +1,29 @@
+{
+  "validation_key": "g197",
+  "ui_label": "Horizontal grid cell with a cubed sphere grid type and 1 x 1 degree resolution.",
+  "description": "",
+  "alias": [
+    "GISS Cubed-Sphere U velocity"
+  ],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "cubed-sphere",
+  "n_cells": 48600,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.5,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 125.5,
+  "x_resolution": 1,
+  "y_resolution": 1,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g197"
+}
