@@ -119,6 +119,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v152",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "The sigma coordinate is layer height above the base of the ice sheet, normalised by the local ice thickness. Top layer thickness, bottom layer thickness and total thickness are unspecified because they may vary temporally.",
+    "n_z": 11,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "ui_label": "land-ice-sigma-coordinate grid with 11 levels.",
+    "validation_key": "v152",
+    "vertical_coordinate": "land-ice-sigma-coordinate"
+  },
+  {
     "@id": "v135",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -133,6 +150,23 @@
     "total_thickness": 4000,
     "ui_label": "height grid with 31 levels.",
     "validation_key": "v135",
+    "vertical_coordinate": "height"
+  },
+  {
+    "@id": "v151",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "11-layer thermodynamic grid used by CICE sea ice model (3 layers of snow and 8 layers of ice). Dynamics (the momentum equation) treats all of these as a single layer. Top layer thickness, bottom layer thickness and total thickness are unspecified, since they are co-vary with local snow and ice and thickness.",
+    "n_z": 11,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "ui_label": "height grid with 11 levels.",
+    "validation_key": "v151",
     "vertical_coordinate": "height"
   },
   {
@@ -779,6 +813,23 @@
     "ui_label": "atmosphere-sigma-coordinate grid with 14 levels.",
     "validation_key": "v138",
     "vertical_coordinate": "atmosphere-sigma-coordinate"
+  },
+  {
+    "@id": "v150",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": "",
+    "description": "There are four vertical layers, with the maximum total sea ice thickness of 10m. Both the surface layer and the bottom layer each account for one-third of the total thickness.",
+    "n_z": 4,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "ui_label": "height grid with 4 levels.",
+    "validation_key": "v150",
+    "vertical_coordinate": "height"
   },
   {
     "@id": "v133",

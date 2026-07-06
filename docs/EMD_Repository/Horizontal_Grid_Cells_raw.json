@@ -1025,6 +1025,30 @@
     "y_resolution": 0.1875
   },
   {
+    "@id": "g191",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 577600,
+    "region": "antarctica",
+    "southernmost_latitude": -89.948,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 8 x 8 km resolution.",
+    "units": "km",
+    "validation_key": "g191",
+    "westernmost_longitude": 45,
+    "x_resolution": 8,
+    "y_resolution": 8
+  },
+  {
     "@id": "g148",
     "@type": [
       "emd",
