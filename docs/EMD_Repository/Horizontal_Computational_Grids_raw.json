@@ -499,6 +499,19 @@
     "validation_key": "h127"
   },
   {
+    "@id": "h134",
+    "@type": [
+      "wcrp:horizontal_computational_grid",
+      "esgvoc:HorizontalComputationalGrid",
+      "emd"
+    ],
+    "arrangement": "arakawa-a",
+    "description": "",
+    "horizontal_subgrids": "g131-mass",
+    "ui_label": "",
+    "validation_key": "h134"
+  },
+  {
     "@id": "h125",
     "@type": [
       "wcrp:horizontal_computational_grid",
