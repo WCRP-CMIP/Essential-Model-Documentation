@@ -1049,6 +1049,30 @@
     "y_resolution": 8
   },
   {
+    "@id": "g195",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "Generalized spherical latitude-longitude grid with model South Pole located at geographical South Pole, and model North Pole located in Siberia in a point with geographic coodinates 60N, 90E",
+    "grid_mapping": "rotated-latitude-longitude",
+    "grid_type": "displaced-pole",
+    "n_cells": 518400,
+    "region": "global",
+    "southernmost_latitude": -89.875,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a displaced pole grid type and 0.5 x 0.25 degree resolution.",
+    "units": "degree",
+    "validation_key": "g195",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.5,
+    "y_resolution": 0.25
+  },
+  {
     "@id": "g148",
     "@type": [
       "emd",

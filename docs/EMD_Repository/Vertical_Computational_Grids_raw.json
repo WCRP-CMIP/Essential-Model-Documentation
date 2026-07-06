@@ -507,6 +507,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v153",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 300,
+    "description": "",
+    "n_z": 40,
+    "n_z_range": "",
+    "top_layer_thickness": 5,
+    "total_thickness": 5500,
+    "ui_label": "ocean-sigma-coordinate grid with 40 levels.",
+    "validation_key": "v153",
+    "vertical_coordinate": "ocean-sigma-coordinate"
+  },
+  {
     "@id": "v126",
     "@type": [
       "wcrp:vertical_computational_grid",
