@@ -1447,6 +1447,30 @@
     "y_resolution": 0.1875
   },
   {
+    "@id": "g192",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 579121,
+    "region": "antarctica",
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 8 x 8 km resolution.",
+    "units": "km",
+    "validation_key": "g192",
+    "westernmost_longitude": 0,
+    "x_resolution": 8,
+    "y_resolution": 8
+  },
+  {
     "@id": "g115",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -1810,6 +1834,30 @@
     "westernmost_longitude": 0,
     "x_resolution": 20,
     "y_resolution": 20
+  },
+  {
+    "@id": "g193",
+    "@type": [
+      "emd",
+      "wcrp:horizontal_grid_cell",
+      "esgvoc:HorizontalGridCell"
+    ],
+    "alias": [],
+    "description": "",
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 302400,
+    "region": "greenland",
+    "southernmost_latitude": 57.805,
+    "temporal_refinement": "static",
+    "truncation_method": "./",
+    "truncation_number": "",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 4 x 4 km resolution.",
+    "units": "km",
+    "validation_key": "g193",
+    "westernmost_longitude": 330.528,
+    "x_resolution": 4,
+    "y_resolution": 4
   },
   {
     "@id": "g105",
