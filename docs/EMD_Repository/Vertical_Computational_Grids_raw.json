@@ -68,6 +68,23 @@
     "vertical_coordinate": "depth"
   },
   {
+    "@id": "v148",
+    "@type": [
+      "wcrp:vertical_computational_grid",
+      "esgvoc:VerticalComputationalGrid",
+      "emd"
+    ],
+    "bottom_layer_thickness": 13.8512,
+    "description": "The Vertical Computational Grid for defining soil states in the Common Land Model version2014.",
+    "n_z": 15,
+    "n_z_range": "",
+    "top_layer_thickness": 0.0175,
+    "total_thickness": 42.1032,
+    "ui_label": "depth grid with 15 levels.",
+    "validation_key": "v148",
+    "vertical_coordinate": "depth"
+  },
+  {
     "@id": "v130",
     "@type": [
       "wcrp:vertical_computational_grid",
