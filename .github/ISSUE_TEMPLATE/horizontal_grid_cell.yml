@@ -138,6 +138,7 @@ body:
   - type: dropdown
     id: region
     attributes:
+      multiple: true
       label: Region
       description: |
         The geographic coverage area of the grid.
