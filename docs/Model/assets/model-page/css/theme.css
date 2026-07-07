@@ -114,10 +114,10 @@ details.card.collapsible[open] > .card-summary { border-bottom: 1px solid var(--
 
 .crs-sphere { fill: var(--realm); fill-opacity: .9; stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 2px 5px rgba(20,34,58,.28)); transition: filter .15s; }
 .crs-node:hover .crs-sphere { filter: drop-shadow(0 3px 9px rgba(20,34,58,.4)); }
-.crs-node.prescribed .crs-sphere { fill-opacity: .2; stroke: var(--ink); stroke-width: 2; }
+.crs-pre-circle { fill: none; stroke: var(--realm); stroke-width: 2.5; stroke-opacity: .15; }
 .crs-pre-halo { fill: none; stroke: var(--ink); stroke-width: 1.5; opacity: .55; }
 .crs-sphere-label { font-size: 11px; font-weight: 700; fill: #fff; text-anchor: middle; dominant-baseline: middle; paint-order: stroke; pointer-events: none; }
-.crs-node.prescribed .crs-sphere-label { fill: var(--ink); }
+.crs-node.prescribed .crs-sphere-label { fill: var(--ink); font-size: 9px; }
 .crs-pre-tag { font-size: 7.5px; fill: var(--prescribed); text-anchor: middle; dominant-baseline: middle; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; pointer-events: none; }
 
 .crs-child-sphere { fill: var(--realm); fill-opacity: .95; stroke: rgba(255,255,255,.75); stroke-width: 1.5; }
@@ -130,7 +130,7 @@ details.card.collapsible[open] > .card-summary { border-bottom: 1px solid var(--
 .crs-legend { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .8rem; font-size: .72rem; color: var(--muted); }
 .crs-legend span { display: inline-flex; align-items: center; gap: .35rem; }
 .crs-legend .lg-sphere { width: .9rem; height: .9rem; border-radius: 50%; background: var(--accent); display: inline-block; }
-.crs-legend .lg-pre { background: transparent; border: 2px solid var(--ink); }
+.crs-legend .lg-pre { background: transparent; border: 2px solid var(--muted); }
 .crs-legend .lg-child { width: .6rem; height: .6rem; border-radius: 50%; background: rgba(31,78,121,.5); border: 1px solid #fff; display: inline-block; }
 .crs-legend .lg-arc { width: 1.1rem; height: 0; border-top: 2px dashed var(--coupling); display: inline-block; }
 
@@ -188,7 +188,7 @@ svg.focus .h-node { opacity: .18; } svg.focus .h-link { opacity: .08; } svg.focu
 /* ---- components in detail ---- */
 /* Default grid stretch: each row's cards match the tallest card IN THAT ROW
    (rows are independent — no global equal-height). */
-.comp-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: .8rem; align-items: stretch; }
+.comp-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1.1rem .8rem; row-gap: 1.1rem; align-items: stretch; }
 .comp-row { display: flex; flex-direction: column; height: 100%; border-left: 4px solid var(--realm, var(--accent)); border-radius: 8px; padding: .7rem .9rem; background: #fbfaf6; }
 .comp-row-head { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
 .comp-realm { font-weight: 700; font-size: .92rem; }
@@ -235,9 +235,12 @@ svg.focus .h-node { opacity: .18; } svg.focus .h-link { opacity: .08; } svg.focu
 .subgrid-block[open] > summary::before { transform: rotate(90deg); }
 .subgrid-head { font-size: .62rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
 .subgrid-list { list-style: none; margin: .4rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .25rem; }
-.subgrid-row { display: flex; flex-direction: column; gap: .05rem; padding: .25rem .45rem; background: #f7f5ef; border-radius: 6px; border-left: 3px solid var(--line-strong); }
+.subgrid-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .3rem .45rem; background: #f7f5ef; border-radius: 6px; border-left: 3px solid var(--line-strong); }
+.subgrid-row-main { display: flex; flex-direction: column; gap: .05rem; min-width: 0; }
 .subgrid-id { font-size: .68rem; font-weight: 600; color: var(--ink); }
 .subgrid-meta { font-size: .62rem; color: var(--muted); }
+.view-grid-btn { flex: none; font-size: .6rem; font-weight: 700; letter-spacing: .02em; padding: .2rem .55rem; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--accent); background: var(--panel); text-decoration: none; white-space: nowrap; transition: background .15s, color .15s, border-color .15s; }
+.view-grid-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 /* ---- raw JSON ---- */
 .raw-json { padding: 0; overflow: hidden; }

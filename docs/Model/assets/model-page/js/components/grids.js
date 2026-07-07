@@ -16,6 +16,10 @@ const isNone = v => { const s = clean(v).toLowerCase(); return !s || s === "none
 const vocabLabel = v => Array.isArray(v) ? v.map(short).join(", ") : short(v);
 const REALM_OF = id => String(id).split("_")[0];
 
+// GitHub source link for a subgrid's horizontal_grid_cell (e.g. g100 → its file).
+const GH_BASE = "https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/src-data";
+const gridCellUrl = cellId => cellId ? `${GH_BASE}/horizontal_grid_cell/${cellId}.json` : null;
+
 // One line describing a subgrid: name · variable type · grid type · resolution
 function subgridRow(sg) {
   const bits = [];
@@ -28,8 +32,15 @@ function subgridRow(sg) {
     if (Number.isFinite(cell.n_cells)) bits.push(`${cell.n_cells.toLocaleString()} cells`);
   }
   return el("li", { class: "subgrid-row" }, [
-    el("code", { class: "subgrid-id" }, sg.id),
-    bits.length ? el("span", { class: "subgrid-meta" }, bits.join(" · ")) : null,
+    el("div", { class: "subgrid-row-main" }, [
+      el("code", { class: "subgrid-id" }, sg.id),
+      bits.length ? el("span", { class: "subgrid-meta" }, bits.join(" · ")) : null,
+    ]),
+    sg.cellId ? el("a", {
+      class: "view-grid-btn", href: gridCellUrl(sg.cellId),
+      target: "_blank", rel: "noopener",
+      title: `Open grid cell ${sg.cellId}.json on GitHub`,
+    }, `view grid ↗`) : null,
   ]);
 }
 
@@ -115,10 +126,14 @@ export async function mountGrids(root, model, { base }) {
           // resolve every subgrid and its grid cell
           const sgIds = (rec.doc.horizontal_subgrids || []).map(short).filter(Boolean);
           rec.subgrids = await Promise.all(sgIds.map(async sgId => {
-            const entry = { id: sgId, doc: null, cell: null };
+            const entry = { id: sgId, doc: null, cell: null, cellId: null };
             try {
               entry.doc = await resolver.fetchDoc("horizontal_subgrid", sgId);
-              const gcId = short(entry.doc.horizontal_grid_cell);
+              // the reference field is `horizontal_grid_cells` (plural); tolerate
+              // the singular form and a string-or-array value.
+              const gcRef = entry.doc.horizontal_grid_cells ?? entry.doc.horizontal_grid_cell;
+              const gcId = Array.isArray(gcRef) ? short(gcRef[0]) : (gcRef ? short(gcRef) : null);
+              entry.cellId = gcId || null;
               if (gcId) { try { entry.cell = await resolver.fetchDoc("horizontal_grid_cell", gcId); } catch (_) {} }
             } catch (_) {}
             return entry;

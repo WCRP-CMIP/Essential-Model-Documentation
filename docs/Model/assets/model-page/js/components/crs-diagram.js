@@ -3,8 +3,9 @@
 // Driven entirely by the parsed CRS string (via crs.js parse(), which handles
 // the '^' prescribed marker). Root realms are drawn as circles laid out on a
 // ring; embedded realms are packed inside their parent circle; couplings are
-// drawn as dashed curved arcs between roots; prescribed ('^') realms get a
-// dashed halo ring and a tag. Pure SVG + a light force-free radial layout — no D3.
+// drawn as dashed curved arcs between roots; prescribed ('^') realms are drawn
+// as an outlined circle (no fill, realm-coloured stroke) with a tag.
+// Pure SVG + a light force-free radial layout — no D3.
 
 import { parse, toName, realmLabel, realmColor, sortCodes } from "../crs.js";
 import { card } from "../dom.js";
@@ -56,7 +57,8 @@ export function mountCrsDiagram(root, model) {
 
   // ---- layout: roots on a ring (single root → centre) --------------------
   const W = 560, H = 560, cx = W / 2, cy = H / 2;
-  const PR = 62;                         // parent circle radius
+  const PR = 62;                         // parent (dynamic) circle radius
+  const PRE_R = Math.round(PR * 0.7);     // prescribed spheres are 70% the size
   const CR = Math.round((PR - 8) * 0.46); // child radius
   const ringR = roots.length <= 1 ? 0
     : Math.min(W, H) / 2 - PR - 34;      // radius of the root ring
@@ -101,30 +103,34 @@ export function mountCrsDiagram(root, model) {
     const isPre = preSet.has(code);
     const kids = childrenOf.get(code) || [];
 
+    const r = isPre ? PRE_R : PR;        // prescribed spheres are 70% the size
     const g = svg("g", { class: `crs-node${isPre ? " prescribed" : ""}`, transform: `translate(${p.x},${p.y})` });
 
     if (isPre) {
-      // prescribed: an outer dashed halo ring marks it as externally imposed,
-      // plus a soft-filled inner disc — visually distinct from coupling dashes.
-      g.appendChild(svg("circle", { r: PR + 5, class: "crs-pre-halo", style: `--realm:${color}` }));
+      // prescribed: an outlined circle with no fill and a realm-coloured
+      // stroke, plus a concentric outer halo ring (the double-stroke look) —
+      // signals an external, one-way boundary forcing.
+      g.appendChild(svg("circle", { r: r + 4, class: "crs-pre-halo", style: `--realm:${color}` }));
+      g.appendChild(svg("circle", { r, class: "crs-pre-circle", style: `--realm:${color}` }));
+    } else {
+      g.appendChild(svg("circle", { r, class: "crs-sphere", style: `--realm:${color}` }));
     }
-    g.appendChild(svg("circle", { r: PR, class: "crs-sphere", style: `--realm:${color}` }));
 
     // parent label — nudged up when it has children so it doesn't overlap
-    const lbl = svg("text", { x: 0, y: kids.length ? -PR * 0.5 : 0, class: "crs-sphere-label" });
+    const lbl = svg("text", { x: 0, y: kids.length ? -r * 0.5 : 0, class: "crs-sphere-label" });
     lbl.textContent = realmLabel(code);
     g.appendChild(lbl);
 
     if (isPre) {
-      const tag = svg("text", { x: 0, y: PR * 0.72, class: "crs-pre-tag" });
+      const tag = svg("text", { x: 0, y: r * 0.72, class: "crs-pre-tag" });
       tag.textContent = "prescribed ^";
       g.appendChild(tag);
     }
 
     // embedded children packed in a row inside the parent
     if (kids.length) {
-      const yOff = PR * 0.22;
-      const step = kids.length === 1 ? 0 : Math.min(CR * 2 + 4, (PR - CR - 6) * 2 / (kids.length - 1));
+      const yOff = r * 0.22;
+      const step = kids.length === 1 ? 0 : Math.min(CR * 2 + 4, (r - CR - 6) * 2 / (kids.length - 1));
       kids.forEach((k, i) => {
         const xOff = kids.length === 1 ? 0 : -step * (kids.length - 1) / 2 + i * step;
         const cg = svg("g", { class: "crs-child-node", transform: `translate(${xOff},${yOff})` });

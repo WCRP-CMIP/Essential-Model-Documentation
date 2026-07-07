@@ -53,6 +53,16 @@ const ghUrl = node => {
   const fileId = short(node.id);
   return folder && fileId ? `${GH_BASE}/${folder}/${fileId}.json` : null;
 };
+// Reliably open a new tab. window.open(url, "_blank", "noopener") is treated as
+// a popup by Chrome and silently blocked even on a user gesture; a synthesized
+// anchor click is not.
+function openInNewTab(url) {
+  const a = document.createElement("a");
+  a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
 
 const vocab = v =>
   typeof v === "string" ? short(v)
@@ -307,7 +317,7 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
         const url = ghUrl(d);
         if (!url) return;
         e.preventDefault(); e.stopPropagation();   // don't let the zoom behavior treat this as dblclick-to-zoom
-        window.open(url, "_blank", "noopener");
+        openInNewTab(url);
       })
       .on("mouseenter", (e, d) => {
         const hot = new Set([d.id, ...parents.get(d.id), ...children.get(d.id), ...coupled.get(d.id)]);
@@ -361,6 +371,7 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
 
     zoom = d3.zoom().scaleExtent([0.05, 4]).on("zoom", e => { rootG.attr("transform", e.transform); rail(e.transform); });
     svg.call(zoom);
+    svg.on("dblclick.zoom", null);   // dblclick is reserved for opening a node's GitHub source
 
     // left rail
     const railG = svg.append("g").attr("class", "h-rail").style("pointer-events", "none");
