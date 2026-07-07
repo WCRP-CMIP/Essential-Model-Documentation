@@ -34,6 +34,26 @@ const ROW_NAME = { "-1": "family", "0": "model", "1": "realm · config",
   "4": "vertical grid", "5": "horizontal grid", "6": "subgrid", "7": "grid cell" };
 const LEFT_RAIL = 120;
 
+// Map each node type to its repo folder (component families are stored as
+// model_family records) and build a GitHub source link for that record.
+const TYPE_FOLDER = {
+  "model": "model",
+  "model_family": "model_family",
+  "component_config": "component_config",
+  "model_component": "model_component",
+  "component_family": "model_family",
+  "vertical_computational_grid": "vertical_computational_grid",
+  "horizontal_computational_grid": "horizontal_computational_grid",
+  "horizontal_subgrid": "horizontal_subgrid",
+  "horizontal_grid_cell": "horizontal_grid_cell",
+};
+const GH_BASE = "https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/src-data";
+const ghUrl = node => {
+  const folder = TYPE_FOLDER[node.type];
+  const fileId = short(node.id);
+  return folder && fileId ? `${GH_BASE}/${folder}/${fileId}.json` : null;
+};
+
 const vocab = v =>
   typeof v === "string" ? short(v)
   : Array.isArray(v) ? v.map(vocab).filter(Boolean).join(", ")
@@ -199,6 +219,7 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
     <dl class="h-key">
       <dt>structure</dt><dd>Model → realm · component → vertical &amp; horizontal grids → subgrids → grid cells</dd>
       <dt>hover</dt><dd>highlights a node's parents and children</dd>
+      <dt>double-click</dt><dd>opens that record's source JSON on GitHub ↗</dd>
       <dt>dashed nest</dt><dd>embedded realms wrapped inside their host</dd>
       <dt>dashed arc</dt><dd>couplings between realms</dd>
     </dl>`;
@@ -268,8 +289,10 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
     const nodeSel = rootG.append("g").selectAll("g.h-node").data(graph.nodes).join("g").attr("class", "h-node");
     nodeSel.each(function (d) {
       const g = d3.select(this), cfg = TYPES[d.type] || {};
+      const url = ghUrl(d);
+      g.append("title").text(url ? `Double-click to open ${short(d.id)}.json on GitHub ↗` : short(d.id));
       const realmFill = d.type === "component_config" && d.realm ? realmColor(d.realm) : null;
-      g.append("rect").attr("x", d => -d.w / 2).attr("y", -d.h / 2).attr("width", d.w).attr("height", d.h)
+      g.append("rect").attr("x", -d.w / 2).attr("y", -d.h / 2).attr("width", d.w).attr("height", d.h)
         .attr("rx", 5)
         .attr("fill", d.embedded ? "#fff7d6" : (realmFill ? tint(realmFill) : cfg.fill))
         .attr("stroke", realmFill || cfg.stroke);
@@ -280,6 +303,12 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
     });
 
     nodeSel
+      .on("dblclick", (e, d) => {
+        const url = ghUrl(d);
+        if (!url) return;
+        e.preventDefault(); e.stopPropagation();   // don't let the zoom behavior treat this as dblclick-to-zoom
+        window.open(url, "_blank", "noopener");
+      })
       .on("mouseenter", (e, d) => {
         const hot = new Set([d.id, ...parents.get(d.id), ...children.get(d.id), ...coupled.get(d.id)]);
         svg.classed("focus", true);
