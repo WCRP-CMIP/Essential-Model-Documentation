@@ -227,7 +227,6 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
   wrap.className = "card hierarchy";
   wrap.innerHTML = `<h2 class="card-title">EMD schema</h2>
     <dl class="h-key">
-      <dt>structure</dt><dd>Model → realm · component → vertical &amp; horizontal grids → subgrids → grid cells</dd>
       <dt>hover</dt><dd>highlights a node's parents and children</dd>
       <dt>double-click</dt><dd>opens that record's source JSON on GitHub ↗</dd>
       <dt>dashed nest</dt><dd>embedded realms wrapped inside their host</dd>

@@ -27,6 +27,39 @@ function shortRealm(code) {
   return map[toName(code)] || code;
 }
 
+// Render the CRS string as a coloured <code>: each realm code is tinted with
+// its realm colour; codes inside […] (embedded) are shown paler; structural
+// glyphs ( ) [ ] , ^ are muted.
+function renderCrsCode(crs) {
+  const code = document.createElement("code");
+  const n = crs.length;
+  let i = 0, inEmbed = 0;
+  const pushStruct = ch => {
+    const sp = document.createElement("span");
+    sp.className = "crs-tok-struct";
+    sp.textContent = ch;
+    code.appendChild(sp);
+  };
+  while (i < n) {
+    const ch = crs[i];
+    if (ch >= "A" && ch <= "Z") {
+      let tok = ch; i++;
+      while (i < n && crs[i] >= "a" && crs[i] <= "z") { tok += crs[i]; i++; }
+      const sp = document.createElement("span");
+      sp.className = "crs-tok" + (inEmbed ? " embedded" : "");
+      sp.style.setProperty("--realm", realmColor(tok));
+      sp.textContent = tok;
+      code.appendChild(sp);
+      continue;
+    }
+    if (ch === "[") inEmbed++;
+    else if (ch === "]") inEmbed = Math.max(0, inEmbed - 1);
+    pushStruct(ch);
+    i++;
+  }
+  return code;
+}
+
 export function mountCrsDiagram(root, model) {
   const crs = model.crs;
   const body = [];
@@ -38,10 +71,11 @@ export function mountCrsDiagram(root, model) {
     return;
   }
 
-  // CRS string display
+  // CRS string display — each realm code coloured by its realm; embedded
+  // (square-bracketed) codes shown paler; structural glyphs muted.
   const codeLine = document.createElement("div");
   codeLine.className = "crs-string";
-  codeLine.appendChild(Object.assign(document.createElement("code"), { textContent: crs }));
+  codeLine.appendChild(renderCrsCode(crs));
   body.push(codeLine);
 
   const { embeddings, couplingPairs, roots, prescribed } = parse(crs);
@@ -123,7 +157,7 @@ export function mountCrsDiagram(root, model) {
 
     if (isPre) {
       const tag = svg("text", { x: 0, y: r * 0.72, class: "crs-pre-tag" });
-      tag.textContent = "prescribed ^";
+      tag.textContent = "prescribed";
       g.appendChild(tag);
     }
 
@@ -151,7 +185,7 @@ export function mountCrsDiagram(root, model) {
   legend.className = "crs-legend";
   legend.innerHTML =
     `<span><i class="lg-sphere"></i>dynamic realm</span>` +
-    `<span><i class="lg-sphere lg-pre"></i>prescribed (^)</span>` +
+    `<span><i class="lg-sphere lg-pre"></i>prescribed</span>` +
     `<span><i class="lg-child"></i>embedded</span>` +
     `<span><i class="lg-arc"></i>coupling</span>`;
   body.push(legend);
