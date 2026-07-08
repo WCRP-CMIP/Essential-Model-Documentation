@@ -1,20 +1,5 @@
 [
   {
-    "@id": "bcc-avim3",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "land-surface",
-    "description": "BCC\u2011AVIM3 is an upgraded version of BCC\u2011AVIM2, serving as the land surface component of BCC\u2011CSM2. It comprises three sub\u2011modules that simulate biogeophysical, ecophysiological, and soil carbon\u2013nitrogen dynamic processes. The terrestrial carbon cycle is represented through a series of biochemical and physiological processes associated with vegetation photosynthesis and respiration. Carbohydrate allocation to leaves, stems, and roots varies seasonally, depending on the prognostic leaf area index (LAI). Parameterization in BCC\u2011AVIM3 has been improved in several key areas, including snow cover, soil freeze\u2013thaw dynamics, rice paddy fields and ground energy balance. Additional enhancements include the treatment of organic matter and a prognostic phenology scheme based on the carbon budget of plant functional types.",
-    "family": "./",
-    "references": "https:// doi: 10.1007/s13351-019-9016-y https://doi.org/10.1016/j.accre.2023.02.001",
-    "ui_label": "BCC-AVIM3",
-    "validation_key": "bcc-avim3"
-  },
-  {
     "@id": "mricom-5-4",
     "@type": [
       "emd",
@@ -287,21 +272,6 @@
     "validation_key": "classicv1-5"
   },
   {
-    "@id": "hd-hydrological-discharge",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads  ## References  Hagemann, S., D\u00fcmenil, L. A parametrization of the lateral waterflow for the global scale. Climate Dynamics 14, 17\u201331 (1997). https://doi.org/10.1007/s003820050205 Hagemann, S., and L. D. Gates (2001), Validation of the hydrological cycle of ECMWF and NCEP reanalyses using the MPI hydrological discharge model, J. Geophys. Res., 106(D2), 1503\u20131510, doi:10.1029/2000JD900568.",
-    "component": "./",
-    "description": "1. The HD model simulates the global river discharge. 2. HD separates the lateral water flow into the three flow processes of overland flow, baseflow, and riverflow. Overland flow and baseflow represent the fast and slow lateral flow processes within a grid box, while riverflow represents the lateral flow between grid boxes. 3. HD assumes \"rivers\" to exist in Antarctica and Greenland, to compensate for the absence of glacial flow in the ICON model. This assumption is necessary to close the water budget.",
-    "family": "./",
-    "references": "https://doi.org/10.1007/s003820050205 https://doi.org/10.1029/2000JD900568",
-    "ui_label": "HD hydrological discharge",
-    "validation_key": "hd-hydrological-discharge"
-  },
-  {
     "@id": "classic",
     "@type": [
       "emd",
@@ -401,21 +371,6 @@
     "references": "https://doi.org/10.21957/slk503fs2i https://doi.org/10.1175/JAS-D-13-0163.1 https://doi.org/10.1002/qj.713 https://doi.org/10.1175/2008JHM1068.1 https://doi.org/10.1029/2019MS001725 https://doi.org/10.1175/MWR-D-18-0043.1 https://doi.org/10.1256/qj.03.173 https://doi.org/10.21957/02054f0fbf",
     "ui_label": "OpenIFS 48r1",
     "validation_key": "openifs-48r1"
-  },
-  {
-    "@id": "fesim2",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads",
-    "component": "sea-ice",
-    "description": "1. The FESIM2 sea-ice component simulates sea-ice dynamics. Sea ice thermodynamics (heat transfer through sea ice, melting, freezing etc) is handled by the atmosphere model ICON-A on the atmosphere grid. 2. FESIM2 solves the elastic-viscous-plastic (EVP) equations for sea ice evolution. FESIM2 operates with a single sea-ice layer (i.e. there is no \"vertical grid\"). 3. Fine-tuning of the ocean heat content was done using the parameters governing sea ice albedo",
-    "family": "./",
-    "references": "https://doi.org/10.1016/j.jcp.2020.110086 https://doi.org/10.5194/gmd-8-1747-2015",
-    "ui_label": "FESIM2",
-    "validation_key": "fesim2"
   },
   {
     "@id": "mricom-5-4-sea-ice",
@@ -559,36 +514,6 @@
     "validation_key": "colm2024"
   },
   {
-    "@id": "jules-vn5-1",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "land-surface",
-    "description": "The Joint UK Land Environment Simulator (JULES) is the land surface scheme of the UK Earth System Model (UKESM).    JULES vn5.1 incorporates an implementation of the terrestrial nitrogen cycle. The inclusion of a prognostic land N scheme marks a step forward in functionality and realism for the JULES and UKESM models.",
-    "family": "jules",
-    "references": "https://doi.org/10.5194/gmd-4-677-2011 https://doi.org/10.5194/gmd-4-701-2011 https://doi.org/10.5194/gmd-14-2161-2021",
-    "ui_label": "JULES vn5.1",
-    "validation_key": "jules-vn5-1"
-  },
-  {
-    "@id": "matrix",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
-    "component": "aerosol",
-    "description": "MATRIX aerosols. Mode based aerosol code for climate change applications.",
-    "family": "./",
-    "references": "https://dx.doi.org/10.5194/acp-8-6003-2008 https://dx.doi.org/10.1029/2019MS001978",
-    "ui_label": "MATRIX",
-    "validation_key": "matrix"
-  },
-  {
     "@id": "clm4",
     "@type": [
       "emd",
@@ -619,21 +544,6 @@
     "references": "https://doi.org/10.1029/2019MS001791",
     "ui_label": "",
     "validation_key": "nemo_v3_6"
-  },
-  {
-    "@id": "giss-ocean-model",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
-    "component": "ocean",
-    "description": "GISS Ocean model. Non-boussinesq, mass conserving, natural boundary conditions, p-star vertical coordinate (like z-star but in mass). Variable resolution, standard lat-lon grid or stretched in latitude for additional tropical detail. Focused on climate responses to multiple forcings. Optional ocean-biogeochemistry and full carbon cycle.",
-    "family": "./",
-    "references": "https://dx.doi.org/10.1029/2019MS002025",
-    "ui_label": "GISS Ocean Model.",
-    "validation_key": "giss-ocean-model"
   },
   {
     "@id": "metum-ga9",
@@ -838,36 +748,6 @@
     "validation_key": "canam6-aerosol"
   },
   {
-    "@id": "giss-atmospheric-model-v3-1",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
-    "component": "atmosphere",
-    "description": "GISS Atmospheric Model. Flexible model top (0.1 hPa or 0.002 hPa), flexible composition (fixed, one-moment-aerosol, MATRIX aerosol, w/ or w/o G-PUCCINI chemistry). Focus on response to diverse climate forcing across range of time scales. v3 is based on a cubed sphere grid.",
-    "family": "./",
-    "references": "https://dx.doi.org/10.1002/2013MS000265 https://dx.doi.org/10.1029/2019MS002025",
-    "ui_label": "GISS Atmospheric Model v3.1",
-    "validation_key": "giss-atmospheric-model-v3-1"
-  },
-  {
-    "@id": "metum-ga7-1",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "private",
-    "component": "atmosphere",
-    "description": "We describe Global Atmosphere 7.0 and Global Land 7.0 (GA7.0/GL7.0), the latest science configurations of the Met Office Unified Model (UM) and the Joint UK Land Environment Simulator (JULES) land surface model developed for use across weather and climate timescales. GA7.0 and GL7.0 include incremental developments and targeted improvements that, between them, address four critical errors identified in previous configurations: excessive precipitation biases over India, warm and moist biases in the tropical tropopause layer (TTL), a source of energy non-conservation in the advection scheme and excessive surface radiation biases over the Southern Ocean. They also include two new parametrisations, namely the UK Chemistry and Aerosol (UKCA) GLOMAP-mode (Global Model of Aerosol Processes) aerosol scheme and the JULES multi-layer snow scheme, which improve the fidelity of the simulation and were required for inclusion in the Global Atmosphere/Global Land configurations ahead of the 6th Coupled Model Intercomparison Project (CMIP6).  In addition, we describe the GA7.1 branch configuration, which reduces an overly negative anthropogenic aerosol effective radiative forcing (ERF) in GA7.0 whilst maintaining the quality of simulations of the present-day climate. GA7.1/GL7.0 will form the physical atmosphere/land component in the HadGEM3\u2013GC3.1 and UKESM1 climate model submissions to the CMIP6.",
-    "family": "metum",
-    "references": "https://doi.org/10.5194/gmd-12-1909-2019",
-    "ui_label": "MetUM-GA7.1",
-    "validation_key": "metum-ga7-1"
-  },
-  {
     "@id": "pism-v1-2-line",
     "@type": [
       "emd",
@@ -917,21 +797,6 @@
     ],
     "ui_label": "",
     "validation_key": "surfex_v8_modeling_platform"
-  },
-  {
-    "@id": "bisicles-ukesm1-3",
-    "@type": [
-      "emd",
-      "wcrp:model_component",
-      "esgvoc:ModelComponent"
-    ],
-    "code_base": "https://github.com/cpom-land-ice-modelling",
-    "component": "land-ice",
-    "description": "BISICLES-UKESM1.3 is a tagged version of UniCiCles (Unified Model-CISM-BISICLES), a package combining BISICLES with an interface that obtains boundary conditions from Unified Model or JULES data, using code derived from the Glint interface of the Glimmer-CISM ISM. BISICLES uses the adaptive-mesh Chombo libraries. All cells in the mesh are rectangles that may be recursively refined by subdivision into four smaller cells with the same aspect ratio. The configuration of BISICLES approximates the momentum equations using the \u201cshelfy-stream\u201d approximation with simplified vertical shear strains included in the effective viscosity, often referred to as SSA*. Basal traction is set to zero beneath floating ice and modelled using power laws beneath grounded ice. Greenland ice sheet uses a linear drag law everywhere while AIS uses a cubic law far upstream from the grounding line, which tends to a Coulomb friction law near the grounding line.",
-    "family": "bisicles",
-    "references": "https://doi.org/10.1029/2021MS002520",
-    "ui_label": "BISICLES-UKESM1.3",
-    "validation_key": "bisicles-ukesm1-3"
   },
   {
     "@id": "fesom-2-7",

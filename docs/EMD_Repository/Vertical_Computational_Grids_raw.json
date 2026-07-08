@@ -17,23 +17,6 @@
     "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
-    "@id": "v145",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 1.137,
-    "description": "There are ten layers in the vertical of the land surface model BCC-AVIM3.0.",
-    "n_z": 10,
-    "n_z_range": "",
-    "top_layer_thickness": 0.018,
-    "total_thickness": 3.433,
-    "ui_label": "height grid with 10 levels.",
-    "validation_key": "v145",
-    "vertical_coordinate": "height"
-  },
-  {
     "@id": "v143",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -65,23 +48,6 @@
     "total_thickness": 3,
     "ui_label": "depth grid with 4 levels.",
     "validation_key": "v117",
-    "vertical_coordinate": "depth"
-  },
-  {
-    "@id": "v148",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 13.8512,
-    "description": "The Vertical Computational Grid for defining soil states in the Common Land Model version2014.",
-    "n_z": 15,
-    "n_z_range": "",
-    "top_layer_thickness": 0.0175,
-    "total_thickness": 42.1032,
-    "ui_label": "depth grid with 15 levels.",
-    "validation_key": "v148",
     "vertical_coordinate": "depth"
   },
   {
@@ -119,23 +85,6 @@
     "vertical_coordinate": "depth"
   },
   {
-    "@id": "v152",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": "",
-    "description": "The sigma coordinate is layer height above the base of the ice sheet, normalised by the local ice thickness. Top layer thickness, bottom layer thickness and total thickness are unspecified because they may vary temporally.",
-    "n_z": 11,
-    "n_z_range": "",
-    "top_layer_thickness": "",
-    "total_thickness": "",
-    "ui_label": "land-ice-sigma-coordinate grid with 11 levels.",
-    "validation_key": "v152",
-    "vertical_coordinate": "land-ice-sigma-coordinate"
-  },
-  {
     "@id": "v135",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -150,23 +99,6 @@
     "total_thickness": 4000,
     "ui_label": "height grid with 31 levels.",
     "validation_key": "v135",
-    "vertical_coordinate": "height"
-  },
-  {
-    "@id": "v151",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": "",
-    "description": "11-layer thermodynamic grid used by CICE sea ice model (3 layers of snow and 8 layers of ice). Dynamics (the momentum equation) treats all of these as a single layer. Top layer thickness, bottom layer thickness and total thickness are unspecified, since they are co-vary with local snow and ice and thickness.",
-    "n_z": 11,
-    "n_z_range": "",
-    "top_layer_thickness": "",
-    "total_thickness": "",
-    "ui_label": "height grid with 11 levels.",
-    "validation_key": "v151",
     "vertical_coordinate": "height"
   },
   {
@@ -255,23 +187,6 @@
     "vertical_coordinate": "depth"
   },
   {
-    "@id": "v157",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 10,
-    "description": "",
-    "n_z": 19,
-    "n_z_range": "",
-    "top_layer_thickness": 3700,
-    "total_thickness": 35000,
-    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 19 levels.",
-    "validation_key": "v157",
-    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
-  },
-  {
     "@id": "v104",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -304,60 +219,6 @@
     "ui_label": "depth grid with 20 levels.",
     "validation_key": "v136",
     "vertical_coordinate": "depth"
-  },
-  {
-    "@id": "v154",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 222,
-    "description": "This is a p-star grid, which is close to z-star but using mass as the vertical coordinate, not height.",
-    "n_z": "",
-    "n_z_range": [
-      2,
-      40
-    ],
-    "top_layer_thickness": 10,
-    "total_thickness": 5008,
-    "ui_label": "z-star grid.",
-    "validation_key": "v154",
-    "vertical_coordinate": "z-star"
-  },
-  {
-    "@id": "v147",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 126,
-    "description": "",
-    "n_z": 30,
-    "n_z_range": "",
-    "top_layer_thickness": 5800,
-    "total_thickness": 41500,
-    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 30 levels.",
-    "validation_key": "v147",
-    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
-  },
-  {
-    "@id": "v146",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": "",
-    "description": "The ocean vertical coordinate is a hybrid between fixed pressure levels towards the upper boundary and potential density, with reference pressure at 2000 dbar, below. Using high-order vertical reconstructions of potential temperature and salinity, the vertical position of a layer interface is continuously nudged to minimise the difference between the interface and its associated reference potential density. Thereafter, a prescribed minimum pressure thickness per layer is enforced towards the upper boundary. The interface reference potential densities are allowed to slowly vary in time to optimise the global potential density range as the model state evolves. Since the model layers have spatially and temporally varying thickness at depth, a fixed bottom layer thickness is not specified.",
-    "n_z": 72,
-    "n_z_range": "",
-    "top_layer_thickness": 2,
-    "total_thickness": 9341,
-    "ui_label": "ocean-hybrid-pressure-isopycnic-coordinate grid with 72 levels.",
-    "validation_key": "v146",
-    "vertical_coordinate": "ocean-hybrid-pressure-isopycnic-coordinate"
   },
   {
     "@id": "v140",
@@ -476,23 +337,6 @@
     "vertical_coordinate": "./"
   },
   {
-    "@id": "v156",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 100,
-    "description": "",
-    "n_z": 21,
-    "n_z_range": "",
-    "top_layer_thickness": 3000,
-    "total_thickness": 30000,
-    "ui_label": "atmosphere-sigma-coordinate grid with 21 levels.",
-    "validation_key": "v156",
-    "vertical_coordinate": "atmosphere-sigma-coordinate"
-  },
-  {
     "@id": "v137",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -559,23 +403,6 @@
     "ui_label": "depth grid with 8 levels.",
     "validation_key": "v122",
     "vertical_coordinate": "depth"
-  },
-  {
-    "@id": "v153",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 300,
-    "description": "",
-    "n_z": 40,
-    "n_z_range": "",
-    "top_layer_thickness": 5,
-    "total_thickness": 5500,
-    "ui_label": "ocean-sigma-coordinate grid with 40 levels.",
-    "validation_key": "v153",
-    "vertical_coordinate": "ocean-sigma-coordinate"
   },
   {
     "@id": "v126",
@@ -818,23 +645,6 @@
     "vertical_coordinate": "depth"
   },
   {
-    "@id": "v149",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 250,
-    "description": "",
-    "n_z": 60,
-    "n_z_range": "",
-    "top_layer_thickness": 10,
-    "total_thickness": 5500,
-    "ui_label": "depth grid with 60 levels.",
-    "validation_key": "v149",
-    "vertical_coordinate": "depth"
-  },
-  {
     "@id": "v113",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -886,23 +696,6 @@
     "vertical_coordinate": "atmosphere-sigma-coordinate"
   },
   {
-    "@id": "v150",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": "",
-    "description": "There are four vertical layers, with the maximum total sea ice thickness of 10m. Both the surface layer and the bottom layer each account for one-third of the total thickness.",
-    "n_z": 4,
-    "n_z_range": "",
-    "top_layer_thickness": "",
-    "total_thickness": "",
-    "ui_label": "height grid with 4 levels.",
-    "validation_key": "v150",
-    "vertical_coordinate": "height"
-  },
-  {
     "@id": "v133",
     "@type": [
       "wcrp:vertical_computational_grid",
@@ -918,23 +711,6 @@
     "ui_label": "depth grid with 45 levels.",
     "validation_key": "v133",
     "vertical_coordinate": "depth"
-  },
-  {
-    "@id": "v155",
-    "@type": [
-      "wcrp:vertical_computational_grid",
-      "esgvoc:VerticalComputationalGrid",
-      "emd"
-    ],
-    "bottom_layer_thickness": 100,
-    "description": "",
-    "n_z": 110,
-    "n_z_range": "",
-    "top_layer_thickness": 6000,
-    "total_thickness": 89000,
-    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 110 levels.",
-    "validation_key": "v155",
-    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate"
   },
   {
     "@id": "v106",

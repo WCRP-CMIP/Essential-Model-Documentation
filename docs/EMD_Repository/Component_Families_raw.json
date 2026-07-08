@@ -579,6 +579,31 @@
     "website": "none"
   },
   {
+    "@id": "M-SIM",
+    "@type": [
+      "emd",
+      "wcrp:model_family",
+      "esgvoc:ModelFamily"
+    ],
+    "collaborative_institutions": "cas",
+    "description": "M-SIM (Multiscale Sea Ice Model) is the sea ice component model. It includes a variety of improved and new sea ice thermodynamic and dynamic parameterizations and numerical methods that are suitable to simulate multi-scale changes of sea ice under rapidly changing polar climate. The code base follows the physics common to the CMIP7 family, and aligns with Earth System Models standardized by the World Climate Research Programme.",
+    "established": 2024,
+    "family_type": "component",
+    "primary_institution": "sysu",
+    "references": [
+      "https://doi.org/10.1016/j.accre.2021.07.003;",
+      "https://doi.org/10.5194/gmd-14-4891-2021;",
+      "https://doi.org/10.1007/s00376-022-1316-y;",
+      "https://doi.org/10.5194/tc-18-1215-2024;",
+      "https://doi.org/10.3390/rs16091494;",
+      "https://doi.org/10.1016/j.ocemod.2025.102640"
+    ],
+    "scientific_domains": "sea_ice",
+    "ui_label": "M-SIM",
+    "validation_key": "M-SIM",
+    "website": "https://private"
+  },
+  {
     "@id": "bisicles",
     "@type": [
       "emd",
@@ -802,30 +827,6 @@
     "website": ""
   },
   {
-    "@id": "LICOM",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "The LICOM ocean general circulation model is a global ocean circulation model independently developed by the Ocean Modelling Group at the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). It aims to provide a numerical ocean model capable of simulating large-scale wind-driven circulation and thermohaline circulation, serving as the oceanic component of coupled climate models (referred to as the climate ocean model). LICOM is based on the primitive equations, continuity equation, equation of state of seawater, and conservation equations for temperature and salinity. Under given initial and boundary conditions, it is numerically solved using the finite difference method. After more than 30 years of continuous development, LICOM has now reached its third version (LICOM3), which features multiple resolutions and parameterization schemes.",
-    "family_type": "component",
-    "primary_institution": "cas the institute of atmospheric physics (iap), chinese academy of sciences (cas)",
-    "references": [
-      "https://doi.org/10.1007/s00376-019-9208-5",
-      "https://doi.org/10.1007/s13351-012-0305-y",
-      "https://doi.org/10.1016/j.ocemod.2022.102063",
-      "https://doi.org/10.1007/s00376-020-0150-3",
-      "https://doi.org/10.1007/s00376-020-0057-z"
-    ],
-    "representative_member": "LICOM3",
-    "scientific_domains": "ocean",
-    "ui_label": "LICOM",
-    "validation_key": "LICOM",
-    "website": "https://earthlab-data.iap.ac.cn/LFS/"
-  },
-  {
     "@id": "jules",
     "@type": [
       "emd",
@@ -843,30 +844,6 @@
     "ui_label": "JULES",
     "validation_key": "jules",
     "website": ""
-  },
-  {
-    "@id": "LICOM",
-    "@type": [
-      "emd",
-      "wcrp:model_family",
-      "esgvoc:ModelFamily"
-    ],
-    "collaborative_institutions": "./",
-    "description": "The LICOM ocean general circulation model is a global ocean circulation model independently developed by the Ocean Modelling Group at the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). It aims to provide a numerical ocean model capable of simulating large-scale wind-driven circulation and thermohaline circulation, serving as the oceanic component of coupled climate models (referred to as the climate ocean model). LICOM is based on the primitive equations, continuity equation, equation of state of seawater, and conservation equations for temperature and salinity. Under given initial and boundary conditions, it is numerically solved using the finite difference method. After more than 30 years of continuous development, LICOM has now reached its third version (LICOM3), which features multiple resolutions and parameterization schemes.",
-    "family_type": "component",
-    "primary_institution": "cas the institute of atmospheric physics (iap), chinese academy of sciences (cas)",
-    "references": [
-      "https://doi.org/10.1007/s00376-019-9208-5",
-      "https://doi.org/10.1007/s13351-012-0305-y",
-      "https://doi.org/10.1016/j.ocemod.2022.102063",
-      "https://doi.org/10.1007/s00376-020-0150-3",
-      "https://doi.org/10.1007/s00376-020-0057-z"
-    ],
-    "representative_member": "LICOM3",
-    "scientific_domains": "ocean",
-    "ui_label": "LICOM",
-    "validation_key": "LICOM",
-    "website": "https://earthlab-data.iap.ac.cn/LFS/"
   },
   {
     "@id": "cam",

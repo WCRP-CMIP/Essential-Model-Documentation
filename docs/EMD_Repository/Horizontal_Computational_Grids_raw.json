@@ -43,22 +43,6 @@
     "validation_key": "h128"
   },
   {
-    "@id": "h130",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-c",
-    "description": "",
-    "horizontal_subgrids": [
-      "g142-mass",
-      "g188-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h130"
-  },
-  {
     "@id": "h123",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -174,19 +158,6 @@
     "validation_key": "h107"
   },
   {
-    "@id": "no-horizontal",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "./",
-    "description": "No explicit horizontal grid, e.g. box-model",
-    "horizontal_subgrids": [],
-    "ui_label": "No Horizontal",
-    "validation_key": "no-horizontal"
-  },
-  {
     "@id": "h108",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -230,23 +201,6 @@
     "validation_key": "h120"
   },
   {
-    "@id": "h132",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-d",
-    "description": "",
-    "horizontal_subgrids": [
-      "g184-mass",
-      "g184-x-velocity",
-      "g184-y-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h132"
-  },
-  {
     "@id": "h100",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -264,19 +218,6 @@
     "validation_key": "h100"
   },
   {
-    "@id": "h133",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "Transform grid for a spectral atmospheric model, R30 resolution",
-    "horizontal_subgrids": "g180-mass-x_velocity-y_velocity",
-    "ui_label": "",
-    "validation_key": "h133"
-  },
-  {
     "@id": "h109",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -291,22 +232,6 @@
     ],
     "ui_label": "",
     "validation_key": "h109"
-  },
-  {
-    "@id": "h129",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-c",
-    "description": "",
-    "horizontal_subgrids": [
-      "g136-mass",
-      "g187-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h129"
   },
   {
     "@id": "h118",
@@ -403,23 +328,6 @@
     "validation_key": "h116"
   },
   {
-    "@id": "h131",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-c",
-    "description": "GFDL AM4 C96 C96 Cube Sphere Computational grids for tracers, x-velocity, and y-velocity",
-    "horizontal_subgrids": [
-      "g173-mass",
-      "g174-x-velocity",
-      "g175-y-velocity"
-    ],
-    "ui_label": "",
-    "validation_key": "h131"
-  },
-  {
     "@id": "h121",
     "@type": [
       "wcrp:horizontal_computational_grid",
@@ -456,14 +364,11 @@
       "emd"
     ],
     "arrangement": "arakawa-c",
-    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1), plus a regular latitude-longitude 1x1 degree output grid.",
+    "description": "Arakawa-C grid on an ocean tripolar configuration (eORCA1).",
     "horizontal_subgrids": [
       "g102-mass",
       "g103-x-velocity",
-      "g104-y-velocity",
-      "g106-mass",
-      "g106-x-velocity",
-      "g106-y-velocity"
+      "g104-y-velocity"
     ],
     "ui_label": "",
     "validation_key": "h101"
@@ -497,19 +402,6 @@
     "horizontal_subgrids": "g177-mass",
     "ui_label": "",
     "validation_key": "h127"
-  },
-  {
-    "@id": "h134",
-    "@type": [
-      "wcrp:horizontal_computational_grid",
-      "esgvoc:HorizontalComputationalGrid",
-      "emd"
-    ],
-    "arrangement": "arakawa-a",
-    "description": "",
-    "horizontal_subgrids": "g131-mass",
-    "ui_label": "",
-    "validation_key": "h134"
   },
   {
     "@id": "h125",

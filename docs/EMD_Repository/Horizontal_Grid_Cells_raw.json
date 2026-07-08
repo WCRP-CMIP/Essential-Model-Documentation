@@ -340,30 +340,6 @@
     "y_resolution": 80
   },
   {
-    "@id": "g197",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": "GISS Cubed-Sphere U velocity",
-    "description": "",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "cubed-sphere",
-    "n_cells": 48600,
-    "region": "global",
-    "southernmost_latitude": -89.5,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 1 x 1 degree resolution.",
-    "units": "degree",
-    "validation_key": "g197",
-    "westernmost_longitude": 125.5,
-    "x_resolution": 1,
-    "y_resolution": 1
-  },
-  {
     "@id": "g111",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -652,33 +628,6 @@
     "y_resolution": 1
   },
   {
-    "@id": "g199",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": "BISICLES Ice Sheet adaptive computational mesh",
-    "description": "Greenland ice sheet (GrIS) is modelled with 9.6 km square base cells that may subdivide to 1.2 km, and Antarctic ice sheet (AIS) with 8 km that may subdivide to 1 km. The meshes are updated every 8 timesteps for GrIS and 4 for AIS, allowing the resolution to evolve with the ice dynamics.",
-    "grid_mapping": "polar-stereographic",
-    "grid_type": "plane-projection",
-    "n_cells": "",
-    "region": [
-      "greenland",
-      "antarctica"
-    ],
-    "southernmost_latitude": "",
-    "temporal_refinement": "adaptive",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a plane projection grid type.",
-    "units": "./",
-    "validation_key": "g199",
-    "westernmost_longitude": "",
-    "x_resolution": "",
-    "y_resolution": ""
-  },
-  {
     "@id": "g150",
     "@type": [
       "emd",
@@ -928,30 +877,6 @@
     "y_resolution": ""
   },
   {
-    "@id": "g198",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": "N48 uv points",
-    "description": "",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "regular-latitude-longitude",
-    "n_cells": 6912,
-    "region": "global",
-    "southernmost_latitude": -88.75,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 3.75 x 2.5 degree resolution.",
-    "units": "degree",
-    "validation_key": "g198",
-    "westernmost_longitude": 0,
-    "x_resolution": 3.75,
-    "y_resolution": 2.5
-  },
-  {
     "@id": "g160",
     "@type": [
       "emd",
@@ -1100,54 +1025,6 @@
     "y_resolution": 0.1875
   },
   {
-    "@id": "g191",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "",
-    "grid_mapping": "polar-stereographic",
-    "grid_type": "plane-projection",
-    "n_cells": 577600,
-    "region": "antarctica",
-    "southernmost_latitude": -89.948,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a plane projection grid type and 8 x 8 km resolution.",
-    "units": "km",
-    "validation_key": "g191",
-    "westernmost_longitude": 45,
-    "x_resolution": 8,
-    "y_resolution": 8
-  },
-  {
-    "@id": "g195",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "Generalized spherical latitude-longitude grid with model South Pole located at geographical South Pole, and model North Pole located in Siberia in a point with geographic coodinates 60N, 90E",
-    "grid_mapping": "rotated-latitude-longitude",
-    "grid_type": "displaced-pole",
-    "n_cells": 518400,
-    "region": "global",
-    "southernmost_latitude": -89.875,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a displaced pole grid type and 0.5 x 0.25 degree resolution.",
-    "units": "degree",
-    "validation_key": "g195",
-    "westernmost_longitude": 0,
-    "x_resolution": 0.5,
-    "y_resolution": 0.25
-  },
-  {
     "@id": "g148",
     "@type": [
       "emd",
@@ -1194,30 +1071,6 @@
     "westernmost_longitude": 0.290484205,
     "x_resolution": "",
     "y_resolution": ""
-  },
-  {
-    "@id": "g194",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "",
-    "grid_mapping": "polar-stereographic",
-    "grid_type": "plane-projection",
-    "n_cells": 303541,
-    "region": "greenland",
-    "southernmost_latitude": 57.784,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a plane projection grid type and 4 x 4 km resolution.",
-    "units": "km",
-    "validation_key": "g194",
-    "westernmost_longitude": 330.55,
-    "x_resolution": 4,
-    "y_resolution": 4
   },
   {
     "@id": "g163",
@@ -1570,30 +1423,6 @@
     "y_resolution": 0.1875
   },
   {
-    "@id": "g192",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "",
-    "grid_mapping": "polar-stereographic",
-    "grid_type": "plane-projection",
-    "n_cells": 579121,
-    "region": "antarctica",
-    "southernmost_latitude": -90,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a plane projection grid type and 8 x 8 km resolution.",
-    "units": "km",
-    "validation_key": "g192",
-    "westernmost_longitude": 0,
-    "x_resolution": 8,
-    "y_resolution": 8
-  },
-  {
     "@id": "g115",
     "@type": [
       "wcrp:horizontal_grid_cell",
@@ -1765,30 +1594,6 @@
     "westernmost_longitude": 0,
     "x_resolution": 0.5,
     "y_resolution": 0.5
-  },
-  {
-    "@id": "g196",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": "GISS Cubed-Sphere V velocity",
-    "description": "",
-    "grid_mapping": "latitude-longitude",
-    "grid_type": "cubed-sphere",
-    "n_cells": 48600,
-    "region": "global",
-    "southernmost_latitude": -89.5,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 1 x 1 degree resolution.",
-    "units": "degree",
-    "validation_key": "g196",
-    "westernmost_longitude": 125,
-    "x_resolution": 1,
-    "y_resolution": 1
   },
   {
     "@id": "g132",
@@ -1981,30 +1786,6 @@
     "westernmost_longitude": 0,
     "x_resolution": 20,
     "y_resolution": 20
-  },
-  {
-    "@id": "g193",
-    "@type": [
-      "emd",
-      "wcrp:horizontal_grid_cell",
-      "esgvoc:HorizontalGridCell"
-    ],
-    "alias": [],
-    "description": "",
-    "grid_mapping": "polar-stereographic",
-    "grid_type": "plane-projection",
-    "n_cells": 302400,
-    "region": "greenland",
-    "southernmost_latitude": 57.805,
-    "temporal_refinement": "static",
-    "truncation_method": "./",
-    "truncation_number": "",
-    "ui_label": "Horizontal grid cell with a plane projection grid type and 4 x 4 km resolution.",
-    "units": "km",
-    "validation_key": "g193",
-    "westernmost_longitude": 330.528,
-    "x_resolution": 4,
-    "y_resolution": 4
   },
   {
     "@id": "g105",

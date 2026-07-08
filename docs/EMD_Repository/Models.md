@@ -103,7 +103,7 @@
 <div class="emd-stats-grid">
   <div class="emd-stat-item">
     <span class="emd-stat-label">Total Records</span>
-    <span class="emd-stat-value">9</span>
+    <span class="emd-stat-value">6</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Endpoint</span>
@@ -111,15 +111,15 @@
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Raw Data</span>
-    <span class="emd-stat-value">19.6 KB</span>
+    <span class="emd-stat-value">13.3 KB</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Processed Data</span>
-    <span class="emd-stat-value">7.7 KB</span>
+    <span class="emd-stat-value">4.7 KB</span>
   </div>
   <div class="emd-stat-item">
     <span class="emd-stat-label">Last Updated</span>
-    <span class="emd-stat-value">2026-07-07 06:52 UTC</span>
+    <span class="emd-stat-value">2026-06-29 15:24 UTC</span>
   </div>
 </div>
 
@@ -128,13 +128,10 @@
 <div class="emd-selector-row">
   <select id="emd-entry-select">
     <option value="">Select an entry…</option>
-    <option value="../view_models/?id=CanESM5-1">CanESM5-1</option>
-    <option value="../view_models/?id=CanESM6-0-MR">CanESM6-0-MR</option>
     <option value="../view_models/?id=ACCESS-ESM1-6">ACCESS-ESM1-6</option>
-    <option value="../view_models/?id=ec-earth3-esm-1-1">ec-earth3-esm-1-1</option>
-    <option value="../view_models/?id=ukcm2a-0-hh">ukcm2a-0-hh</option>
+    <option value="../view_models/?id=CanESM6-0-MR">CanESM6-0-MR</option>
+    <option value="../view_models/?id=CanESM5-1">CanESM5-1</option>
     <option value="../view_models/?id=UKCM2-0-LL">UKCM2-0-LL</option>
-    <option value="../view_models/?id=mri-esm3-4">mri-esm3-4</option>
     <option value="../view_models/?id=cnrm-esm2-1e">cnrm-esm2-1e</option>
     <option value="../view_models/?id=AWI-ESM3-4-2-veg-HR">AWI-ESM3-4-2-veg-HR</option>
   </select>
@@ -163,9 +160,9 @@
 'use strict';
 
 /* ── injected data ─────────────────────────────────────────────────────── */
-var EMD_DATA    = {"ids":["CanESM5-1","CanESM6-0-MR","ACCESS-ESM1-6","ec-earth3-esm-1-1","ukcm2a-0-hh","UKCM2-0-LL","mri-esm3-4","cnrm-esm2-1e","AWI-ESM3-4-2-veg-HR"],"link":[[0.0,0.7509096574896658,0.34525842261870293,0.12802879754221125,0.24297023104774604,0.25007725598539826,0.10410306635089074,0.1446301336961611,0.13927255367093033],[0.7509096574896658,0.0,0.363937527723524,0.15186694061412223,0.264239304629275,0.26568948604325665,0.1263651155393427,0.15219375115471392,0.16134553089376785],[0.34525842261870293,0.363937527723524,0.0,0.26572612539645807,0.2263658635588404,0.22126045518393522,0.23878152142288947,0.10678406610683834,0.261945629196633],[0.12802879754221125,0.15186694061412223,0.26572612539645807,0.0,0.1548189221770664,0.14779506063868333,0.2330111133390519,0.08306844471188916,0.22748618194656192],[0.24297023104774604,0.264239304629275,0.2263658635588404,0.1548189221770664,0.0,0.726138894328263,0.1690854270415798,0.19886252503172708,0.14717939066851185],[0.25007725598539826,0.26568948604325665,0.22126045518393522,0.14779506063868333,0.726138894328263,0.0,0.1341154022961662,0.19822259371553286,0.14061023313168963],[0.10410306635089074,0.1263651155393427,0.23878152142288947,0.2330111133390519,0.1690854270415798,0.1341154022961662,0.0,0.12686880377730667,0.21241459606928642],[0.1446301336961611,0.15219375115471392,0.10678406610683834,0.08306844471188916,0.19886252503172708,0.19822259371553286,0.12686880377730667,0.0,0.08869712902278606],[0.13927255367093033,0.16134553089376785,0.261945629196633,0.22748618194656192,0.14717939066851185,0.14061023313168963,0.21241459606928642,0.08869712902278606,0.0]],"text":[[0.0,0.7509096574896658,0.34525842261870293,0.12802879754221125,0.24297023104774604,0.25007725598539826,0.10410306635089074,0.1446301336961611,0.13927255367093033],[0.7509096574896658,0.0,0.363937527723524,0.15186694061412223,0.264239304629275,0.26568948604325665,0.1263651155393427,0.15219375115471392,0.16134553089376785],[0.34525842261870293,0.363937527723524,0.0,0.26572612539645807,0.2263658635588404,0.22126045518393522,0.23878152142288947,0.10678406610683834,0.261945629196633],[0.12802879754221125,0.15186694061412223,0.26572612539645807,0.0,0.1548189221770664,0.14779506063868333,0.2330111133390519,0.08306844471188916,0.22748618194656192],[0.24297023104774604,0.264239304629275,0.2263658635588404,0.1548189221770664,0.0,0.726138894328263,0.1690854270415798,0.19886252503172708,0.14717939066851185],[0.25007725598539826,0.26568948604325665,0.22126045518393522,0.14779506063868333,0.726138894328263,0.0,0.1341154022961662,0.19822259371553286,0.14061023313168963],[0.10410306635089074,0.1263651155393427,0.23878152142288947,0.2330111133390519,0.1690854270415798,0.1341154022961662,0.0,0.12686880377730667,0.21241459606928642],[0.1446301336961611,0.15219375115471392,0.10678406610683834,0.08306844471188916,0.19886252503172708,0.19822259371553286,0.12686880377730667,0.0,0.08869712902278606],[0.13927255367093033,0.16134553089376785,0.261945629196633,0.22748618194656192,0.14717939066851185,0.14061023313168963,0.21241459606928642,0.08869712902278606,0.0]],"method":"field-level | link: field-level (links uninformative) | order: spectral graph components","folder":"Models","meta":[{"label":"CanESM5-1","tags":[]},{"label":"CanESM6-0-MR","tags":[]},{"label":"ACCESS-ESM1-6","tags":[]},{"label":"ec-earth3-esm-1-1","tags":[]},{"label":"ukcm2a-0-hh","tags":[]},{"label":"UKCM2-0-LL","tags":[]},{"label":"mri-esm3-4","tags":[]},{"label":"cnrm-esm2-1e","tags":[]},{"label":"AWI-ESM3-4-2-veg-HR","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"cnrm-esm2-1e","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"","leaf":false,"children":[{"name":"CanESM5-1","leaf":true,"spectral_index":0,"value":0.0},{"name":"ukcm2a-0-hh","leaf":true,"spectral_index":1,"value":0.0}],"value":0.7783479275919748},{"name":"","leaf":false,"children":[{"name":"mri-esm3-4","leaf":true,"spectral_index":2,"value":0.0},{"name":"AWI-ESM3-4-2-veg-HR","leaf":true,"spectral_index":4,"value":0.0}],"value":0.7875854039307135}],"value":0.8328567738352524}],"value":0.8660556022272192},"clusters":[0,0,0,0,1,1,2,3,4],"group_spans":[[0,3],[4,5],[6,6],[7,7],[8,8]]};
-var EMD_ENTRIES = [{"label":"CanESM5-1","url":"../view_models/?id=CanESM5-1"},{"label":"CanESM6-0-MR","url":"../view_models/?id=CanESM6-0-MR"},{"label":"ACCESS-ESM1-6","url":"../view_models/?id=ACCESS-ESM1-6"},{"label":"ec-earth3-esm-1-1","url":"../view_models/?id=ec-earth3-esm-1-1"},{"label":"ukcm2a-0-hh","url":"../view_models/?id=ukcm2a-0-hh"},{"label":"UKCM2-0-LL","url":"../view_models/?id=UKCM2-0-LL"},{"label":"mri-esm3-4","url":"../view_models/?id=mri-esm3-4"},{"label":"cnrm-esm2-1e","url":"../view_models/?id=cnrm-esm2-1e"},{"label":"AWI-ESM3-4-2-veg-HR","url":"../view_models/?id=AWI-ESM3-4-2-veg-HR"}];
-var EMD_SCHEMA  = {"name":"","children":[{"name":"calendar","type":"scalar"},{"name":"coupled_components","type":"list"},{"name":"crs","type":"scalar"},{"name":"description","type":"scalar"},{"name":"dynamic_components","type":"list"},{"name":"embedded_components","type":"list"},{"name":"family","type":"scalar"},{"name":"model_components","type":"list"},{"name":"name","type":"scalar"},{"name":"omitted_components","type":"scalar"},{"name":"prescribed_components","type":"list"},{"name":"references","type":"scalar"},{"name":"release_year","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
+var EMD_DATA    = {"ids":["ACCESS-ESM1-6","CanESM6-0-MR","CanESM5-1","UKCM2-0-LL","cnrm-esm2-1e","AWI-ESM3-4-2-veg-HR"],"link":[[0.0,0.3652347921184201,0.3442035091881486,0.2138783524061121,0.04908914356601879,0.2746654857493453],[0.3652347921184201,0.0,0.729757184239397,0.26062472609199416,0.09156592230760408,0.15582804239194475],[0.3442035091881486,0.729757184239397,0.0,0.24509360654250567,0.0847307431424815,0.1320778547629261],[0.2138783524061121,0.26062472609199416,0.24509360654250567,0.0,0.13356553055854628,0.133502953641638],[0.04908914356601879,0.09156592230760408,0.0847307431424815,0.13356553055854628,0.0,0.05312447211060109],[0.2746654857493453,0.15582804239194475,0.1320778547629261,0.133502953641638,0.05312447211060109,0.0]],"text":[[0.0,0.4770280195097057,0.35248847184840193,0.5073234541343679,0.3377855465857509,0.4510175592159394],[0.4770280195097057,0.0,0.37627512501889354,0.4655338747629549,0.2678559017672477,0.38462524763295125],[0.35248847184840193,0.37627512501889354,0.0,0.3579127800894624,0.1426985009149303,0.23386843365633173],[0.5073234541343679,0.4655338747629549,0.3579127800894624,0.0,0.2345965136859556,0.3794089498264852],[0.3377855465857509,0.2678559017672477,0.1426985009149303,0.2345965136859556,0.0,0.32053260045249155],[0.4510175592159394,0.38462524763295125,0.23386843365633173,0.3794089498264852,0.32053260045249155,0.0]],"method":"embedding (all-MiniLM-L6-v2) | link: field-level (links uninformative) | order: spectral graph components","folder":"Models","meta":[{"label":"ACCESS-ESM1-6","tags":[]},{"label":"CanESM6-0-MR","tags":[]},{"label":"CanESM5-1","tags":[]},{"label":"UKCM2-0-LL","tags":[]},{"label":"cnrm-esm2-1e","tags":[]},{"label":"AWI-ESM3-4-2-veg-HR","tags":[]}],"tree":{"name":"","leaf":false,"children":[{"name":"cnrm-esm2-1e","leaf":true,"spectral_index":2,"value":0.0},{"name":"","leaf":false,"children":[{"name":"AWI-ESM3-4-2-veg-HR","leaf":true,"spectral_index":3,"value":0.0},{"name":"","leaf":false,"children":[{"name":"ACCESS-ESM1-6","leaf":true,"spectral_index":0,"value":0.0},{"name":"UKCM2-0-LL","leaf":true,"spectral_index":1,"value":0.0}],"value":0.6582722009954338}],"value":0.7357651388488493}],"value":0.8222676050718435},"clusters":[0,0,0,1,2,3],"group_spans":[[0,2],[3,3],[4,4],[5,5]]};
+var EMD_ENTRIES = [{"label":"ACCESS-ESM1-6","url":"../view_models/?id=ACCESS-ESM1-6"},{"label":"CanESM6-0-MR","url":"../view_models/?id=CanESM6-0-MR"},{"label":"CanESM5-1","url":"../view_models/?id=CanESM5-1"},{"label":"UKCM2-0-LL","url":"../view_models/?id=UKCM2-0-LL"},{"label":"cnrm-esm2-1e","url":"../view_models/?id=cnrm-esm2-1e"},{"label":"AWI-ESM3-4-2-veg-HR","url":"../view_models/?id=AWI-ESM3-4-2-veg-HR"}];
+var EMD_SCHEMA  = {"name":"","children":[{"name":"calendar","type":"scalar"},{"name":"coupled_components","type":"list"},{"name":"description","type":"scalar"},{"name":"dynamic_components","type":"list"},{"name":"embedded_components","type":"list"},{"name":"family","type":"scalar"},{"name":"model_components","type":"list"},{"name":"name","type":"scalar"},{"name":"omitted_components","type":"scalar"},{"name":"prescribed_components","type":"list"},{"name":"references","type":"list"},{"name":"release_year","type":"scalar"},{"name":"ui_label","type":"scalar"},{"name":"validation_key","type":"scalar"}]};
 
 var ids         = EMD_DATA.ids;
 var link        = EMD_DATA.link;
