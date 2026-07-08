@@ -88,6 +88,7 @@ Use this form when the component is already registered and you only need to bind
 The model record assembles the complete system — listing every component configuration, declaring which earth system realms are active or prescribed, recording coupling relationships, and referencing the ESM family. This creates the official CMIP `source_id`.
 
 **You will need:** component config IDs from Stage 3, ESM family ID, coupling topology, calendar type.
+Please also read the [guidance on choosing a `source_id`](https://wcrp-cmip.github.io/cmip7-guidance/docs/CMIP7/Source_ID_guidance/).
 
 **Following review, you will receive:** a registered `source_id`.
 

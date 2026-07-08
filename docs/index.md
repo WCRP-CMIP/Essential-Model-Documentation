@@ -140,9 +140,10 @@ Keeping them in one folder with a type field, rather than two separate folders, 
 
 ### Source / Model
 
-The model (source_id) record does not describe any individual component or grid. It describes a system — which component configurations are present, which realms are active or prescribed, and how the components exchange information with one another. The coupling and embedding topology lives here because it is a property of the assembled system, not of any individual part.
+The model (`source_id`) record does not describe any individual component or grid. It describes a system — which component configurations are present, which realms are active or prescribed, and how the components exchange information with one another. The coupling and embedding topology lives here because it is a property of the assembled system, not of any individual part.
 
-The model record is deliberately thin. It holds IDs of component configurations and an ESM family reference, not copies of their content. If an ocean grid specification needs to be corrected, the correction happens in one grid cell record and is immediately reflected in every model that references it. The idea is that once registered, the model id can be used directly within a project. In another project wants to use a similar (but not identical) configuration, then a new source id would be required. 
+The model record is deliberately thin. It holds IDs of component configurations and an ESM family reference, not copies of their content. If an ocean grid specification needs to be corrected, the correction happens in one grid cell record and is immediately reflected in every model that references it. The idea is that once registered, the model id can be used directly within a project. If another project wants to use a similar (but not identical) configuration, then a new `source_id` would generally be required. 
+For further guidance on specifying a `source_id`, please see the [CMIP7 guidance pages](https://wcrp-cmip.github.io/Essential-Model-Documentation/docs/#source-model).
 
 ### The design in one sentence
 
