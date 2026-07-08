@@ -17,6 +17,7 @@ import { mountHierarchy } from "./components/hierarchy.js";
 import { mountRawJson } from "./components/raw-json.js";
 
 const PARAMS = new URLSearchParams(location.search);
+const HAD_MODEL_PARAM = !!(PARAMS.get("model") || PARAMS.get("id"));   // was a model requested in the URL?
 const BASE = (PARAMS.get("base") || DEFAULT_BASE).replace(/\/?$/, "/");
 const DEPTH = parseInt(PARAMS.get("depth"), 10) || 8;
 const FALLBACK = ["access-esm1-6", "awi-esm3-4-2-veg-hr", "canesm5-1", "canesm6-0-mr",
@@ -40,6 +41,11 @@ async function main() {
 
   let current = norm(PARAMS.get("model") || PARAMS.get("id")) || "ec-earth3-esm-1-1";
 
+  // Show the "click here to change model" nudge only on a first visit with no
+  // model in the URL; a single timer removes it 3s after it first appears.
+  let pickerHintActive = !HAD_MODEL_PARAM;
+  let hintTimerStarted = false;
+
   async function load(id) {
     current = norm(id);
     setQuery(current);
@@ -61,9 +67,17 @@ async function main() {
 
     // header (with picker)
     const headerHost = el("div"); shell.appendChild(headerHost);
-    const renderHeader = list => { clear(headerHost); mountHeader(headerHost, model, { models: list, current, onModelChange: load }); };
+    const renderHeader = list => { clear(headerHost); mountHeader(headerHost, model, { models: list, current, onModelChange: load, pickerHint: pickerHintActive }); };
     renderHeader(models);
     window._rerenderPicker = list => { models = list; if (current) renderHeader(list); };
+
+    if (pickerHintActive && !hintTimerStarted) {
+      hintTimerStarted = true;
+      setTimeout(() => {
+        pickerHintActive = false;
+        document.querySelectorAll(".picker-hint").forEach(n => n.remove());
+      }, 4000);   // fade in 1s + hold 2s + fade out 1s
+    }
 
     // body — single column
     const body = el("div", { class: "page-body" }); shell.appendChild(body);

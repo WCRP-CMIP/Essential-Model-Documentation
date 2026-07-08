@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
 /* theme.css — EMD model page. Warm-paper, scientific-doc aesthetic. */
 
 .emd-page {
@@ -39,8 +40,22 @@ a.eyebrow-home:hover { color: var(--accent); text-decoration: underline; text-un
 .header-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .header-link-sep { color: var(--line-strong); }
 #schema { scroll-margin-top: 1rem; }
-.picker-wrap { display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--muted); }
+.picker-wrap { position: relative; display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--muted); }
 .model-picker { font: inherit; font-size: .85rem; padding: .4rem .6rem; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); color: var(--ink); }
+
+/* first-visit model nudge: neat handwritten notice, centre-screen, with a
+   hand-drawn arrow reaching the picker + a ring around it. Auto-removed after 3s.
+   The overlay itself only fades (no transform) so the drawn connector stays
+   pixel-accurate; the note card does the little "pop". */
+.picker-hint { --gunmetal: #45566b; position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: hintFade 4s ease forwards; }
+.hint-canvas { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--gunmetal); pointer-events: none; }
+.hint-line { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.hint-ring { fill: none; stroke: currentColor; stroke-width: 2.4; }
+.hint-note { position: relative; max-width: 22rem; text-align: center; padding: 1.15rem 1.6rem; background: rgba(255,253,247,.97); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 14px 44px rgba(20,34,58,.20); animation: hintNotePop 4s ease forwards; }
+.hint-note-text { margin: 0; font-family: "Caveat", "Segoe Print", "Bradley Hand", cursive; font-weight: 700; font-size: 1.7rem; line-height: 1.15; color: var(--gunmetal); }
+@keyframes hintFade { 0% { opacity: 0; } 25% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; } }   /* fade in 1s, hold 2s, fade out 1s */
+@keyframes hintNotePop { 0% { transform: translateY(10px) scale(.96); } 25% { transform: translateY(0) scale(1); } 100% { transform: translateY(0) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .hint-note { animation: none; } }
 .header-facts { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
 .chip { display: inline-flex; align-items: center; gap: .4rem; padding: .32rem .7rem; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; font-size: .82rem; box-shadow: var(--shadow); }
 .chip-key { font-size: .64rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; }
@@ -124,8 +139,8 @@ details.card.collapsible[open] > .card-summary { border-bottom: 1px solid var(--
 
 .crs-sphere { fill: var(--realm); fill-opacity: .9; stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 2px 5px rgba(20,34,58,.28)); transition: filter .15s; }
 .crs-node:hover .crs-sphere { filter: drop-shadow(0 3px 9px rgba(20,34,58,.4)); }
-.crs-pre-circle { fill: none; stroke: var(--realm); stroke-width: 2.5; stroke-opacity: .15; }
-.crs-pre-halo { fill: none; stroke: var(--ink); stroke-width: 1.5; opacity: .55; }
+.crs-pre-circle { fill: none; stroke: var(--realm); stroke-width: 1; stroke-opacity: .6; }
+.crs-pre-halo { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .6; }
 .crs-sphere-label { font-size: 11px; font-weight: 700; fill: #fff; text-anchor: middle; dominant-baseline: middle; paint-order: stroke; pointer-events: none; }
 .crs-node.prescribed .crs-sphere-label { fill: var(--ink); font-size: 9px; }
 .crs-pre-tag { font-size: 7.5px; fill: var(--prescribed); text-anchor: middle; dominant-baseline: middle; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; pointer-events: none; }
