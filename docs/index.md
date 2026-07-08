@@ -1,5 +1,6 @@
 # Essential Model Documentation (EMD)
 
+## Status updates
 The Essential Model Documentation (EMD) is CMIP7's structured registry of climate model configurations — capturing grids, components, and how they fit together. [Submit a new entry](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose), track progress in the [Progress Tracker](Progress_Tracker.html), or browse approved submissions in the [Feed](Progress_Feed.md).
 
 Recent updates include:
@@ -8,9 +9,12 @@ Recent updates include:
 2. **Questions** : Please send an email to [emd@wcrp-cmip.org](mailto:emd@wcrp-cmip.org). Users may need to [subscribe](Contact_us.html) first.   
 3. **Submission and Escalation Protocol**: Coming soon. 
 
+
 ### Latest EMD approvals
 <iframe src="./Progress_Feed/?limit=10&minimal=true" style="width:100%;border:none;max-height:600px;min-height:400"></iframe>
 [See all approved EMD items](./Progress_Feed/)
+
+---
 
 ## Registering a new item in the EMD
 Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
@@ -165,12 +169,22 @@ Each folder corresponds to a distinct scientific concept that varies independent
 - **Reproducibility**  
   A model record pinned to specific component versions and grid IDs is an unambiguous description of a configuration — enough to reconstruct what was run.
 
----
 
+
+---
 ### Become a reviewer
 If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form) or the embedded form below. 
 
 <iframe class="airtable-embed" src="https://airtable.com/embed/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+
+
+---
+
+### Contributors
+A list of people who have contributed to the EMD by engaging with the process. 
+
+[![Contributors](https://contrib.rocks/image?repo=WCRP-CMIP/Essential-Model-Documentation)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/graphs/contributors)
+
 
 ---
 

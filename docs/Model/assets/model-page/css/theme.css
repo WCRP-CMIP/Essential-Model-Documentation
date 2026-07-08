@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
 /* theme.css — EMD model page. Warm-paper, scientific-doc aesthetic. */
 
 .emd-page {
@@ -31,9 +35,36 @@
 .model-header { margin-bottom: 1.5rem; }
 .header-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
 .eyebrow { margin: 0; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+<<<<<<< HEAD
 .model-title { margin: .15rem 0 0; font-size: 2.1rem; font-weight: 750; letter-spacing: -.01em; }
 .picker-wrap { display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--muted); }
 .model-picker { font: inherit; font-size: .85rem; padding: .4rem .6rem; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); color: var(--ink); }
+=======
+a.eyebrow-home { display: inline-block; text-decoration: none; color: var(--muted); transition: color .15s; }
+a.eyebrow-home:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.model-title { margin: .15rem 0 0; font-size: 2.1rem; font-weight: 750; letter-spacing: -.01em; }
+.header-links { display: flex; align-items: center; gap: .5rem; margin-top: .5rem; font-size: .8rem; }
+.header-link { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--line-strong); padding-bottom: 1px; transition: color .15s, border-color .15s; }
+.header-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.header-link-sep { color: var(--line-strong); }
+#schema { scroll-margin-top: 1rem; }
+.picker-wrap { position: relative; display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--muted); }
+.model-picker { font: inherit; font-size: .85rem; padding: .4rem .6rem; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); color: var(--ink); }
+
+/* first-visit model nudge: neat handwritten notice, centre-screen, with a
+   hand-drawn arrow reaching the picker + a ring around it. Auto-removed after 3s.
+   The overlay itself only fades (no transform) so the drawn connector stays
+   pixel-accurate; the note card does the little "pop". */
+.picker-hint { --gunmetal: #45566b; position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; pointer-events: none; animation: hintFade 4s ease forwards; }
+.hint-canvas { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--gunmetal); pointer-events: none; }
+.hint-line { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.hint-ring { fill: none; stroke: currentColor; stroke-width: 2.4; }
+.hint-note { position: relative; max-width: 22rem; text-align: center; padding: 1.15rem 1.6rem; background: rgba(255,253,247,.97); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 14px 44px rgba(20,34,58,.20); animation: hintNotePop 4s ease forwards; }
+.hint-note-text { margin: 0; font-family: "Caveat", "Segoe Print", "Bradley Hand", cursive; font-weight: 700; font-size: 1.7rem; line-height: 1.15; color: var(--gunmetal); }
+@keyframes hintFade { 0% { opacity: 0; } 25% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; } }   /* fade in 1s, hold 2s, fade out 1s */
+@keyframes hintNotePop { 0% { transform: translateY(10px) scale(.96); } 25% { transform: translateY(0) scale(1); } 100% { transform: translateY(0) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .hint-note { animation: none; } }
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
 .header-facts { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
 .chip { display: inline-flex; align-items: center; gap: .4rem; padding: .32rem .7rem; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; font-size: .82rem; box-shadow: var(--shadow); }
 .chip-key { font-size: .64rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; }
@@ -117,8 +148,13 @@ details.card.collapsible[open] > .card-summary { border-bottom: 1px solid var(--
 
 .crs-sphere { fill: var(--realm); fill-opacity: .9; stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 2px 5px rgba(20,34,58,.28)); transition: filter .15s; }
 .crs-node:hover .crs-sphere { filter: drop-shadow(0 3px 9px rgba(20,34,58,.4)); }
+<<<<<<< HEAD
 .crs-pre-circle { fill: none; stroke: var(--realm); stroke-width: 2.5; stroke-opacity: .15; }
 .crs-pre-halo { fill: none; stroke: var(--ink); stroke-width: 1.5; opacity: .55; }
+=======
+.crs-pre-circle { fill: none; stroke: var(--realm); stroke-width: 1; stroke-opacity: .6; }
+.crs-pre-halo { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .6; }
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
 .crs-sphere-label { font-size: 11px; font-weight: 700; fill: #fff; text-anchor: middle; dominant-baseline: middle; paint-order: stroke; pointer-events: none; }
 .crs-node.prescribed .crs-sphere-label { fill: var(--ink); font-size: 9px; }
 .crs-pre-tag { font-size: 7.5px; fill: var(--prescribed); text-anchor: middle; dominant-baseline: middle; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; pointer-events: none; }
@@ -261,9 +297,20 @@ svg.focus .h-node { opacity: .18; } svg.focus .h-link { opacity: .08; } svg.focu
 .json-copy { font: inherit; font-size: .76rem; font-weight: 600; padding: .32rem .8rem; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--panel); color: var(--accent); cursor: pointer; transition: background .15s, color .15s; }
 .json-copy:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 .json-copy.ok { background: var(--dynamic); color: #fff; border-color: var(--dynamic); }
+<<<<<<< HEAD
 .json-copy-fallback { position: fixed; left: -9999px; top: 0; }
 .json-pre { margin: 0; padding: 1rem 1.35rem 1.35rem; overflow-x: auto; background: #0f1b2d; }
 .json-pre code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; line-height: 1.55; color: #d6e2f0; white-space: pre; }
+=======
+.json-wrap-btn { font: inherit; font-size: .76rem; font-weight: 600; padding: .32rem .8rem; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--panel); color: var(--muted); cursor: pointer; transition: background .15s, color .15s; }
+.json-wrap-btn:hover { border-color: var(--accent); color: var(--accent); }
+.json-wrap-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.json-copy-fallback { position: fixed; left: -9999px; top: 0; }
+.json-pre { margin: 0; padding: 1rem 1.35rem 1.35rem; overflow-x: auto; background: #0f1b2d; }
+.json-pre code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; line-height: 1.55; color: #d6e2f0; white-space: pre; }
+.json-pre.wrap { overflow-x: hidden; }
+.json-pre.wrap code { white-space: pre-wrap; overflow-wrap: anywhere; }
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
 /* JSON syntax highlight tokens */
 .json-pre .j-key  { color: #7cc4ff; }
 .json-pre .j-str  { color: #b5e8a0; }
