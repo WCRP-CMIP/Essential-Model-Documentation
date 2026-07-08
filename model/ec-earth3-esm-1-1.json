@@ -1,5 +1,5 @@
 {
-    "validation_key": "ec-earth3-esm-1-1",
+    "validation_key": "EC-Earth3-ESM-1-1",
     "ui_label": "EC-Earth3-ESM-1.1",
     "description": "The Earth System Model EC-Earth3-ESM is a post-CMIP6 development of the EC-Earth3 model. It comprises a coupled atmosphere-ocean model (including sea ice), dynamic vegetation, an ice sheet model for Greenland and an Antarctic Ice Meltwater emulator. The model can be run in concentration driven mode or with CO2 emissions, featuring a carbon cycle.  1. The dynamic components are: Atmosphere (IFS) including the soil component (HTESSEL), Ocean (with embedded Sea Ice (LIM3) & Ocean Biogeochemistry (PISCES) components) , Land Surface & Subsurface Dynamic Vegetation (LPJ-GUESS), Land Ice for Greenland (PISM). Further, a simple yet fast atmosphere CO2 box model  (one global grid point) for closing the carbon cycle is used. 2. The Atmospheric Chemistry and Aerosols are prescribed. 3. The Antarctic Ice sheet is not modeled itself,  instead an emulator for simulating the Antarctic meltwater flux (on the ocean grid) is in place.",
     "calendar": [

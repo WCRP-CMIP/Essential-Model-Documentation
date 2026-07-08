@@ -146,13 +146,15 @@ def run(parsed_issue, issue, dry_run=False):
         return None
 
     source_id_lower = source_id.lower()
+    # validation_key: preserve casing, replace dots with hyphens, strip other non [A-Za-z0-9-] chars
+    validation_key = re.sub(r'[^A-Za-z0-9-]', '', source_id.replace('.', '-'))
     family = (parsed_issue.get('model_family') or parsed_issue.get('family') or '').strip()
 
     data = {
         "@context":       "_context",
         "@id":            source_id_lower,
         "@type":          ["emd", "wcrp:model", "esgvoc:Model"],
-        "validation_key": source_id_lower,
+        "validation_key": validation_key,
         "ui_label":       source_id,
         "name":           source_id_lower,
     }
