@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Understanding the EMD Model Page</title>
+<style>
+  :root { --ink:#14223a; --muted:#5d6b82; --paper:#f7f5ef; --panel:#fff; --line:#d9dee7; --accent:#1f4e79; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.6; }
+  .wrap { max-width:820px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+  .eyebrow { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; text-decoration:none; }
+  .eyebrow:hover { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+  h1 { font-size:2rem; font-weight:750; letter-spacing:-.01em; margin:.3rem 0 1rem; }
+  h2 { font-size:1.15rem; font-weight:700; margin:2rem 0 .6rem; }
+  hr { border:none; border-top:1px solid var(--line); margin:1.6rem 0; }
+  p { margin:.6rem 0; }
+  code { font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:.88em; background:#eef2f7; padding:.1em .35em; border-radius:5px; }
+  ul { margin:.5rem 0 .5rem 1.1rem; padding:0; }
+  li { margin:.28rem 0; }
+  a { color:var(--accent); }
+  figure { margin:1rem 0 1.4rem; }
+  figure img { width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:12px; box-shadow:0 6px 24px rgba(20,34,58,.10); background:var(--panel); }
+  figcaption { font-size:.8rem; color:var(--muted); margin-top:.45rem; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="eyebrow" id="emd-home-link" href="../../">Essential Model Documentation</a>
+<h1>EMD Model Page — Features &amp; How to Use</h1>
+<hr>
+<h2>1. Header &amp; model picker</h2>
+<figure><img src="guide-assets/01-header.png" alt="Model page header with title, metadata chips, and model picker" loading="lazy"><figcaption>Model page header with title, metadata chips, and model picker</figcaption></figure>
+<p>The header shows the model&#x27;s display name and a row of quick-fact chips: <strong>family</strong>, <strong>release year</strong>, <strong>calendar</strong>, and the raw <strong>CRS</strong> string. The <strong>Model</strong> dropdown on the right switches models; the URL updates so the view is shareable, and browser back/forward work.</p>
+<hr>
+<h2>2. Overview</h2>
+<figure><img src="guide-assets/02-overview.png" alt="Overview card with description and stat counts" loading="lazy"><figcaption>Overview card with description and stat counts</figcaption></figure>
+<p>A plain-language description of the model followed by some basic <strong>statistics</strong>: how many dynamic realms, prescribed realms, omitted realms, components, and couplings it has.</p>
+<p>Descriptions are rendered from Markdown, so links and emphasis display properly.</p>
+<hr>
+<h2>3. Coupling topology (CRS)</h2>
+<figure><img src="guide-assets/03-crs.png" alt="CRS string coloured by realm plus the nested-sphere coupling diagram" loading="lazy"><figcaption>CRS string coloured by realm plus the nested-sphere coupling diagram</figcaption></figure>
+<p>This is a picture of how the model&#x27;s realms fit together.</p>
+<p><strong>The coloured CRS string</strong> at the top links each realm code with its realm colour. Embedded realms are inside the <code>[…]</code> and coupled realms are neighboured following the design tactics of the crs.</p>
+<p><strong>The diagram</strong> is generated from the crs string:</p>
+<ul>
+<li><strong>Dynamic realms</strong>: filled circles arranged on a ring.</li>
+<li><strong>Embedded realms</strong>: the small circles packed <em>inside</em> a parent circle.</li>
+<li><strong>Prescribed realms</strong> (external, one-way forcing) are drawn smaller, unfilled, with a faint double ring and a &quot;prescribed&quot; label</li>
+<li><strong>Couplings</strong> are the dashed arcs between realms.</li>
+</ul>
+<hr>
+<h2>4. References</h2>
+<figure><img src="guide-assets/04-references.png" alt="References section, one card per reference with DOI links" loading="lazy"><figcaption>References section, one card per reference with DOI links</figcaption></figure>
+<p>Every reference on the model record gets its own card — a numbered badge plus a <strong>DOI</strong> badge and link where available, or the citation text for free-form entries. These will be resolved using the data cite information and improved.</p>
+<hr>
+<h2>5. Model family</h2>
+<figure><img src="guide-assets/05-family.png" alt="Model family card with institution, domains, and links" loading="lazy"><figcaption>Model family card with institution, domains, and links</figcaption></figure>
+<p>The family the model belongs to: type, primary institution, collaborators, scientific domains, year established, programming languages, licence, and <strong>website / source</strong> links, plus any family-level references. This helps give us an understanding of where this specific model is coming from.</p>
+<hr>
+<h2>6. EMD schema (interactive graph)</h2>
+<figure><img src="guide-assets/06-schema.png" alt="EMD schema force-directed graph of the model&#x27;s linked records" loading="lazy"><figcaption>EMD schema force-directed graph of the model&#x27;s linked records</figcaption></figure>
+<p>A tiered, force-directed graph of the <em>entire</em> record and everything it links to.</p>
+<p>This is generated by following the links from the source_id all the way until the individual grids and provides a good representation of how the EMD is defined in the background any all the submissions that go into creating a source id.</p>
+<p>How to use it:</p>
+<ul>
+<li><strong>Hover a node</strong> to spotlight its parents, children, and coupling partners.</li>
+<li><strong>Double-click a node</strong> to open that record&#x27;s source JSON on GitHub in a new tab.</li>
+<li><strong>Drag</strong> a node to reposition it; <strong>scroll</strong> to zoom, <strong>drag the background</strong> to pan.</li>
+<li>Use the <strong>+ / − / fit</strong> buttons (bottom-right) to zoom or re-fit the whole graph.</li>
+<li>Dashed boxes (&quot;nests&quot;) wrap embedded realms inside their host; dashed arcs mark couplings.</li>
+</ul>
+<hr>
+<h2>7. Components in detail</h2>
+<figure><img src="guide-assets/07-components.png" alt="Components-in-detail cards, one per realm" loading="lazy"><figcaption>Components-in-detail cards, one per realm</figcaption></figure>
+<p>One card per realm, detailing the component that describes it. Component information such as description, reference and code base are also provided.</p>
+<hr>
+<h2>8. Grids</h2>
+<figure><img src="guide-assets/08-grids.png" alt="Grid cards showing H/V badges, realm tags, expandable subgrids with view-grid buttons" loading="lazy"><figcaption>Grid cards showing H/V badges, realm tags, expandable subgrids with view-grid buttons</figcaption></figure>
+<p>One card per distinct grid the model uses:</p>
+<ul>
+<li>An <strong>H / V badge</strong> marks horizontal vs vertical grids, next to the grid id.</li>
+<li>The <strong>realm(s) that use the grid</strong> are listed as small realm-coloured, comma- separated tags. These help identify where the grids are being used for this specific source_id.</li>
+<li><strong>Horizontal grids</strong> have an expandable <strong>subgrids</strong> list. Each subgrid row shows its variable type, grid type, resolution and cell count, plus a link to the grid for those requifing more information.</li>
+<li><strong>Vertical grids</strong> show levels and coordinate, with layer thicknesses (top / bottom / total depth) hidden in a collapsible <strong>&quot;Layer info&quot;</strong> box - similar to the subgrids for the horizontal.</li>
+</ul>
+<hr>
+<h2>9. Model record (JSON)</h2>
+<p>![Raw JSON viewer with Simple/Resolved toggle and copy button]</p>
+<p>The raw JavaScriptObjectNotation record, syntax-highlighted, always at the bottom of the page. Use the <strong>Simple ⇄ Resolved</strong> toggle to switch between the record as defined in the model file, or a recursively populated version going all the way until the horizontal-grid-cell level.  The <strong>Copy</strong> button copies whichever view is showing.</p>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var a = document.getElementById("emd-home-link");
+    if (a && typeof window.NAV_PREFIX !== "undefined" && window.NAV_PREFIX) a.href = window.NAV_PREFIX;
+  });
+</script>
+</body>
+</html>
