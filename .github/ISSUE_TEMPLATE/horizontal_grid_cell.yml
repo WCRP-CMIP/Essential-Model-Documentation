@@ -8,7 +8,8 @@ body:
       value: |
         | Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
         |:---:|:---:|:---:|:---:|
-        | **🟢 Grid Cell** | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | [Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml) | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
+        | **🟢 Grid Cell** | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) |
+        | Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
         
         # Reusable Grid Cell
         
@@ -274,7 +275,7 @@ body:
     attributes:
       label: Southernmost Latitude
       description: |
-        The southern boundary of the grid in degrees north.
+        The southernmost latitude of all grid cell centres, in degrees north (cells for which no calculations are made are included).
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -293,7 +294,7 @@ body:
     attributes:
       label: Westernmost Longitude
       description: |
-        The western boundary of the grid in degrees east.
+        The westernmost longitude of the southernmost grid cell centres, in degrees east (cells for which no calculations are made are included).
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -356,7 +357,7 @@ body:
     attributes:
       label: Alias
       description: |
-        Optional, if you wish to describe where the grid is being used, and other names it may be known as
+        Optional, if you wish to describe where the grid is being used, and other names it may be known as.
       placeholder: "XXX1, YYY2,  comma deliminated entries.."
 
   - type: textarea
@@ -365,7 +366,6 @@ body:
       label: Description
       description: |
         Optional free-text description of grid-specific details not captured by the fields above. Leave blank if the parameters fully describe the grid.
-      placeholder: "COMPLETE ONLY IF YOUR GRID APPEARS IDENTICAL TO ANOTHER AND THE DIFFERENCES CANNOT BE CAPTURED BY ANY OTHER PART OF THIS FORM."
 
   - type: markdown
     attributes:
