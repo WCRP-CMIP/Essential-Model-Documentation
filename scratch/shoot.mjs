@@ -6,7 +6,7 @@ import { writeFileSync } from "node:fs";
 
 const URL_BASE = "http://localhost:8765/index.html";
 const MODEL = "ec-earth3-esm-1-1";
-const OUT = "/Users/daniel.ellis/WIPwork/Essential-Model-Documentation/docs/Model/guide-assets";
+const OUT = "/Users/daniel.ellis/WIPwork/Essential-Model-Documentation/docs/Model/assets/guide-assets";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const PORT = 9333;
 

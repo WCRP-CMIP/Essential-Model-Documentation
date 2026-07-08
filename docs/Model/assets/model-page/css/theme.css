@@ -31,7 +31,14 @@
 .model-header { margin-bottom: 1.5rem; }
 .header-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
 .eyebrow { margin: 0; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+a.eyebrow-home { display: inline-block; text-decoration: none; color: var(--muted); transition: color .15s; }
+a.eyebrow-home:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .model-title { margin: .15rem 0 0; font-size: 2.1rem; font-weight: 750; letter-spacing: -.01em; }
+.header-links { display: flex; align-items: center; gap: .5rem; margin-top: .5rem; font-size: .8rem; }
+.header-link { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--line-strong); padding-bottom: 1px; transition: color .15s, border-color .15s; }
+.header-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.header-link-sep { color: var(--line-strong); }
+#schema { scroll-margin-top: 1rem; }
 .picker-wrap { display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--muted); }
 .model-picker { font: inherit; font-size: .85rem; padding: .4rem .6rem; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); color: var(--ink); }
 .header-facts { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
@@ -261,9 +268,14 @@ svg.focus .h-node { opacity: .18; } svg.focus .h-link { opacity: .08; } svg.focu
 .json-copy { font: inherit; font-size: .76rem; font-weight: 600; padding: .32rem .8rem; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--panel); color: var(--accent); cursor: pointer; transition: background .15s, color .15s; }
 .json-copy:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 .json-copy.ok { background: var(--dynamic); color: #fff; border-color: var(--dynamic); }
+.json-wrap-btn { font: inherit; font-size: .76rem; font-weight: 600; padding: .32rem .8rem; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--panel); color: var(--muted); cursor: pointer; transition: background .15s, color .15s; }
+.json-wrap-btn:hover { border-color: var(--accent); color: var(--accent); }
+.json-wrap-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 .json-copy-fallback { position: fixed; left: -9999px; top: 0; }
 .json-pre { margin: 0; padding: 1rem 1.35rem 1.35rem; overflow-x: auto; background: #0f1b2d; }
 .json-pre code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; line-height: 1.55; color: #d6e2f0; white-space: pre; }
+.json-pre.wrap { overflow-x: hidden; }
+.json-pre.wrap code { white-space: pre-wrap; overflow-wrap: anywhere; }
 /* JSON syntax highlight tokens */
 .json-pre .j-key  { color: #7cc4ff; }
 .json-pre .j-str  { color: #b5e8a0; }

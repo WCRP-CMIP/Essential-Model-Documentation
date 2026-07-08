@@ -33,6 +33,8 @@
   header { display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;
     padding: 1rem 1.4rem 0.8rem; border-bottom: 1px solid var(--line); background: var(--panel); }
   header h1 { margin: 0; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+  header h1 a#emd-home-link { color: inherit; text-decoration: none; }
+  header h1 a#emd-home-link:hover { text-decoration: underline; text-underline-offset: 3px; color: var(--c-model); }
   .controls { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; font-size: 0.8rem; }
   .controls label { color: var(--muted); }
   select, input, .controls button { font: inherit; font-size: 0.8rem; }
@@ -169,7 +171,7 @@
 </head>
 <body>
 <header>
-  <h1>EMD&nbsp;·&nbsp;Model Graph</h1>
+  <h1><a href="../../" id="emd-home-link">EMD</a>&nbsp;·&nbsp;Model Graph</h1>
   <div class="controls">
     <label for="model">Model</label>
     <select id="model"></select>
@@ -934,6 +936,15 @@ document.getElementById("dl").addEventListener("click", () => {
 });
 
 init();
+</script>
+<script>
+  /* EMD title links back to the site home. NAV_PREFIX is injected per-page by
+     the mkdocs post-build step; fall back to "../../" (this page sits at
+     <site>/Model/assets/). */
+  window.addEventListener("DOMContentLoaded", function () {
+    var a = document.getElementById("emd-home-link");
+    if (a && typeof window.NAV_PREFIX !== "undefined" && window.NAV_PREFIX) a.href = window.NAV_PREFIX;
+  });
 </script>
 </body>
 </html>

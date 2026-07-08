@@ -33,11 +33,30 @@ export function mountHeader(root, model, { onModelChange, models = [], current }
     ]),
   ]);
 
+  // "EMD" eyebrow links back to the site home. NAV_PREFIX is injected per-page
+  // by the mkdocs post-build step and points at the site root from any depth;
+  // fall back to "../" (this page is served at <site>/Model/).
+  const homeHref = (typeof window !== "undefined" && window.NAV_PREFIX) ? window.NAV_PREFIX : "../";
+  const eyebrow = el("a", { class: "eyebrow eyebrow-home", href: homeHref, title: "Back to home" },
+    "Essential Model Documentation");
+  // NAV_PREFIX may be set after this renders; refresh the href once it's available.
+  requestAnimationFrame(() => { if (window.NAV_PREFIX) eyebrow.href = window.NAV_PREFIX; });
+
+  // Subtle in-context links: jump to the on-page schema graph, and open the
+  // "how to use this page" guide.
+  const links = el("nav", { class: "header-links" }, [
+    el("a", { class: "header-link", href: "#schema" }, "Schema view"),
+    el("span", { class: "header-link-sep", "aria-hidden": "true" }, "·"),
+    el("a", { class: "header-link", href: "assets/viewer_instructions.md", target: "_blank", rel: "noopener" },
+      "Understanding this page"),
+  ]);
+
   root.appendChild(el("header", { class: "model-header" }, [
     el("div", { class: "header-top" }, [
       el("div", { class: "header-titles" }, [
-        el("p", { class: "eyebrow" }, "Essential Model Documentation"),
+        eyebrow,
         el("h1", { class: "model-title" }, title),
+        links,
       ]),
       models.length ? el("label", { class: "picker-wrap" }, [
         el("span", { class: "picker-label" }, "Model"), picker,

@@ -225,6 +225,7 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
 
   const wrap = document.createElement("section");
   wrap.className = "card hierarchy";
+  wrap.id = "schema";                       // anchor target for the header "Schema view" link
   wrap.innerHTML = `<h2 class="card-title">EMD schema</h2>
     <dl class="h-key">
       <dt>hover</dt><dd>highlights a node's parents and children</dd>
