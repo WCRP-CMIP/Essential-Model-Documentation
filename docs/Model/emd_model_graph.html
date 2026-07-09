@@ -33,8 +33,6 @@
   header { display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;
     padding: 1rem 1.4rem 0.8rem; border-bottom: 1px solid var(--line); background: var(--panel); }
   header h1 { margin: 0; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
-  header h1 a#emd-home-link { color: inherit; text-decoration: none; }
-  header h1 a#emd-home-link:hover { text-decoration: underline; text-underline-offset: 3px; color: var(--c-model); }
   .controls { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; font-size: 0.8rem; }
   .controls label { color: var(--muted); }
   select, input, .controls button { font: inherit; font-size: 0.8rem; }
@@ -171,7 +169,7 @@
 </head>
 <body>
 <header>
-  <h1><a href="../../" id="emd-home-link">EMD</a>&nbsp;·&nbsp;Model Graph</h1>
+  <h1>EMD&nbsp;·&nbsp;Model Graph</h1>
   <div class="controls">
     <label for="model">Model</label>
     <select id="model"></select>
@@ -937,16 +935,7 @@ document.getElementById("dl").addEventListener("click", () => {
 
 init();
 </script>
-<script>
-  /* EMD title links back to the site home. NAV_PREFIX is injected per-page by
-     the mkdocs post-build step; fall back to "../../" (this page sits at
-     <site>/Model/assets/). */
-  window.addEventListener("DOMContentLoaded", function () {
-    var a = document.getElementById("emd-home-link");
-    if (a && typeof window.NAV_PREFIX !== "undefined" && window.NAV_PREFIX) a.href = window.NAV_PREFIX;
-  });
-</script>
-  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../css/base.css"><link rel="stylesheet" href="../../css/geist.css"><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/geist.css"><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
 
 (function(){
 var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Progress Tracker", "url": "/Progress_Tracker.html"}, {"type": "group", "label": "Information for Submitters", "url": "/Information_for_Submitters/", "children": [{"type": "link", "label": "Submission Guide", "url": "/Information_for_Submitters/Submission-Guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Information_for_Submitters/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an Institution", "url": "/Information_for_Submitters/Registering_an_Institution/"}, {"type": "link", "label": "Using GitHub Forms", "url": "/Information_for_Submitters/Using_GitHub_Forms/"}, {"type": "link", "label": "Error Meanings", "url": "/Information_for_Submitters/Error_Meanings/"}]}, {"type": "group", "label": "Developer Guidance", "url": "/Developer_Guidance/", "children": [{"type": "link", "label": "Find your submissions", "url": "/Developer_Guidance/find_your_submissions.html"}, {"type": "link", "label": "Github Actions, Workflows and Automation", "url": "/Developer_Guidance/Github Actions, Workflows_and_Automation/"}, {"type": "link", "label": "Issue Templates", "url": "/Developer_Guidance/Issue_Templates/"}, {"type": "link", "label": "PR Timeline", "url": "/Developer_Guidance/PR_Timeline.html"}]}, {"type": "group", "label": "Model", "url": "/Model/", "children": [{"type": "link", "label": "Emd model graph", "url": "/Model/emd_model_graph.html"}]}, {"type": "group", "label": "Reviewer Guidance", "url": "/Reviewer_Guidance/", "children": [{"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Guidance/Reviewer_Information/"}, {"type": "link", "label": "Interpreting The Review Summary", "url": "/Reviewer_Guidance/Interpreting_The_Review_Summary/"}, {"type": "link", "label": "Review Comments", "url": "/Reviewer_Guidance/Review_Comments/"}, {"type": "link", "label": "Review Options", "url": "/Reviewer_Guidance/Review_Options/"}]}, {"type": "link", "label": "Progress Feed", "url": "/Progress_Feed/"}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}];

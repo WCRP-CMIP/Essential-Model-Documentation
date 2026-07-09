@@ -64,16 +64,27 @@ export function mountRawJson(root, model, { base } = {}) {
   seg.append(btnSimple, btnResolved);
 
   const copyBtn = el("button", { class: "json-copy", type: "button" }, "Copy");
+<<<<<<< HEAD
+
+  const summary = el("summary", { class: "json-summary" }, [
+    el("span", { class: "json-summary-label" }, "Model record (JSON)"),
+    el("span", { class: "json-controls" }, [seg, copyBtn]),
+=======
   const wrapBtn = el("button", { class: "json-wrap-btn active", type: "button", title: "Toggle line wrapping" }, "Wrap");
 
   const summary = el("summary", { class: "json-summary" }, [
     el("span", { class: "json-summary-label" }, "Model record (JSON)"),
     el("span", { class: "json-controls" }, [seg, wrapBtn, copyBtn]),
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
   ]);
 
   const code = el("code");
   code.innerHTML = highlight(simpleText);
+<<<<<<< HEAD
+  const pre = el("pre", { class: "json-pre" }, code);
+=======
   const pre = el("pre", { class: "json-pre wrap" }, code);   // wrap on by default
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
 
   const currentText = () => (mode === "resolved" ? (resolvedText ?? "") : simpleText);
 
@@ -101,6 +112,8 @@ export function mountRawJson(root, model, { base } = {}) {
   btnSimple.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); setMode("simple"); });
   btnResolved.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); setMode("resolved"); });
 
+<<<<<<< HEAD
+=======
   // line-wrap toggle (off by default → long lines scroll horizontally)
   wrapBtn.addEventListener("click", e => {
     e.preventDefault(); e.stopPropagation();
@@ -108,6 +121,7 @@ export function mountRawJson(root, model, { base } = {}) {
     wrapBtn.classList.toggle("active", on);
   });
 
+>>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
   copyBtn.addEventListener("click", async e => {
     e.preventDefault(); e.stopPropagation();
     const text = currentText();
