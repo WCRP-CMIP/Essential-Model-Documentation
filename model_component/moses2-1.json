@@ -1,0 +1,18 @@
+{
+    "validation_key": "moses2-1",
+    "ui_label": "MOSES2.1",
+    "description": "treatment of land surface physics and BGC, including hydrology, snow and vegetation",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1175/1525-7541(2003)004<0530:EROSHI>2.0.CO;2 https://doi.org/10.1016/S0022-1694(98)00203-0"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "moses2-1"
+}
