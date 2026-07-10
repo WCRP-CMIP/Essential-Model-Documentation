@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Throughput — Essential Model Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+  :root {
+    --emd-primary:        #2196f3;
+    --emd-primary-dark:   #1976d2;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    --emd-text-tertiary:  #94a3b8;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-bg-tertiary:    #f1f5f9;
+    --emd-border:         #e2e8f0;
+    --emd-border-light:   #f1f5f9;
+    --emd-danger:         #ef4444;
+    --emd-warning:        #f59e0b;
+    --emd-success:        #10b981;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    color: var(--emd-text); line-height: 1.5;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+
+  .page-header { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--emd-border-light); margin-bottom: 1.5rem; }
+  .page-header h1 { margin: 0 0 .5rem; font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+  .page-header .subtitle { margin: 0; color: var(--emd-text-secondary); font-size: .95rem; max-width: 820px; }
+  .page-header code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .82em; padding: .05rem .3rem; border-radius: 3px;
+    background: var(--emd-bg-tertiary); color: var(--emd-primary-dark);
+  }
+
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-bottom: 1.5rem; }
+  .summary .stat { background: var(--emd-bg-secondary); border: 1px solid var(--emd-border); border-radius: 8px; padding: .85rem 1rem; }
+  .summary .stat-label { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--emd-text-tertiary); font-weight: 600; margin-bottom: .25rem; }
+  .summary .stat-value { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 1.35rem; font-weight: 600; line-height: 1.1; }
+  .summary .stat-sub { font-size: .75rem; color: var(--emd-text-secondary); margin-top: .15rem; }
+  .stat-value .u { font-size: .7em; color: var(--emd-text-tertiary); margin-left: .25em; }
+  .net-positive { color: var(--emd-danger); }
+  .net-negative { color: var(--emd-success); }
+
+  .controls-strip {
+    display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center;
+    padding: .75rem 1rem; margin-bottom: 1rem;
+    background: var(--emd-bg-secondary); border: 1px solid var(--emd-border); border-radius: 10px;
+  }
+  .control-group { display: flex; align-items: center; gap: .55rem; }
+  .control-group > label {
+    font-size: .72rem; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--emd-text-tertiary); font-weight: 600;
+  }
+  .segmented { display: flex; background: var(--emd-bg); border: 1px solid var(--emd-border); border-radius: 6px; padding: 2px; gap: 2px; }
+  .segmented button {
+    padding: .3rem .6rem; font-family: inherit; font-size: .74rem; font-weight: 500;
+    color: var(--emd-text-secondary); background: transparent; border: none;
+    border-radius: 4px; cursor: pointer; transition: all .15s;
+  }
+  .segmented button.active { background: var(--emd-primary); color: white; }
+
+  .chart-panel {
+    background: var(--emd-bg); border: 1px solid var(--emd-border); border-radius: 10px;
+    padding: 1rem 1rem .5rem;
+  }
+  .chart-title { font-size: 1rem; font-weight: 600; margin: 0; }
+  .chart-caption { font-size: .8rem; color: var(--emd-text-secondary); margin: .15rem 0 .5rem; }
+
+  #main-chart { width: 100%; display: block; }
+  .axis path, .axis line { stroke: var(--emd-border); }
+  .axis text { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10.5px; fill: var(--emd-text-secondary); }
+  .grid line { stroke: var(--emd-border-light); stroke-dasharray: 2 3; }
+  .grid path { display: none; }
+  .axis-label { font-size: 11px; fill: var(--emd-text-secondary); font-weight: 500; }
+
+  .closed-line     { fill: none; stroke: #1976d2; stroke-width: 2; }
+  .submitted-line  { fill: none; stroke: #f59e0b; stroke-width: 1.9;
+                     stroke-dasharray: 2 3; opacity: .95; }
+
+  .crosshair { stroke: var(--emd-text-tertiary); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+  #tooltip {
+    position: absolute; pointer-events: none;
+    background: var(--emd-text); color: white;
+    padding: .55rem .7rem; border-radius: 6px;
+    font-size: .78rem; line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    opacity: 0; transition: opacity .1s; z-index: 10; max-width: 280px;
+  }
+  #tooltip .tt-date { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600; color: #fbbf24; margin-bottom: .3rem; font-size: .75rem; }
+  #tooltip .tt-row { display: flex; align-items: center; gap: .4rem; margin-top: .15rem; }
+  #tooltip .tt-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  #tooltip .tt-name { flex: 1; }
+  #tooltip .tt-stats { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem; color: #e2e8f0; }
+
+  /* chart-element key */
+  .chart-key {
+    display: flex; flex-wrap: wrap; gap: .3rem 1.1rem;
+    margin: .4rem 0 .2rem; padding: .3rem 0;
+    font-size: .78rem; color: var(--emd-text-secondary);
+  }
+  .chart-key-item { display: inline-flex; align-items: center; gap: .4rem; }
+  .chart-key svg { flex-shrink: 0; }
+
+  .section-header { display: flex; justify-content: space-between; align-items: baseline; margin: 1.75rem 0 .75rem; }
+  .section-header h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .section-header .section-sub { font-size: .8rem; color: var(--emd-text-secondary); }
+
+  .small-multiples { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+  @media (max-width: 900px) {
+    .small-multiples { grid-template-columns: repeat(2, 1fr); }
+    .summary { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) { .small-multiples { grid-template-columns: 1fr; } }
+
+  .sm-card { background: var(--emd-bg); border: 1px solid var(--emd-border); border-radius: 8px; padding: .55rem .7rem .35rem; }
+  .sm-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .15rem; gap: .5rem; }
+  .sm-title {
+    font-size: .82rem; font-weight: 600; color: var(--emd-text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .sm-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .sm-count { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .68rem; color: var(--emd-text-tertiary); font-weight: 500; white-space: nowrap; }
+  .sm-svg { width: 100%; display: block; }
+
+  #status { text-align: center; padding: 3rem 1rem; color: var(--emd-text-secondary); font-size: .9rem; }
+  #status.error { color: var(--emd-danger); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1>PR throughput</h1>
+    <p class="subtitle">
+      Rolling count of PRs <b>closed</b> (merged or closed-without-merge) versus PRs
+      <b>submitted</b> (opened) in a 2-week sliding window. When the dotted line runs
+      above the solid line, the queue is growing faster than it's being resolved.
+      Anchored on <code>terminalDate</code> for closed and <code>opened</code> for
+      submitted, with <code>d3.curveBasis</code> smoothing.
+    </p>
+  </div>
+
+  <div class="summary">
+    <div class="stat">
+      <div class="stat-label">Closed (last 14d)</div>
+      <div class="stat-value" id="stat-closed">—</div>
+      <div class="stat-sub" id="stat-closed-sub">merged + closed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Submitted (last 14d)</div>
+      <div class="stat-value" id="stat-submitted">—</div>
+      <div class="stat-sub">newly opened PRs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Backlog change</div>
+      <div class="stat-value" id="stat-net">—</div>
+      <div class="stat-sub" id="stat-net-sub">submitted − closed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Date range</div>
+      <div class="stat-value" id="stat-range" style="font-size:.95rem">—</div>
+      <div class="stat-sub" id="stat-range-sub">span of PR activity</div>
+    </div>
+  </div>
+
+  <div class="controls-strip">
+    <div class="control-group">
+      <label>Window</label>
+      <div class="segmented" id="window-toggle">
+        <button data-window="7" class="active">±7d (2 wk)</button>
+        <button data-window="14">±14d (4 wk)</button>
+        <button data-window="30">±30d (2 mo)</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Smoothing</label>
+      <div class="segmented" id="smooth-toggle">
+        <button data-smooth="0">Raw</button>
+        <button data-smooth="3" class="active">±3d</button>
+        <button data-smooth="7">±7d</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Y-scale</label>
+      <div class="segmented" id="scale-toggle">
+        <button data-scale="linear" class="active">Linear</button>
+        <button data-scale="log">Log</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Categories</label>
+      <div class="segmented" id="scope-toggle">
+        <button data-scope="all" class="active">All PRs</button>
+        <button data-scope="canonical">Canonical only</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <h2 class="chart-title">Closed vs submitted — 2-week rolling counts</h2>
+    <p class="chart-caption" id="chart-caption">—</p>
+    <div id="status">Loading data…</div>
+    <svg id="main-chart" style="display:none"></svg>
+    <div id="chart-key" class="chart-key"></div>
+    <div id="tooltip"></div>
+  </div>
+
+  <div class="section-header">
+    <h2>Per-category detail</h2>
+    <span class="section-sub">canonical categories only · shared axes with main</span>
+  </div>
+
+  <div class="small-multiples" id="small-multiples"></div>
+
+</div>
+
+<script>
+// ==========================================================================
+// PR throughput — closed vs submitted in a sliding window
+// ==========================================================================
+
+const CONFIG = {
+  dataUrl: "../assets/pr_all_timeline_data.json",
+  halfWindowDays: 7,          // ±7d = 2-week sliding window
+  smoothingRadiusDays: 3,
+  smallMultipleHeight: 140,
+};
+
+// Canonical CMIP categories, for the small multiples + optional "canonical only" filter.
+const CATEGORY_DEFS = [
+  { name: 'Horizontal Grid Cell',           re: /horizontal[\s_-]*grid[\s_-]*cell/i,          color: '#4E79A7' },
+  { name: 'Horizontal Computational Grid',  re: /horizontal[\s_-]*computational/i,            color: '#F28E2B' },
+  { name: 'Vertical Computational Grid',    re: /vertical[\s_-]*computational/i,              color: '#59A14F' },
+  { name: 'Model Family',                   re: /(?:model|earth[\s_-]*system[\s_-]*model)[\s_-]*famil/i, color: '#E15759' },
+  { name: 'Model Component',                re: /model[\s_-]*component/i,                     color: '#B07AA1' },
+  { name: 'Model',                          re: /\bmodel\b/i,                                  color: '#76B7B2' },
+];
+
+const CLOSED_COLOR    = "#1976d2";
+const SUBMITTED_COLOR = "#f59e0b";
+
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+const state = {
+  prs: [],                    // all PRs with opened+category
+  categories: [],             // per-canonical rollup
+  meta: {},
+  maxDataDate: null,
+  days: [],
+  xDomain: null,
+
+  halfWindowDays: CONFIG.halfWindowDays,
+  smoothingRadiusDays: CONFIG.smoothingRadiusDays,
+  scale: "linear",
+  scope: "all",               // "all" or "canonical"
+
+  overallClosed:    [],
+  overallSubmitted: [],
+  yMax: 0,
+};
+
+// ---------- load ----------
+d3.json(CONFIG.dataUrl).then(init).catch(err => {
+  const el = document.getElementById("status");
+  el.classList.add("error");
+  el.textContent = "Could not load " + CONFIG.dataUrl + " — " + err.message;
+  console.error(err);
+});
+
+function categorize(title) {
+  for (const c of CATEGORY_DEFS) if (c.re.test(title)) return c.name;
+  return null;
+}
+
+function init(raw) {
+  state.meta = raw.meta || {};
+  state.maxDataDate = state.meta.generated_at ? new Date(state.meta.generated_at) : new Date();
+
+  state.prs = (raw.pull_requests || []).map(pr => {
+    const opened = pr.created_at ? new Date(pr.created_at) : null;
+    if (!opened || isNaN(opened)) return null;
+    const terminalDate = pr.merged_at ? new Date(pr.merged_at)
+                       : pr.closed_at ? new Date(pr.closed_at) : null;
+    const status = pr.status
+      || (pr.merged_at ? "merged" : (pr.state === "closed" ? "closed" : "open"));
+    return {
+      number: pr.number,
+      title: pr.title || "",
+      opened,
+      terminalDate,
+      status,
+      category: categorize(pr.title || ""),   // may be null
+    };
+  }).filter(Boolean);
+
+  if (!state.prs.length) {
+    document.getElementById("status").classList.add("error");
+    document.getElementById("status").textContent = "No PRs in the dataset.";
+    return;
+  }
+
+  // Categories with any activity — build small-multiples rollups later.
+  const canonicalPRs = state.prs.filter(p => p.category !== null);
+  const byCat = d3.group(canonicalPRs, p => p.category);
+  state.categories = CATEGORY_DEFS
+    .filter(c => byCat.has(c.name))
+    .map(c => ({ ...c, prs: byCat.get(c.name) }));
+
+  // X-axis spans every dated event we care about (opened OR terminal).
+  const allDates = [];
+  state.prs.forEach(p => {
+    allDates.push(p.opened);
+    if (p.terminalDate) allDates.push(p.terminalDate);
+  });
+  const [minD, maxD] = d3.extent(allDates);
+  state.xDomain = [minD, maxD];
+  state.days = d3.timeDays(d3.timeDay.floor(minD), d3.timeDay.offset(d3.timeDay.ceil(maxD), 1));
+
+  renderSummary();
+  bindControls();
+  recomputeAndRender();
+
+  document.getElementById("status").style.display = "none";
+  document.getElementById("main-chart").style.display = "block";
+  window.addEventListener("resize", debounce(recomputeAndRender, 150));
+}
+
+// ---------- windowed counts ----------
+function countInWindow(items, targetDate, key) {
+  // items: array of PR records; key: 'opened' or 'terminalDate'
+  const start = targetDate.getTime() - state.halfWindowDays * MS_PER_DAY;
+  const end   = targetDate.getTime() + state.halfWindowDays * MS_PER_DAY;
+  let n = 0;
+  for (const it of items) {
+    const d = it[key];
+    if (!d) continue;
+    const t = d.getTime();
+    if (t >= start && t <= end) n++;
+  }
+  return n;
+}
+
+function smoothCountSeries(series, radiusDays) {
+  if (!radiusDays || series.length < 2) return series;
+  const rMs = radiusDays * MS_PER_DAY;
+  return series.map(pt => {
+    const t = pt.date.getTime();
+    const win = series.filter(p => Math.abs(p.date.getTime() - t) <= rMs);
+    return { date: pt.date, count: d3.mean(win, d => d.count) };
+  });
+}
+
+function buildSeriesFor(prs) {
+  const rawClosed    = state.days.map(d => ({ date: d, count: countInWindow(prs, d, "terminalDate") }));
+  const rawSubmitted = state.days.map(d => ({ date: d, count: countInWindow(prs, d, "opened") }));
+  return {
+    closed:    smoothCountSeries(rawClosed,    state.smoothingRadiusDays),
+    submitted: smoothCountSeries(rawSubmitted, state.smoothingRadiusDays),
+    rawClosed, rawSubmitted,
+  };
+}
+
+function buildAllSeries() {
+  const scopePRs = (state.scope === "canonical")
+    ? state.prs.filter(p => p.category !== null)
+    : state.prs;
+  const overall = buildSeriesFor(scopePRs);
+  state.overallClosed    = overall.closed;
+  state.overallSubmitted = overall.submitted;
+  state.overallClosedRaw    = overall.rawClosed;
+  state.overallSubmittedRaw = overall.rawSubmitted;
+
+  // Per-category (always the canonical set for the small multiples)
+  state.categories.forEach(c => {
+    const s = buildSeriesFor(c.prs);
+    c.closedSeries    = s.closed;
+    c.submittedSeries = s.submitted;
+  });
+
+  // Shared Y max across both lines (main + small multiples)
+  const mainTop = Math.max(
+    d3.max(overall.closed,    p => p.count) || 0,
+    d3.max(overall.submitted, p => p.count) || 0,
+  );
+  const catTop = d3.max(state.categories, c => Math.max(
+    d3.max(c.closedSeries,    p => p.count) || 0,
+    d3.max(c.submittedSeries, p => p.count) || 0,
+  )) || 0;
+  state.yMax = mainTop || 1;
+  state.smYMax = catTop || 1;
+}
+
+// ---------- summary ----------
+function renderSummary() {
+  const maxD = state.maxDataDate;
+  const cutoff = maxD.getTime() - 14 * MS_PER_DAY;
+
+  const scopePRs = (state.scope === "canonical")
+    ? state.prs.filter(p => p.category !== null)
+    : state.prs;
+  const recentClosed = scopePRs.filter(p =>
+    p.terminalDate && p.terminalDate.getTime() >= cutoff && p.terminalDate.getTime() <= maxD.getTime()
+  ).length;
+  const recentSubmitted = scopePRs.filter(p =>
+    p.opened.getTime() >= cutoff && p.opened.getTime() <= maxD.getTime()
+  ).length;
+  const net = recentSubmitted - recentClosed;
+
+  document.getElementById("stat-closed").innerHTML =
+    `${recentClosed}<span class="u">PRs</span>`;
+  document.getElementById("stat-submitted").innerHTML =
+    `${recentSubmitted}<span class="u">PRs</span>`;
+
+  const netEl = document.getElementById("stat-net");
+  const sign = net > 0 ? "+" : net < 0 ? "−" : "";
+  const absN = Math.abs(net);
+  const netCls = net > 0 ? "net-positive" : (net < 0 ? "net-negative" : "");
+  netEl.innerHTML = `<span class="${netCls}">${sign}${absN}</span><span class="u">PRs</span>`;
+  document.getElementById("stat-net-sub").textContent =
+    net > 0 ? "backlog growing" : net < 0 ? "backlog shrinking" : "flat";
+
+  const [minD, ] = state.xDomain;
+  const fmt = d3.timeFormat("%b %Y");
+  document.getElementById("stat-range").textContent = `${fmt(minD)} → ${fmt(maxD)}`;
+}
+
+// ---------- controls ----------
+function bindControls() {
+  bindSeg("window-toggle", "window", "halfWindowDays", v => +v);
+  bindSeg("smooth-toggle", "smooth", "smoothingRadiusDays", v => +v);
+  bindSeg("scale-toggle",  "scale",  "scale");
+  bindSeg("scope-toggle",  "scope",  "scope");
+}
+function bindSeg(id, attrKey, stateKey, transform) {
+  const group = document.getElementById(id);
+  group.querySelectorAll("button").forEach(btn => {
+    btn.onclick = () => {
+      group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state[stateKey] = transform ? transform(btn.dataset[attrKey]) : btn.dataset[attrKey];
+      recomputeAndRender();
+    };
+  });
+}
+
+// ---------- render orchestrator ----------
+function recomputeAndRender() {
+  buildAllSeries();
+  renderSummary();
+  renderChartKey();
+  renderMainChart();
+  renderScatter();
+  renderSmallMultiples();
+}
+
+// ---------- chart-element key ----------
+function renderChartKey() {
+  const host = document.getElementById("chart-key");
+  host.innerHTML = `
+    <span class="chart-key-item">
+      <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="${CLOSED_COLOR}" stroke-width="2"/></svg>
+      Closed (merged or closed)
+    </span>
+    <span class="chart-key-item">
+      <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="${SUBMITTED_COLOR}" stroke-width="2" stroke-dasharray="2 3"/></svg>
+      Submitted (opened)
+    </span>
+  `;
+
+  // Scatter key sits under the scatter chart.
+  const skHost = document.getElementById("scatter-key");
+  if (skHost) {
+    skHost.innerHTML = `
+      <span class="chart-key-item">
+        <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/></svg>
+        Parity (closed = submitted)
+      </span>
+      <span class="chart-key-item">
+        <svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#7c3aed"/></svg>
+        One non-overlapping ${2 * state.halfWindowDays}-day window
+      </span>
+      <span class="chart-key-item" style="color:var(--emd-text-tertiary)">
+        Color = time (pale = older, deep = recent)
+      </span>
+    `;
+  }
+}
+
+// ---------- main chart ----------
+function renderMainChart() {
+  const svg = d3.select("#main-chart");
+  svg.selectAll("*").remove();
+
+  const container = document.querySelector(".chart-panel");
+  const width = container.clientWidth - 32;
+  const height = 420;
+  const margin = { top: 14, right: 22, bottom: 40, left: 56 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+
+  svg.attr("width", width).attr("height", height).attr("viewBox", `0 0 ${width} ${height}`);
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleTime().domain(state.xDomain).range([0, innerW]);
+  const yTop = (state.yMax || 1) * 1.1;
+  const y = (state.scale === "log" ? d3.scaleLog().domain([0.5, yTop]) : d3.scaleLinear().domain([0, yTop]))
+    .range([innerH, 0]).clamp(true);
+
+  g.append("g").attr("class", "grid")
+    .call(d3.axisLeft(y).ticks(6).tickSize(-innerW).tickFormat(""));
+
+  g.append("g").attr("class", "axis")
+    .attr("transform", `translate(0,${innerH})`)
+    .call(d3.axisBottom(x).ticks(Math.min(10, Math.floor(innerW / 90))).tickSizeOuter(0));
+  g.append("g").attr("class", "axis")
+    .call(d3.axisLeft(y).ticks(6).tickFormat(d3.format("d")))
+    .append("text").attr("class", "axis-label")
+      .attr("transform", "rotate(-90)").attr("x", -innerH/2).attr("y", -42).attr("text-anchor", "middle")
+      .text(`PRs per ±${state.halfWindowDays}d window`);
+
+  const yOf = v => y(state.scale === "log" ? Math.max(0.5, v) : v);
+  const closedLine = d3.line().x(d => x(d.date)).y(d => yOf(d.count)).curve(d3.curveBasis).defined(d => d.count != null);
+  const submitLine = d3.line().x(d => x(d.date)).y(d => yOf(d.count)).curve(d3.curveBasis).defined(d => d.count != null);
+
+  g.append("path").datum(state.overallClosed).attr("class", "closed-line").attr("d", closedLine);
+  g.append("path").datum(state.overallSubmitted).attr("class", "submitted-line").attr("d", submitLine);
+
+  // crosshair + tooltip
+  const crosshair = g.append("line").attr("class", "crosshair").attr("y1", 0).attr("y2", innerH).style("opacity", 0);
+  const focus = g.append("g");
+  const tooltip = d3.select("#tooltip");
+
+  g.append("rect")
+    .attr("width", innerW).attr("height", innerH).attr("fill", "transparent")
+    .on("mouseenter", () => { crosshair.style("opacity", 1); tooltip.style("opacity", 1); })
+    .on("mouseleave", () => { crosshair.style("opacity", 0); tooltip.style("opacity", 0); focus.selectAll("*").remove(); })
+    .on("mousemove", function(event) {
+      const [mx] = d3.pointer(event, this);
+      const date = x.invert(mx);
+      crosshair.attr("x1", mx).attr("x2", mx);
+      focus.selectAll("*").remove();
+
+      const nearestOf = series => {
+        if (!series || !series.length) return null;
+        const idx = d3.bisector(d => d.date).left(series, date);
+        const cand = [series[idx-1], series[idx]].filter(Boolean);
+        if (!cand.length) return null;
+        return cand.reduce((a, b) => Math.abs(b.date - date) < Math.abs(a.date - date) ? b : a);
+      };
+      const nc = nearestOf(state.overallClosed);
+      const ns = nearestOf(state.overallSubmitted);
+      if (!nc && !ns) { tooltip.style("opacity", 0); return; }
+
+      if (nc) focus.append("circle")
+        .attr("cx", x(nc.date)).attr("cy", yOf(nc.count))
+        .attr("r", 3.5).attr("fill", CLOSED_COLOR).attr("stroke", "white").attr("stroke-width", 1.4);
+      if (ns) focus.append("circle")
+        .attr("cx", x(ns.date)).attr("cy", yOf(ns.count))
+        .attr("r", 3.5).attr("fill", SUBMITTED_COLOR).attr("stroke", "white").attr("stroke-width", 1.4);
+
+      const panel = document.querySelector(".chart-panel").getBoundingClientRect();
+      tooltip.style("left", (event.clientX - panel.left + 14) + "px")
+             .style("top",  (event.clientY - panel.top + 8) + "px");
+
+      const fmtDate = d3.timeFormat("%b %d, %Y");
+      const c = nc ? +nc.count.toFixed(1) : "—";
+      const s = ns ? +ns.count.toFixed(1) : "—";
+      const netVal = (nc && ns) ? (ns.count - nc.count) : null;
+      const netTxt = netVal != null
+        ? `${netVal > 0 ? "+" : ""}${netVal.toFixed(1)}`
+        : "—";
+      tooltip.html(`
+        <div class="tt-date">${fmtDate(date)} · window ±${state.halfWindowDays}d</div>
+        <div class="tt-row">
+          <span class="tt-swatch" style="background:${CLOSED_COLOR}"></span>
+          <span class="tt-name">Closed</span>
+          <span class="tt-stats">${c}</span>
+        </div>
+        <div class="tt-row">
+          <span class="tt-swatch" style="background:${SUBMITTED_COLOR}"></span>
+          <span class="tt-name">Submitted</span>
+          <span class="tt-stats">${s}</span>
+        </div>
+        <div class="tt-row" style="color:#94a3b8;margin-top:.25rem">
+          <span class="tt-name" style="padding-left:14px">Net (S − C)</span>
+          <span class="tt-stats">${netTxt}</span>
+        </div>
+      `);
+    });
+
+  // caption
+  const scopeDesc = state.scope === "canonical"
+    ? `${state.prs.filter(p => p.category !== null).length} canonical-category PRs`
+    : `${state.prs.length} PRs (all categories)`;
+  const smoothDesc = state.smoothingRadiusDays > 0 ? `, smoothing ±${state.smoothingRadiusDays}d` : "";
+  document.getElementById("chart-caption").textContent =
+    `${scopeDesc} · ±${state.halfWindowDays}d window${smoothDesc}. Hover for values.`;
+}
+
+// ---------- correlation scatter ----------
+function renderScatter() {
+  const svg = d3.select("#scatter-chart");
+  svg.selectAll("*").remove();
+
+  const samples = state.scatterSamples || [];
+  const panel = svg.node().parentNode;
+  const width = panel.clientWidth - 32;
+  const height = 380;
+  const margin = { top: 14, right: 90, bottom: 44, left: 56 };  // right widened for color legend
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+
+  svg.attr("width", width).attr("height", height).attr("viewBox", `0 0 ${width} ${height}`);
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+  if (!samples.length) {
+    g.append("text").attr("x", innerW/2).attr("y", innerH/2).attr("text-anchor", "middle")
+      .style("fill", "var(--emd-text-tertiary)").style("font-size", "0.85rem")
+      .text("Not enough data to draw a scatter.");
+    return;
+  }
+
+  // Shared axis top so parity line is exactly 45° when the plot is square.
+  const dataTop = d3.max(samples, s => Math.max(s.submitted, s.closed)) || 1;
+  const axTop = Math.ceil(dataTop * 1.08);
+  // Match the tighter of the two dimensions so scales are equal per pixel.
+  const size = Math.min(innerW, innerH);
+  // Center the plotting area inside the available box.
+  const shiftX = (innerW - size) / 2;
+  const shiftY = (innerH - size) / 2;
+  const plot = g.append("g").attr("transform", `translate(${shiftX},${shiftY})`);
+
+  const x = d3.scaleLinear().domain([0, axTop]).range([0, size]);
+  const y = d3.scaleLinear().domain([0, axTop]).range([size, 0]);
+
+  // grid
+  plot.append("g").attr("class", "grid")
+    .call(d3.axisLeft(y).ticks(6).tickSize(-size).tickFormat(""));
+  plot.append("g").attr("class", "grid")
+    .attr("transform", `translate(0,${size})`)
+    .call(d3.axisBottom(x).ticks(6).tickSize(-size).tickFormat(""));
+
+  // axes
+  plot.append("g").attr("class", "axis")
+    .attr("transform", `translate(0,${size})`)
+    .call(d3.axisBottom(x).ticks(6).tickFormat(d3.format("d")))
+    .append("text").attr("class", "axis-label")
+      .attr("x", size/2).attr("y", 34).attr("text-anchor", "middle")
+      .text(`PRs submitted per ${2 * state.halfWindowDays}-day window`);
+  plot.append("g").attr("class", "axis")
+    .call(d3.axisLeft(y).ticks(6).tickFormat(d3.format("d")))
+    .append("text").attr("class", "axis-label")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -size/2).attr("y", -42).attr("text-anchor", "middle")
+      .text("PRs closed per window");
+
+  // parity line (y = x)
+  plot.append("line").attr("class", "parity-line")
+    .attr("x1", x(0)).attr("y1", y(0))
+    .attr("x2", x(axTop)).attr("y2", y(axTop));
+
+  // color scale by date
+  const [minD, maxD] = d3.extent(samples, s => s.date);
+  const color = d3.scaleSequential(d3.interpolateViridis).domain([minD.getTime(), maxD.getTime()]);
+
+  // dots
+  plot.append("g").selectAll("circle")
+    .data(samples)
+    .join("circle")
+      .attr("class", "scatter-dot")
+      .attr("cx", d => x(d.submitted))
+      .attr("cy", d => y(d.closed))
+      .attr("r", 5)
+      .attr("fill", d => color(d.date.getTime()))
+    .append("title")
+      .text(d => {
+        const fmt = d3.timeFormat("%b %d, %Y");
+        const ratio = d.submitted > 0 ? (d.closed / d.submitted) : null;
+        return `Window centred ${fmt(d.date)}\n`
+             + `Submitted: ${d.submitted}\n`
+             + `Closed:    ${d.closed}\n`
+             + `Ratio:     ${ratio == null ? "—" : ratio.toFixed(2)}`;
+      });
+
+  // Colorbar (right of plot)
+  const cbW = 12, cbH = size * 0.7, cbX = shiftX + size + 28, cbY = shiftY + (size - cbH) / 2;
+  const gradId = "scatter-time-gradient";
+  const defs = svg.append("defs");
+  const grad = defs.append("linearGradient").attr("id", gradId)
+    .attr("x1", "0%").attr("y1", "100%").attr("x2", "0%").attr("y2", "0%");
+  const steps = 12;
+  for (let i = 0; i <= steps; i++) {
+    grad.append("stop")
+      .attr("offset", `${(i/steps) * 100}%`)
+      .attr("stop-color", color(minD.getTime() + (maxD.getTime() - minD.getTime()) * (i/steps)));
+  }
+  const cb = svg.append("g").attr("class", "colorbar")
+    .attr("transform", `translate(${cbX},${cbY})`);
+  cb.append("rect").attr("width", cbW).attr("height", cbH).attr("fill", `url(#${gradId})`)
+    .attr("stroke", "var(--emd-border)").attr("stroke-width", 0.5);
+  const fmtLbl = d3.timeFormat("%b '%y");
+  cb.append("text").attr("x", cbW + 5).attr("y", 4).attr("dominant-baseline", "hanging").text(fmtLbl(maxD));
+  cb.append("text").attr("x", cbW + 5).attr("y", cbH).attr("dominant-baseline", "baseline").text(fmtLbl(minD));
+
+  // Correlation coefficient + summary
+  const n = samples.length;
+  const meanS = d3.mean(samples, s => s.submitted);
+  const meanC = d3.mean(samples, s => s.closed);
+  let num = 0, denS = 0, denC = 0;
+  for (const s of samples) {
+    const ds = s.submitted - meanS, dc = s.closed - meanC;
+    num += ds * dc; denS += ds * ds; denC += dc * dc;
+  }
+  const r = (denS > 0 && denC > 0) ? num / Math.sqrt(denS * denC) : NaN;
+
+  const above = samples.filter(s => s.closed > s.submitted).length;
+  const at    = samples.filter(s => s.closed === s.submitted).length;
+  const below = samples.filter(s => s.closed < s.submitted).length;
+  const totS = d3.sum(samples, s => s.submitted);
+  const totC = d3.sum(samples, s => s.closed);
+  const overallRatio = totS > 0 ? totC / totS : NaN;
+
+  document.getElementById("scatter-caption").innerHTML =
+    `${n} windows · Pearson r = <b>${isFinite(r) ? r.toFixed(2) : "—"}</b> · `
+    + `above parity: ${above} · on: ${at} · below: ${below} · `
+    + `overall closed/submitted = <b>${isFinite(overallRatio) ? overallRatio.toFixed(2) : "—"}</b>.`;
+}
+
+// ---------- small multiples ----------
+function renderSmallMultiples() {
+  const host = document.getElementById("small-multiples");
+  host.innerHTML = "";
+
+  const cats = state.categories;
+  if (!cats.length) {
+    host.innerHTML = `<div style="grid-column:1/-1;padding:1.5rem;color:var(--emd-text-tertiary);text-align:center;font-size:.85rem">No canonical categories present in the data.</div>`;
+    return;
+  }
+
+  const gridCols = getComputedStyle(host).gridTemplateColumns.split(" ").length || 1;
+  const hostRect = host.getBoundingClientRect();
+  const cardWidth = (hostRect.width - (gridCols - 1) * 12) / gridCols;
+  const chartHeight = CONFIG.smallMultipleHeight;
+  const margin = { top: 6, right: 8, bottom: 22, left: 32 };
+  const innerW = Math.max(60, cardWidth - 24 - margin.left - margin.right);
+  const innerH = chartHeight - margin.top - margin.bottom;
+
+  const x = d3.scaleTime().domain(state.xDomain).range([0, innerW]);
+  const yTop = (state.smYMax || 1) * 1.1;
+  const y = (state.scale === "log" ? d3.scaleLog().domain([0.5, yTop]) : d3.scaleLinear().domain([0, yTop]))
+    .range([innerH, 0]).clamp(true);
+  const yOf = v => y(state.scale === "log" ? Math.max(0.5, v) : v);
+
+  const tickFmt = d3.timeFormat("%b '%y");
+  const closedLine = d3.line().x(d => x(d.date)).y(d => yOf(d.count)).curve(d3.curveBasis).defined(d => d.count != null);
+  const submitLine = closedLine;
+
+  cats.forEach(c => {
+    const totalClosed = c.prs.filter(p => p.terminalDate).length;
+    const card = document.createElement("div");
+    card.className = "sm-card";
+    card.innerHTML = `
+      <div class="sm-header">
+        <div class="sm-title"><span class="sm-swatch" style="background:${c.color}"></span>${escapeHtml(c.name)}</div>
+        <div class="sm-count">${c.prs.length} total · ${totalClosed} closed</div>
+      </div>
+    `;
+
+    const svg = d3.create("svg")
+      .attr("class", "sm-svg")
+      .attr("viewBox", `0 0 ${innerW + margin.left + margin.right} ${chartHeight}`)
+      .attr("preserveAspectRatio", "none");
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    g.append("g").attr("class", "grid")
+      .call(d3.axisLeft(y).ticks(3).tickSize(-innerW).tickFormat(""));
+    g.append("g").attr("class", "axis")
+      .attr("transform", `translate(0,${innerH})`)
+      .call(d3.axisBottom(x).ticks(3).tickFormat(tickFmt).tickSizeOuter(0));
+    g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(3).tickFormat(d3.format("d")));
+
+    // Submitted first (behind), closed on top (foreground).
+    g.append("path").datum(c.submittedSeries).attr("class", "submitted-line").attr("d", submitLine);
+    g.append("path").datum(c.closedSeries).attr("class", "closed-line").attr("stroke", c.color).attr("d", closedLine);
+
+    card.appendChild(svg.node());
+    host.appendChild(card);
+  });
+}
+
+// ---------- utils ----------
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[ch]));
+}
+function debounce(fn, wait) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), wait); }; }
+</script>
+</body>
+</html>
