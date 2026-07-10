@@ -1,0 +1,18 @@
+{
+    "validation_key": "hadocc",
+    "ui_label": "HadOCC",
+    "description": "treatment of ocean BGC including carbon chemistry and NPZD plankton model",
+    "code_base": "private",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1016/S0967-0637(00)00080-7"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadocc"
+}
