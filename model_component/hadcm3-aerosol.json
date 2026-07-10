@@ -1,0 +1,18 @@
+{
+    "validation_key": "hadcm3-aerosol",
+    "ui_label": "HadCM3 aerosol",
+    "description": "Treatment of sulphate aerosols, direct and indirect effect",
+    "code_base": "private",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2000JD000089 https://doi.org/10.1002/qj.49712455117"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadcm3-aerosol"
+}
