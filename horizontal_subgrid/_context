@@ -9,7 +9,8 @@
       "@type": "@id"
     },
     "horizontal_grid_cell": {
-      "@type": "@id"
+      "@type": "@id",
+      "@context": "../horizontal_grid_cell/_context"
     }
   }
 }
