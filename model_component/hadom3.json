@@ -1,0 +1,18 @@
+{
+    "validation_key": "hadom3",
+    "ui_label": "HadOM3",
+    "description": "Dynamical, thermodynamical, and physical processes in the ocean",
+    "code_base": "private",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s003820050010"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadom3"
+}
