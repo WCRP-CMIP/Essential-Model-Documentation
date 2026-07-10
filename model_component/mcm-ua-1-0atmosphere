@@ -1,0 +1,18 @@
+{
+    "validation_key": "mcm-ua-1-0atmosphere",
+    "ui_label": "MCM-UA-1.0=atmosphere",
+    "description": "Spectral atmospheric model. Predicted variables are T, mixing ratio, vorticity, divergence and surface pressure. The model was developed in the 1970's at GFDL/NOAA by Suki Manabe and his group. The subgrid scale physical parameterizations are simple. Radiation is performed once per day, no diurnal variations. Coupling with the ocean is also once per day. There is a simple land surface model embedded in the atmospheric model.",
+    "code_base": "https://github.com › rjstouffer › Manabe-Climate-Model",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s00382-002-0249-5"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mcm-ua-1-0atmosphere"
+}
