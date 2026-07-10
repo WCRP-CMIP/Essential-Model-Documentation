@@ -1,0 +1,18 @@
+{
+    "validation_key": "hadcm3-sea-ice",
+    "ui_label": "HadCM3 sea-ice",
+    "description": "treatment of ocean sea-ice",
+    "code_base": "private",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s003820050010"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadcm3-sea-ice"
+}
