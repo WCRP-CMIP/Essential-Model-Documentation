@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_rjstouffer-1783778212",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.875 x 2.25 degree resolution.",
+    "description": "MOM ocean \"B\" grid. Two east-west ocean tracer grid boxes lie underneath each atmospheric grid box with the 2 ocean grid box edges aligned with the atmospheric grid box.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": "",
+    "region": [
+        "not specified, global"
+    ],
+    "southernmost_latitude": -88.6,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.9375,
+    "x_resolution": 1.875,
+    "y_resolution": 2.25,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_rjstouffer-1783778212"
+}
