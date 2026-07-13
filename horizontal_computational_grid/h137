@@ -1,0 +1,17 @@
+{
+  "validation_key": "h137",
+  "ui_label": "",
+  "description": "HadCM3 ocean grids",
+  "arrangement": "arakawa-b",
+  "horizontal_subgrids": [
+    "g200-mass",
+    "g189-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid",
+    "emd"
+  ],
+  "@id": "h137"
+}
