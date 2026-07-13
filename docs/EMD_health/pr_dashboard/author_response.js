@@ -27,8 +27,14 @@
     const eventsByPR = d3.group(events || [], e => e.pr);
     const maxDataDate = new Date(d3.max(events, e => new Date(e.timestamp)) || Date.now());
 
-    const cycles = [];       // responded cycles
-    const unresponded = [];  // still waiting or closed without a response
+    const cycles = [];       // responded cycles (feed the percentile stats)
+    const unresponded = [];  // cycles still awaiting a response — kept for legacy tally
+    // Per-PR "carries changes-requested label" intervals. A PR contributes
+    // ONE interval [firstCR, terminal], regardless of how many CR cycles it
+    // went through. This matches the workflow's label semantics: the
+    // `changes-requested` label is added on the first CR review and stays
+    // on the PR until it merges or closes.
+    const prCRIntervals = [];
 
     for (const pr of prs) {
       const evs = (eventsByPR.get(pr.number) || [])
@@ -42,12 +48,16 @@
                           : pr.closed_at ? new Date(pr.closed_at).getTime()
                           : maxDataDate.getTime();
 
+      let firstCRForPR = null;
+
       for (let i = 0; i < evs.length; i++) {
         const ev = evs[i];
         if (ev.type !== 'review') continue;
         if (!ev.detail || ev.detail.state !== 'CHANGES_REQUESTED') continue;
         const reviewer = ev.actor;
         const crDate = ev._t;
+
+        if (firstCRForPR === null) firstCRForPR = crDate;
 
         let responder = null;
         for (let j = i + 1; j < evs.length; j++) {
@@ -69,12 +79,22 @@
           unresponded.push({ pr: pr.number, category, crDate, endDate: new Date(terminalTime) });
         }
       }
+
+      if (firstCRForPR !== null) {
+        prCRIntervals.push({
+          pr: pr.number,
+          category,
+          start: firstCRForPR,
+          end: new Date(terminalTime),
+          stillOpen: !pr.merged_at && !pr.closed_at,
+        });
+      }
     }
 
-    return { cycles, unresponded, maxDataDate };
+    return { cycles, unresponded, prCRIntervals, maxDataDate };
   }
 
-  function computeFor(cycles, unresponded, opts, xDomain) {
+  function computeFor(cycles, prCRIntervals, opts, xDomain) {
     const halfWin = opts.halfWindowDays;
     const smoothR = opts.smoothingRadiusDays;
     const minSamples = opts.minSamples || 1;
@@ -94,33 +114,41 @@
     }).filter(Boolean);
     const primary = smoothSeries(rawPrimary, smoothR);
 
-    const intervals = [
-      ...cycles.map(c => ({ start: c.crDate.getTime(), end: c.responseDate.getTime() })),
-      ...unresponded.map(u => ({ start: u.crDate.getTime(), end: u.endDate.getTime() })),
-    ];
+    // Secondary line: at each day t, count PRs that have received at least
+    // one CHANGES_REQUESTED review by t and haven't been merged/closed by t.
+    // This is a PR-level count matching the `changes-requested` label
+    // semantics — one contribution per PR, not per cycle.
     const rawSec = days.map(d => {
       const t = d.getTime();
       let n = 0;
-      for (const iv of intervals) if (iv.start <= t && t <= iv.end) n++;
+      for (const iv of prCRIntervals) {
+        if (iv.start.getTime() <= t && t <= iv.end.getTime()) n++;
+      }
       return { date: d, count: n };
     });
-    let secSmoothed = smoothSeries(rawSec, halfWin, ['count']);
-    secSmoothed = smoothSeries(secSmoothed, smoothR, ['count']);
+    // Only apply the light rolling-mean smoothing (matches the primary
+    // series). We DON'T re-smooth over halfWin — that would flatten the
+    // step-like changes when a PR closes.
+    const secSmoothed = smoothSeries(rawSec, smoothR, ['count']);
 
     return { primary, secondary: secSmoothed };
   }
 
   function computeSeries(prs, events, opts) {
-    const { cycles, unresponded, maxDataDate } = buildCycles(prs, events);
-    if (!cycles.length && !unresponded.length) return null;
+    const { cycles, unresponded, prCRIntervals, maxDataDate } = buildCycles(prs, events);
+    if (!cycles.length && !unresponded.length && !prCRIntervals.length) return null;
 
-    const allCrDates = [...cycles.map(c => c.crDate), ...unresponded.map(u => u.crDate)];
+    const allCrDates = [
+      ...cycles.map(c => c.crDate),
+      ...unresponded.map(u => u.crDate),
+      ...prCRIntervals.map(p => p.start),
+    ];
     if (!allCrDates.length) return null;
     const minD = d3.min(allCrDates);
     const maxD = maxDataDate;
     const xDomain = [minD, maxD];
 
-    const main = computeFor(cycles, unresponded, opts, xDomain);
+    const main = computeFor(cycles, prCRIntervals, opts, xDomain);
     if (!main.primary.length) return null;
 
     // Per-category small multiples
@@ -128,13 +156,14 @@
     for (const catDef of PRLib.CATEGORY_DEFS) {
       const catCycles      = cycles.filter(c => c.category === catDef.name);
       const catUnresponded = unresponded.filter(u => u.category === catDef.name);
-      if (!catCycles.length && !catUnresponded.length) continue;
-      const catSeries = computeFor(catCycles, catUnresponded, opts, xDomain);
+      const catIntervals   = prCRIntervals.filter(p => p.category === catDef.name);
+      if (!catCycles.length && !catUnresponded.length && !catIntervals.length) continue;
+      const catSeries = computeFor(catCycles, catIntervals, opts, xDomain);
       if (!catSeries.primary.length) continue;
       smallMultiples.push({
         name: catDef.name,
         color: catDef.color,
-        count: catCycles.length + catUnresponded.length,
+        count: catIntervals.length,   // per-PR count, not per-cycle
         primary: catSeries.primary,
       });
     }
@@ -143,6 +172,8 @@
       ...main, xDomain, smallMultiples,
       _cycleCount: cycles.length,
       _unresponded: unresponded.length,
+      _openWithCR: prCRIntervals.filter(p => p.stillOpen).length,
+      _totalWithCR: prCRIntervals.length,
       _maxDataDate: maxDataDate,
     };
   }
@@ -153,7 +184,7 @@
   function summaryStats(prs, events, opts, series) {
     const s = (this.cfg && this.cfg.summary) || {};
     const total = series ? series._cycleCount : 0;
-    const pending = series ? series._unresponded : 0;
+    const openWithCR = series ? series._openWithCR : 0;
 
     let recent = "—";
     if (series && series.primary && series.primary.length) {
@@ -180,10 +211,10 @@
         sub:   (s.median && s.median.sub)    || "avg of last 14 window points",
       },
       {
-        label: (s.pending && s.pending.label) || "Unresponded",
-        value: String(pending),
-        sub:   (s.pending && s.pending.sub)   || "CRs still awaiting a reply",
-        valueStyle: pending > 0 ? "color:#ef4444" : "",
+        label: (s.pending && s.pending.label) || "Open with CR",
+        value: String(openWithCR),
+        sub:   (s.pending && s.pending.sub)   || "open PRs carrying changes-requested",
+        valueStyle: openWithCR > 0 ? "color:#7c3aed" : "",
       },
       {
         label: (s.range && s.range.label) || "Date range",
@@ -203,11 +234,11 @@
         intro:               t.intro               || "",
         caption:             t.caption             || "Time from CHANGES_REQUESTED review to author's next response.",
         leftAxisLabel:       t.leftAxisLabel       || "Days to author response",
-        rightAxisLabel:      t.rightAxisLabel      || "Pending CRs (awaiting response)",
+        rightAxisLabel:      t.rightAxisLabel      || "Open PRs with changes-requested",
         primaryColor:        "#1976d2",
         primaryKeyLabel:     t.primaryKeyLabel     || "Median response time",
         hasSecondary:        true,
-        secondaryLabel:      t.secondaryLabel      || "Pending CRs — right axis",
+        secondaryLabel:      t.secondaryLabel      || "Open PRs with CR — right axis",
         hasSmallMultiples:   true,
         smallMultiplesTitle: t.smallMultiplesTitle || "Per-category change reply",
         smallMultiplesSub:   t.smallMultiplesSub   || "canonical categories · shared axes with main",

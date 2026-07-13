@@ -1,9 +1,6 @@
 // components/header.js — model title, family, release year, calendar, CRS badge.
 import { el } from "../dom.js";
 
-<<<<<<< HEAD
-export function mountHeader(root, model, { onModelChange, models = [], current } = {}) {
-=======
 const SVGNS = "http://www.w3.org/2000/svg";
 
 // Draw the first-visit hint's connector: a curved arrow from the centred note
@@ -57,7 +54,6 @@ function drawModelHintConnector(note) {
 }
 
 export function mountHeader(root, model, { onModelChange, models = [], current, pickerHint = false } = {}) {
->>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
   const title = model.ui_label || model.name || model["@id"] || "Model";
   const family = model.family;
   const year = model.release_year;
@@ -73,8 +69,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     return o;
   }));
 
-<<<<<<< HEAD
-=======
   const pickerWrap = el("label", { class: "picker-wrap" }, [
     el("span", { class: "picker-label" }, "Model"), picker,
   ]);
@@ -104,7 +98,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     window.addEventListener("resize", redraw);
   }
 
->>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
   const facts = el("div", { class: "header-facts" }, [
     family && el("span", { class: "chip chip-family" }, [
       el("span", { class: "chip-key" }, "family"), family,
@@ -121,17 +114,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     ]),
   ]);
 
-<<<<<<< HEAD
-  root.appendChild(el("header", { class: "model-header" }, [
-    el("div", { class: "header-top" }, [
-      el("div", { class: "header-titles" }, [
-        el("p", { class: "eyebrow" }, "Essential Model Documentation"),
-        el("h1", { class: "model-title" }, title),
-      ]),
-      models.length ? el("label", { class: "picker-wrap" }, [
-        el("span", { class: "picker-label" }, "Model"), picker,
-      ]) : null,
-=======
   // "EMD" eyebrow links back to the site home. NAV_PREFIX is injected per-page
   // by the mkdocs post-build step and points at the site root from any depth;
   // fall back to "../" (this page is served at <site>/Model/).
@@ -160,7 +142,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
         links,
       ]),
       models.length ? pickerWrap : null,
->>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
     ]),
     facts,
   ]));

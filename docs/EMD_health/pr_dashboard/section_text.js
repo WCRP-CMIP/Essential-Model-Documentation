@@ -89,13 +89,15 @@ window.PRDashText = {
       "For each <code>CHANGES_REQUESTED</code> review, how long does it take for the " +
       "author (or any non-reviewer) to respond. A single PR can " +
       "contribute multiple cycles if it went through several review " +
-      "rounds - this is not captured here. The right-axis line is the count of Change Requests still awaiting a " +
-      "response at each date.",
+      "rounds - this is not captured here. The right-axis line is the count of " +
+      "<b>open PRs currently carrying a <code>changes-requested</code> label</b>: " +
+      "one contribution per PR (not per cycle), from the PR's first CR review " +
+      "until the PR closes.",
     caption:             "Days from CR to next author response · hover for values.",
     leftAxisLabel:       "Days to author response",
-    rightAxisLabel:      "Pending CRs (awaiting response)",
+    rightAxisLabel:      "Open PRs with changes-requested",
     primaryKeyLabel:     "Median response time",
-    secondaryLabel:      "Pending CRs — right axis",
+    secondaryLabel:      "Open PRs with CR — right axis",
     smallMultiplesTitle: "Per-category change reply",
     smallMultiplesSub:   "canonical categories · shared axes with main",
     // CR events are much sparser than opened-PR events — most days have
