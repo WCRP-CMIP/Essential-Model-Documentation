@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_matsbn-1783965325",
+    "ui_label": "Horizontal grid cell with a plane projection grid type.",
+    "description": "Grid cell for Greenland and Antarctic subregions. The Greenland region has 302400 grid cells, isotropic resolution of 4 km, southernmost latitude of 57.805° and westernmost longitude of 330.528°. The Antarctic region has 577600 grid cells and isotropic resolution of 8 km.",
+    "alias": [],
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 880000,
+    "region": [
+        "greenland, antarctica"
+    ],
+    "southernmost_latitude": -89.948,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 45,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_matsbn-1783965325"
+}
