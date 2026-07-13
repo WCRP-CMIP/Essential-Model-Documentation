@@ -1,0 +1,18 @@
+{
+    "validation_key": "mcm-ua-1-0land",
+    "ui_label": "mcm-ua-1-0land",
+    "description": "Simple land surface scheme. No heat storage in land. Water is stored in the Manabe 1969 bucket. Snow depth is computed and impacts the surface albedo. No diurnal variations.",
+    "code_base": "https://github.com/rjstouffer/Manabe-Climate-Model",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s00382-002-0249-5"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mcm-ua-1-0land"
+}
