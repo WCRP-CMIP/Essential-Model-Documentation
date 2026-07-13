@@ -1,0 +1,79 @@
+name: ⇧ PR sync — mark author responded
+
+# Fires when new commits are pushed to a PR (pull_request.synchronize).
+#
+# If the PR currently carries `changes-requested`, this signals that the
+# author has pushed changes in response to a reviewer's request. We ADD
+# the `changes-made` label as an *additional* signal — the original
+# `changes-requested` label stays on the PR, since it's the primary state
+# marker.
+#
+# The next review (review-response.yml) removes `changes-made` and
+# either flips `changes-requested` (another CR round) or replaces it
+# with `approved` (approval). So the labels together tell you:
+#
+#   changes-requested only            → waiting for author
+#   changes-requested + changes-made  → author has pushed, waiting for re-review
+#   approved                          → reviewer approved
+#
+# Without this workflow the `changes-made` half of that story is missing:
+# `review-response.yml` only ever removes `changes-made`, so unless it's
+# added somewhere it's dead code.
+
+on:
+  pull_request:
+    types: [synchronize]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  mark_changes_made:
+    if: github.event.pull_request.user.type != 'Bot'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN:  ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:      ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_BODY:   ${{ github.event.pull_request.body }}
+      AUTHOR:    ${{ github.event.pull_request.user.login }}
+
+    steps:
+      - name: Add changes-made when author pushes to a CR'd PR
+        run: |
+          echo "## PR sync — PR #${PR_NUMBER}" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Item | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Author | @${AUTHOR} |" >> "$GITHUB_STEP_SUMMARY"
+
+          # Current labels on the PR
+          LABELS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name' 2>/dev/null || echo "")
+
+          if ! echo "$LABELS" | grep -qx "changes-requested"; then
+            echo "| Action | none — PR does not have \`changes-requested\` |" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Ensure the label exists (idempotent)
+          gh label create "changes-made" --repo "$REPO" \
+            --color "1f6feb" \
+            --description "Author has pushed changes in response to a review" \
+            --force 2>/dev/null || true
+
+          # Add changes-made on the PR — leave changes-requested in place.
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "changes-made" 2>/dev/null || true
+
+          echo "| PR labels | \`changes-made\` added (\`changes-requested\` retained) |" >> "$GITHUB_STEP_SUMMARY"
+
+          # Mirror to any linked issues so the Progress Tracker sees the signal too
+          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
+            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
+            | grep -oE '[0-9]+' || true)
+
+          while IFS= read -r issue_num; do
+            [ -z "$issue_num" ] && continue
+            gh issue edit "$issue_num" --repo "$REPO" \
+              --add-label "changes-made" 2>/dev/null || true
+            echo "| Issue #${issue_num} | \`changes-made\` mirrored |" >> "$GITHUB_STEP_SUMMARY"
+          done <<< "$ISSUE_NUMBERS"

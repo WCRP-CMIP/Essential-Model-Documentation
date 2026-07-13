@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Analysis — Essential Model Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+  /* ============================================
+     THEME — matches PR_Timeline.html / custom.css
+     ============================================ */
+  :root {
+    --emd-primary:        #2196f3;
+    --emd-primary-light:  #bbdefb;
+    --emd-primary-dark:   #1976d2;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    --emd-text-tertiary:  #94a3b8;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-bg-tertiary:    #f1f5f9;
+    --emd-border:         #e2e8f0;
+    --emd-border-light:   #f1f5f9;
+    --emd-success:        #10b981;
+    --emd-warning:        #f59e0b;
+    --emd-danger:         #ef4444;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    color: var(--emd-text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+  }
+
+  /* ---------- header ---------- */
+  .page-header {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--emd-border-light);
+    margin-bottom: 1.5rem;
+  }
+  .page-header h1 {
+    margin: 0 0 .5rem;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--emd-text);
+  }
+  .page-header .subtitle {
+    margin: 0;
+    color: var(--emd-text-secondary);
+    font-size: .95rem;
+    max-width: 780px;
+  }
+
+  /* ---------- summary strip ---------- */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+  }
+  .summary .stat {
+    background: var(--emd-bg-secondary);
+    border: 1px solid var(--emd-border);
+    border-radius: 8px;
+    padding: .85rem 1rem;
+  }
+  .summary .stat-label {
+    font-size: .72rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--emd-text-tertiary);
+    font-weight: 600;
+    margin-bottom: .25rem;
+  }
+  .summary .stat-value {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--emd-text);
+    line-height: 1.1;
+  }
+  .summary .stat-sub {
+    font-size: .75rem;
+    color: var(--emd-text-secondary);
+    margin-top: .15rem;
+  }
+
+  /* ---------- layout ---------- */
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .summary { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- controls sidebar ---------- */
+  .sidebar {
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: 10px;
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+  }
+  .sidebar h3 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--emd-text-tertiary);
+    font-weight: 600;
+  }
+  .sidebar .control-block { margin-bottom: 1.1rem; }
+  .sidebar .control-block:last-child { margin-bottom: 0; }
+
+  .btn-row { display: flex; gap: .4rem; margin-bottom: .5rem; }
+  .btn {
+    flex: 1;
+    padding: .35rem .5rem;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 500;
+    color: var(--emd-text-secondary);
+    background: var(--emd-bg-secondary);
+    border: 1px solid var(--emd-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .btn:hover {
+    background: var(--emd-bg-tertiary);
+    color: var(--emd-text);
+  }
+
+  .segmented {
+    display: flex;
+    background: var(--emd-bg-secondary);
+    border: 1px solid var(--emd-border);
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+  }
+  .segmented button {
+    flex: 1;
+    padding: .3rem .35rem;
+    font-family: inherit;
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--emd-text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .segmented button.active {
+    background: var(--emd-bg);
+    color: var(--emd-text);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  }
+
+  .category-list {
+    max-height: 420px;
+    overflow-y: auto;
+    margin: -.25rem;
+    padding: .25rem;
+  }
+  .category-list::-webkit-scrollbar { width: 6px; }
+  .category-list::-webkit-scrollbar-thumb { background: var(--emd-border); border-radius: 3px; }
+
+  .cat-item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .3rem .35rem;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .1s;
+  }
+  .cat-item:hover { background: var(--emd-bg-secondary); }
+  .cat-item input { margin: 0; cursor: pointer; }
+  .cat-swatch {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    background: var(--emd-text-tertiary);
+  }
+  .cat-label {
+    flex: 1;
+    font-size: .82rem;
+    color: var(--emd-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cat-count {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .7rem;
+    color: var(--emd-text-tertiary);
+    font-weight: 500;
+  }
+  .cat-item.disabled .cat-label,
+  .cat-item.disabled .cat-count { color: var(--emd-text-tertiary); }
+  .cat-item.disabled .cat-swatch { opacity: .35; }
+
+  /* ---------- chart panel ---------- */
+  .chart-panel {
+    background: var(--emd-bg);
+    border: 1px solid var(--emd-border);
+    border-radius: 10px;
+    padding: 1rem 1rem .5rem;
+    min-height: 560px;
+  }
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: .5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--emd-text);
+    margin: 0;
+  }
+  .chart-caption {
+    font-size: .8rem;
+    color: var(--emd-text-secondary);
+    margin: .15rem 0 0;
+  }
+
+  #chart { width: 100%; display: block; }
+  #chart .axis path,
+  #chart .axis line { stroke: var(--emd-border); }
+  #chart .axis text {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    fill: var(--emd-text-secondary);
+  }
+  #chart .grid line {
+    stroke: var(--emd-border-light);
+    stroke-dasharray: 2 3;
+  }
+  #chart .grid path { display: none; }
+  #chart .axis-label {
+    font-size: 11px;
+    fill: var(--emd-text-secondary);
+    font-weight: 500;
+  }
+  #chart .baseline {
+    fill: none;
+    stroke: var(--emd-text-tertiary);
+    stroke-width: 1.25;
+    stroke-dasharray: 4 3;
+    opacity: .7;
+  }
+  #chart .median-line {
+    fill: none;
+    stroke-width: 2;
+  }
+  #chart .band { opacity: .18; }
+
+  /* crosshair + tooltip */
+  .crosshair {
+    stroke: var(--emd-text-tertiary);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    pointer-events: none;
+  }
+  #tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--emd-text);
+    color: white;
+    padding: .55rem .7rem;
+    border-radius: 6px;
+    font-size: .78rem;
+    line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    opacity: 0;
+    transition: opacity .1s;
+    z-index: 10;
+    max-width: 280px;
+  }
+  #tooltip .tt-date {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 600;
+    color: #fbbf24;
+    margin-bottom: .3rem;
+    font-size: .75rem;
+  }
+  #tooltip .tt-row {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    margin-top: .15rem;
+  }
+  #tooltip .tt-swatch {
+    width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+  }
+  #tooltip .tt-name { flex: 1; }
+  #tooltip .tt-stats {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .72rem;
+    color: #e2e8f0;
+  }
+
+  /* loading / error */
+  #status {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--emd-text-secondary);
+    font-size: .9rem;
+  }
+  #status.error { color: var(--emd-danger); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1>PR Analysis — Time to Merge</h1>
+    <p class="subtitle">
+      Rolling 2-week window over merged pull requests. For each day, all PRs merged within ±7 days
+      are pooled by label; the line shows the median days-to-merge, the band shows the percentile range.
+      Categories with too few PRs in a given window are omitted from that segment.
+    </p>
+  </div>
+
+  <div class="summary" id="summary">
+    <div class="stat">
+      <div class="stat-label">Merged PRs</div>
+      <div class="stat-value" id="stat-total">—</div>
+      <div class="stat-sub" id="stat-total-sub">across categories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Categories</div>
+      <div class="stat-value" id="stat-cats">—</div>
+      <div class="stat-sub" id="stat-cats-sub">labels found</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Date range</div>
+      <div class="stat-value" id="stat-range" style="font-size:.95rem">—</div>
+      <div class="stat-sub" id="stat-range-sub">first → last merge</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Overall median</div>
+      <div class="stat-value" id="stat-median">—</div>
+      <div class="stat-sub" id="stat-median-sub">days to merge</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+
+      <div class="control-block">
+        <h3>Percentile band</h3>
+        <div class="segmented" id="band-toggle">
+          <button data-band="iqr" class="active">25–75</button>
+          <button data-band="p10">10–90</button>
+          <button data-band="p05">5–95</button>
+        </div>
+      </div>
+
+      <div class="control-block">
+        <h3>Y-axis scale</h3>
+        <div class="segmented" id="scale-toggle">
+          <button data-scale="linear" class="active">Linear</button>
+          <button data-scale="log">Log</button>
+        </div>
+      </div>
+
+      <div class="control-block">
+        <h3>Baseline</h3>
+        <div class="segmented" id="baseline-toggle">
+          <button data-baseline="on" class="active">Show all-PR median</button>
+          <button data-baseline="off">Hide</button>
+        </div>
+      </div>
+
+      <div class="control-block">
+        <h3>Categories</h3>
+        <div class="btn-row">
+          <button class="btn" id="btn-top">Top 5</button>
+          <button class="btn" id="btn-all">All</button>
+          <button class="btn" id="btn-none">None</button>
+        </div>
+        <div class="category-list" id="category-list"></div>
+      </div>
+
+    </aside>
+
+    <div class="chart-panel">
+      <div class="chart-header">
+        <div>
+          <h2 class="chart-title">Days to merge, 14-day rolling window</h2>
+          <p class="chart-caption" id="chart-caption">Median (line) with percentile band; hover for details.</p>
+        </div>
+      </div>
+      <div id="status">Loading data…</div>
+      <svg id="chart" style="display:none"></svg>
+      <div id="tooltip"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==========================================================================
+// PR Analysis — days-to-merge, per-category, rolling 14-day window
+// ==========================================================================
+
+const CONFIG = {
+  dataUrl: "assets/pr_timeline_data.json",
+  halfWindowDays: 7,      // ±7d = 14d window
+  minSamples: 3,          // require >=3 PRs in a window to plot a point
+  topN: 5,                // "Top 5" preselects the N largest categories
+  unlabeled: "(unlabeled)",
+  palette: d3.schemeTableau10.concat(d3.schemeSet2 || []),
+};
+
+const state = {
+  prs: [],
+  categories: [],        // [{name, count, color, prs: []}]
+  selected: new Set(),
+  band: "iqr",           // iqr | p10 | p05
+  scale: "linear",       // linear | log
+  baseline: true,
+  series: new Map(),     // categoryName -> [{date, n, p05, p10, p25, median, p75, p90, p95}]
+  baselineSeries: [],
+  days: [],
+};
+
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+// ---------- data loading ----------
+d3.json(CONFIG.dataUrl).then(init).catch(err => {
+  const el = document.getElementById("status");
+  el.classList.add("error");
+  el.textContent = "Could not load " + CONFIG.dataUrl + " — " + err.message;
+  console.error(err);
+});
+
+function init(raw) {
+  // Parse PRs with valid merge timestamps.
+  state.prs = (raw.pull_requests || [])
+    .filter(p => p.created_at && p.merged_at)
+    .map(p => {
+      const created = new Date(p.created_at);
+      const merged = new Date(p.merged_at);
+      const durationDays = (merged - created) / MS_PER_DAY;
+      const labels = (p.labels && p.labels.length) ? p.labels : [CONFIG.unlabeled];
+      return { ...p, created, merged, durationDays, labels };
+    })
+    .filter(p => p.durationDays >= 0 && isFinite(p.durationDays));
+
+  if (!state.prs.length) {
+    const el = document.getElementById("status");
+    el.classList.add("error");
+    el.textContent = "No merged PRs with valid timestamps found in the JSON.";
+    return;
+  }
+
+  // Build category list. A PR contributes to each of its labels.
+  const catMap = new Map();
+  state.prs.forEach(p => {
+    p.labels.forEach(lbl => {
+      if (!catMap.has(lbl)) catMap.set(lbl, []);
+      catMap.get(lbl).push(p);
+    });
+  });
+  state.categories = Array.from(catMap, ([name, prs]) => ({ name, count: prs.length, prs }))
+    .sort((a, b) => b.count - a.count);
+  state.categories.forEach((c, i) => c.color = CONFIG.palette[i % CONFIG.palette.length]);
+
+  // Preselect top-N by volume.
+  state.categories.slice(0, CONFIG.topN).forEach(c => state.selected.add(c.name));
+
+  // Build daily date axis over the merge range.
+  const [minDate, maxDate] = d3.extent(state.prs, p => p.merged);
+  state.days = d3.timeDays(d3.timeDay.floor(minDate), d3.timeDay.offset(d3.timeDay.ceil(maxDate), 1));
+
+  renderSummary(raw.meta);
+  renderCategoryList();
+  bindControls();
+  computeAllSeries();
+  renderChart();
+
+  document.getElementById("status").style.display = "none";
+  document.getElementById("chart").style.display = "block";
+  window.addEventListener("resize", debounce(renderChart, 150));
+}
+
+// ---------- stats ----------
+function windowStats(prs, targetDate) {
+  const startMs = targetDate.getTime() - CONFIG.halfWindowDays * MS_PER_DAY;
+  const endMs   = targetDate.getTime() + CONFIG.halfWindowDays * MS_PER_DAY;
+  const durations = [];
+  for (const p of prs) {
+    const t = p.merged.getTime();
+    if (t >= startMs && t <= endMs) durations.push(p.durationDays);
+  }
+  if (durations.length < CONFIG.minSamples) return null;
+  durations.sort((a, b) => a - b);
+  return {
+    date: targetDate,
+    n: durations.length,
+    p05: d3.quantile(durations, 0.05),
+    p10: d3.quantile(durations, 0.10),
+    p25: d3.quantile(durations, 0.25),
+    median: d3.quantile(durations, 0.50),
+    p75: d3.quantile(durations, 0.75),
+    p90: d3.quantile(durations, 0.90),
+    p95: d3.quantile(durations, 0.95),
+  };
+}
+
+function computeAllSeries() {
+  state.series.clear();
+  state.categories.forEach(c => {
+    const s = state.days.map(d => windowStats(c.prs, d)).filter(x => x !== null);
+    state.series.set(c.name, s);
+  });
+  state.baselineSeries = state.days.map(d => windowStats(state.prs, d)).filter(x => x !== null);
+}
+
+function bandKeys() {
+  return { iqr: ["p25", "p75"], p10: ["p10", "p90"], p05: ["p05", "p95"] }[state.band];
+}
+
+// ---------- summary ----------
+function renderSummary(meta) {
+  const total = state.prs.length;
+  const cats = state.categories.length;
+  const [minD, maxD] = d3.extent(state.prs, p => p.merged);
+  const fmt = d3.timeFormat("%b %Y");
+  const durations = state.prs.map(p => p.durationDays).sort((a, b) => a - b);
+  const med = d3.quantile(durations, 0.5);
+
+  document.getElementById("stat-total").textContent = total.toString();
+  document.getElementById("stat-total-sub").textContent =
+    meta ? `repo: ${meta.repository.split("/").pop()}` : "across categories";
+  document.getElementById("stat-cats").textContent = cats.toString();
+  document.getElementById("stat-cats-sub").textContent = `incl. ${CONFIG.unlabeled}`;
+  document.getElementById("stat-range").textContent = `${fmt(minD)} → ${fmt(maxD)}`;
+  document.getElementById("stat-median").textContent = med.toFixed(1);
+}
+
+// ---------- sidebar ----------
+function renderCategoryList() {
+  const host = document.getElementById("category-list");
+  host.innerHTML = "";
+  state.categories.forEach(c => {
+    const row = document.createElement("label");
+    row.className = "cat-item" + (state.selected.has(c.name) ? "" : " disabled");
+    row.innerHTML = `
+      <input type="checkbox" ${state.selected.has(c.name) ? "checked" : ""}>
+      <span class="cat-swatch" style="background:${c.color}"></span>
+      <span class="cat-label" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</span>
+      <span class="cat-count">${c.count}</span>
+    `;
+    row.querySelector("input").addEventListener("change", (e) => {
+      if (e.target.checked) state.selected.add(c.name);
+      else state.selected.delete(c.name);
+      row.classList.toggle("disabled", !e.target.checked);
+      renderChart();
+    });
+    host.appendChild(row);
+  });
+}
+
+function bindControls() {
+  document.getElementById("btn-top").onclick = () => {
+    state.selected = new Set(state.categories.slice(0, CONFIG.topN).map(c => c.name));
+    renderCategoryList(); renderChart();
+  };
+  document.getElementById("btn-all").onclick = () => {
+    state.selected = new Set(state.categories.map(c => c.name));
+    renderCategoryList(); renderChart();
+  };
+  document.getElementById("btn-none").onclick = () => {
+    state.selected = new Set();
+    renderCategoryList(); renderChart();
+  };
+  bindSegmented("band-toggle", "band", "band");
+  bindSegmented("scale-toggle", "scale", "scale");
+  bindSegmented("baseline-toggle", "baseline", "baseline", v => v === "on");
+}
+
+function bindSegmented(id, attrKey, stateKey, transform) {
+  const group = document.getElementById(id);
+  group.querySelectorAll("button").forEach(btn => {
+    btn.onclick = () => {
+      group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const raw = btn.dataset[attrKey];
+      state[stateKey] = transform ? transform(raw) : raw;
+      renderChart();
+    };
+  });
+}
+
+// ---------- chart ----------
+function renderChart() {
+  const svg = d3.select("#chart");
+  svg.selectAll("*").remove();
+
+  const container = document.querySelector(".chart-panel");
+  const width = container.clientWidth - 32;    // panel padding
+  const height = 520;
+  const margin = { top: 20, right: 24, bottom: 40, left: 56 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+
+  svg.attr("width", width).attr("height", height).attr("viewBox", `0 0 ${width} ${height}`);
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Selected series only
+  const selected = state.categories.filter(c => state.selected.has(c.name));
+  const [lo, hi] = bandKeys();
+
+  // X scale — the full data range
+  const [minD, maxD] = d3.extent(state.prs, p => p.merged);
+  const x = d3.scaleTime().domain([minD, maxD]).range([0, innerW]);
+
+  // Y scale — determined by union of all currently-drawn upper-band values
+  const allPoints = [];
+  selected.forEach(c => (state.series.get(c.name) || []).forEach(p => allPoints.push(p[hi])));
+  if (state.baseline) state.baselineSeries.forEach(p => allPoints.push(p.median));
+  const yMax = d3.max(allPoints) || 10;
+  const yMin = state.scale === "log" ? Math.max(0.05, d3.min(allPoints.filter(v => v > 0)) || 0.1) : 0;
+  const y = (state.scale === "log" ? d3.scaleLog() : d3.scaleLinear())
+    .domain(state.scale === "log" ? [yMin, yMax * 1.05] : [0, yMax * 1.08])
+    .range([innerH, 0])
+    .clamp(true);
+
+  // grid
+  g.append("g")
+    .attr("class", "grid")
+    .call(d3.axisLeft(y).ticks(6).tickSize(-innerW).tickFormat(""));
+
+  // axes
+  g.append("g")
+    .attr("class", "axis")
+    .attr("transform", `translate(0,${innerH})`)
+    .call(d3.axisBottom(x).ticks(Math.min(10, Math.floor(innerW / 90))).tickSizeOuter(0));
+
+  g.append("g")
+    .attr("class", "axis")
+    .call(d3.axisLeft(y).ticks(6).tickFormat(d => (d >= 100 ? d3.format(".0f")(d) : d3.format(".2~f")(d))))
+    .append("text")
+      .attr("class", "axis-label")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -innerH / 2)
+      .attr("y", -44)
+      .attr("text-anchor", "middle")
+      .text("Days to merge");
+
+  // area + line generators
+  const area = d3.area()
+    .x(d => x(d.date))
+    .y0(d => y(Math.max(d[lo], state.scale === "log" ? yMin : d[lo])))
+    .y1(d => y(d[hi]))
+    .curve(d3.curveMonotoneX);
+
+  const line = d3.line()
+    .x(d => x(d.date))
+    .y(d => y(Math.max(d.median, state.scale === "log" ? yMin : d.median)))
+    .curve(d3.curveMonotoneX);
+
+  // baseline (all-PR median), dashed
+  if (state.baseline && state.baselineSeries.length) {
+    g.append("path")
+      .datum(state.baselineSeries)
+      .attr("class", "baseline")
+      .attr("d", line);
+  }
+
+  // per-category band + line
+  selected.forEach(c => {
+    const s = state.series.get(c.name);
+    if (!s || !s.length) return;
+    g.append("path")
+      .datum(s)
+      .attr("class", "band")
+      .attr("fill", c.color)
+      .attr("d", area);
+    g.append("path")
+      .datum(s)
+      .attr("class", "median-line")
+      .attr("stroke", c.color)
+      .attr("d", line);
+  });
+
+  // ---------- inline legend (top-right) ----------
+  if (selected.length) {
+    const legend = g.append("g").attr("transform", `translate(${innerW - 8},4)`);
+    let yOff = 0;
+    selected.slice(0, 8).forEach(c => {
+      const row = legend.append("g").attr("transform", `translate(0,${yOff})`);
+      row.append("rect").attr("x", -110).attr("width", 10).attr("height", 10).attr("rx", 2).attr("fill", c.color);
+      row.append("text")
+        .attr("x", -96).attr("y", 9)
+        .attr("text-anchor", "start")
+        .style("font-size", "11px").style("fill", "var(--emd-text-secondary)")
+        .text(truncate(c.name, 18));
+      yOff += 14;
+    });
+    if (selected.length > 8) {
+      legend.append("text")
+        .attr("x", -110).attr("y", yOff + 9)
+        .style("font-size", "10.5px").style("fill", "var(--emd-text-tertiary)")
+        .text(`+${selected.length - 8} more`);
+    }
+  }
+
+  // ---------- crosshair + tooltip ----------
+  const crosshair = g.append("line")
+    .attr("class", "crosshair")
+    .attr("y1", 0).attr("y2", innerH)
+    .style("opacity", 0);
+
+  const focusDots = g.append("g");
+
+  const tooltip = d3.select("#tooltip");
+
+  const overlay = g.append("rect")
+    .attr("width", innerW)
+    .attr("height", innerH)
+    .attr("fill", "transparent");
+
+  overlay
+    .on("mouseenter", () => { crosshair.style("opacity", 1); tooltip.style("opacity", 1); })
+    .on("mouseleave", () => {
+      crosshair.style("opacity", 0);
+      tooltip.style("opacity", 0);
+      focusDots.selectAll("*").remove();
+    })
+    .on("mousemove", function (event) {
+      const [mx] = d3.pointer(event, this);
+      const date = x.invert(mx);
+      crosshair.attr("x1", mx).attr("x2", mx);
+
+      // For each selected category, find nearest point in its series (bisect on date)
+      focusDots.selectAll("*").remove();
+      const rows = [];
+      selected.forEach(c => {
+        const s = state.series.get(c.name);
+        if (!s || !s.length) return;
+        const idx = d3.bisector(d => d.date).left(s, date);
+        const cand = [s[idx - 1], s[idx]].filter(Boolean);
+        if (!cand.length) return;
+        const nearest = cand.reduce((a, b) =>
+          Math.abs(b.date - date) < Math.abs(a.date - date) ? b : a);
+        // Only show if within ± window
+        if (Math.abs(nearest.date - date) > CONFIG.halfWindowDays * MS_PER_DAY) return;
+        rows.push({ cat: c, point: nearest });
+        focusDots.append("circle")
+          .attr("cx", x(nearest.date))
+          .attr("cy", y(nearest.median))
+          .attr("r", 3.5)
+          .attr("fill", c.color)
+          .attr("stroke", "white")
+          .attr("stroke-width", 1.5);
+      });
+
+      // Position tooltip
+      const rect = document.querySelector(".chart-panel").getBoundingClientRect();
+      const svgRect = document.getElementById("chart").getBoundingClientRect();
+      const pageX = event.clientX - rect.left;
+      const pageY = event.clientY - rect.top;
+      tooltip
+        .style("left", (pageX + 14) + "px")
+        .style("top",  (pageY + 8) + "px");
+
+      const fmtDate = d3.timeFormat("%b %d, %Y");
+      const bandLabel = { iqr: "25–75", p10: "10–90", p05: "5–95" }[state.band];
+      let html = `<div class="tt-date">${fmtDate(date)} <span style="color:#94a3b8;font-weight:400">· window ±${CONFIG.halfWindowDays}d</span></div>`;
+      if (!rows.length) {
+        html += `<div style="color:#94a3b8">No categories have enough samples here.</div>`;
+      } else {
+        rows.sort((a, b) => b.point.median - a.point.median);
+        rows.slice(0, 10).forEach(r => {
+          html += `
+            <div class="tt-row">
+              <span class="tt-swatch" style="background:${r.cat.color}"></span>
+              <span class="tt-name">${escapeHtml(truncate(r.cat.name, 22))}</span>
+              <span class="tt-stats">${r.point.median.toFixed(1)}d <span style="color:#94a3b8">[${r.point[lo].toFixed(1)}–${r.point[hi].toFixed(1)}]</span> n=${r.point.n}</span>
+            </div>`;
+        });
+        if (rows.length > 10) {
+          html += `<div style="color:#94a3b8;margin-top:.3rem;font-size:.7rem">+${rows.length - 10} more</div>`;
+        }
+        html += `<div style="color:#94a3b8;margin-top:.35rem;font-size:.68rem">median [${bandLabel} band] n=samples in window</div>`;
+      }
+      tooltip.html(html);
+    });
+
+  // caption
+  const bandLabel = { iqr: "25th–75th percentile", p10: "10th–90th percentile", p05: "5th–95th percentile" }[state.band];
+  document.getElementById("chart-caption").textContent =
+    `Median (line) with ${bandLabel} band, smoothed. ${selected.length} categor${selected.length === 1 ? "y" : "ies"} shown.`;
+}
+
+// ---------- utils ----------
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[ch]));
+}
+function truncate(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
+function debounce(fn, wait) {
+  let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), wait); };
+}
+</script>
+</body>
+</html>

@@ -1,9 +1,6 @@
 // components/header.js — model title, family, release year, calendar, CRS badge.
 import { el } from "../dom.js";
 
-<<<<<<< HEAD
-export function mountHeader(root, model, { onModelChange, models = [], current } = {}) {
-=======
 const SVGNS = "http://www.w3.org/2000/svg";
 
 // Draw the first-visit hint's connector: a curved arrow from the centred note
@@ -57,7 +54,6 @@ function drawModelHintConnector(note) {
 }
 
 export function mountHeader(root, model, { onModelChange, models = [], current, pickerHint = false } = {}) {
->>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
   const title = model.ui_label || model.name || model["@id"] || "Model";
   const family = model.family;
   const year = model.release_year;
@@ -73,8 +69,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     return o;
   }));
 
-<<<<<<< HEAD
-=======
   const pickerWrap = el("label", { class: "picker-wrap" }, [
     el("span", { class: "picker-label" }, "Model"), picker,
   ]);
@@ -97,14 +91,31 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     // Draw once layout settles, and keep it aligned on resize until removed.
     const redraw = () => {
       if (document.body.contains(note)) drawModelHintConnector(note);
-      else window.removeEventListener("resize", redraw);
+      else {
+        window.removeEventListener("resize", redraw);
+        window.removeEventListener("scroll", dismissOnScroll);
+      }
+    };
+    // Dismiss on first scroll — the user has clearly noticed the page and
+    // doesn't need the nudge any more. Cancel the CSS animation, run a
+    // short fade so it doesn't vanish abruptly, then remove. Passive so
+    // it never delays the scroll. { once: true } auto-detaches after
+    // firing; the redraw handler above will also detach if the note has
+    // already been removed by the auto-fade timeout.
+    const dismissOnScroll = () => {
+      if (!document.body.contains(note)) return;
+      note.style.animation = "none";
+      note.style.transition = "opacity .25s ease";
+      note.style.opacity = "0";
+      setTimeout(() => { if (document.body.contains(note)) note.remove(); }, 260);
+      window.removeEventListener("resize", redraw);
     };
     requestAnimationFrame(() => requestAnimationFrame(redraw));
     setTimeout(redraw, 1100);   // re-align after the note's 1s pop-in settles
     window.addEventListener("resize", redraw);
+    window.addEventListener("scroll", dismissOnScroll, { once: true, passive: true });
   }
 
->>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
   const facts = el("div", { class: "header-facts" }, [
     family && el("span", { class: "chip chip-family" }, [
       el("span", { class: "chip-key" }, "family"), family,
@@ -121,17 +132,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     ]),
   ]);
 
-<<<<<<< HEAD
-  root.appendChild(el("header", { class: "model-header" }, [
-    el("div", { class: "header-top" }, [
-      el("div", { class: "header-titles" }, [
-        el("p", { class: "eyebrow" }, "Essential Model Documentation"),
-        el("h1", { class: "model-title" }, title),
-      ]),
-      models.length ? el("label", { class: "picker-wrap" }, [
-        el("span", { class: "picker-label" }, "Model"), picker,
-      ]) : null,
-=======
   // "EMD" eyebrow links back to the site home. NAV_PREFIX is injected per-page
   // by the mkdocs post-build step and points at the site root from any depth;
   // fall back to "../" (this page is served at <site>/Model/).
@@ -160,7 +160,6 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
         links,
       ]),
       models.length ? pickerWrap : null,
->>>>>>> 183310cba7594af95d231d50e4a90f156e1095e8
     ]),
     facts,
   ]));

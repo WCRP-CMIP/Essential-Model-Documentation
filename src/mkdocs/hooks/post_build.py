@@ -347,8 +347,26 @@ def _find_child(parent: Path, wanted_stem: str) -> Path | None:
     return match_file
 
 
-def _is_leaf_dir(path: Path) -> bool:
-    return not any(_visible(c) for c in path.iterdir())
+def _is_leaf_dir(path: Path, section: 'dict | None' = None) -> bool:
+    """
+    A directory counts as a "leaf" — and so renders as a direct link
+    rather than an expandable group — when it has no *visible* children
+    left after applying the nav_order.json filters.
+
+    That means: visible on disk (`_visible`) AND not hidden by the
+    section config (`_is_hidden`). If every on-disk child is either
+    invisible or explicitly hidden, the whole folder collapses to a
+    single link to its index page.
+    """
+    section = section if isinstance(section, dict) else {}
+    for c in path.iterdir():
+        if not _visible(c):
+            continue
+        stem = _stem(c.name)
+        if _is_hidden(section.get(stem)):
+            continue
+        return False
+    return True
 
 
 def _build_items(parent: Path, site_dir: Path, section: dict) -> list:
@@ -377,7 +395,7 @@ def _build_items(parent: Path, site_dir: Path, section: dict) -> list:
 
         lbl = _label(stem)
         if found.is_dir():
-            if _is_leaf_dir(found):
+            if _is_leaf_dir(found, _entry_children(entry)):
                 items.append({'type': 'link', 'label': lbl, 'url': _url(found, site_dir)})
             else:
                 kids = _build_items(found, site_dir, _entry_children(entry))
@@ -410,7 +428,7 @@ def build_nav(site_dir: Path, nav_order: dict) -> list:
 
         lbl = _label(stem)
         if found.is_dir():
-            if _is_leaf_dir(found):
+            if _is_leaf_dir(found, _entry_children(entry)):
                 nav.append({'type': 'link', 'label': lbl, 'url': _url(found, site_dir)})
             else:
                 kids = _build_items(found, site_dir, _entry_children(entry))

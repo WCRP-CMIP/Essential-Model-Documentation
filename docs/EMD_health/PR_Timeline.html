@@ -436,8 +436,8 @@
 
   <div id="drop" class="hidden">
     <strong>Data file not found.</strong><br><br>
-    Expected <code>assets/pr_timeline_data.json</code> — run <code>pr_timeline.py</code> to generate it,
-    or load it manually:
+    Expected <code>assets/pr_all_timeline_data.json</code> — run
+    <code>scripts/pr_all_timeline.py</code> to generate it, or load it manually:
     <input type="file" id="file-input" accept="application/json,.json">
   </div>
 
@@ -483,7 +483,14 @@ function avatarUrl(login) {
 }
 
 // ── data loading ─────────────────────────────────────────────────────────────
-const CANDIDATES = ["assets/pr_timeline_data.json", "pr_timeline_data.json"];
+// The dashboard collector (scripts/pr_all_timeline.py) writes
+// pr_all_timeline_data.json. Try it first, then fall back to legacy names.
+const CANDIDATES = [
+  "assets/pr_all_timeline_data.json",
+  "assets/pr_timeline_data.json",
+  "pr_all_timeline_data.json",
+  "pr_timeline_data.json",
+];
 
 (async () => {
   for (const url of CANDIDATES) {
