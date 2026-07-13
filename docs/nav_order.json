@@ -46,8 +46,7 @@
     ".": 4,
     "Issue_Templates": null,
     "Github Actions, Workflows_and_Automation": null,
-    "find_your_submissions": null,
-    "PR_Timeline": null
+    "find_your_submissions": null
   },
   "assets": -1,
   "css": -1,
@@ -73,12 +72,25 @@
   "FAQ": 999,
   "Contact_us": 1000,
   "mailing_list_text": null,
-  "PR_Timeline": null,
-
   "Model": {
     "emd_model_graph": null,
     "assets": -1,
     "index": -1,
     ".": 5
+  },
+  "PR": {
+    ".": -1
+  },
+  "EMD_health": {
+    ".": 6,
+    "index": -1,
+    "PR_Analysis": -1,
+    "PR_Author_Response": -1,
+    "PR_First_Response": -1,
+    "PR_Throughput": -1,
+    "PR_Timeline": -1,
+    "pr_dashboard": -1,
+    "assets": -1,
+    "scripts": -1
   }
 }

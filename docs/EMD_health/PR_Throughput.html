@@ -232,7 +232,7 @@
 // ==========================================================================
 
 const CONFIG = {
-  dataUrl: "../assets/pr_all_timeline_data.json",
+  dataUrl: "assets/pr_all_timeline_data.json",
   halfWindowDays: 7,          // ±7d = 2-week sliding window
   smoothingRadiusDays: 3,
   smallMultipleHeight: 140,
@@ -461,7 +461,6 @@ function recomputeAndRender() {
   renderSummary();
   renderChartKey();
   renderMainChart();
-  renderScatter();
   renderSmallMultiples();
 }
 
@@ -478,24 +477,6 @@ function renderChartKey() {
       Submitted (opened)
     </span>
   `;
-
-  // Scatter key sits under the scatter chart.
-  const skHost = document.getElementById("scatter-key");
-  if (skHost) {
-    skHost.innerHTML = `
-      <span class="chart-key-item">
-        <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/></svg>
-        Parity (closed = submitted)
-      </span>
-      <span class="chart-key-item">
-        <svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#7c3aed"/></svg>
-        One non-overlapping ${2 * state.halfWindowDays}-day window
-      </span>
-      <span class="chart-key-item" style="color:var(--emd-text-tertiary)">
-        Color = time (pale = older, deep = recent)
-      </span>
-    `;
-  }
 }
 
 // ---------- main chart ----------
@@ -607,135 +588,6 @@ function renderMainChart() {
   const smoothDesc = state.smoothingRadiusDays > 0 ? `, smoothing ±${state.smoothingRadiusDays}d` : "";
   document.getElementById("chart-caption").textContent =
     `${scopeDesc} · ±${state.halfWindowDays}d window${smoothDesc}. Hover for values.`;
-}
-
-// ---------- correlation scatter ----------
-function renderScatter() {
-  const svg = d3.select("#scatter-chart");
-  svg.selectAll("*").remove();
-
-  const samples = state.scatterSamples || [];
-  const panel = svg.node().parentNode;
-  const width = panel.clientWidth - 32;
-  const height = 380;
-  const margin = { top: 14, right: 90, bottom: 44, left: 56 };  // right widened for color legend
-  const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
-
-  svg.attr("width", width).attr("height", height).attr("viewBox", `0 0 ${width} ${height}`);
-  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-  if (!samples.length) {
-    g.append("text").attr("x", innerW/2).attr("y", innerH/2).attr("text-anchor", "middle")
-      .style("fill", "var(--emd-text-tertiary)").style("font-size", "0.85rem")
-      .text("Not enough data to draw a scatter.");
-    return;
-  }
-
-  // Shared axis top so parity line is exactly 45° when the plot is square.
-  const dataTop = d3.max(samples, s => Math.max(s.submitted, s.closed)) || 1;
-  const axTop = Math.ceil(dataTop * 1.08);
-  // Match the tighter of the two dimensions so scales are equal per pixel.
-  const size = Math.min(innerW, innerH);
-  // Center the plotting area inside the available box.
-  const shiftX = (innerW - size) / 2;
-  const shiftY = (innerH - size) / 2;
-  const plot = g.append("g").attr("transform", `translate(${shiftX},${shiftY})`);
-
-  const x = d3.scaleLinear().domain([0, axTop]).range([0, size]);
-  const y = d3.scaleLinear().domain([0, axTop]).range([size, 0]);
-
-  // grid
-  plot.append("g").attr("class", "grid")
-    .call(d3.axisLeft(y).ticks(6).tickSize(-size).tickFormat(""));
-  plot.append("g").attr("class", "grid")
-    .attr("transform", `translate(0,${size})`)
-    .call(d3.axisBottom(x).ticks(6).tickSize(-size).tickFormat(""));
-
-  // axes
-  plot.append("g").attr("class", "axis")
-    .attr("transform", `translate(0,${size})`)
-    .call(d3.axisBottom(x).ticks(6).tickFormat(d3.format("d")))
-    .append("text").attr("class", "axis-label")
-      .attr("x", size/2).attr("y", 34).attr("text-anchor", "middle")
-      .text(`PRs submitted per ${2 * state.halfWindowDays}-day window`);
-  plot.append("g").attr("class", "axis")
-    .call(d3.axisLeft(y).ticks(6).tickFormat(d3.format("d")))
-    .append("text").attr("class", "axis-label")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -size/2).attr("y", -42).attr("text-anchor", "middle")
-      .text("PRs closed per window");
-
-  // parity line (y = x)
-  plot.append("line").attr("class", "parity-line")
-    .attr("x1", x(0)).attr("y1", y(0))
-    .attr("x2", x(axTop)).attr("y2", y(axTop));
-
-  // color scale by date
-  const [minD, maxD] = d3.extent(samples, s => s.date);
-  const color = d3.scaleSequential(d3.interpolateViridis).domain([minD.getTime(), maxD.getTime()]);
-
-  // dots
-  plot.append("g").selectAll("circle")
-    .data(samples)
-    .join("circle")
-      .attr("class", "scatter-dot")
-      .attr("cx", d => x(d.submitted))
-      .attr("cy", d => y(d.closed))
-      .attr("r", 5)
-      .attr("fill", d => color(d.date.getTime()))
-    .append("title")
-      .text(d => {
-        const fmt = d3.timeFormat("%b %d, %Y");
-        const ratio = d.submitted > 0 ? (d.closed / d.submitted) : null;
-        return `Window centred ${fmt(d.date)}\n`
-             + `Submitted: ${d.submitted}\n`
-             + `Closed:    ${d.closed}\n`
-             + `Ratio:     ${ratio == null ? "—" : ratio.toFixed(2)}`;
-      });
-
-  // Colorbar (right of plot)
-  const cbW = 12, cbH = size * 0.7, cbX = shiftX + size + 28, cbY = shiftY + (size - cbH) / 2;
-  const gradId = "scatter-time-gradient";
-  const defs = svg.append("defs");
-  const grad = defs.append("linearGradient").attr("id", gradId)
-    .attr("x1", "0%").attr("y1", "100%").attr("x2", "0%").attr("y2", "0%");
-  const steps = 12;
-  for (let i = 0; i <= steps; i++) {
-    grad.append("stop")
-      .attr("offset", `${(i/steps) * 100}%`)
-      .attr("stop-color", color(minD.getTime() + (maxD.getTime() - minD.getTime()) * (i/steps)));
-  }
-  const cb = svg.append("g").attr("class", "colorbar")
-    .attr("transform", `translate(${cbX},${cbY})`);
-  cb.append("rect").attr("width", cbW).attr("height", cbH).attr("fill", `url(#${gradId})`)
-    .attr("stroke", "var(--emd-border)").attr("stroke-width", 0.5);
-  const fmtLbl = d3.timeFormat("%b '%y");
-  cb.append("text").attr("x", cbW + 5).attr("y", 4).attr("dominant-baseline", "hanging").text(fmtLbl(maxD));
-  cb.append("text").attr("x", cbW + 5).attr("y", cbH).attr("dominant-baseline", "baseline").text(fmtLbl(minD));
-
-  // Correlation coefficient + summary
-  const n = samples.length;
-  const meanS = d3.mean(samples, s => s.submitted);
-  const meanC = d3.mean(samples, s => s.closed);
-  let num = 0, denS = 0, denC = 0;
-  for (const s of samples) {
-    const ds = s.submitted - meanS, dc = s.closed - meanC;
-    num += ds * dc; denS += ds * ds; denC += dc * dc;
-  }
-  const r = (denS > 0 && denC > 0) ? num / Math.sqrt(denS * denC) : NaN;
-
-  const above = samples.filter(s => s.closed > s.submitted).length;
-  const at    = samples.filter(s => s.closed === s.submitted).length;
-  const below = samples.filter(s => s.closed < s.submitted).length;
-  const totS = d3.sum(samples, s => s.submitted);
-  const totC = d3.sum(samples, s => s.closed);
-  const overallRatio = totS > 0 ? totC / totS : NaN;
-
-  document.getElementById("scatter-caption").innerHTML =
-    `${n} windows · Pearson r = <b>${isFinite(r) ? r.toFixed(2) : "—"}</b> · `
-    + `above parity: ${above} · on: ${at} · below: ${below} · `
-    + `overall closed/submitted = <b>${isFinite(overallRatio) ? overallRatio.toFixed(2) : "—"}</b>.`;
 }
 
 // ---------- small multiples ----------

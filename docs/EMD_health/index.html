@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- All visible text on this page is defined in pr_dashboard/section_text.js.
+     The strings below are minimal fallbacks in case the JS fails to load. -->
+<title>PR Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pr_dashboard/styles.css">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  .page {
+    max-width: 1200px; margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+  }
+  .page-header {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--emd-border-light);
+    margin-bottom: 1.5rem;
+  }
+  .page-header h1 {
+    margin: 0 0 .5rem; font-size: 1.85rem; font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .page-header p {
+    margin: 0; color: var(--emd-text-secondary);
+    font-size: .95rem;
+    /* full width — no max-width cap so the intro reads across the page */
+  }
+  .page-header code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .82em; padding: .05rem .3rem; border-radius: 3px;
+    background: var(--emd-bg-tertiary); color: var(--emd-primary-dark);
+  }
+</style>
+</head>
+<body>
+<div class="page prd-container">
+
+  <div class="page-header">
+    <h1>PR Dashboard</h1>
+    <p><!-- filled by dashboard.js from PRDashText.pageDescription --></p>
+  </div>
+
+  <div id="prd-status" class="prd-status">Loading…</div>
+  <div id="prd-warning" class="prd-warning" style="display:none"></div>
+
+  <div id="prd-first-response"></div>
+  <div id="prd-author-response"></div>
+  <div id="prd-throughput"></div>
+
+  <div id="prd-timeline-button" class="prd-timeline-button-host"></div>
+
+</div>
+
+<script src="pr_dashboard/section_text.js"></script>
+<script src="pr_dashboard/chart_lib.js"></script>
+<script src="pr_dashboard/first_response.js"></script>
+<script src="pr_dashboard/author_response.js"></script>
+<script src="pr_dashboard/throughput.js"></script>
+<script src="pr_dashboard/dashboard.js"></script>
+</body>
+</html>

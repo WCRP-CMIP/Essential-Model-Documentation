@@ -88,14 +88,6 @@
 
   .median-line { fill: none; stroke-width: 2; }
   .band { opacity: .17; }
-  .dot-scatter { pointer-events: none; }
-  .dot-scatter circle { fill: var(--emd-text-tertiary); opacity: .5; }
-  .dot-unresponded circle {
-    fill: none;
-    stroke: var(--emd-danger);
-    stroke-width: 1.4;
-    opacity: .85;
-  }
   .pending-line {
     fill: none;
     stroke: #7c3aed;
@@ -255,13 +247,6 @@
         <button data-smooth="7">±7d</button>
       </div>
     </div>
-    <div class="control-group">
-      <label>Raw dots</label>
-      <div class="segmented" id="dots-toggle">
-        <button data-dots="on" class="active">Show</button>
-        <button data-dots="off">Hide</button>
-      </div>
-    </div>
   </div>
 
   <div class="chart-panel">
@@ -288,7 +273,7 @@
 // ==========================================================================
 
 const CONFIG = {
-  dataUrl: "../assets/pr_all_timeline_data.json",
+  dataUrl: "assets/pr_all_timeline_data.json",
   halfWindowDays: 1,           // ±1d = 2-day sliding window
   minSamples: 1,               // single-cycle days still plot; band collapses when n=1
   smoothingRadiusDays: 3,
@@ -326,7 +311,6 @@ const state = {
   band: "iqr",
   scale: "linear",
   unit: "days",
-  showDots: true,
   halfWindowDays: CONFIG.halfWindowDays,
   minSamples: CONFIG.minSamples,
   smoothingRadiusDays: CONFIG.smoothingRadiusDays,
@@ -520,20 +504,18 @@ function buildSeries() {
   state.categories.forEach(c => c.series.forEach(p => catTops.push(p[hi])));
   state.yMax = d3.max(catTops) || 24;
 
-  // If any raw dot is taller than the current top, extend Y so dots aren't clipped.
-  if (state.showDots) {
-    const dotMax = d3.max(state.cycles, c => c.hours) || 0;
-    state.yMaxOverall = Math.max(state.yMaxOverall, dotMax);
-    state.yMax = Math.max(state.yMax, dotMax);
-  }
-  // Unresponded rings are drawn regardless of the "raw dots" toggle, so their
-  // vertical extent must always be included in the main-chart y-max.
-  const urMax = d3.max(state.unresponded || [], u => u.hours) || 0;
-  state.yMaxOverall = Math.max(state.yMaxOverall, urMax);
+  // Unresponded intervals still extend the y-max in one useful way: they're
+  // used to compute the pending-count series (below), but no longer plotted
+  // as individual rings. The primary yMax stays driven by the percentile band.
 
   // Pending-count series: at each day, how many CR reviews are still waiting?
   // A CR is "waiting" from crDate until either its response event (responded
   // cycles) or its terminal / end-of-data (unresponded cycles).
+  //
+  // Both the "window" and "smoothing" controls apply here too:
+  //   raw count -> window mean (±halfWindowDays) -> smoothing mean (±smoothingRadiusDays)
+  // so widening the window smooths the pending line the same way it smooths
+  // the percentile band.
   const intervals = [
     ...state.cycles.map(c => ({ start: c.crDate.getTime(), end: c.responseDate.getTime() })),
     ...state.unresponded.map(u => ({ start: u.crDate.getTime(), end: u.endDate.getTime() })),
@@ -545,7 +527,9 @@ function buildSeries() {
     return { date: d, count: n };
   });
   state.pendingRawSeries = rawPending;
-  state.pendingSeries = smoothSeries(rawPending, state.smoothingRadiusDays, ['count']);
+  let smoothedPending = smoothSeries(rawPending, state.halfWindowDays, ['count']);
+  smoothedPending = smoothSeries(smoothedPending, state.smoothingRadiusDays, ['count']);
+  state.pendingSeries = smoothedPending;
   state.pendingMax = d3.max(rawPending, p => p.count) || 1;
 }
 
@@ -606,7 +590,6 @@ function bindControls() {
   bindSeg("unit-toggle", "unit", "unit");
   bindSeg("window-toggle", "window", "halfWindowDays", v => +v);
   bindSeg("smooth-toggle", "smooth", "smoothingRadiusDays", v => +v);
-  bindSeg("dots-toggle", "dots", "showDots", v => v === "on");
 }
 function bindSeg(id, attrKey, stateKey, transform) {
   const group = document.getElementById(id);
@@ -633,34 +616,20 @@ function recomputeAndRender() {
 // ---------- chart-element key (for the MAIN chart) ----------
 function renderChartKey() {
   const bLabel = { iqr: "25–75", p10: "10–90", p05: "5–95" }[state.band];
-  const host = document.getElementById("chart-key");
-  const parts = [];
-  parts.push(`
+  document.getElementById("chart-key").innerHTML = `
     <span class="chart-key-item">
       <svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="${OVERALL_COLOR}" stroke-width="2"/></svg>
       Median response time
-    </span>`);
-  parts.push(`
+    </span>
     <span class="chart-key-item">
       <svg width="22" height="10"><rect width="22" height="10" fill="${OVERALL_COLOR}" opacity="0.17" rx="1"/></svg>
       ${bLabel} percentile band
-    </span>`);
-  if (state.showDots) parts.push(`
-    <span class="chart-key-item">
-      <svg width="10" height="10"><circle cx="5" cy="5" r="1.8" fill="#94a3b8" opacity="0.5"/></svg>
-      Individual cycle
-    </span>`);
-  if (state.unresponded && state.unresponded.length) parts.push(`
-    <span class="chart-key-item">
-      <svg width="12" height="12"><circle cx="6" cy="6" r="3.5" fill="none" stroke="#ef4444" stroke-width="1.4"/></svg>
-      Unresponded CR (${state.unresponded.length})
-    </span>`);
-  parts.push(`
+    </span>
     <span class="chart-key-item">
       <svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/></svg>
-      Pending CRs — right axis
-    </span>`);
-  host.innerHTML = parts.join("");
+      Pending CRs — right axis (${state.unresponded ? state.unresponded.length : 0} still unresponded)
+    </span>
+  `;
 }
 
 // ---------- category legend (for the small multiples ONLY) ----------
@@ -707,9 +676,11 @@ function renderMainChart() {
     .domain([yBottomDisplay || 0.01, yTopDisplay || 1])
     .range([innerH, 0]).clamp(true);
 
-  // Right-hand Y scale for the pending-CR count
-  const yRight = d3.scaleLinear()
-    .domain([0, Math.max(1, state.pendingMax) * 1.1])
+  // Right-hand Y scale for the pending-CR count — matches the left-axis scale type
+  const yRightTop = Math.max(1, state.pendingMax) * 1.1;
+  const yRight = (state.scale === "log"
+      ? d3.scaleLog().domain([0.5, yRightTop])
+      : d3.scaleLinear().domain([0, yRightTop]))
     .range([innerH, 0]).nice();
 
   g.append("g").attr("class", "grid")
@@ -733,32 +704,6 @@ function renderMainChart() {
       .attr("fill", "#7c3aed")
       .text("Pending CRs (count)");
 
-  // Raw dots (each cycle) — drawn behind the band
-  if (state.showDots) {
-    const yFloor = state.scale === "log" ? Math.max(0.01, toDisplay(0.1)) : 0;
-    const dots = g.append("g").attr("class", "dot-scatter");
-    dots.selectAll("circle")
-      .data(state.cycles)
-      .join("circle")
-      .attr("cx", d => x(d.crDate))
-      .attr("cy", d => y(Math.max(toDisplay(d.hours), yFloor)))
-      .attr("r", 1.5);
-  }
-
-  // Unresponded CRs — hollow red rings at (CR date, wait time until PR closed
-  // or end-of-data). Always drawn (independent of the "Raw dots" toggle) so
-  // stuck cycles remain visible.
-  if (state.unresponded && state.unresponded.length) {
-    const yFloor = state.scale === "log" ? Math.max(0.01, toDisplay(0.1)) : 0;
-    g.append("g").attr("class", "dot-unresponded")
-      .selectAll("circle")
-      .data(state.unresponded)
-      .join("circle")
-      .attr("cx", d => x(d.crDate))
-      .attr("cy", d => y(Math.max(toDisplay(d.hours), yFloor)))
-      .attr("r", 3.5);
-  }
-
   const overallCat = { name: "Overall", color: OVERALL_COLOR, series: state.overallSeries };
   drawSeries(g, x, y, [overallCat], true);
 
@@ -766,7 +711,7 @@ function renderMainChart() {
   if (state.pendingSeries && state.pendingSeries.length) {
     const pendingLine = d3.line()
       .x(d => x(d.date))
-      .y(d => yRight(d.count))
+      .y(d => yRight(state.scale === "log" ? Math.max(0.5, d.count) : d.count))
       .curve(d3.curveBasis)
       .defined(d => d.count != null);
     g.append("path")
@@ -952,17 +897,6 @@ function renderSmallMultiples() {
       .attr("transform", `translate(0,${innerH})`)
       .call(d3.axisBottom(x).ticks(3).tickFormat(tickFmt).tickSizeOuter(0));
     g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(3).tickFormat(fmtNum));
-
-    // Dots per category (small, gray — same as main chart)
-    if (state.showDots) {
-      g.append("g").attr("class", "dot-scatter")
-        .selectAll("circle")
-        .data(c.cycles)
-        .join("circle")
-        .attr("cx", d => x(d.crDate))
-        .attr("cy", d => y(Math.max(toDisplay(d.hours), yFloor)))
-        .attr("r", 1.2);
-    }
 
     drawSeries(g, x, y, [c], false);
     card.appendChild(svg.node());

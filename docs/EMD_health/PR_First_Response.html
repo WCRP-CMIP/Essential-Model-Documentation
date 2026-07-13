@@ -284,7 +284,7 @@
 // ==========================================================================
 
 const CONFIG = {
-  dataUrl: "../assets/pr_all_timeline_data.json",
+  dataUrl: "assets/pr_all_timeline_data.json",
   halfWindowDays: 7,           // ±7d = 14d window
   minSamples: 3,
   smoothingRadiusDays: 3,      // ±3d rolling mean on daily percentile series
@@ -484,6 +484,10 @@ function buildSeries() {
   // by then but not yet merged or closed? A PR contributes from `opened`
   // until its `terminalDate` (merged_at or closed_at). Still-open PRs
   // contribute until state.maxDataDate.
+  //
+  // Window and smoothing both apply here: raw count -> window mean
+  // (±halfWindowDays) -> smoothing mean (±smoothingRadiusDays), so widening
+  // the window smooths the purple line the same way it smooths the band.
   const asOf = state.maxDataDate.getTime();
   const intervals = state.allPRs.map(p => ({
     start: p.opened.getTime(),
@@ -496,7 +500,9 @@ function buildSeries() {
     return { date: d, count: n };
   });
   state.pendingRawSeries = rawPending;
-  state.pendingSeries = smoothSeries(rawPending, state.smoothingRadiusDays, ['count']);
+  let smoothedPending = smoothSeries(rawPending, CONFIG.halfWindowDays, ['count']);
+  smoothedPending = smoothSeries(smoothedPending, state.smoothingRadiusDays, ['count']);
+  state.pendingSeries = smoothedPending;
   state.pendingMax = d3.max(rawPending, p => p.count) || 1;
 }
 
@@ -636,9 +642,11 @@ function renderMainChart() {
     .domain([yBottomDisplay || 0.01, yTopDisplay || 1])
     .range([innerH, 0]).clamp(true);
 
-  // Right-hand Y scale for the pending count
-  const yRight = d3.scaleLinear()
-    .domain([0, Math.max(1, state.pendingMax) * 1.1])
+  // Right-hand Y scale for the pending count — matches left-axis scale type
+  const yRightTop = Math.max(1, state.pendingMax) * 1.1;
+  const yRight = (state.scale === "log"
+      ? d3.scaleLog().domain([0.5, yRightTop])
+      : d3.scaleLinear().domain([0, yRightTop]))
     .range([innerH, 0]).nice();
 
   g.append("g").attr("class", "grid")
@@ -670,7 +678,7 @@ function renderMainChart() {
   if (state.pendingSeries && state.pendingSeries.length) {
     const pendingLine = d3.line()
       .x(d => x(d.date))
-      .y(d => yRight(d.count))
+      .y(d => yRight(state.scale === "log" ? Math.max(0.5, d.count) : d.count))
       .curve(d3.curveBasis)
       .defined(d => d.count != null);
     g.append("path")
