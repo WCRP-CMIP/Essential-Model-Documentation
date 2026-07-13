@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_gunterl-1783798824",
+    "ui_label": "Horizontal grid cell with a regular lat lon grid type and 4 x 4 km resolution.",
+    "description": "The polar stereographic projection yields a 4km regular grid and coincides with the one used in the ISMIP7 experiments. The domain dimensions are 421 by 721 in x and y direction respectively.",
+    "alias": [],
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "regular lat-lon",
+    "n_cells": 303541,
+    "region": [
+        "not specified, greenland"
+    ],
+    "southernmost_latitude": 57.8,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 263.4,
+    "x_resolution": 4,
+    "y_resolution": 4,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_gunterl-1783798824"
+}
