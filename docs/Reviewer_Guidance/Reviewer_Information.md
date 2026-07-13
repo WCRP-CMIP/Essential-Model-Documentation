@@ -73,6 +73,7 @@ Reviewers should ping others @EMD-reviewers if not confident about a submission.
 - IDs must not contain underscores or spaces.
 - Any periods `.` must be replaced with hyphens `-`. This applies to source IDs, model family names, and component version strings.
 - Confirm this for every identifier in the submitted record.
+- `source_id`'s in particular should follow the rules given in the [CMIP7 guidance pages](https://wcrp-cmip.github.io/cmip7-guidance/docs/CMIP7/Source_ID_guidance/).
 
 **Links and references**
 
