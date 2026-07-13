@@ -15,6 +15,7 @@
             "land-surface"
         ]
     ],
+    "crs": "A(L,O)LO[Si]Ac^Ae^",
     "dynamic_components": [
         "atmosphere",
         "ocean",
@@ -28,7 +29,6 @@
         ]
     ],
     "family": "awi-esm3",
-    "crs": "A(L,O)LO[Si]Ac^Ae^",
     "model_components": [
         "atmosphere_openifs-48r1_h107_v113",
         "ocean_fesom-2-7_h114_v116",

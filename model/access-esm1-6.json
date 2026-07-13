@@ -19,6 +19,7 @@
             "sea-ice"
         ]
     ],
+    "crs": "A[AeL](O,Si)O[Ob](Si)SiAc^Li^",
     "dynamic_components": [
         "atmosphere",
         "land-surface",
@@ -42,7 +43,6 @@
         ]
     ],
     "family": "access-esm",
-    "crs": "A[AeL](O,Si)O[Ob](Si)SiAc^Li^",
     "model_components": [
         "aerosol_classic_h102_v106",
         "atmosphere_um7-3_h102_v106",

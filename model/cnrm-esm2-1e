@@ -1,18 +1,9 @@
 {
     "validation_key": "CNRM-ESM2-1E",
     "ui_label": "CNRM-ESM2.1e",
-    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (S\u00e9f\u00e9rian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
+    "description": "CNRM-ESM2-1e is the CNRM Earth System model version 2 designed for CMIP6 on the basis of the physical core CNRM-CM6-1 (Voldoire et al. 2019). In concentration mode, it is the same model as CNRM-ESM2-1 (Séférian et al. 2019), it only differs from CNRM-ESM2-1 in emission-driven mode (see Bossert et al. 2026). The main adaptations consist in a better conservation of the carbon in all the components leading to a more consistent/realistic carbon flux evolution in historical simulations.",
     "calendar": [
         "standard"
-    ],
-    "model_components": [
-        "atmosphere_arpege-climat-version-6-3_h100_v100",
-        "land-surface_surfex-v8-modeling-platform_h100_v101",
-        "ocean_nemo-v3-6_h101_v102",
-        "aerosol_tactic_h100_v100",
-        "atmospheric-chemistry_reprobus-c-v2-0_h100_v100",
-        "sea-ice_gelato_h101_v103",
-        "ocean-biogeochemistry_piscesv2-gas_h101_v102"
     ],
     "coupled_components": [
         [
@@ -57,6 +48,15 @@
         ]
     ],
     "family": "cnrm-cm",
+    "model_components": [
+        "atmosphere_arpege-climat-version-6-3_h100_v100",
+        "land-surface_surfex-v8-modeling-platform_h100_v101",
+        "ocean_nemo-v3-6_h101_v102",
+        "aerosol_tactic_h100_v100",
+        "atmospheric-chemistry_reprobus-c-v2-0_h100_v100",
+        "sea-ice_gelato_h101_v103",
+        "ocean-biogeochemistry_piscesv2-gas_h101_v102"
+    ],
     "name": "CNRM-ESM2-1e",
     "omitted_components": [
         "land-ice"

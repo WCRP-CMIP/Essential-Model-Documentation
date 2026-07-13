@@ -35,6 +35,7 @@
             "land-surface"
         ]
     ],
+    "crs": "A(Ac,Li,L,O)Ac(L,O)Li(O)LO[ObSi]Ae^",
     "dynamic_components": [
         "atmosphere",
         "ocean",
@@ -55,7 +56,6 @@
         ]
     ],
     "family": "ec-earth",
-    "crs": "A(Ac,Li,L,O)Ac(L,O)Li(O)LO[ObSi]Ae^",
     "model_components": [
         "atmosphere_ifs-cy36r4-l91_h112_v110",
         "ocean_nemo-v3-6_h101_v102",
