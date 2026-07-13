@@ -20,7 +20,7 @@
    category, sharing the main x-axis and y-scale.
    ================================================================ */
 (function (global) {
-  const { MS_PER_DAY, smoothSeries, windowStatsFrom } = PRLib;
+  const { MS_PER_DAY, isBot, smoothSeries, windowStatsFrom } = PRLib;
 
   const RESPONSE_TYPES = new Set(['comment', 'review_comment', 'review', 'merged', 'closed']);
   const TERMINAL_TYPES = new Set(['merged', 'closed']);
@@ -47,9 +47,12 @@
         .filter(e => e._t > opened)
         .sort((a, b) => a._t - b._t);
 
+      // First non-author, non-bot response. Terminal events (merged /
+      // closed) still count no matter who made them — closing a PR *is*
+      // a response, even if a bot did the auto-merge.
       const first = evs.find(e =>
         RESPONSE_TYPES.has(e.type) &&
-        (TERMINAL_TYPES.has(e.type) || e.actor !== author)
+        (TERMINAL_TYPES.has(e.type) || (e.actor !== author && !isBot(e.actor)))
       );
 
       const terminalDate = pr.merged_at ? new Date(pr.merged_at)
@@ -102,7 +105,9 @@
     const primary = smoothSeries(rawPrimary, smoothR);
 
     // Secondary: open-PR count (records still open at each t). Count is
-    // unit-independent, so no conversion needed.
+    // unit-independent, so no conversion needed. Only a single light
+    // smoothing pass — the raw interval-intersection curve is already
+    // slowly varying, so re-smoothing over halfWin would over-flatten it.
     const intervals = records.map(r => ({
       start: r.opened.getTime(),
       end:   r.terminalDate ? r.terminalDate.getTime() : asOf,
@@ -113,8 +118,7 @@
       for (const iv of intervals) if (iv.start <= t && t <= iv.end) n++;
       return { date: d, count: n };
     });
-    let secSmoothed = smoothSeries(rawSec, halfWin, ['count']);
-    secSmoothed = smoothSeries(secSmoothed, smoothR, ['count']);
+    const secSmoothed = smoothSeries(rawSec, smoothR, ['count']);
 
     return { primary, secondary: secSmoothed };
   }
@@ -123,8 +127,11 @@
     const { records, maxDataDate, asOf } = buildRecords(prs, events);
     if (!records.length) return null;
 
-    const [minD, maxD] = d3.extent(records, r => r.opened);
-    const xDomain = [minD, maxD];
+    // Extend the x-domain to the data cutoff, not just the last opened
+    // date. Otherwise the "open PRs" line would truncate before showing
+    // the current state of long-lived open PRs.
+    const minD = d3.min(records, r => r.opened);
+    const xDomain = [minD, maxDataDate];
 
     const main = computeFor(records, opts, xDomain, asOf);
     if (!main.primary.length) return null;

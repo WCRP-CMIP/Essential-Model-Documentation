@@ -91,11 +91,29 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     // Draw once layout settles, and keep it aligned on resize until removed.
     const redraw = () => {
       if (document.body.contains(note)) drawModelHintConnector(note);
-      else window.removeEventListener("resize", redraw);
+      else {
+        window.removeEventListener("resize", redraw);
+        window.removeEventListener("scroll", dismissOnScroll);
+      }
+    };
+    // Dismiss on first scroll — the user has clearly noticed the page and
+    // doesn't need the nudge any more. Cancel the CSS animation, run a
+    // short fade so it doesn't vanish abruptly, then remove. Passive so
+    // it never delays the scroll. { once: true } auto-detaches after
+    // firing; the redraw handler above will also detach if the note has
+    // already been removed by the auto-fade timeout.
+    const dismissOnScroll = () => {
+      if (!document.body.contains(note)) return;
+      note.style.animation = "none";
+      note.style.transition = "opacity .25s ease";
+      note.style.opacity = "0";
+      setTimeout(() => { if (document.body.contains(note)) note.remove(); }, 260);
+      window.removeEventListener("resize", redraw);
     };
     requestAnimationFrame(() => requestAnimationFrame(redraw));
     setTimeout(redraw, 1100);   // re-align after the note's 1s pop-in settles
     window.addEventListener("resize", redraw);
+    window.addEventListener("scroll", dismissOnScroll, { once: true, passive: true });
   }
 
   const facts = el("div", { class: "header-facts" }, [
