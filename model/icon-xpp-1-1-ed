@@ -1,0 +1,83 @@
+{
+    "validation_key": "ICON-XPP-1-1-ED",
+    "ui_label": "ICON-XPP-1-1-ED",
+    "description": "ICON-XPP-1-1-ED is identical to ICON-XPP-1-1 except it is used for emission-driven experiments and is using the QUINCY configuration of ICON-Land 1.1 not JSBACH. In essence, it couples together -- the ICON-A 1.1 atmosphere model, which solves atmospheric dynamics on an icosahedral grid at ~80 km resolution using a single-moment microphysics scheme, the ECRAD radiation scheme, and the MACv2 simple-plumes aerosol parameterization. It also include sea ice thermodynamics (heat transfer and phase changes of sea ice). -- the ICON-O 1.1 ocean model, which solves ocean dynamics on an icosahedral grid at ~20 km resolution. -- the ICON-Land 1.1 land model. For emission-driven simulation (which this model variant is used for), this is the QUINCY land model, which computes land physics, some hydrological processes, and the carbon and nutrient cycles on the 80 km icosahedral atmosphere grid. QUINCY shares land physics (hydrology, radiation, etc) with JSBACH4 but has a new, more advanced treatment of the carbon, nutrients, and water cycles. -- the HAMOCC ocean biogeochemical model, which calculates carbon reservoirs and other trace constituents in the ocean. -- the HD hydrological discharge model, which simulates surface and base run-off and river discharge. -- the FESIM2 model, which simulates the elastic-viscous-plastic (EVP) equations of sea ice dynamics. The model prescribes the following aspects: -- Ozone in the model follows the CMIP7 ozone climatology. -- Anthropogenic aerosols in the model are prescribed using the MACv2 simple-plume scheme. -- The impact of volcanic injections of aerosol into the stratosphere on the radiation balance is prescribed. -- Natural aerosols are prescribed using a background natural aerosol climatology. -- Long-lived greenhouse gases are assumed to be uniform constants. -- Cloud droplet number concentration is externally prescribed using a satellite-based climatology which has been modified to derive a plausible preindustrial CDNC. Within MACv2 this is then further modified to account for the impact of anthropogenic aerosols on CDNC. -- Land cover types are prescribed in terms of plant functional types that are subject to direct anthropogenic influences. There are no dynamical responses of PFTs to external climate forcing. The model omits: -- land ice is prescribed (i.e. the ice sheets are static topographic features only). -- atmospheric chemistry and aerosol dynamics -- For long-lived anthropogenic GHGs, the ICON-A radiation scheme considers CO2, CH4, N2O, CFC-12, and CFC-11eq. Other minor GHGs (other CFCs, HCFCs, HFCs, etc) are lumped in with CFC-11, i.e. ICON-XPP 1.1 uses the CFC-11eq forcing provided by CMIP7.",
+    "calendar": [
+        "proleptic-gregorian"
+    ],
+    "coupled_components": [
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "atmosphere"
+        ],
+        [
+            "sea-ice",
+            "ocean"
+        ]
+    ],
+    "dynamic_components": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "atmosphere"
+        ]
+    ],
+    "family": "icon",
+    "model_components": [
+        "atmosphere_icon-a-1-1_h130_v144",
+        "ocean-biogeochemistry_hamocc_h129_v121",
+        "ocean_icon-o-1-1_h129_v121",
+        "hd-hydrological-discharge_h134_no-vertical",
+        "icon-land-1-1_h134_v122",
+        "fesim2_h129_no-vertical"
+    ],
+    "name": "icon-xpp-1-1-ed",
+    "omitted_components": [
+        "land-ice"
+    ],
+    "prescribed_components": [
+        "aerosol",
+        "atmospheric-chemistry"
+    ],
+    "references": [
+        "https://doi.org/10.5194/gmd-18-9385-2025",
+        "https://doi.org/10.1175/BAMS-D-24-0042.1",
+        "https://doi.org/10.1002/qj.2378",
+        "https://doi.org/10.1016/j.ocemod.2018.10.002",
+        "https://doi.org/10.1029/2021MS002952",
+        "https://doi.org/10.1016/j.jcp.2020.110086",
+        "https://doi.org/10.5194/gmd-8-1747-2015",
+        "https://doi.org/10.1029/2012ms000178",
+        "https://doi.org/10.5194/bg-17-1765-2020",
+        "https://doi.org/10.1007/s003820050205",
+        "https://doi.org/10.1029/2025MS005067",
+        "https://doi.org/10.5194/gmd-12-4781-2019",
+        "https://doi.org/10.5194/egusphere-2025-2987"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "icon-xpp-1-1-ed"
+}
