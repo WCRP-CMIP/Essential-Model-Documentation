@@ -1,0 +1,352 @@
+{
+  "repository": "WCRP-CMIP/Essential-Model-Documentation",
+  "source": "/Users/daniel.ellis/WIPwork/Essential-Model-Documentation/docs/EMD_health/assets/pr_all_timeline_data.json",
+  "total_prs_analyzed": 108,
+  "by_form_type": {
+    "Modify Horizontal_computational_grid": {
+      "pr_count": 2,
+      "feedback_items": 9,
+      "common_mistakes": {
+        "Other": 4,
+        "Grid mismatch": 3,
+        "Naming/Convention": 2
+      },
+      "example_feedback": [
+        {
+          "pr": 488,
+          "type": "review",
+          "reviewer": "JanStreffing",
+          "excerpt": "@matthew-mizielinski for the bot error, just set Units to degree. \n\nWhile I was looking I noticed g138 sits at west=0, south=-90, n=1230080 and isn't referenced by any of the subgrids in #488. Orphan,"
+        },
+        {
+          "pr": 488,
+          "type": "comment",
+          "author": "matthew-mizielinski",
+          "excerpt": "Thank you for catching this @JanStreffing -- This was a slightly careless error in our data collection that missed updating one cell in a spreadsheet when going between UKCM2-0-LL and UKCM2a-0-HH (the"
+        },
+        {
+          "pr": 488,
+          "type": "comment",
+          "author": "matthew-mizielinski",
+          "excerpt": "I've raised #576 to try to fix the definition of g140. I think it is probably easiest to decline this PR & issue and @robertsmalcolm and I can ensure that a replacement is put in once g140 is correcte"
+        }
+      ]
+    },
+    "Modify Horizontal_grid_cell": {
+      "pr_count": 7,
+      "feedback_items": 29,
+      "common_mistakes": {
+        "Grid mismatch": 15,
+        "Other": 6,
+        "Missing field": 3,
+        "Invalid value": 2,
+        "Duplicate": 2,
+        "Metadata": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 110,
+          "type": "review",
+          "reviewer": "wolfiex",
+          "excerpt": "The following errors were found. Please edit the issue to correct them. \n[How to edit an issue.](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?"
+        },
+        {
+          "pr": 110,
+          "type": "comment",
+          "author": "JanStreffing",
+          "excerpt": "Looks correct to me."
+        },
+        {
+          "pr": 110,
+          "type": "comment",
+          "author": "JanStreffing",
+          "excerpt": "It would be nice if we can get this going. The missing EMD is the last thing holding us back from starting simulations."
+        }
+      ]
+    },
+    "Modify Model": {
+      "pr_count": 1,
+      "feedback_items": 2,
+      "common_mistakes": {
+        "Metadata": 2
+      },
+      "example_feedback": [
+        {
+          "pr": 866,
+          "type": "review",
+          "reviewer": "charliepascoe",
+          "excerpt": "Hi @jonseddon \nThe model description will be used in broad communications in climate services such as the Copernicus Climate Change Service. Therefore, please can you also provide a high level descrip"
+        },
+        {
+          "pr": 866,
+          "type": "comment",
+          "author": "jonseddon",
+          "excerpt": "Hi @charliepascoe, thanks for the review. We've added some extra text to the start of the description that will hopefully give more context to the high-level description. However, if we still need to "
+        }
+      ]
+    },
+    "Modify Model_component": {
+      "pr_count": 2,
+      "feedback_items": 7,
+      "common_mistakes": {
+        "Component reference": 5,
+        "Metadata": 2
+      },
+      "example_feedback": [
+        {
+          "pr": 261,
+          "type": "review",
+          "reviewer": "wolfiex",
+          "excerpt": "Happy to merge once the description has been amended. "
+        },
+        {
+          "pr": 672,
+          "type": "review",
+          "reviewer": "Darwyn72",
+          "excerpt": "@rjstouffer The reference needs to be submitted as a DOI here's information on how to do that [How to edit an issue and rerun actions](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Fi"
+        },
+        {
+          "pr": 672,
+          "type": "comment",
+          "author": "rjstouffer",
+          "excerpt": "Hi Paul,\r\n\r\nThank you for reviewing the MOM 1.1 stuff I submitted. I did not think I\r\ncould submit a DOI request for a paper I did not co-author. If I can, I\r\nwill work on it.\r\n\r\n-Ron\r\n\r\nOn Tue, Jun 1"
+        }
+      ]
+    },
+    "Modify Model_family": {
+      "pr_count": 4,
+      "feedback_items": 13,
+      "common_mistakes": {
+        "Component reference": 10,
+        "Other": 3
+      },
+      "example_feedback": [
+        {
+          "pr": 58,
+          "type": "review",
+          "reviewer": "wolfiex",
+          "excerpt": "(self, to set institutions to lowercase in issue processing script)"
+        },
+        {
+          "pr": 58,
+          "type": "comment",
+          "author": "wolfiex",
+          "excerpt": "already merged in 103"
+        },
+        {
+          "pr": 429,
+          "type": "review",
+          "reviewer": "charliepascoe",
+          "excerpt": "I think it makes sense to only include the references that describe the model as a whole.\nSo please remove the references with a scope that is specific to particular components."
+        }
+      ]
+    },
+    "Modify Vertical_computational_grid": {
+      "pr_count": 1,
+      "feedback_items": 1,
+      "common_mistakes": {
+        "Metadata": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 164,
+          "type": "review",
+          "reviewer": "davidhassell",
+          "excerpt": "Hi - could you provide values, as appropriate,  for the  `bottom_layer_thickness`, `top_layer_thickness`, `total_thickness`, and `description`? Please see section 4.2.1 of the [EMD specification](http"
+        }
+      ]
+    },
+    "New Horizontal_computational_grid": {
+      "pr_count": 13,
+      "feedback_items": 49,
+      "common_mistakes": {
+        "Grid mismatch": 26,
+        "Other": 14,
+        "Invalid value": 6,
+        "Naming/Convention": 2,
+        "Duplicate": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 145,
+          "type": "review",
+          "reviewer": "wolfiex",
+          "excerpt": "@ltroussellier Combining the variables is not something that is in the form.  These all need to be specified separately as per the form layout"
+        },
+        {
+          "pr": 145,
+          "type": "comment",
+          "author": "ltroussellier",
+          "excerpt": "@wolfiex \r\nfor description i have only in the speardsheet this additional note  : \r\n```\r\nFor computation, variables related to mass are located at cell centers, while velocities are located at middle "
+        },
+        {
+          "pr": 145,
+          "type": "comment",
+          "author": "JamesAnstey",
+          "excerpt": "If the grid staggering is Arakawa-C (as indicated above) then separate horizontal grid cells need to be registered for each of the mass, x_velocity & y_velocity grids (at least, that's what I register"
+        }
+      ]
+    },
+    "New Horizontal_grid_cell": {
+      "pr_count": 26,
+      "feedback_items": 89,
+      "common_mistakes": {
+        "Grid mismatch": 38,
+        "Other": 33,
+        "Duplicate": 5,
+        "Missing field": 5,
+        "Invalid value": 3,
+        "Metadata": 2,
+        "Naming/Convention": 2,
+        "Component reference": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 46,
+          "type": "review",
+          "reviewer": "davidhassell",
+          "excerpt": "Looks good, and can be approved pending the suggested change."
+        },
+        {
+          "pr": 46,
+          "type": "comment",
+          "author": "wolfiex",
+          "excerpt": "@davidhassell  new request generated with changes and same name "
+        },
+        {
+          "pr": 47,
+          "type": "review",
+          "reviewer": "davidhassell",
+          "excerpt": "Looks good, and can be approved pending the suggested change."
+        }
+      ]
+    },
+    "New Model": {
+      "pr_count": 4,
+      "feedback_items": 7,
+      "common_mistakes": {
+        "Naming/Convention": 2,
+        "Component reference": 2,
+        "Invalid value": 1,
+        "Other": 1,
+        "Metadata": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 642,
+          "type": "review",
+          "reviewer": "crgoddard",
+          "excerpt": "Generally looks good, except the component coupling/embedding. I could be wrong, but I don't think the embedded components look right? Firstly, I see both aerosol-atmosphere and atmosphere-aerosol, bu"
+        },
+        {
+          "pr": 642,
+          "type": "comment",
+          "author": "matthew-mizielinski",
+          "excerpt": "Thanks @crgoddard, Looks like I made a mess of the embedding coupling stuff. I've had another try after looking closely at figure 1 in the documentation paper:\r\n\r\n<img width=\"866\" height=\"626\" alt=\"im"
+        },
+        {
+          "pr": 644,
+          "type": "review",
+          "reviewer": "crgoddard",
+          "excerpt": "Looks good to me, but I guess we want to wait for the grid naming issues to be fixed and then updated here before merging? (e.g. ocean_cannemo5-1_h111_tempgrid_jamesanstey-1777265640)"
+        }
+      ]
+    },
+    "New Model_component": {
+      "pr_count": 34,
+      "feedback_items": 85,
+      "common_mistakes": {
+        "Component reference": 29,
+        "Other": 20,
+        "Grid mismatch": 18,
+        "Naming/Convention": 6,
+        "Missing field": 5,
+        "Metadata": 3,
+        "Invalid value": 3,
+        "Duplicate": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 166,
+          "type": "review",
+          "reviewer": "wolfiex",
+          "excerpt": "@TongwenWu   can you add one sentence to summarise the contents, and check the link. I seem to be unable to open it!\n\nTo do this navigate to the original issue and [edit it](https://scribehow.com/embe"
+        },
+        {
+          "pr": 170,
+          "type": "review",
+          "reviewer": "wolfiex",
+          "excerpt": "\nThe following errors were found. Please edit the issue to correct them. \n[How to edit an issue.](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ"
+        },
+        {
+          "pr": 170,
+          "type": "comment",
+          "author": "wolfiex",
+          "excerpt": "This is a duplicate of 263, which also stems from the same issue. "
+        }
+      ]
+    },
+    "New Model_family": {
+      "pr_count": 5,
+      "feedback_items": 12,
+      "common_mistakes": {
+        "Component reference": 7,
+        "Missing field": 2,
+        "Other": 2,
+        "Grid mismatch": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 303,
+          "type": "review",
+          "reviewer": "JanStreffing",
+          "excerpt": "Hi, the file fits the schema cleanly and matches the pattern of the other component entries like cannemo and cmoc, so structurally it's fine. A few things worth fixing before merge though.\n\nOn primary"
+        },
+        {
+          "pr": 303,
+          "type": "comment",
+          "author": "JamesAnstey",
+          "excerpt": "> Based on change in regards to @JanStreffing 's comprehensive comment.\r\n> \r\n> I will just point out that we also have a `collaborative_institutions` field if there are iterations held/maintained by o"
+        },
+        {
+          "pr": 552,
+          "type": "review",
+          "reviewer": "crgoddard",
+          "excerpt": "primary_institution: \"sysu\" matches the institution CVs (https://github.com/WCRP-CMIP/CMIP7-CVs/tree/main/institution), but collaborative_institutions: [\"iap-cas\"] does not appear to match a valid ins"
+        }
+      ]
+    },
+    "New Vertical_computational_grid": {
+      "pr_count": 9,
+      "feedback_items": 26,
+      "common_mistakes": {
+        "Grid mismatch": 13,
+        "Metadata": 5,
+        "Invalid value": 3,
+        "Other": 3,
+        "Naming/Convention": 1,
+        "Duplicate": 1
+      },
+      "example_feedback": [
+        {
+          "pr": 273,
+          "type": "review",
+          "reviewer": "davidhassell",
+          "excerpt": "Hi @matthew-mizielinski,\n\nAre top and bottom layer thickness the wrong way round. I'm assuming that this is a land surface model grid. The \"bottom\" is the layer closest to the centre of the Earth, whi"
+        },
+        {
+          "pr": 273,
+          "type": "comment",
+          "author": "matthew-mizielinski",
+          "excerpt": "> Hi @matthew-mizielinski,\r\n> \r\n> Are top and bottom layer thickness the wrong way round. I'm assuming that this is a land surface model grid. The \"bottom\" is the layer closest to the centre of the Ea"
+        },
+        {
+          "pr": 277,
+          "type": "review",
+          "reviewer": "davidhassell",
+          "excerpt": "Hi @johndunne13 - I think there is a typo in `bottom_layer_thickness` - shouldn't be the same as `total_thickness`"
+        }
+      ]
+    }
+  }
+}
