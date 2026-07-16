@@ -41,7 +41,7 @@ Define the physical grid structure that can be reused across multiple subgrid re
 8,dropdown,units,Units,The units used for resolution values.,units,FALSE,,list_with_na,0
 9,input,n_cells,Number of Cells,The total number of grid cells in the domain.,none,FALSE,55296,,
 10,input,southernmost_latitude,Southernmost Latitude,"The southernmost latitude of all grid cell centres, in degrees north (cells for which no calculations are made are included).",none,FALSE,-89.5,,
-11,input,westernmost_longitude,Westernmost Longitude,"The westernmost longitude of the southernmost grid cell centres, in degrees east (cells for which no calculations are made are included).",none,FALSE,0.5,,
+11,input,westernmost_longitude,Westernmost Longitude,"The westernmost longitude in the range of the southernmost grid cell centres, in degrees east (cells for which no calculations are made are included). This is the value closest to 0 when each southernmost grid cell longitude is adjusted to be in the range [0, 360).",none,FALSE,0.5,,
 12,dropdown,truncation_method,Truncation Method,The spectral truncation type for spectral grids only.,truncation_method,FALSE,,list_with_na,0
 13,input,truncation_number,Truncation Number,The maximum wavenumber retained for spectral grids only.,none,FALSE,127,,
 14,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,FALSE,"user1,user2,user3,...",,
