@@ -5,10 +5,10 @@
 <head>
     <script>
         /* const base_url = "https://emd.mipcvs.dev/"; */
-        const base_url = (new URL("../../..", window.location)).href.replace(/\/+$/, ""); /* for search plugin notably */
-        /* const root_relative_url = "../../.."; */
+        const base_url = (new URL("../..", window.location)).href.replace(/\/+$/, ""); /* for search plugin notably */
+        /* const root_relative_url = "../.."; */
     </script>
-    <script integrity="sha384-m6cZ+Whl1ci89lidlu8DH4C+sZLNOYBvImtjUIhUK+iaNffXhqtbYgBVuuPfRsa0" src="../../../js/dark.js"></script>
+    <script integrity="sha384-m6cZ+Whl1ci89lidlu8DH4C+sZLNOYBvImtjUIhUK+iaNffXhqtbYgBVuuPfRsa0" src="../../js/dark.js"></script>
 
 
     <meta charset="utf-8" />
@@ -18,7 +18,7 @@
     
 
 
-<title>Viewer instructions</title>
+<title>Review Checklist</title>
 
 
 
@@ -30,18 +30,18 @@
 
 
 
-<link rel="canonical" href="https://emd.mipcvs.dev/Model/assets/viewer_instructions/">
+<link rel="canonical" href="https://emd.mipcvs.dev/Reviewer_Guidance/Review_Checklist/">
 
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="Viewer instructions">
+<meta property="og:title" content="Review Checklist">
 
 
 
 
 
-<meta property="og:url" content="https://emd.mipcvs.dev/Model/assets/viewer_instructions/">
+<meta property="og:url" content="https://emd.mipcvs.dev/Reviewer_Guidance/Review_Checklist/">
 
 
 
@@ -50,7 +50,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="Viewer instructions">
+<meta name="twitter:title" content="Review Checklist">
 
 
 
@@ -62,10 +62,10 @@
 
 
     
-    <link href="../../../assets/favicon.svg" rel="icon" />
+    <link href="../../assets/favicon.svg" rel="icon" />
 
-    <link href="../../../css/base.css" rel="stylesheet" />
-    <link href="../../../css/geist.css" rel="stylesheet" />
+    <link href="../../css/base.css" rel="stylesheet" />
+    <link href="../../css/geist.css" rel="stylesheet" />
 
     
 
@@ -74,13 +74,13 @@
             --theme-accent: oklch(62.3% 0.214 259.815);
         }
     </style>
-    <link href="../../../stylesheets/custom.css" rel="stylesheet" />
-    <link href="../../../stylesheets/footer-override.css" rel="stylesheet" />
+    <link href="../../stylesheets/custom.css" rel="stylesheet" />
+    <link href="../../stylesheets/footer-override.css" rel="stylesheet" />
 
     
 
     <script integrity="sha384-V2jkXRy811qODUbfkLlkVJYBbf4h6XHAEjcU6ReASBPrJvTrlYh4GrI4t6GCju6n"
-        src="../../../js/callbacks.js"></script>
+        src="../../js/callbacks.js"></script>
 
     
 
@@ -143,7 +143,7 @@
                 <span class="size-8 flex flex-row justify-center items-center">
                     
 
-<img class="size-5" src="../../../assets/cmip-logo.svg" alt="icon">
+<img class="size-5" src="../../assets/cmip-logo.svg" alt="icon">
 
 
                 </span>
@@ -277,12 +277,12 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          Viewer instructions
+          Review Checklist
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
           <button
-    onclick="fetch(`https://emd.mipcvs.dev/Model/assets/viewer_instructions.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
+    onclick="fetch(`https://emd.mipcvs.dev/Reviewer_Guidance/Review_Checklist.md`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
     data-slot="button" class="secondary cursor-pointer">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
@@ -298,7 +298,7 @@
             data-slot="button"
             id="previous-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Information_for_Submitters/What_to_expect_on_submission/"
+            href="/Reviewer_Guidance/Interpreting_The_Review_Summary/"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +324,7 @@
             data-slot="button"
             id="next-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Reviewer_Guidance/Interpreting_The_Review_Summary/"
+            href="/Reviewer_Guidance/Review_Options/"
           >
             <span class="sr-only">Next</span>
             <svg
@@ -354,88 +354,148 @@
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-    <hr />
-<h2 id="1-header-model-picker">1. Header &amp; model picker<a class="headerlink" href="#1-header-model-picker" title="Permanent link">&para;</a></h2>
-<p><img alt="Model page header with title, metadata chips, and model picker" src="../guide-assets/header.png" /></p>
-<p>The header shows the model's display name and a row of quick-fact chips: <strong>family</strong>,
-<strong>release year</strong>, <strong>calendar</strong>, and the raw <strong>CRS</strong> string. The <strong>Model</strong> dropdown on
-the right switches models; the URL updates so the view is shareable, and browser
-back/forward work.</p>
+    <p>Each section below lists the physical and scientific mistakes that reviewers most frequently catch. Use these as an initial checklist when reviewing submissions.</p>
+<p>For full field constraints, valid ranges, and CV rules, open the EMD specification from the navigational menu. </p>
 <hr />
-<h2 id="2-overview">2. Overview<a class="headerlink" href="#2-overview" title="Permanent link">&para;</a></h2>
-<p><img alt="Overview card with description and stat counts" src="../guide-assets/overview.png" /></p>
-<p>A plain-language description of the model followed by some basic <strong>statistics</strong>: how many
-dynamic realms, prescribed realms, omitted realms, components, and couplings it has.</p>
-<p>Descriptions are rendered from Markdown, so links and emphasis display properly.</p>
-<hr />
-<h2 id="3-coupling-topology-crs">3. Coupling topology (CRS)<a class="headerlink" href="#3-coupling-topology-crs" title="Permanent link">&para;</a></h2>
-<p><img alt="CRS string coloured by realm plus the nested-sphere coupling diagram" src="../guide-assets/crs.png" /></p>
-<p>This is a picture of how the model's realms fit together.</p>
-<p><strong>The coloured CRS string</strong> at the top links each realm code with its realm colour.
-Embedded realms are inside the <code>[…]</code> and coupled realms are neighboured following the design tactics of the crs.</p>
-<p><strong>The diagram</strong> is generated from the crs string:</p>
+<h2 id="horizontal_grid_cell"><code>horizontal_grid_cell</code><a class="headerlink" href="#horizontal_grid_cell" title="Permanent link">&para;</a></h2>
+<p>Grid cells describe the horizontal discretisation of a model component. They look simple but carry subtle consistency requirements that trip up submitters regularly.</p>
+<h3 id="grid-type-vs-domain-mismatch">Grid type vs. domain mismatch<a class="headerlink" href="#grid-type-vs-domain-mismatch" title="Permanent link">&para;</a></h3>
+<p>The <code>grid_type</code> must match the component's physical domain. Reviewers have flagged:</p>
 <ul>
-<li><strong>Dynamic realms</strong>: filled circles arranged on a ring.</li>
-<li><strong>Embedded realms</strong>: the small circles packed <em>inside</em> a parent circle.</li>
-<li><strong>Prescribed realms</strong> (external, one-way forcing) are drawn smaller, unfilled, with
-  a faint double ring and a "prescribed" label </li>
-<li><strong>Couplings</strong> are the dashed arcs between realms. </li>
+<li><code>tripolar</code> applied to atmosphere or land components — tripolar grids are used exclusively in ocean and sea-ice models.</li>
+<li><code>reduced_gaussian</code> or <code>spectral_gaussian</code> applied to an ocean component — these are atmosphere-only grid types.</li>
+<li><code>regular_latitude_longitude</code> is valid for any domain.</li>
 </ul>
-<hr />
-<h2 id="4-references">4. References<a class="headerlink" href="#4-references" title="Permanent link">&para;</a></h2>
-<p><img alt="References section, one card per reference with DOI links" src="../guide-assets/references.png" /></p>
-<p>Every reference on the model record gets its own card — a numbered badge plus a
-<strong>DOI</strong> badge and link where available, or the citation text for free-form entries.
-These will be resolved using the data cite information and improved. </p>
-<hr />
-<h2 id="5-model-family">5. Model family<a class="headerlink" href="#5-model-family" title="Permanent link">&para;</a></h2>
-<p><img alt="Model family card with institution, domains, and links" src="../guide-assets/family.png" /></p>
-<p>The family the model belongs to: type, primary institution, collaborators, scientific
-domains, year established, programming languages, licence, and <strong>website / source</strong>
-links, plus any family-level references. This helps give us an understanding of where this specific model is coming from. </p>
-<hr />
-<h2 id="6-emd-schema-interactive-graph">6. EMD schema (interactive graph)<a class="headerlink" href="#6-emd-schema-interactive-graph" title="Permanent link">&para;</a></h2>
-<p><img alt="EMD schema force-directed graph of the model's linked records" src="../guide-assets/schema.png" /></p>
-<p>A tiered, force-directed graph of the <em>entire</em> record and everything it links to.</p>
-<p>This is generated by following the links from the source_id all the way until the individual grids and provides a good representation of how the EMD is defined in the background any all the submissions that go into creating a source id. </p>
-<p>How to use it:</p>
+<h3 id="resolution-inconsistent-with-grid-type">Resolution inconsistent with grid type<a class="headerlink" href="#resolution-inconsistent-with-grid-type" title="Permanent link">&para;</a></h3>
+<p>The resolution fields must be consistent with how that grid type is defined. The spacing formula differs by type:</p>
 <ul>
-<li><strong>Hover a node</strong> to spotlight its parents, children, and coupling partners.</li>
-<li><strong>Double-click a node</strong> to open that record's source JSON on GitHub in a new tab.</li>
-<li><strong>Drag</strong> a node to reposition it; <strong>scroll</strong> to zoom, <strong>drag the background</strong> to pan.</li>
-<li>Use the <strong>+ / − / fit</strong> buttons (bottom-right) to zoom or re-fit the whole graph.</li>
-<li>Dashed boxes ("nests") wrap embedded realms inside their host; dashed arcs mark
-  couplings.</li>
+<li><strong>Linear reduced Gaussian (TL):</strong> Δx ≈ 180° / N (e.g. TL319 ≈ 0.56°)</li>
+<li><strong>Cubic octahedral (TCo):</strong> Δx ≈ 10,000 km / N (e.g. TCo319 ≈ 31–36 km — both conventions are acceptable)</li>
+<li>If the grid type is ambiguous, ask the submitter to confirm the truncation number and resolution are consistent rather than asserting they are wrong.</li>
 </ul>
-<hr />
-<h2 id="7-components-in-detail">7. Components in detail<a class="headerlink" href="#7-components-in-detail" title="Permanent link">&para;</a></h2>
-<p><img alt="Components-in-detail cards, one per realm" src="../guide-assets/components.png" /></p>
-<p>One card per realm, detailing the component that describes it. Component information such as description, reference and code base are also provided. </p>
-<hr />
-<h2 id="8-grids">8. Grids<a class="headerlink" href="#8-grids" title="Permanent link">&para;</a></h2>
-<p><img alt="Grid cards showing H/V badges, realm tags, expandable subgrids with view-grid buttons" src="../guide-assets/grids.png" /></p>
-<p>One card per distinct grid the model uses:</p>
+<p>Note that <code>horizontal_units: km</code> on a <code>regular_latitude_longitude</code> grid is valid — a companion degree-resolution entry may exist separately. Do not flag this.</p>
+<h3 id="cell-count-doesnt-match-resolution">Cell count doesn't match resolution<a class="headerlink" href="#cell-count-doesnt-match-resolution" title="Permanent link">&para;</a></h3>
+<p><code>n_cells</code> must be consistent with the stated resolution and region at order-of-magnitude level:</p>
 <ul>
-<li>An <strong>H / V badge</strong> marks horizontal vs vertical grids, next to the grid id.</li>
-<li>The <strong>realm(s) that use the grid</strong> are listed as small realm-coloured, comma-
-  separated tags. These help identify where the grids are being used for this specific source_id. </li>
-<li><strong>Horizontal grids</strong> have an expandable <strong>subgrids</strong> list. Each subgrid row shows its
-  variable type, grid type, resolution and cell count, plus a link to the grid for those requifing more information. </li>
-<li><strong>Vertical grids</strong> show levels and coordinate, with layer thicknesses (top / bottom /
-  total depth) hidden in a collapsible <strong>"Layer info"</strong> box - similar to the subgrids for the horizontal.</li>
+<li>Global 1° grid → ~65,000 cells</li>
+<li>Global 0.25° grid → ~1,000,000 cells</li>
+<li>Global 0.1° grid → ~6,000,000 cells</li>
 </ul>
+<p>A cell count that is off by an order of magnitude from what the resolution implies is almost always a transcription error.</p>
+<h3 id="duplicate-of-an-existing-grid-cell">Duplicate of an existing grid cell<a class="headerlink" href="#duplicate-of-an-existing-grid-cell" title="Permanent link">&para;</a></h3>
+<p>Submitters sometimes resubmit a corrected grid cell as a new entry rather than editing the original issue. Check whether an equivalent grid cell (same resolution, type, and domain) already exists.</p>
+<h3 id="blank-descriptions-are-fine">Blank descriptions are fine<a class="headerlink" href="#blank-descriptions-are-fine" title="Permanent link">&para;</a></h3>
+<p>An empty or blank <code>description</code> on a grid cell is the correct default. Never flag it.</p>
 <hr />
-<h2 id="9-model-record-json">9. Model record (JSON)<a class="headerlink" href="#9-model-record-json" title="Permanent link">&para;</a></h2>
-<p>![Raw JSON viewer with Simple/Resolved toggle and copy button]</p>
-<p>The raw JavaScriptObjectNotation record, syntax-highlighted, always at the bottom of the page. Use the
-<strong>Simple ⇄ Resolved</strong> toggle to switch between the record as defined in the model file, or a recursively populated version going all the way until the horizontal-grid-cell level.  The <strong>Copy</strong> button copies whichever view is showing.</p>
+<h2 id="horizontal_computational_grid"><code>horizontal_computational_grid</code><a class="headerlink" href="#horizontal_computational_grid" title="Permanent link">&para;</a></h2>
+<p>Computational grids link grid cells to subgrids (mass, velocity-x, velocity-y). The most common mistake is structural.</p>
+<h3 id="subgrid-variables-combined-into-one-entry">Subgrid variables combined into one entry<a class="headerlink" href="#subgrid-variables-combined-into-one-entry" title="Permanent link">&para;</a></h3>
+<p>For staggered grids (e.g. Arakawa-C), mass and velocity variables must be registered as <strong>separate</strong> horizontal grid cells, each with their own subgrid entry. Submitters frequently combine them into a single form entry.</p>
+<p>If the grid staggering is Arakawa-C, the submission should contain separate grid cell registrations for mass, x-velocity, and y-velocity — each potentially at different grid point locations.</p>
+<h3 id="orphaned-grid-cells">Orphaned grid cells<a class="headerlink" href="#orphaned-grid-cells" title="Permanent link">&para;</a></h3>
+<p>A grid cell may be defined in the submission but not actually referenced by any subgrid in the computational grid. This usually indicates a copy-paste error from a spreadsheet or a leftover from an earlier version of the submission.</p>
+<h3 id="units-missing-or-wrong">Units missing or wrong<a class="headerlink" href="#units-missing-or-wrong" title="Permanent link">&para;</a></h3>
+<p>The <code>horizontal_units</code> field is sometimes left blank or set incorrectly. Common case: degrees intended but field left empty, or "degree" missing when it should be present.</p>
+<h3 id="no-scientific-concerns-on-structure">No scientific concerns on structure<a class="headerlink" href="#no-scientific-concerns-on-structure" title="Permanent link">&para;</a></h3>
+<p>Do not flag data types, array vs. string representations, field formats, or schema structure. Raise scientific concerns only.</p>
+<hr />
+<h2 id="vertical_computational_grid"><code>vertical_computational_grid</code><a class="headerlink" href="#vertical_computational_grid" title="Permanent link">&para;</a></h2>
+<h3 id="top-and-bottom-layer-thickness-swapped">Top and bottom layer thickness swapped<a class="headerlink" href="#top-and-bottom-layer-thickness-swapped" title="Permanent link">&para;</a></h3>
+<p>This is the single most common mistake on vertical grid submissions. "Bottom" means the layer closest to the centre of the Earth (deepest soil layer, deepest ocean layer), and "top" means closest to the surface or top of atmosphere. Submitters regularly reverse these.</p>
+<p>Check: is <code>bottom_layer_thickness</code> &gt; <code>top_layer_thickness</code> for an ocean grid? That would be unusual — ocean grids typically have thin layers near the surface and thicker layers at depth.</p>
+<h3 id="bottom-layer-thickness-equal-to-total-thickness">Bottom layer thickness equal to total thickness<a class="headerlink" href="#bottom-layer-thickness-equal-to-total-thickness" title="Permanent link">&para;</a></h3>
+<p>A copy-paste error where <code>bottom_layer_thickness</code> is accidentally set to the same value as <code>total_thickness</code>. These should almost never be equal.</p>
+<h3 id="missing-thickness-and-metadata-fields">Missing thickness and metadata fields<a class="headerlink" href="#missing-thickness-and-metadata-fields" title="Permanent link">&para;</a></h3>
+<p>The fields <code>bottom_layer_thickness</code>, <code>top_layer_thickness</code>, <code>total_thickness</code>, and <code>description</code> are frequently left blank. Submitters should provide values as appropriate — see EMD specification §4.2.1 for guidance.</p>
+<h3 id="vertical-coordinate-inappropriate-for-domain">Vertical coordinate inappropriate for domain<a class="headerlink" href="#vertical-coordinate-inappropriate-for-domain" title="Permanent link">&para;</a></h3>
+<p>The <code>vertical_coordinate</code> must make physical sense for the component type:</p>
+<ul>
+<li><strong>Atmosphere:</strong> <code>atmosphere_hybrid_sigma_pressure_coordinate</code>, <code>atmosphere_hybrid_height_coordinate</code></li>
+<li><strong>Ocean:</strong> <code>ocean_sigma_z_coordinate</code>, <code>ocean_s_coordinate</code>, <code>depth</code>, <code>z*</code>, <code>z-star</code> (both valid forms of the z-star rescaled height coordinate)</li>
+<li><strong>Soil / land surface:</strong> <code>depth</code></li>
+<li><strong>Sea ice / land ice:</strong> <code>height</code>, <code>land_ice_sigma_coordinate</code></li>
+</ul>
+<h3 id="level-count-outside-plausible-range">Level count outside plausible range<a class="headerlink" href="#level-count-outside-plausible-range" title="Permanent link">&para;</a></h3>
+<p><code>n_z</code> should fall within typical ranges for the domain:</p>
+<ul>
+<li>Atmosphere: 19–137 levels (flag if &lt; 10 or &gt; 200)</li>
+<li>Ocean: 25–75 levels (flag if &lt; 10 or &gt; 100)</li>
+<li>Soil: 4–20 layers</li>
+<li>Sea ice: 1–10 layers</li>
+</ul>
+<h3 id="total-thickness-outside-plausible-range">Total thickness outside plausible range<a class="headerlink" href="#total-thickness-outside-plausible-range" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Atmosphere: 30,000–85,000 m</li>
+<li>Ocean: 3,000–7,000 m</li>
+<li>Soil: 1–20 m</li>
+<li>Sea ice: 1–10 m</li>
+</ul>
+<h3 id="blank-descriptions-are-fine_1">Blank descriptions are fine<a class="headerlink" href="#blank-descriptions-are-fine_1" title="Permanent link">&para;</a></h3>
+<p>As with grid cells, an empty <code>description</code> on a vertical grid is intentional and correct.</p>
+<hr />
+<h2 id="model_component"><code>model_component</code><a class="headerlink" href="#model_component" title="Permanent link">&para;</a></h2>
+<p>Model component submissions are the most error-prone form type. They touch two files — the component definition and its configuration — and reviewers check both.</p>
+<h3 id="description-missing-or-describing-the-wrong-component">Description missing or describing the wrong component<a class="headerlink" href="#description-missing-or-describing-the-wrong-component" title="Permanent link">&para;</a></h3>
+<p>A blank or one-word description is flagged. The description should summarise what the component does scientifically — not just say "used in model X." Descriptions that clearly describe a different component type (e.g. an ocean description on an atmosphere component) should be flagged for rewriting.</p>
+<p>Descriptions will be used in broad communications such as the Copernicus Climate Change Service, so they should be written for a general scientific audience, not just as internal technical notes.</p>
+<h3 id="references-not-submitted-as-dois">References not submitted as DOIs<a class="headerlink" href="#references-not-submitted-as-dois" title="Permanent link">&para;</a></h3>
+<p>Literature references must use DOI format (<code>https://doi.org/...</code>), not bare URLs or PDF links. Submitters sometimes provide a direct link to a journal page or PDF instead.</p>
+<h3 id="version-strings-use-dots-instead-of-hyphens">Version strings use dots instead of hyphens<a class="headerlink" href="#version-strings-use-dots-instead-of-hyphens" title="Permanent link">&para;</a></h3>
+<p>EMD requires hyphen-separated version strings: <code>v1-1-3</code> not <code>v1.1.3</code>. Dot-separated versions should be flagged with a suggestion to use hyphens.</p>
+<h3 id="broken-or-unresolvable-reference-links">Broken or unresolvable reference links<a class="headerlink" href="#broken-or-unresolvable-reference-links" title="Permanent link">&para;</a></h3>
+<p>Check that reference URLs actually resolve. Broken links are common — especially for preprints or institutional repositories that have moved.</p>
+<hr />
+<h2 id="component_config"><code>component_config</code><a class="headerlink" href="#component_config" title="Permanent link">&para;</a></h2>
+<h3 id="horizontal-grid-reference-doesnt-match-the-component-domain">Horizontal grid reference doesn't match the component domain<a class="headerlink" href="#horizontal-grid-reference-doesnt-match-the-component-domain" title="Permanent link">&para;</a></h3>
+<p>The horizontal grid linked in the configuration must be scientifically appropriate for the component type. An ocean component config should not point to an atmosphere-only grid type, and vice versa.</p>
+<h3 id="vertical-grid-reference-doesnt-match-the-component-type">Vertical grid reference doesn't match the component type<a class="headerlink" href="#vertical-grid-reference-doesnt-match-the-component-type" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ocean_biogeochemistry</code> should share the ocean's vertical grid, not have its own atmospheric vertical grid.</li>
+<li><code>land_surface</code> should reference a soil-depth vertical grid, not an atmospheric one.</li>
+</ul>
+<h3 id="grid-references-point-to-unmerged-or-temporary-entries">Grid references point to unmerged or temporary entries<a class="headerlink" href="#grid-references-point-to-unmerged-or-temporary-entries" title="Permanent link">&para;</a></h3>
+<p>The configuration sometimes references grids that haven't been approved yet (still in <code>tempgrid_*</code> form). While these are renamed on merge, check that the referenced grid actually exists as a submitted entry.</p>
+<hr />
+<h2 id="model_family"><code>model_family</code><a class="headerlink" href="#model_family" title="Permanent link">&para;</a></h2>
+<h3 id="institution-identifiers-dont-match-the-cmip7-cvs">Institution identifiers don't match the CMIP7 CVs<a class="headerlink" href="#institution-identifiers-dont-match-the-cmip7-cvs" title="Permanent link">&para;</a></h3>
+<p>The <code>primary_institution</code> and <code>collaborative_institutions</code> fields must match valid entries in the <a href="https://github.com/WCRP-CMIP/CMIP7-CVs/tree/main/institution">CMIP7 Controlled Vocabularies</a>. Submitters often use informal abbreviations that don't correspond to any registered institution.</p>
+<h3 id="references-scoped-to-individual-components">References scoped to individual components<a class="headerlink" href="#references-scoped-to-individual-components" title="Permanent link">&para;</a></h3>
+<p>Model family references should describe the model <strong>as a whole</strong>, not individual components. Reviewers flag submissions that include papers about a specific ocean or atmosphere component — these belong on the component entry, not the family.</p>
+<h3 id="missing-collaborative-institutions">Missing collaborative institutions<a class="headerlink" href="#missing-collaborative-institutions" title="Permanent link">&para;</a></h3>
+<p>If the model family is developed across multiple institutions, the <code>collaborative_institutions</code> field should list them. There is a separate field for this — submitters sometimes try to list everything under <code>primary_institution</code>.</p>
+<hr />
+<h2 id="model"><code>model</code><a class="headerlink" href="#model" title="Permanent link">&para;</a></h2>
+<h3 id="realm-listed-in-both-dynamic-and-omitted-components">Realm listed in both dynamic and omitted components<a class="headerlink" href="#realm-listed-in-both-dynamic-and-omitted-components" title="Permanent link">&para;</a></h3>
+<p>A realm cannot appear in both <code>dynamic_components</code> and <code>omitted_components</code>. This is a logical contradiction that must be resolved.</p>
+<h3 id="realm-listed-in-both-dynamic-and-prescribed-components">Realm listed in both dynamic and prescribed components<a class="headerlink" href="#realm-listed-in-both-dynamic-and-prescribed-components" title="Permanent link">&para;</a></h3>
+<p>Similarly, a realm should not appear in both <code>dynamic_components</code> and <code>prescribed_components</code> without explanation.</p>
+<h3 id="embedded-component-coupling-errors">Embedded component coupling errors<a class="headerlink" href="#embedded-component-coupling-errors" title="Permanent link">&para;</a></h3>
+<p>Coupling topology is the hardest part of the model form to get right. Common mistakes:</p>
+<ul>
+<li>Listing both directions of an embedding (e.g. <code>aerosol-atmosphere</code> and <code>atmosphere-aerosol</code>) when only one direction is correct.</li>
+<li>An embedded realm also appearing in a coupling group — an embedded component should not also be separately coupled.</li>
+<li>Land ice listed as embedded without explanation — land ice is typically dynamic, not embedded.</li>
+</ul>
+<h3 id="model-description-too-technical-for-downstream-use">Model description too technical for downstream use<a class="headerlink" href="#model-description-too-technical-for-downstream-use" title="Permanent link">&para;</a></h3>
+<p>The model <code>description</code> will appear in climate service communications (e.g. Copernicus). A purely technical description is insufficient — it should give a high-level overview accessible to non-specialists.</p>
+<h3 id="release-year-implausible">Release year implausible<a class="headerlink" href="#release-year-implausible" title="Permanent link">&para;</a></h3>
+<p>Flag <code>release_year</code> if before 1990 or in the future.</p>
+<hr />
+<h2 id="general-all-file-types">General — all file types<a class="headerlink" href="#general-all-file-types" title="Permanent link">&para;</a></h2>
+<h3 id="what-not-to-flag">What not to flag<a class="headerlink" href="#what-not-to-flag" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>@id</code>, <code>@type</code>, <code>@context</code>, <code>validation_key</code>, <code>ui_label</code> — these are auto-generated infrastructure fields.</li>
+<li><code>tempgrid_*</code> values — temporary identifiers, renamed on merge.</li>
+<li>Empty <code>description</code> on grid files — intentional and correct.</li>
+<li>Filenames, JSON structure, field formats — syntax is out of scope; focus on science.</li>
+</ul>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 shadow-none"
-        href="/Information_for_Submitters/What_to_expect_on_submission/">
+        href="/Reviewer_Guidance/Interpreting_The_Review_Summary/">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-left ">
@@ -443,14 +503,14 @@ links, plus any family-level references. This helps give us an understanding of 
             <path d="M5 12l6 6"></path>
             <path d="M5 12l6 -6"></path>
         </svg>
-        <span class="max-[500px]:hidden">What to expect on submission</span>
+        <span class="max-[500px]:hidden">Interpreting The Review Summary</span>
     </a>
     
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 ml-auto shadow-none"
-        href="/Reviewer_Guidance/Interpreting_The_Review_Summary/">
-        <span class="max-[500px]:hidden">Interpreting The Review Summary</span>
+        href="/Reviewer_Guidance/Review_Options/">
+        <span class="max-[500px]:hidden">Review Options</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-right ">
@@ -483,19 +543,19 @@ links, plus any family-level references. This helps give us an understanding of 
                 <div class="text-muted-foreground text-sm font-medium">Menu</div>
                 <div class="flex flex-col gap-3">
                     
-                    <a class="text-2xl font-medium" href="../../../FAQ/">
+                    <a class="text-2xl font-medium" href="../../FAQ/">
                         
                         FAQ
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../../..">
+                    <a class="text-2xl font-medium" href="../..">
                         
                         Home
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../../../Progress_Feed/">
+                    <a class="text-2xl font-medium" href="../../Progress_Feed/">
                         
                         Progress Feed
                         
@@ -513,13 +573,13 @@ links, plus any family-level references. This helps give us an understanding of 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../../Developer_Guidance/Github%20Actions%2C%20Workflows_and_Automation/">
+                        <a class="text-2xl font-medium" href="../../Developer_Guidance/Github%20Actions%2C%20Workflows_and_Automation/">
                             
                             Github Actions, Workflows and Automation
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Developer_Guidance/Issue_Templates/">
+                        <a class="text-2xl font-medium" href="../../Developer_Guidance/Issue_Templates/">
                             
                             Issue Templates
                             
@@ -534,73 +594,73 @@ links, plus any family-level references. This helps give us an understanding of 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/Horizontal_Computational_Grids/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/Horizontal_Computational_Grids/">
                             
                             Horizontal Computational Grids
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/Horizontal_Grid_Cells/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/Horizontal_Grid_Cells/">
                             
                             Horizontal Grid Cells
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/Model_Components/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/Model_Components/">
                             
                             Model Components
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/Models/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/Models/">
                             
                             Models
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/Vertical_Computational_Grids/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/Vertical_Computational_Grids/">
                             
                             Vertical Computational Grids
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_component_families/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_component_families/">
                             
                             View component families
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_earth_system_model_families/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_earth_system_model_families/">
                             
                             View earth system model families
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_horizontal_computational_grids/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_horizontal_computational_grids/">
                             
                             View horizontal computational grids
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_horizontal_grid_cells/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_horizontal_grid_cells/">
                             
                             View horizontal grid cells
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_model_components/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_model_components/">
                             
                             View model components
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_models/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_models/">
                             
                             View models
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_Repository/view_vertical_computational_grids/">
+                        <a class="text-2xl font-medium" href="../../EMD_Repository/view_vertical_computational_grids/">
                             
                             View vertical computational grids
                             
@@ -615,7 +675,7 @@ links, plus any family-level references. This helps give us an understanding of 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../../EMD_health/">
+                        <a class="text-2xl font-medium" href="../../EMD_health/">
                             
                             Index
                             
@@ -630,31 +690,31 @@ links, plus any family-level references. This helps give us an understanding of 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../../Information_for_Submitters/Error_Meanings/">
+                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Error_Meanings/">
                             
                             Error Meanings
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Information_for_Submitters/Registering_an_Institution/">
+                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Registering_an_Institution/">
                             
                             Registering an Institution
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Information_for_Submitters/Submission-Guide/">
+                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Submission-Guide/">
                             
                             Submission Guide
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Information_for_Submitters/Using_GitHub_Forms/">
+                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/Using_GitHub_Forms/">
                             
                             Using GitHub Forms
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Information_for_Submitters/What_to_expect_on_submission/">
+                        <a class="text-2xl font-medium" href="../../Information_for_Submitters/What_to_expect_on_submission/">
                             
                             What to expect on submission
                             
@@ -678,25 +738,25 @@ links, plus any family-level references. This helps give us an understanding of 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../../Reviewer_Guidance/Interpreting_The_Review_Summary/">
+                        <a class="text-2xl font-medium" href="../Interpreting_The_Review_Summary/">
                             
                             Interpreting The Review Summary
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Reviewer_Guidance/Review_Checklist/">
+                        <a class="text-2xl font-medium" href="./">
                             
                             Review Checklist
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Reviewer_Guidance/Review_Options/">
+                        <a class="text-2xl font-medium" href="../Review_Options/">
                             
                             Review Options
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../../Reviewer_Guidance/Reviewer_Information/">
+                        <a class="text-2xl font-medium" href="../Reviewer_Information/">
                             
                             Reviewer Information
                             
@@ -727,75 +787,275 @@ links, plus any family-level references. This helps give us an understanding of 
         
         
         
-        <a href="#1-header-model-picker"
+        <a href="#horizontal_grid_cell"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#1-header-model-picker');">
-            1. Header &amp; model picker
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#horizontal_grid_cell');">
+            horizontal_grid_cell
         </a>
+        
+        
+        <a href="#grid-type-vs-domain-mismatch"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#grid-type-vs-domain-mismatch');">
+            Grid type vs. domain mismatch
+        </a>
+        
+        <a href="#resolution-inconsistent-with-grid-type"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#resolution-inconsistent-with-grid-type');">
+            Resolution inconsistent with grid type
+        </a>
+        
+        <a href="#cell-count-doesnt-match-resolution"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#cell-count-doesnt-match-resolution');">
+            Cell count doesn't match resolution
+        </a>
+        
+        <a href="#duplicate-of-an-existing-grid-cell"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#duplicate-of-an-existing-grid-cell');">
+            Duplicate of an existing grid cell
+        </a>
+        
+        <a href="#blank-descriptions-are-fine"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#blank-descriptions-are-fine');">
+            Blank descriptions are fine
+        </a>
+        
         
 
         
-        <a href="#2-overview"
+        <a href="#horizontal_computational_grid"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#2-overview');">
-            2. Overview
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#horizontal_computational_grid');">
+            horizontal_computational_grid
         </a>
+        
+        
+        <a href="#subgrid-variables-combined-into-one-entry"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#subgrid-variables-combined-into-one-entry');">
+            Subgrid variables combined into one entry
+        </a>
+        
+        <a href="#orphaned-grid-cells"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#orphaned-grid-cells');">
+            Orphaned grid cells
+        </a>
+        
+        <a href="#units-missing-or-wrong"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#units-missing-or-wrong');">
+            Units missing or wrong
+        </a>
+        
+        <a href="#no-scientific-concerns-on-structure"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#no-scientific-concerns-on-structure');">
+            No scientific concerns on structure
+        </a>
+        
         
 
         
-        <a href="#3-coupling-topology-crs"
+        <a href="#vertical_computational_grid"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#3-coupling-topology-crs');">
-            3. Coupling topology (CRS)
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#vertical_computational_grid');">
+            vertical_computational_grid
         </a>
+        
+        
+        <a href="#top-and-bottom-layer-thickness-swapped"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#top-and-bottom-layer-thickness-swapped');">
+            Top and bottom layer thickness swapped
+        </a>
+        
+        <a href="#bottom-layer-thickness-equal-to-total-thickness"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#bottom-layer-thickness-equal-to-total-thickness');">
+            Bottom layer thickness equal to total thickness
+        </a>
+        
+        <a href="#missing-thickness-and-metadata-fields"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#missing-thickness-and-metadata-fields');">
+            Missing thickness and metadata fields
+        </a>
+        
+        <a href="#vertical-coordinate-inappropriate-for-domain"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#vertical-coordinate-inappropriate-for-domain');">
+            Vertical coordinate inappropriate for domain
+        </a>
+        
+        <a href="#level-count-outside-plausible-range"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#level-count-outside-plausible-range');">
+            Level count outside plausible range
+        </a>
+        
+        <a href="#total-thickness-outside-plausible-range"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#total-thickness-outside-plausible-range');">
+            Total thickness outside plausible range
+        </a>
+        
+        <a href="#blank-descriptions-are-fine_1"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#blank-descriptions-are-fine_1');">
+            Blank descriptions are fine
+        </a>
+        
         
 
         
-        <a href="#4-references"
+        <a href="#model_component"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#4-references');">
-            4. References
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#model_component');">
+            model_component
         </a>
+        
+        
+        <a href="#description-missing-or-describing-the-wrong-component"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#description-missing-or-describing-the-wrong-component');">
+            Description missing or describing the wrong component
+        </a>
+        
+        <a href="#references-not-submitted-as-dois"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#references-not-submitted-as-dois');">
+            References not submitted as DOIs
+        </a>
+        
+        <a href="#version-strings-use-dots-instead-of-hyphens"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#version-strings-use-dots-instead-of-hyphens');">
+            Version strings use dots instead of hyphens
+        </a>
+        
+        <a href="#broken-or-unresolvable-reference-links"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#broken-or-unresolvable-reference-links');">
+            Broken or unresolvable reference links
+        </a>
+        
         
 
         
-        <a href="#5-model-family"
+        <a href="#component_config"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#5-model-family');">
-            5. Model family
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#component_config');">
+            component_config
         </a>
+        
+        
+        <a href="#horizontal-grid-reference-doesnt-match-the-component-domain"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#horizontal-grid-reference-doesnt-match-the-component-domain');">
+            Horizontal grid reference doesn't match the component domain
+        </a>
+        
+        <a href="#vertical-grid-reference-doesnt-match-the-component-type"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#vertical-grid-reference-doesnt-match-the-component-type');">
+            Vertical grid reference doesn't match the component type
+        </a>
+        
+        <a href="#grid-references-point-to-unmerged-or-temporary-entries"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#grid-references-point-to-unmerged-or-temporary-entries');">
+            Grid references point to unmerged or temporary entries
+        </a>
+        
         
 
         
-        <a href="#6-emd-schema-interactive-graph"
+        <a href="#model_family"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#6-emd-schema-interactive-graph');">
-            6. EMD schema (interactive graph)
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#model_family');">
+            model_family
         </a>
+        
+        
+        <a href="#institution-identifiers-dont-match-the-cmip7-cvs"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#institution-identifiers-dont-match-the-cmip7-cvs');">
+            Institution identifiers don't match the CMIP7 CVs
+        </a>
+        
+        <a href="#references-scoped-to-individual-components"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#references-scoped-to-individual-components');">
+            References scoped to individual components
+        </a>
+        
+        <a href="#missing-collaborative-institutions"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#missing-collaborative-institutions');">
+            Missing collaborative institutions
+        </a>
+        
         
 
         
-        <a href="#7-components-in-detail"
+        <a href="#model"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#7-components-in-detail');">
-            7. Components in detail
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#model');">
+            model
         </a>
+        
+        
+        <a href="#realm-listed-in-both-dynamic-and-omitted-components"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#realm-listed-in-both-dynamic-and-omitted-components');">
+            Realm listed in both dynamic and omitted components
+        </a>
+        
+        <a href="#realm-listed-in-both-dynamic-and-prescribed-components"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#realm-listed-in-both-dynamic-and-prescribed-components');">
+            Realm listed in both dynamic and prescribed components
+        </a>
+        
+        <a href="#embedded-component-coupling-errors"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#embedded-component-coupling-errors');">
+            Embedded component coupling errors
+        </a>
+        
+        <a href="#model-description-too-technical-for-downstream-use"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#model-description-too-technical-for-downstream-use');">
+            Model description too technical for downstream use
+        </a>
+        
+        <a href="#release-year-implausible"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#release-year-implausible');">
+            Release year implausible
+        </a>
+        
         
 
         
-        <a href="#8-grids"
+        <a href="#general-all-file-types"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#8-grids');">
-            8. Grids
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#general-all-file-types');">
+            General — all file types
         </a>
         
-
         
-        <a href="#9-model-record-json"
+        <a href="#what-not-to-flag"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#9-model-record-json');">
-            9. Model record (JSON)
+            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('#what-not-to-flag');">
+            What not to flag
         </a>
+        
         
 
         
@@ -833,11 +1093,11 @@ links, plus any family-level references. This helps give us an understanding of 
     </div>
      
 
-<script src="../../../stylesheets/custom.js"></script>
+<script src="../../stylesheets/custom.js"></script>
 
      
 
-<script src="../../../stylesheets/embed.js"></script>
+<script src="../../stylesheets/embed.js"></script>
 
      
 
@@ -851,11 +1111,11 @@ links, plus any family-level references. This helps give us an understanding of 
     
 
     <script integrity="sha384-JLNLRFGzvOp0up707XKgSnAjjt1w5BF/+lbeLQvlf6mNwf0m89IXFdpNAk4t6Hcs"
-        src="../../../js/copy-button.js"></script>
+        src="../../js/copy-button.js"></script>
     <script integrity="sha384-JBx6cBEiyhK1KPwZgBHiI6GDaAmvlOxMQFyWAZTEpW5Ifo5XQ2LBcJ61GVOumwF1"
-        src="../../../js/sidebar.js"></script>
+        src="../../js/sidebar.js"></script>
     <script integrity="sha384-fNURFMRt0p/HqXnQnV4+CT9dX1GiU5F0fC3pFbg7gfoANytoUMErSW7suWSBkSuF"
-        src="../../../js/slider.js"></script>
+        src="../../js/slider.js"></script>
     <script>updatePygmentsStylesheet();</script>
     
     
@@ -871,7 +1131,7 @@ links, plus any family-level references. This helps give us an understanding of 
   ]
 }
 </script>
-  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../../";
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
 
 (function(){
 var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "link", "label": "Progress Tracker", "url": "/Progress_Tracker.html"}, {"type": "group", "label": "Information for Submitters", "url": "/Information_for_Submitters/", "children": [{"type": "link", "label": "Submission Guide", "url": "/Information_for_Submitters/Submission-Guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Information_for_Submitters/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an Institution", "url": "/Information_for_Submitters/Registering_an_Institution/"}, {"type": "link", "label": "Using GitHub Forms", "url": "/Information_for_Submitters/Using_GitHub_Forms/"}, {"type": "link", "label": "Error Meanings", "url": "/Information_for_Submitters/Error_Meanings/"}]}, {"type": "group", "label": "Developer Guidance", "url": "/Developer_Guidance/", "children": [{"type": "link", "label": "Find your submissions", "url": "/Developer_Guidance/find_your_submissions.html"}, {"type": "link", "label": "Github Actions, Workflows and Automation", "url": "/Developer_Guidance/Github Actions, Workflows_and_Automation/"}, {"type": "link", "label": "Issue Templates", "url": "/Developer_Guidance/Issue_Templates/"}]}, {"type": "link", "label": "Model", "url": "/Model/"}, {"type": "link", "label": "EMD health", "url": "/EMD_health/"}, {"type": "group", "label": "Reviewer Guidance", "url": "/Reviewer_Guidance/", "children": [{"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Guidance/Reviewer_Information/"}, {"type": "link", "label": "Interpreting The Review Summary", "url": "/Reviewer_Guidance/Interpreting_The_Review_Summary/"}, {"type": "link", "label": "Review Options", "url": "/Reviewer_Guidance/Review_Options/"}, {"type": "link", "label": "Review Checklist", "url": "/Reviewer_Guidance/Review_Checklist/"}]}, {"type": "link", "label": "Progress Feed", "url": "/Progress_Feed/"}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}];
