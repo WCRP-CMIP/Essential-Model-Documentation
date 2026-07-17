@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784291058",
+    "ui_label": "",
+    "description": "V-point variables (e.g. vo) at top cell edges on the eORCA1 tripolar grid (120184 cells).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g169-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784291058"
+}
