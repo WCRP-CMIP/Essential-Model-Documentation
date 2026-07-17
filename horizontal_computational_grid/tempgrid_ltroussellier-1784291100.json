@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784291100",
+    "ui_label": "",
+    "description": "F-point variables (vorticity) at cell corners on the eORCA1 tripolar grid (120184 cells).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g186-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784291100"
+}
