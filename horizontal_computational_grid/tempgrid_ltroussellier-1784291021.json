@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784291021",
+    "ui_label": "",
+    "description": "U-point variables (e.g. uo) at right cell edges on the eORCA1 tripolar grid (120184 cells).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g168-x-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784291021"
+}
