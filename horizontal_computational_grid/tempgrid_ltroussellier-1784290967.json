@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784290967",
+    "ui_label": "",
+    "description": "T-point variables (e.g. tos, so, thetao) at cell centers on the eORCA1 tripolar grid (120184 cells).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g112-mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784290967"
+}
