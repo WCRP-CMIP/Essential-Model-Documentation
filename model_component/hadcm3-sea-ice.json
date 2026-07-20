@@ -1,7 +1,7 @@
 {
     "validation_key": "hadcm3-sea-ice",
     "ui_label": "HadCM3 sea-ice",
-    "description": "treatment of ocean sea-ice",
+    "description": "In HadCM3 Gordon et al. (2000), the sea ice component is a relatively simple thermodynamic–dynamic model embedded in the ocean model (HadOM3). The scheme simulates sea ice thickness and fractional coverage and exchange of heat, freshwater and momentum with the atmosphere and ocean, allowing ice growth and melt in response to the surface energy balance. Sea ice motion is represented primarily through advection by ocean currents, rather than a full viscous–plastic rheology or detailed internal ice mechanics.",
     "code_base": "private",
     "component": "sea-ice",
     "family": "",
