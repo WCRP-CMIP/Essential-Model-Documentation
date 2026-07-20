@@ -1,0 +1,91 @@
+name: Regenerate Missing CRS Strings
+
+on:
+  workflow_dispatch:
+    inputs:
+      model_files:
+        description: 'Specific model files to process (comma-separated, leave empty for all)'
+        required: false
+        default: ''
+      commit_message:
+        description: 'Custom commit message (leave empty for default)'
+        required: false
+        default: ''
+
+jobs:
+  regenerate-crs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install cmipld and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install cmipld
+      
+      - name: Run CRS regeneration script
+        id: regenerate
+        run: |
+          if [ -z "${{ github.event.inputs.model_files }}" ]; then
+            echo "Processing all model files..."
+            python .github/scripts/regenerate_crs.py
+          else
+            echo "Processing specific files: ${{ github.event.inputs.model_files }}"
+            # Split comma-separated list and process each file
+            files="${{ github.event.inputs.model_files }}"
+            python .github/scripts/regenerate_crs.py ${files//,/ }
+          fi
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet model/; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in model files"
+            git diff --stat model/
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Determine commit message
+          if [ -z "${{ github.event.inputs.commit_message }}" ]; then
+            COMMIT_MSG="chore: regenerate missing CRS strings in model files"
+          else
+            COMMIT_MSG="${{ github.event.inputs.commit_message }}"
+          fi
+          
+          git add model/
+          git commit -m "$COMMIT_MSG"
+          git push
+          
+          echo "✓ Changes committed and pushed"
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## CRS Regeneration Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_changes.outputs.has_changes }}" = "true" ]; then
+            echo "✅ Changes detected and pushed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Modified Files:" >> $GITHUB_STEP_SUMMARY
+            git diff --name-only model/ | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ No changes required - all files have CRS strings" >> $GITHUB_STEP_SUMMARY
+          fi
