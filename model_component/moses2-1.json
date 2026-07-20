@@ -1,0 +1,22 @@
+{
+    "validation_key": "moses2-1",
+    "ui_label": "MOSES2.1",
+    "description": "MOSES2 (Met Office Surface Exchange Scheme version 2) represents each model grid box using an explicit tile-based representation of subgrid heterogeneity, allowing each grid box to contain a mixture of vegetation and surface types with very different flux characteristics. Each grid box is divided into fractions of up to nine surface types (broadleaf trees, needleleaf trees, C3 grass, C4 grass, shrubs, urban surfaces, inland water, bare soil, and ice). Separate calculations are performed for each tile, including surface temperature, radiation balance, sensible and latent heat fluxes, canopy interception, snow storage, and melt. Grid-box fluxes are then obtained as area-weighted averages of the individual tile fluxes. This approach allows strongly nonlinear relationships between surface state and turbulent fluxes to be represented more realistically than with effective parameters alone.
+
+Surface heat, moisture, and momentum fluxes are calculated using Monin–Obukhov similarity theory and a Penman–Monteith framework for evapotranspiration. The soil column is represented using multiple layers that prognose both soil temperature and soil moisture, with water movement governed by hydraulic properties linked to soil texture. Vegetation regulates transpiration through canopy and stomatal resistance parameterizations, while rainfall interception, throughfall, soil evaporation, runoff generation, and snow accumulation and melt are explicitly represented.
+
+It simulates prognostic vegetation characteristics including leaf area index and vegetation height rather than prescribing them as static values and represents dynamic vegetation coverage via competition between PFTs with a Lotka-Volterra competition scheme (TRIFFID). The tile structure allowing vegetation fractions to evolve through time while maintaining distinct surface flux calculations for different plant functional types.",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1175/1525-7541(2003)004<0530:EROSHI>2.0.CO;2 https://doi.org/10.1016/S0022-1694(98)00203-0"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "moses2-1"
+}
