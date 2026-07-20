@@ -1,0 +1,24 @@
+{
+    "validation_key": "hadcm3-aerosol",
+    "ui_label": "HadCM3 aerosol",
+    "description": "The interactive sulphur-cycle aerosol model in HadCM3 takes Sulphur emissions (SO₂), transported by the model circulation, chemically converted to sulphate aerosol, and removed by dry and wet deposition and therefore simulates the spatial and temporal distribution of sulphate aerosol. Sulphate mass concentrations were then used to calculate aerosol optical properties and cloud microphysical effects.
+
+For the direct aerosol effect, sulphate particles were treated as predominantly scattering aerosols that increase planetary albedo by reflecting incoming solar radiation back to space. The radiative calculations use the modelled sulphate burden to modify shortwave radiation directly, producing a negative (cooling) forcing.
+
+The first indirect effect (Twomey effect) is represented by diagnosing cloud droplet number concentrations from sulphate aerosol concentrations. Increased sulphate can produce more cloud condensation nuclei, resulting in larger droplet number concentrations and smaller mean droplet radii for a given liquid-water content. Smaller droplets increase cloud reflectivity, enhancing shortwave reflection and producing additional cooling.
+
+The model additionally includes the second indirect effect (cloud lifetime effect) through linking cloud droplet size to autoconversion of cloud water into rain. Smaller cloud droplets suppress precipitation formation, increasing cloud liquid water and extending cloud lifetime.",
+    "code_base": "private",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2000JD000089 https://doi.org/10.1002/qj.49712455117"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadcm3-aerosol"
+}
