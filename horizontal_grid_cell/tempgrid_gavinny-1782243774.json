@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_gavinny-1782243774",
+    "ui_label": "Horizontal grid cell with a stretched grid type and 1.25 x 1 degree resolution.",
+    "description": "The stretching is equatorward of 60 degrees, to maintain constant geometric aspect ratios in that domain.  As a function of the uniformly spaced coordinate y  y = [-nj,...,-2,-1,0,+1,+2,...,nj]*dy  edge latitude(y) = asin((exp(2*y)-1)/(exp(2*y)+1))  where  dy = log((1+sin(latbound))/cos(latbound))/nj, latbound = pi/3 = 60 degrees, nj=75 for the nominal 1-degree resolution.  poleward of latbound, edge latitudes have a uniform 0.5-degree spacing for the nominal 1-degree resolution.",
+    "alias": [
+        "GISS Ocean Stretched Latitude Mass"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "stretched",
+    "n_cells": 77760,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 180,
+    "x_resolution": 1.25,
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_gavinny-1782243774"
+}
