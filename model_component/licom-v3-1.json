@@ -1,0 +1,24 @@
+{
+    "validation_key": "licom-v3-1",
+    "ui_label": "LICOM v3.1",
+    "description": "LICOM is a global ocean general circulation model developed by LASG/IAP of the Chinese Academy of Sciences (Zhang and Liang, 1989; Liu et al., 2004, 2012; Yu et al., 2018). LICOM(v3.1) is an ocean general circulation model with a free sea surface and Arakawa B grid, and uses the primitive equations with Boussinesq and hydrostatic approximations. It has been extensively upgraded since LICOM2. First, the coordinates of the dynamical core have been replaced by arbitrary orthogonal curvilinear coordinates (Yu et al., 2018). Therefore, the tripolar grid from Murray (1996) can be applied in CAS-LICOM3, with two North Poles, on the Eurasian (55°N, 95°E) and North American (55°N, 85°W) continents, respectively. Second, the central difference scheme is used in the momentum equations and the Leapfrog format with an Asselin filter is used for the time integration of the momentum equations. Additionally, the two-step preserving shape advection scheme (Yu, 1994; Xiao, 2006) and implicit vertical viscosity/diffusivity (Yu et al., 2018) were adopted for the tracer equations. Third, with regard to the physical processes, the St. Laurent et al. (2002) internal tidal mixing scheme has been introduced into CAS-LICOM3 (Yu et al., 2017). The vertical viscosity and diffusion coefficients in the mixed layer are computed by the scheme of Canuto et al. (2001, 2002), with background values of 2 × 10−6 m2 s−1 and upper limit of 2 × 10−2 m2 s−1. Besides, the chlorophyll-a dependent solar penetration of Ohlmann (2003) introduced by Lin et al. (2007) was also implemented in LICOM(v3.1).",
+    "code_base": "Private",
+    "component": "ocean",
+    "family": "licom",
+    "references": [
+        "Li",
+        "Y. W.",
+        "and Coauthors",
+        "2020: Eddy-resolving simulation of CAS-LICOM3 for phase 2 of the Ocean Model Intercomparison Project.. Adv. Atmos. Sci.",
+        "37(10)",
+        "1067−1080",
+        "https://doi.org/10.1007/s00376-020-0057-z."
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "licom-v3-1"
+}
