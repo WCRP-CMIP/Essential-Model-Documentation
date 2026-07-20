@@ -1,0 +1,43 @@
+{
+    "validation_key": "licom-v2-0",
+    "ui_label": "LICOM v2.0",
+    "description": "The LICOM ocean general circulation model is a global ocean circulation model independently developed by the Ocean Modelling Group at the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). It aims to provide a numerical ocean model capable of simulating large-scale wind-driven circulation and thermohaline circulation, serving as the oceanic component of coupled climate models (referred to as the climate ocean model). Various key physical processes in LICOM2 have been improved, including the vertical turbulent mixing scheme, the solar radiation penetration scheme (Lin et al., 2007), the advection scheme (Xiao and Yu, 2006), and the upper layer taping scheme in the mesoscale eddy parameterization. Besides, the meridional resolution between 10◦S and 10◦N (Liu et al., 2004a) and the vertical resolution in the upper 150 m (Wu et al., 2005) are also increased to better resolve the equatorial wave-guide and the tropical thermocline, respectively. Because of the smaller length scale, which is always measured by the first baroclinic Rossby radius of deformation, in the ocean than that in the atmosphere, the horizontal resolution is crucial for ocean circulation simulation. To better resolve the equatorial wave-guide with an acceptable computational cost, the meridional resolution between 10◦S and 10◦N has been increased from 1◦ to 0.5◦. To improve the simulation of the upper ocean, the vertical level of LICOM has been rearranged following Wu et al. (2005). The number of levels in the upper 150 m has been more than doubled, increasing from 6 to 15 levels. Besides the resolution, the physical parameterization schemes have also been improved in LICOM2. First, the scheme dependent on Richardson number (Pacanowski and Philander, 1981; called PP scheme hereafter) for vertical turbulence mixing was replaced by a second-order turbulence closure model of Canuto et al. (2001, 2002; called Canuto scheme hereafter). The PP scheme intends to describe the mixing in the tropical thermocline where the mixing is mainly due to large velocity shear close to EUC. Therefore, the PP scheme is only valid in the tropics, usually from 30◦S to 30◦N. The Canuto scheme is valid globally; it includes not only the mixing due to the velocity shear but also the mixing due to the internal-wave break and double diffusion. After using the Canuto scheme, the discontinuity of water properties between the tropics and extra-tropics has been eliminated since the same vertical mixing scheme is applied over the entire model domain. Thus, the horizontal viscosity can be reduced from 2×104 to 3×103 m2 s−1. Second, we have modified the mesoscale eddy parameterization of Gent and McWilliams (1990; called GM90 hereafter), which is usually used to replace the horizontal mixing and to correct the spurious diapycnal mixing in the z-coordinate ocean model. The scheme in LICOM2 is adopted from MOM version 2 (Jin et al., 1999) with the isopycnal mixing and thickness mixing coefficients both assigned to 1000 m2 s−1, and the maximum slope of isophycnals set to 0.01. To reduce the mesoscale mixing in the upper layer, the isopycnal and thickness diffusivities have been tapered by the method of Large et al. (1997). Additionally, in order to simulate a stronger Antarctic Circumpolar Circulation (ACC), the isopycnal and thickness mixing coefficients are reduced from 1000 to 500 m2 s−1 following Danabasoglu and McWilliams (1995). Third, the two-exponent scheme with constant coefficients of Paulson and Simpson (1977; called PS77 hereafter), has been substituted by a scheme of Ohlmann (2003), in which all the parameters are functions of chlorophyll concentration. Lin et al. (2007) compared the differences of SST between the two schemes in the eastern equatorial Pacific. In addition, a shape-preserving advection scheme of Yu (1994) was incorporated into LICOM2 by Xiao and Yu (2006). The excessive equatorial cold tongue has been significantly reduced due to the improvement of the advection scheme. Therefore, in the present study, we still use the Yu (1994) scheme in the experiment.",
+    "code_base": "Private",
+    "component": "ocean",
+    "family": "licom",
+    "references": [
+        "Liu Hailong",
+        "Lin Pengfei",
+        "Yu Yongqiang",
+        "et al.",
+        "2012: The baseline evaluation of LASG/IAP Climate system Ocean Model (LICOM) version 2. Acta Meteor. Sinica",
+        "26(3)",
+        "318–329",
+        "doi: https://doi.org/10.1007/s13351-012-0305-y. Dong",
+        "X.",
+        "and Coauthors",
+        "2021: CAS-ESM2.0 model datasets for the CMIP6 Ocean Model Intercomparison Project Phase 1 (OMIP1). Adv. Atmos. Sci.",
+        "38(2)",
+        "307−316",
+        "https://doi.org/10.1007/s00376-020-0150-3. Jiangbo Jin",
+        "Hailong Liu",
+        "Xiao Dong",
+        "Juanxiong He",
+        "Xin Gao",
+        "Yi Yu",
+        "He Zhang",
+        "Minghua Zhang",
+        "Qingcun Zeng",
+        "2022: The effects of redistributed heat flux on ocean climate change in FAFMIP heat flux anomaly experiments. Ocean Modelling",
+        "176(102063)",
+        "1463-5003",
+        "https://doi.org/10.1016/j.ocemod.2022.102063."
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "licom-v2-0"
+}
