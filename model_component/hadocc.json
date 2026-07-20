@@ -1,0 +1,18 @@
+{
+    "validation_key": "hadocc",
+    "ui_label": "HadOCC",
+    "description": "HadOCC (Palmer & Totterdell 2001) is a computationally efficient ocean biogeochemistry model for coupling to HadCM3. It combines a simple NPZD ecosystem (nutrient–phytoplankton–zooplankton–detritus) with an explicit representation of ocean carbon chemistry. It carries prognostic tracers for dissolved inorganic carbon (DIC), total alkalinity, a single nitrogen-based nutrient, phytoplankton, zooplankton and sinking detritus. Primary production is controlled by light and nutrient availability, phytoplankton are grazed by a generic zooplankton compartment, and organic matter is exported to depth via sinking detritus, thereby representing the biological pump. Carbon and nitrogen are linked through fixed stoichiometric ratios, and the model includes both soft-tissue export (organic matter) and hard-tissue export (calcium carbonate production). Air–sea CO₂ exchange is calculated from the difference between atmospheric and surface-ocean pCO₂, with surface pCO₂ itself derived from DIC, alkalinity, temperature and salinity using standard carbonate chemistry relationships.",
+    "code_base": "private",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1016/S0967-0637(00)00080-7"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadocc"
+}
