@@ -20,7 +20,7 @@ This form registers a single model component — its name, scientific domain, an
 2. Key physics/parameterizations
 3. Notable features of this version",,
 6,input,code_base,Code Repository,The URL to the source code repository or 'private' if not publicly available.,none,false,https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6,,
-7,textarea,references,Reference DOIs,The DOI URLs for publications describing this component.,none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
+7,textarea,references,Reference DOIs,"The DOI URLs for publications describing this component. If you do not have new references, you can: upload technical materials to [Zenodo](https://zenodo.org/) for a free DOI, reference historic papers that directly pre-date this component version, or use `https://paper.under.review` as a placeholder for papers under review (submit an edit request on publication).",none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
 8,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3...",,
 9,markdown,metadata_header,,"---
 
