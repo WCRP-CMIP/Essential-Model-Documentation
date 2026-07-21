@@ -1,0 +1,21 @@
+{
+    "validation_key": "cice4-0",
+    "ui_label": "CICE4.0",
+    "description": "CICE4.0 is a comprehensive sea ice model that simulates both thermodynamic and dynamic processes, including ice advection and mechanical redistribution, using an ice-thickness distribution to capture subgrid-scale variability. Its physics are driven by an elastic-viscous-plastic (EVP) rheology for ice dynamics and advanced thermodynamics with shortwave radiation schemes like Delta-Eddington to improve albedo and melt estimates. A notable feature of this version is its flexible coupling design, allowing easy integration with different ocean and atmosphere models to enhance polar climate simulations.",
+    "code_base": "private",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "Hunke",
+        "E.",
+        "and W. Lipscomb",
+        "2010: CICE: The Los Alamos sea ice model documentation and software user's manual version 4.0 LA-CC-06-012. Tech. Rep. LA-CC-06-012.（https://www.researchgate.net/publication/237249046_CICE_The_Los_Alamos_sea_ice_model_documentation_and_software_user's_manual_version_40_LA-CC-06-012)"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cice4-0"
+}
