@@ -1,0 +1,19 @@
+{
+    "validation_key": "tempgrid_matsbn-1784645900",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g203-mass",
+        "g213-x-velocity",
+        "g204-y-velocity",
+        "g205-vorticity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_matsbn-1784645900"
+}
