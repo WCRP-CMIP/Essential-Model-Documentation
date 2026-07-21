@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784295896",
+    "ui_label": "depth grid with 11 levels.",
+    "description": "Vegetated and bare soil land units have 11 layers for the hydrology up to 2 meters and an additional 18 layers for the thermic up to 90 m. Snow can have up to 3 layers.",
+    "bottom_layer_thickness": 0.5,
+    "n_z": 11,
+    "n_z_range": "",
+    "top_layer_thickness": 0.001,
+    "total_thickness": 90,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784295896"
+}
