@@ -632,7 +632,8 @@ body:
     id: references
     attributes:
       label: Reference DOIs
-      description: The DOI URLs for family-level publications.
+      description: |
+        The DOI URLs for family-level publications. If you do not have new references, you can: upload technical materials to [Zenodo](https://zenodo.org/) for a free DOI, reference historic papers that directly pre-date this family version, or use `https://paper.under.review` as a placeholder for papers under review (submit an edit request on publication).
       placeholder: "https://doi.org/10.1029/2019MS001995"
 
   - type: markdown
