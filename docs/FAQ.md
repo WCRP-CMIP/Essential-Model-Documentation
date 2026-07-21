@@ -44,7 +44,12 @@ Ideally yes. Note that grids require more rigorous review than other fields beca
 **Can I change a grid description that has already been registered?** <br>
 No. Your grid description may have been used by another modelling group so we would ask you to submit a new grid description.
 
+**I do not have any new references for my model, what do I add to the DOIs field?**  
+You have several options:
 
+- **Upload technical materials to Zenodo** — Add any technical documentation, PDFs, or model descriptions to [Zenodo](https://zenodo.org/). You can generate a free DOI for your upload.
+- **Reference historic papers** — If relevant, reference any historic or foundational papers that directly pre-date your model version.
+- **Use a placeholder for in-review papers** — For papers currently under review, you can add `https://paper.under.review` as a placeholder. Submit an edit request on publication to add the correct DOI.
 
 ---
 
