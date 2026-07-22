@@ -1,0 +1,31 @@
+{
+    "validation_key": "tempgrid_yuzp-good-1784091134",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 0.1 x 0.1 degree resolution.",
+    "description": "",
+    "alias": [
+        "LICOM3.1",
+        "0.1-degree",
+        "3600x2302"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 8287200,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -76,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.1,
+    "y_resolution": 0.1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_yuzp-good-1784091134"
+}
