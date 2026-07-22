@@ -1,0 +1,27 @@
+{
+  "validation_key": "g221",
+  "ui_label": "Horizontal grid cell with a displaced pole grid type and 0.5 x 0.25 degree resolution.",
+  "description": "",
+  "alias": [],
+  "grid_mapping": "rotated-latitude-longitude",
+  "grid_type": "displaced-pole",
+  "n_cells": 518400,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.875,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 0.25,
+  "x_resolution": 0.5,
+  "y_resolution": 0.25,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g221"
+}
