@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_robinsmith-ncas-1784040500",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 8 x 8 km resolution.",
+    "description": "",
+    "alias": [
+        "BISICLES Ice Sheet Antarctica diagnostic mesh"
+    ],
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 589824,
+    "region": [
+        "antarctica"
+    ],
+    "southernmost_latitude": -89.947936,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 45,
+    "x_resolution": 8,
+    "y_resolution": 8,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_robinsmith-ncas-1784040500"
+}
