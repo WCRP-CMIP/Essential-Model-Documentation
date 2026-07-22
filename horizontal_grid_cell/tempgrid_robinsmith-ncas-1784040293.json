@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_robinsmith-ncas-1784040293",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 9.6 x 9.6 km resolution.",
+    "description": "",
+    "alias": [
+        "BISICLES Ice Sheet Greenland diagnostic mesh"
+    ],
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 46080,
+    "region": [
+        "greenland"
+    ],
+    "southernmost_latitude": 58.967311,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 304.1205538,
+    "x_resolution": 9.6,
+    "y_resolution": 9.6,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_robinsmith-ncas-1784040293"
+}
