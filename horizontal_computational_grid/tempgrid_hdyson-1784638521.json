@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_hdyson-1784638521",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-b",
+    "horizontal_subgrids": [
+        "g126-mass",
+        "g216-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_hdyson-1784638521"
+}
