@@ -1,0 +1,17 @@
+{
+  "validation_key": "h143",
+  "ui_label": "",
+  "description": "each atm grid box has 2 east-west TS ocean grid boxes under it.",
+  "arrangement": "arakawa-b",
+  "horizontal_subgrids": [
+    "g214-mass",
+    "g215-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid",
+    "emd"
+  ],
+  "@id": "h143"
+}
