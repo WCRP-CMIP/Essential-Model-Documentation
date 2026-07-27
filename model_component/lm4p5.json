@@ -1,0 +1,18 @@
+{
+    "validation_key": "lm4p5",
+    "ui_label": "LM4p5",
+    "description": "Land-ice in ESM4.5 is static and prescribed as in ESM4.1 (Shevliakova et al., 2024).  Shevliakova, E., Malyshev, S., Martinez‐Cano, I., Milly, P.C.D., Pacala, S.W., Ginoux, P., Dunne, K.A., Dunne, J.P., Dupuis, C., Findell, K.L. and Ghannam, K., 2024. The land component LM4. 1 of the GFDL Earth System Model ESM4. 1: Model description and characteristics of land surface climate and carbon cycling in the historical simulation. Journal of Advances in Modeling Earth Systems, 16(5), p.e2023MS003922.",
+    "code_base": "https://github.com/NOAA-GFDL/ESM4/tree/esm45_pubrel",
+    "component": "land-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2023MS003922"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "lm4p5"
+}
