@@ -1,0 +1,19 @@
+{
+    "validation_key": "am4-5",
+    "ui_label": "AM4.5",
+    "description": "AM4.5 includes interactive tropospheric and stratospheric gas-phase and aerosol chemistry including ozone after Horowitz et al., 2020. The model includes 48 photolysis reactions, 254 gas-phase and heterogeneous reactions, and 91 advected chemical tracers. Updates (Paulot et al. (in preparation)) include: MeSH emission and chemistry (Wohl et al. (2024)), HPMTF chemistry for DMS, uptake of HNO3 and SO2 on dust [(Paulot et al., 2016)](https://www.zotero.org/google-docs/?amGvaL) Land deposition for gases and aerosols is calculated by the land component following Paulot et al. (2018).  Horowitz, L. W., Naik, V., Paulot, F., Ginoux, P. A., Dunne, J. P., Mao, J., ... & Zhao, M. (2020). The GFDL global atmospheric chemistry‐climate model AM4. 1: Model description and simulation characteristics. Journal of Advances in Modeling Earth Systems, 12(10), e2019MS002032.",
+    "code_base": "https://github.com/NOAA-GFDL/ESM4/tree/esm45_pubrel",
+    "component": "atmospheric-chemistry",
+    "family": "",
+    "references": [
+        "DOI for Paulot et al.",
+        "in preparation  Includes updates from:  AM4.1: https://doi.org/10.1029/2019MS002032  CM4-MG2: https://doi.org/10.1029/2022MS003111"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "am4-5"
+}
