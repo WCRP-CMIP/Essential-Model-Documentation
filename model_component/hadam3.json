@@ -1,0 +1,18 @@
+{
+    "validation_key": "hadam3",
+    "ui_label": "HadAM3",
+    "description": "HadAM3 is the atmospheric component of the HadCM3 climate model Pope et al. (2000). It is a grid-point atmospheric general circulation model with a horizontal resolution of 3.75° longitude × 2.5° latitude and 19 vertical levels on a hybrid sigma–pressure coordinate. The model explicitly represents the large-scale circulation, moisture transport, clouds, radiation, and land–atmosphere exchanges. It includes a prognostic cloud scheme that links cloud amount and cloud water to the atmospheric moisture budget, allowing representation of cloud radiative effects. Convection is represented using a mass-flux approach that transported heat, moisture, and momentum vertically while accounting for entrainment and detrainment. Radiative transfer schemes represent the effects of water vapour, clouds, and greenhouse gases on both shortwave and longwave radiation. Boundary-layer mixing and surface-exchange formulations simulate hydrological cycle and atmospheric energy balance. The philosophy of the model is to represent the dominant physical processes governing climate while remaining computationally efficient enough for long integrations and large ensembles.  The current version (HadAM3B, Valdes et al 2018), retains the original HadAM3 dynamical and physical framework while incorporating a number of modifications. These versions were designed particularly for paleoclimate and Earth-system applications, where simulations may need to run for thousands of years or across many ensemble members. It is coupled to an updated MOSES2.1 land surface scheme which treats dynamic vegetation and the carbon cycle - see land surface documentation for more details.",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s003820050010 https://doi.org/10.5194/gmd-10-3715-2017 https://doi.org/10.1007/s003820050009"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hadam3"
+}
