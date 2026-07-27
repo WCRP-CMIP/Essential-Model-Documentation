@@ -1,0 +1,19 @@
+{
+    "validation_key": "am4-5",
+    "ui_label": "AM4.5",
+    "description": "The representation of aerosols in AM4.5 is through a bulk aerosol scheme including the 18 transported aerosol tracers from AM4.1 (Horowitz et al., 2020; 5 dust and sea salt, 3 organic aerosol, and 2 black carbon size classes plus SO4, NH4, and NO3) plus an additional 10 tracers for SO4 and NO3 on dust and other updates from Paulot et al. (in preparation): Improved land/chemistry coupling with interactive Fire-based chemical emissions and injection height based on fire radiative power after Pouyeai et al. (submitted), deposition of aerosols on snow to darken albedo, seasalt aerosol emission scheme and hygroscopicity are updated to Gong et al. (2003) and Ziegler et al. (2017).  Dust emission factors retuned to account for changes in the representation of wet and dry deposition. Marine organic aerosol (MOA) emissions are calculated following [Gantt et al. (2015](https://www.zotero.org/google-docs/?Leudjh)).  Horowitz, L. W., Naik, V., Paulot, F., Ginoux, P. A., Dunne, J. P., Mao, J., ... & Zhao, M. (2020). The GFDL global atmospheric chemistry‐climate model AM4. 1: Model description and simulation characteristics. Journal of Advances in Modeling Earth Systems, 12(10), e2019MS002032.",
+    "code_base": "https://github.com/NOAA-GFDL/ESM4/tree/esm45_pubrel",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "DOI for Paulot et al.",
+        "in preparation  Includes updates from:  AM4.1: https://doi.org/10.1029/2019MS002032  CM4-MG2: https://doi.org/10.1029/2022MS003111"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "am4-5"
+}
