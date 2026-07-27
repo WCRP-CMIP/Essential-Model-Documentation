@@ -2,8 +2,14 @@ name: Update EMD Health
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: 'Environment'
+        options:
+          - production
+        default: 'production'
   schedule:
-    # Every 2 weeks on Sunday at 2:00 AM UTC
     - cron: '0 2 * * 0'
 
 jobs:
@@ -36,10 +42,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet docs/assets/pr_all_timeline_data.json; then
+          if git diff --quiet docs/EMD_health/assets/pr_all_timeline_data.json; then
             echo "No changes to commit"
           else
-            git add docs/assets/pr_all_timeline_data.json
+            git add docs/EMD_health/assets/pr_all_timeline_data.json
             git commit -m "chore: update EMD health data"
             git push origin docs
           fi
