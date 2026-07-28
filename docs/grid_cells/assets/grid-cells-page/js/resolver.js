@@ -10,12 +10,14 @@ export const DEFAULT_BASE = "https://wcrp-cmip.github.io/Essential-Model-Documen
 // The collection this page documents.
 export const FOLDER = "horizontal_grid_cell";
 
-// Keys that are structural / bookkeeping and should never become table columns.
-// ui_label + alias at the top level are the record's own labels; they are also
-// skipped as columns but surfaced separately by the table (as subtitles under
-// the id) so people can spot the grid they want at a glance.
+// Keys that are structural / bookkeeping and should never become table columns
+// or feed the similarity projection. `ui_label`, `alias`, `name` at the top
+// level are the record's own labels; they are surfaced separately by the table
+// (as subtitles under the id) so people can spot the grid they want at a
+// glance. `description` is skipped in schema.js explicitly (returns null).
 export const META_KEYS = new Set([
-  "@context", "@type", "@id", "type", "validation_key", "ui_label", "alias",
+  "@context", "@type", "@id", "type", "validation_key",
+  "ui_label", "alias", "name", "label", "id",
 ]);
 
 // Candidate names for the folder index / graph file. The EMD site uses

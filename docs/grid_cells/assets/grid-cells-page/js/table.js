@@ -102,7 +102,7 @@ const aliasText = rec => {
   return String(a);
 };
 
-export function createTable(columns, rows) {
+export function createTable(columns, rows, { onHoverRow, onLeaveRow } = {}) {
   // visible columns: id first, then only categories + numeric (kept readable).
   // Text (long) columns live in the detail panel only.
   const dataCols = columns.filter(c => c.kind === "category" || c.kind === "numeric");
@@ -127,6 +127,9 @@ export function createTable(columns, rows) {
   const tbody = el("tbody");
   const tableEl = el("table", { class: "gc-table" }, [thead, tbody]);
   const wrap = el("div", { class: "gc-table-wrap" }, [tableEl]);
+
+  // id -> { tr, idBtn, detailTr } so the scatter can highlight / reveal rows
+  const rowById = new Map();
 
   function sortableTh(col, onClick) {
     const arrow = el("span", { class: "gc-sort-arrow" }, "");
@@ -187,6 +190,7 @@ export function createTable(columns, rows) {
     view = rows.slice().sort(makeCmp(cmpCol, sort.dir));
 
     clear(tbody);
+    rowById.clear();
     if (!view.length) {
       tbody.appendChild(el("tr", {}, [
         el("td", { class: "gc-norows", colspan: tableCols.length + 1 }, "No grid cells match the current filters."),
@@ -200,6 +204,9 @@ export function createTable(columns, rows) {
       const uiLabel = !isNil(rec.ui_label) ? String(rec.ui_label) : "";
 
       const tr = el("tr", { class: "gc-row", dataset: { id } });
+      // report hover so the similarity map can highlight the matching node
+      tr.addEventListener("mouseenter", () => onHoverRow && onHoverRow(id));
+      tr.addEventListener("mouseleave", () => onLeaveRow && onLeaveRow());
 
       // id cell = expand toggle + id + optional subtitles (alias, ui_label)
       const caret = el("span", { class: "gc-caret" }, "▶");
@@ -236,6 +243,8 @@ export function createTable(columns, rows) {
           caret.textContent = "▶";
         }
       });
+
+      rowById.set(id, { tr, idBtn, detailTr, caret });
     });
     tbody.appendChild(frag);
   }
@@ -243,10 +252,46 @@ export function createTable(columns, rows) {
   // external API: re-render with a filtered row set
   function update(filteredRows) { rows = filteredRows; render(); }
 
+  // Highlight a single row (called when its scatter node is hovered).
+  let highlighted = null;
+  function highlight(id) {
+    if (highlighted === id) return;
+    clearHighlight();
+    const entry = rowById.get(id);
+    if (!entry) return;
+    entry.tr.classList.add("gc-row-linked");
+    highlighted = id;
+  }
+  function clearHighlight() {
+    if (highlighted != null) {
+      const prev = rowById.get(highlighted);
+      if (prev) prev.tr.classList.remove("gc-row-linked");
+      highlighted = null;
+    }
+  }
+
+  // Reveal a row: scroll to it, open its detail, briefly pulse it.
+  // Called when a scatter node is clicked.
+  function reveal(id) {
+    const entry = rowById.get(id);
+    if (!entry) return;
+    // open the detail if closed
+    if (entry.detailTr.hasAttribute("hidden")) entry.idBtn.click();
+    // scroll into view, if the environment supports it
+    if (typeof entry.tr.scrollIntoView === "function") {
+      entry.tr.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+    // pulse animation
+    entry.tr.classList.remove("gc-row-pulse");
+    // force reflow so the animation restarts if triggered rapidly
+    void entry.tr.offsetWidth;
+    entry.tr.classList.add("gc-row-pulse");
+  }
+
   paintHeaders();
   render();
 
-  return { root: wrap, update, get count() { return view.length; } };
+  return { root: wrap, update, highlight, clearHighlight, reveal, get count() { return view.length; } };
 }
 
 const prettyKey = k => String(k).replace(/^@/, "").replace(/[_-]+/g, " ").replace(/\b\w/g, c => c.toUpperCase());
