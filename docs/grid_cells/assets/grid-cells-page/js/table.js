@@ -102,7 +102,7 @@ const aliasText = rec => {
   return String(a);
 };
 
-export function createTable(columns, rows, { onHoverRow, onLeaveRow } = {}) {
+export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow, onDoubleClickRow } = {}) {
   // visible columns: id first, then only categories + numeric (kept readable).
   // Text (long) columns live in the detail panel only.
   const dataCols = columns.filter(c => c.kind === "category" || c.kind === "numeric");
@@ -207,6 +207,10 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow } = {}) {
       // report hover so the similarity map can highlight the matching node
       tr.addEventListener("mouseenter", () => onHoverRow && onHoverRow(id));
       tr.addEventListener("mouseleave", () => onLeaveRow && onLeaveRow());
+      // single click on the row → highlight the node in the graph
+      tr.addEventListener("click", () => onSelectRow && onSelectRow(id));
+      // double click → highlight AND scroll to the graph
+      tr.addEventListener("dblclick", () => onDoubleClickRow && onDoubleClickRow(id));
 
       // id cell = expand toggle + id + optional subtitles (alias, ui_label)
       const caret = el("span", { class: "gc-caret" }, "▶");
@@ -229,7 +233,11 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow } = {}) {
       ]);
       frag.appendChild(detailTr);
 
-      idBtn.addEventListener("click", () => {
+      idBtn.addEventListener("click", ev => {
+        // Don't let the button click bubble to the row — the row's own click
+        // handler already fires from the ambient click; this stops the row's
+        // "highlight" firing twice on the same click.
+        ev.stopPropagation();
         const open = detailTr.hasAttribute("hidden");
         if (open) {
           detailTr.removeAttribute("hidden");

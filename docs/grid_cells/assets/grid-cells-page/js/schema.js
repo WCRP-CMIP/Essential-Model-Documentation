@@ -13,7 +13,7 @@
 
 import { META_KEYS, short } from "./resolver.js";
 
-export const DEPTH_LIMIT = 2;
+export const DEPTH_LIMIT = 3;
 
 // A column that always leads: the grid-cell id (the thing users search for).
 export const ID_COL = { key: "@id", label: "Grid ID", kind: "id" };

@@ -108,18 +108,18 @@ details.gc-scatter-card[open] .gc-scatter-caret { transform: rotate(90deg); }
    isn't glued to the summary. */
 details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 
-.gc-scatter-svg { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; overflow: visible; }
+.gc-scatter-svg { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; overflow: visible; user-select: none; -webkit-user-select: none; touch-action: none; }
 
 /* three-column layout: plot flush left, legend centered between the two ends,
    detail flush right. With justify-content: space-between on exactly three
    items, the middle item sits with equal space on either side. */
 .gc-scatter-body { display: flex; align-items: stretch; justify-content: space-between; gap: 1.5rem; }
 /* Plot is a 1:1 square, so width == height.
-   Rules: at least 1/3 of the card width, but never taller than 70vh
+   Rules: at least 45% of the card width, but never taller than 70vh
    (so it can't dominate short viewports). Hard upper bound at 560px. */
 .gc-scatter-plot {
   flex: 0 0 auto;
-  min-width: min(33.333%, 70vh);
+  min-width: min(45%, 70vh);
   max-width: min(560px, 70vh);
 }
 
@@ -143,12 +143,14 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
   cursor: pointer;
   stroke: var(--emd-bg);
   stroke-width: 1.5;
-  transition: opacity .15s, r .18s cubic-bezier(.34,1.56,.64,1), stroke-width .15s, stroke .15s;
+  /* NB: r is updated every frame during rotation; do not transition it here.
+     Use only class-based state transitions on stroke/opacity. */
+  transition: opacity .15s, stroke-width .15s, stroke .15s;
   filter: url(#gc-node-shadow);
 }
 .gc-node:hover { stroke-width: 2.5; }
-.gc-node.active { r: 9; stroke: var(--emd-text); stroke-width: 2.5; }
-.gc-node.linked { r: 7.5; stroke-width: 2; }
+.gc-node.active { stroke: var(--emd-text); stroke-width: 2.5; }
+.gc-node.linked { stroke-width: 2; }
 .gc-node.muted  { opacity: .16; }
 .gc-node.filtered-out { opacity: .06; pointer-events: none; }
 
@@ -156,11 +158,33 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
   display: flex; flex-direction: column; gap: .4rem;
   flex: 0 0 auto; min-width: 140px; max-width: 220px;
   padding-top: .2rem;
+  padding-bottom: .1rem;
 }
 .gc-legend-item { display: inline-flex; align-items: center; gap: .45rem; font-size: .74rem; color: var(--emd-text-secondary); }
 .gc-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
 .gc-legend-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
 .gc-legend-count { color: var(--emd-text-tertiary); font-variant-numeric: tabular-nums; font-size: .7rem; }
+
+/* restart-rotation button — sits at the bottom of the legend column */
+.gc-restart-rotate {
+  margin-top: auto;    /* pushes to the bottom of the flex column */
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .3rem .55rem;
+  font: inherit; font-size: .72rem; font-weight: 500;
+  color: var(--emd-text-secondary);
+  background: var(--emd-bg);
+  border: 1px solid var(--emd-border);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: color .12s, border-color .12s, background .12s;
+  white-space: nowrap;
+}
+.gc-restart-rotate:hover { color: var(--emd-primary); border-color: var(--emd-primary); background: var(--emd-primary-light); }
+.gc-restart-rotate:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+.gc-restart-icon { font-size: .95rem; line-height: 1; display: inline-block; }
+.gc-restart-rotate:hover .gc-restart-icon { animation: gc-spin-once .5s ease-out; }
+@keyframes gc-spin-once { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 
 /* details panel — flush right, expands to fill remaining horizontal space */
 .gc-scatter-detail {

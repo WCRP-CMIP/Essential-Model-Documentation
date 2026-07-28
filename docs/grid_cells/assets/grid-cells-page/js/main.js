@@ -85,6 +85,16 @@ async function main() {
   table = createTable(columns, rows, {
     onHoverRow: id => scatter && scatter.highlight(id),
     onLeaveRow: () => scatter && scatter.clearHighlight(),
+    // single click on the row → pin the node in the graph
+    onSelectRow: id => scatter && scatter.pin(id),
+    // double click on the row → pin AND scroll to the graph
+    onDoubleClickRow: id => {
+      if (!scatter) return;
+      scatter.pin(id);
+      if (typeof scatter.root.scrollIntoView === "function") {
+        scatter.root.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+    },
   });
 
   // filters
