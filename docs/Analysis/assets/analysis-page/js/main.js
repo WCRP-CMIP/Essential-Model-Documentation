@@ -16,15 +16,6 @@ const DEBUG = new URLSearchParams(location.search).has("debug");
 const params = new URLSearchParams(location.search);
 const base = params.get("base") || undefined;
 
-function header() {
-  return el("header", { class: "an-header" }, [
-    el("div", { class: "an-header-titles" }, [
-      el("h1", { class: "an-title" }, "EMD Horizontal Computational Grid Cell - Model Mapping"),
-    ]),
-    // dark-mode toggle is appended here by index.html's boot script
-  ]);
-}
-
 function statusMessage(text) {
   return el("div", { class: "an-status" }, text);
 }
@@ -43,7 +34,6 @@ async function boot() {
   const mount = document.getElementById(MOUNT_ID);
   if (!mount) return;
   clear(mount);
-  mount.appendChild(header());
   const statusEl = statusMessage("Loading grid cells and models…");
   mount.appendChild(statusEl);
 

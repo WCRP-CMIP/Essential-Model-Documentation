@@ -2,50 +2,24 @@
    Same visual language as the grid_cells page: EMD design tokens
    (--emd-*), Inter body font, JetBrains Mono for identifiers. */
 
+html, body { height: 100%; }
 body {
   font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--emd-text);
   font-size: 14px;
   line-height: 1.5;
 }
+/* Nothing else lives on this page — the scatter card is the whole screen.
+   Fixed (not min-) height, so the card below can't grow past the viewport;
+   .an-scatter-plot's max-height:100% (further down) is what actually makes
+   the square diagram respect the space left after the title bar. */
 #emd-analysis-page {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1.5rem 2rem 3rem;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
-
-/* ---------- header ---------- */
-.an-header {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 1.5rem;
-  margin: 0 0 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--emd-border);
-}
-.an-header-titles { flex: 1 1 auto; min-width: 0; }
-.an-title {
-  margin: 0 0 .4rem;
-  font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em;
-  color: var(--emd-text);
-}
-.an-subtitle {
-  margin: 0; max-width: 78ch;
-  font-size: .875rem; color: var(--emd-text-secondary);
-}
-
-#an-dark-toggle {
-  flex: 0 0 auto;
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid var(--emd-border);
-  border-radius: 6px;
-  background: var(--emd-bg);
-  color: var(--emd-text-secondary);
-  cursor: pointer;
-  transition: color .12s, border-color .12s;
-}
-#an-dark-toggle:hover { color: var(--emd-primary); border-color: var(--emd-primary); }
-#an-dark-toggle svg { width: 18px; height: 18px; }
 
 /* ---------- generic status / error ---------- */
 .an-status {
@@ -73,16 +47,23 @@ body {
 .an-error-hint { color: var(--emd-text-secondary); }
 
 /* ---------- scatter card ---------- */
+/* This is the entire page now — no border/rounding (that made sense when it
+   sat inside a larger page). Fixed height:100% of the (already 100vh)
+   mount point — combined with .an-scatter-plot's max-height further down,
+   this is what makes the diagram actually respect the space left after the
+   title bar, instead of sizing itself from width alone and overflowing. */
 .an-scatter-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--emd-bg);
-  border: 1px solid var(--emd-border);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1rem 1.5rem;
 }
 .an-scatter-head {
   display: flex; align-items: baseline; justify-content: space-between;
   gap: 1rem; margin: 0 0 .5rem;
+  flex: 0 0 auto;
 }
 .an-scatter-title {
   margin: 0;
@@ -100,11 +81,13 @@ body {
   gap: 1.5rem;
   justify-content: space-between;
   margin-top: .75rem;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .an-scatter-plot {
   flex: 2 1 0;
   min-width: 0;
-  max-width: 70vh;   /* cap on height (via aspect-ratio) more than width — keeps it from towering on tall/wide screens */
+  max-height: 100%;   /* respect the height actually left after the title bar */
   aspect-ratio: 1 / 1;
   display: flex; align-items: center; justify-content: center;
   position: relative;   /* anchors the corner restart-rotation button */
@@ -312,8 +295,13 @@ body {
 
 /* ---------- responsive breakpoint ---------- */
 @media (max-width: 900px) {
+  /* Stacked layout needs to grow past one screen and scroll normally —
+     undo the fixed-height/overflow:hidden constraints used for the
+     desktop two-column layout. */
+  #emd-analysis-page { height: auto; overflow: visible; }
+  .an-scatter-card { height: auto; min-height: 100vh; }
   .an-scatter-body { flex-direction: column; }
-  .an-scatter-plot { max-width: 100%; min-width: 0; }
+  .an-scatter-plot { max-width: 100%; min-width: 0; max-height: none; }
   .an-scatter-detail { flex: 1 1 auto; max-width: none; max-height: 340px; }
 }
 
