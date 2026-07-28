@@ -1,0 +1,18 @@
+{
+    "validation_key": "sis2",
+    "ui_label": "SIS2",
+    "description": "Sea-ice is based on the Sea Ice Simulator version 2 documented in Adroft et al. (2020) and configured as in Held et al. (2019)  Adcroft, A., Anderson, W., Balaji, V., Blanton, C., Bushuk, M., Dufour, C.O., Dunne, J.P., Griffies, S.M., Hallberg, R., Harrison, M.J. and Held, I.M., 2019. The GFDL global ocean and sea ice model OM4. 0: Model description and simulation features. Journal of Advances in Modeling Earth Systems, 11(10), pp.3167-3211.  Held, I.M., Guo, H., Adcroft, A., Dunne, J.P., Horowitz, L.W., Krasting, J., Shevliakova, E., Winton, M., Zhao, M., Bushuk, M. and Wittenberg, A.T., 2019. Structure and performance of GFDL's CM4.0 climate model. Journal of Advances in Modeling Earth Systems, 11(11), pp.3691-3727.",
+    "code_base": "https://github.com/NOAA-GFDL/ESM4/tree/esm45_pubrel",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2019MS001726"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "sis2"
+}
