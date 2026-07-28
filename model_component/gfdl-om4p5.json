@@ -1,0 +1,18 @@
+{
+    "validation_key": "gfdl-om4p5",
+    "ui_label": "GFDL OM4p5",
+    "description": "The ocean dynamics and physics (Dunne et al., in preparation) are based on the ¼ degree OM4 configuration used in CM4 (Adcroft et al., 2019; Held et al., 2019) but with several changes from the next generation OM4 codebase and a revised horizontal grid to correct error in Arctic rotation north of tripolar fold and addition of 81 meridional layers from 1080 to 1161.  Parameterization changes in OM5 include application of revised Mesoscale Eddy Kinetic Energy (MEKE) thickness mixing scheme with a surface-intensified (Quasi-Geostrophic) vertical resolution function with coastal taper to preserve boundary currents, revised surface and bottom boundary layer schemes, retuned viscosity (Reichl et al., 2024), and the Bodner et al., (2023) mixed layer eddy scheme.  Adcroft, A., Anderson, W., Balaji, V., Blanton, C., Bushuk, M., Dufour, C.O., Dunne, J.P., Griffies, S.M., Hallberg, R., Harrison, M.J. and Held, I.M., 2019. The GFDL global ocean and sea ice model OM4. 0: Model description and simulation features. Journal of Advances in Modeling Earth Systems, 11(10), pp.3167-3211. https://doi.org/10.1029/2019MS001726  Bodner, A.S., Fox-Kemper, B., Johnson, L., Van Roekel, L.P., McWilliams, J.C., Sullivan, P.P., Hall, P.S. and Dong, J., 2023. Modifying the mixed layer eddy parameterization to include frontogenesis arrest by boundary layer turbulence. Journal of Physical Oceanography, 53(1), pp.323-339. https://doi.org/10.1175/JPO-D-21-0297.1  Held, I.M., Guo, H., Adcroft, A., Dunne, J.P., Horowitz, L.W., Krasting, J., Shevliakova, E., Winton, M., Zhao, M., Bushuk, M. and Wittenberg, A.T., 2019. Structure and performance of GFDL's CM4.0 climate model. Journal of Advances in Modeling Earth Systems, 11(11), pp.3691-3727.  https://doi.org/10.1029/2019MS001829  Reichl, B. G., Wittenberg, A. T., Griffies, S. M., & Adcroft, A. (2024). Improving equatorial upper ocean vertical mixing in the NOAA/GFDL OM4 model. Earth and Space Science, 11, e2023EA003485. https://doi.org/10.1029/2023EA003485",
+    "code_base": "https://github.com/NOAA-GFDL/ESM4/tree/esm45_pubrel",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://paper.under.review/ https://doi.org/10.1029/2019MS001726 https://doi.org/10.1175/JPO-D-21-0297.1 https://doi.org/10.1029/2019MS001829 https://doi.org/10.1029/2023EA003485"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "gfdl-om4p5"
+}
