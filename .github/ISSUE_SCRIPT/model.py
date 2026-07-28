@@ -145,9 +145,9 @@ def run(parsed_issue, issue, dry_run=False):
     if not source_id:
         return None
 
-    source_id_lower = source_id.lower()
     # validation_key: preserve casing, replace dots with hyphens, strip other non [A-Za-z0-9-] chars
     validation_key = re.sub(r'[^A-Za-z0-9-]', '', source_id.replace('.', '-'))
+    source_id_lower = validation_key.lower()
     family = (parsed_issue.get('model_family') or parsed_issue.get('family') or '').strip()
 
     data = {
