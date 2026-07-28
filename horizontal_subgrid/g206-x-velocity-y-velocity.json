@@ -3,7 +3,7 @@
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "velocity"
+        "x-velocity", "y-velocity"
     ],
     "horizontal_grid_cells": "g206",
     "@context": "_context",
@@ -12,5 +12,5 @@
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g206-velocity"
+    "@id": "g206-x-velocity-y-velocity"
 }
