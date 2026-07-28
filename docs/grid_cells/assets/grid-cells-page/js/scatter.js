@@ -26,7 +26,7 @@ const W = 500, H = 500;
 const R = 3;                     // base node radius
 const PAD = 22;                  // margin from viewBox edge
 const GAP = 2;                   // extra spacing between node edges
-const KNN = 3;                   // links per node
+const KNN = 1;                   // links per node
 const COLOUR_KEY = "grid_type";
 
 const MIN_ZOOM = 1;
