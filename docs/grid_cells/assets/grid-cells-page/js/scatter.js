@@ -338,10 +338,11 @@ function knnEdges(pts, k) {
 // ---- per-node n_cells size boost (linear scaling) --------------------------
 // n_cells is normalised directly (no log) to [0, NCELLS_BOOST]. Falls back
 // to 0 when n_cells is missing or non-positive.
-const NCELLS_BOOST = 2;
+const NCELLS_BOOST = 4;
 function buildNCellsBoost(rows) {
   const vals = rows.map(r => {
-    const v = numericValue(r && r.n_cells);
+    const v = Math.log(numericValue(r && r.n_cells||1))**5;
+
     return v != null && v > 0 ? v : null;
   });
   const valid = vals.filter(v => v != null);
