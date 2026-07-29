@@ -1,0 +1,18 @@
+{
+    "validation_key": "gfdl-am4p5",
+    "ui_label": "GFDL AM4p5",
+    "description": "The atmospheric dynamics and physics formulation of AM4.5 is similar to that of AM4.1 (Horowitz et al., 2020) with the model top at 1 Pa (~80 km), and 49 vertical levels and includes five tracers for water (specific humidity, liquid water, ice water, cloud amount, and liquid droplet number concentration) and uses the same large-scale and convective cloud parameterizations. Cloud parameterizations in AM4.5 were retuned slightly to improve agreement with observed top-of-atmosphere shortwave and longwave radiative fluxes. As described by Zhao et al. (2018a, 2018b), nonorographic gravity wave drag in AM4.5 is parameterized following Alexander and Dunkerton (1999), but the parameters used above 350 hPa for the tropics, northern extratropics, and southern extratropics (St, Sn, and Ss) are set to 0.004, 0.0035, and 0.0035 m2 s−2, respectively.  The major difference between AM4.1 (Horowitz et al., 2020) and AM4.5 is the incorporation of Two Moment stratiform microphysics with prognostic precipitation (Guo et al., 2022, AKA MG2) after Gettelman et al. (2015).  Alexander, M. J., & Dunkerton, T. J. (1999). A spectral parameterization of mean-flow forcing due to breaking gravity waves. Journal of the Atmospheric Sciences, 56(24), 4167-4182. https://doi.org/10.1175/1520-0469(1999)056%3C4167:ASPOMF%3E2.0.CO;2  Gettelman, A., Morrison, H., Santos, S., Bogenschutz, P., & Caldwell, P. M. (2015). Advanced two-moment bulk microphysics for global models. Part II: Global model solutions and aerosol–cloud interactions. Journal of Climate, 28(3), 1288-1307. https://doi.org/10.1175/JCLI-D-14-00103.1  Guo, H., Ming, Y., Fan, S., Wittenberg, A. T., Zhang, R., Zhao, M., & Zhou, L. (2022). Performance of Two‐Moment Stratiform Microphysics With Prognostic Precipitation in GFDL's CM4. 0. Journal of Advances in Modeling Earth Systems, 14(12), e2022MS003111.   https://doi.org/10.1029/2022MS003111  Horowitz, L. W., Naik, V., Paulot, F., Ginoux, P. A., Dunne, J. P., Mao, J., ... & Zhao, M. (2020). The GFDL global atmospheric chemistry‐climate model AM4. 1: Model description and simulation characteristics. Journal of Advances in Modeling Earth Systems, 12(10), e2019MS002032. https://doi.org/10.1029/2019MS002032  Zhao, M., Golaz, J. C., Held, I. M., Guo, H., Balaji, V., Benson, R., ... & Xiang, B. (2018). The GFDL global atmosphere and land model AM4. 0/LM4. 0: 2. Model description, sensitivity studies, and tuning strategies. Journal of Advances in Modeling Earth Systems, 10(3), 735-769. https://doi.org/10.1002/2017MS001208  Zhao, M., Golaz, J. C., Held, I. M., Guo, H., Balaji, V., Benson, R., ... & Xiang, B. (2018). The GFDL global atmosphere and land model AM4. 0/LM4. 0: 1. Simulation characteristics with prescribed SSTs. Journal of Advances in Modeling Earth Systems, 10(3), 691-734. https://doi.org/10.1002/2017MS001209",
+    "code_base": "https://github.com/NOAA-GFDL/ESM4/tree/esm45_pubrel",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://paper.under.review/ https://doi.org/10.1175/1520-0469(1999)056<4167:ASPOMF>2.0.CO;2 https://doi.org/10.1175/JCLI-D-14-00103.1 https://doi.org/10.1029/2022MS003111 https://doi.org/10.1029/2019MS002032 https://doi.org/10.1002/2017MS001208 https://doi.org/10.1002/2017MS001209"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "gfdl-am4p5"
+}
