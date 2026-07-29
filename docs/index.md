@@ -174,9 +174,8 @@ Each folder corresponds to a distinct scientific concept that varies independent
 
 ---
 ### Become a reviewer
-If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form) or the embedded form below. 
+If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form).
 
-<iframe class="airtable-embed" src="https://airtable.com/embed/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
 
 
 ---

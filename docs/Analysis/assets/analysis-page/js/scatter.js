@@ -43,11 +43,16 @@ import { renderCrsInline } from "./crs.js";
 // ==== configuration ========================================================
 const W = 500, H = 500;
 const PAD = 22;
-const R_GRID  = 2.5;     // grid-cell node radius (base)
+const R_GRID  = 2.5;     // grid-cell node radius (base, before model-usage boost)
 const R_MODEL = 4.8;     // model node radius (base)
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
 const LINK_BOW_UNIT = 9;   // px of curve separation per duplicate-link offset step
+// Grid nodes grow with how many distinct models use them — linearly scaled
+// from 0 (unused) up to GRID_MODEL_BOOST_MAX (the most-used grid cell in
+// this dataset). Added to R_GRID before the existing depth scaling, so a
+// heavily-used grid stays visibly larger at every rotation angle/zoom level.
+const GRID_MODEL_BOOST_MAX = 2.5;
 // Depth cueing: nodes further from the viewer fade out. Uses fill-opacity
 // (grid) / stroke-opacity (model) rather than the CSS "opacity" property, so
 // it composes cleanly with .muted's opacity dimming instead of an inline
@@ -58,7 +63,10 @@ const DEPTH_FADE_MIN = 0.3;   // opacity of the far-most node in the current vie
 // PaCMAP (with PCoA init)
 const PACMAP_ITERS = 450;
 const CHUNK = 15;
-const PACMAP_K = 10;                    // neighbours per point in NB pairs
+const PACMAP_K = 16;                    // neighbours per point in NB pairs — higher
+                                         // catches more true neighbours now that
+                                         // the (categorical-weighted) Gower distance
+                                         // identifies them correctly
 
 // force-directed model layer: springs pull each model toward an inset point
 // on each linked grid cell (see file header), plus a separate explicit
@@ -194,7 +202,13 @@ function pickCategoricalKeys(rows) {
 
 // Gower distance for a mixed-type record set. Numeric contribution is
 // |a-b| / range; categorical is 0/1 on equality; missing pairs are skipped
-// per-feature (Gower's original rule).
+// per-feature (Gower's original rule). Categorical terms are weighted
+// CATEGORICAL_WEIGHT× more heavily than numeric terms in the running
+// average — grid_type (and similar fields like grid_mapping/region) is a
+// much stronger signal of "these are similar grids" than small numeric
+// differences in n_cells/resolution, which otherwise dilute it and can
+// scatter same-type grids apart or pull different-type grids together.
+const CATEGORICAL_WEIGHT = 3;
 function gowerDistance(rows) {
   const numKeys = pickNumericKeys(rows);
   const catKeys = pickCategoricalKeys(rows);
@@ -227,8 +241,8 @@ function gowerDistance(rows) {
       for (let k = 0; k < catKeys.length; k++) {
         const a = catVals[i][k], b = catVals[j][k];
         if (a == null || b == null) continue;
-        sum += a === b ? 0 : 1;
-        count++;
+        sum += (a === b ? 0 : 1) * CATEGORICAL_WEIGHT;
+        count += CATEGORICAL_WEIGHT;
       }
       const d = count ? sum / count : 0;
       D[i * n + j] = d;
@@ -442,7 +456,10 @@ function makePacmap3d(D, n, { seed = 7, iters = PACMAP_ITERS, k = PACMAP_K } = {
     } else if (iter < PHASE2_END) {
       wNB = 3; wMN = 3; wFP = 1;
     } else {
-      wNB = 1; wMN = 0; wFP = 1;
+      // Local tightening phase — stronger NB pull than before (was 1) so
+      // true neighbours actually converge close together instead of just
+      // holding their post-phase-2 position.
+      wNB = 2.5; wMN = 0; wFP = 1;
     }
 
     // Accumulate gradients.
@@ -695,12 +712,35 @@ function activeRealmsFromLinks(links) {
   return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }
 
+// ==== grid node size boost by model usage ==================================
+// Counts distinct models linking to each grid cell, then linearly scales
+// that count to a radius boost in [0, GRID_MODEL_BOOST_MAX] — the most-used
+// grid cell in the dataset gets the full boost, an unused grid gets none.
+function buildGridModelBoost(gridRows, links) {
+  const modelsByGrid = new Map();   // gridId → Set(modelId)
+  for (const l of links) {
+    if (!modelsByGrid.has(l.gridId)) modelsByGrid.set(l.gridId, new Set());
+    modelsByGrid.get(l.gridId).add(l.modelId);
+  }
+  let maxCount = 0;
+  for (const s of modelsByGrid.values()) if (s.size > maxCount) maxCount = s.size;
+
+  const boost = new Map();
+  for (const rec of gridRows) {
+    const id = short(rec["@id"]);
+    const count = modelsByGrid.has(id) ? modelsByGrid.get(id).size : 0;
+    boost.set(id, maxCount > 0 ? GRID_MODEL_BOOST_MAX * (count / maxCount) : 0);
+  }
+  return boost;
+}
+
 // ==== public entrypoint ====================================================
 export function createAnalysisScatter({ gridRows, models, links }) {
   const gridById = new Map();
   gridRows.forEach(r => gridById.set(short(r["@id"]), r));
   const { map: gridColourOf, ordered: gridColourOrder } = buildGridColourMap(gridRows);
   const orderedRealms = activeRealmsFromLinks(links);
+  const gridModelBoost = buildGridModelBoost(gridRows, links);
 
   // Group links sharing the same (model, grid) pair so duplicate curves can
   // be bowed apart symmetrically: m=1 → [0], m=2 → [-0.5,0.5], m=3 → [-1,0,1] …
@@ -848,7 +888,7 @@ export function createAnalysisScatter({ gridRows, models, links }) {
       const e = gridEls.get(id);
       const p = gridPos.get(id);
       const zNorm = (p.z - zMin) / zSpan;
-      const r = R_GRID * (0.7 + zNorm * 0.6);
+      const r = (R_GRID + e.boost) * (0.7 + zNorm * 0.6);
       e.node.setAttribute("cx", p.x.toFixed(2));
       e.node.setAttribute("cy", p.y.toFixed(2));
       e.node.setAttribute("r", r.toFixed(2));
@@ -924,19 +964,23 @@ export function createAnalysisScatter({ gridRows, models, links }) {
     // when auto-rotation is currently stopped and no highlight follows.
     render();
   }
+  // Grid hover: shows the detail panel and lights up the hovered node plus
+  // its actual model connections — but never mutes/dims anything else, so
+  // the rest of the sphere stays fully visible while you're just reading
+  // info about one grid cell. (Model hover below keeps the full mute-the-
+  // rest treatment — only grid hover was asked to stop dimming.)
   function highlightGrid(id) {
     clearHighlights();
     const e = gridEls.get(id);
     if (!e) return;
     e.node.classList.add("active");
     if (e.glow) e.glow.classList.add("visible");
-    const modelsUsing = new Set();
     for (let i = 0; i < links.length; i++) {
-      if (links[i].gridId === id) { modelsUsing.add(links[i].modelId); linkEls[i].classList.add("linked"); }
-      else linkEls[i].classList.add("muted");
+      if (links[i].gridId !== id) continue;
+      linkEls[i].classList.add("linked");
+      const me = modelEls.get(links[i].modelId);
+      if (me) me.node.classList.add("linked");
     }
-    modelEls.forEach(({ node }, mid) => { if (modelsUsing.has(mid)) node.classList.add("linked"); else node.classList.add("muted"); });
-    gridEls.forEach(({ node }, gid) => { if (gid !== id) node.classList.add("muted"); });
     render();
   }
   function highlightModel(id) {
@@ -1145,13 +1189,15 @@ export function createAnalysisScatter({ gridRows, models, links }) {
       c.setAttribute("fill", colour);
       c.dataset.id = id;
       c.dataset.kind = "grid";
-      attachTooltip(c, `${id}\n${label}`);
+      attachTooltip(c, `${id}\n${label}`, () => !dragging);
 
       c.addEventListener("mouseenter", () => {
+        if (dragging) return;   // don't read mouseover while drag-rotating
         stopAutoRotate();
         highlightGrid(id); showGridDetail(id);
       });
       c.addEventListener("mouseleave", () => {
+        if (dragging) return;   // don't read mouseover while drag-rotating
         if (pinnedKind === "grid" && pinnedId === id) return;
         restorePinnedOrClear();
       });
@@ -1169,7 +1215,7 @@ export function createAnalysisScatter({ gridRows, models, links }) {
       });
 
       gridLayer.appendChild(c);
-      gridEls.set(id, { node: c, glow, pos3: p3 });
+      gridEls.set(id, { node: c, glow, pos3: p3, boost: gridModelBoost.get(id) || 0 });
     }
 
     // Model nodes
@@ -1183,13 +1229,15 @@ export function createAnalysisScatter({ gridRows, models, links }) {
       c.setAttribute("r", R_MODEL);
       c.dataset.id = id;
       c.dataset.kind = "model";
-      attachTooltip(c, `Model: ${m.ui_label || m.name || id}\n${id}`);
+      attachTooltip(c, `Model: ${m.ui_label || m.name || id}\n${id}`, () => !dragging);
 
       c.addEventListener("mouseenter", () => {
+        if (dragging) return;   // don't read mouseover while drag-rotating
         stopAutoRotate();
         highlightModel(id); showModelDetail(id);
       });
       c.addEventListener("mouseleave", () => {
+        if (dragging) return;   // don't read mouseover while drag-rotating
         if (pinnedKind === "model" && pinnedId === id) return;
         restorePinnedOrClear();
       });

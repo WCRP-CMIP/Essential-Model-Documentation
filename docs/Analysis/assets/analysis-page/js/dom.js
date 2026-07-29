@@ -30,18 +30,26 @@ function ensureTip() {
   document.body.appendChild(_tip);
   return _tip;
 }
-export function attachTooltip(node, text) {
+// `shouldShow`, if given, is checked before showing/moving the tooltip —
+// lets callers suppress hover feedback during an unrelated interaction
+// (e.g. drag-rotating a 3D scene shouldn't pop tooltips for nodes the
+// cursor passes over).
+export function attachTooltip(node, text, shouldShow) {
   const msg = (text == null ? "" : String(text)).trim();
   if (!msg) return node;
   node.classList.add("has-tip");
   node.setAttribute("title", msg);
   const show = e => {
+    if (shouldShow && !shouldShow()) return;
     const tip = ensureTip();
     tip.textContent = msg;
     tip.classList.add("visible");
     position(tip, e);
   };
-  const move = e => { if (_tip && _tip.classList.contains("visible")) position(_tip, e); };
+  const move = e => {
+    if (shouldShow && !shouldShow()) { if (_tip) _tip.classList.remove("visible"); return; }
+    if (_tip && _tip.classList.contains("visible")) position(_tip, e);
+  };
   const hide = () => { if (_tip) _tip.classList.remove("visible"); };
   node.addEventListener("mouseenter", show);
   node.addEventListener("mousemove", move);
