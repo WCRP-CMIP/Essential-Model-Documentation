@@ -1,0 +1,15 @@
+{
+    "validation_key": "sea-ice_sis2_h123_no-vertical",
+    "ui_label": "sea-ice_sis2_h123_no-vertical",
+    "description": "",
+    "horizontal_computational_grid": "h123",
+    "model_component": "sis2",
+    "vertical_computational_grid": "no-vertical",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:component_config",
+        "esgvoc:ComponentConfig"
+    ],
+    "@id": "sea-ice_sis2_h123_no-vertical"
+}
