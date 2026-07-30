@@ -1,6 +1,6 @@
 {
-    "validation_key": "UKESM-1-3-LL",
-    "ui_label": "UKESM-1-3-LL",
+    "validation_key": "UKESM1-3-LL",
+    "ui_label": "UKESM1-3-LL",
     "description": "UKESM 1.3 includes dynamically evolving MetUM GA7/GA7.1 atmosphere with the embedded UKCA trace gas chemistry, GLOMAP-mode aerosol schemes, and JULES 5.1 land surface. These are coupled to the NEMO3.6 ocean with embedded CICE sea-ice and MEDUSA ocean biogeochemistry models.  Land ice is represented through BISICLES to enable interactive ice sheets for both the Antarctic and Greenland.  Along with a CH4 emission driven capability these are the 2 primary updates in UKESM 1.3 compared to 1.1.",
     "calendar": [
         "360-day"
@@ -63,7 +63,7 @@
         "ocean_nemo3-6_h118_v107",
         "ocean-biogeochemistry_medusa2-0_h118_v107"
     ],
-    "name": "ukesm-1-3-ll",
+    "name": "ukesm1-3-ll",
     "omitted_components": [],
     "prescribed_components": [],
     "references": [
@@ -79,5 +79,5 @@
         "wcrp:model",
         "esgvoc:Model"
     ],
-    "@id": "ukesm-1-3-ll"
+    "@id": "ukesm1-3-ll"
 }
