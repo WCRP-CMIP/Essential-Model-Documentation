@@ -67,7 +67,6 @@ body:
         </details>
       options:
         - "Not specified"
-        - "Cubed Sphere"
         - "Cubic Octahedral Spectral Reduced Gaussian"
         - "Displaced Pole"
         - "Hierarchical Discrete Global Grid"
@@ -86,7 +85,6 @@ body:
         - "Stretched"
         - "Tripolar"
         - "Unstructured"
-        - "Unstructured Polygonal"
         - "Unstructured Quadrilateral"
         - "Unstructured Triangular"
         - "Yin-Yang"
@@ -115,23 +113,7 @@ body:
         
         </details>
       options:
-        - "Not specified"
-        - "Albers Conical Equal Area"
-        - "Azimuthal Equidistant"
-        - "Geostationary"
-        - "HEALPix"
-        - "Lambert Azimuthal Equal Area"
-        - "Lambert Conformal Conic"
-        - "Lambert Cylindrical Equal Area"
-        - "Latitude-Longitude"
-        - "Mercator"
-        - "Orthographic"
-        - "Polar Stereographic"
-        - "Rotated Latitude-Longitude"
-        - "Sinusoidal"
-        - "Stereographic"
-        - "Transverse Mercator"
-        - "Vertical Perspective"
+        - "No options available"
       default: 0
     validations:
       required: true
@@ -166,7 +148,6 @@ body:
         - "Greenland"
         - "Limited Area"
         - "Northern Hemisphere"
-        - "Southern Hemisphere"
         - "Tropics"
       default: 0
     validations:
