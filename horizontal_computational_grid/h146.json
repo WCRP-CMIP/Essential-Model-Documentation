@@ -1,0 +1,18 @@
+{
+  "validation_key": "h146",
+  "ui_label": "",
+  "description": "Arakawa-C lat-lon grid with displaced North Pole for use in oceanic modelling.",
+  "arrangement": "arakawa-c",
+  "horizontal_subgrids": [
+    "g211-mass",
+    "g219-x-velocity",
+    "g212-y-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid",
+    "emd"
+  ],
+  "@id": "h146"
+}
