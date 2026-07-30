@@ -191,12 +191,10 @@ jobs:
             "${REVIEW_BODY}" > "$MIRROR_FILE"
 
           NOTE_FILE=$(mktemp)
-          printf '%s' \
-            "_To reply, add your comment on [Pull Request #${PR_NUMBER}](${PR_URL})._
-
-Any changes to be made on the issue body ([how to edit an issue](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible))
-
-Additional information and the personal progress tracker can be found on the [documentation pages](https://emd.mipcvs.dev/docs)" \
+          printf '%s\n\n%s\n\n%s' \
+            "_To reply, add your comment on [Pull Request #${PR_NUMBER}](${PR_URL})._" \
+            "Any changes to be made on the issue body ([how to edit an issue](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible))" \
+            "Additional information and the personal progress tracker can be found on the [documentation pages](https://emd.mipcvs.dev/docs)" \
             > "$NOTE_FILE"
 
           while IFS= read -r issue_num; do
@@ -293,12 +291,10 @@ Additional information and the personal progress tracker can be found on the [do
             "${COMMENT_BODY}" > "$MIRROR_FILE"
 
           NOTE_FILE=$(mktemp)
-          printf '%s' \
-            "_To reply, add your comment on [Pull Request #${PR_NUMBER}](${PR_URL})._
-
-Any changes to be made on the issue body ([how to edit an issue](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible))
-
-Additional information and the personal progress tracker can be found on the [documentation pages](https://emd.mipcvs.dev/docs)" \
+          printf '%s\n\n%s\n\n%s' \
+            "_To reply, add your comment on [Pull Request #${PR_NUMBER}](${PR_URL})._" \
+            "Any changes to be made on the issue body ([how to edit an issue](https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&size=flexible))" \
+            "Additional information and the personal progress tracker can be found on the [documentation pages](https://emd.mipcvs.dev/docs)" \
             > "$NOTE_FILE"
 
           while IFS= read -r issue_num; do
