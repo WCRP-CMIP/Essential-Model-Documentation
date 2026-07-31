@@ -1,0 +1,75 @@
+{
+    "validation_key": "GFDL-ESM4p5",
+    "ui_label": "GFDL-ESM4p5",
+    "description": "GFDL’s Earth System Model version 4.5 (GFDL-ESM4.5) builds on the 4th generation coupled climate GFDL-CM4.0 and carbon-chemistry-climate GFDL-ESM4.1 configurations contributed to the sixth phase of the Coupled Model Intercomparison Project.  GFDL-ESM4.5 also takes advantage of understanding and subsequent developments from CM4.0 and ESM4.1 to address deficiencies that emerged including alleviating long term warming and exaggerated Southern Ocean variability, to revise representation of atmospheric physics, land physics and carbon cycling, land atmosphere interactions including fire, and ocean biogeochemistry.  The GFDL-ESM4.5 atmosphere, GFDL-AM4.5, features the same horizontal and vertical resolution of atmosphere (1°; 49 layers) as GFDL-ESM4.1, and ocean (¼°; 75 layers) as GFDL-CM4.0 but includes the two moment stratiform microphysics with prognostic precipitation (Guo et al., 2022, AKA MG2) and improved energy conservation.  Ocean physical parameterization in OM4.5 differences with ESM4.1 include revised thickness mixing, reduced submesoscale restratification, reduced bottom boundary mixing to improve bottom water integrity, and representation of the role of white caps on ocean albedo.  Atmospheric aerosol and chemistry improvements in GFDL-AM4.5-FullChem are focused on implementation of fire injection of short-lived aerosol and chemistry species, acid aging of dust, internal consistency between tracer deposition mechanisms and overall aerosol fidelity.  Land improvements in GFDL-LM4.5 include new soil carbon representation from GIMICS, and laminar soil sub-layer resistance,  Novel interactions include interactive fire with lightning ignition and emissions of short-lived chemical species at dynamic injection heights, acid aging of atmospheric dust, interactive snow albedo through aging and incorporation of aerosol impurities, transport of contemporary river carbon fluxes from land to ocean. Ocean ecosystem and biogeochemistry improvements in COBALTv3.1 include representation of coastal diatoms, a more comprehensive description of nitrogen cycling through bacteria including representation of anammox and improved iron cycling.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "atmosphere",
+            "land-surface"
+        ],
+        [
+            "land-surface",
+            "sea-ice"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ]
+    ],
+    "crs": "A[AcAe](L,Si)L(Si)O[Ob](Si)SiLi^",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "atmospheric-chemistry",
+            "atmosphere"
+        ]
+    ],
+    "family": "gfdl",
+    "model_components": [
+        "aerosol_gfdl-am4p5-fullchem_h131_v111",
+        "atmosphere_gfdl-am4p5_h131_v111",
+        "land-surface_gfdl-lm4p5_h131_no-vertical",
+        "ocean-biogeochemistry_cobaltv3p1_h123_v120",
+        "ocean_gfdl-om4p5_h123_v120",
+        "sea-ice_sis2_h123_no-vertical"
+    ],
+    "name": "gfdl-esm4p5",
+    "omitted_components": [],
+    "prescribed_components": [
+        "land-ice"
+    ],
+    "references": [
+        "https://paper.under.review/"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "gfdl-esm4p5"
+}
