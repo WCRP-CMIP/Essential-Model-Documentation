@@ -67,12 +67,14 @@ details.gc-scatter-card {
 }
 details.gc-scatter-card[open] { padding-bottom: .85rem; }
 
-/* Custom <summary> — click target for collapse, hosts title + status. */
+/* Custom <summary> — click target for collapse. Hosts the caret and status
+   line only (no figure title), so both sit together at the left rather than
+   being pushed apart. */
 .gc-scatter-summary {
   list-style: none;                     /* hide default disclosure marker */
   cursor: pointer;
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 1rem;
+  display: flex; align-items: baseline; justify-content: flex-start;
+  gap: .5rem;
   padding: 0;
   margin: 0;
   background: transparent;              /* override site-wide details styling */
@@ -82,7 +84,8 @@ details.gc-scatter-card[open] { padding-bottom: .85rem; }
 }
 .gc-scatter-summary::-webkit-details-marker { display: none; }
 .gc-scatter-summary::after { content: none; }   /* override site-wide caret pseudo */
-.gc-scatter-summary:hover .gc-scatter-title { color: var(--emd-primary); }
+.gc-scatter-summary:hover .gc-scatter-status,
+.gc-scatter-summary:hover .gc-scatter-caret { color: var(--emd-primary); }
 
 .gc-scatter-caret {
   display: inline-block;
@@ -93,16 +96,11 @@ details.gc-scatter-card[open] { padding-bottom: .85rem; }
 }
 details.gc-scatter-card[open] .gc-scatter-caret { transform: rotate(90deg); }
 
-.gc-scatter-title {
-  margin: 0; flex: 1;
-  font-size: .875rem; font-weight: 600;
-  color: var(--emd-text);
+.gc-scatter-status {
+  font-size: .72rem; color: var(--emd-text-tertiary);
+  font-variant-numeric: tabular-nums;
   transition: color .15s;
-  background: transparent;              /* override site-wide details h-styles */
-  border: none;
-  padding: 0;
 }
-.gc-scatter-status { font-size: .72rem; color: var(--emd-text-tertiary); font-variant-numeric: tabular-nums; }
 
 /* Body (plot + legend) only visible when open. Add a small top margin so it
    isn't glued to the summary. */
@@ -154,16 +152,55 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-node.muted  { opacity: .16; }
 .gc-node.filtered-out { opacity: .06; pointer-events: none; }
 
+/* Legend: minimal by default (dot + count only) so the aside column can be
+   wide enough for the filter controls. Toggling .expanded reveals the names. */
 .gc-scatter-legend {
-  display: flex; flex-direction: column; gap: .4rem;
-  flex: 0 0 auto; min-width: 140px; max-width: 220px;
+  display: flex; flex-direction: column; gap: .3rem;
+  flex: 0 0 auto; min-width: 0;
   padding-top: .2rem;
   padding-bottom: .1rem;
 }
-.gc-legend-item { display: inline-flex; align-items: center; gap: .45rem; font-size: .74rem; color: var(--emd-text-secondary); }
+.gc-legend-list { display: flex; flex-direction: column; gap: .4rem; }
+.gc-legend-item { display: inline-flex; align-items: center; gap: .45rem; font-size: .74rem; color: var(--emd-text-secondary); cursor: default; }
 .gc-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
 .gc-legend-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+/* Acronym stand-in shown while the legend is collapsed. Monospace and a
+   min-width so the counts stay aligned across rows of differing length. */
+.gc-legend-acr {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .68rem; font-weight: 600; letter-spacing: .02em;
+  color: var(--emd-text-secondary);
+  min-width: 2.4em;
+}
 .gc-legend-count { color: var(--emd-text-tertiary); font-variant-numeric: tabular-nums; font-size: .7rem; }
+
+/* collapsed: hide the names, keep dot + count hard against the left */
+.gc-scatter-legend:not(.expanded) .gc-legend-label { display: none; }
+.gc-scatter-legend.expanded .gc-legend-acr { display: none; }
+.gc-scatter-legend:not(.expanded) .gc-legend-count { margin-left: auto; }
+.gc-scatter-legend.expanded .gc-legend-list { min-width: 140px; max-width: 200px; }
+
+.gc-legend-toggle {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .18rem .4rem;
+  font: inherit; line-height: 1;
+  color: var(--emd-text-tertiary);
+  background: none; border: 1px solid var(--emd-border); border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .12s, border-color .12s, background .12s;
+}
+.gc-legend-toggle:hover { color: var(--emd-primary); border-color: var(--emd-primary); background: var(--emd-primary-light); }
+.gc-legend-toggle:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+/* Word label ("Expand" / "Hide") rather than a chevron, so the control reads
+   unambiguously. Deliberately not rotated — that would garble the text. */
+.gc-legend-caret {
+  display: inline-block;
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  line-height: 1;
+}
 
 /* restart-rotation button — sits at the bottom of the legend column */
 .gc-restart-rotate {
@@ -186,10 +223,12 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-restart-rotate:hover .gc-restart-icon { animation: gc-spin-once .5s ease-out; }
 @keyframes gc-spin-once { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 
-/* details panel — flush right, expands to fill remaining horizontal space */
+/* Aside column — dual purpose: filter controls at rest, cell details while a
+   node is hovered or pinned. Capped to the plot's height and scrolled
+   internally so a tall stack of active filters can't stretch the card. */
 .gc-scatter-detail {
-  flex: 0 1 380px;
-  min-width: 220px;
+  flex: 1 1 420px;
+  min-width: 300px;
   padding: .7rem .85rem;
   background: var(--emd-bg-secondary);
   border: 1px solid var(--emd-border);
@@ -197,8 +236,11 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
   font-size: .78rem;
   color: var(--emd-text-secondary);
   align-self: stretch;
-  overflow: hidden;
+  max-height: min(560px, 70vh);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+.gc-detail-filters[hidden], .gc-detail-node[hidden] { display: none; }
 .gc-detail-placeholder { margin: 0; font-size: .74rem; color: var(--emd-text-tertiary); font-style: italic; }
 .gc-detail-head { display: flex; align-items: baseline; gap: .45rem; margin-bottom: .4rem; }
 .gc-detail-id { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .82rem; font-weight: 600; color: var(--emd-primary); }
@@ -209,6 +251,59 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-detail-fields { display: grid; grid-template-columns: max-content 1fr; gap: .2rem .6rem; margin: 0; font-size: .72rem; }
 .gc-detail-fields dt { color: var(--emd-text-tertiary); font-weight: 600; font-size: .62rem; text-transform: uppercase; letter-spacing: .04em; align-self: baseline; }
 .gc-detail-fields dd { margin: 0; color: var(--emd-text); }
+
+/* ---- compact filters, as hosted inside the aside column ----
+   Stacked single-column layout with tightened type and padding. All rules are
+   scoped to .gc-filters-compact so the standalone (phone) filter card keeps
+   its original wide layout. */
+.gc-filters-heading {
+  font-size: .62rem; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--emd-text-tertiary);
+}
+.gc-filters-compact { gap: .5rem; }
+.gc-filters-compact .gc-control-row { flex-wrap: wrap; gap: .3rem .5rem; }
+.gc-filters-compact .gc-search-row { flex: 1 1 100%; max-width: none; }
+.gc-filters-compact .gc-search-input { font-size: .8rem; padding: .34rem .55rem .34rem 1.85rem; }
+.gc-filters-compact .gc-search-input::placeholder { font-size: .75rem; }
+.gc-filters-compact .gc-search-icon { left: .5rem; width: 13px; height: 13px; }
+.gc-filters-compact .gc-clear-link { margin-left: auto; font-size: .72rem; }
+
+/* Pills are individually bordered here rather than forming a seamless
+   segmented group, so the column count can change freely at breakpoints.
+   JS sets no inline grid-template-columns in compact mode. */
+.gc-filters-compact .gc-pill-row {
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: .3rem;
+  border: none; border-radius: 0; background: none; overflow: visible;
+}
+.gc-filters-compact .gc-pill {
+  justify-content: flex-start;
+  padding: .3rem .55rem;
+  font-size: .74rem;
+  border: 1px solid var(--emd-border);
+  border-radius: 5px;
+}
+
+/* active panels stack vertically instead of tiling */
+.gc-filters-compact .gc-panel-area { grid-template-columns: 1fr; gap: .4rem; }
+.gc-filters-compact .gc-panel::before { padding: .26rem .55rem .22rem; font-size: .6rem; }
+.gc-filters-compact .gc-panel-body { padding: .45rem .55rem .5rem; gap: .35rem; }
+.gc-filters-compact .gc-check-list { max-height: 132px; }
+.gc-filters-compact .gc-check-row { font-size: .76rem; padding: .15rem; }
+.gc-filters-compact .gc-check-search { font-size: .76rem; padding: .26rem .4rem; }
+.gc-filters-compact .gc-check-count { font-size: .66rem; }
+.gc-filters-compact .gc-num-input { font-size: .76rem; padding: .24rem .3rem; }
+.gc-filters-compact .gc-num-label { font-size: .6rem; }
+.gc-filters-compact .gc-range-wrap { height: 20px; }
+
+/* Larger screens: the aside is wide enough to run two filters abreast.
+   Declared after the single-column defaults above so it wins on source order
+   (media queries add no specificity of their own). */
+@media (min-width: 1200px) {
+  .gc-filters-compact .gc-pill-row { grid-template-columns: 1fr 1fr; }
+  .gc-filters-compact .gc-panel-area { grid-template-columns: 1fr 1fr; }
+}
 
 /* row highlighted because its scatter node is hovered */
 .gc-row-linked { background: var(--emd-primary-light) !important; box-shadow: inset 3px 0 0 var(--emd-primary); }
@@ -396,6 +491,16 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-tooltip { position: fixed; z-index: 1000; max-width: 260px; padding: .4rem .6rem; background: var(--emd-text); color: var(--emd-bg); font-size: .75rem; line-height: 1.45; border-radius: 5px; box-shadow: 0 4px 14px rgba(0,0,0,.2); pointer-events: none; opacity: 0; transition: opacity .1s; }
 .gc-tooltip.visible { opacity: 1; }
 
+/* Tablet band: plot + legend + aside all still fit as three columns, but need
+   tightening. Shrinking the plot's floor keeps the aside usable for filters. */
+@media (max-width: 900px) {
+  .gc-scatter-body { gap: 1rem; }
+  .gc-scatter-plot { min-width: min(38%, 70vh); }
+  .gc-scatter-detail { min-width: 230px; flex-basis: 280px; }
+  /* keep the legend collapsed-narrow here even if expanded */
+  .gc-scatter-legend.expanded .gc-legend-list { max-width: 130px; }
+}
+
 @media (max-width: 640px) {
   .emd-page { padding: 1.5rem .9rem 3rem; }
   .gc-title { font-size: 1.45rem; }
@@ -404,4 +509,6 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
   .gc-td-id { width: 4ch; }
   .gc-scatter-body { flex-direction: column; }
   .gc-scatter-legend { flex-direction: row; flex-wrap: wrap; gap: .35rem 1rem; max-width: none; min-width: 0; padding-top: 0; }
+  /* stacked, so the aside no longer needs to match the plot's height */
+  .gc-scatter-detail { max-height: none; flex-basis: auto; }
 }

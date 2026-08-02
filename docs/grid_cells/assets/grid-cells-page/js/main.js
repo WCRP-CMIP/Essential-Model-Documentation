@@ -97,8 +97,9 @@ async function main() {
     },
   });
 
-  // filters
+  // filters — rendered compact when they live in the scatter's aside column
   const filters = createFilters(columns, {
+    compact: !!scatter,
     onChange: () => {
       const filtered = rows.filter(filters.test);
       table.update(filtered);
@@ -109,11 +110,16 @@ async function main() {
     },
   });
 
-  // filter panel (search + pills + active panels) — above the similarity map
-  shell.appendChild(el("div", { class: "gc-filter-card" }, [filters.root]));
-
-  // similarity map sits between filters and table (desktop / tablet only)
-  if (scatter) shell.appendChild(scatter.root);
+  // The similarity map's aside column doubles as the filter panel: filters at
+  // rest, cell details while a node is hovered or pinned. When the map is
+  // suppressed (narrow phones) the filters fall back to their own card above
+  // the table so they remain reachable.
+  if (scatter) {
+    shell.appendChild(scatter.root);
+    scatter.setAside(filters.root);
+  } else {
+    shell.appendChild(el("div", { class: "gc-filter-card" }, [filters.root]));
+  }
 
   // table, with a small header strip carrying the live count
   const tableHead = el("div", { class: "gc-table-head" }, [

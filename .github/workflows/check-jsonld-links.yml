@@ -1,0 +1,107 @@
+name: ⌕ EMD Link Check
+
+# Verifies that every in-EMD JSON-LD cross-reference points to a file that
+# actually exists in the PR head.
+#
+# Runs on every PR file update. Posts a Checks API result whose title carries
+# both the compliant ratio and the broken count (e.g. "EMD links: 5/8
+# compliant, 3 broken"). The job also fails on any broken reference so it can
+# be used as a required status check.
+#
+# TO BLOCK MERGING on failure:
+#   Settings → Branches → branch protection rule for `src-data`
+#   → Require status checks to pass → add "EMD links" (this workflow's check).
+
+run-name: EMD links · PR #${{ github.event.pull_request.number }}
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  emd-links:
+    name: Verify JSON-LD links resolve
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+      REPO:     ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run link check
+        id: check
+        continue-on-error: true
+        run: |
+          python3 scripts/check_jsonld_links.py
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Post Checks API result
+        if: always()
+        env:
+          COMPLIANT: ${{ steps.check.outputs.compliant }}
+          TOTAL:     ${{ steps.check.outputs.total }}
+          MISSING:   ${{ steps.check.outputs.missing }}
+        run: |
+          set -euo pipefail
+
+          # Guard: if the script failed before writing outputs, still post a check.
+          COMPLIANT="${COMPLIANT:-0}"; TOTAL="${TOTAL:-0}"; MISSING="${MISSING:-0}"
+
+          if [ "$MISSING" = "0" ] && [ "$TOTAL" != "0" ]; then
+            NAME="EMD links: ${COMPLIANT}/${TOTAL} compliant"
+            CONCLUSION="success"
+            TITLE="All ${TOTAL} in-repo references resolve"
+          elif [ "$TOTAL" = "0" ]; then
+            NAME="EMD links: check did not run"
+            CONCLUSION="failure"
+            TITLE="Link check script did not produce results — see workflow log"
+          else
+            NAME="EMD links: ${COMPLIANT}/${TOTAL} compliant, ${MISSING} broken"
+            CONCLUSION="failure"
+            TITLE="${MISSING} broken in-EMD reference(s) found"
+          fi
+
+          # Prefer the markdown table already written by the script; fall back sanely.
+          if [ -s "$GITHUB_STEP_SUMMARY" ]; then
+            SUMMARY_FILE="$GITHUB_STEP_SUMMARY"
+          else
+            SUMMARY_FILE=$(mktemp)
+            printf '## EMD links\n\n**%s/%s compliant · %s broken**\n' \
+              "$COMPLIANT" "$TOTAL" "$MISSING" > "$SUMMARY_FILE"
+          fi
+
+          jq -n \
+            --arg name       "$NAME" \
+            --arg head_sha   "$HEAD_SHA" \
+            --arg conclusion "$CONCLUSION" \
+            --arg title      "$TITLE" \
+            --rawfile summary "$SUMMARY_FILE" \
+            '{
+              name:       $name,
+              head_sha:   $head_sha,
+              status:     "completed",
+              conclusion: $conclusion,
+              output: { title: $title, summary: $summary }
+            }' \
+            | gh api "/repos/${REPO}/check-runs" -X POST --input -
+
+      - name: Fail job if any broken links
+        if: steps.check.outputs.missing != '0' || steps.check.outputs.total == ''
+        run: |
+          echo "::error::${{ steps.check.outputs.missing }} broken in-EMD reference(s) — see step summary"
+          exit 1

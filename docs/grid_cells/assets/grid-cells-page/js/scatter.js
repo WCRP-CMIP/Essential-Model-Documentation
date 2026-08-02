@@ -8,8 +8,12 @@
 //
 // Node size = R (base) + linearly-scaled n_cells boost + hover/pin multiplier.
 //
+// The aside column is dual-purpose: at rest it hosts the filter controls
+// (mounted by main.js via setAside), and swaps to node details on hover.
+//
 // Interactions
-//   Hover a node   → temporary highlight + tooltip + detail panel
+//   Hover a node   → temporary highlight + tooltip + node details in the aside
+//   Leave the node → aside reverts to the filter controls (unless pinned)
 //   Click a node   → pin the highlight (persists through mouseleave)
 //   Click blank    → unpin
 //   Scroll         → zoom in (up to 3×)
@@ -37,9 +41,31 @@ const TSNE_ITERS = 320;
 const CHUNK = 25;
 
 // ---- palette ---------------------------------------------------------------
+// 16 well-separated hues — one per grid_type with a spare. Colours are
+// assigned by descending frequency, so the most common types get the most
+// distinguishable colours at the top of the list.
+//   cubed-sphere, displaced-pole, hierarchical-discrete-global-grid,
+//   icosahedral-geodesic, icosahedral-geodesic-dual, linear-spectral-gaussian,
+//   plane-projection, reduced-gaussian, regular-gaussian,
+//   regular-latitude-longitude, spectral-gaussian, spectral-reduced-gaussian,
+//   tripolar, unstructured-triangular, yin-yang  (15) + 1 spare
 const PALETTE = [
-  "#4c6ef5", "#f76707", "#12b886", "#e64980", "#7048e8", "#f59f00",
-  "#0ca678", "#d6336c", "#1c7ed6", "#845ef7", "#82c91e", "#e8590c",
+  "#1c7ed6", // blue
+  "#f76707", // orange
+  "#12b886", // teal
+  "#e64980", // pink
+  "#7048e8", // violet
+  "#f59f00", // amber
+  "#82c91e", // lime
+  "#15aabf", // cyan
+  "#d6336c", // raspberry
+  "#e8590c", // burnt orange
+  "#0ca678", // emerald
+  "#be4bdb", // magenta
+  "#f03e3e", // red
+  "#4c6ef5", // indigo
+  "#087f5b", // deep teal
+  "#9c36b5", // deep purple
 ];
 const OTHER_COLOUR = "#adb5bd";
 
@@ -353,6 +379,45 @@ function buildNCellsBoost(rows) {
   return vals.map(v => v == null ? 0 : NCELLS_BOOST * (v - mn) / span);
 }
 
+// ---- legend acronyms -------------------------------------------------------
+// Collapsed, the legend shows one initial per word ("regular-latitude-longitude"
+// → "RLL") so the column stays narrow. Some grid types share initials —
+// reduced-gaussian and regular-gaussian both reduce to "RG" — so any colliding
+// labels grow the first word's prefix until every acronym in the set is unique
+// ("RedG" / "RegG"). Labels may arrive hyphenated or spaced, so split on both.
+function buildAcronyms(labels) {
+  const wordsOf = l => String(l).split(/[\s_/-]+/).filter(Boolean);
+  const at = (l, depth) => {
+    const ws = wordsOf(l);
+    if (!ws.length) return "?";
+    const head = ws[0].slice(0, depth);
+    const capped = head.charAt(0).toUpperCase() + head.slice(1).toLowerCase();
+    return capped + ws.slice(1).map(w => w.charAt(0).toUpperCase()).join("");
+  };
+
+  const out = new Map();
+  const taken = new Set();
+  let pool = [...new Set(labels)];
+
+  for (let depth = 1; depth <= 8 && pool.length; depth++) {
+    const groups = new Map();
+    for (const l of pool) {
+      const a = at(l, depth);
+      if (!groups.has(a)) groups.set(a, []);
+      groups.get(a).push(l);
+    }
+    const stuck = [];
+    for (const [a, g] of groups) {
+      if (g.length === 1 && !taken.has(a)) { out.set(g[0], a); taken.add(a); }
+      else stuck.push(...g);
+    }
+    pool = stuck;
+  }
+  // Anything still ambiguous after eight characters falls back to a suffix.
+  pool.forEach((l, i) => out.set(l, at(l, 8) + (i + 1)));
+  return out;
+}
+
 // ---- colour mapping --------------------------------------------------------
 function buildColourMap(rows) {
   const counts = new Map();
@@ -380,7 +445,7 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "t-SNE similarity map of grid cells");
+  svg.setAttribute("aria-label", "Similarity map of grid cells");
 
   const defs = document.createElementNS(SVGNS, "defs");
   defs.innerHTML = `
@@ -406,24 +471,52 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
 
   const status = el("span", { class: "gc-scatter-status" }, "Computing…");
 
-  const legend = el("div", { class: "gc-scatter-legend" });
+  // Legend is minimal by default — colour dot, acronym and count — so the
+  // aside column has room for the filter controls. The toggle expands it to
+  // reveal the full grid-type names; hovering any row shows the name anyway.
+  const acronymOf = buildAcronyms(ordered.map(([label]) => label));
+  const legendList = el("div", { class: "gc-legend-list" });
   ordered.forEach(([label, count]) => {
-    legend.appendChild(el("span", { class: "gc-legend-item", title: `${label} — ${count}` }, [
+    const item = el("span", { class: "gc-legend-item" }, [
       el("span", { class: "gc-legend-dot", style: `background:${colourOf.get(label)}` }),
+      el("span", { class: "gc-legend-acr" }, acronymOf.get(label) || "?"),
       el("span", { class: "gc-legend-label" }, `${label}`),
       el("span", { class: "gc-legend-count" }, `${count}`),
-    ]));
+    ]);
+    attachTooltip(item, `${label} — ${count}`);
+    legendList.appendChild(item);
   });
 
-  const detailPanel = el("div", { class: "gc-scatter-detail" }, [
+  const legend = el("div", { class: "gc-scatter-legend" });
+  const legendToggle = el("button", {
+    class: "gc-legend-toggle", type: "button",
+    "aria-expanded": "false", title: "Show grid type names",
+    onclick: () => {
+      const open = legend.classList.toggle("expanded");
+      legendToggle.setAttribute("aria-expanded", String(open));
+      legendToggle.setAttribute("title", open ? "Hide grid type names" : "Show grid type names");
+      legendToggle.firstChild.textContent = open ? "Hide" : "Expand";
+    },
+  }, [el("span", { class: "gc-legend-caret" }, "Expand")]);
+  legend.append(legendToggle, legendList);
+
+  // The aside column is dual-purpose. At rest it hosts the filter controls
+  // (mounted later via setAside); while a node is hovered or pinned it shows
+  // that node's details instead. Both slots stay in the DOM and are toggled
+  // with `hidden`, so filter state, scroll position and focus all survive.
+  const detailFilters = el("div", { class: "gc-detail-filters" });
+  const detailNode = el("div", { class: "gc-detail-node" }, [
     el("p", { class: "gc-detail-placeholder" }, "Hover a node to see its details."),
   ]);
+  const detailPanel = el("div", { class: "gc-scatter-detail" }, [detailFilters, detailNode]);
+  let hasAside = false;   // true once filter controls are mounted here
 
   const summary = document.createElement("summary");
   summary.className = "gc-scatter-summary";
+  // No figure title — the caret plus the status line (node/link counts and the
+  // zoom hint) are enough to identify and operate the panel.
   summary.append(
     el("span", { class: "gc-scatter-caret", "aria-hidden": "true" }, "▸"),
-    el("h2", { class: "gc-scatter-title" }, "t-SNE Similarity Map"),
     status,
   );
 
@@ -452,9 +545,13 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
   rows.forEach(r => recById.set(short(r["@id"]), r));
 
   // ---------- details panel ----------
-  function showDetail(id) {
+  // `force` is set by explicit actions (click / pin / restoring a pin). A plain
+  // hover is not forced, so it won't yank the filter UI away while the user is
+  // typing into one of the filter controls.
+  function showDetail(id, force = false) {
     const rec = recById.get(id);
     if (!rec) return;
+    if (!force && hasAside && detailFilters.contains(document.activeElement)) return;
     const alias = isNil(rec.alias) ? "" : (Array.isArray(rec.alias) ? rec.alias.join(", ") : String(rec.alias));
     const uiLabel = isNil(rec.ui_label) ? "" : String(rec.ui_label);
     const description = isNil(rec.description) ? "" : String(rec.description);
@@ -472,8 +569,8 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
       previewRows.push({ key: k, display });
     }
 
-    clear(detailPanel);
-    detailPanel.append(
+    clear(detailNode);
+    detailNode.append(
       el("div", { class: "gc-detail-head" }, [
         el("code", { class: "gc-detail-id" }, id),
         alias ? el("span", { class: "gc-detail-alias" }, alias) : null,
@@ -491,10 +588,28 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
         ])
       ) : null,
     );
+    if (hasAside) { detailFilters.hidden = true; detailNode.hidden = false; }
   }
+
+  // Resting state: show the filter controls if they've been mounted here,
+  // otherwise fall back to the original "hover a node" placeholder.
   function clearDetail() {
-    clear(detailPanel);
-    detailPanel.append(el("p", { class: "gc-detail-placeholder" }, "Hover a node to see its details."));
+    clear(detailNode);
+    if (hasAside) {
+      detailNode.hidden = true;
+      detailFilters.hidden = false;
+    } else {
+      detailNode.hidden = false;
+      detailNode.append(el("p", { class: "gc-detail-placeholder" }, "Hover a node to see its details."));
+    }
+  }
+
+  // Mount arbitrary content (the filter controls) as the aside's resting state.
+  function setAside(node) {
+    clear(detailFilters);
+    detailFilters.appendChild(node);
+    hasAside = true;
+    clearDetail();
   }
 
   // ---------- highlight ----------
@@ -558,7 +673,7 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
 
   // SVG mouseleave restores pinned view (or clears)
   svg.addEventListener("mouseleave", () => {
-    if (pinnedId != null) { setActive(pinnedId); showDetail(pinnedId); }
+    if (pinnedId != null) { setActive(pinnedId); showDetail(pinnedId, true); }
     else { setActive(null); clearDetail(); }
   });
 
@@ -629,14 +744,13 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
       c.dataset.type = label;
       c.dataset.baseR = r.toFixed(2);
 
-      const alias = isNil(rec.alias) ? "" : (Array.isArray(rec.alias) ? rec.alias.join(", ") : String(rec.alias));
-      attachTooltip(c, `${id}${alias ? ` · ${alias}` : ""}\n${label}`);
-
+      // No tooltip on nodes — hovering surfaces the full record in the aside
+      // column instead, so a floating tooltip would just duplicate it.
       c.addEventListener("mouseenter", () => {
         setActive(id); showDetail(id); onHoverNode && onHoverNode(id);
       });
       c.addEventListener("mouseleave", () => {
-        if (pinnedId != null) { setActive(pinnedId); showDetail(pinnedId); }
+        if (pinnedId != null) { setActive(pinnedId); showDetail(pinnedId, true); }
         else { setActive(null); clearDetail(); }
         onLeaveNode && onLeaveNode();
       });
@@ -647,7 +761,7 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
           setActive(null); clearDetail();
         } else {
           pinnedId = id;
-          setActive(id); showDetail(id);
+          setActive(id); showDetail(id, true);
         }
         onSelectNode && onSelectNode(id);
       });
@@ -695,9 +809,10 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
         setActive(null); clearDetail();
       } else if (nodeById.has(id)) {
         pinnedId = id;
-        setActive(id); showDetail(id);
+        setActive(id); showDetail(id, true);
       }
     },
     setVisible(ids) { visible = ids; applyVisibility(); },
+    setAside,
   };
 }

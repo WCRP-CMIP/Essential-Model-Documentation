@@ -14,7 +14,16 @@ import { categoryTokens, numericValue } from "./schema.js";
 
 const isNil = v => v == null || (typeof v === "string" && !v.trim());
 
-export function createFilters(columns, { onChange }) {
+// A category panel only gets its own search box once the checklist is long
+// enough that scrolling it is genuinely painful. Every controlled vocabulary
+// on this page is well under this (grid_type is the largest at 23 terms), so
+// in practice the checklists are just scrolled — the panel is already scoped
+// to one field, and a second search box crowds the narrow aside column.
+const SEARCH_MIN_OPTIONS = 40;
+
+// `compact` renders for a narrow aside column: pills stack in a single
+// column and active panels stack below them rather than tiling.
+export function createFilters(columns, { onChange, compact = false } = {}) {
   const state = {
     idQuery: "",
     category: new Map(),
@@ -71,8 +80,14 @@ export function createFilters(columns, { onChange }) {
     allPanels.get(col.key).pill = pill;
   });
   // Set grid columns after all pills are appended so we know N.
+  //
+  // Compact mode deliberately sets no inline grid-template-columns: the aside
+  // column's width varies with the viewport, so CSS media queries own the
+  // column count there (1 up narrow, 2 on larger screens). Inline styles would
+  // beat those media queries. Compact pills are individually bordered rather
+  // than forming a seamless segmented group, so no border-stripping is needed.
   const N = filterCols.length;
-  if (N > 0) {
+  if (N > 0 && !compact) {
     // Pick the column count in the preferred range [3..6] that minimises
     // wasted cells in the last row (fewest empty slots), tiebreak: larger.
     const lo = Math.min(3, N), hi = Math.min(6, N);
@@ -127,7 +142,13 @@ export function createFilters(columns, { onChange }) {
   }, "Clear all");
 
   const controlRow = el("div", { class: "gc-control-row" }, [searchRow, clearLink]);
-  const root = el("div", { class: "gc-filters" }, [controlRow, pillRow, panelArea]);
+  // In compact (aside) mode a small heading labels the resting state, so the
+  // column reads clearly as "filters now, cell details on hover".
+  const heading = compact
+    ? el("div", { class: "gc-filters-heading" }, "Filter options")
+    : null;
+  const root = el("div", { class: `gc-filters${compact ? " gc-filters-compact" : ""}` },
+    [heading, controlRow, pillRow, panelArea].filter(Boolean));
 
   function test(row) {
     if (state.idQuery) {
@@ -196,7 +217,7 @@ function categoryPanel(col, state, fire) {
   const sel = state.category.get(col.key);
   const list = el("div", { class: "gc-check-list" });
 
-  const searchInput = col.options.length > 8 ? el("input", {
+  const searchInput = col.options.length >= SEARCH_MIN_OPTIONS ? el("input", {
     type: "search", class: "gc-check-search",
     placeholder: `Search ${col.label.toLowerCase()}…`,
     oninput: e => {
