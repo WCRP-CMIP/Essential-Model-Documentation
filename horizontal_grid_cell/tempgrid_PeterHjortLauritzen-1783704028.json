@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_PeterHjortLauritzen-1783704028",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type and 110 x 110 km resolution.",
+    "description": "",
+    "alias": [
+        "ne30pg3"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 48600,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.29291,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 45,
+    "x_resolution": 110,
+    "y_resolution": 110,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_PeterHjortLauritzen-1783704028"
+}
