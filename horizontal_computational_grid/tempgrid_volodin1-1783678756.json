@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_volodin1-1783678756",
+    "ui_label": "",
+    "description": "Arakawa C-grid 2.0 x 1.5 regular lat-lon for use in atmospheric modelling.",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g201-mass",
+        "g223-x-velocity",
+        "g222-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_volodin1-1783678756"
+}
