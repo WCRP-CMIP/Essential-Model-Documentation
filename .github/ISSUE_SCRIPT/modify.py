@@ -233,11 +233,16 @@ def run(parsed_issue, issue, dry_run=False):
     contributors = [c.strip() for c in collab_str.split(',') if c.strip()] \
                    if collab_str else []
 
+    # `_force_modify` tells new_issue.py that overwriting an existing file is the
+    # intent here, not an accident. Without it the writer's "File already exists"
+    # guard rejects every submission from this form, since the guard only skips
+    # when issue_kind == 'modify' and no handler sets issue_kind.
     return {
         rel_path:         data,
         '_author':        issue.get('author'),
         '_contributors':  contributors,
         '_make_pull':     True,
+        '_force_modify':  {rel_path},
         '_justification': justification,
         '_modify_key':    key,
         '_modify_old':    old_value,
