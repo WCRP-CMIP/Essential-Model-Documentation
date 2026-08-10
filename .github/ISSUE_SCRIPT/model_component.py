@@ -40,9 +40,24 @@ def _slugify(s: str) -> str:
     return s.strip('-')
 
 
-def _parse_list(value: str) -> list:
-    delim = '\n' if '\n' in value else ','
-    return [v.strip() for v in value.split(delim) if v.strip()]
+def _parse_list(value) -> list:
+    if isinstance(value, list):
+        return [str(v).strip() for v in value if str(v).strip()]
+    s = str(value)
+    # Split on newlines or commas first. The issue parser collapses newlines to
+    # spaces, so several URLs can arrive as one whitespace-separated string; split
+    # those too. Only when more than one URL is present, otherwise a reference like
+    # "Smith et al. 2020 https://doi.org/..." would be torn apart, and free text
+    # would survive as a single entry either way.
+    if '\n' in s:
+        parts = s.split('\n')
+    elif ',' in s:
+        parts = s.split(',')
+    elif s.count('http') > 1:
+        parts = re.split(r'\s+(?=https?://)', s)
+    else:
+        parts = [s]
+    return [v.strip() for v in parts if v.strip()]
 
 
 def run(parsed_issue, issue, dry_run=False):
