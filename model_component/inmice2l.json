@@ -1,0 +1,18 @@
+{
+    "validation_key": "inmice2l",
+    "ui_label": "INMICE2L",
+    "description": "Version 2L (low resolution) of the INMICE (Institute of Numerical Mathematics sea ICE model). In the sea ice model, the assumption of elastic-viscous-plastic rheology is used and the single ice category is considered. First order upwind scheme is used for sea ice advection.",
+    "code_base": "",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1134/S0001433809030098 https://doi.org/10.1134/S0001433809040082"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "inmice2l"
+}
