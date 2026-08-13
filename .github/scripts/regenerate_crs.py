@@ -1,163 +1,231 @@
 #!/usr/bin/env python3
 """
-Regenerate missing CRS strings in model JSON files.
+Regenerate / audit CRS strings in model JSON files.
 
-Usage:
-    python regenerate_crs.py                    # Process all model files
-    python regenerate_crs.py model1.json model2.json  # Process specific files
+Usage
+-----
+  # Fill blanks only (original behaviour)
+  python regenerate_crs.py
+
+  # Recompute every CRS from scratch, write if changed
+  python regenerate_crs.py --rebuild
+
+  # Check-only: report drift/errors but write nothing (exit 1 if any)
+  python regenerate_crs.py --check
+
+  # Specific files (any mode)
+  python regenerate_crs.py --rebuild model1.json model2.json
+
+Modes
+-----
+  (default)  Skip files that already have a non-empty 'crs' field.
+  --rebuild  Recompute every CRS from dynamic/embedded/coupled fields and
+             overwrite if the result differs from what is stored.
+  --check    Like --rebuild but never writes; exits 1 if any file has drift,
+             a missing CRS, or a validation error.  Suitable for CI.
 """
 
-import os
-import sys
+import argparse
 import json
 import glob
+import sys
 from pathlib import Path
 
-# Import CRS utilities
-from cmipld.utils import crs as _crs
+# ---------------------------------------------------------------------------
+# Import CRS utilities from the sibling CMIP-LD checkout.  Fall back to a
+# plain sys.path insert so the script works whether or not the package is
+# installed.
+# ---------------------------------------------------------------------------
+try:
+    from cmipld.utils import crs as _crs
+except ModuleNotFoundError:
+    import importlib.util, os
+    _candidates = [
+        Path(__file__).parents[4] / "CMIP-LD" / "cmipld" / "utils" / "crs.py",
+        Path(__file__).parents[3] / "CMIP-LD" / "cmipld" / "utils" / "crs.py",
+    ]
+    for _p in _candidates:
+        if _p.exists():
+            _spec = importlib.util.spec_from_file_location("crs", _p)
+            _crs = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_crs)
+            break
+    else:
+        sys.exit(
+            "ERROR: could not import cmipld.utils.crs — install cmipld or "
+            "place CMIP-LD next to Essential-Model-Documentation."
+        )
 
 
-def _norm_component(s: str) -> str:
-    """Normalize component names to CV slugs."""
-    _COMPONENT_NORM = {
-        'sea ice':                     'sea-ice',
-        'land surface and subsurface': 'land-surface',
-        'land surface':                'land-surface',
-        'land ice':                    'land-ice',
-        'ocean biogeochemistry':       'ocean-biogeochemistry',
-        'atmospheric chemistry':       'atmospheric-chemistry',
-    }
+_COMPONENT_NORM = {
+    'sea ice':                     'sea-ice',
+    'land surface and subsurface': 'land-surface',
+    'land surface':                'land-surface',
+    'land ice':                    'land-ice',
+    'ocean biogeochemistry':       'ocean-biogeochemistry',
+    'atmospheric chemistry':       'atmospheric-chemistry',
+}
+
+
+def _norm(s: str) -> str:
     sl = s.strip().lower()
-    return _COMPONENT_NORM.get(sl, sl.replace(' ', '_'))
+    return _COMPONENT_NORM.get(sl, sl.replace(' ', '-'))
 
 
-def load_model_json(filepath: str) -> dict:
-    """Load a model JSON file."""
-    with open(filepath, 'r') as f:
+def load_json(path: str) -> dict:
+    with open(path) as f:
         return json.load(f)
 
 
-def save_model_json(filepath: str, data: dict) -> None:
-    """Save a model JSON file with pretty formatting."""
-    with open(filepath, 'w') as f:
+def save_json(path: str, data: dict) -> None:
+    with open(path, 'w') as f:
         json.dump(data, f, indent=2)
-        f.write('\n')  # Add trailing newline
+        f.write('\n')
 
 
-def regenerate_crs_for_model(data: dict, model_id: str) -> tuple[bool, str]:
+def compute_crs(data: dict) -> tuple[str | None, list[str]]:
     """
-    Attempt to regenerate CRS for a model record.
-    
-    Returns: (success: bool, message: str)
+    Validate and build a CRS from a model record.
+    Returns (crs_string, errors).  crs_string is None on any error.
     """
-    # Check if CRS already exists
-    if 'crs' in data and data['crs']:
-        return False, f"  {model_id}: CRS already present"
-    
-    # Extract required fields for CRS generation
-    dynamic = [_norm_component(c) for c in data.get('dynamic_components', [])]
-    prescribed = [_norm_component(c) for c in data.get('prescribed_components', [])]
-    
-    # Parse embedded components (should already be normalized)
-    embedded_pairs = data.get('embedded_components', [])
-    
-    # Parse coupling groups (should already be normalized)
-    coupling_groups = data.get('coupled_components', [])
-    
-    # Validate CRS
-    crs_errors = _crs.validate(dynamic, embedded_pairs, coupling_groups, prescribed=prescribed)
-    
-    if crs_errors:
-        msg = f"  {model_id}: CRS validation failed:\n"
-        for error in crs_errors:
-            msg += f"    - {error}\n"
-        return False, msg
-    
-    # Build CRS
+    dynamic    = [_norm(c) for c in data.get('dynamic_components', [])]
+    prescribed = [_norm(c) for c in data.get('prescribed_components', [])]
+    embedded   = data.get('embedded_components', [])
+    coupled    = data.get('coupled_components', [])
+
+    errors = _crs.validate(dynamic, embedded, coupled, prescribed=prescribed)
+    if errors:
+        return None, errors
+
     try:
-        crs_string = _crs.build(dynamic, embedded_pairs, coupling_groups, prescribed=prescribed)
-        data['crs'] = crs_string
-        return True, f"  ✓ {model_id}: Generated CRS = {crs_string}"
+        return _crs.build(dynamic, embedded, coupled, prescribed=prescribed), []
     except Exception as e:
-        return False, f"  ✗ {model_id}: Error building CRS: {str(e)}"
+        return None, [str(e)]
+
+
+def process_file(filepath: str, mode: str) -> tuple[str, str | None]:
+    """
+    Process one model JSON file.
+
+    Returns (status, message) where status is one of:
+      'written'   — CRS updated on disk
+      'ok'        — CRS already correct, nothing written
+      'skipped'   — CRS present and mode is 'fill' (skip existing)
+      'missing'   — no CRS and mode is 'check'
+      'drift'     — stored CRS differs from computed, mode is 'check'
+      'error'     — validation/build failure
+    """
+    model_id = Path(filepath).stem
+    try:
+        data = load_json(filepath)
+    except json.JSONDecodeError as e:
+        return 'error', f"{model_id}: invalid JSON: {e}"
+
+    stored = data.get('crs') or ''
+    new_crs, errors = compute_crs(data)
+
+    if errors:
+        msg = f"{model_id}: validation error(s):\n" + \
+              ''.join(f"    - {e}\n" for e in errors)
+        return 'error', msg
+
+    if mode == 'fill' and stored:
+        return 'skipped', f"{model_id}: skipped (CRS present)"
+
+    if stored == new_crs:
+        return 'ok', f"{model_id}: ok ({new_crs})"
+
+    # There is a difference.
+    if mode == 'check':
+        if not stored:
+            return 'missing', f"{model_id}: missing CRS (would be: {new_crs})"
+        return 'drift', (
+            f"{model_id}: drift\n"
+            f"    stored  : {stored}\n"
+            f"    computed: {new_crs}"
+        )
+
+    # fill or rebuild — write the new value.
+    data['crs'] = new_crs
+    save_json(filepath, data)
+    action = 'generated' if not stored else 'updated'
+    return 'written', f"{model_id}: {action} -> {new_crs}"
+
+
+def parse_args():
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    grp = p.add_mutually_exclusive_group()
+    grp.add_argument('--rebuild', action='store_true',
+                     help='Recompute all CRS values, overwrite if changed')
+    grp.add_argument('--check',   action='store_true',
+                     help='Report drift/errors without writing (exit 1 if any)')
+    p.add_argument('files', nargs='*',
+                   help='Specific model filenames or paths (default: all)')
+    return p.parse_args()
 
 
 def main():
-    # Determine repo root and model directory
+    args = parse_args()
+    mode = 'check' if args.check else ('rebuild' if args.rebuild else 'fill')
+
     script_dir = Path(__file__).parent.parent.parent
-    model_dir = script_dir / 'model'
-    
+    model_dir  = script_dir / 'model'
     if not model_dir.exists():
-        print(f"Error: model directory not found at {model_dir}")
-        sys.exit(1)
-    
-    # Get list of files to process
-    if len(sys.argv) > 1:
-        # Process specific files passed as arguments
-        files_to_process = []
-        for arg in sys.argv[1:]:
-            # Support both full paths and just filenames
-            if os.path.isabs(arg):
-                files_to_process.append(arg)
+        sys.exit(f"ERROR: model directory not found at {model_dir}")
+
+    # Resolve file list
+    if args.files:
+        paths = []
+        for f in args.files:
+            p = Path(f) if Path(f).is_absolute() else model_dir / f
+            if p.exists():
+                paths.append(str(p))
             else:
-                full_path = model_dir / arg
-                if full_path.exists():
-                    files_to_process.append(str(full_path))
-                else:
-                    print(f"Warning: File not found: {full_path}")
+                print(f"WARNING: not found: {p}")
     else:
-        # Process all model JSON files
-        files_to_process = sorted(glob.glob(str(model_dir / '*.json')))
-    
-    if not files_to_process:
-        print("No model files to process")
-        return
-    
-    print(f"Processing {len(files_to_process)} model file(s)...\n")
-    
-    updated_files = []
-    failed_files = []
-    skipped_files = []
-    
-    for filepath in files_to_process:
-        model_id = Path(filepath).stem
-        
-        try:
-            data = load_model_json(filepath)
-            success, message = regenerate_crs_for_model(data, model_id)
-            print(message)
-            
-            if success:
-                save_model_json(filepath, data)
-                updated_files.append(model_id)
-            elif "already present" in message:
-                skipped_files.append(model_id)
-            else:
-                failed_files.append(model_id)
-        
-        except json.JSONDecodeError as e:
-            print(f"  ✗ {model_id}: Invalid JSON: {str(e)}")
-            failed_files.append(model_id)
-        except Exception as e:
-            print(f"  ✗ {model_id}: Unexpected error: {str(e)}")
-            failed_files.append(model_id)
-    
+        paths = sorted(glob.glob(str(model_dir / '*.json')))
+
+    if not paths:
+        sys.exit("No model files to process.")
+
+    mode_label = {'fill': 'fill (blanks only)', 'rebuild': 'rebuild (all)', 'check': 'check (read-only)'}
+    print(f"Mode: {mode_label[mode]}  |  {len(paths)} file(s)\n")
+
+    counts = {k: [] for k in ('written', 'ok', 'skipped', 'missing', 'drift', 'error')}
+
+    for filepath in paths:
+        status, msg = process_file(filepath, mode)
+        counts[status].append(Path(filepath).stem)
+        # Print non-ok lines; in check mode print everything
+        if status != 'ok' or mode == 'check':
+            prefix = {'written': '✓', 'ok': ' ', 'skipped': '-',
+                      'missing': '!', 'drift': '!', 'error': '✗'}.get(status, '?')
+            print(f"  {prefix} {msg}")
+
     # Summary
     print("\n" + "=" * 60)
-    print("SUMMARY")
+    print(f"{'CHECK SUMMARY' if mode == 'check' else 'SUMMARY'}")
     print("=" * 60)
-    print(f"Updated:  {len(updated_files)} file(s)")
-    if updated_files:
-        for f in updated_files:
-            print(f"  • {f}")
-    print(f"Skipped:  {len(skipped_files)} file(s) (CRS already present)")
-    print(f"Failed:   {len(failed_files)} file(s)")
-    if failed_files:
-        for f in failed_files:
-            print(f"  • {f}")
-    
-    # Exit with error if any failures
-    if failed_files:
+    if mode == 'fill':
+        print(f"  Written : {len(counts['written'])}")
+        print(f"  Skipped : {len(counts['skipped'])}  (CRS already present)")
+    elif mode == 'rebuild':
+        print(f"  Updated : {len(counts['written'])}")
+        print(f"  Unchanged: {len(counts['ok'])}")
+    else:  # check
+        print(f"  OK      : {len(counts['ok'])}")
+        print(f"  Missing : {len(counts['missing'])}")
+        print(f"  Drift   : {len(counts['drift'])}")
+
+    if counts['error']:
+        print(f"  Errors  : {len(counts['error'])}")
+        for m in counts['error']:
+            print(f"    • {m}")
+
+    bad = counts['error'] + counts['missing'] + counts['drift']
+    if bad:
         sys.exit(1)
 
 
