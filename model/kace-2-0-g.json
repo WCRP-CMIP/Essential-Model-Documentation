@@ -12,7 +12,7 @@
             "sea-ice"
         ]
     ],
-    "crs": "A[AcL](O,Si)O[Ob](Si)Si",
+    "crs": "",
     "dynamic_components": [
         "aerosol",
         "atmosphere",
@@ -25,7 +25,7 @@
     "embedded_components": [
         [
             "aerosol",
-            "atmospheric-chemistry"
+            "atmosphere"
         ],
         [
             "land-surface",
@@ -38,17 +38,21 @@
         [
             "ocean-biogeochemistry",
             "ocean"
+        ],
+        [
+            "sea-ice",
+            "ocean"
         ]
     ],
-    "family": "hadgem3",
+    "family": "ukesm1",
     "model_components": [
-        "aerosol_glomap-mode_h113_v133",
-        "atmosphere_metum-ga7-1_h113_v133",
-        "atmospheric-chemistry_ukca_h113_v118",
-        "land-surface_jules-v5-3_h105_v108",
+        "aerosol_glomap-mode_h113_v115",
+        "atmosphere_metum-ga7-1_h113_v115",
+        "atmospheric-chemistry_ukca_h113_v115",
+        "land-surface_jules-v5-3_h113_v117",
         "ocean-biogeochemistry_topaz2_h120_v107",
         "ocean_nemo3-6_h120_v107",
-        "sea-ice_cice5_h120_no-vertical"
+        "sea-ice_cice5_h142_no-vertical"
     ],
     "name": "kace-2-0-g",
     "omitted_components": [
