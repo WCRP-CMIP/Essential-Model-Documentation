@@ -1,0 +1,18 @@
+{
+    "validation_key": "blom2",
+    "ui_label": "BLOM2",
+    "description": "BLOM version 2 uses the vertical Lagrangian-remap method with a hybrid vertical coordinate. Layer interfaces are nudged to approach reference potential densities, while minimum layer thicknesses are enforced at the upper boundary to facilitate vertical resolution in the ocean boundary layer. The momentum equation in vector invariant form is discretized on an Arakawa-C grid. Vertical mixing uses the K-profile parameterization (KPP) with modifications to nonlocal distribution of surface fluxes. Unresolved eddy-induced transport and diffusion are parameterized.",
+    "code_base": "https://github.com/NorESMhub/BLOM",
+    "component": "ocean",
+    "family": "blom",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "blom2"
+}
