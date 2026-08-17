@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMD · Vertical grids</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+<!-- Dark mode: apply saved pref before first paint to avoid flicker -->
+<script>
+  (function () {
+    var saved = localStorage.getItem('emd-gc-dark');
+    if (saved === 'true') document.documentElement.classList.add('dark');
+  })();
+</script>
+
+<!-- EMD design tokens — mirrors custom.css :root block -->
+<style>
+  :root {
+    --emd-primary:        #2196f3;
+    --emd-primary-light:  #bbdefb;
+    --emd-primary-dark:   #1976d2;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    /* was #94a3b8 — 2.57:1 on white, failed WCAG AA (needs 4.5:1).
+       #64748b gives 4.76:1 while keeping the same de-emphasised feel. */
+    --emd-text-tertiary:  #64748b;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-bg-tertiary:    #f1f5f9;
+    --emd-border:         #e2e8f0;
+    --emd-border-light:   #f1f5f9;
+  }
+  .dark {
+    --emd-bg:             #1a1d20;
+    --emd-bg-secondary:   #22262b;
+    --emd-bg-tertiary:    #2b3038;
+    --emd-border:         #3a4048;
+    --emd-border-light:   #2b3038;
+    --emd-text:           #f0f2f4;
+    --emd-text-secondary: #c8cdd4;
+    --emd-text-tertiary:  #7e8894;
+    --emd-primary:        #60a5fa;
+    --emd-primary-light:  rgba(96,165,250,.15);
+    --emd-primary-dark:   #93c5fd;
+  }
+  html, body { margin: 0; background: var(--emd-bg-secondary); transition: background .2s; }
+</style>
+
+<link rel="stylesheet" href="../assets/grid-viewer-page/css/theme.css" />
+</head>
+<body>
+
+<div id="emd-grid-cells-page"></div>
+
+<!-- dark mode toggle — wired up after the page module mounts the header -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Wait a tick for the JS module to render the header
+    setTimeout(function () {
+      var header = document.querySelector('.gc-header');
+      if (!header) return;
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      var btn = document.createElement('button');
+      btn.id = 'gc-dark-toggle';
+      btn.setAttribute('aria-label', 'Toggle dark mode');
+      btn.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      btn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
+
+      btn.addEventListener('click', function () {
+        var nowDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('emd-gc-dark', nowDark);
+        btn.innerHTML = nowDark ? SUN_SVG : MOON_SVG;
+        btn.setAttribute('title', nowDark ? 'Switch to light mode' : 'Switch to dark mode');
+      });
+
+      header.appendChild(btn);
+    }, 50);
+  });
+
+  var MOON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  var SUN_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+</script>
+
+<script type="module">
+  import { initGridViewer } from "../assets/grid-viewer-page/js/main.js";
+  initGridViewer({
+    folder: "vertical_computational_grid",
+    title: "Vertical grids",
+    tableTitle: "Vertical grids",
+    noun: "vertical grids",
+    // vertical grids have no grid_type; colour by coordinate system instead
+    colourKey: "vertical_coordinate",
+  });
+</script>
+
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../css/base.css"><link rel="stylesheet" href="../../css/geist.css"><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
+
+(function(){
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "group", "label": "Information for Submitters", "url": "/Information_for_Submitters/", "children": [{"type": "link", "label": "Submission Guide", "url": "/Information_for_Submitters/Submission-Guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Information_for_Submitters/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an Institution", "url": "/Information_for_Submitters/Registering_an_Institution/"}, {"type": "link", "label": "Using GitHub Forms", "url": "/Information_for_Submitters/Using_GitHub_Forms/"}, {"type": "link", "label": "Error Meanings", "url": "/Information_for_Submitters/Error_Meanings/"}]}, {"type": "link", "label": "Progress Tracker", "url": "/Progress_Tracker.html"}, {"type": "group", "label": "Grid viewer", "url": "/grid_viewer/", "children": [{"type": "link", "label": "Horizontal", "url": "/grid_viewer/horizontal/"}, {"type": "link", "label": "Vertical", "url": "/grid_viewer/vertical/"}]}, {"type": "link", "label": "Model", "url": "/Model/"}, {"type": "link", "label": "EMD health", "url": "/EMD_health/"}, {"type": "group", "label": "Reviewer Guidance", "url": "/Reviewer_Guidance/", "children": [{"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Guidance/Reviewer_Information/"}, {"type": "link", "label": "Interpreting The Review Summary", "url": "/Reviewer_Guidance/Interpreting_The_Review_Summary/"}, {"type": "link", "label": "Review Options", "url": "/Reviewer_Guidance/Review_Options/"}, {"type": "link", "label": "Review Checklist", "url": "/Reviewer_Guidance/Review_Checklist/"}]}, {"type": "link", "label": "Progress Feed", "url": "/Progress_Feed/"}, {"type": "group", "label": "Developer Guidance", "url": "/Developer_Guidance/", "children": [{"type": "link", "label": "Find your submissions", "url": "/Developer_Guidance/find_your_submissions.html"}, {"type": "link", "label": "Issue Templates", "url": "/Developer_Guidance/Issue_Templates/"}, {"type": "link", "label": "Workflows and Automation", "url": "/Developer_Guidance/Workflows_and_Automation/"}]}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}];
+var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
+function rel(u){return PFX+(u||'').replace(/^\//,'');}
+function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
+function active(u){
+  if(!u)return false;
+  /* Home: key off u==='/' BEFORE resolving rel() — on a sub-path
+     deployment rel('/') resolves to e.g. '/docs', not '', so the old
+     p==='' guard was never reached and Home matched every page. */
+  if(u==='/'){
+    var a=document.createElement('a');a.href=rel(u);
+    var p=a.pathname.replace(/\/$/,'');
+    var c=cur();
+    return c===p||(p===''&&(c===''||c=='/'));
+  }
+  var a=document.createElement('a');a.href=rel(u);
+  var p=a.pathname.replace(/\/$/,'');
+  var c=cur();
+  return c===p||c.startsWith(p+'/');
+}
+var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+function grpActive(g){
+  for(var i=0;i<(g.children||[]).length;i++){
+    var c=g.children[i];
+    if(c.type==='link'&&active(c.url))return true;
+    if(c.type==='group'&&grpActive(c))return true;
+  }
+  return g.url&&active(g.url);
+}
+function render(items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    if(it.type==='link'){
+      h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>'+it.label+'</a>';
+    } else {
+      var on=grpActive(it);
+      var col=on?'':' collapsed';
+      var id='g'+Math.random().toString(36).slice(2);
+      h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
+      h+='<div id="'+id+'" class="nav-group-children'+col+'">';
+      /* Overview link intentionally omitted — group URL is the section header */
+      h+=render(it.children||[]);
+      h+='</div></div>';
+    }
+  }
+  return h;
+}
+window.toggleNav=function(el,id){
+  el.classList.toggle('collapsed');
+  document.getElementById(id).classList.toggle('collapsed');
+};
+function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+}
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
+}
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
+if(document.readyState==='loading')
+  document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+</body>
+</html>

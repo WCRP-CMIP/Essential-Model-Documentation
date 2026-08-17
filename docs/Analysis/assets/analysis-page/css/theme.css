@@ -1,0 +1,394 @@
+/* theme.css — Analysis page styles.
+   Same visual language as the grid_cells page: EMD design tokens
+   (--emd-*), Inter body font, JetBrains Mono for identifiers. */
+
+html, body { height: 100%; }
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--emd-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+/* Nothing else lives on this page — the scatter card is the whole screen.
+   Fixed (not min-) height, so the card below can't grow past the viewport;
+   .an-scatter-plot's max-height:100% (further down) is what actually makes
+   the square diagram respect the space left after the title bar. */
+#emd-analysis-page {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- generic status / error ---------- */
+.an-status {
+  padding: 1rem 1.25rem;
+  color: var(--emd-text-secondary);
+  background: var(--emd-bg);
+  border: 1px solid var(--emd-border);
+  border-radius: 8px;
+  font-size: .875rem;
+}
+.an-error {
+  padding: 1rem 1.25rem;
+  background: #fff5f5;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  color: #7f1d1d;
+}
+.dark .an-error {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(252, 165, 165, 0.35);
+  color: #fecaca;
+}
+.an-error h3 { margin: 0 0 .35rem; font-size: 1rem; }
+.an-error p { margin: .25rem 0; font-size: .875rem; }
+.an-error-hint { color: var(--emd-text-secondary); }
+
+/* ---------- scatter card ---------- */
+/* This is the entire page now — no border/rounding (that made sense when it
+   sat inside a larger page). Fixed height:100% of the (already 100vh)
+   mount point — combined with .an-scatter-plot's max-height further down,
+   this is what makes the diagram actually respect the space left after the
+   title bar, instead of sizing itself from width alone and overflowing. */
+.an-scatter-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--emd-bg);
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1rem 1.5rem;
+}
+.an-scatter-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; margin: 0 0 .5rem;
+  flex: 0 0 auto;
+}
+.an-scatter-title {
+  margin: 0;
+  font-size: 1rem; font-weight: 600;
+  color: var(--emd-text);
+}
+.an-scatter-status {
+  font-size: .75rem;
+  color: var(--emd-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.an-scatter-body {
+  display: flex; align-items: stretch;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin-top: .75rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.an-scatter-plot {
+  flex: 2 1 0;
+  min-width: 0;
+  max-height: 100%;   /* respect the height actually left after the title bar */
+  aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;   /* anchors the corner restart-rotation button */
+}
+.an-scatter-svg {
+  width: 100%; height: 100%;
+  user-select: none; touch-action: none;
+  background: var(--emd-bg-secondary);
+  border-radius: 8px;
+}
+
+/* ---------- grid + model nodes ---------- */
+.an-grid-node {
+  stroke: var(--emd-bg);
+  stroke-width: 1;
+  transition: opacity .12s, stroke .12s, stroke-opacity .12s;
+  cursor: pointer;
+}
+.an-grid-node.active { stroke: var(--emd-text); stroke-width: 1.6; stroke-opacity: 0.55; }
+.an-grid-node.linked { stroke: var(--emd-text); stroke-width: 1.2; stroke-opacity: 0.4; }
+.an-grid-node.muted  { opacity: .18; }
+
+.an-model-node {
+  fill: var(--emd-bg);
+  stroke: var(--emd-text);
+  stroke-width: 1.6;
+  transition: opacity .12s, stroke .12s, fill .12s;
+  cursor: pointer;
+}
+.an-model-node.active { fill: var(--emd-text); stroke: var(--emd-text); stroke-width: 2; }
+.an-model-node.linked { stroke: var(--emd-text); stroke-width: 2; }
+.an-model-node.muted  { opacity: .2; }
+
+.an-glow {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+.an-glow.visible { opacity: 1; }
+
+/* ---------- links ---------- */
+.an-link {
+  transition: stroke-opacity .12s, stroke-width .12s;
+  pointer-events: none;
+}
+.an-link.linked { stroke-opacity: 0.85 !important; stroke-width: 1.4; }
+.an-link.muted  { stroke-opacity: 0.04 !important; }
+
+/* ---------- legend ---------- */
+/* Compact — the box is shrunk to leave more room for the (enlarged) plot.
+   Sizing (min/max-width) now comes from .an-scatter-detail, the box that
+   contains it; the legend itself just fills that width. */
+.an-scatter-legend {
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.an-legend-heading {
+  margin-top: .28rem;
+  font-size: .62rem; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--emd-text-tertiary);
+}
+.an-legend-heading:first-child { margin-top: 0; }
+.an-legend-item {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .72rem; color: var(--emd-text-secondary);
+  line-height: 1.15;
+}
+.an-legend-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.an-legend-count { color: var(--emd-text-tertiary); font-variant-numeric: tabular-nums; font-size: .66rem; }
+.an-legend-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  flex: 0 0 auto;
+}
+.an-legend-swatch {
+  width: 12px; height: 2px; border-radius: 1px;
+  flex: 0 0 auto;
+}
+.an-legend-model-glyph {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--emd-bg);
+  border: 1.5px solid var(--emd-text);
+  flex: 0 0 auto;
+}
+
+/* ---------- restart-rotation button ---------- */
+/* Icon-only, floats over the bottom-right corner of the diagram itself
+   (see .an-scatter-plot's position:relative) rather than sitting in the
+   legend as a labelled control. */
+.an-restart-rotate {
+  position: absolute;
+  right: 10px; bottom: 10px;
+  z-index: 2;
+  width: 30px; height: 30px;
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--emd-text-secondary);
+  background: var(--emd-bg);
+  border: 1px solid var(--emd-border);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+  cursor: pointer;
+  transition: color .12s, border-color .12s, background .12s;
+}
+.an-restart-rotate:hover { color: var(--emd-primary); border-color: var(--emd-primary); background: var(--emd-primary-light); }
+.an-restart-rotate:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+.an-restart-icon { font-size: 1rem; line-height: 1; display: inline-block; }
+.an-restart-rotate:hover .an-restart-icon { animation: an-spin-once .5s ease-out; }
+@keyframes an-spin-once { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+/* ---------- detail panel ---------- */
+/* ~1/3 width against the plot's ~2/3 (flex-grow 1 vs 2, same flex-basis 0,
+   in .an-scatter-body). Height is matched to the plot via the parent's
+   align-items:stretch (the plot's own height comes from its aspect-ratio,
+   so this auto-height sibling stretches to match it). Content that still
+   exceeds that height scrolls rather than being clipped or breaking the
+   layout. */
+.an-scatter-detail {
+  flex: 1 1 0;
+  min-width: 220px;
+  max-width: 440px;
+  padding: .75rem 1rem;
+  background: var(--emd-bg-secondary);
+  border: 1px solid var(--emd-border);
+  border-radius: 8px;
+  font-size: .82rem;
+  color: var(--emd-text-secondary);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.an-detail-placeholder {
+  margin: 0;
+  color: var(--emd-text-tertiary);
+  font-size: .8rem;
+  font-style: italic;
+}
+.an-detail-kind {
+  font-size: .65rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--emd-text-tertiary);
+  margin-bottom: .3rem;
+}
+.an-detail-id {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .78rem;
+  color: var(--emd-text);
+  background: var(--emd-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.an-detail-head { display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap; }
+.an-detail-alias { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .7rem; color: var(--emd-text-tertiary); }
+.an-detail-fields {
+  display: grid; grid-template-columns: max-content 1fr;
+  gap: .2rem .6rem;
+  margin: .5rem 0 0;
+  font-size: .72rem;
+}
+.an-detail-fields dt {
+  color: var(--emd-text-tertiary); font-weight: 600; font-size: .62rem;
+  text-transform: uppercase; letter-spacing: .04em;
+  align-self: baseline;
+}
+.an-detail-fields dd { margin: 0; color: var(--emd-text); }
+.an-detail-ui-label { margin: .5rem 0 .25rem; font-weight: 600; color: var(--emd-text); }
+.an-detail-type { display: inline-flex; align-items: center; gap: .35rem; margin-top: .35rem; color: var(--emd-text); font-size: .78rem; }
+.an-detail-description {
+  margin: .5rem 0 0;
+  color: var(--emd-text-secondary);
+  font-size: .78rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.an-detail-used-by { margin: .55rem 0 .3rem; color: var(--emd-text-secondary); font-size: .78rem; }
+.an-detail-realms { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .3rem; }
+.an-detail-realm-tag {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: 2px 6px; border-radius: 4px;
+  background: var(--emd-bg);
+  border: 1px solid var(--emd-border);
+  font-size: .72rem;
+  color: var(--emd-text-secondary);
+}
+
+/* ---------- tooltip ---------- */
+.an-tooltip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  max-width: 280px;
+  opacity: 0;
+  transition: opacity .1s;
+}
+.an-tooltip.visible { opacity: 1; }
+.dark .an-tooltip { background: rgba(240, 242, 244, 0.92); color: #1a1d20; }
+
+/* ---------- responsive breakpoint ---------- */
+@media (max-width: 900px) {
+  /* Stacked layout needs to grow past one screen and scroll normally —
+     undo the fixed-height/overflow:hidden constraints used for the
+     desktop two-column layout. */
+  #emd-analysis-page { height: auto; overflow: visible; }
+  .an-scatter-card { height: auto; min-height: 100vh; }
+  .an-scatter-body { flex-direction: column; }
+  .an-scatter-plot { max-width: 100%; min-width: 0; max-height: none; }
+  .an-scatter-detail { flex: 1 1 auto; max-width: none; max-height: 340px; }
+}
+
+/* ---------- CRS block in the detail panel ---------- */
+.an-detail-crs {
+  margin-top: .55rem;
+  display: flex; flex-direction: column; gap: .35rem;
+  align-items: flex-start;
+}
+.an-crs-string {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .78rem;
+  color: var(--emd-text);
+  background: var(--emd-bg);
+  border: 1px solid var(--emd-border);
+  border-radius: 4px;
+  padding: 3px 6px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.an-crs-code { font: inherit; background: none; padding: 0; }
+.an-crs-tok {
+  font-weight: 600;
+  color: var(--realm, var(--emd-text));
+}
+.an-crs-tok.embedded { opacity: 0.7; }
+.an-crs-tok-struct { color: var(--emd-text-tertiary); font-weight: 400; }
+
+.an-crs-svg {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  align-self: center;
+}
+.an-crs-sphere {
+  fill: var(--realm, #7a8499);
+  fill-opacity: 0.9;
+  stroke: var(--realm, #7a8499);
+  stroke-width: 1.2;
+}
+.an-crs-pre-halo {
+  fill: none;
+  stroke: var(--realm, #7a8499);
+  stroke-width: 0.7;
+  stroke-dasharray: 2 2;
+  opacity: 0.55;
+}
+.an-crs-pre-circle {
+  fill: none;
+  stroke: var(--realm, #7a8499);
+  stroke-width: 1.4;
+}
+.an-crs-child-sphere {
+  fill: var(--realm, #7a8499);
+  stroke: var(--emd-bg);
+  stroke-width: 0.6;
+}
+.an-crs-sphere-label {
+  fill: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+.an-crs-node.prescribed .an-crs-sphere-label { fill: var(--emd-text); }
+.an-crs-pre-tag {
+  fill: var(--emd-text-tertiary);
+  font-size: 8px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.an-crs-child-label {
+  fill: #ffffff;
+  font-size: 7.5px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+.an-crs-couple {
+  stroke: var(--emd-text-tertiary);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.55;
+  fill: none;
+}
+.dark .an-crs-sphere-label,
+.dark .an-crs-child-label { fill: #14181c; }
+.dark .an-crs-node.prescribed .an-crs-sphere-label { fill: var(--emd-text); }
