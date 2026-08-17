@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMD · Grid Viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+<script>
+  (function () {
+    var saved = localStorage.getItem('emd-gc-dark');
+    if (saved === 'true') document.documentElement.classList.add('dark');
+  })();
+</script>
+<style>
+  :root {
+    --emd-primary:        #2196f3;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    --emd-text-tertiary:  #64748b;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-border:         #e2e8f0;
+  }
+  .dark {
+    --emd-bg:             #1a1d20;
+    --emd-bg-secondary:   #22262b;
+    --emd-border:         #3a4048;
+    --emd-text:           #f0f2f4;
+    --emd-text-secondary: #c8cdd4;
+    --emd-text-tertiary:  #7e8894;
+    --emd-primary:        #60a5fa;
+  }
+  html, body { margin: 0; background: var(--emd-bg-secondary); }
+  body {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    color: var(--emd-text); line-height: 1.5;
+    max-width: min(96vw, 1100px); margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  .eyebrow {
+    font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--emd-text-tertiary); font-weight: 600;
+    text-decoration: none; display: inline-block; margin-bottom: .4rem;
+  }
+  .eyebrow:hover { color: var(--emd-primary); }
+  h1 { margin: 0 0 .4rem; font-size: 1.6rem; font-weight: 700; }
+  .lede { margin: 0 0 2rem; color: var(--emd-text-secondary); max-width: 62ch; }
+  .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .vcard {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--emd-bg); border: 1px solid var(--emd-border);
+    border-radius: 8px; padding: 1.25rem;
+    transition: border-color .15s, transform .15s;
+  }
+  .vcard:hover { border-color: var(--emd-primary); transform: translateY(-2px); }
+  .vcard:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+  .vcard h2 { margin: 0 0 .35rem; font-size: 1.05rem; color: var(--emd-primary); }
+  .vcard p { margin: 0 0 .6rem; font-size: .875rem; color: var(--emd-text-secondary); }
+  .vcard code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .72rem; color: var(--emd-text-tertiary);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: .01ms !important; }
+    .vcard:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="eyebrow" href="../">EMD DOCUMENTATION</a>
+<h1>Grid Viewer</h1>
+<p class="lede">
+  Browse the grid collections in the Essential Model Documentation registry.
+  Each viewer loads its JSON-LD directly from the published registry — filter,
+  sort, explore the similarity map, and export the current selection as CSV.
+</p>
+
+<div class="cards">
+  <a class="vcard" href="horizontal/">
+    <h2>Horizontal grid cells</h2>
+    <p>Resolution, cell counts, grid type, projection and regional coverage for
+       each horizontal grid cell definition.</p>
+    <code>horizontal_grid_cell</code>
+  </a>
+
+  <a class="vcard" href="vertical/">
+    <h2>Vertical grids</h2>
+    <p>Level counts, vertical coordinate systems and layer thicknesses for each
+       vertical computational grid.</p>
+    <code>vertical_computational_grid</code>
+  </a>
+</div>
+
+</body>
+</html>

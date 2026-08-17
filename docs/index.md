@@ -3,6 +3,21 @@
 ## Status updates
 The Essential Model Documentation (EMD) is CMIP7's structured registry of climate model configurations — capturing grids, components, and how they fit together. [Submit a new entry](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose), track progress in the [Progress Tracker](Progress_Tracker.html), or browse approved submissions in the [Feed](Progress_Feed.md).
 
+<div class="emd-home-cards">
+  <a class="emd-home-card" href="grid_viewer/" aria-label="Grid Finder">
+    <img class="emd-home-card-img" src="assets/home-cards/grid-finder.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Grid Finder</span>
+  </a>
+  <a class="emd-home-card" href="Model/" aria-label="Model Viewer">
+    <img class="emd-home-card-img" src="assets/home-cards/model-viewer.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Model Viewer</span>
+  </a>
+  <a class="emd-home-card" href="Progress_Tracker.html" aria-label="Progress Tracker">
+    <img class="emd-home-card-img" src="assets/home-cards/progress-tracker.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Progress Tracker</span>
+  </a>
+</div>
+
 Recent updates include:
 
 1. **Progress tracker** : View the status of all your submissions using our [submission tracker](Progress_Tracker.html). 
@@ -174,9 +189,8 @@ Each folder corresponds to a distinct scientific concept that varies independent
 
 ---
 ### Become a reviewer
-If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form) or the embedded form below. 
+If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form).
 
-<iframe class="airtable-embed" src="https://airtable.com/embed/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
 
 
 ---

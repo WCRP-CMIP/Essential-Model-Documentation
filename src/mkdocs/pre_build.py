@@ -21,18 +21,28 @@ import argparse
 
 
 # Scripts that generate content and need to run BEFORE mkdocs build
+#
+# DEACTIVATED (2026-08-17) — the EMD grid viewer now loads JSON-LD directly at
+# runtime instead of pre-generating static HTML pages. None of the generators
+# below are run.
+#
+# Note these were already inert: pre_build resolves scripts as
+# docs/scripts/<name> (top level, no recursion), and every generator lives in
+# docs/scripts/temppausl/ or docs/scripts/paused/, so each one hit the
+# "not found" skip branch. generate_model_families.py no longer exists at all.
+# The list is kept, commented, as a record of the retired pipeline.
 PRE_BUILD_SCRIPTS = [
     # Family pages (splits into component_family/ and source_family/)
-    "generate_model_families.py",
+    # "generate_model_families.py",
     # Model and component pages
-    "generate_models.py",
-    "generate_model_components.py",
+    # "generate_models.py",
+    # "generate_model_components.py",
     # Grid pages (horizontal and vertical)
-    "generate_grids.py",
+    # "generate_grids.py",
     # Summary tables
-    "generate_summaries.py",
+    # "generate_summaries.py",
     # Visualizations
-    "generate_chord_diagram.py",
+    # "generate_chord_diagram.py",
 ]
 
 

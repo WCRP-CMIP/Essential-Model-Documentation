@@ -1,5 +1,26 @@
 // Essential Model Documentation - Custom Scripts for shadcn theme
 
+// ============================================
+// DARK MODE — disabled by default site-wide.
+// The grid_cells page adds its own per-page toggle.
+// This runs immediately (before DOMContentLoaded) to prevent flicker.
+// ============================================
+(function () {
+  // Always force light mode on all docs pages.
+  // Remove .dark if the theme has already set it.
+  document.documentElement.classList.remove('dark');
+
+  // Intercept future attempts by the theme to add .dark.
+  const origAdd = DOMTokenList.prototype.add;
+  DOMTokenList.prototype.add = function (...tokens) {
+    if (this === document.documentElement.classList) {
+      tokens = tokens.filter(t => t !== 'dark');
+      if (!tokens.length) return;
+    }
+    return origAdd.apply(this, tokens);
+  };
+})();
+
 // Configuration
 const CONFIG = {
   repoUrl: 'https://github.com/WCRP-CMIP/Essential-Model-Documentation',
@@ -544,8 +565,11 @@ function setupFigureControls() {
   if (!article) return;
 
   article.querySelectorAll('img').forEach(img => {
-    // Skip if already wrapped or inside a table/nav
+    // Skip if already wrapped or inside a table/nav — also skip the homepage
+    // feature cards, whose <img> is deliberately positioned inside the card
+    // link and would be broken by reparenting into a .fig-wrap.
     if (img.closest('.fig-wrap') || img.closest('nav') || img.closest('table')) return;
+    if (img.closest('.emd-home-card') || img.closest('.emd-home-cards')) return;
     if (!img.src) return;
 
     // Wrap
