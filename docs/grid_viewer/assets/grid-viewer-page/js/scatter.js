@@ -31,7 +31,11 @@ const R = 3;                     // base node radius
 const PAD = 22;                  // margin from viewBox edge
 const GAP = 2;                   // extra spacing between node edges
 const KNN = 1;                   // links per node
-const COLOUR_KEY = "grid_type";
+// Field the nodes are coloured by. Horizontal grid cells use grid_type;
+// vertical grids have no grid_type, so each page overrides this via the
+// colourKey option on createScatter().
+const DEFAULT_COLOUR_KEY = "grid_type";
+let COLOUR_KEY = DEFAULT_COLOUR_KEY;
 
 const MIN_ZOOM = 1;
 // Raised from 3: with drag-to-pan, deeper zoom is usable for dense clusters.
@@ -436,7 +440,8 @@ function buildColourMap(rows) {
 }
 
 // ---- public API ------------------------------------------------------------
-export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelectNode } = {}) {
+export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelectNode, colourKey } = {}) {
+  COLOUR_KEY = colourKey || DEFAULT_COLOUR_KEY;
   const { map: colourOf, ordered } = buildColourMap(rows);
   const nCellsBoost = buildNCellsBoost(rows);
 

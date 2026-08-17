@@ -7,7 +7,9 @@
 
 export const DEFAULT_BASE = "https://wcrp-cmip.github.io/Essential-Model-Documentation/";
 
-// The collection this page documents.
+// The collection this page documents. Kept as a default for callers that
+// don't pass one; each viewer page supplies its own via the config object
+// handed to initGridViewer() (see main.js).
 export const FOLDER = "horizontal_grid_cell";
 
 // Keys that are structural / bookkeeping and should never become table columns

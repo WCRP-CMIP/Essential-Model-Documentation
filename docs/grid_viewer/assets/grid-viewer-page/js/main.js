@@ -20,10 +20,22 @@ import { createScatter } from "./scatter.js";
 const PARAMS = new URLSearchParams(location.search);
 const BASE = (PARAMS.get("base") || DEFAULT_BASE).replace(/\/?$/, "/");
 
+// Per-collection configuration. Each viewer page calls initGridViewer() with
+// its own config, so both pages run this same module rather than forking it.
+const DEFAULT_CONFIG = {
+  folder: FOLDER,                 // registry collection to load
+  title: "Horizontal grid cells", // page heading
+  colourKey: "grid_type",         // scatter node colour field
+  tableTitle: "Grid cells",
+  noun: "grid cells",             // used in the count pill
+};
+
+let CONFIG = DEFAULT_CONFIG;
+
 function header() {
   return el("header", { class: "gc-header" }, [
-    el("a", { class: "eyebrow eyebrow-home", href: "../" }, "EMD DOCUMENTATION"),
-    el("h1", { class: "gc-title" }, "Horizontal grid cells"),
+    el("a", { class: "eyebrow eyebrow-home", href: "../../" }, "EMD DOCUMENTATION"),
+    el("h1", { class: "gc-title" }, CONFIG.title),
   ]);
 }
 
@@ -38,24 +50,24 @@ async function main() {
   page.appendChild(shell);
   const spinner = el("div", { class: "page-spinner" }, [
     el("div", { class: "spinner-ring" }),
-    el("span", {}, "Loading grid cells…"),
+    el("span", {}, `Loading ${CONFIG.noun}…`),
   ]);
   shell.appendChild(spinner);
 
   const resolver = new Resolver(BASE);
   let records;
   try {
-    records = await resolver.collection(FOLDER);
+    records = await resolver.collection(CONFIG.folder);
   } catch (e) {
     clear(shell);
-    shell.appendChild(el("div", { class: "page-error" }, `Could not load grid cells: ${e.message}`));
+    shell.appendChild(el("div", { class: "page-error" }, `Could not load ${CONFIG.noun}: ${e.message}`));
     return;
   }
 
   clear(shell);
 
   if (!records.length) {
-    shell.appendChild(el("div", { class: "page-error" }, "No grid-cell records were found."));
+    shell.appendChild(el("div", { class: "page-error" }, `No ${CONFIG.noun} were found.`));
     return;
   }
 
@@ -63,7 +75,7 @@ async function main() {
 
   // count pill — sits on the table header row and updates as filters change
   const countPill = el("span", { class: "gc-count-pill", dataset: { role: "count" } },
-    `${rows.length} grid cells`);
+    `${rows.length} ${CONFIG.noun}`);
 
   // On narrow phone screens skip the PCoA similarity map entirely.
   // The cutoff is 640px — phones fall below, iPad portrait (768px) and up work fine.
@@ -76,6 +88,7 @@ async function main() {
 
   if (showSimilarity) {
     scatter = createScatter(columns, rows, {
+      colourKey: CONFIG.colourKey,
       onHoverNode: id => table && table.highlight(id),
       onLeaveNode: () => table && table.clearHighlight(),
       onSelectNode: id => table && table.reveal(id),
@@ -83,6 +96,7 @@ async function main() {
   }
 
   table = createTable(columns, rows, {
+    folder: CONFIG.folder,
     onHoverRow: id => scatter && scatter.highlight(id),
     onLeaveRow: () => scatter && scatter.clearHighlight(),
     // single click on the row → pin the node in the graph
@@ -105,8 +119,8 @@ async function main() {
       table.update(filtered);
       if (scatter) scatter.setVisible(new Set(filtered.map(r => short(r["@id"]))));
       countPill.textContent = filtered.length === rows.length
-        ? `${rows.length} grid cells`
-        : `${filtered.length} of ${rows.length} grid cells`;
+        ? `${rows.length} ${CONFIG.noun}`
+        : `${filtered.length} of ${rows.length} ${CONFIG.noun}`;
     },
   });
 
@@ -122,7 +136,7 @@ async function main() {
 
   // table, with a small header strip carrying the live count
   const tableHead = el("div", { class: "gc-table-head" }, [
-    el("h2", { class: "gc-table-title" }, "Grid cells"),
+    el("h2", { class: "gc-table-title" }, CONFIG.tableTitle),
     countPill,
   ]);
   const tableCard = el("div", { class: "card gc-table-card" }, [tableHead, table.root]);
@@ -175,5 +189,13 @@ async function main() {
   }
 }
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", main);
-else main();
+// Entry point. Each viewer page calls this with its own collection config:
+//
+//   import { initGridViewer } from "../assets/grid-viewer-page/js/main.js";
+//   initGridViewer({ folder: "vertical_computational_grid", ... });
+//
+export function initGridViewer(config = {}) {
+  CONFIG = { ...DEFAULT_CONFIG, ...config };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", main);
+  else main();
+}

@@ -12,7 +12,9 @@ import { short } from "./resolver.js";
 import { cellValue, termInfo, numericValue, ID_COL } from "./schema.js";
 
 const GH_BASE = "https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/src-data";
-const ghUrl = id => id ? `${GH_BASE}/horizontal_grid_cell/${short(id)}.json` : null;
+// Source folder is per-collection; set by createTable via its options.
+let SRC_FOLDER = "horizontal_grid_cell";
+const ghUrl = id => id ? `${GH_BASE}/${SRC_FOLDER}/${short(id)}.json` : null;
 
 const isNil = v => v == null || (typeof v === "string" && !v.trim());
 
@@ -102,7 +104,8 @@ const aliasText = rec => {
   return String(a);
 };
 
-export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow, onDoubleClickRow } = {}) {
+export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow, onDoubleClickRow, folder } = {}) {
+  if (folder) SRC_FOLDER = folder;
   // visible columns: id first, then only categories + numeric (kept readable).
   // Text (long) columns live in the detail panel only.
   const dataCols = columns.filter(c => c.kind === "category" || c.kind === "numeric");

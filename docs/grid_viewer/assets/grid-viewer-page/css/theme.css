@@ -540,7 +540,11 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
   outline: 2px solid var(--emd-primary);
   outline-offset: 2px;
 }
-.gc-table { border-collapse: collapse; width: 100%; font-size: .82rem; table-layout: fixed; }
+/* Auto layout so column widths follow content and the table fills the card.
+   Previously `fixed` with hard ch widths, which cramped long category values
+   (e.g. atmosphere-hybrid-sigma-pressure-coordinate) on collections with few
+   columns while leaving horizontal space unused. */
+.gc-table { border-collapse: collapse; width: 100%; font-size: .82rem; table-layout: auto; }
 
 .gc-th {
   position: sticky; top: 0; z-index: 2;
@@ -556,13 +560,18 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-th-label { display: inline-block; overflow-wrap: break-word; }
 .gc-sort-arrow { font-size: .55rem; }
 
-.gc-th-numeric { width: 11ch; text-align: right; }
-.gc-td-numeric { width: 11ch; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Numeric columns shrink to their content (`width:1%` under auto layout is the
+   standard "as narrow as possible" trick) so the slack goes to the text-heavy
+   category columns instead of padding out number columns. */
+.gc-th-numeric,
+.gc-td-numeric { width: 1%; min-width: 8ch; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .gc-num { font-variant-numeric: tabular-nums; font-size: .8rem; }
 .gc-num.has-tip { cursor: help; }
 
-.gc-th-category { width: 10ch; }
-.gc-td-category { width: 10ch; }
+/* Category columns absorb the remaining width — no hard cap, so long CV
+   labels wrap over two lines rather than being squeezed into 10ch. */
+.gc-th-category,
+.gc-td-category { min-width: 10ch; }
 
 .gc-row { border-bottom: 1px solid var(--emd-border-light); }
 /* Each visible row is paired with a hidden detail row, so step by 4 in the DOM
@@ -572,8 +581,9 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-row.expanded { background: var(--emd-bg-tertiary) !important; }
 .gc-td { padding: .42rem .5rem; vertical-align: top; overflow-wrap: break-word; }
 
-/* id cell — narrow (4ch ≈ 1/3 of the previous 13ch) */
-.gc-td-id { width: 4ch; }
+/* id cell — sized to its content (id + optional alias subtitle) rather than a
+   hard 4ch, which under auto layout would squeeze the alias to one char/line. */
+.gc-td-id { width: 1%; min-width: 12ch; white-space: nowrap; }
 .gc-expand { display: inline-flex; flex-direction: column; align-items: flex-start; gap: .12rem; background: none; border: none; cursor: pointer; font: inherit; padding: 0; color: var(--emd-text); text-align: left; width: 100%; }
 .gc-id-head { display: inline-flex; align-items: center; gap: .35rem; }
 .gc-caret { font-size: .48rem; color: var(--emd-text-tertiary); flex: none; }
