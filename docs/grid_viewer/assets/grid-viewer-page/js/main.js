@@ -141,10 +141,8 @@ async function main() {
   ]);
   const tableCard = el("div", { class: "card gc-table-card" }, [tableHead, table.root]);
 
-  let mode = "graph";
   function setMode(next) {
     if (!scatter) return;               // no graph on narrow screens
-    mode = next;
     const graph = next === "graph";
     // Exclusive views: exactly one of the two is visible at a time.
     scatterWrap.hidden = !graph;

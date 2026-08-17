@@ -1717,3 +1717,124 @@ th[data-sort="desc"] .sort-indicator {
   pointer-events: none;
   display: block;
 }
+
+
+/* ============================================================
+   HOMEPAGE FEATURE CARDS
+   Row of three image cards above "Recent updates include:" on
+   docs/index.md.
+   At rest: image, no shadow, no gradient overlay.
+   On hover: a frosted-glass panel drops over the image and the
+   title reads through it. Font matches the rest of the page.
+   ============================================================ */
+.emd-home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 1.75rem;
+}
+@media (max-width: 720px) {
+  .emd-home-cards { grid-template-columns: 1fr; }
+}
+
+/* The card. 16:10 window so cards of mixed source ratios (source
+   PNGs vary 1.37–1.79) still align. No box-shadow, no border
+   accent — a plain rounded frame. */
+.emd-home-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--md-default-fg-color--lightest, #e2e8f0);
+  text-decoration: none !important;
+  isolation: isolate;         /* keeps backdrop-filter scoped */
+}
+.emd-home-card:focus-visible {
+  outline: 2px solid var(--md-primary-fg-color, #2196f3);
+  outline-offset: 3px;
+}
+
+/* Image fills the card, untouched at rest. */
+.emd-home-card-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  z-index: 0;
+}
+
+/* Title. Hidden at rest — the image speaks first. On hover it
+   fades in, reading through the frosted panel below. Font
+   matches the rest of the site (Noto Sans, per custom.css). */
+.emd-home-card-title {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  text-align: center;
+  padding: 0 1rem;
+  color: var(--md-default-fg-color, #1e293b);
+  font-family: "Noto Sans", var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  letter-spacing: 0;
+  line-height: 1.25;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+/* Frosted glass panel: a pseudo-element rather than a scrim
+   gradient. Uses backdrop-filter, which blurs whatever image
+   sits behind it. Covers the entire card on hover so the
+   whole image goes soft, and the title reads through it. */
+.emd-home-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;                        /* full card */
+  z-index: 1;
+  background: rgba(255, 255, 255, .28);
+  backdrop-filter: blur(2px) saturate(1.05);
+  -webkit-backdrop-filter: blur(2px) saturate(1.05);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+
+.emd-home-card:hover::after,
+.emd-home-card:focus-visible::after {
+  opacity: 1;
+}
+.emd-home-card:hover .emd-home-card-title,
+.emd-home-card:focus-visible .emd-home-card-title {
+  opacity: 1;
+}
+
+/* Dark-mode tint: the frosted panel needs a darker base to
+   sit over dark screenshot backgrounds, and the title flips
+   to a light foreground. */
+[data-md-color-scheme="slate"] .emd-home-card::after,
+.dark .emd-home-card::after {
+  background: rgba(20, 24, 32, .38);
+}
+[data-md-color-scheme="slate"] .emd-home-card-title,
+.dark .emd-home-card-title {
+  color: #f0f2f4;
+}
+
+/* Progressive enhancement: browsers without backdrop-filter
+   (older Firefox, some embedded webviews) get a plain frosted
+   translucent panel instead of a truly blurred one. Still
+   readable, just less flashy. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .emd-home-card::after { background: rgba(255, 255, 255, .78); }
+  [data-md-color-scheme="slate"] .emd-home-card::after,
+  .dark .emd-home-card::after { background: rgba(20, 24, 32, .78); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emd-home-card::after,
+  .emd-home-card-title { transition: none; }
+}

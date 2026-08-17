@@ -565,8 +565,11 @@ function setupFigureControls() {
   if (!article) return;
 
   article.querySelectorAll('img').forEach(img => {
-    // Skip if already wrapped or inside a table/nav
+    // Skip if already wrapped or inside a table/nav — also skip the homepage
+    // feature cards, whose <img> is deliberately positioned inside the card
+    // link and would be broken by reparenting into a .fig-wrap.
     if (img.closest('.fig-wrap') || img.closest('nav') || img.closest('table')) return;
+    if (img.closest('.emd-home-card') || img.closest('.emd-home-cards')) return;
     if (!img.src) return;
 
     // Wrap

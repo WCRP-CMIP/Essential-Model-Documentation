@@ -577,14 +577,54 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
     const gridType = termInfo(rec[COLOUR_KEY]);
     const gridTypeLabel = gridType && gridType.label ? gridType.label : "";
 
-    const previewKeys = ["n_cells", "truncation_number", "x_resolution", "y_resolution", "grid_mapping", "region"];
+    // Preview: every populated field the record actually carries, minus the
+    // ones already shown above (id / alias / ui_label / description /
+    // colour-key). The old fixed list only covered horizontal_grid_cell —
+    // vertical records have n_z / top_layer_thickness / vertical_coordinate
+    // etc. and were rendering nothing.
+    const HIDE = new Set([
+      "@id", "@type", "@context", "validation_key", "ui_label",
+      "description", "alias", COLOUR_KEY,
+    ]);
+    // A modest ordering hint — anything not listed falls to the end,
+    // alphabetical. Keeps horizontal previews looking familiar while
+    // letting new collections surface their own fields.
+    const ORDER = [
+      "n_cells", "n_z", "n_z_range",
+      "x_resolution", "y_resolution",
+      "top_layer_thickness", "bottom_layer_thickness", "total_thickness",
+      "vertical_coordinate", "grid_mapping", "grid_type",
+      "region", "truncation_number", "truncation_method",
+      "horizontal_units", "units",
+      "southernmost_latitude", "westernmost_longitude",
+      "temporal_refinement",
+    ];
+    const rank = k => {
+      const i = ORDER.indexOf(k);
+      return i === -1 ? ORDER.length : i;
+    };
+
+    const keys = Object.keys(rec)
+      .filter(k => !HIDE.has(k) && !isNil(rec[k]))
+      .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+
     const previewRows = [];
-    for (const k of previewKeys) {
+    for (const k of keys) {
       const v = rec[k];
-      if (isNil(v)) continue;
       let display;
-      if (typeof v === "number") display = v.toLocaleString();
-      else { const t = termInfo(v); display = t ? t.label : String(v); }
+      if (typeof v === "number") {
+        display = v.toLocaleString();
+      } else if (Array.isArray(v)) {
+        display = v.map(x => {
+          const t = termInfo(x);
+          return t ? t.label : String(x);
+        }).join(", ");
+      } else {
+        const t = termInfo(v);
+        display = t ? t.label : String(v);
+      }
+      // Empty strings survive the isNil check but shouldn't render.
+      if (display === "" || display == null) continue;
       previewRows.push({ key: k, display });
     }
 
