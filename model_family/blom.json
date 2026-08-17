@@ -1,0 +1,28 @@
+{
+    "validation_key": "BLOM",
+    "ui_label": "BLOM",
+    "description": "Bergen Layered Ocean Model (BLOM), originating from the Miami Isopycnic Coordinate Ocean Model, is the ocean component of the Norwegian Earth System Model (NorESM). Horizontally discretised on a curvilinear grid, BLOM solves the primitive equations for a non-Boussinesq fluid with layer pressure thickness as a prognostic variable.",
+    "collaborative_institutions": [
+        "nersc",
+        "uib",
+        "itu",
+        "metno"
+    ],
+    "established": 2020,
+    "family_type": "component",
+    "primary_institution": "norce",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "scientific_domains": [
+        "ocean"
+    ],
+    "website": "https://github.com/NorESMhub/BLOM",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "BLOM"
+}

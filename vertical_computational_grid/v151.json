@@ -1,0 +1,18 @@
+{
+  "validation_key": "v151",
+  "ui_label": "height grid with 11 levels.",
+  "description": "11-layer thermodynamic grid used by CICE sea ice model (3 layers of snow and 8 layers of ice). Dynamics (the momentum equation) treats all of these as a single layer. Top layer thickness, bottom layer thickness and total thickness are unspecified, since they are co-vary with local snow and ice and thickness.",
+  "bottom_layer_thickness": "",
+  "n_z": 11,
+  "n_z_range": "",
+  "top_layer_thickness": "",
+  "total_thickness": "",
+  "vertical_coordinate": "height",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v151"
+}

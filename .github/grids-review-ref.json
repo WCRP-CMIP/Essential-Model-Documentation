@@ -1,0 +1,42 @@
+{
+  "_ref": "CMIP7 Guidance on Grids v2.0 doi:10.5281/zenodo.19346578; nominal_resolution algorithm from CMIP6 Global Attributes v6.2.8 Appendix 2",
+  "_scope": "Covers output/reporting grids. EMD documents computational grids only — output grids are out of EMD scope.",
+  "output_grid_assignment": {
+    "ocean_sea_ice_variables": "report on ocean grid",
+    "all_other_variables": "report on atmospheric grid",
+    "interface_variables": {
+      "use_ocean_grid_if": "CF standard_name includes 'sea' or 'sea ice'; OR cell_methods includes 'where sea', 'where sea_ice', 'where ice_free_sea'",
+      "use_atm_grid_if": "cell_measures specifies 'area: areacella'"
+    }
+  },
+  "nominal_resolution": {
+    "rule": "mandatory global attribute in all CMIP7 output files; calculated before writing",
+    "algorithm": {
+      "step1": "For each grid cell find d_max = max distance (km) between any pair of cell vertices",
+      "step2": "Compute area-weighted mean of d_max over all relevant cells",
+      "step3_lookup": {
+        "<0.72km":   "0.5 km",
+        "<1.6km":    "1 km",
+        "<3.6km":    "2.5 km",
+        "<7.2km":    "5 km",
+        "<16km":     "10 km",
+        "<36km":     "25 km",
+        "<72km":     "50 km",
+        "<160km":    "100 km",
+        "<360km":    "250 km",
+        "<720km":    "500 km",
+        "<1600km":   "1000 km",
+        "<3600km":   "2500 km",
+        "<7200km":   "5000 km",
+        ">=7200km":  "10000 km"
+      },
+      "regular_latlon_shortcut": "d_max ≈ 1.2854 * r_earth * Δφ_rad  (r_earth = 6371 km); e.g. 0.5° grid → ~71.5 km → '50 km'",
+      "standard_grid_exception": "1×1° grid (360×180, lon centred at 0.5°E) → '1x1 degree' not '100 km'",
+      "tool": "https://pcmdi.github.io/nominal_resolution/html/index.html"
+    }
+  },
+  "grid_labels": {
+    "format": "opaque unique label e.g. g101, g134",
+    "rule": "all native and output grids registered in EMD repo before writing output; label used in filenames, directory paths, and as mandatory global attribute"
+  }
+}

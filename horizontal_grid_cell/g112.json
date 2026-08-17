@@ -1,0 +1,27 @@
+{
+    "validation_key": "g112",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution.",
+    "description": "",
+    "alias": ["ORCA1"],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 120184,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -85.7887,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 197.9104,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell",
+        "emd"
+    ],
+    "@id": "g112"
+}

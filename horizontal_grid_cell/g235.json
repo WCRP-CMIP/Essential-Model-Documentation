@@ -1,0 +1,30 @@
+{
+  "validation_key": "g235",
+  "ui_label": "Horizontal grid cell with a reduced gaussian grid type and 100 x 100 km resolution.",
+  "description": "",
+  "alias": [
+    "TCO95",
+    "O96"
+  ],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "reduced-gaussian",
+  "n_cells": 40320,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.28422753251364,
+  "temporal_refinement": "static",
+  "truncation_method": "triangular",
+  "truncation_number": 95,
+  "units": "km",
+  "westernmost_longitude": 0,
+  "x_resolution": 100,
+  "y_resolution": 100,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g235"
+}

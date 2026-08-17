@@ -1,0 +1,39 @@
+{
+    "validation_key": "ec-earth",
+    "ui_label": "EC-Earth",
+    "description": "Community-developed Earth system model based on model components like:  1. The ECMWF Integrated Forecasting System (IFS) for the atmosphere 2. The Nucleus for European Modelling of the Ocean (NEMO) 3. A dynamic vegetation model (LPJ-GUESS)",
+    "collaborative_institutions": [
+        "dmi",
+        "smhi",
+        "knmi",
+        "cnr",
+        "fmi",
+        "ichec"
+    ],
+    "established": 2006,
+    "family_type": "model",
+    "primary_institution": "ec-earth-consortium",
+    "references": [
+        "https://doi.org/10.5194/gmd-15-2973-2022",
+        "https://doi.org/10.1007/s00382-011-1228-5"
+    ],
+    "representative_member": "EC-Earth3",
+    "scientific_domains": [
+        "atmosphere",
+        "ocean",
+        "sea-ice",
+        "ocean-biogeochemistry",
+        "land-surface",
+        "land-ice",
+        "atmospheric-chemistry",
+        "aerosol"
+    ],
+    "website": "https://ec-earth.org/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "ec-earth"
+}

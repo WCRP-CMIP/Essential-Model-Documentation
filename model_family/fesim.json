@@ -1,0 +1,24 @@
+{
+    "validation_key": "fesim",
+    "ui_label": "FESIM",
+    "description": "1. Scientific focus and approach The Finite-Element Sea Ice Model (FESIM), developed at the Alfred Wegener Institute, is a sea-ice model formulated on unstructured triangular meshes and used as a component of the Finite-Element Sea ice Ocean Model (FESOM). Its scientific focus is the dynamics and thermodynamics of polar sea ice on multi-resolution meshes that allow regional refinement of the ice cover, marginal ice zones, narrow straits and ice-shelf cavities within the same global configuration as the host ocean.  2. Common code base and physics All FESIM family members share a common Fortran code base distributed inside the FESOM repository. Common elements include a viscous-plastic momentum equation, an elastic-viscous-plastic (EVP) solver and a modified EVP variant with improved stability compared to the standard EVP approach, a flux-corrected transport algorithm to advect the ice and snow mean thicknesses and concentration, and a thermodynamic formulation with prognostic ice and snow thickness. The model assumes a collocated placement of ice velocities, mean thicknesses and concentration at mesh vertices, and relies on piecewise-linear continuous elements.  3. How family members differ Family members differ along several axes. One axis is the underlying code generation: FESIM-1, the original sea-ice component of FESOM 1.4 formulated with linear finite elements, and FESIM-2, the rewritten formulation used inside FESOM2 from 2017 onward. Another axis is the rheology configuration, with the choice between the standard elastic-viscous-plastic solver and the modified EVP variant, and the number of subcycling iterations selected for each. A further axis is the mesh configuration, with FESIM run on a wide range of FESOM meshes from approximately 1° global meshes down to sub-kilometre regional meshes, with or without active ice-shelf cavities.",
+    "collaborative_institutions": "",
+    "established": 2003,
+    "family_type": "component",
+    "primary_institution": "awi",
+    "references": [
+        "https://doi.org/10.5194/gmd-8-1747-2015"
+    ],
+    "representative_member": "FESIM 2.7",
+    "scientific_domains": [
+        "sea_ice"
+    ],
+    "website": "https://fesom.de/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "fesim"
+}

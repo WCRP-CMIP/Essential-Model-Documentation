@@ -1,0 +1,44 @@
+{
+    "validation_key": "CoLM",
+    "ui_label": "CoLM",
+    "description": "The Common Land Model (CoLM) is a comprehensive land surface modeling system designed to quantify exchanges of energy, water, momentum, carbon, nutrients, and human-induced disturbances between the land surface and the atmosphere. Its scientific focus has evolved from representing basic soil–vegetation–atmosphere interactions to an integrated Earth-system framework that supports high-resolution simulations, process diagnosis, climate and hydrological applications, and assessment of ecological and anthropogenic impacts. CoLM emphasizes physically based parameterizations, multi-source observations, high-resolution datasets, scale transformation, and coupling with weather, climate, and Earth system models.  A central feature of CoLM is its common code base and shared physical framework. The model was originally developed to combine robust components from major land models while reducing duplicated efforts across the land-modeling community. Its modular structure allows common treatments of canopy radiation, turbulence, soil heat and water transport, snow and frozen soil, runoff, lakes, biogeochemistry, and land-cover heterogeneity, while enabling users to test alternative schemes and add new processes within a unified platform.  The major CoLM members differ in both process complexity and system capability. CoLM2004 established the Chinese Common Land Model based on the prototype CLM, with improved global land-surface datasets, a two-big-leaf canopy model, a slab-ocean option, reorganized code structure, and parallel computation. CoLM2014 further improved land-cover, soil, and LAI datasets, introduced an enhanced lake model, coupled the CaMa-Flood river-routing model, and made the system more user-friendly. CoLM2024 represents a major expansion into a complete land simulation platform, adding unstructured and watershed-based grids, PFT and plant-community subgrid structures, updated hydrology, biogeochemistry, urban, crop, reservoir, fire, ozone-stress, and downscaling modules, together with more flexible data handling and high-performance computing capability.",
+    "collaborative_institutions": [
+        "bnu"
+    ],
+    "established": 2005,
+    "family_type": "component",
+    "primary_institution": "sysu",
+    "references": [
+        "https://doi.org/10.1175/BAMS-84-8-1013",
+        "https://doi.org/10.5194/gmd-18-6517-2025",
+        "https://doi.org/10.1029/2025GL116015",
+        "https://doi.org/10.1038/s41597-025-04729-y",
+        "https://doi.org/10.1007/s00376-024-3338-0",
+        "https://doi.org/10.1029/2024JD041520",
+        "https://doi.org/10.1029/2024JD041338",
+        "https://doi.org/10.5194/essd-17-517-2025",
+        "https://doi.org/10.1029/2023GL107059",
+        "https://doi.org/10.5194/essd-17-117-2025",
+        "https://doi.org/10.1029/2022MS003567",
+        "https://doi.org/10.3390/rs15071780",
+        "https://doi.org/10.1029/2022GL101754",
+        "https://doi.org/10.1029/2021WR031589",
+        "https://doi.org/10.3390/f12060722",
+        "https://doi.org/10.1029/2019MS001723",
+        "https://doi.org/10.1029/2019WR025368",
+        "https://doi.org/10.1029/2019MS001784",
+        "https://doi.org/10.1016/j.agrformet.2019.02.006"
+    ],
+    "representative_member": "CoLM2024",
+    "scientific_domains": [
+        "land_surface"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "colm"
+}

@@ -1,0 +1,28 @@
+{
+    "validation_key": "PISM",
+    "ui_label": "PISM",
+    "description": "The Parallel Ice Sheet Model (PISM) is an open source, parallel, high-resolution land ice (i.e. ice sheet) model, principally driven by gravity and the surface mass balance. Gravity is partly balanced by lateral and bottom friction, the resulting shear stress balance in the ice body (which depends on the ice temperature field via a polythermal, enthalpy-based energy-conserving scheme) determines the ice flow. PISM includes marine ice sheet physics with dynamic calving fronts.",
+    "collaborative_institutions": [
+        "pik"
+    ],
+    "established": 2006,
+    "family_type": "component",
+    "primary_institution": "uaf",
+    "references": [
+        "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2008JF001179",
+        "https://tc.copernicus.org/articles/5/715/2011/",
+        "https://zenodo.org/records/19443904"
+    ],
+    "representative_member": "PISM v2.1, PISM v2.3.1",
+    "scientific_domains": [
+        "land-ice"
+    ],
+    "website": "https://www.pism.io/ https://github.com/pism/pism",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "pism"
+}

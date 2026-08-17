@@ -1,0 +1,18 @@
+{
+    "validation_key": "no-vertical",
+    "ui_label": "No vertical component.",
+    "description": "The simulation is 2D only. If there is no explicit vertical grid specified use this grid as a reference.",
+    "bottom_layer_thickness": "",
+    "n_z": 1,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "no-vertical"
+}

@@ -1,0 +1,18 @@
+{
+    "validation_key": "mcm-ua-1-0seaice",
+    "ui_label": "mcm-ua-1-0seaice",
+    "description": "Simple sea ice model which moves ice only with the currents.",
+    "code_base": "https://github.com/rjstouffer/Manabe-Climate-Model",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s00382-002-0249-5"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mcm-ua-1-0seaice"
+}

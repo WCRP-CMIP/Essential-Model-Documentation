@@ -1,0 +1,32 @@
+{
+    "validation_key": "IAP-AGCM",
+    "ui_label": "IAP-AGCM",
+    "description": "The IAP Atmospheric General Circulation Model (IAP-AGCM) family is a family of global atmospheric models developed at the Institute of Atmospheric Physics, Chinese Academy of Sciences, for simulating atmospheric circulation, climate variability, and key atmospheric physical processes. The family is characterized by a shared grid-point dynamical framework, finite-difference numerical formulation, terrain-following vertical coordinate, and a common set of atmospheric physics schemes. The scientific focus of IAP-AGCM includes large-scale circulation, boundary-layer processes, convection, clouds, radiation, gravity-wave effects, and atmosphere–surface interactions. Family members differ mainly in horizontal and vertical resolution, model top, physical parameterization options, coupling configuration, and parameter tuning. These differences allow IAP-AGCM to support both standalone atmospheric simulations and its use as the atmospheric component of coupled climate and Earth system models.",
+    "collaborative_institutions": "",
+    "established": 1983,
+    "family_type": "component",
+    "primary_institution": "cas",
+    "references": [
+        "https://doi.org/10.1007/BF02919169",
+        "https://doi.org/10.1007/BF02661533",
+        "https://doi.org/10.1007/BF02656847",
+        "https://doi.org/10.3878/j.issn.1006-9895.2009.06.13",
+        "https://doi.org/10.1175/MWR-D-11-00367.1",
+        "https://doi.org/10.1016/j.aosl.2020.100025",
+        "https://doi.org/10.1029/2020MS002210"
+    ],
+    "representative_member": "IAP-AGCM1, IAP-AGCM2, IAP-AGCM3, IAP-AGCM4.1, IAP-AGCM5.0",
+    "scientific_domains": [
+        "atmosphere",
+        "atmospheric-chemistry",
+        "aerosol"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "iap-agcm"
+}

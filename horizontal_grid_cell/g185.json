@@ -1,0 +1,27 @@
+{
+  "validation_key": "g185",
+  "ui_label": "Horizontal grid cell with a plane projection grid type and 5 x 5 km resolution.",
+  "description": "The standard parallel is 70 degrees in the Polar Stereographic projection. The Cartesian regular rectangular grid shape is NX = 305 by NY = 541.",
+  "alias": [],
+  "grid_mapping": "polar-stereographic",
+  "grid_type": "plane-projection",
+  "n_cells": 165005,
+  "region": [
+    "greenland"
+  ],
+  "southernmost_latitude": "",
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "km",
+  "westernmost_longitude": "",
+  "x_resolution": 5,
+  "y_resolution": 5,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g185"
+}

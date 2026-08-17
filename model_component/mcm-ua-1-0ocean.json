@@ -1,0 +1,18 @@
+{
+    "validation_key": "mcm-ua-1-0ocean",
+    "ui_label": "mcm-ua-1-0ocean",
+    "description": "This is a version of the original Bryan-Cox ocean model (MOM ocean model version 1.1). It takes the surface fluxes from the atmosphere and sea ice codes and computes temperature, salinity, and the velocities. The code assumes a rigid lid to suppress sound waves. Liquid water fluxes are converted into a virtual salt flux. ",
+    "code_base": "https://github.com/rjstouffer/Manabe-Climate-Model",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1007/s00382-002-0249-5"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mcm-ua-1-0ocean"
+}

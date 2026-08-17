@@ -1,0 +1,25 @@
+{
+    "validation_key": "CLASSIC",
+    "ui_label": "CLASSIC",
+    "description": "Canadian Land Surface Scheme Including Biogeochemical Cycles (CLASSIC)",
+    "collaborative_institutions": "",
+    "established": 2020,
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-2825-2020",
+        "https://doi.org/10.5194/bg-20-1313-2023"
+    ],
+    "representative_member": "CLASSICv1.5",
+    "scientific_domains": [
+        "land_surface"
+    ],
+    "website": "https://gitlab.com/cccma/canesm/classic",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "classic"
+}

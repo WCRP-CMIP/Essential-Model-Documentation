@@ -1,0 +1,18 @@
+{
+  "validation_key": "g106-mass",
+  "ui_label": "",
+  "description": "Mass variables on a regular latitude-longitude 1x1 degree ocean output grid.",
+  "cell_variable_type": [
+    "mass"
+  ],
+  "horizontal_grid_cell": {
+    "@id": "g106"
+  },
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_subgrid",
+    "esgvoc:HorizontalSubgrid",
+    "emd"
+  ],
+  "@id": "g106-mass"
+}

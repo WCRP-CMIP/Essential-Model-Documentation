@@ -1,0 +1,24 @@
+{
+    "validation_key": "licom-v3-0",
+    "ui_label": "LICOM v3.0",
+    "description": "The LICOM(v3.0) ocean general circulation model is a global ocean circulation model independently developed by the Ocean Modelling Group at the Institute of Atmospheric Physics (IAP), Chinese Academy of Sciences (CAS). It aims to provide a numerical ocean model capable of simulating large-scale wind-driven circulation and thermohaline circulation, serving as the oceanic component of coupled climate models (referred to as the climate ocean model). LICOM is based on the primitive equations, continuity equation, equation of state of seawater, and conservation equations for temperature and salinity. The orthogonal curvilinear coordinate (Madec and Imbard, 1996; Murray, 1996) has been introduced in LICOM. The tripolar grid can be used with the North Pole split into two poles on the land in the Northern Hemisphere (NH) at (65°N, 65°E) and (65°N, 115°W). This improvement has solved the problem of the singularity of the North Pole in the normal longitude–latitude grid. Meanwhile, the spatial filter in the high latitudes of LICOM has also been eliminated, and the scalability and efficiency of the parallel algorithm has been extensively improved. Besides, preserved shape advection in the tracer formulation (Xiao, 2006) and implicit vertical viscosity (Yu et al., 2018) are also employed in the present version. The tidal mixing of St. Laurent et al. (2002) and the buoyancy frequency (N2)–related thickness diffusivity of Ferreira et al. (2005) have been introduced into LICOM after CMIP5. The effects of tidal mixing on the Atlantic meridional overturning circulation (AMOC) was preliminary evaluated by Yu et al. (2017). The effects of thickness diffusivity with temporal and spatial variation were evaluated by Li et al. (2019). Besides, the chlorophyll-a-dependent solar penetration of Ohlmann (2003), the vertical diffusivity of Canuto et al. (2001, 2002), and the isopycnal mixing of Redi (1982) and Gent and McWilliams (1990, GM90 hereafter) are also used in LICOM3. The isopycnal mixing coefficient is constant, with a value of 300 m2 s−1. The thickness mixing coefficient (i.e., diffusivity) for GM90 employs the scheme of Ferreira et al. (2005), in which the coefficient is dependent on the spatial distribution of N2 and varies with location and time. The coefficient is set to 300 m2 s−1 within the mixed layer or in the coastal region where the water depth is shallower than 60 m, while it varies between 300 and 2000 m2 s−1 in other places. The virtual salinity flux is computed as the freshwater flux multiplied by a constant salinity of 34.7 psu. A restoring term with a piston velocity of 20 m yr−1 has been applied to the virtual salinity flux. If there is sea ice, a piston velocity of 50 m (20 d)−1 is applied under sea ice.",
+    "code_base": "Private",
+    "component": "ocean",
+    "family": "licom",
+    "references": [
+        "Lin",
+        "P. F.",
+        "and Coauthors",
+        "2020: LICOM model datasets for the CMIP6 Ocean Model Intercomparison Project. Adv. Atmos. Sci.",
+        "37(3)",
+        "239−249",
+        "https://doi.org/10.1007/s00376-019-9208-5."
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "licom-v3-0"
+}

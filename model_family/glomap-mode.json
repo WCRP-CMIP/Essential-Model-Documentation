@@ -1,0 +1,27 @@
+{
+    "validation_key": "glomap-mode",
+    "ui_label": "GLOMAP-mode",
+    "description": "Global aerosol and microphysics model for UKCA",
+    "collaborative_institutions": [
+        "nerc"
+    ],
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "mohc",
+    "references": [
+        "https://doi.org/10.5194/gmd-3-519-2010"
+    ],
+    "representative_member": "UKCM2-0-LL",
+    "scientific_domains": [
+        "aerosol",
+        "atmospheric-chemistry"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "glomap-mode"
+}

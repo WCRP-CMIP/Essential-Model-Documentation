@@ -1,0 +1,83 @@
+{
+  "validation_key": "UKESM1-3-LL",
+  "ui_label": "UKESM1-3-LL",
+  "description": "UKESM 1.3 includes dynamically evolving MetUM GA7/GA7.1 atmosphere with the embedded UKCA trace gas chemistry, GLOMAP-mode aerosol schemes, and JULES 5.1 land surface. These are coupled to the NEMO3.6 ocean with embedded CICE sea-ice and MEDUSA ocean biogeochemistry models.  Land ice is represented through BISICLES to enable interactive ice sheets for both the Antarctic and Greenland.  Along with a CH4 emission driven capability these are the 2 primary updates in UKESM 1.3 compared to 1.1.",
+  "calendar": [
+    "360-day"
+  ],
+  "coupled_components": [
+    [
+      "atmosphere",
+      "ocean"
+    ],
+    [
+      "ocean",
+      "land-ice"
+    ],
+    [
+      "land-ice",
+      "atmosphere"
+    ]
+  ],
+  "crs": "A[Ac[Ae]L](Li,O)Li(O)O[ObSi]",
+  "dynamic_components": [
+    "aerosol",
+    "atmosphere",
+    "atmospheric-chemistry",
+    "land-ice",
+    "land-surface",
+    "ocean",
+    "ocean-biogeochemistry",
+    "sea-ice"
+  ],
+  "embedded_components": [
+    [
+      "aerosol",
+      "atmospheric-chemistry"
+    ],
+    [
+      "atmospheric-chemistry",
+      "atmosphere"
+    ],
+    [
+      "land-surface",
+      "atmosphere"
+    ],
+    [
+      "ocean-biogeochemistry",
+      "ocean"
+    ],
+    [
+      "sea-ice",
+      "ocean"
+    ]
+  ],
+  "family": "ukesm1",
+  "model_components": [
+    "sea-ice_cice-gsi8_h142_v107",
+    "atmospheric-chemistry_ukca_h113_v115",
+    "aerosol_glomap-mode_h113_v115",
+    "atmosphere_metum-ga7-1_h113_v115",
+    "land-surface_jules-vn5-1_h113_v117",
+    "land-ice_bisicles-ukesm1-3_h135_no-vertical",
+    "ocean_nemo3-6_h118_v107",
+    "ocean-biogeochemistry_medusa2-0_h118_v107"
+  ],
+  "name": "ukesm1-3-ll",
+  "omitted_components": [],
+  "prescribed_components": [],
+  "references": [
+    "https://doi.org/10.5194/gmd-16-1569-2023",
+    "https://doi.org/10.1029/2021MS002520",
+    "https://doi.org/10.5194/tc-16-4053-2022",
+    "https://doi.org/10.1029/2021MS002982"
+  ],
+  "release_year": 2026,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model",
+    "esgvoc:Model"
+  ],
+  "@id": "ukesm1-3-ll"
+}

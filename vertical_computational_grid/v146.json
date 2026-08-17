@@ -1,0 +1,18 @@
+{
+  "validation_key": "v146",
+  "ui_label": "ocean-hybrid-pressure-isopycnic-coordinate grid with 72 levels.",
+  "description": "The ocean vertical coordinate is a hybrid between fixed pressure levels towards the upper boundary and potential density, with reference pressure at 2000 dbar, below. Using high-order vertical reconstructions of potential temperature and salinity, the vertical position of a layer interface is continuously nudged to minimise the difference between the interface and its associated reference potential density. Thereafter, a prescribed minimum pressure thickness per layer is enforced towards the upper boundary. The interface reference potential densities are allowed to slowly vary in time to optimise the global potential density range as the model state evolves. Since the model layers have spatially and temporally varying thickness at depth, a fixed bottom layer thickness is not specified.",
+  "bottom_layer_thickness": "",
+  "n_z": 72,
+  "n_z_range": "",
+  "top_layer_thickness": 2,
+  "total_thickness": 9341,
+  "vertical_coordinate": "ocean-hybrid-pressure-isopycnic-coordinate",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v146"
+}

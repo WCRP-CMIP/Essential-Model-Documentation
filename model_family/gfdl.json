@@ -1,0 +1,30 @@
+{
+    "validation_key": "gfdl",
+    "ui_label": "GFDL",
+    "description": "Coupled models using the GFDL atmosphere, land, sea ice, and ocean components making use of the Flexible Modeling System coupling infrastructure starting with the GFDL-CM2 series (Delworth et al., 2006) in CMIP3, GFDL-CM3 and GFDL-ESM2 series in CMIP5, and GFDL-ESM4.1 in CMIP6.  Delworth, T. L., and Coauthors, 2006: GFDL’s CM2 global coupled climate models. Part I: Formulation and simulation characteristics. J. Climate, 19, 643–674.",
+    "collaborative_institutions": "",
+    "established": 2004,
+    "family_type": "model",
+    "primary_institution": "noaa-gfdl",
+    "references": [
+        "https://doi.org/10.1029/2019MS002015"
+    ],
+    "representative_member": "GFDL-ESM4.1",
+    "scientific_domains": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land_surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea_ice"
+    ],
+    "website": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019MS002015",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "gfdl"
+}

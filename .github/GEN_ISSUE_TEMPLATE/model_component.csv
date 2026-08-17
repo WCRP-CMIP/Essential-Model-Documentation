@@ -1,0 +1,42 @@
+field_order,field_type,field_id,label,description,data_source,required,placeholder,options_type,default_value
+1,markdown,header,,"| Step 1: Grid Cell | Step 2: Horizontal Grid / Vertical Grid | Step 3: Model Component | Step 4: Model |
+|:---:|:---:|:---:|:---:|
+| [Grid Cell](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) | [Horizontal Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_computational_grid.yml) / [Vertical Grid](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=vertical_computational_grid.yml) | **🟢 Model Component** | [Model](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model.yml) |
+
+# Stage 3: Model Component
+
+This form registers a single model component — its name, scientific domain, and a short description. The component can then be reused across as many models and grid configurations as you need.
+
+> [!NOTE]
+> Most fields have a **Detailed Guidance** dropdown. Please read it before completing that field — submissions that do not follow the guidance will fail validation.
+
+---
+
+## Component Definition",none,false,,,
+2,dropdown,component,Component Type,The scientific domain that this component simulates.,component_type,true,,list_with_na,0
+3,input,name,Component Name,The official component name including version information.,none,true,NEMO v3.6,,
+4,dropdown,family,Component Family,The component family that this component belongs to.,component_family,false,,dict_keys,
+5,textarea,description,Description,A scientific overview of the component including main processes and key physics.,none,true,"1. Main processes simulated
+2. Key physics/parameterizations
+3. Notable features of this version",,
+6,input,code_base,Code Repository,The URL to the source code repository or 'private' if not publicly available.,none,false,https://forge.nemo-ocean.eu/nemo/nemo/-/tree/release-3.6,,
+7,textarea,references,Reference DOIs,"The DOI URLs for publications describing this component. If you do not have new references, you can: upload technical materials to [Zenodo](https://zenodo.org/) for a free DOI, reference historic papers that directly pre-date this component version, or use `https://paper.under.review` as a placeholder for papers under review (submit an edit request on publication).",none,true,https://doi.org/10.5194/gmd-8-1547-2015,,
+8,input,collaborators,Additional Collaborators,To add attribution to additional members include their GitHub usernames (only) separated by a comma.,none,false,"user1,user2,user3...",,
+9,markdown,metadata_header,,"---
+
+## Issue Handling
+
+**After submission:**
+- Creates a `model_component` entry
+- Once accepted and merged, link it to computational grids (see below)
+- [Track progress in issue comments](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue%20author%3A%40me)",none,false,,,
+10,markdown,link_admonition,,"---
+
+> [!IMPORTANT]
+> ## Adding grid configurations
+>
+> This form no longer collects horizontal or vertical grids. Grids are linked in a separate step.
+>
+> Once this component has been **accepted and merged**, use the [Stage 3: Link Existing Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml) form to attach computational grids and generate component configurations.
+>
+> This step is **fully automated** — you can submit as many grid configurations as you require, and each is processed without further review.",none,false,,,

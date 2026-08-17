@@ -1,0 +1,27 @@
+{
+  "validation_key": "g193",
+  "ui_label": "Horizontal grid cell with a plane projection grid type and 4 x 4 km resolution.",
+  "description": "",
+  "alias": [],
+  "grid_mapping": "polar-stereographic",
+  "grid_type": "plane-projection",
+  "n_cells": 302400,
+  "region": [
+    "greenland"
+  ],
+  "southernmost_latitude": 57.805,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "km",
+  "westernmost_longitude": 330.528,
+  "x_resolution": 4,
+  "y_resolution": 4,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g193"
+}

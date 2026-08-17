@@ -1,0 +1,29 @@
+{
+    "validation_key": "fesom",
+    "ui_label": "FESOM",
+    "description": "**Scientific focus and approach** FESOM (Finite-Element/volumE Sea ice–Ocean Model), developed at the Alfred Wegener Institute (AWI), is a global sea-ice/ocean general circulation model designed around a single guiding idea: the use of unstructured horizontal meshes to enable seamless multi-resolution simulation of the global ocean. Rather than nesting limited-area models inside a coarser global grid, FESOM allows mesh resolution to vary smoothly across the global domain, so that regions of dynamical interest — western boundary currents, the Arctic and Southern Oceans, marginal seas, eddy-active zones, or coastal shelves — can be locally refined to eddy-permitting or eddy-resolving scales while retaining a coarser grid elsewhere. This makes FESOM particularly suited to climate applications where regional process detail and global integrity must be maintained simultaneously, and it has become a widely used platform for exploring the benefits of unstructured-mesh modelling in climate research.  **Common code base and physics** All FESOM family members share the same overarching modelling philosophy: solution of the hydrostatic Boussinesq primitive equations on triangular surface meshes with a vertical discretisation in z-coordinates (with optional partial cells, sigma layers under ice shelves, and arbitrary Lagrangian–Eulerian (ALE) layers in FESOM2). The sea-ice component is the dynamic–thermodynamic Finite-Element Sea Ice Model (FESIM), based on an elastic–viscous–plastic (EVP, or modified mEVP) rheology, with optional coupling to ICEPACK column physics in more recent configurations. Common physics packages include the K-Profile Parameterization (KPP) or TKE-based vertical mixing, Gent–McWilliams parameterization of mesoscale eddy transport and isoneutral Redi diffusion at non-eddying resolutions, and standard parameterizations for tidal mixing and bottom boundary layer flow. Tracers are advected using flux-corrected transport (FCT) schemes. The code is parallelised with MPI and (in FESOM2) supports hybrid CPU/GPU execution; unstructured-mesh I/O is handled either directly or through XIOS.  **How family members differ** Family members differ principally in numerical core, mesh, and complexity:  FESOM1.4 uses a continuous-Galerkin finite-element dynamical core and is documented by Wang et al. (2014). FESOM2 (patch versions FESOM2.0–FESOM2.7) replaces the finite-element core with a finite-volume formulation on cell-vertex triangular meshes, adds an ALE vertical coordinate framework, and delivers roughly a 3× throughput improvement over FESOM1.4 at comparable accuracy. FESOM2 is documented by Danilov et al. (2017) and further described by Scholz et al. (2019, 2022). Mesh and resolution is the most visible source of differentiation between configurations: meshes range from CMIP-class low-resolution (~100–150 km in the open ocean with refinement in polar and dynamically active regions, e.g. the CORE2 or CMIP6 LR mesh) through medium-resolution Arctic-focused and DYAMOND meshes, to globally eddy-resolving meshes at 1/10° (~10 km) and storm-resolving meshes down to ~5 km used in nextGEMS. Sea-ice complexity varies between configurations: standard FESIM zero-layer or single-category thermodynamics in CMIP-class runs, versus multi-category ICEPACK thermodynamics in other setups. Vertical levels and mixing choices (KPP vs TKE via CVMix, with/without GM, isoneutral Redi on/off) are tuned per configuration depending on whether the mesh resolves mesoscale eddies.",
+    "collaborative_institutions": "",
+    "established": 2004,
+    "family_type": "component",
+    "primary_institution": "awi",
+    "references": [
+        "https://doi.org/10.5194/gmd-7-663-2014",
+        "https://doi.org/10.5194/gmd-10-765-2017",
+        "https://doi.org/10.5194/gmd-8-1747-2015",
+        "https://doi.org/10.5194/gmd-12-4875-2019",
+        "https://doi.org/10.5194/gmd-15-335-2022",
+        "https://doi.org/10.5194/gmd-12-3991-2019"
+    ],
+    "representative_member": "FESOM 2.0",
+    "scientific_domains": [
+        "ocean"
+    ],
+    "website": "https://fesom2.readthedocs.io/en/latest/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "fesom"
+}

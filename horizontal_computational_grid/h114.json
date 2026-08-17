@@ -1,0 +1,17 @@
+{
+  "validation_key": "h114",
+  "ui_label": "",
+  "description": "",
+  "arrangement": "arakawa-b",
+  "horizontal_subgrids": [
+    "g130-mass",
+    "g132-x-velocity-y-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid",
+    "emd"
+  ],
+  "@id": "h114"
+}

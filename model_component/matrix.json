@@ -1,0 +1,18 @@
+{
+    "validation_key": "matrix",
+    "ui_label": "MATRIX",
+    "description": "MATRIX aerosols. Mode based aerosol code for climate change applications.",
+    "code_base": "https://www.giss.nasa.gov/tools/modelE/",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://dx.doi.org/10.5194/acp-8-6003-2008 https://dx.doi.org/10.1029/2019MS001978"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "matrix"
+}

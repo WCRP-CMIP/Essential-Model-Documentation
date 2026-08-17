@@ -1,0 +1,23 @@
+{
+    "validation_key": "cannemo",
+    "ui_label": "CanNEMO",
+    "description": "CanNEMO was introduced in CanESM5 (Swart et al., 2019) and introduced modifications to mesoscale and small-scale mixing physics to NEMO3.4.1.  https://gitlab.com/cccma/cannemo",
+    "collaborative_institutions": "",
+    "established": "",
+    "family_type": "component",
+    "primary_institution": "cccma",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-4823-2019"
+    ],
+    "scientific_domains": [
+        "ocean"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "cannemo"
+}

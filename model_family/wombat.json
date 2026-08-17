@@ -1,0 +1,27 @@
+{
+    "validation_key": "wombat",
+    "ui_label": "WOMBAT",
+    "description": "The World Ocean Model of Biogeochemistry And Trophic-dynamics (WOMBAT) is the ocean biogeochemistry module added to ACCESS models that use MOM (Modular Ocean Model). The core of WOMBAT is a Nutrient - Phytoplankton - Zooplankton - Detritus (NPZD) framework. The original WOMBAT version was described in Oke et al. (2013). Two current WOMBAT models exist: WOMBAT-lite and WOMBAT-mid. WOMBAT-lite is designed to be a simple and general biogeochemical model of the global ocean that is computationally efficient. WOMBAT-mid is designed to be a more complex and realistic ocean biogeochemical model that is more computationally costly but provides a greater resolution of ecosystem and biogeochemical processes. A more complete description of both models can be found at https://wombat-docs.readthedocs.io/stable/",
+    "collaborative_institutions": [
+        "access-nri"
+    ],
+    "established": 2013,
+    "family_type": "component",
+    "primary_institution": "csiro",
+    "references": [
+        "https://doi.org/10.5194/bg-22-5349-2025",
+        "https://doi.org/10.5194/gmd-6-591-2013"
+    ],
+    "representative_member": "WOMBATlite",
+    "scientific_domains": [
+        "ocean-biogeochemistry"
+    ],
+    "website": "https://wombat-docs.readthedocs.io/stable/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "wombat"
+}

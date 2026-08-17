@@ -1,0 +1,18 @@
+{
+    "validation_key": "inmom6l",
+    "ui_label": "INMOM6L",
+    "description": "Version 6L of the INMOM (Institute of Numerical Mathematics Ocean Model) is a hydrostatic generalized spherical coordinates (the model South Pole located at the geographical South Pole, and the model North Pole located at a point (60N, 90E) in central Siberia) numerical ocean model with Boussinesq kinematics on an Arakawa C-grid. Vertical resolution is 40 sigma-levels. Coriolis term is treated implicitly at barotropic adaptation stage. Second order Adams-Bashforth scheme is used for scalars transport. Vertical mixing is parameterized according to Pacanowski and Philander (1981).",
+    "code_base": "",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1134/S0001433825700653 https://doi.org/10.1515/rjnamm.2011.011 https://doi.org/10.1515/rnam-2023-0026 https://doi.org/10.26089/NumMet.v24r430"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "inmom6l"
+}

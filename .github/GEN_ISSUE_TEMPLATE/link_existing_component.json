@@ -1,0 +1,18 @@
+{
+  "name": "Stage 3: Link Existing Component",
+  "description": "Link a registered model component to computational grids to create a component configuration (Stage 3 of 4)",
+  "title": "[EMD] Stage 3: Link Existing Component: [do not edit]",
+  "labels": [
+    "emd-submission",
+    "link_existing_component",
+    "component_config",
+    "Review"
+  ],
+  "issue_category": "link_existing_component",
+  "dropdown_title": "Detailed Guidance",
+  "field_guidance": {
+    "model_component": "**Registered model component**\n\nChoose the component from the list. It must already exist in the EMD registry.\nIf it is not listed here, submit a\n[Stage 3: Model Component](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=model_component.yml)\nissue first, then return to this form.",
+    "horizontal_computational_grid": "**Horizontal grid reference**\n\nSelect the h### ID registered in Stage 2a. Leave as 'Not specified' only\nfor components with no horizontal dimension (e.g. 1D column models).",
+    "vertical_computational_grid": "**Vertical grid reference**\n\nSelect the v### ID registered in Stage 2b. Leave as 'Not specified' only\nfor components with no vertical dimension (e.g. 2D surface models)."
+  }
+}

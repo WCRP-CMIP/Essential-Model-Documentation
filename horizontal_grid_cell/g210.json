@@ -1,0 +1,27 @@
+{
+  "validation_key": "g210",
+  "ui_label": "Horizontal grid cell with a regular gaussian grid type and 2.8125 x 2.79 degree resolution.",
+  "description": "The Y resolution varies within the range of 2.76727 to 2.79062 degrees.",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-gaussian",
+  "n_cells": 8192,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -87.8638,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 0,
+  "x_resolution": 2.8125,
+  "y_resolution": 2.79,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g210"
+}

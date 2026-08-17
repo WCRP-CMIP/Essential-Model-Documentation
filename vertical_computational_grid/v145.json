@@ -1,0 +1,18 @@
+{
+  "validation_key": "v145",
+  "ui_label": "height grid with 10 levels.",
+  "description": "There are ten layers in the vertical of the land surface model BCC-AVIM3.0.",
+  "bottom_layer_thickness": 1.137,
+  "n_z": 10,
+  "n_z_range": "",
+  "top_layer_thickness": 0.018,
+  "total_thickness": 3.433,
+  "vertical_coordinate": "height",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v145"
+}

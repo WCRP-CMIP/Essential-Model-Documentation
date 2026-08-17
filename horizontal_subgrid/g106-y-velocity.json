@@ -1,0 +1,18 @@
+{
+  "validation_key": "g106-y-velocity",
+  "ui_label": "",
+  "description": "Y-velocity on a regular latitude-longitude 1x1 degree ocean output grid (non-staggered).",
+  "cell_variable_type": [
+    "y-velocity"
+  ],
+  "horizontal_grid_cell": {
+    "@id": "g106"
+  },
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_subgrid",
+    "esgvoc:HorizontalSubgrid",
+    "emd"
+  ],
+  "@id": "g106-y-velocity"
+}

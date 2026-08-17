@@ -1,0 +1,18 @@
+{
+    "validation_key": "icon-land-1-1",
+    "ui_label": "ICON-Land-1-1",
+    "description": "1. ICON-Land-1-1 simulates land physics, hydrology, the carbon and nutrient cycles, and land vegetation. 2. In concentration-driven simulations, ICON-Land-1-1 uses the JSBACH4 land surface model. In emission-driven simulations, ICON-Land-1-1 using the QUINCY formulation of land dynamics. The two differ in the treatment of the carbon and nutrient cycles and vegetation. 3. In both configurations, river discharge uses the HD hydrological discharge model at a 0.5 degrees resolution (h134). This is of completely different heritage, code, and grid structure to the rest of ICON-Land-1-1 (and is not listed separately, because only one \"land-surface\" model component can be registered).",
+    "code_base": "https://gitlab.dkrz.de/icon/icon-model/-/tree/release-2025.10-public?ref_type=heads",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/gmd-15-8581-2022 https://doi.org/10.5194/gmd-12-4781-2019 https://doi.org/10.3389/feart.2020.00012"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "icon-land-1-1"
+}

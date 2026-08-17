@@ -1,0 +1,18 @@
+{
+  "validation_key": "v130",
+  "ui_label": "z-star grid with 61 levels.",
+  "description": "The reported bottom layer thickness is that of the 60th layer.  The 61st layer is used for our bottom boundary layer parameterization and its thickness is 50 m.",
+  "bottom_layer_thickness": 700,
+  "n_z": 61,
+  "n_z_range": "",
+  "top_layer_thickness": 2,
+  "total_thickness": 6550,
+  "vertical_coordinate": "z-star",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v130"
+}

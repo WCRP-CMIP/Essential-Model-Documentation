@@ -1,0 +1,19 @@
+{
+  "validation_key": "nemo_v3_6",
+  "ui_label": "",
+  "description": "The Nucleus for European Modelling of the Ocean (NEMO) model code forms the basis of the UK Global Versions 6 of the UK Global Ocean configuration (known as GO6), which form the ocean components of the Met Office GC3.1 coupled model and UKESM1 Earth System Model, as used in CMIP6.",
+  "code_base": "private",
+  "component": "ocean",
+  "family": "nemo",
+  "name": "NEMO v3.6",
+  "references": [
+    "https://doi.org/10.1029/2019MS001791"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "nemo-v3-6"
+}

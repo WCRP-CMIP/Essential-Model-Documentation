@@ -1,0 +1,27 @@
+{
+  "validation_key": "g144",
+  "ui_label": "Horizontal grid cell with a yin yang grid type and 1 x 1 degree resolution.",
+  "description": "",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "yin-yang",
+  "n_cells": 73066,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.8780517578125,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 58.165245056152344,
+  "x_resolution": 1,
+  "y_resolution": 1,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g144"
+}

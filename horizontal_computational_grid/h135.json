@@ -1,0 +1,17 @@
+{
+  "validation_key": "h135",
+  "ui_label": "",
+  "description": "confirmed with BISICLES developers, despite inferences that may be drawn from figures in published documentation, \"ice velocities and thickness are all calculated at cell centres\" inside the model",
+  "arrangement": "arakawa-a",
+  "horizontal_subgrids": [
+    "g199-mass",
+    "g199-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid",
+    "emd"
+  ],
+  "@id": "h135"
+}

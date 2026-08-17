@@ -1,0 +1,26 @@
+{
+    "validation_key": "recom",
+    "ui_label": "recom",
+    "description": "Scientific focus and approach: REcoM, the Regulated Ecosystem Model, is a marine biogeochemistry model developed at AWI that simulates the coupled cycles of carbon, nitrogen, silicon, iron and oxygen in the ocean. It represents the plankton ecosystem at medium complexity with variable stoichiometry, which lets the elemental ratios of the plankton respond to light, temperature and nutrient limitation rather than being fixed. The family is used for studies of plankton ecosystems, primary production, the global carbon budget and carbon-climate feedbacks, over recent decades, future centuries and paleo timescales.  Common code base and physics: All members share the same regulated-stoichiometry formulation and are built to run as a tracer module inside an ocean circulation model, historically FESOM and more recently as a standalone submodule coupled into FESOM2 and AWI-ESM. Carbonate chemistry and the air-sea CO2 and O2 fluxes are solved through mocsy in the current code base. Tracers are advected and mixed by the host ocean model, so vertical mixing, resolution and mesh are inherited rather than specified by REcoM itself.  How family members differ: Members differ in ecosystem complexity and in the host model they are coupled to. REcoM2 carries one phytoplankton and one zooplankton class and was documented coupled to FESOM 1.3. REcoM3 extends this to two phytoplankton classes covering silicifiers and calcifiers and two zooplankton classes covering mixed zooplankton and polar macrozooplankton, with flexible stoichiometry of C, N, Si, Fe, CaCO3 and chlorophyll, documented coupled to FESOM2.1. Configurations of varying complexity can be selected at build time, and optional extensions include a coupled sediment model and prognostic atmospheric CO2 exchange.",
+    "collaborative_institutions": "",
+    "established": 2007,
+    "family_type": "component",
+    "primary_institution": "awi",
+    "references": [
+        "https://doi.org/10.5194/bg-4-433-2007",
+        "https://doi.org/10.5194/gmd-7-2769-2014",
+        "https://doi.org/10.5194/gmd-16-4883-2023"
+    ],
+    "representative_member": "REcoM3",
+    "scientific_domains": [
+        "ocean-biogeochemistry"
+    ],
+    "website": "https://github.com/RECOM-Regulated-Ecosystem-Model/REcoM",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "recom"
+}

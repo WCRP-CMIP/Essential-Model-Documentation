@@ -1,0 +1,18 @@
+{
+  "validation_key": "v114",
+  "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 49 levels.",
+  "description": "",
+  "bottom_layer_thickness": 60,
+  "n_z": 49,
+  "n_z_range": "",
+  "top_layer_thickness": 6900,
+  "total_thickness": 50660,
+  "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v114"
+}

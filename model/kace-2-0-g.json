@@ -1,0 +1,72 @@
+{
+  "validation_key": "KACE-2-0-G",
+  "ui_label": "KACE-2-0-G",
+  "description": "K-ACE2 is a fully coupled Earth system model that integrates atmosphere (MetUM-HadGEM3-GA7.1), ocean (NEMO v3.6, GO6.0 configuration), land surface (JULES v5.3), and sea ice (CICE v5.1.2) components to simulate the physical climate system and its interactions with biogeochemical cycles. Land ice is omitted. The model includes interactive atmospheric chemistry (UKCA-StratTrop) and aerosols (UKCA-GLOMAP-mode), a dynamic ocean coupled to ocean biogeochemistry (TOPAZ2), and the land surface model that represents exchanges of energy, water, and carbon with the atmosphere, including terrestrial carbon processes. Sea ice is dynamically simulated and coupled to the atmosphere and ocean, enabling the representation of key climate feedbacks.",
+  "calendar": [
+    "360-day"
+  ],
+  "coupled_components": [
+    [
+      "atmosphere",
+      "ocean"
+    ]
+  ],
+  "crs": "A[AcAeL](O)O[ObSi]",
+  "dynamic_components": [
+    "aerosol",
+    "atmosphere",
+    "atmospheric-chemistry",
+    "land-surface",
+    "ocean",
+    "ocean-biogeochemistry",
+    "sea-ice"
+  ],
+  "embedded_components": [
+    [
+      "aerosol",
+      "atmosphere"
+    ],
+    [
+      "land-surface",
+      "atmosphere"
+    ],
+    [
+      "atmospheric-chemistry",
+      "atmosphere"
+    ],
+    [
+      "ocean-biogeochemistry",
+      "ocean"
+    ],
+    [
+      "sea-ice",
+      "ocean"
+    ]
+  ],
+  "family": "ukesm1",
+  "model_components": [
+    "aerosol_glomap-mode_h113_v115",
+    "atmosphere_metum-ga7-1_h113_v115",
+    "atmospheric-chemistry_ukca_h113_v115",
+    "land-surface_jules-v5-3_h113_v117",
+    "ocean-biogeochemistry_topaz2_h120_v107",
+    "ocean_nemo3-6_h120_v107",
+    "sea-ice_cice5_h142_no-vertical"
+  ],
+  "name": "kace-2-0-g",
+  "omitted_components": [
+    "land-ice"
+  ],
+  "prescribed_components": [],
+  "references": [
+    "https://paper.under.review"
+  ],
+  "release_year": 2025,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model",
+    "esgvoc:Model"
+  ],
+  "@id": "kace-2-0-g"
+}

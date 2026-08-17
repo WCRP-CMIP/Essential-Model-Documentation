@@ -1,0 +1,26 @@
+{
+    "validation_key": "iHAMOCC",
+    "ui_label": "iHAMOCC",
+    "description": "iHAMOCC (originating from the Hamburg Ocean Carbon Cycle model) is the ocean biogeochemical model component used in the Norwegian Earth System Model (NorESM). It simulates marine carbon cycles, nutrient dynamics, and (NPZD-type) ecosystem processes in the water column and sediments.",
+    "collaborative_institutions": [
+        "uib",
+        "nersc"
+    ],
+    "established": 2020,
+    "family_type": "component",
+    "primary_institution": "norce",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-2393-2020"
+    ],
+    "scientific_domains": [
+        "ocean-biogeochemistry"
+    ],
+    "website": "https://github.com/NorESMhub/BLOM",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "iHAMOCC"
+}

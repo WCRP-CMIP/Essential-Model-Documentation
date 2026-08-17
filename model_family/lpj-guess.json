@@ -1,0 +1,34 @@
+{
+    "validation_key": "lpj-guess",
+    "ui_label": "LPJ-GUESS",
+    "description": "**Scientific focus and approach** LPJ-GUESS (Lund–Potsdam–Jena General Ecosystem Simulator), developed primarily at Lund University, is a process-based dynamic global vegetation model (DGVM) that simulates the structure, composition, growth and biogeochemistry of terrestrial ecosystems under varying climate, atmospheric CO₂ and land-use forcing. Its scientific focus is the coupled carbon–nitrogen–water cycling of the land biosphere, with a strong emphasis on ecological realism: rather than treating each plant functional type as a single grid-cell average, LPJ-GUESS represents vegetation as a population of age- and size-structured cohorts of woody individuals competing for light, water and nutrients within multiple replicate \"patches\" per grid cell, with an herbaceous understorey and stochastic disturbance and mortality. This individual- and patch-based design — inherited from forest gap models — allows the model to capture demographic processes, stand development, succession and the response of community composition to climatic, edaphic and disturbance gradients, alongside the standard DGVM outputs of net primary production, net ecosystem exchange, runoff, vegetation carbon and soil carbon and nitrogen pools.  **Common code base and physics** All LPJ-GUESS family members share a common C++ code base and a core set of process representations originally derived from the LPJ-DGVM (Sitch et al., 2003) and extended in Smith et al. (2001, 2014). Common elements across the family include: a coupled photosynthesis–stomatal-conductance scheme based on the Farquhar–Collatz formulation (Haxeltine & Prentice 1996); a growing-degree-day phenology with chilling and water-stress controls; allometric tree growth and tissue turnover; an autotrophic and heterotrophic respiration scheme with prognostic litter and soil organic matter pools (CENTURY-style after the v3.0 update); a soil hydrology scheme with two physical layers in the standard formulation (Gerten et al., 2004) extended to a multi-layer permafrost-capable scheme in the arctic configurations; a coupled terrestrial nitrogen cycle (from v3.0 onward; Smith et al., 2014) including biological N fixation, deposition, leaching and plant–microbial competition; representations of natural disturbance through fire (BLAZE, GlobFIRM or SIMFIRE-BLAZE depending on configuration) and stand-replacing disturbance; and a managed-land module (from v4.0; Lindeskog et al., 2013) supporting croplands with major C3/C4 crop functional types, irrigation, fertilisation and rotation, plus pasture and managed forestry. Simulations are typically run as ensembles of replicate patches (commonly ~25 per grid cell) on grids of 0.5° resolution or finer, driven by climate, CO₂, N deposition and land-use forcing.  **How family members differ** Family members differ principally in process complexity, target ecosystems, and coupling architecture:  - LPJ-GUESS v2.x (Smith et al. 2001; Ahlström et al. 2012; Hickler et al. 2012) is the original carbon-and-water-only version with global or European plant-functional-type sets, used in many CMIP5-era applications. - LPJ-GUESS v3.0 (Smith et al. 2014) introduced the coupled C–N cycle with N limitation on photosynthesis and decomposition, and remains the scientific reference for most current applications. - LPJ-GUESS v4.0+ (Lindeskog et al. 2013; Olin et al. 2015; Lindeskog et al. 2021) adds the managed-land module (crops, pasture, managed forests). - LPJ-GUESS arctic / WHyMe / peatland configurations (Wania et al. 2009; McGuire et al., Chadburn et al., Pongracz et al. 2021) add multi-layer soil thermodynamics, freeze–thaw, soil organic layers, peatland hydrology, methane production/oxidation and a multi-layer snow scheme for high-latitude applications. - LPJ-GUESS/LSM v1.0 (Martín Belda et al. 2022) is a next-generation reformulation as a full land-surface model with a closed surface energy balance, prognostic canopy and soil temperatures, and sub-daily physics, designed for two-way coupling with atmospheric models. - Process extensions developed across the family include alternative fire schemes (SIMFIRE-BLAZE, LMfire-CF), BVOC emissions, lightning-induced mortality, hydraulic mortality, stable-water-isotope tracers, and coupling to surface–subsurface hydrology models (e.g. ParFlow-LPJG). - PFT sets and parameterisations also differ between configurations: a standard global PFT set (~11 PFTs), a more detailed European PFT set, region-specific sets for the tropics, boreal North America and the Greater Yellowstone Ecosystem, and crop-functional-type sets in the managed-land variants.",
+    "collaborative_institutions": [
+        "pik"
+    ],
+    "established": 2001,
+    "family_type": "component",
+    "primary_institution": "kit",
+    "references": [
+        "https://doi.org/10.1046/j.1466-822X.2001.t01-1-00256.x",
+        "https://doi.org/10.1046/j.1365-2486.2003.00569.x",
+        "https://doi.org/10.1016/j.jhydrol.2003.09.029",
+        "https://doi.org/10.5194/bg-11-2027-2014",
+        "https://doi.org/10.5194/esd-4-385-2013",
+        "https://doi.org/10.5194/bg-12-2489-2015",
+        "https://doi.org/10.1029/2008GB003412",
+        "https://doi.org/10.5194/gmd-14-6071-2021",
+        "https://doi.org/10.5194/gmd-15-6709-2022"
+    ],
+    "representative_member": "LPJ-GUESS 4.1",
+    "scientific_domains": [
+        "land_surface"
+    ],
+    "website": "https://web.nateko.lu.se/lpj-guess/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "lpj-guess"
+}

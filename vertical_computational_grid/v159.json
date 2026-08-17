@@ -1,0 +1,18 @@
+{
+  "validation_key": "v159",
+  "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 79 levels.",
+  "description": "Classic hybrid sigma-pressure coordinate, extending to high altitude (so called \"high-top\" model)",
+  "bottom_layer_thickness": 20,
+  "n_z": 79,
+  "n_z_range": "",
+  "top_layer_thickness": 10000,
+  "total_thickness": 80000,
+  "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v159"
+}

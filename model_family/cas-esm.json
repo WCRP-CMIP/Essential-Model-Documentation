@@ -1,0 +1,36 @@
+{
+    "validation_key": "CAS-ESM",
+    "ui_label": "CAS-ESM",
+    "description": "The Chinese Academy of Sciences Earth System Model (CAS-ESM) family is an independently developed Earth system modeling framework designed to simulate the coupled evolution of the climate system and related biogeochemical processes. It provides a flexible numerical platform for representing interactions among major Earth system components, including the atmosphere, ocean, land surface, sea ice, aerosols, atmospheric chemistry, terrestrial ecosystems, fire processes, ocean biogeochemistry, and other relevant processes. The CAS-ESM family supports a wide range of applications, including historical climate simulation, future climate projection, climate variability and predictability studies, carbon–climate feedback analysis, and regional climate downscaling. Different members of the family are configured with varying levels of component complexity, spatial and vertical resolutions, model domains or model tops, process representations, and parameter settings. These configurations enable CAS-ESM to address scientific questions across multiple temporal and spatial scales, from regional climate processes to global Earth system change.",
+    "collaborative_institutions": [
+        "bnu",
+        "sysu"
+    ],
+    "established": 1986,
+    "family_type": "model",
+    "primary_institution": "cas",
+    "references": [
+        "https://doi.org/10.1029/2020MS002210",
+        "https://doi.org/10.11871/jfdc.issn.2096-742X.2020.01.004",
+        "https://doi.org/10.1007/s13351-025-4915-6"
+    ],
+    "representative_member": "CAS-ESM1.0, CAS-ESM2.0",
+    "scientific_domains": [
+        "atmosphere",
+        "land_surface",
+        "ocean",
+        "sea_ice",
+        "ocean-biogeochemistry",
+        "atmospheric-chemistry",
+        "aerosol",
+        "land-ice"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "cas-esm"
+}

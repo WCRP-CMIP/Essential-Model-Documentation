@@ -1,0 +1,18 @@
+{
+    "validation_key": "masingar-mk-3r2",
+    "ui_label": "MASINGAR mk-3r2",
+    "description": "The aerosol component model used in MRI-ESM3.4 (Deushi et al., 2026) for CMIP7 is the Model of Aerosol Species in the Global Atmosphere mark-3 revision 2 (MASINGAR mk-3r2), an updated version of MASINGAR mk-2r4-climate used in MRI-ESM2.0 for CMIP6 (Yukimoto et al., 2019; Oshima et al., 2020). The aerosol model calculates the physical and chemical processes of atmospheric aerosols, such as emission, transport, diffusion, chemical reactions, and dry and wet deposition. The model treats non-sea-salt sulfate, black carbon, organic carbon, sea salt, mineral dust, and aerosol precursor gases. The model is interactively coupled with the other component models in MRI-ESM3.4 using a coupler.",
+    "code_base": "",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.20839616 https://doi.org/10.2151/jmsj.2019-051 https://doi.org/10.1186/s40645-020-00348-w"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "masingar-mk-3r2"
+}

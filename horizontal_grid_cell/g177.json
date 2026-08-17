@@ -1,0 +1,27 @@
+{
+  "validation_key": "g177",
+  "ui_label": "Horizontal grid cell with a spectral reduced gaussian grid type.",
+  "description": "The Y resolution varies within the range of 1.84964 to 1.86526 degrees.",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "spectral-reduced-gaussian",
+  "n_cells": 16128,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -88.57217,
+  "temporal_refinement": "static",
+  "truncation_method": "triangular",
+  "truncation_number": 95,
+  "units": "degree",
+  "westernmost_longitude": 0,
+  "x_resolution": "",
+  "y_resolution": 1.86,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g177"
+}

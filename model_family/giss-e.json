@@ -1,0 +1,33 @@
+{
+    "validation_key": "GISS-E",
+    "ui_label": "GISS-E",
+    "description": "Comprehensive Earth System Model with a focus on understanding the diverse forcings on the climate system and the climate response and impacts. Developed following pioneering work in 1980's and 1990's at NASA GISS. Now uses a cubed-sphere atmosphere and high model top (~85km) and GISS Ocean/sea ice modules. Optional inclusion of MATRIX aerosols, interactive chemistry (based on PUCCINI), ocean bio-geochemistry (NOBM), full carbon cycle, and PISM land ice. Multiple physics versions are possible based on equiprobable ML tuning to observations (varying in a set of atmospheric parameters).",
+    "collaborative_institutions": "",
+    "established": 2004,
+    "family_type": "model",
+    "primary_institution": "nasa-giss",
+    "references": [
+        "https://dx.doi.org/10.1029/2019MS001978",
+        "https://dx.doi.org/10.1029/2019MS002025",
+        "https://dx.doi.org/10.1029/2019MS002034"
+    ],
+    "representative_member": "GISS-E2.1-G",
+    "scientific_domains": [
+        "atmosphere",
+        "aerosol",
+        "atmospheric-chemistry",
+        "land-ice",
+        "land_surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea_ice"
+    ],
+    "website": "https://www.giss.nasa.gov/tools/modelE/",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "giss-e"
+}
