@@ -24,7 +24,9 @@
     --emd-primary-dark:   #1976d2;
     --emd-text:           #1e293b;
     --emd-text-secondary: #475569;
-    --emd-text-tertiary:  #94a3b8;
+    /* was #94a3b8 — 2.57:1 on white, failed WCAG AA (needs 4.5:1).
+       #64748b gives 4.76:1 while keeping the same de-emphasised feel. */
+    --emd-text-tertiary:  #64748b;
     --emd-bg:             #ffffff;
     --emd-bg-secondary:   #f8fafc;
     --emd-bg-tertiary:    #f1f5f9;

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMD Grid Finder</title>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsonld-recursive@1/lib/ldr-browser.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0d0f14;
+  --surf:   #151820;
+  --surf2:  #1c202b;
+  --border: #2b3140;
+  --dim:    #3a4256;
+  --text:   #d5dceb;
+  /* --muted lightened from #5a6380 (3.3:1 — failed WCAG AA) to 6.3:1 */
+  --muted:  #8b93ad;
+  --accent: #4af0c0;
+  --leaf:   #ff9060;
+  --hi:     #ffd257;
+  --err:    #ff6b7a;
+  --faded:  rgba(74,240,192,.06);
+  --mono:   'IBM Plex Mono', ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text);
+  font-family: var(--mono); font-size: 13px; overflow: hidden; }
+
+/* Visible focus for keyboard users — was entirely absent */
+:focus-visible { outline: 2px solid var(--hi); outline-offset: 2px; }
+.node:focus-visible { outline: none; }
+.node:focus-visible circle { stroke: var(--hi); stroke-width: 3; }
+
+.vh { position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+#app { display: grid; grid-template-rows: 44px 1fr; height: 100vh; }
+
+/* ── header ─────────────────────────────────────────────────────── */
+#hdr { display: flex; align-items: center; gap: 10px; padding: 0 14px;
+  border-bottom: 1px solid var(--border); background: var(--surf); flex-shrink: 0; }
+#hdr h1 { font-size: 12px; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.sp { flex: 1; }
+#status { font-size: 11px; color: var(--muted); white-space: nowrap; }
+#status.loading { color: var(--accent); }
+#status.error   { color: var(--err); }
+
+.btn { background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--mono); font-size: 11px; padding: 4px 10px; cursor: pointer;
+  letter-spacing: .05em; text-transform: uppercase; transition: color .12s, border-color .12s; }
+.btn:hover:not(:disabled) { color: var(--text); border-color: var(--muted); }
+.btn[aria-pressed="true"] { color: var(--hi); border-color: var(--hi); }
+.btn:disabled { opacity: .35; cursor: not-allowed; }
+
+.grp { display: flex; align-items: center; gap: 0; }
+.grp .btn { border-radius: 0; margin-left: -1px; }
+.grp .btn:first-child { margin-left: 0; }
+
+#zoom-controls { display: flex; align-items: center; gap: 6px; }
+#zoom-level { font-size: 10px; color: var(--muted); min-width: 42px; text-align: right;
+  font-variant-numeric: tabular-nums; }
+
+#phase-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); padding: 0 10px; border-left: 1px solid var(--border); white-space: nowrap; }
+#filter-summary { font-size: 10px; color: var(--accent); max-width: 320px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#sel-count { font-size: 10px; color: var(--hi); white-space: nowrap; }
+
+/* ── view panes ─────────────────────────────────────────────────── */
+#views { position: relative; overflow: hidden; }
+.view { position: absolute; inset: 0; display: none; }
+.view.active { display: block; }
+
+/* graph */
+#tree-wrap { width: 100%; height: 100%; position: relative; overflow: hidden; }
+svg#svg { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+svg#svg.grabbing { cursor: grabbing; }
+
+.node circle { transition: r .2s, fill .15s, stroke .15s; cursor: pointer; stroke-width: 1.5; }
+.node text { font-family: var(--mono); dominant-baseline: central; pointer-events: none; }
+.node.root  circle { fill: var(--accent); stroke: none; cursor: default; }
+.node.branch circle { fill: var(--surf); stroke: var(--muted); }
+.node.branch:hover circle { stroke: var(--accent); fill: var(--faded); }
+.node.branch.filtered circle { stroke: var(--hi); fill: rgba(255,210,87,.1); }
+.node.leaf   circle { fill: var(--leaf); stroke: none; }
+.node.leaf:hover circle { fill: var(--hi); }
+.node.leaf.filtered circle { fill: var(--hi); stroke: none; }
+.link { fill: none; stroke: var(--border); stroke-width: 1; }
+.link.active { stroke: var(--dim); }
+
+#tip { position: fixed; background: var(--surf2); border: 1px solid var(--border);
+  padding: 7px 11px; font-size: 11px; color: var(--text); pointer-events: none;
+  display: none; z-index: 200; line-height: 1.7; max-width: 280px; }
+
+/* ── table view ─────────────────────────────────────────────────── */
+#table-view { display: none; grid-template-rows: 1fr 40px; }
+#table-view.active { display: grid; }
+#table-scroll { overflow: auto; }
+#table-scroll::-webkit-scrollbar { width: 9px; height: 9px; }
+#table-scroll::-webkit-scrollbar-thumb { background: var(--dim); }
+
+table#grid-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+#grid-table caption { text-align: left; padding: 8px 14px; font-size: 10px;
+  color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+#grid-table th, #grid-table td { padding: 6px 12px; text-align: left;
+  border-bottom: 1px solid var(--border); white-space: nowrap; }
+#grid-table thead th { position: sticky; top: 0; z-index: 2; background: var(--surf2);
+  color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: .06em;
+  text-transform: uppercase; border-bottom: 1px solid var(--dim); }
+#grid-table thead th button { background: none; border: none; color: inherit;
+  font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer;
+  padding: 0; display: flex; align-items: center; gap: 5px; }
+#grid-table thead th button:hover { color: var(--text); }
+#grid-table thead th[aria-sort] button { color: var(--hi); }
+.sort-ind { font-size: 9px; opacity: .8; }
+#grid-table tbody tr { cursor: pointer; }
+#grid-table tbody tr:hover { background: var(--surf); }
+#grid-table tbody tr:focus-visible { background: var(--surf); }
+#grid-table td.col-id { color: var(--leaf); font-weight: 600; }
+#grid-table td.num { color: #8fd0ff; font-variant-numeric: tabular-nums; }
+#grid-table td.nil { color: var(--muted); font-style: italic; }
+#empty-msg { padding: 28px 14px; color: var(--muted); font-size: 12px; }
+
+/* pagination bar */
+#pager { display: flex; align-items: center; gap: 10px; padding: 0 14px;
+  border-top: 1px solid var(--border); background: var(--surf); font-size: 11px; }
+#page-info { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+#pager label { color: var(--muted); font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; display: flex; align-items: center; gap: 6px; }
+#pager select { background: var(--surf2); color: var(--text); border: 1px solid var(--border);
+  font-family: var(--mono); font-size: 11px; padding: 3px 6px; cursor: pointer; }
+#page-pos { color: var(--text); font-variant-numeric: tabular-nums; min-width: 90px;
+  text-align: center; white-space: nowrap; }
+
+/* ── drawer — widened so data spans most of the page ────────────── */
+#drawer { position: fixed; right: 0; top: 0; bottom: 0;
+  width: clamp(340px, 68vw, 1040px);
+  background: var(--surf); border-left: 1px solid var(--border);
+  transform: translateX(101%); transition: transform .2s;
+  display: flex; flex-direction: column; z-index: 100; }
+#drawer.open { transform: none; }
+#drawer-hdr { padding: 10px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+#drawer-id { font-size: 15px; color: var(--leaf); font-weight: 600; flex: 1;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#drawer-body { flex: 1; overflow-y: auto; padding: 12px 16px; }
+#drawer-body::-webkit-scrollbar { width: 8px; }
+#drawer-body::-webkit-scrollbar-thumb { background: var(--dim); }
+
+/* key/value pairs flow into columns so wide screens are used properly */
+#drawer-grid { display: grid; gap: 8px 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+.dr { display: grid; grid-template-columns: 170px 1fr; gap: 1px; align-items: stretch; }
+.dk { padding: 5px 10px; font-size: 10px; color: var(--muted); background: var(--surf2);
+  text-transform: uppercase; letter-spacing: .05em; word-break: break-word; }
+.dv { padding: 5px 10px; font-size: 12px; background: var(--surf2); word-break: break-word; }
+.dv.num { color: #8fd0ff; font-variant-numeric: tabular-nums; }
+.dv.nil { color: var(--muted); font-style: italic; }
+.dr.wide { grid-column: 1 / -1; grid-template-columns: 170px 1fr; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="hdr">
+    <h1>EMD Grid Finder</h1>
+    <span id="phase-label">phase 1 — select</span>
+    <span id="filter-summary"></span>
+    <span id="sel-count"></span>
+    <span class="sp"></span>
+
+    <div class="grp" role="group" aria-label="View mode">
+      <button class="btn" id="view-graph" aria-pressed="true">Graph</button>
+      <button class="btn" id="view-table" aria-pressed="false">Table</button>
+    </div>
+
+    <div id="zoom-controls" role="group" aria-label="Zoom">
+      <button class="btn" id="zoom-out" aria-label="Zoom out">&minus;</button>
+      <span id="zoom-level" aria-hidden="true">100%</span>
+      <button class="btn" id="zoom-in" aria-label="Zoom in">+</button>
+      <button class="btn" id="zoom-reset">Reset zoom</button>
+    </div>
+
+    <button class="btn" id="csv-btn">Download CSV</button>
+    <button class="btn" id="reset-btn">Reset filters</button>
+    <button class="btn" id="next-btn" style="display:none">Next phase &rarr;</button>
+    <span id="status" class="loading" role="status" aria-live="polite">loading&hellip;</span>
+  </header>
+
+  <div id="views">
+    <div class="view active" id="graph-view">
+      <div id="tree-wrap">
+        <svg id="svg" role="application"
+             aria-label="Faceted grid tree. Use the Table view for a fully accessible listing."></svg>
+      </div>
+    </div>
+
+    <div class="view" id="table-view">
+      <div id="table-scroll">
+        <table id="grid-table">
+          <caption id="table-caption"></caption>
+          <thead><tr id="table-head-row"></tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+        <div id="empty-msg" hidden>No grids match the current selection.</div>
+      </div>
+      <div id="pager">
+        <span id="page-info"></span>
+        <span class="sp"></span>
+        <label for="page-size">Rows
+          <select id="page-size">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="250">250</option>
+          </select>
+        </label>
+        <div class="grp" role="group" aria-label="Pagination">
+          <button class="btn" id="pg-first" aria-label="First page">&laquo;</button>
+          <button class="btn" id="pg-prev" aria-label="Previous page">&lsaquo;</button>
+        </div>
+        <span id="page-pos"></span>
+        <div class="grp" role="group" aria-label="Pagination">
+          <button class="btn" id="pg-next" aria-label="Next page">&rsaquo;</button>
+          <button class="btn" id="pg-last" aria-label="Last page">&raquo;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tip" role="tooltip"></div>
+
+<div id="drawer" role="dialog" aria-modal="false" aria-labelledby="drawer-id" aria-hidden="true">
+  <div id="drawer-hdr">
+    <span id="drawer-id"></span>
+    <button class="btn" id="drawer-close" aria-label="Close details">Close</button>
+  </div>
+  <div id="drawer-body"><div id="drawer-grid"></div></div>
+</div>
+
+<p class="vh" id="announcer" role="status" aria-live="polite"></p>
+</body>
+<script type="module">
+const GRAPH       = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/_graph.json';
+const CONTEXT_URL = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/_context';
+const ITEM_BASE   = 'https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/';
+const SKIP_KEYS   = new Set(['@context','@type','@id','validation_key','ui_label']);
+const FIELD_ORDER = ['grid_type','grid_mapping','coordinate_system','x_resolution','y_resolution',
+  'horizontal_units','units','n_cells','region','southernmost_latitude','westernmost_longitude',
+  'temporal_refinement','truncation_method','truncation_number','description'];
+
+let allGrids     = {};
+let linkedFields = [];
+let numericFields = [];
+let phase = 1;
+const filters = { 1: {}, 2: {} };
+
+let view = 'graph';
+let currentGrids = [];                 // selection backing table + CSV
+const tableState = { page: 1, pageSize: 50, sortKey: 'id', sortDir: 1 };
+
+let zoomBehavior = null, svgSel = null, gRootSel = null;
+
+const $ = id => document.getElementById(id);
+
+// Escape — previously absent; registry text went straight into innerHTML
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+function rawVal(d, field) {
+  const v = d[field];
+  if (v === null || v === undefined || v === '') return null;
+  if (Array.isArray(v)) {
+    const parts = v.filter(x => x !== null && x !== undefined && x !== '');
+    return parts.length ? parts.map(String) : null;
+  }
+  const s = String(v);
+  return s === 'null' ? null : s;
+}
+
+function display(raw) {
+  if (raw === null || raw === undefined) return '';
+  if (Array.isArray(raw)) return raw.map(display).join(', ');
+  return String(raw).replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function gridVals(d, field) {
+  const v = rawVal(d, field);
+  if (v === null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+function shortId(s) {
+  if (!s) return s;
+  return String(s).split('/').filter(Boolean).pop() || s;
+}
+
+function matchingGrids(includePhase2 = false) {
+  const activeFilters = includePhase2 ? { ...filters[1], ...filters[2] } : filters[1];
+  return Object.values(allGrids).filter(d =>
+    Object.entries(activeFilters).every(([f, sel]) => {
+      if (!sel || sel.size === 0) return true;
+      const vals = gridVals(d, f);
+      return [...sel].some(s => vals.includes(s));
+    })
+  );
+}
+
+// ── Load ─────────────────────────────────────────────────────────────────────
+async function load() {
+  const s = $('status');
+  try {
+    const ctxRes  = await fetch(CONTEXT_URL);
+    const ctxJson = await ctxRes.json();
+    const ctx     = ctxJson['@context'] || ctxJson;
+    linkedFields  = Object.entries(ctx)
+      .filter(([k,v]) => k[0] !== '@' && typeof v === 'object' && v['@type'] === '@id')
+      .map(([k]) => k);
+
+    const res  = await fetch(GRAPH);
+    const json = await res.json();
+    if (json['@context']?.['@base']) json['@context']['@base'] = ITEM_BASE;
+    const blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
+    const burl = URL.createObjectURL(blob);
+    const data = await JsonLdExpand.compact(burl, { depth: 2 });
+    URL.revokeObjectURL(burl);
+    const raw = data.contents || data['@graph'] || [];
+    (Array.isArray(raw) ? raw : Object.values(raw)).forEach(d => {
+      const id = shortId(d['@id'] || d.validation_key || '');
+      if (id) allGrids[id] = d;
+    });
+
+    const allKeys = new Set();
+    Object.values(allGrids).forEach(d => Object.keys(d).forEach(k => allKeys.add(k)));
+    numericFields = [...allKeys].filter(k =>
+      !SKIP_KEYS.has(k) && !linkedFields.includes(k) && k !== 'description'
+    ).sort();
+
+    linkedFields.forEach(f  => { filters[1][f] = new Set(); });
+    numericFields.forEach(f => { filters[2][f] = new Set(); });
+
+    s.className = '';
+    s.textContent = Object.keys(allGrids).length + ' grids';
+    refresh(1);
+  } catch (e) {
+    s.className = 'error';
+    s.textContent = 'error: ' + e.message;
+    console.error(e);
+  }
+}
+
+// ── Facet scoring ────────────────────────────────────────────────────────────
+function entropy(groups) {
+  const total = Object.values(groups).reduce((s,g) => s + g.length, 0);
+  if (!total) return 0;
+  return -Object.values(groups).reduce((s,g) => {
+    const p = g.length / total; return p > 0 ? s + p * Math.log2(p) : s;
+  }, 0);
+}
+
+function infoGain(grids, field) {
+  const total = grids.length; if (!total) return 0;
+  const groups = {};
+  grids.forEach(d => {
+    const k = gridVals(d, field).join('|') || '__x__';
+    (groups[k] ||= []).push(d);
+  });
+  if (Object.keys(groups).length <= 1) return -Infinity;
+  const wH = Object.values(groups).reduce((s,g) => {
+    const sub = {};
+    g.forEach(d => { const k2 = gridVals(d, field).join('|') || '__x__'; (sub[k2] ||= []).push(d); });
+    return s + (g.length / total) * entropy(sub);
+  }, 0);
+  return entropy(groups) - wH;
+}
+
+function sortedFields(grids, fields) {
+  return [...fields]
+    .map(f => ({ f, g: infoGain(grids, f) }))
+    .filter(x => x.g > -Infinity)
+    .sort((a,b) => b.g - a.g)
+    .map(x => x.f);
+}
+
+// ── Tree node construction ───────────────────────────────────────────────────
+function buildNodes(grids, fields, depth, pathKey) {
+  if (!fields.length || !grids.length) {
+    return grids.map(d => ({
+      type: 'leaf', id: shortId(d['@id'] || d.validation_key || ''), data: d, count: 1,
+      _key: pathKey + '|leaf:' + shortId(d['@id'] || d.validation_key || ''),
+    }));
+  }
+  const field = fields[0], rest = fields.slice(1);
+  const groups = {}, missing = [];
+  grids.forEach(d => {
+    const vals = gridVals(d, field);
+    if (!vals.length) { missing.push(d); return; }
+    vals.forEach(v => { (groups[v] ||= []).push(d); });
+  });
+  const children = [];
+  if (missing.length) {
+    buildNodes(missing, rest, depth + 1, pathKey + '|skip').forEach(c => children.push(c));
+  }
+  Object.entries(groups)
+    .sort(([a],[b]) => {
+      const na = parseFloat(a), nb = parseFloat(b);
+      return (!isNaN(na) && !isNaN(nb)) ? na - nb : a.localeCompare(b, undefined, { numeric: true });
+    })
+    .forEach(([val, subset]) => {
+      const nk = pathKey + '|' + field + ':' + val;
+      children.push({
+        type: 'branch', field, value: val, count: subset.length, _key: nk,
+        children: buildNodes(subset, rest, depth + 1, nk),
+      });
+    });
+  return children;
+}
+
+// ── Central refresh: recompute selection, render active view ─────────────────
+function refresh(p) {
+  phase = p;
+  $('phase-label').textContent = p === 1 ? 'phase 1 — cv fields' : 'phase 2 — numeric fields';
+  $('next-btn').style.display = p === 1 ? 'inline-block' : 'none';
+
+  currentGrids = matchingGrids(p === 2);
+  $('sel-count').textContent = currentGrids.length + ' selected';
+  $('csv-btn').disabled = currentGrids.length === 0;
+  updateFilterSummary();
+
+  tableState.page = 1;
+  if (view === 'graph') renderGraph(currentGrids, p);
+  else renderTable();
+}
+
+function updateFilterSummary() {
+  const parts = [];
+  [1,2].forEach(p => {
+    Object.entries(filters[p]).forEach(([f, sel]) => {
+      if (sel.size) parts.push(display(f) + ': ' + [...sel].map(display).join(', '));
+    });
+  });
+  const el = $('filter-summary');
+  el.textContent = parts.join(' · ');
+  el.title = parts.join(' · ');
+}
+
+// ── Graph ────────────────────────────────────────────────────────────────────
+function renderGraph(grids, p) {
+  const fields = sortedFields(grids, p === 1 ? linkedFields : numericFields);
+  const filt   = filters[p];
+
+  const rootData = {
+    type: 'root', _key: 'root', count: grids.length,
+    label: (p === 1 ? 'CV Facets' : 'Numeric Facets') + ' (' + grids.length + ')',
+    children: buildNodes(grids, fields, 0, 'root'),
+  };
+
+  const root = d3.hierarchy(rootData, d => d.type === 'leaf' ? null : d.children || null);
+  root.each(d => { d.data._active = d.data.field && filt[d.data.field]?.has(d.data.value); });
+
+  const counts = root.descendants().filter(d => d.data.type === 'branch').map(d => d.data.count);
+  const maxC = Math.max(...counts, 1), minC = Math.min(...counts, 1);
+  const normR = d => {
+    if (d.data.type === 'root') return 8;
+    if (d.data.type === 'leaf') return 4;
+    const t = maxC === minC ? 1 : (d.data.count - minC) / (maxC - minC);
+    return 4 + t * 8;
+  };
+
+  renderTree(root, normR);
+}
+
+function renderTree(root, normR) {
+  const svg = d3.select('#svg');
+  svg.selectAll('*').remove();
+  svg.attr('preserveAspectRatio', 'xMidYMid meet');
+
+  const g  = svg.append('g').attr('class', 'tree-root');
+  const gL = g.append('g').attr('class', 'links');
+  const gN = g.append('g').attr('class', 'nodes');
+  svgSel = svg; gRootSel = g;
+
+  // Cursor-anchored zoom: d3.zoom maps pointer position through the current
+  // transform, so the point under the cursor stays fixed while scaling.
+  // Applied to the inner <g>, leaving the fit-to-content viewBox intact.
+  zoomBehavior = d3.zoom()
+    .scaleExtent([0.15, 15])
+    .on('start', () => svg.node().classList.add('grabbing'))
+    .on('zoom', ev => { g.attr('transform', ev.transform); setZoomLabel(ev.transform.k); })
+    .on('end', () => svg.node().classList.remove('grabbing'));
+
+  svg.call(zoomBehavior).on('dblclick.zoom', null);
+  svg.call(zoomBehavior.transform, d3.zoomIdentity);
+  setZoomLabel(1);
+
+  update(root, g, gL, gN, svg, normR);
+}
+
+function setZoomLabel(k) { $('zoom-level').textContent = Math.round(k * 100) + '%'; }
+
+function zoomBy(factor) {
+  if (!svgSel || !zoomBehavior) return;
+  svgSel.transition().duration(180).call(zoomBehavior.scaleBy, factor);
+}
+
+function resetZoom() {
+  if (!svgSel || !zoomBehavior) return;
+  svgSel.transition().duration(220).call(zoomBehavior.transform, d3.zoomIdentity);
+  $('announcer').textContent = 'Zoom reset to 100%.';
+}
+
+function update(root, g, gL, gN, svg, normR) {
+  const wrap = $('tree-wrap');
+  const W = wrap.clientWidth || window.innerWidth;
+  const H = wrap.clientHeight || (window.innerHeight - 44);
+
+  const PAD_X = 140, PAD_Y = 20;
+  const leaves = root.leaves ? root.leaves().length : 20;
+  const natH = Math.max(leaves * 18, H);
+  const depth = (root.height || 5);
+  const natW = Math.max(depth * 200, W);
+
+  d3.tree().size([natH - PAD_Y * 2, natW - PAD_X * 2])(root);
+
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  root.each(d => {
+    if (d.x < x0) x0 = d.x; if (d.x > x1) x1 = d.x;
+    if (d.y < y0) y0 = d.y; if (d.y > y1) y1 = d.y;
+  });
+  svg.attr('viewBox', `${y0 - PAD_X} ${x0 - PAD_Y} ${y1 - y0 + PAD_X * 2} ${x1 - x0 + PAD_Y * 2}`);
+
+  const lk = gL.selectAll('path.link').data(root.links(), d => d.target.data._key);
+  lk.enter().append('path').attr('class', 'link active')
+    .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x))
+    .attr('opacity', 0).transition().duration(200).attr('opacity', 1);
+  lk.transition().duration(200).attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x));
+  lk.exit().transition().duration(150).attr('opacity', 0).remove();
+
+  const isFiltered = d => d.data._active;
+  const nd = gN.selectAll('g.node').data(root.descendants(), d => d.data._key);
+
+  const enter = nd.enter().append('g')
+    .attr('class', d => 'node ' + d.data.type + (isFiltered(d) ? ' filtered' : ''))
+    .attr('transform', d => `translate(${d.y},${d.x})`)
+    .attr('opacity', 0);
+
+  enter.append('circle').attr('r', d => normR(d));
+
+  enter.append('text')
+    .attr('x', d => (d.children || d._children) ? -(normR(d) + 4) : (normR(d) + 4))
+    .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+    .attr('font-size', d => d.data.type === 'root' ? 11 : d.data.type === 'leaf' ? 9 : 10)
+    .attr('fill', d => nodeFill(d, isFiltered))
+    .text(d => nodeLabel(d));
+
+  // Nodes are keyboard-operable: focusable, labelled, Enter/Space activate.
+  const interactive = enter.filter(d => d.data.type !== 'root')
+    .style('cursor', 'pointer')
+    .attr('tabindex', 0)
+    .attr('role', 'button')
+    .attr('aria-label', d => nodeAria(d))
+    .on('click', (e, d) => activateNode(d))
+    .on('keydown', (e, d) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateNode(d); }
+    })
+    .on('mouseover', (e, d) => showTip(e, d))
+    .on('focus', (e, d) => showTip(e, d, true))
+    .on('mousemove', e => moveTip(e))
+    .on('mouseout', hideTip)
+    .on('blur', hideTip);
+
+  enter.transition().duration(200)
+    .attr('transform', d => `translate(${d.y},${d.x})`).attr('opacity', 1);
+
+  nd.attr('class', d => 'node ' + d.data.type + (isFiltered(d) ? ' filtered' : ''))
+    .attr('aria-label', d => nodeAria(d))
+    .transition().duration(200)
+    .attr('transform', d => `translate(${d.y},${d.x})`).attr('opacity', 1);
+  nd.select('text').text(d => nodeLabel(d)).attr('fill', d => nodeFill(d, isFiltered));
+  nd.select('circle').attr('r', d => normR(d));
+  nd.exit().transition().duration(150).attr('opacity', 0).remove();
+}
+
+function nodeFill(d, isFiltered) {
+  return d.data.type === 'root' ? 'var(--accent)'
+       : d.data.type === 'leaf' ? 'var(--leaf)'
+       : isFiltered(d) ? 'var(--hi)' : 'var(--muted)';
+}
+
+function activateNode(d) {
+  if (d.data.type === 'leaf') { openDrawer(d.data); return; }
+  const sel = filters[phase][d.data.field];
+  if (!sel) return;
+  if (sel.has(d.data.value)) sel.delete(d.data.value); else sel.add(d.data.value);
+  refresh(phase);
+  $('announcer').textContent =
+    `${display(d.data.field)} ${display(d.data.value)} ${sel.has(d.data.value) ? 'added to' : 'removed from'} filters. ${currentGrids.length} grids selected.`;
+}
+
+function nodeLabel(d) {
+  if (d.data.type === 'root') return d.data.label;
+  if (d.data.type === 'leaf') return shortId(d.data.id);
+  return display(d.data.value) + (d.data.count > 1 ? ` (${d.data.count})` : '');
+}
+
+function nodeAria(d) {
+  if (d.data.type === 'leaf') return `Grid ${shortId(d.data.id)}. Activate to open details.`;
+  const on = d.data._active ? 'selected' : 'not selected';
+  return `Filter ${display(d.data.field)} ${display(d.data.value)}, ${d.data.count} grids, ${on}.`;
+}
+
+// ── Tooltip (escaped) ────────────────────────────────────────────────────────
+function showTip(e, d, fromFocus = false) {
+  const tip = $('tip');
+  if (d.data.type === 'branch') {
+    tip.innerHTML = `<b style="color:var(--accent)">${esc(display(d.data.field))}</b><br>
+      <span style="color:var(--text)">${esc(display(d.data.value))}</span><br>
+      <span style="color:var(--muted)">${d.data.count} grid${d.data.count !== 1 ? 's' : ''}</span>`;
+  } else if (d.data.type === 'leaf') {
+    const desc = d.data.data?.description || '';
+    tip.innerHTML = `<b style="color:var(--leaf)">${esc(shortId(d.data.id))}</b>` +
+      (desc ? `<br><span style="color:var(--muted)">${esc(desc.slice(0, 90))}</span>` : '');
+  } else return;
+  tip.style.display = 'block';
+  if (fromFocus) {
+    const r = e.target.getBoundingClientRect();
+    tip.style.left = (r.right + 10) + 'px';
+    tip.style.top  = (r.top) + 'px';
+  }
+}
+function moveTip(e) {
+  const t = $('tip');
+  t.style.left = (e.clientX + 14) + 'px';
+  t.style.top  = (e.clientY - 8) + 'px';
+}
+function hideTip() { $('tip').style.display = 'none'; }
+
+// ── Table ────────────────────────────────────────────────────────────────────
+function tableColumns(grids) {
+  const keys = new Set();
+  grids.forEach(d => Object.keys(d).forEach(k => { if (!SKIP_KEYS.has(k)) keys.add(k); }));
+  const ordered = [
+    ...FIELD_ORDER.filter(k => keys.has(k)),
+    ...[...keys].filter(k => !FIELD_ORDER.includes(k)).sort(),
+  ];
+  return ['id', ...ordered];
+}
+
+function cellValue(d, key) {
+  if (key === 'id') return shortId(d['@id'] || d.validation_key || '');
+  const v = rawVal(d, key);
+  if (v === null) return null;
+  return Array.isArray(v) ? v.join(', ') : v;
+}
+
+function sortRows(rows, key, dir) {
+  return [...rows].sort((a, b) => {
+    const av = cellValue(a, key), bv = cellValue(b, key);
+    if (av === null && bv === null) return 0;
+    if (av === null) return 1;          // nulls always last
+    if (bv === null) return -1;
+    const na = parseFloat(av), nb = parseFloat(bv);
+    if (!isNaN(na) && !isNaN(nb) && isFinite(na) && isFinite(nb)) return (na - nb) * dir;
+    return String(av).localeCompare(String(bv), undefined, { numeric: true }) * dir;
+  });
+}
+
+function renderTable() {
+  const cols  = tableColumns(currentGrids);
+  const total = currentGrids.length;
+  const size  = tableState.pageSize;
+  const pages = Math.max(1, Math.ceil(total / size));
+  if (tableState.page > pages) tableState.page = pages;
+
+  if (!cols.includes(tableState.sortKey)) tableState.sortKey = 'id';
+  const sorted = sortRows(currentGrids, tableState.sortKey, tableState.sortDir);
+
+  const start = (tableState.page - 1) * size;
+  const slice = sorted.slice(start, start + size);
+
+  // header
+  const headRow = $('table-head-row');
+  headRow.textContent = '';
+  cols.forEach(k => {
+    const th = document.createElement('th');
+    th.scope = 'col';
+    const isSort = tableState.sortKey === k;
+    if (isSort) th.setAttribute('aria-sort', tableState.sortDir === 1 ? 'ascending' : 'descending');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = k === 'id' ? 'ID' : display(k);
+    const ind = document.createElement('span');
+    ind.className = 'sort-ind';
+    ind.textContent = isSort ? (tableState.sortDir === 1 ? '▲' : '▼') : '';
+    btn.appendChild(ind);
+    btn.addEventListener('click', () => {
+      if (tableState.sortKey === k) tableState.sortDir *= -1;
+      else { tableState.sortKey = k; tableState.sortDir = 1; }
+      renderTable();
+    });
+    th.appendChild(btn);
+    headRow.appendChild(th);
+  });
+
+  // body — textContent throughout, no innerHTML
+  const body = $('table-body');
+  body.textContent = '';
+  slice.forEach(d => {
+    const tr = document.createElement('tr');
+    tr.tabIndex = 0;
+    cols.forEach(k => {
+      const td = document.createElement('td');
+      const v = cellValue(d, k);
+      if (k === 'id') td.className = 'col-id';
+      else if (v === null) td.className = 'nil';
+      else if (!isNaN(parseFloat(v)) && isFinite(v)) td.className = 'num';
+      td.textContent = v === null ? '—' : v;
+      tr.appendChild(td);
+    });
+    const open = () => openDrawer({ id: cellValue(d, 'id'), data: d });
+    tr.addEventListener('click', open);
+    tr.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+    body.appendChild(tr);
+  });
+
+  const from = total ? start + 1 : 0, to = Math.min(start + size, total);
+  $('grid-table').hidden = total === 0;
+  $('empty-msg').hidden = total !== 0;
+  $('table-caption').textContent =
+    `Grid selection — ${total} row${total !== 1 ? 's' : ''}, ${cols.length} columns`;
+  $('page-info').textContent = total ? `Showing ${from}–${to} of ${total}` : 'No rows';
+  $('page-pos').textContent = `Page ${tableState.page} / ${pages}`;
+  $('pg-first').disabled = $('pg-prev').disabled = tableState.page <= 1;
+  $('pg-next').disabled  = $('pg-last').disabled = tableState.page >= pages;
+  $('announcer').textContent = total
+    ? `Showing rows ${from} to ${to} of ${total}.` : 'No grids match the current selection.';
+}
+
+function goPage(n) {
+  const pages = Math.max(1, Math.ceil(currentGrids.length / tableState.pageSize));
+  tableState.page = Math.min(Math.max(1, n), pages);
+  renderTable();
+  $('table-scroll').scrollTop = 0;
+}
+
+// ── CSV — exports the FULL selection, not just the visible page ──────────────
+function csvCell(v) {
+  let s = v === null || v === undefined ? '' : Array.isArray(v) ? v.join('; ') : String(v);
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;      // spreadsheet formula-injection guard
+  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function downloadCSV() {
+  if (!currentGrids.length) return;
+  const cols = tableColumns(currentGrids);
+  const rows = sortRows(currentGrids, tableState.sortKey, tableState.sortDir);
+  const lines = [cols.map(c => csvCell(c === 'id' ? 'id' : c)).join(',')];
+  rows.forEach(d => lines.push(cols.map(k => csvCell(cellValue(d, k))).join(',')));
+
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+  const blob = new Blob(['\uFEFF' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `emd-grid-selection-${rows.length}-rows-${stamp}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $('announcer').textContent = `Downloaded ${rows.length} rows as CSV.`;
+}
+
+// ── View toggle ──────────────────────────────────────────────────────────────
+function setView(v) {
+  view = v;
+  const graph = v === 'graph';
+  $('graph-view').classList.toggle('active', graph);
+  $('table-view').classList.toggle('active', !graph);
+  $('view-graph').setAttribute('aria-pressed', String(graph));
+  $('view-table').setAttribute('aria-pressed', String(!graph));
+  $('zoom-controls').style.display = graph ? 'flex' : 'none';
+  hideTip();
+  if (graph) renderGraph(currentGrids, phase); else renderTable();
+  $('announcer').textContent = graph ? 'Graph view.' : 'Table view.';
+}
+
+// ── Drawer ───────────────────────────────────────────────────────────────────
+let lastFocused = null;
+
+function openDrawer(leafData) {
+  const d = leafData.data;
+  lastFocused = document.activeElement;
+  $('drawer-id').textContent = leafData.id;
+
+  const grid = $('drawer-grid');
+  grid.textContent = '';
+  const keys = [...new Set([...FIELD_ORDER, ...Object.keys(d)])].filter(k => !SKIP_KEYS.has(k));
+
+  keys.forEach(k => {
+    if (d[k] === undefined) return;
+    const v = d[k];
+    const isNil = v === null || v === '';
+    const s = isNil ? '—' : Array.isArray(v) ? v.join(', ') : String(v).replace(/[-_]/g, ' ');
+
+    const row = document.createElement('div');
+    row.className = 'dr' + (k === 'description' || s.length > 90 ? ' wide' : '');
+    const dk = document.createElement('div');
+    dk.className = 'dk';
+    dk.textContent = display(k);
+    const dv = document.createElement('div');
+    dv.className = 'dv ' + (isNil ? 'nil' : typeof v === 'number' ? 'num' : '');
+    dv.textContent = s;
+    row.append(dk, dv);
+    grid.appendChild(row);
+  });
+
+  const dr = $('drawer');
+  dr.classList.add('open');
+  dr.setAttribute('aria-hidden', 'false');
+  $('drawer-close').focus();
+}
+
+function closeDrawer() {
+  const dr = $('drawer');
+  dr.classList.remove('open');
+  dr.setAttribute('aria-hidden', 'true');
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+}
+
+// ── Controls ─────────────────────────────────────────────────────────────────
+$('view-graph').addEventListener('click', () => setView('graph'));
+$('view-table').addEventListener('click', () => setView('table'));
+
+$('zoom-in').addEventListener('click',  () => zoomBy(1.4));
+$('zoom-out').addEventListener('click', () => zoomBy(1 / 1.4));
+$('zoom-reset').addEventListener('click', resetZoom);
+
+$('csv-btn').addEventListener('click', downloadCSV);
+$('next-btn').addEventListener('click', () => refresh(2));
+
+$('reset-btn').addEventListener('click', () => {
+  linkedFields.forEach(f  => filters[1][f] = new Set());
+  numericFields.forEach(f => filters[2][f] = new Set());
+  refresh(1);
+  $('announcer').textContent = 'Filters reset.';
+});
+
+$('pg-first').addEventListener('click', () => goPage(1));
+$('pg-prev').addEventListener('click',  () => goPage(tableState.page - 1));
+$('pg-next').addEventListener('click',  () => goPage(tableState.page + 1));
+$('pg-last').addEventListener('click',  () =>
+  goPage(Math.ceil(currentGrids.length / tableState.pageSize)));
+
+$('page-size').addEventListener('change', e => {
+  tableState.pageSize = parseInt(e.target.value, 10);
+  tableState.page = 1;
+  renderTable();
+});
+
+$('drawer-close').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('drawer').classList.contains('open')) closeDrawer();
+});
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { if (view === 'graph') renderGraph(currentGrids, phase); }, 150);
+});
+
+load();
+</script>
+</html>

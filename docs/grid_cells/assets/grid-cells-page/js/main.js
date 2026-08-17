@@ -110,23 +110,69 @@ async function main() {
     },
   });
 
-  // The similarity map's aside column doubles as the filter panel: filters at
-  // rest, cell details while a node is hovered or pinned. When the map is
-  // suppressed (narrow phones) the filters fall back to their own card above
-  // the table so they remain reachable.
-  if (scatter) {
-    shell.appendChild(scatter.root);
-    scatter.setAside(filters.root);
-  } else {
-    shell.appendChild(el("div", { class: "gc-filter-card" }, [filters.root]));
-  }
+  // ---- view toggle (graph / table) ----
+  // The two views were previously stacked. They are now switchable, with the
+  // filter panel reparented between the scatter's aside column and a standalone
+  // card. The filter DOM node itself is moved (not rebuilt), so filter state,
+  // scroll position and focus survive the switch.
+  const filterCard = el("div", { class: "gc-filter-card", hidden: "" }, []);
+
+  const scatterWrap = el("div", { class: "gc-view gc-view-graph" });
+  if (scatter) scatterWrap.appendChild(scatter.root);
 
   // table, with a small header strip carrying the live count
   const tableHead = el("div", { class: "gc-table-head" }, [
     el("h2", { class: "gc-table-title" }, "Grid cells"),
     countPill,
   ]);
-  shell.appendChild(el("div", { class: "card gc-table-card" }, [tableHead, table.root]));
+  const tableCard = el("div", { class: "card gc-table-card" }, [tableHead, table.root]);
+
+  let mode = "graph";
+  function setMode(next) {
+    if (!scatter) return;               // no graph on narrow screens
+    mode = next;
+    const graph = next === "graph";
+    // Exclusive views: exactly one of the two is visible at a time.
+    scatterWrap.hidden = !graph;
+    tableCard.hidden = graph;
+    btnGraph.setAttribute("aria-pressed", String(graph));
+    btnTable.setAttribute("aria-pressed", String(!graph));
+    if (graph) {
+      scatter.setAside(filters.root);   // move filters back into the aside
+      filterCard.hidden = true;
+    } else {
+      filterCard.appendChild(filters.root);
+      filterCard.hidden = false;
+    }
+  }
+
+  const btnGraph = el("button", {
+    class: "gc-view-btn", type: "button", "aria-pressed": "true",
+    onclick: () => setMode("graph"),
+  }, "Graph");
+  const btnTable = el("button", {
+    class: "gc-view-btn", type: "button", "aria-pressed": "false",
+    onclick: () => setMode("table"),
+  }, "Table");
+  const viewToggle = el("div", { class: "gc-view-toggle", role: "group", "aria-label": "View mode" },
+    [btnGraph, btnTable]);
+
+  if (scatter) {
+    shell.appendChild(viewToggle);
+    shell.appendChild(scatterWrap);
+    shell.appendChild(filterCard);
+    shell.appendChild(tableCard);
+    // establish the initial view through the same path as a click, so the
+    // hidden/aria-pressed state can never drift from the declared default
+    setMode("graph");
+  } else {
+    // No similarity map (narrow screens): filters get their own card, the
+    // toggle is pointless, and the table is always visible.
+    filterCard.hidden = false;
+    filterCard.appendChild(filters.root);
+    shell.appendChild(filterCard);
+    shell.appendChild(tableCard);
+  }
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", main);

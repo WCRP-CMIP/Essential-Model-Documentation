@@ -118,6 +118,28 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
   let sort = { key: "@id", dir: "asc", kind: "id" };
   let view = rows.slice();
 
+  // Pagination. `view` is the full sorted selection; `pageRows()` is the slice
+  // actually rendered. CSV always exports `view`, never just the page.
+  let pageSize = 50;          // 0 = show all
+  let page = 1;
+  // Expanded detail rows are tracked by id so they survive paging and sorting
+  // (previously the open/closed state lived only in the DOM).
+  const expandedIds = new Set();
+
+  function pageCount() {
+    return pageSize === 0 ? 1 : Math.max(1, Math.ceil(view.length / pageSize));
+  }
+  function pageRows() {
+    if (pageSize === 0) return view;
+    const start = (page - 1) * pageSize;
+    return view.slice(start, start + pageSize);
+  }
+  function pageOf(id) {
+    if (pageSize === 0) return 1;
+    const i = view.findIndex(r => short(r["@id"]) === id);
+    return i < 0 ? -1 : Math.floor(i / pageSize) + 1;
+  }
+
   const thead = el("thead");
   const headRow = el("tr");
   headRow.appendChild(sortableTh(ID_COL, () => setSort("@id", "id")));
@@ -131,12 +153,21 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
   // id -> { tr, idBtn, detailTr } so the scatter can highlight / reveal rows
   const rowById = new Map();
 
+  // Sortable header. The click target must be reachable by keyboard: a bare
+  // <th onclick> is not focusable and announces no sort state, so keyboard
+  // and screen-reader users cannot sort the table at all.
   function sortableTh(col, onClick) {
-    const arrow = el("span", { class: "gc-sort-arrow" }, "");
-    return el("th", {
+    const arrow = el("span", { class: "gc-sort-arrow", "aria-hidden": "true" }, "");
+    const th = el("th", {
       class: `gc-th gc-th-${col.kind}`, dataset: { key: col.key },
+      scope: "col", role: "columnheader", tabindex: "0",
       onclick: onClick, title: `Sort by ${col.label}`,
+      "aria-label": `${col.label}, activate to sort`,
     }, [el("span", { class: "gc-th-label" }, col.label), arrow]);
+    th.addEventListener("keydown", ev => {
+      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); onClick(); }
+    });
+    return th;
   }
 
   function setSort(key, kind) {
@@ -149,8 +180,16 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
   function paintHeaders() {
     headRow.querySelectorAll("th").forEach(th => {
       const arrow = th.querySelector(".gc-sort-arrow");
-      if (th.dataset.key === sort.key) { th.classList.add("sorted"); arrow.textContent = sort.dir === "asc" ? " ▲" : " ▼"; }
-      else { th.classList.remove("sorted"); arrow.textContent = ""; }
+      if (th.dataset.key === sort.key) {
+        th.classList.add("sorted");
+        arrow.textContent = sort.dir === "asc" ? " ▲" : " ▼";
+        // announce sort state — the arrow glyph is aria-hidden decoration
+        th.setAttribute("aria-sort", sort.dir === "asc" ? "ascending" : "descending");
+      } else {
+        th.classList.remove("sorted");
+        arrow.textContent = "";
+        th.removeAttribute("aria-sort");
+      }
     });
   }
 
@@ -183,6 +222,99 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
     return el("div", { class: "gc-detail" }, kids);
   }
 
+  // ---------- CSV export ----------
+  // Exports the COMPLETE current selection (all filtered rows, current sort),
+  // not just the visible page. Includes every field present on the records,
+  // not only the columns the table chooses to display.
+  function csvCell(v) {
+    let s;
+    if (v === null || v === undefined) s = "";
+    else if (Array.isArray(v)) s = v.map(x => csvScalar(x)).join("; ");
+    else s = csvScalar(v);
+    // spreadsheet formula-injection guard
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+    return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+  function csvScalar(v) {
+    if (v === null || v === undefined) return "";
+    if (typeof v === "object") {
+      const t = termInfo(v);
+      if (t && t.label) return t.label;
+      return v["@id"] ? short(v["@id"]) : JSON.stringify(v);
+    }
+    return String(v);
+  }
+
+  function downloadCsv() {
+    if (!view.length) return;
+    // union of all keys across the selection, id first
+    const keys = new Set();
+    view.forEach(r => Object.keys(r).forEach(k => {
+      if (k !== "@id" && k !== "@context" && k !== "@type") keys.add(k);
+    }));
+    const cols = ["@id", ...[...keys].sort()];
+    const lines = [cols.map(c => csvCell(c.replace(/^@/, ""))).join(",")];
+    view.forEach(r => {
+      lines.push(cols.map(k => csvCell(k === "@id" ? short(r["@id"]) : r[k])).join(","));
+    });
+    const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+    const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = el("a", { href: url, download: `emd-grid-cells-${view.length}-rows-${stamp}.csv` });
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  // ---------- pager ----------
+  const pageInfo = el("span", { class: "gc-page-info" }, "");
+  const btnFirst = el("button", { class: "gc-page-btn", type: "button", title: "First page", "aria-label": "First page", onclick: () => goPage(1) }, "«");
+  const btnPrev  = el("button", { class: "gc-page-btn", type: "button", title: "Previous page", "aria-label": "Previous page", onclick: () => goPage(page - 1) }, "‹");
+  const btnNext  = el("button", { class: "gc-page-btn", type: "button", title: "Next page", "aria-label": "Next page", onclick: () => goPage(page + 1) }, "›");
+  const btnLast  = el("button", { class: "gc-page-btn", type: "button", title: "Last page", "aria-label": "Last page", onclick: () => goPage(pageCount()) }, "»");
+  const pagePos  = el("span", { class: "gc-page-pos" }, "");
+
+  const sizeSelect = el("select", {
+    class: "gc-page-size", id: "gc-page-size",
+    onchange: ev => { pageSize = parseInt(ev.target.value, 10); page = 1; render(); },
+  }, [25, 50, 100, 250, 0].map(n =>
+    el("option", { value: String(n), ...(n === 50 ? { selected: "" } : {}) }, n === 0 ? "All" : String(n))));
+
+  const csvBtn = el("button", {
+    class: "gc-csv-btn", type: "button", onclick: downloadCsv,
+    title: "Download the full filtered selection as CSV",
+  }, "Download CSV");
+
+  const pager = el("div", { class: "gc-pager" }, [
+    pageInfo,
+    el("span", { class: "gc-pager-spacer" }),
+    csvBtn,
+    el("label", { class: "gc-page-size-label", for: "gc-page-size" }, ["Rows", sizeSelect]),
+    el("div", { class: "gc-page-btns" }, [btnFirst, btnPrev, pagePos, btnNext, btnLast]),
+  ]);
+
+  function goPage(n) {
+    page = Math.min(Math.max(1, n), pageCount());
+    render();
+    wrap.scrollTop = 0;
+  }
+
+  function paintPager() {
+    const total = view.length;
+    const pages = pageCount();
+    if (page > pages) page = pages;
+    const from = total === 0 ? 0 : (pageSize === 0 ? 1 : (page - 1) * pageSize + 1);
+    const to = pageSize === 0 ? total : Math.min(page * pageSize, total);
+    pageInfo.textContent = total ? `Showing ${from}–${to} of ${total}` : "No rows";
+    pagePos.textContent = `${page} / ${pages}`;
+    btnFirst.disabled = btnPrev.disabled = page <= 1;
+    btnNext.disabled = btnLast.disabled = page >= pages;
+    csvBtn.disabled = total === 0;
+    // page controls are pointless when everything is on one page
+    pager.classList.toggle("single-page", pages <= 1);
+  }
+
   function render() {
     const cmpCol = sort.kind === "id"
       ? { key: "@id", kind: "text" }
@@ -192,13 +324,15 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
     clear(tbody);
     rowById.clear();
     if (!view.length) {
+      paintPager();
       tbody.appendChild(el("tr", {}, [
         el("td", { class: "gc-norows", colspan: tableCols.length + 1 }, "No grid cells match the current filters."),
       ]));
       return;
     }
+    paintPager();
     const frag = document.createDocumentFragment();
-    view.forEach(rec => {
+    pageRows().forEach(rec => {
       const id = short(rec["@id"]);
       const alias = aliasText(rec);
       const uiLabel = !isNil(rec.ui_label) ? String(rec.ui_label) : "";
@@ -227,10 +361,13 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
       tableCols.forEach(c => tr.appendChild(el("td", { class: `gc-td gc-td-${c.kind}` }, renderValue(rec[c.key]))));
       frag.appendChild(tr);
 
-      // detail row (hidden until expanded)
-      const detailTr = el("tr", { class: "gc-detail-row", hidden: "" }, [
+      // detail row — restored from expandedIds so paging/sorting preserves it
+      const isOpen = expandedIds.has(id);
+      const detailTr = el("tr", { class: "gc-detail-row" }, [
         el("td", { class: "gc-detail-cell", colspan: tableCols.length + 1 }, buildDetail(rec)),
       ]);
+      if (!isOpen) detailTr.setAttribute("hidden", "");
+      else { tr.classList.add("expanded"); idBtn.setAttribute("aria-expanded", "true"); caret.textContent = "▼"; }
       frag.appendChild(detailTr);
 
       idBtn.addEventListener("click", ev => {
@@ -244,11 +381,13 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
           tr.classList.add("expanded");
           idBtn.setAttribute("aria-expanded", "true");
           caret.textContent = "▼";
+          expandedIds.add(id);
         } else {
           detailTr.setAttribute("hidden", "");
           tr.classList.remove("expanded");
           idBtn.setAttribute("aria-expanded", "false");
           caret.textContent = "▶";
+          expandedIds.delete(id);
         }
       });
 
@@ -257,8 +396,10 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
     tbody.appendChild(frag);
   }
 
-  // external API: re-render with a filtered row set
-  function update(filteredRows) { rows = filteredRows; render(); }
+  // external API: re-render with a filtered row set.
+  // Filters changing means the selection changed, so return to page 1 —
+  // staying on page 7 of a now-2-page result would show an empty table.
+  function update(filteredRows) { rows = filteredRows; page = 1; render(); }
 
   // Highlight a single row (called when its scatter node is hovered).
   let highlighted = null;
@@ -280,7 +421,14 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
 
   // Reveal a row: scroll to it, open its detail, briefly pulse it.
   // Called when a scatter node is clicked.
+  //
+  // With pagination the target row may not be on the current page — without
+  // the page jump below, clicking a node would silently do nothing.
   function reveal(id) {
+    const target = pageOf(id);
+    if (target === -1) return;            // not in the current selection at all
+    if (target !== page) { page = target; render(); }
+
     const entry = rowById.get(id);
     if (!entry) return;
     // open the detail if closed
@@ -299,7 +447,11 @@ export function createTable(columns, rows, { onHoverRow, onLeaveRow, onSelectRow
   paintHeaders();
   render();
 
-  return { root: wrap, update, highlight, clearHighlight, reveal, get count() { return view.length; } };
+  return {
+    root: el("div", { class: "gc-table-outer" }, [wrap, pager]),
+    update, highlight, clearHighlight, reveal,
+    get count() { return view.length; },
+  };
 }
 
 const prettyKey = k => String(k).replace(/^@/, "").replace(/[_-]+/g, " ").replace(/\b\w/g, c => c.toUpperCase());

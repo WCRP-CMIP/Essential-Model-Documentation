@@ -34,7 +34,8 @@ const KNN = 1;                   // links per node
 const COLOUR_KEY = "grid_type";
 
 const MIN_ZOOM = 1;
-const MAX_ZOOM = 3;
+// Raised from 3: with drag-to-pan, deeper zoom is usable for dense clusters.
+const MAX_ZOOM = 12;
 
 // t-SNE knobs
 const TSNE_ITERS = 320;
@@ -471,6 +472,14 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
 
   const status = el("span", { class: "gc-scatter-status" }, "Computing…");
 
+  // Reset control — restores zoom AND pan origin. Disabled while already at
+  // the default view. Declared before applyZoom() first runs.
+  const zoomReset = el("button", {
+    class: "gc-zoom-reset", type: "button", disabled: true,
+    title: "Reset zoom and pan",
+    onclick: ev => { ev.preventDefault(); ev.stopPropagation(); resetZoom(); },
+  }, "Reset view");
+
   // Legend is minimal by default — colour dot, acronym and count — so the
   // aside column has room for the filter controls. The toggle expands it to
   // reveal the full grid-type names; hovering any row shows the name anyway.
@@ -518,6 +527,7 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
   summary.append(
     el("span", { class: "gc-scatter-caret", "aria-hidden": "true" }, "▸"),
     status,
+    zoomReset,
   );
 
   const details = document.createElement("details");
@@ -539,6 +549,10 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
   const edgeEls = [];
   let visible = null;
   let zoom = 1;
+  // Viewport origin in user space. Previously the viewBox was always centred
+  // ((W - size) / 2), so zooming pulled toward the middle of the plot rather
+  // than toward the cursor. Tracking the origin explicitly lets us anchor.
+  let vx = 0, vy = 0;
   let pinnedId = null;
 
   const recById = new Map();
@@ -658,18 +672,83 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
     });
   }
 
-  // ---------- zoom (wheel-based) ----------
+  // ---------- zoom / pan ----------
+  // Cursor-anchored: the point under the pointer stays fixed while scaling.
+  // Solve for the new origin so that userPoint maps to the same screen spot:
+  //   vx' = px - (px - vx) * (newSize / oldSize)
   function applyZoom() {
     const size = W / zoom;
-    const offset = (W - size) / 2;
-    svg.setAttribute("viewBox", `${offset} ${offset} ${size} ${size}`);
+    // keep the viewport inside the plot bounds
+    const maxOff = Math.max(0, W - size);
+    vx = clamp(vx, 0, maxOff);
+    vy = clamp(vy, 0, maxOff);
+    svg.setAttribute("viewBox", `${vx} ${vy} ${size} ${size}`);
+    if (zoomReset) zoomReset.disabled = zoom === 1 && vx === 0 && vy === 0;
   }
+
+  // Pointer position in SVG user space (accounts for viewBox + CSS scaling).
+  function userPoint(ev) {
+    const r = svg.getBoundingClientRect();
+    const size = W / zoom;
+    // preserveAspectRatio="xMidYMid meet" with a square viewBox: the rendered
+    // content is a centred square of side min(rect.w, rect.h).
+    const side = Math.min(r.width, r.height);
+    const offX = r.left + (r.width - side) / 2;
+    const offY = r.top + (r.height - side) / 2;
+    return {
+      x: vx + ((ev.clientX - offX) / side) * size,
+      y: vy + ((ev.clientY - offY) / side) * size,
+    };
+  }
+
   svg.addEventListener("wheel", ev => {
     ev.preventDefault();
+    const p = userPoint(ev);
+    const oldSize = W / zoom;
     const factor = ev.deltaY > 0 ? 0.9 : 1.1;
     zoom = clamp(zoom * factor, MIN_ZOOM, MAX_ZOOM);
+    const newSize = W / zoom;
+    // anchor on the cursor
+    vx = p.x - (p.x - vx) * (newSize / oldSize);
+    vy = p.y - (p.y - vy) * (newSize / oldSize);
     applyZoom();
   }, { passive: false });
+
+  // Drag to pan. A movement threshold keeps the existing background-click
+  // (unpin) and node-click handlers working — a click is not a drag.
+  let panning = false, panStart = null, panMoved = false;
+  svg.addEventListener("pointerdown", ev => {
+    if (ev.button !== 0) return;
+    panning = true; panMoved = false;
+    panStart = { cx: ev.clientX, cy: ev.clientY, vx, vy };
+  });
+  svg.addEventListener("pointermove", ev => {
+    if (!panning) return;
+    const dx = ev.clientX - panStart.cx, dy = ev.clientY - panStart.cy;
+    if (!panMoved && Math.hypot(dx, dy) < 4) return;   // below threshold = click
+    panMoved = true;
+    svg.setPointerCapture(ev.pointerId);
+    const r = svg.getBoundingClientRect();
+    const side = Math.min(r.width, r.height);
+    const scale = (W / zoom) / side;
+    vx = panStart.vx - dx * scale;
+    vy = panStart.vy - dy * scale;
+    applyZoom();
+  });
+  function endPan(ev) {
+    if (!panning) return;
+    panning = false;
+    if (ev && ev.pointerId != null && svg.hasPointerCapture?.(ev.pointerId)) {
+      svg.releasePointerCapture(ev.pointerId);
+    }
+  }
+  svg.addEventListener("pointerup", endPan);
+  svg.addEventListener("pointercancel", endPan);
+
+  function resetZoom() {
+    zoom = 1; vx = 0; vy = 0;
+    applyZoom();
+  }
 
   // SVG mouseleave restores pinned view (or clears)
   svg.addEventListener("mouseleave", () => {
@@ -677,8 +756,11 @@ export function createScatter(columns, rows, { onHoverNode, onLeaveNode, onSelec
     else { setActive(null); clearDetail(); }
   });
 
-  // Background click unpins (node clicks stopPropagation, so this is safe)
+  // Background click unpins (node clicks stopPropagation, so this is safe).
+  // Suppressed after a pan drag — releasing the mouse at the end of a drag
+  // must not be read as a click.
   svg.addEventListener("click", () => {
+    if (panMoved) { panMoved = false; return; }
     if (pinnedId != null) {
       pinnedId = null;
       setActive(null); clearDetail();

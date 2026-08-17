@@ -3,6 +3,25 @@
    No colour or font definitions here — those live in the shared stylesheet. */
 
 /* ============================================================
+   REDUCED MOTION
+   The page animates a fair amount — row pulse, spinner, node
+   transitions, smooth scrolling. Honour the OS-level preference:
+   vestibular disorders make the pulse + auto-scroll combination
+   genuinely unpleasant.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .emd-page *,
+  .emd-page *::before,
+  .emd-page *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto !important; }
+}
+
+/* ============================================================
    DARK MODE TOGGLE
    ============================================================ */
 #gc-dark-toggle {
@@ -23,7 +42,10 @@
   font-family: "Inter", "Noto Sans", ui-sans-serif, system-ui, sans-serif;
   color: var(--emd-text);
   line-height: 1.5;
-  max-width: 1180px;
+  /* was a flat 1180px — the table has many columns and was needlessly
+     cramped. Still capped so the scatter square and auto-fill filter grid
+     don't sprawl on ultrawide displays. */
+  max-width: min(96vw, 1800px);
   margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
   background: var(--emd-bg-secondary);
@@ -426,6 +448,98 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-count-pill { font-size: .72rem; color: var(--emd-text-tertiary); }
 
 .gc-table-wrap { overflow-x: auto; }
+
+/* ============================================================
+   VIEW TOGGLE (graph / table)
+   ============================================================ */
+.gc-view-toggle { display: inline-flex; align-self: flex-start; }
+.gc-view-btn {
+  background: var(--emd-bg); color: var(--emd-text-secondary);
+  border: 1px solid var(--emd-border);
+  padding: .3rem .85rem; font: inherit; font-size: .78rem; font-weight: 600;
+  cursor: pointer; margin-left: -1px;
+  transition: color .12s, border-color .12s, background .12s;
+}
+.gc-view-btn:first-child { margin-left: 0; border-radius: 5px 0 0 5px; }
+.gc-view-btn:last-child { border-radius: 0 5px 5px 0; }
+.gc-view-btn:hover { color: var(--emd-primary); }
+.gc-view-btn[aria-pressed="true"] {
+  color: var(--emd-primary); border-color: var(--emd-primary);
+  background: var(--emd-primary-light); z-index: 1;
+}
+
+/* ============================================================
+   PAGER + CSV TOOLBAR
+   ============================================================ */
+.gc-table-outer { display: flex; flex-direction: column; }
+
+.gc-pager {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  padding: .5rem .75rem;
+  border-top: 1px solid var(--emd-border);
+  background: var(--emd-bg-secondary);
+  font-size: .75rem;
+}
+.gc-pager-spacer { flex: 1 1 auto; }
+.gc-page-info { color: var(--emd-text-tertiary); font-variant-numeric: tabular-nums; }
+.gc-page-pos {
+  color: var(--emd-text); font-variant-numeric: tabular-nums;
+  min-width: 4.5em; text-align: center;
+}
+.gc-page-btns { display: flex; align-items: center; gap: .15rem; }
+
+.gc-page-btn, .gc-csv-btn {
+  background: var(--emd-bg); color: var(--emd-text-secondary);
+  border: 1px solid var(--emd-border); border-radius: 5px;
+  padding: .25rem .5rem; font: inherit; cursor: pointer;
+  transition: border-color .12s, color .12s, background .12s;
+}
+.gc-page-btn { min-width: 1.9rem; line-height: 1.2; }
+.gc-csv-btn { font-weight: 600; padding: .28rem .7rem; }
+.gc-page-btn:hover:not(:disabled),
+.gc-csv-btn:hover:not(:disabled) { border-color: var(--emd-primary); color: var(--emd-primary); }
+.gc-page-btn:disabled, .gc-csv-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.gc-page-size-label {
+  display: inline-flex; align-items: center; gap: .35rem;
+  color: var(--emd-text-tertiary);
+}
+.gc-page-size {
+  background: var(--emd-bg); color: var(--emd-text);
+  border: 1px solid var(--emd-border); border-radius: 5px;
+  padding: .2rem .35rem; font: inherit; cursor: pointer;
+}
+/* one page of results → hide paging controls, keep the count and CSV */
+.gc-pager.single-page .gc-page-btns,
+.gc-pager.single-page .gc-page-size-label { display: none; }
+
+/* zoom reset lives on the scatter summary bar */
+.gc-zoom-reset {
+  margin-left: auto;
+  background: var(--emd-bg); color: var(--emd-text-secondary);
+  border: 1px solid var(--emd-border); border-radius: 5px;
+  padding: .2rem .55rem; font-size: .7rem; font-family: inherit;
+  cursor: pointer; transition: border-color .12s, color .12s, opacity .12s;
+}
+.gc-zoom-reset:hover:not(:disabled) { border-color: var(--emd-primary); color: var(--emd-primary); }
+.gc-zoom-reset:disabled { opacity: .35; cursor: default; }
+
+/* the plot is draggable once zoomed */
+.gc-scatter-svg { cursor: grab; touch-action: none; }
+.gc-scatter-svg:active { cursor: grabbing; }
+
+/* Sortable headers are focusable (tabindex=0) — they need a visible ring,
+   and a general fallback so no interactive element focuses invisibly. */
+.gc-th:focus-visible {
+  outline: 2px solid var(--emd-primary);
+  outline-offset: -2px;
+}
+.emd-page a:focus-visible,
+.emd-page button:focus-visible,
+.emd-page [tabindex]:focus-visible {
+  outline: 2px solid var(--emd-primary);
+  outline-offset: 2px;
+}
 .gc-table { border-collapse: collapse; width: 100%; font-size: .82rem; table-layout: fixed; }
 
 .gc-th {
