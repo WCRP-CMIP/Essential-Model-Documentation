@@ -1,0 +1,26 @@
+{
+    "validation_key": "inmam6l",
+    "ui_label": "INMAM6L",
+    "description": "Version 6L (low resolution) of INMAM (Institute of Numerical Mathematics Atmosphere Model) is a hydrostatic numerical atmosphere model formulated on an Arakawa C-grid. The prognostic variables are the zonal and meridional wind components, temperature, specific humidity, and surface pressure. Geographic longitude and latitude serve as the horizontal coordinates, and sigma as the vertical coordinate. The finite-difference dynamical core employs a semi-implicit leapfrog time integration scheme. Both orographic (Palmer et al., 1986) and non-orographic (Hines, 1997) gravity wave drag are represented. Deep and shallow convection are parameterized following Betts (1986), although the reference profiles and relaxation time differ from those recommended in that paper. Atmospheric radiation is computed as in [Galin (1998)](https://elibrary.ru/item.asp?id=13292188) and accounts for 40 minor greenhouse gases through the calculation of a carbon dioxide equivalent following Myhre et al. (1998). Cloud fraction and cloud water content are obtained from the prognostic scheme of Tiedtke (1993). The stability functions used for vertical mixing in the atmospheric boundary layer are specified according to Mortikov et al. (2024), and surface layer processes are treated with the new parameterization package of Suiazova et al. (2025). The vertical resolution is 21 sigma levels, with the model top at 10 hPa; the horizontal resolution is 2 x 1.5 degrees in longitude and latitude. [Atmosphere general circulation model of INM RAS with ozone dynamics 2003](https://www.researchgate.net/publication/290307624_Atmosphere_general_circulation_model_of_INM_RAS_with_ozone_dynamics)",
+    "code_base": "",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1002/qj.49711247406",
+        "https://doi.org/10.1002/qj.49711247307",
+        "https://doi.org/10.1016/S1364-6826(96)00080-6",
+        "https://doi.org/10.1175/1520-0493(1993)121%3C3040:ROCILS%3E2.0.CO;2",
+        "https://doi.org/10.1029/98GL01908",
+        "https://doi.org/10.1007/3-540-46043-8_76",
+        "https://doi.org/10.1134/S0001433823010139",
+        "https://doi.org/10.1515/rnam-2024-0029",
+        "https://doi.org/10.1134/S0001433825700902"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "inmam6l"
+}
