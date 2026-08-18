@@ -1,0 +1,18 @@
+{
+    "validation_key": "cam5-trop-mam3",
+    "ui_label": "CAM5-trop_mam3",
+    "description": "1. Main processes simulated Tracks number and mass mixing ratios of sulfate, black carbon, primary organic matter, secondary organic aerosol, sea salt, and mineral dust across three lognormal modes (Aitken, accumulation, coarse). Simulates new particle formation, condensation of precursor gases (SO₂, DMS, H₂SO₄), coagulation, aging of primary carbonaceous aerosols, dry deposition (turbulent + gravitational), and wet removal (in‑cloud and below‑cloud). Gas‑phase tropospheric chemistry is interactively coupled. Prognostic cloud droplet activation and direct/indirect radiative effects are represented.  2. Key parameterizations Modal representation with internal mixing within each mode and external mixing between modes. Nucleation follows CAM5 standard schemes; coagulation and condensation are solved with aerosol dynamics. Wet scavenging uses in‑cloud and below‑cloud schemes. Radiation employs RRTMG with Mie‑computed optical properties for internally mixed aerosols. Cloud activation follows Abdul‑Razzak and Ghan (2000).  3. Notable features of this version The \"trop\" prefix denotes the inclusion of a full tropospheric gas‑phase chemistry mechanism (CAM5 default) coupled to MAM3, enabling interactive feedbacks between gases and aerosols. Designed as the standard aerosol‑chemistry package for long‑term climate simulations in CAM5, balancing computational efficiency with a realistic aerosol lifecycle and aerosol‑cloud‑radiation interactions. Retains MAM3 simplifications (e.g., primary carbon internally mixed with secondary upon emission, no explicit ammonium cycle) while adding chemical coupling.",
+    "code_base": "https://github.com/ESCOMP/CAM",
+    "component": "atmospheric-chemistry",
+    "family": "cam",
+    "references": [
+        "https://doi.org/10.5194/gmd-5-709-2012"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam5-trop-mam3"
+}
