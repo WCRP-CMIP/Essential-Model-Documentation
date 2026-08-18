@@ -1,0 +1,18 @@
+{
+    "validation_key": "cam5-mam3",
+    "ui_label": "CAM5-MAM3",
+    "description": "CAM5-MAM3 is the three‑mode Modal Aerosol Module implemented in the Community Atmosphere Model version 5. It simulates aerosol size distributions, chemical composition, and life cycle using three prognostic lognormal modes (Aitken, accumulation, and coarse). The model tracks number and mass mixing ratios for sulfate, black carbon, primary organic matter, secondary organic aerosol, sea salt, and mineral dust.  Key aerosol processes include new particle formation, condensation of precursor gases (SO₂, DMS, H₂SO₄), coagulation, aging of primary carbonaceous aerosols, dry deposition (turbulent and gravitational), and wet removal (in‑cloud and below‑cloud scavenging). Aerosol activation into cloud droplets is treated prognostically, while optical properties are computed for direct radiative effects. Internal mixing is assumed within each mode, with external mixing between modes.  MAM3 is designed for computationally efficient long‑term climate simulations while retaining a physically based treatment of aerosol microphysics and chemistry. It reproduces the main observed features of aerosol mass, size distributions, and optical depth, with known regional biases that reflect ongoing areas for improvement.",
+    "code_base": "",
+    "component": "aerosol",
+    "family": "cam",
+    "references": [
+        "https://doi.org/10.5194/gmd-5-709-2012"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam5-mam3"
+}
