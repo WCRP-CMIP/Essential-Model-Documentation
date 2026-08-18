@@ -1,20 +1,18 @@
 {
-    "validation_key": "hadom3",
-    "ui_label": "HadOM3",
-    "description": "HadOM3 is the ocean component of HadCM3 and was designed specifically to achieve a stable, realistic coupled climate simulation without flux adjustments. The model uses a regular latitude–longitude grid with a horizontal resolution of 1.25° × 1.25° and 20 vertical levels. It simulates realistic representations of major current systems and ocean heat transport, which was one of the key reasons HadCM3 could maintain a stable climate without artificial corrections. The ocean grid is carefully aligned with the atmospheric grid to simplify coupling, and the ocean model is integrated with a 1 hour time step. During coupling, atmospheric fluxes of heat, freshwater and momentum are accumulated over a day and then applied to the ocean, after which ocean feedbacks are returned to the atmosphere.
-
-HadOM3 treated subgrid-scale mixing and tracer transport using the Gent–McWilliams eddy parameterization, which represents the effects of unresolved mesoscale ocean eddies through an isopycnal transport scheme. This reduced systematic biases in sea-surface temperatures and helped reproduce observed meridional ocean heat transports in both hemispheres. The model was also coupled to a thermodynamic–dynamic sea-ice scheme, allowing exchanges of heat and freshwater associated with ice formation and melt.",
-    "code_base": "private",
-    "component": "ocean",
-    "family": "",
-    "references": [
-        "https://doi.org/10.1007/s003820050010"
-    ],
-    "@context": "_context",
-    "@type": [
-        "emd",
-        "wcrp:model_component",
-        "esgvoc:ModelComponent"
-    ],
-    "@id": "hadom3"
+  "validation_key": "hadom3",
+  "ui_label": "HadOM3",
+  "description": "HadOM3 is the ocean component of HadCM3 and was designed specifically to achieve a stable, realistic coupled climate simulation without flux adjustments. The model uses a regular latitude–longitude grid with a horizontal resolution of 1.25° × 1.25° and 20 vertical levels. It simulates realistic representations of major current systems and ocean heat transport, which was one of the key reasons HadCM3 could maintain a stable climate without artificial corrections. The ocean grid is carefully aligned with the atmospheric grid to simplify coupling, and the ocean model is integrated with a 1 hour time step. During coupling, atmospheric fluxes of heat, freshwater and momentum are accumulated over a day and then applied to the ocean, after which ocean feedbacks are returned to the atmosphere.\n\nHadOM3 treated subgrid-scale mixing and tracer transport using the Gent–McWilliams eddy parameterization, which represents the effects of unresolved mesoscale ocean eddies through an isopycnal transport scheme. This reduced systematic biases in sea-surface temperatures and helped reproduce observed meridional ocean heat transports in both hemispheres. The model was also coupled to a thermodynamic–dynamic sea-ice scheme, allowing exchanges of heat and freshwater associated with ice formation and melt.",
+  "code_base": "private",
+  "component": "ocean",
+  "family": "",
+  "references": [
+    "https://doi.org/10.1007/s003820050010"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:model_component",
+    "esgvoc:ModelComponent"
+  ],
+  "@id": "hadom3"
 }
