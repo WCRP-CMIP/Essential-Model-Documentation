@@ -202,6 +202,97 @@ jobs:
           fi
         shell: bash
 
+      - name: Post model/component details to PR
+        if: >
+          steps.find_pr.outputs.pr_number != '' &&
+          (contains(github.event.issue.labels.*.name, 'model') ||
+           contains(github.event.issue.labels.*.name, 'model_component'))
+        continue-on-error: true
+        env:
+          GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_NUMBER:    ${{ steps.find_pr.outputs.pr_number }}
+          REPO:         ${{ github.repository }}
+        run: |
+          git fetch origin src-data --quiet
+          
+          # Determine directory based on issue labels
+          if echo "${{ toJSON(github.event.issue.labels.*.name) }}" | grep -q 'model_component'; then
+            DIR_NAME="model_component"
+          else
+            DIR_NAME="model"
+          fi
+          
+          # Find JSON file added/modified in latest commit
+          FILE=$(git diff-tree --no-commit-id --name-only -r origin/src-data | grep -E "^${DIR_NAME}/[^/]+\.json$" | head -1)
+          
+          if [ -z "$FILE" ]; then
+            FILE=$(git ls-tree -r --name-only origin/src-data -- "${DIR_NAME}/" | grep -E "${DIR_NAME}/[^/]+\.json$" | sort | tail -1)
+          fi
+          
+          if [ -z "$FILE" ]; then
+            exit 0
+          fi
+          
+          JSON=$(git show origin/src-data:"$FILE" 2>/dev/null || echo "")
+          if [ -z "$JSON" ]; then
+            exit 0
+          fi
+          
+          SOURCE_ID=$(echo "$JSON" | jq -r '.name // .validation_key // empty' 2>/dev/null)
+          DESCRIPTION=$(echo "$JSON" | jq -r '.description // empty' 2>/dev/null)
+          REFERENCES=$(echo "$JSON" | jq -r '.references[]? // empty' 2>/dev/null)
+          
+          if [ -z "$SOURCE_ID" ]; then
+            exit 0
+          fi
+          
+          cat > /tmp/pr_comment.md << 'COMMENT_EOF'
+          ## Registration details
+          
+          COMMENT_EOF
+          
+          echo "**Name:** \`${SOURCE_ID}\`" >> /tmp/pr_comment.md
+          echo "" >> /tmp/pr_comment.md
+          
+          if [ -n "$DESCRIPTION" ]; then
+            echo "**Description**" >> /tmp/pr_comment.md
+            echo "" >> /tmp/pr_comment.md
+            echo "$DESCRIPTION" >> /tmp/pr_comment.md
+            echo "" >> /tmp/pr_comment.md
+          fi
+          
+          if [ -n "$REFERENCES" ]; then
+            echo "**References**" >> /tmp/pr_comment.md
+            echo "" >> /tmp/pr_comment.md
+            while IFS= read -r ref; do
+              if [ -n "$ref" ]; then
+                echo "- $ref" >> /tmp/pr_comment.md
+              fi
+            done <<< "$REFERENCES"
+          fi
+          
+          echo "" >> /tmp/pr_comment.md
+          echo "## Next steps" >> /tmp/pr_comment.md
+          echo "" >> /tmp/pr_comment.md
+          echo "- Review the details above" >> /tmp/pr_comment.md
+          echo "- Check component configuration and coupling relationships" >> /tmp/pr_comment.md
+          echo "- Merge when ready" >> /tmp/pr_comment.md
+          
+          if [ -s /tmp/pr_comment.md ]; then
+            # Find existing comment by this bot on the PR
+            EXISTING_COMMENT=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json comments --jq '.comments[] | select(.author.login == "cmip-ipo" or .author.login == "github-actions") | select(.body | contains("Registration details")) | .id' 2>/dev/null | head -1)
+            
+            if [ -n "$EXISTING_COMMENT" ]; then
+              # Update existing comment
+              gh pr comment "$PR_NUMBER" --repo "$REPO" --edit "$EXISTING_COMMENT" --body-file /tmp/pr_comment.md 2>/dev/null
+            else
+              # Create new comment
+              gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file /tmp/pr_comment.md 2>/dev/null
+            fi
+            rm /tmp/pr_comment.md
+          fi
+        shell: bash
+
       - name: Add PR to project board
         if: steps.find_pr.outputs.pr_number != ''
         continue-on-error: true
