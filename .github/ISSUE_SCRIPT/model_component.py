@@ -184,9 +184,10 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     config_path = next((p for p in files_to_write if 'component_config' in p), None)
     config_data = files_to_write.get(config_path, {}) if config_path else {}
 
-    # ── No-config notice ──────────────────────────────────────────────────────
+    # ── No-config case: component-only submission ────────────────────────────
     # When the submitter omitted one or both grids, no component_config was
-    # created.  Notify them on both the issue and (via _validation_report) the PR.
+    # created — this is a supported flow. Add a "Next steps" note (not a
+    # warning) telling the submitter how to create the config later.
     if not config_id:
         component_path = next(
             (p for p in files_to_write if not p.startswith('_') and 'model_component' in p),
@@ -196,39 +197,36 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             files_to_write.get(component_path, {}).get('@id', '')
             if component_path else ''
         )
-        no_config_notice = (
-            '> [!WARNING]\n'
-            '> ## Component (only) created.\n'
-            '> **Insufficient computational grids supplied. See below.**\n'
-            '>\n'
-            '> A horizontal **and** vertical computational grid are both required to '
-            'generate a `component_config` record. '
-            'Because one or both were not supplied, only the `model_component` '
-            'record has been created in this PR.\n'
-            '>\n'
-            '> Once your component is merged, use '
+        next_steps_notice = (
+            '## Next steps\n'
+            '\n'
+            'Only the `model_component` record was created in this PR. '
+            'To generate a `component_config` record, both a horizontal **and** '
+            'vertical computational grid are required.\n'
+            '\n'
+            'Once your component is merged, use '
             f'**[Stage 3: Link Existing Component]({_LINK_FORM_URL})** '
             'to create the configuration by selecting:\n'
-            '>\n'
-            f'> - **Model Component:** `{name_slug}`\n'
-            '> - **Horizontal Grid:** your `h###` from Stage 2a\n'
-            '> - **Vertical Grid:** your `v###` from Stage 2b\n'
-            '>\n'
-            '> _The config ID will be auto-generated and pushed directly to '
+            '\n'
+            f'- **Model Component:** `{name_slug}`\n'
+            '- **Horizontal Grid:** your `h###` from Stage 2a\n'
+            '- **Vertical Grid:** your `v###` from Stage 2b\n'
+            '\n'
+            '_The config ID will be auto-generated and pushed directly to '
             '`src-data` without a separate review._'
         )
 
-        # Append to the component\'s PR report
+        # Append to the component's PR report
         if component_path and component_path in files_to_write:
             existing = files_to_write[component_path].get('_validation_report') or ''
             files_to_write[component_path]['_validation_report'] = (
-                (existing + '\n\n' + no_config_notice).strip()
+                (existing + '\n\n' + next_steps_notice).strip()
             )
 
         # Also comment directly on the issue
         issue_number = issue.get('number') or issue.get('issue_number')
         if issue_number and not dry_run:
-            _post_issue_comment(issue_number, no_config_notice)
+            _post_issue_comment(issue_number, next_steps_notice)
 
     for file_path, data in files_to_write.items():
         if file_path.startswith('_'):
