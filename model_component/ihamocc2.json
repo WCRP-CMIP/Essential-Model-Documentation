@@ -1,0 +1,18 @@
+{
+    "validation_key": "ihamocc2",
+    "ui_label": "iHAMOCC2",
+    "description": "iHAMOCC version 2 includes a representation of the inorganic seawater carbon chemistry and extended nitrogen cycle, a NPZD-type P-based ecosystem representation with fixed stoichiometry, and a simplified representation of sediment pore water, particulate biogeochemistry and burial.",
+    "code_base": "https://github.com/NorESMhub/BLOM",
+    "component": "ocean-biogeochemistry",
+    "family": "ihamocc",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-2393-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "ihamocc2"
+}
