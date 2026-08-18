@@ -88,7 +88,21 @@ def _parse_list(value, lowercase=False) -> list:
 def _parse_refs(value) -> list:
     if isinstance(value, list):
         return [str(v).strip() for v in value if str(v).strip()]
-    return [v.strip() for v in re.split(r'[,\s]+', str(value)) if v.strip()]
+    s = str(value)
+    # Split on newlines or commas first. The issue parser collapses newlines to
+    # spaces, so several URLs can arrive as one whitespace-separated string; split
+    # those too. Only when more than one URL is present, otherwise a reference like
+    # "Smith et al. 2020 https://doi.org/..." would be torn apart, and free text
+    # would survive as a single entry either way.
+    if '\n' in s:
+        parts = s.split('\n')
+    elif ',' in s:
+        parts = s.split(',')
+    elif s.count('http') > 1:
+        parts = re.split(r'\s+(?=https?://)', s)
+    else:
+        parts = [s]
+    return [v.strip() for v in parts if v.strip()]
 
 
 # Multi-char arrow separators for embedded-component pairs.  Bare '>' is
