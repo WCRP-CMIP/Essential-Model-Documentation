@@ -24,6 +24,7 @@ _spec = _importlib_util.spec_from_file_location(
 _name_similarity = _importlib_util.module_from_spec(_spec)
 _spec.loader.exec_module(_name_similarity)
 build_similarity_report = _name_similarity.build_similarity_report
+build_details_block = _name_similarity.build_details_block
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -233,10 +234,32 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         # Strip name if JSONValidator re-injected it
         data.pop('name', None)
-        # Lightweight check: flag suspiciously similar existing names in the same folder.
+        # Build the PR body block: description + references first, then the
+        # similarity check.  Same field the grid handlers use — the CMIPLD
+        # framework rewrites this section of the PR body on every rerun, so
+        # it stays in sync with the latest issue edits instead of stacking.
+        # Only add the description/references block for model_component
+        # records (not component_config, which has neither).
         folder = os.path.dirname(file_path)
         proposed_id = data.get('@id', '')
-        data['_validation_report'] = build_similarity_report(proposed_id, folder)
+        existing_report = data.get('_validation_report') or ''
+        parts: list[str] = []
+        if 'model_component' in file_path:
+            details = build_details_block(
+                name=proposed_id,
+                description=data.get('description', ''),
+                references=data.get('references', []),
+            )
+            if details:
+                parts.append(details)
+        similarity = build_similarity_report(proposed_id, folder)
+        if similarity:
+            parts.append(similarity)
+        # Preserve anything already appended earlier in this function (e.g.
+        # the component-only "Next steps" notice).
+        if existing_report:
+            parts.append(existing_report)
+        data['_validation_report'] = '\n\n'.join(parts)
 
     if config_id and config_data:
         import json
