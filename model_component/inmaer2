@@ -1,0 +1,18 @@
+{
+    "validation_key": "inmaer2",
+    "ui_label": "INMAER2",
+    "description": "A modal scheme is used to describe the evolution of 10 aerosol tracers: fine (accumulation) and coarse size fractions of dust and sea salt, sulfur dioxide gas, sulfate aerosol, and hydrophilic and hydrophobic black and organic carbon. The scheme describes the principal physical and chemical processes affecting aerosols: advective and turbulent transport, gravitational settling, dry and wet deposition, conversion from the hydrophobic to the hydrophilic fraction, and oxidation of sulfur dioxide to sulfate aerosol. Aerosol optical parameters are calculated and tabulated from prescribed modal parameters and refractive indices, and account for their dependence on air relative humidity. The radiative properties of aerosols have been revised compared to CMIP6 version: the interaction of aerosols with longwave (thermal) radiation is now taken into account. Stratospheric volcanic sulfate aerosol is likewise represented through prescribed optical properties defined in the CMIP7 protocol, that is, through time series of aerosol optical coefficients rather than, as previously, through time series of aerosol volume density combined with constant optical parameters. Aerosol emission sources are either prescribed (black and organic carbon, sulfur dioxide) or parameterized in terms of the surface wind speed (mineral dust and sea salt). An additional source of sulfur dioxide is provided by oceanic dimethyl sulfide (DMS) emission following. The biomass burning source is distributed uniformly within the planetary boundary layer, whereas the anthropogenic source is applied to the lowest model layer.",
+    "code_base": "",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.3103/S106837391608001X https://doi.org/10.1134/S0001433821040150 https://doi.org/10.1134/S0001433825700756"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "inmaer2"
+}
