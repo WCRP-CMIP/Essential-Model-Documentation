@@ -202,6 +202,73 @@ jobs:
           fi
         shell: bash
 
+      - name: Post model details to PR
+        if: >
+          steps.find_pr.outputs.pr_number != '' &&
+          contains(github.event.issue.labels.*.name, 'model')
+        continue-on-error: true
+        env:
+          GH_TOKEN:     ${{ secrets.CMIP_IPO_BOT_TOKEN || github.token }}
+          PR_NUMBER:    ${{ steps.find_pr.outputs.pr_number }}
+          REPO:         ${{ github.repository }}
+        run: |
+          git fetch origin src-data --quiet
+          
+          # Find model JSON file added/modified in latest commit
+          MODEL_FILE=$(git diff-tree --no-commit-id --name-only -r origin/src-data | grep -E '^model/[^/]+\.json$' | head -1)
+          
+          if [ -z "$MODEL_FILE" ]; then
+            MODEL_FILE=$(git ls-tree -r --name-only origin/src-data -- model/ | grep -E 'model/[^/]+\.json$' | sort | tail -1)
+          fi
+          
+          if [ -z "$MODEL_FILE" ]; then
+            exit 0
+          fi
+          
+          MODEL_JSON=$(git show origin/src-data:"$MODEL_FILE" 2>/dev/null || echo "")
+          if [ -z "$MODEL_JSON" ]; then
+            exit 0
+          fi
+          
+          SOURCE_ID=$(echo "$MODEL_JSON" | jq -r '.name // .validation_key // empty' 2>/dev/null)
+          DESCRIPTION=$(echo "$MODEL_JSON" | jq -r '.description // empty' 2>/dev/null)
+          REFERENCES=$(echo "$MODEL_JSON" | jq -r '.references[]? // empty' 2>/dev/null)
+          
+          if [ -z "$SOURCE_ID" ]; then
+            exit 0
+          fi
+          
+          cat > /tmp/pr_comment.md << 'COMMENT_EOF'
+          ## Model registration details
+          
+          COMMENT_EOF
+          
+          echo "**Model:** \`${SOURCE_ID}\`" >> /tmp/pr_comment.md
+          echo "" >> /tmp/pr_comment.md
+          
+          if [ -n "$DESCRIPTION" ]; then
+            echo "**Description**" >> /tmp/pr_comment.md
+            echo "" >> /tmp/pr_comment.md
+            echo "$DESCRIPTION" >> /tmp/pr_comment.md
+            echo "" >> /tmp/pr_comment.md
+          fi
+          
+          if [ -n "$REFERENCES" ]; then
+            echo "**References**" >> /tmp/pr_comment.md
+            echo "" >> /tmp/pr_comment.md
+            while IFS= read -r ref; do
+              if [ -n "$ref" ]; then
+                echo "- $ref" >> /tmp/pr_comment.md
+              fi
+            done <<< "$REFERENCES"
+          fi
+          
+          if [ -s /tmp/pr_comment.md ]; then
+            gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file /tmp/pr_comment.md 2>/dev/null && echo "✓ Posted model details to PR #${PR_NUMBER}"
+            rm /tmp/pr_comment.md
+          fi
+        shell: bash
+
       - name: Add PR to project board
         if: steps.find_pr.outputs.pr_number != ''
         continue-on-error: true
