@@ -242,12 +242,7 @@ body:
       label: Units
       description: The units used for resolution values.
       options:
-        - "Not specified"
-        - "Degrees"
-        - "Kelvin"
-        - "Kilometre"
-        - "Meters"
-        - "Pascal"
+        - "No options available"
       default: 0
 
   - type: input
@@ -327,9 +322,7 @@ body:
         
         </details>
       options:
-        - "Not specified"
-        - "Rhomboidal Truncation"
-        - "Triangular Truncation"
+        - "No options available"
       default: 0
 
   - type: input

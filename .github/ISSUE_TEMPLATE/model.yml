@@ -294,6 +294,7 @@ body:
         
         </details>
       options:
+        - "aerosol_cam5-mam3_h116_v126"
         - "aerosol_canam5-1-aerosol_h108_v114"
         - "aerosol_canam6-aerosol_h115_v128"
         - "aerosol_classic_h102_v106"
@@ -301,6 +302,7 @@ body:
         - "aerosol_glomap-mode_h113_v115"
         - "aerosol_glomap-mode_h113_v133"
         - "aerosol_glomap-mode_h119_v115"
+        - "aerosol_hadcm3-aerosol_h136_v157"
         - "aerosol_masingar-mk-3r2_h127_v132"
         - "aerosol_tactic_h100_v100"
         - "atmosphere_arpege-climat-version-6-3_h100_v100"
@@ -341,6 +343,7 @@ body:
         - "land-surface_lpj-guess-4-1_h106_v112"
         - "land-surface_lpj-guess-4-1_h112_v112"
         - "land-surface_mcm-ua-1-0land_h133_no-vertical"
+        - "land-surface_moses2-1_h136_v117"
         - "land-surface_mri-agcm4-4-land-surface_h126_v131"
         - "land-surface_surfex-v8-modeling-platform_h100_v101"
         - "nemo_v3_6_h120_v107"
@@ -354,10 +357,12 @@ body:
         - "ocean-biogeochemistry_piscesv2-gas_h101_v102"
         - "ocean-biogeochemistry_topaz2_h120_v107"
         - "ocean-biogeochemistry_wombatlite_h109_v109"
+        - "ocean_blom2_h144_v146"
         - "ocean_cannemo5-1_h111_v133"
         - "ocean_cannemo6-0_h117_v107"
         - "ocean_fesom-2-7_h114_v116"
         - "ocean_gfdl-om4p5_h123_v120"
+        - "ocean_hadom3_h137_v136"
         - "ocean_icon-o-1-1_h129_v121"
         - "ocean_inmom6l_h146_v153"
         - "ocean_licom-v2-0_h141_v142"
