@@ -92,3 +92,37 @@ def build_similarity_report(
     for existing_id, score in matches:
         lines.append(f'| `{existing_id}` | {score * 100:.0f}% |')
     return '\n'.join(lines)
+
+
+def build_details_block(name: str, description: str, references) -> str:
+    """Build a "Registration details" markdown block for the PR body.
+
+    Renders description (if any) followed by references (one per line, if any).
+    Returns '' when there's nothing to render. Idempotent by construction —
+    every handler rerun rebuilds this block from the current issue fields,
+    so the PR body always reflects the latest submission.
+    """
+    lines: list[str] = []
+
+    if description:
+        desc = str(description).strip()
+        if desc:
+            lines.append('### Description')
+            lines.append('')
+            lines.append(desc)
+            lines.append('')
+
+    refs = references or []
+    if isinstance(refs, str):
+        refs = [r.strip() for r in refs.replace(',', '\n').splitlines() if r.strip()]
+    else:
+        refs = [str(r).strip() for r in refs if str(r).strip()]
+
+    if refs:
+        lines.append('### References')
+        lines.append('')
+        for r in refs:
+            lines.append(f'- {r}')
+        lines.append('')
+
+    return '\n'.join(lines).strip()

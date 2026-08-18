@@ -25,6 +25,7 @@ _spec = _importlib_util.spec_from_file_location(
 _name_similarity = _importlib_util.module_from_spec(_spec)
 _spec.loader.exec_module(_name_similarity)
 build_similarity_report = _name_similarity.build_similarity_report
+build_details_block = _name_similarity.build_details_block
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -304,10 +305,19 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Strip name if JSONValidator re-injected it
         # data.pop('name', None)
         data['name'] = source_id  # ensure name matches validation_key/ui_label
-        # Lightweight check: flag suspiciously similar existing names in the same folder.
+        # Build the PR body block: description + references first, then the
+        # lightweight similarity check.  Same field ('_validation_report') the
+        # grid handlers use, so the CMIPLD framework overwrites this section
+        # of the PR body on every rerun rather than stacking new comments.
         folder = os.path.dirname(file_path) or 'model'
         proposed_id = data.get('@id') or source_id
-        data['_validation_report'] = build_similarity_report(proposed_id, folder)
+        details = build_details_block(
+            name=proposed_id,
+            description=data.get('description', ''),
+            references=data.get('references', []),
+        )
+        similarity = build_similarity_report(proposed_id, folder)
+        data['_validation_report'] = '\n\n'.join(p for p in (details, similarity) if p)
 
     if model_data and source_id:
         clean = {k: v for k, v in model_data.items() if not k.startswith('_')}
