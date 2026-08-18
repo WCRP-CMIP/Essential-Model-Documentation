@@ -271,13 +271,6 @@ jobs:
             done <<< "$REFERENCES"
           fi
           
-          echo "" >> /tmp/pr_comment.md
-          echo "## Next steps" >> /tmp/pr_comment.md
-          echo "" >> /tmp/pr_comment.md
-          echo "- Review the details above" >> /tmp/pr_comment.md
-          echo "- Check component configuration and coupling relationships" >> /tmp/pr_comment.md
-          echo "- Merge when ready" >> /tmp/pr_comment.md
-          
           if [ -s /tmp/pr_comment.md ]; then
             # Find existing bot comment on the PR that contains our marker heading.
             # We use a hidden HTML marker at the top of the comment body so we can
