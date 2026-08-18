@@ -97,12 +97,17 @@ def build_similarity_report(
 def build_details_block(name: str, description: str, references) -> str:
     """Build a "Registration details" markdown block for the PR body.
 
-    Renders description (if any) followed by references (one per line, if any).
+    Renders name, description (if any), and references (one per line, if any).
     Returns '' when there's nothing to render. Idempotent by construction —
     every handler rerun rebuilds this block from the current issue fields,
     so the PR body always reflects the latest submission.
     """
     lines: list[str] = []
+
+    name_str = (name or '').strip()
+    if name_str:
+        lines.append(f'**Name:** `{name_str}`')
+        lines.append('')
 
     if description:
         desc = str(description).strip()
