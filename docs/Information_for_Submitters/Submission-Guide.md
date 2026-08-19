@@ -34,6 +34,10 @@ Register the fundamental horizontal geometry your model computes on — the shap
 
 **Following review, you will receive:** a grid cell ID (`g###`) used in Stage 2.
 
+### Note on describing output data grids that are not computational grids
+
+Grid cells need to be described for the computational grids of the model *and* for any output grids in the published datasets that differ from the computational grids. For instance, if all variables are regridded to a 0.5° degree grid before archiving, then the output grid is not a computational grid. An output grid that differs from the computational grids is described using the [same form](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=horizontal_grid_cell.yml) as for the computational grid cells, and is also given a grid cell ID (known as a "grid label"). Therefore, the grid label that is associated with an archived dataset will either be for one of the computational grids or for a dedicated output grid, as appropriate.
+
 ---
 
 ## Stage 2: Computational Grids &#42;
