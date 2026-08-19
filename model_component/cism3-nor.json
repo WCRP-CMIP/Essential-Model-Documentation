@@ -1,0 +1,19 @@
+{
+    "validation_key": "cism3-nor",
+    "ui_label": "CISM3-Nor",
+    "description": "CISM3-Nor is the third version of the Community Ice Sheet Model used in NorESM3 with minor differences compared to the version used in CESM3 and as a standalone component.",
+    "code_base": "https://github.com/NorESMhub/CISM",
+    "component": "land-ice",
+    "family": "cism",
+    "references": [
+        "https://doi.org/10.5194/gmd-18-7853-2025",
+        "https://doi.org/10.5194/gmd-12-387-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cism3-nor"
+}
