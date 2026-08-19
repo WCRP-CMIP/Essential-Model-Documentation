@@ -1,0 +1,69 @@
+{
+    "validation_key": "HadCM3B-ESM",
+    "ui_label": "HadCM3B-ESM",
+    "description": "HadCM3B-ESM comprises dynamic modelling of the atmosphere (hadam3), sulphate aerosols (hadcm3-aerosol), land surface (moses2-1), ocean (hadom3), ocean sea-ice (hadcm3-sea-ice) and ocean biogeochemistry (hadocc)  land ice is prescribed (land points identified as land ice are completely covered in ice and fixed in time). Non-ice points can have fractional covering of vegetation types or non-vegetation (urban, lake)  atmospheric chemistry is ommitted other than use of prescribed oxidants in the sulphate aerosol scheme.",
+    "calendar": [
+        "360-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ]
+    ],
+    "crs": "A[AeL](O)O[ObSi]Li^",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "land-surface",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "ocean"
+        ]
+    ],
+    "family": "",
+    "model_components": [
+        "aerosol_hadcm3-aerosol_h136_v157",
+        "atmosphere_hadam3_h136_v157",
+        "land-surface_moses2-1_h136_v117",
+        "ocean-biogeochemistry_hadocc_h137_v136",
+        "ocean_hadom3_h137_v136",
+        "sea-ice_hadcm3-sea-ice_h137_v136"
+    ],
+    "name": "hadcm3b-esm",
+    "omitted_components": [
+        "atmospheric-chemistry"
+    ],
+    "prescribed_components": [
+        "land-ice"
+    ],
+    "references": [
+        "https://doi.org/10.1007/s003820050010",
+        "https://doi.org/10.5194/gmd-10-3715-2017"
+    ],
+    "release_year": 2000,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "hadcm3b-esm"
+}

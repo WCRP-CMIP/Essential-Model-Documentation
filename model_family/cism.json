@@ -1,0 +1,26 @@
+{
+    "validation_key": "CISM",
+    "ui_label": "CISM",
+    "description": "The Community Ice Sheet Model (CISM) is a parallel, 3-D thermomechanical model, that solves equations for the momentum balance and the thickness and temperature evolution of ice sheets.",
+    "collaborative_institutions": [
+        "norce",
+        "uib"
+    ],
+    "established": 2006,
+    "family_type": "component",
+    "primary_institution": "ncar",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-387-2019"
+    ],
+    "scientific_domains": [
+        "land-ice"
+    ],
+    "website": "https://www.cesm.ucar.edu/models/cism",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "CISM"
+}
