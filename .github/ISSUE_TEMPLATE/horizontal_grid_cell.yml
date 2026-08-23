@@ -327,7 +327,9 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "Not specified"
+        - "Rhomboidal Truncation"
+        - "Triangular Truncation"
       default: 0
 
   - type: input
