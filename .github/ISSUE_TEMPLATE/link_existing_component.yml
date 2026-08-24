@@ -101,9 +101,11 @@ body:
         - "ihamocc2"
         - "inmaer2"
         - "inmam6l"
+        - "inmam6m"
         - "inmice2l"
         - "inmice2m"
         - "inmom6l"
+        - "inmom6m"
         - "jules-gl9"
         - "jules-v5-3"
         - "jules-vn5-1"
@@ -174,7 +176,6 @@ body:
         - "h100"
         - "h101"
         - "h102"
-        - "h103"
         - "h104"
         - "h105"
         - "h106"
@@ -312,6 +313,7 @@ body:
         - "v159"
         - "v160"
         - "v161"
+        - "v162"
       default: 0
     validations:
       required: true
