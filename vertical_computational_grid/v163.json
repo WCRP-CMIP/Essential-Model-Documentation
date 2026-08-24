@@ -1,0 +1,18 @@
+{
+  "validation_key": "v163",
+  "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 58 levels.",
+  "description": "The vertical coordinate is an [atmosphere hybrid sigma–dry-pressure coordinate](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2017MS001257); not a moist pressure vertical coordinate.  Please be aware that the top layer lies within the sponge layer and is hence very thick.  The height of each model level (z) is calculated following [Simpson et al. (2025)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2025MS004957) using the scale-height approximation z = −H ln(p/p₀), where H = 7 km is a constant scale height and p₀ = 1,000 hPa is the reference surface pressure.",
+  "bottom_layer_thickness": 34.7,
+  "n_z": 58,
+  "n_z_range": "",
+  "top_layer_thickness": 4628.4,
+  "total_thickness": 43313.0,
+  "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+  "@context": "_context",
+  "@type": [
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid",
+    "emd"
+  ],
+  "@id": "v163"
+}
