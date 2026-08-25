@@ -1,0 +1,25 @@
+{
+    "validation_key": "IAP-HAGCM",
+    "ui_label": "IAP-HAGCM",
+    "description": "The Institute of Atmospheric Physics High-Altitude Atmospheric General Circulation Model (IAP-HAGCM) family is the high-top extension of the IAP Atmospheric General Circulation Model (IAP-AGCM), developed at the Institute of Atmospheric Physics, Chinese Academy of Sciences. IAP-HAGCM extends the vertical domain and enhances the vertical resolution of IAP-AGCM to improve the representation of the middle and upper atmosphere while retaining the dynamical framework and core atmospheric physical parameterizations inherited from the IAP-AGCM model family. The scientific focus of IAP-HAGCM is the simulation of atmospheric circulation and variability from the troposphere through the middle and upper atmosphere, with particular emphasis on dynamical coupling among the troposphere, stratosphere, mesosphere, and lower thermosphere, as well as the quasi-biennial oscillation (QBO), gravity-wave effects, atmospheric tides, planetary waves, and related middle- and upper-atmospheric processes. The model top has been progressively extended from approximately 40 km in the parent IAP-AGCM to approximately 80 km (0.01 hPa) in the first high-top version, IAP-HAGCM1, and further to approximately 150 km in the second high-top version, IAP-HAGCM2. These developments enable a more comprehensive representation of atmospheric dynamics and vertical coupling across an extended altitude range. Members of the IAP-HAGCM family share the dynamical and physical framework of IAP-AGCM but may differ in vertical resolution, model-top altitude, gravity-wave parameterizations, physical parameter settings, and model tuning. The family provides a common modelling framework for studies of atmospheric circulation, climate variability, middle- and upper-atmospheric dynamics, and vertical coupling across the troposphere, stratosphere, mesosphere, and lower thermosphere. Its members can be used either as standalone atmospheric general circulation models or as atmospheric components of coupled climate and Earth system modelling systems.",
+    "collaborative_institutions": "",
+    "established": 2020,
+    "family_type": "component",
+    "primary_institution": "cas",
+    "references": [
+        "https://doi.org/10.1016/j.aosl.2020.100025",
+        "https://doi.org/10.1016/j.aosl.2020.100021",
+        "https://doi.org/10.3390/rs15143571"
+    ],
+    "scientific_domains": [
+        "atmosphere"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "IAP-HAGCM"
+}
