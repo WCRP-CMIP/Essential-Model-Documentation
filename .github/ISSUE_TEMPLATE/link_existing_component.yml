@@ -228,6 +228,7 @@ body:
         - "h152"
         - "h153"
         - "h154"
+        - "h155"
         - "no-horizontal"
       default: 0
     validations:
@@ -254,6 +255,7 @@ body:
         - "no-vertical"
         - "v100"
         - "v101"
+        - "v102"
         - "v103"
         - "v104"
         - "v105"
@@ -284,6 +286,7 @@ body:
         - "v130"
         - "v131"
         - "v132"
+        - "v133"
         - "v134"
         - "v135"
         - "v136"
@@ -312,7 +315,9 @@ body:
         - "v159"
         - "v160"
         - "v161"
+        - "v162"
         - "v163"
+        - "v164"
       default: 0
     validations:
       required: true
