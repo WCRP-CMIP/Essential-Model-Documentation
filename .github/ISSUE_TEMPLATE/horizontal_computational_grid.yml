@@ -202,6 +202,7 @@ body:
         - "g199"
         - "g200"
         - "g201"
+        - "g202"
         - "g203"
         - "g204"
         - "g205"
@@ -265,6 +266,7 @@ body:
       options:
         - "mass"
         - "velocity"
+        - "x-velocity"
         - "y-velocity"
     validations:
       required: true
@@ -393,6 +395,7 @@ body:
         - "g199"
         - "g200"
         - "g201"
+        - "g202"
         - "g203"
         - "g204"
         - "g205"
@@ -440,6 +443,7 @@ body:
       options:
         - "mass"
         - "velocity"
+        - "x-velocity"
         - "y-velocity"
 
   - type: markdown
@@ -566,6 +570,7 @@ body:
         - "g199"
         - "g200"
         - "g201"
+        - "g202"
         - "g203"
         - "g204"
         - "g205"
@@ -613,6 +618,7 @@ body:
       options:
         - "mass"
         - "velocity"
+        - "x-velocity"
         - "y-velocity"
 
   - type: markdown
@@ -739,6 +745,7 @@ body:
         - "g199"
         - "g200"
         - "g201"
+        - "g202"
         - "g203"
         - "g204"
         - "g205"
@@ -786,6 +793,7 @@ body:
       options:
         - "mass"
         - "velocity"
+        - "x-velocity"
         - "y-velocity"
 
   - type: textarea
