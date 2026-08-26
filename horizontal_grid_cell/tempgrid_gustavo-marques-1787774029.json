@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_gustavo-marques-1787774029",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 0.66 x 0.66 degree resolution.",
+    "description": "Nominal 2/3 degree MOM6 tripolar grid (ORCA-type) for u points, with enhanced meridional resolution reaching 1/4 degree at the Equator.  dx ranging from ~0.7 m to ~74 km due to grid distortion near the fold. dy ranging from ~0.9 km to ~70 km.",
+    "alias": [
+        "g233-x-velocity"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 259200,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -81.56,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 73.01,
+    "x_resolution": 0.66,
+    "y_resolution": 0.66,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_gustavo-marques-1787774029"
+}
