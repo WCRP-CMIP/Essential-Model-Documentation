@@ -1,0 +1,19 @@
+{
+    "validation_key": "clm6-fates-nor",
+    "ui_label": "CLM6-FATES-Nor",
+    "description": "CLM-FATES is a demographic vegetation scheme coupled in to the community land model. It is a new component unique to NorESM3 at present. FATES represents vegetated land as a hierarchy of land use category, patch age-since-disturbance, and vegetation cohort height. CLM6 represents physics, hydrology, trace gas production, snow, and soil biogeochemistry using similar approaches to CLM5. All vegetated processes are handled by FATES including multi-layer radiation transfer, photosynthesis and canopy conductance, respiration carbon allocation, plant allometry and turnover, mortality, disturbance, seed bank dynamics and fire. FATES includes numerous different climate and anthropogenic mortality pathways. FATES represents gross land use transitions and recovery from disturbances.",
+    "code_base": "https://github.com/NorESMhub/CTSM",
+    "component": "land-surface",
+    "family": "clm",
+    "references": [
+        "https://doi.org/10.5194/bg-17-3017-2020",
+        "https://doi.org/10.5194/gmd-8-3593-2015"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "clm6-fates-nor"
+}
