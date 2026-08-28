@@ -223,7 +223,15 @@ body:
         
         </details>
       options:
+        - "360-day"
         - "365-day"
+        - "366-day"
+        - "julian"
+        - "no-value"
+        - "proleptic-gregorian"
+        - "standard"
+        - "tai"
+        - "utc"
     validations:
       required: true
 
