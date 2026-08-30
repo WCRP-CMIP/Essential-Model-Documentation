@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_IMPrESv1-1782365732",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-d",
+    "horizontal_subgrids": [
+        "g167-mass",
+        "g167-x-velocity",
+        "g167-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_IMPrESv1-1782365732"
+}
