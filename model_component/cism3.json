@@ -1,0 +1,20 @@
+{
+    "validation_key": "cism3",
+    "ui_label": "CISM3",
+    "description": "CISM3 is the third version of the Community Ice Sheet Model used in CESM3 and as a standalone component. CISM is a state-of-the-art 3D, parallel thermomechanical model. Key physics and parameterizations include: 1. Depth-integrated higher-order solver for ice dynamics. 2. Grounding line parameterization. 3. Melt parameterization for floating ice. 4. Many basal sliding law options including: powerlaw, Wirtmann, Schoof, pseudo-plastic. 5. Vertically varying Elastic Lithosphere Relaxed Asthenosphere (ELRA) for GIA. 6. Physic-based calving laws. 7. Basal melt parameterizations. 8. Lateral melting at calving fronts. 9. Initialization process to include thickness change rates.  Items 5-9 are are notable features added since CISM2. In addition, CISM has options to simulate Alpine glaciers.",
+    "code_base": "https://github.com/ESCOMP/CISM",
+    "component": "land-ice",
+    "family": "cism",
+    "references": [
+        "https://doi.org/10.5194/tc-15-633-2021",
+        "https://doi.org/10.5194/tc-15-3229-2021",
+        "https://doi.org/10.5194/tc-19-283-2025"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cism3"
+}
