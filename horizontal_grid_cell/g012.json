@@ -1,0 +1,27 @@
+{
+  "validation_key": "g012",
+  "ui_label": "Horizontal with multiple sites at latitude/longitude point locations.",
+  "description": "A grid with multiple sites at different latitude/longitude point locations.",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "discrete-points",
+  "n_cells": "",
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": "",
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "",
+  "westernmost_longitude": "",
+  "x_resolution": "",
+  "y_resolution": "",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g012"
+}
