@@ -1,0 +1,25 @@
+{
+    "validation_key": "IAP-AACM",
+    "ui_label": "IAP-AACM",
+    "description": "Aerosol and Atmospheric Chemistry Model of the Institute of Atmospheric Physics (IAP-AACM) simulates emissions, three-dimensional transport, chemical transformation, and removal of trace gases and aerosols from global to regional scales. Processes include advection, turbulent diffusion, gas-, aqueous- and heterogeneous chemistry, inorganic gas-particle partitioning, nucleation, condensation/evaporation and coagulation, and dry deposition and wet scavenging. Prognostic aerosols include major inorganic species, black carbon, primary and secondary organics, dust and sea salt. The APM extension also resolves particle number, size distribution, mixing state and coatings. In updated applications, DMS, dust, sea salt and biogenic VOC emissions are calculated online.",
+    "collaborative_institutions": "",
+    "established": 2019,
+    "family_type": "component",
+    "primary_institution": "cas",
+    "references": [
+        "https://doi.org/10.5194/acp-19-8269-2019."
+    ],
+    "representative_member": "CASESM",
+    "scientific_domains": [
+        "aerosol",
+        "atmospheric-chemistry"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "IAP-AACM"
+}
