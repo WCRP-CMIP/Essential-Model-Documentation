@@ -223,7 +223,9 @@ body:
         
         </details>
       options:
-        - "365-day"
+        - "366-day"
+        - "proleptic-gregorian"
+        - "tai"
     validations:
       required: true
 

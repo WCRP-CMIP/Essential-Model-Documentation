@@ -1,0 +1,24 @@
+{
+    "validation_key": "LMDZ",
+    "ui_label": "LMDZ",
+    "description": "LMDZ is the atmospheric general circulation model developed at Laboratoire de Météorologie Dynamique (LMD), part of IPSL. It is based on a finite-difference formulation of the equations of atmospheric dynamics on a latitude-longitude grid, coupled to a comprehensive set of physical parameterizations. The \"Z\" stands for \"zoom\" capability, allowing regional refinement.",
+    "collaborative_institutions": "",
+    "established": 1995,
+    "family_type": "component",
+    "primary_institution": "ipsl",
+    "references": [
+        "https://doi.org/10.1029/2019MS001892"
+    ],
+    "representative_member": "LMDZ6.5",
+    "scientific_domains": [
+        "atmosphere"
+    ],
+    "website": "https://lmdz.lmd.jussieu.fr",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "LMDZ"
+}
