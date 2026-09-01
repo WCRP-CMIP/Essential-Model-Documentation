@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784290624",
+    "ui_label": "",
+    "description": "Mass variables (e.g. temperature, pressure, tracers) at cell centers on the LMDZ regular latitude-longitude grid (2.5° x 1.3°, 20592 cells).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g111-mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784290624"
+}
