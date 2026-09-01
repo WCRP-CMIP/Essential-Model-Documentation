@@ -1,7 +1,7 @@
 {
     "validation_key": "cice6-6-3-nor",
     "ui_label": "CICE6.6.3-Nor",
-    "description": "The sea ice configuration in NorESM3 is based on CICE6.6.3 (https://zenodo.org/records/18434619). It is configured with EVP dynamics, 5 sea ice thickness distribution categories, and multilayer snow and ice thermodynamics. Albedo and shortwave absorption are modelled by a Delta-Eddington approach utilizing prognostic snow grain size metamorphosis, melt ponds, and aerosols.",
+    "description": "The sea ice configuration in NorESM3 is based on CICE6.6.3. It is configured with EVP dynamics, 5 sea ice thickness distribution categories, and multilayer snow and ice thermodynamics. Albedo and shortwave absorption are modelled by a Delta-Eddington approach utilizing prognostic snow grain size metamorphosis, melt ponds, and aerosols.",
     "code_base": "https://github.com/NorESMHub/CICE",
     "component": "sea-ice",
     "family": "",
