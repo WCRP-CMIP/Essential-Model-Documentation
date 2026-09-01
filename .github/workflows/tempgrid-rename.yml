@@ -28,12 +28,17 @@ jobs:
     if: >
       (github.event_name == 'pull_request' &&
        github.event.pull_request.merged == true) ||
-      github.event_name == 'workflow_dispatch'
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule'
 
     runs-on: ubuntu-latest
     concurrency:
       group: tempgrid-rename
-      cancel-in-progress: true
+      # Queue rather than cancel. This job assigns permanent identifiers, and
+      # PRs merge in bursts, so cancelling an in-flight run drops a rename with
+      # no error anywhere. A queued run whose files are already renamed finds
+      # nothing to do and exits.
+      cancel-in-progress: false
 
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
