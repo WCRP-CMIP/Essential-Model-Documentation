@@ -5,10 +5,10 @@
 <head>
     <script>
         /* const base_url = "https://emd.mipcvs.dev/"; */
-        const base_url = (new URL("../..", window.location)).href.replace(/\/+$/, ""); /* for search plugin notably */
-        /* const root_relative_url = "../.."; */
+        const base_url = (new URL("..", window.location)).href.replace(/\/+$/, ""); /* for search plugin notably */
+        /* const root_relative_url = ".."; */
     </script>
-    <script integrity="sha384-m6cZ+Whl1ci89lidlu8DH4C+sZLNOYBvImtjUIhUK+iaNffXhqtbYgBVuuPfRsa0" src="../../js/dark.js"></script>
+    <script integrity="sha384-m6cZ+Whl1ci89lidlu8DH4C+sZLNOYBvImtjUIhUK+iaNffXhqtbYgBVuuPfRsa0" src="../js/dark.js"></script>
 
 
     <meta charset="utf-8" />
@@ -18,7 +18,7 @@
     
 
 
-<title>When Things Go Wrong</title>
+<title>Editing the EMD</title>
 
 
 
@@ -30,18 +30,18 @@
 
 
 
-<link rel="canonical" href="https://emd.mipcvs.dev/Information_for_Submitters/Error_Meanings/">
+<link rel="canonical" href="https://emd.mipcvs.dev/Editing_the_EMD/">
 
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="When Things Go Wrong">
+<meta property="og:title" content="Editing the EMD">
 
 
 
 
 
-<meta property="og:url" content="https://emd.mipcvs.dev/Information_for_Submitters/Error_Meanings/">
+<meta property="og:url" content="https://emd.mipcvs.dev/Editing_the_EMD/">
 
 
 
@@ -50,7 +50,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="When Things Go Wrong">
+<meta name="twitter:title" content="Editing the EMD">
 
 
 
@@ -62,10 +62,10 @@
 
 
     
-    <link href="../../assets/favicon.svg" rel="icon" />
+    <link href="../assets/favicon.svg" rel="icon" />
 
-    <link href="../../css/base.css" rel="stylesheet" />
-    <link href="../../css/geist.css" rel="stylesheet" />
+    <link href="../css/base.css" rel="stylesheet" />
+    <link href="../css/geist.css" rel="stylesheet" />
 
     
 
@@ -74,13 +74,13 @@
             --theme-accent: oklch(62.3% 0.214 259.815);
         }
     </style>
-    <link href="../../stylesheets/custom.css" rel="stylesheet" />
-    <link href="../../stylesheets/footer-override.css" rel="stylesheet" />
+    <link href="../stylesheets/custom.css" rel="stylesheet" />
+    <link href="../stylesheets/footer-override.css" rel="stylesheet" />
 
     
 
     <script integrity="sha384-V2jkXRy811qODUbfkLlkVJYBbf4h6XHAEjcU6ReASBPrJvTrlYh4GrI4t6GCju6n"
-        src="../../js/callbacks.js"></script>
+        src="../js/callbacks.js"></script>
 
     
 
@@ -302,12 +302,12 @@
         <h1
           class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl"
         >
-          When Things Go Wrong
+          Editing the EMD
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
           <button
-    onclick="fetch(`../..`).then((r) => r.text()).then((text) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': text })]))"
+    onclick="fetch(`..`).then((r) => r.text()).then((text) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': text })]))"
     data-slot="button" class="secondary cursor-pointer">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-copy ">
@@ -323,7 +323,7 @@
             data-slot="button"
             id="previous-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/EMD_health/"
+            href="/"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -349,7 +349,7 @@
             data-slot="button"
             id="next-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
-            href="/Information_for_Submitters/Registering_an_Institution/"
+            href="/FAQ/"
           >
             <span class="sr-only">Next</span>
             <svg
@@ -379,75 +379,20 @@
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-    <h1 id="when-things-go-wrong">When Things Go Wrong<a class="headerlink" href="#when-things-go-wrong" title="Permanent link">&para;</a></h1>
-<p>Something posted on your submission and you are not sure what it means. This page explains the most common automated messages, what caused them, and exactly what to do next.</p>
-<hr />
-<h2 id="validation-failed">Validation Failed<a class="headerlink" href="#validation-failed" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>Submission validation failed</strong>
-The following errors were found. Please edit the issue to correct them.</p>
-</blockquote>
-<p>This appears when the automated checks found a problem with your submitted data before a pull request was created. The comment lists the specific fields that failed and what was wrong with them.</p>
-<p><strong>What to do:</strong> Edit the original issue body to correct the flagged fields. You do not need to close and reopen — the action re-runs automatically every time you save an edit. Repeat until you see the "Automatic checks passed" comment instead.</p>
-<p>The <a href="https://scribehow.com/embed-preview/Edit_an_Issues_Description_Field_on_GitHub__BFQ9OA50Q9-RbQvQ3r_GEQ?as=slides&amp;size=flexible">edit guide</a> shows how to edit an issue body if you are unfamiliar with the process.</p>
-<hr />
-<h2 id="file-already-exists">File Already Exists<a class="headerlink" href="#file-already-exists" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>File already exists</strong>
-<code>horizontal_grid_cell/tempgrid_...json</code> already exists. Change <strong>Issue Kind</strong> to <em>Modify</em> to update it, or close this issue if no changes are needed.</p>
-</blockquote>
-<p>This means the action tried to create a file that is already present on the <code>src-data</code> branch. This usually happens if the action runs twice on the same submission, or if you are editing an existing record that was already processed.</p>
-<p><strong>What to do:</strong> If you are correcting a submission that already has a PR open, set the <strong>Issue Kind</strong> field in your issue to <em>Modify</em> and save the edit. If you are unsure whether a PR already exists, check <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue+author%3A%40me">My Issues</a> — a linked PR will be visible there.</p>
-<hr />
-<h2 id="duplicate-grid-detected">Duplicate Grid Detected<a class="headerlink" href="#duplicate-grid-detected" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>Duplicate grid detected</strong>
-This submission is identical to an existing entry (ignoring ID fields). No new entry will be created.
-<strong>Existing ID:</strong> <code>g109</code></p>
-</blockquote>
-<p>The content you submitted exactly matches an entry already in the registry. The issue and PR have been closed automatically and the duplicate file removed.</p>
-<p><strong>What to do:</strong> Use the existing ID shown (<code>g109</code> in the example) directly in the next stage of your submission — you do not need to register a new grid. If you believe your grid is genuinely different from the existing one, close this issue and submit again, using the <strong>Description</strong> field to explain precisely how your grid differs. Any structural difference that cannot be expressed through the form fields must be documented there.</p>
-<hr />
-<h2 id="no-component-configuration-created">No Component Configuration Created<a class="headerlink" href="#no-component-configuration-created" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>Component (only) created. Insufficient computational grids supplied. See below.</strong>
-A horizontal <strong>and</strong> vertical computational grid are both required to generate a <code>component_config</code> record.</p>
-</blockquote>
-<p>Your model component was registered, but no component configuration was created because you did not supply both a horizontal grid ID and a vertical grid ID. The PR contains only the <code>model_component</code> file.</p>
-<p><strong>What to do:</strong> Once your component PR is merged, use the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=link_existing_component.yml">Stage 3: Link Existing Component</a> form to link your component to the grids. Select your component from the dropdown and supply the <code>h###</code> and <code>v###</code> IDs from Stage 2. The configuration is created and pushed without a separate review step.</p>
-<hr />
-<h2 id="changes-requested">Changes Requested<a class="headerlink" href="#changes-requested" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>Reviewer @username on Pull Request #N ✖ requested changes:</strong>
-...</p>
-</blockquote>
-<p>A reviewer has read your submission and found something that needs correcting before they can approve it. This comment is copied from their GitHub review to your issue so you see it in the same place you track your submission.</p>
-<p><strong>What to do:</strong> Read the comment carefully — it should specify exactly which field to change and what the correct value should be. Edit the original issue body with the correction. The PR updates automatically. Once you have made the changes, the <code>changes-made</code> label is added to your issue and PR so the reviewer knows to look again.</p>
-<p>Do not reply on the issue. If you have a question about the requested change, reply on the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/pulls">pull request</a> directly, as that is where the reviewer is working.</p>
-<hr />
-<h2 id="automatic-checks-passed-but-no-pr-link">Automatic Checks Passed — But No PR Link<a class="headerlink" href="#automatic-checks-passed-but-no-pr-link" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>Automatic checks passed</strong>
-<strong>a new PR</strong> will be created for review.</p>
-</blockquote>
-<p>The validation passed but the PR had not yet been found when the comment was posted (this can happen if GitHub takes a moment to index the newly opened PR).</p>
-<p><strong>What to do:</strong> Wait a minute and refresh your issue page. The comment is updated automatically — the PR link will appear. You can also check <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues?q=is%3Aissue+author%3A%40me">My Issues</a> where the linked PR is shown directly.</p>
-<hr />
-<h2 id="the-action-never-ran">The Action Never Ran<a class="headerlink" href="#the-action-never-ran" title="Permanent link">&para;</a></h2>
-<p>If you submitted an issue and nothing happened within five minutes — no comment, no PR — check the following:</p>
-<ol>
-<li><strong>Labels</strong> — the issue must have the <code>emd-submission</code> label and one of the type labels (e.g. <code>horizontal_grid_cell</code>). These are added automatically by the form, but if you submitted a general issue rather than a template form, they may be missing.</li>
-<li><strong>Workflow status</strong> — go to the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions">Actions tab</a> of the repository and look for a run triggered by your issue. A red cross means the action ran but failed; click through for the error log.</li>
-<li><strong>Form used</strong> — make sure you used a form from the <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose">form chooser</a> rather than opening a blank issue.</li>
-</ol>
-<p>If none of these apply, open a <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new?template=general_issue.yml">general issue</a> and describe what happened.</p>
+    <h1 id="editing-the-emd">Editing the EMD<a class="headerlink" href="#editing-the-emd" title="Permanent link">&para;</a></h1>
+<p>A quick guide on how to update existing content within the Essential Model Documentation. </p>
+<h3 id="a-scrollable-description">A scrollable description<a class="headerlink" href="#a-scrollable-description" title="Permanent link">&para;</a></h3>
+<p>To view a document outlining the different steps for submitting an EMD edit please visit <a href="https://scribehow.com/o/hdCeWZbPTLql5q8a68DPDg/viewer/Updating_a_submitted_EMD_entry__7yMg36mcQK6VqzWVOLpDfA">the CMIP scribe on how to update a submitted entry</a></p>
+<p>Alternatively you may wish to click through the presentation below. </p>
+<h3 id="embedded-presentation">Embedded presentation<a class="headerlink" href="#embedded-presentation" title="Permanent link">&para;</a></h3>
+<iframe src="https://scribehow.com/embed/Updating_a_submitted_EMD_entry__7yMg36mcQK6VqzWVOLpDfA?theme=dark" width="800" height="679" allow="fullscreen" style="aspect-ratio: 1 / 1; border: 0; min-height: 480px; width:100%"></iframe>
   </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 shadow-none"
-        href="/EMD_health/">
+        href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-left ">
@@ -455,14 +400,14 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
             <path d="M5 12l6 6"></path>
             <path d="M5 12l6 -6"></path>
         </svg>
-        <span class="max-[500px]:hidden">EMD Health Dashboard — how the graphs are computed</span>
+        <span class="max-[500px]:hidden">Essential Model Documentation (EMD)</span>
     </a>
     
     
     <a data-slot="button"
         class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 ml-auto shadow-none"
-        href="/Information_for_Submitters/Registering_an_Institution/">
-        <span class="max-[500px]:hidden">Registering an Institution</span>
+        href="/FAQ/">
+        <span class="max-[500px]:hidden">Frequently Asked Questions</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="tabler-icon tabler-icon-arrow-right ">
@@ -495,25 +440,25 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
                 <div class="text-muted-foreground text-sm font-medium">Menu</div>
                 <div class="flex flex-col gap-3">
                     
-                    <a class="text-2xl font-medium" href="../../Editing_the_EMD/">
+                    <a class="text-2xl font-medium" href="./">
                         
                         Editing the EMD
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../../Progress_Feed/">
+                    <a class="text-2xl font-medium" href="../Progress_Feed/">
                         
                         EMD Submission Feed
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../..">
+                    <a class="text-2xl font-medium" href="..">
                         
                         Essential Model Documentation (EMD)
                         
                     </a>
                     
-                    <a class="text-2xl font-medium" href="../../FAQ/">
+                    <a class="text-2xl font-medium" href="../FAQ/">
                         
                         Frequently Asked Questions
                         
@@ -531,13 +476,13 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../Developer_Guidance/Workflows_and_Automation/">
+                        <a class="text-2xl font-medium" href="../Developer_Guidance/Workflows_and_Automation/">
                             
                             How a Submission is Processed
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Developer_Guidance/Issue_Templates/">
+                        <a class="text-2xl font-medium" href="../Developer_Guidance/Issue_Templates/">
                             
                             Issue Templates — Structure and Maintenance
                             
@@ -552,7 +497,7 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../EMD_health/">
+                        <a class="text-2xl font-medium" href="../EMD_health/">
                             
                             EMD Health Dashboard — how the graphs are computed
                             
@@ -567,31 +512,31 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../Submission-Guide/">
+                        <a class="text-2xl font-medium" href="../Information_for_Submitters/Submission-Guide/">
                             
                             EMD Submission Guide
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../Registering_an_Institution/">
+                        <a class="text-2xl font-medium" href="../Information_for_Submitters/Registering_an_Institution/">
                             
                             Registering an Institution
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../Using_GitHub_Forms/">
+                        <a class="text-2xl font-medium" href="../Information_for_Submitters/Using_GitHub_Forms/">
                             
                             Using GitHub Forms
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../What_to_expect_on_submission/">
+                        <a class="text-2xl font-medium" href="../Information_for_Submitters/What_to_expect_on_submission/">
                             
                             What to Expect on Submission
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="./">
+                        <a class="text-2xl font-medium" href="../Information_for_Submitters/Error_Meanings/">
                             
                             When Things Go Wrong
                             
@@ -615,25 +560,25 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Review_Checklist/">
+                        <a class="text-2xl font-medium" href="../Reviewer_Guidance/Review_Checklist/">
                             
                             EMD Reviewer Checklist — Common Mistakes by File Type
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Interpreting_The_Review_Summary/">
+                        <a class="text-2xl font-medium" href="../Reviewer_Guidance/Interpreting_The_Review_Summary/">
                             
                             Interpreting the Review Summary
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Review_Options/">
+                        <a class="text-2xl font-medium" href="../Reviewer_Guidance/Review_Options/">
                             
                             Review Options
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="../../Reviewer_Guidance/Reviewer_Information/">
+                        <a class="text-2xl font-medium" href="../Reviewer_Guidance/Reviewer_Information/">
                             
                             Reviewer Information
                             
@@ -664,58 +609,18 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
         
         
         
-        <a href="#validation-failed"
+        <a href="#a-scrollable-description"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#validation-failed');">
-            Validation Failed
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#a-scrollable-description');">
+            A scrollable description
         </a>
         
 
         
-        <a href="#file-already-exists"
+        <a href="#embedded-presentation"
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#file-already-exists');">
-            File Already Exists
-        </a>
-        
-
-        
-        <a href="#duplicate-grid-detected"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#duplicate-grid-detected');">
-            Duplicate Grid Detected
-        </a>
-        
-
-        
-        <a href="#no-component-configuration-created"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#no-component-configuration-created');">
-            No Component Configuration Created
-        </a>
-        
-
-        
-        <a href="#changes-requested"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#changes-requested');">
-            Changes Requested
-        </a>
-        
-
-        
-        <a href="#automatic-checks-passed-but-no-pr-link"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#automatic-checks-passed-but-no-pr-link');">
-            Automatic Checks Passed — But No PR Link
-        </a>
-        
-
-        
-        <a href="#the-action-never-ran"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#the-action-never-ran');">
-            The Action Never Ran
+            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('#embedded-presentation');">
+            Embedded presentation
         </a>
         
 
@@ -754,11 +659,11 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
     </div>
      
 
-<script src="../../stylesheets/custom.js"></script>
+<script src="../stylesheets/custom.js"></script>
 
      
 
-<script src="../../stylesheets/embed.js"></script>
+<script src="../stylesheets/embed.js"></script>
 
      
 
@@ -772,11 +677,11 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
     
 
     <script integrity="sha384-JLNLRFGzvOp0up707XKgSnAjjt1w5BF/+lbeLQvlf6mNwf0m89IXFdpNAk4t6Hcs"
-        src="../../js/copy-button.js"></script>
+        src="../js/copy-button.js"></script>
     <script integrity="sha384-JBx6cBEiyhK1KPwZgBHiI6GDaAmvlOxMQFyWAZTEpW5Ifo5XQ2LBcJ61GVOumwF1"
-        src="../../js/sidebar.js"></script>
+        src="../js/sidebar.js"></script>
     <script integrity="sha384-fNURFMRt0p/HqXnQnV4+CT9dX1GiU5F0fC3pFbg7gfoANytoUMErSW7suWSBkSuF"
-        src="../../js/slider.js"></script>
+        src="../js/slider.js"></script>
     <script>updatePygmentsStylesheet();</script>
     
     
@@ -792,7 +697,7 @@ A horizontal <strong>and</strong> vertical computational grid are both required 
   ]
 }
 </script>
-  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
 
 (function(){
 var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "group", "label": "Information for Submitters", "url": "/Information_for_Submitters/", "children": [{"type": "link", "label": "Submission Guide", "url": "/Information_for_Submitters/Submission-Guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Information_for_Submitters/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an Institution", "url": "/Information_for_Submitters/Registering_an_Institution/"}, {"type": "link", "label": "Using GitHub Forms", "url": "/Information_for_Submitters/Using_GitHub_Forms/"}, {"type": "link", "label": "Error Meanings", "url": "/Information_for_Submitters/Error_Meanings/"}]}, {"type": "link", "label": "Progress Tracker", "url": "/Progress_Tracker.html"}, {"type": "group", "label": "Grid viewer", "url": "/grid_viewer/", "children": [{"type": "link", "label": "Horizontal", "url": "/grid_viewer/horizontal/"}, {"type": "link", "label": "Vertical", "url": "/grid_viewer/vertical/"}]}, {"type": "link", "label": "Model", "url": "/Model/"}, {"type": "link", "label": "EMD health", "url": "/EMD_health/"}, {"type": "group", "label": "Reviewer Guidance", "url": "/Reviewer_Guidance/", "children": [{"type": "link", "label": "Reviewer Information", "url": "/Reviewer_Guidance/Reviewer_Information/"}, {"type": "link", "label": "Interpreting The Review Summary", "url": "/Reviewer_Guidance/Interpreting_The_Review_Summary/"}, {"type": "link", "label": "Review Options", "url": "/Reviewer_Guidance/Review_Options/"}, {"type": "link", "label": "Review Checklist", "url": "/Reviewer_Guidance/Review_Checklist/"}]}, {"type": "link", "label": "Progress Feed", "url": "/Progress_Feed/"}, {"type": "group", "label": "Developer Guidance", "url": "/Developer_Guidance/", "children": [{"type": "link", "label": "Find your submissions", "url": "/Developer_Guidance/find_your_submissions.html"}, {"type": "link", "label": "Issue Templates", "url": "/Developer_Guidance/Issue_Templates/"}, {"type": "link", "label": "Workflows and Automation", "url": "/Developer_Guidance/Workflows_and_Automation/"}]}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}, {"type": "link", "label": "Editing the EMD", "url": "/Editing_the_EMD/"}];
