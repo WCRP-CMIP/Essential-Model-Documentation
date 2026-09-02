@@ -1,10 +1,10 @@
 {
-  "validation_key": "g013",
-  "ui_label": "Horizontal with multiple sites at point locations.",
-  "description": "A grid with multiple sites at different point locations.",
+  "validation_key": "g014",
+  "ui_label": "Horizontal with multiple ocean passage representations.",
+  "description": "A grid with multiple ocean passage representations.",
   "alias": [],
   "grid_mapping": "",
-  "grid_type": "discrete-points",
+  "grid_type": "discrete-lines",
   "n_cells": "",
   "region": [
     "global"
@@ -23,5 +23,5 @@
     "wcrp:horizontal_grid_cell",
     "esgvoc:HorizontalGridCell"
   ],
-  "@id": "g013"
+  "@id": "g014"
 }

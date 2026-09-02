@@ -1,22 +1,22 @@
 {
   "validation_key": "g012",
-  "ui_label": "Horizontal with multiple sites at latitude/longitude point locations.",
-  "description": "A grid with multiple sites at different latitude/longitude point locations.",
+  "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 360 x 90 degree resolution.",
+  "description": "A single grid cell for the southern hemisphere.",
   "alias": [],
   "grid_mapping": "latitude-longitude",
-  "grid_type": "discrete-points",
-  "n_cells": "",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 1,
   "region": [
-    "global"
+    "southern-hemisphere"
   ],
-  "southernmost_latitude": "",
+  "southernmost_latitude": -45,
   "temporal_refinement": "static",
   "truncation_method": "",
   "truncation_number": "",
-  "units": "",
-  "westernmost_longitude": "",
-  "x_resolution": "",
-  "y_resolution": "",
+  "units": "degree",
+  "westernmost_longitude": 180,
+  "x_resolution": 360,
+  "y_resolution": 90,
   "@context": "_context",
   "@type": [
     "emd",
