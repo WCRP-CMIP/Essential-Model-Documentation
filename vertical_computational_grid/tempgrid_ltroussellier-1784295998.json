@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784295998",
+    "ui_label": "depth grid with 75 levels.",
+    "description": "Vertical discretization uses a partial step formulation, which ensures a better representation of bottom bathymetry, with 75 levels. The initial layer thicknesses increase nonuniformly from 1 m at the surface to 10 m at 100 m depth and reaches 200 m at the bottom; they are subsequently time dependent.",
+    "bottom_layer_thickness": 407.99,
+    "n_z": 75,
+    "n_z_range": "",
+    "top_layer_thickness": 0.59451,
+    "total_thickness": 6004.2285,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784295998"
+}
