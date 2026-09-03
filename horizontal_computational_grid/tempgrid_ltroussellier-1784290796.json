@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1784290796",
+    "ui_label": "",
+    "description": "U-point (x-velocity) variables on the LMDZ regular latitude-longitude grid (2.5° x 1.3°, 20592 cells). All output relocated to cell centers.",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g242-x-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1784290796"
+}
