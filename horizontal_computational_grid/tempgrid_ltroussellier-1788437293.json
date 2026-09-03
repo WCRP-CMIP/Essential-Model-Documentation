@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1788437293",
+    "ui_label": "",
+    "description": "Icosahedral C-grid (DYNAMICO) combining hexagonal Voronoi cells (g243) for mass variables and mesh edges (g246) for velocity. Refinement level M=60, ~147 km resolution. Used by IPSL-CM7A atmosphere (DYNAMICO dynamical core) and land surface (ORCHIDEE).",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g243-mass",
+        "g246-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid",
+        "emd"
+    ],
+    "@id": "tempgrid_ltroussellier-1788437293"
+}
