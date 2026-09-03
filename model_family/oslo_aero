@@ -1,0 +1,26 @@
+{
+    "validation_key": "OSLO_AERO",
+    "ui_label": "OSLO_AERO",
+    "description": "The Oslo_Aero model is a production-tagged aerosol scheme used in NorESM.  The model uses a modal-sectional hybrid to represent the aerosol size and composition. It uses a a background aerosol distribution of 10 fixed size log-normal modes. The size of the background is then modified by material from condensation, coagulation and aqueous chemistry and mapped onto 44 size bins. It separates aerosol mass into static \"background\" tracers (which form log-normal modes to set initial number concentrations for dust, sea salt, or nucleation) and dynamic \"process\" tracers (which track aging, chemical composition changes, and mass additions like sulfate or organic condensates). It uses pre-calculated look-up tables derived from first principles to evaluate aerosol optical properties and cloud activation. It provides aerosol properties for radiation and cloud microphysical processes computed in the CAM model component.",
+    "collaborative_institutions": [
+        "su",
+        "uio"
+    ],
+    "established": 1999,
+    "family_type": "component",
+    "primary_institution": "metno",
+    "references": [
+        "https://doi.org/10.5194/gmd-11-3945-2018"
+    ],
+    "scientific_domains": [
+        "aerosol"
+    ],
+    "website": "https://github.com/NorESMhub/OSLO_AERO",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "OSLO_AERO"
+}
