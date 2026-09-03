@@ -1,0 +1,26 @@
+{
+    "validation_key": "mom5-p25",
+    "ui_label": "MOM5-p25",
+    "description": "The MOM5 ocean general circulation model, developed based on the Geophysical Fluid Dynamics Laboratory, is designed to simulate global large-scale wind-driven circulation and thermohaline circulation. MOM5 uses a quasi‑Eulerian framework with a generalized z‑coordinate, and a tripolar grid with Arakawa B‑grid staggering .  It is based on the hydrostatic primitive equations and the Boussinesq approximation, including a comprehensive set of physical processes with advanced parameterization schemes. This model serves as the oceanic component of the BCC-CSM3 coupled climate model, with a uniform global horizontal resolution of 1/4° and 50 layers in the vertical. It has a rotated bipolar grid north of 65°N that situates two poles on land (at 65°N, 100°W and 65°N, 80°E) to remove the northern ocean singularity, while the remaining pole is placed at the South Pole.",
+    "code_base": "",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "Griffies",
+        "S. M.: Elements of the Modular Ocean Model (MOM)",
+        "GFDL Ocean Group",
+        "Technical Report No. 7",
+        "NOAA/Geophysical Fluid Dynamics Laboratory",
+        "Princeton",
+        "USA",
+        "620 pp.",
+        "2012."
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mom5-p25"
+}
