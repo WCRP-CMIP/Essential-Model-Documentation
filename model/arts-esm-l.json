@@ -1,0 +1,58 @@
+{
+    "validation_key": "ARTS-ESM-L",
+    "ui_label": "ARTS-ESM-L",
+    "description": "Earth system model ARTS-ESM-L is developed on the basis of previous version INMCM48 that participated in CMIP6. ARTS-ESM-L consists of atmospheric model with interactive aerosol and land surface components and ocean model, supplemented with sea ice dynamics and thermodynamics block. This model also includes modules of carbon cycle in ocean as well as on land, allowing to perform fully coupled climate–carbon cycle simulations.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "atmosphere",
+            "aerosol"
+        ]
+    ],
+    "crs": "A[L](Ae,O)AeO[Si]",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "sea-ice",
+            "ocean"
+        ],
+        [
+            "land-surface",
+            "atmosphere"
+        ]
+    ],
+    "family": "arts-esm",
+    "model_components": [
+        "atmosphere_inmam6l_h147_v156",
+        "aerosol_inmaer2_h147_v156",
+        "land-surface_inmlnd2-1_h147_v165",
+        "ocean_inmom6l_h146_v153",
+        "sea-ice_inmice2l_h146_no-vertical"
+    ],
+    "name": "arts-esm-l",
+    "omitted_components": [],
+    "prescribed_components": [],
+    "references": [
+        "https://doi.org/10.21203/rs.3.rs-8969494/v1"
+    ],
+    "release_year": 2025,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "arts-esm-l"
+}
