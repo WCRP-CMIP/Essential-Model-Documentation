@@ -3,14 +3,15 @@
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "x-velocity", "y-velocity"
+        "x-velocity",
+        "y-velocity"
     ],
-    "horizontal_grid_cells": "g160",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g160-x-velocity-y-velocity"
+    "@id": "g160-x-velocity-y-velocity",
+    "horizontal_grid_cell": "g160"
 }

@@ -7,12 +7,12 @@
         "x-velocity",
         "y-velocity"
     ],
-    "horizontal_grid_cells": "g235",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g235-mass-x-velocity-y-velocity"
+    "@id": "g235-mass-x-velocity-y-velocity",
+    "horizontal_grid_cell": "g235"
 }

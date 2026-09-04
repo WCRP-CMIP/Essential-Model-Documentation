@@ -5,14 +5,14 @@
     "cell_variable_type": [
         "x-velocity"
     ],
-    "horizontal_grid_cells": {
-        "@id": "g103"
-    },
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g103-x-velocity"
+    "@id": "g103-x-velocity",
+    "horizontal_grid_cell": {
+        "@id": "g103"
+    }
 }

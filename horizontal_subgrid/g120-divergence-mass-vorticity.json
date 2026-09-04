@@ -7,12 +7,12 @@
         "mass",
         "vorticity"
     ],
-    "horizontal_grid_cells": "g120",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g120-divergence-mass-vorticity"
+    "@id": "g120-divergence-mass-vorticity",
+    "horizontal_grid_cell": "g120"
 }
