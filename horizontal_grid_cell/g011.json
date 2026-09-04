@@ -1,0 +1,27 @@
+{
+  "validation_key": "g011",
+  "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 360 x 90 degree resolution.",
+  "description": "A single grid cell for the northern hemisphere.",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 1,
+  "region": [
+    "northern-hemisphere"
+  ],
+  "southernmost_latitude": 45,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 180,
+  "x_resolution": 360,
+  "y_resolution": 90,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g011"
+}

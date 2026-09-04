@@ -1,0 +1,27 @@
+{
+  "validation_key": "g014",
+  "ui_label": "Horizontal grid with multiple ocean passage representations.",
+  "description": "A grid with multiple ocean passage representations.",
+  "alias": [],
+  "grid_mapping": "",
+  "grid_type": "discrete-lines",
+  "n_cells": "",
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": "",
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "",
+  "westernmost_longitude": "",
+  "x_resolution": "",
+  "y_resolution": "",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g014"
+}
