@@ -214,6 +214,18 @@ def run(parsed_issue, issue, dry_run=False):
         return None
 
     component_type = _get_component_type(component)
+    if not component_type:
+        print('\033[91m  ✗ model_component has no realm (component field is empty).\033[0m', flush=True)
+        issue_num = issue.get('number') or issue.get('issue_number')
+        if not dry_run and issue_num:
+            _post_comment(issue_num,
+                f'## ❌ Cannot link: missing realm\n\n'
+                f'The model component `{component}` has no `component` (realm) field set. '
+                f'Please fix the model_component record first, then retry.'
+            )
+            _close_issue(issue_num)
+        return None
+
     config_id   = _build_config_id(component_type, component, h_grid, v_grid)
     config_path = os.path.join('component_config', f'{config_id}.json')
     issue_num   = issue.get('number') or issue.get('issue_number')
