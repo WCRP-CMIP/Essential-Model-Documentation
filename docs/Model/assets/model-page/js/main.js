@@ -12,6 +12,7 @@ import { mountOverview } from "./components/overview.js";
 import { mountModelFamily, mountComponentsDetail } from "./components/linked-info.js";
 import { mountGrids } from "./components/grids.js";
 import { mountReferences } from "./components/references.js";
+import { mountEsgfPublication } from "./components/esgf-publication.js";
 import { mountCrsDiagram } from "./components/crs-diagram.js";
 import { mountHierarchy } from "./components/hierarchy.js";
 import { mountRawJson } from "./components/raw-json.js";
@@ -96,6 +97,7 @@ async function main() {
     mountHierarchy(full, { modelId: current, base: BASE, depth: DEPTH });
     await mountComponentsDetail(full, model, { base: BASE });
     await mountGrids(full, model, { base: BASE });
+    await mountEsgfPublication(full, model, { base: BASE });
     mountRawJson(full, model, { base: BASE });   // always the very last section
   }
 
