@@ -1,0 +1,25 @@
+{
+    "validation_key": "inmlnd2-2",
+    "ui_label": "INMLND2.2",
+    "description": "INMLND2.2 (Institute of Numerical Mathematics Land surface model, version 2.2)  simulates the transfer of heat and moisture in the upper soil layers, snow cover, vegetation, and the atmospheric surface layer (Volodin and Lykosov, 1998), as well as terrestrial part of the carbon cycle (Volodin, 2007). The snow cover scheme includes evolution of snow liquid water and snow layer density (Chernenkov et al., 2024). The model considers year-to-year changes in land cover types according to prescribed scenarios (e.g. CMIP7 land use forcing), as well as the impact of land use and harvesting on the carbon cycle (Chernenkov and Volodin, 2024). Compared to INMLND2.1, the INMLND2.2 version includes a more sophisticated parameterization of the snow fraction ratio (Swenson and Lawrence, 2012; Niu and Yang, 2007). Furthermore, INMLND2.2 takes into account additional evaporation resistance for evaporation from vegetation (proportional to LAI) and uses adjusted thermal conductivity of the upper soil layers for the case of a vegetated surface. INMLND2.2 also utilizes a dynamic roughness parameterization for 'ice' and 'snow' surface types (Suiazova et al., 2025; Owen, 1964).",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://www.researchgate.net/publication/270586916_Parameterization_of_Heat_and_Moisture_Transfer_in_the_Soil-Vegetation_System_for_Use_in_Atmospheric_General_Circulation_Models_1_Formulation_and_Simulations_Based_on_Local_Observational_Data",
+        "https://doi.org/10.1134/S0001433807030024",
+        "https://doi.org/10.3390/atmos15040422",
+        "https://doi.org/10.26089/NumMet.v25r324",
+        "https://doi.org/10.1029/2012JD018178",
+        "https://doi.org/10.1029/2007JD008674",
+        "https://doi.org/10.1134/s0001433825700902",
+        "https://doi.org/10.1017/S0022112064001173"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "inmlnd2-2"
+}

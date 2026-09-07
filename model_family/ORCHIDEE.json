@@ -1,0 +1,24 @@
+{
+    "validation_key": "ORCHIDEE",
+    "ui_label": "ORCHIDEE",
+    "description": "ORCHIDEE (Organising Carbon and Hydrology In Dynamic Ecosystems) is the land surface model of IPSL. It simulates water, energy, and carbon fluxes between the land surface and the atmosphere, including soil hydrology, vegetation dynamics, and the terrestrial carbon cycle. Land surface heterogeneity is described using fractions of different plant functional types.",
+    "collaborative_institutions": "",
+    "established": 2005,
+    "family_type": "component",
+    "primary_institution": "ipsl",
+    "references": [
+        "https://doi.org/10.1029/2019MS002010"
+    ],
+    "representative_member": "ORCHIDEE v2",
+    "scientific_domains": [
+        "land-surface"
+    ],
+    "website": "https://orchidee.ipsl.fr",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "ORCHIDEE"
+}

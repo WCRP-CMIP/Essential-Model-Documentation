@@ -1,0 +1,44 @@
+{
+    "validation_key": "NorESM",
+    "ui_label": "NorESM",
+    "description": "The Norwegian Earth System Model (NorESM) is a comprehensive global earth system model for the study of past, present and future climates with the ability to simulate mechanical, thermodynamical and biogeochemical interactions between atmosphere, ocean, land, land-ice and sea-ice components. It also features data assimilation capability for observationally constrained initialisation for predictability studies. NorESM is built on the infrastructure of Community Earth System Model (CESM) of the National Center for Atmospheric Research. With NorESM, Norway has contributed to international climate assessments and in particular Coupled Model Intercomparison Project since its 5th phase. Model configurations in the NorESM family vary with respect to complexity and resolution.",
+    "collaborative_institutions": [
+        "cicero",
+        "metno",
+        "nersc",
+        "nilu",
+        "norce",
+        "uib",
+        "uio"
+    ],
+    "established": 2007,
+    "family_type": "model",
+    "primary_institution": "ncc",
+    "references": [
+        "https://doi.org/10.5194/gmd-6-687-2013",
+        "https://doi.org/10.5194/gmd-6-389-2013",
+        "https://doi.org/10.5194/gmd-6-301-2013",
+        "https://doi.org/10.5194/gmd-13-6165-2020",
+        "https://doi.org/10.5194/gmd-13-2393-2020",
+        "https://doi.org/10.5194/gmd-14-7073-2021"
+    ],
+    "representative_member": "NorESM2-MM",
+    "scientific_domains": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-ice",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "website": "https://www.noresm.org",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "NorESM"
+}
