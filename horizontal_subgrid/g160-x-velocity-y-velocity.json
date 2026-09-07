@@ -1,11 +1,12 @@
 {
-    "validation_key": "g160-velocity",
+    "validation_key": "g160-x-velocity-y-velocity",
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "x-velocity", "y-velocity"
+        "x-velocity",
+        "y-velocity"
     ],
-    "horizontal_grid_cells": "g160",
+    "horizontal_grid_cell": "g160",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",

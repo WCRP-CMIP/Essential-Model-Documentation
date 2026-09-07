@@ -135,9 +135,9 @@ def run(parsed_issue, issue, dry_run=False):
         subgrid_data = {
             "@context":              "_context",
             "@id":                   sid,
-            "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:horizontal_subgrid"],
+            "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid", "emd"],
             "validation_key":        sid,
-            "horizontal_grid_cells": cell,
+            "horizontal_grid_cell":  cell,
         }
         # Update slot so slot_report and subgrid_ids use the normalised values
         slot = {**slot, 'cell': cell, 'variable_types': vtypes}
@@ -159,8 +159,8 @@ def run(parsed_issue, issue, dry_run=False):
     hgrid_data = {
         "@context":            "_context",
         "@id":                 temp_id,
-        "@type":               ["wcrp:horizontal_computational_grid",
-                                "esgvoc:horizontal_computational_grid"],
+        "@type":               ["emd", "wcrp:horizontal_computational_grid",
+                                "esgvoc:HorizontalComputationalGrid"],
         "validation_key":      temp_id,
         "horizontal_subgrids": subgrid_ids,
     }
@@ -176,7 +176,7 @@ def run(parsed_issue, issue, dry_run=False):
             hgrid_data[k] = ''
 
     # Ensure all spec fields present in each subgrid — assign '' if not set
-    SUBGRID_KEYS = ['validation_key', 'ui_label', 'cell_variable_type', 'horizontal_grid_cells']
+    SUBGRID_KEYS = ['validation_key', 'ui_label', 'cell_variable_type', 'horizontal_grid_cell']
     for fp, sd in files.items():
         if 'horizontal_subgrid' in fp:
             for k in SUBGRID_KEYS:

@@ -7,6 +7,7 @@ Handles both:
 """
 
 import os
+import re
 import importlib.util as _importlib_util
 # from cmipld.utils.similarity import ReportBuilder  # disabled for non-grid types
 
@@ -36,7 +37,10 @@ BAD_KEYS = {'id', 'type', 'context'}
 
 
 def _clean_id(s: str) -> str:
-    return s.strip().replace(' ', '-')
+    """Normalise a family name to a slug: spaces/underscores → dashes, strip invalid chars."""
+    s = s.strip().replace(' ', '-').replace('_', '-')
+    s = re.sub(r'[^A-Za-z0-9\-.]', '', s)
+    return s
 
 def _parse_list(value) -> list:
     if isinstance(value, list):
@@ -77,7 +81,7 @@ def run(parsed_issue, issue, dry_run=False):
 
     data = {
         "@context":       "_context",
-        "@id":            atid,
+        "@id":            atid.lower(),
         "@type":          ["emd", wcrp_type, esgvoc_type],
         "validation_key": atid,
         "ui_label":       family_name.strip(),

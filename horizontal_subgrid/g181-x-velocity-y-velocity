@@ -1,11 +1,12 @@
 {
-    "validation_key": "g181-velocity",
+    "validation_key": "g181-x-velocity-y-velocity",
     "ui_label": "",
     "description": "",
     "cell_variable_type": [
-        "x-velocity", "y-velocity"
+        "x-velocity",
+        "y-velocity"
     ],
-    "horizontal_grid_cells": "g181",
+    "horizontal_grid_cell": "g181",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",

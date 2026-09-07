@@ -4,15 +4,15 @@
     "description": "",
     "cell_variable_type": [
         "mass",
-        "x_velocity",
-        "y_velocity"
+        "x-velocity",
+        "y-velocity"
     ],
-    "horizontal_grid_cells": "g180",
+    "horizontal_grid_cell": "g180",
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_subgrid",
         "esgvoc:HorizontalSubgrid",
         "emd"
     ],
-    "@id": "g180-mass-x_velocity-y_velocity"
+    "@id": "g180-mass-x-velocity-y-velocity"
 }

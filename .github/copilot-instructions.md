@@ -212,6 +212,15 @@ Logical contradictions or structural problems that make the submission invalid â
 
 ---
 
+Metadata and JSONLD keys. 
+
+= @id and the filename should be lowercase. It should contain only letters, numbers, and hyphens. Occasionally it may also have underscores if linking hyphenated terms. 
+- @validation key should be the same as the id but can be upper case. 
+- @ui-label has flexibility to have non standard characters. 
+
+
+---
+
 If all sections are empty, write:
 
 **EMD Copilot Review:** No issues found.
