@@ -1,0 +1,18 @@
+{
+    "validation_key": "oslo-aero-v3",
+    "ui_label": "OSLO_AERO.v3",
+    "description": "Oslo_Aero.v3 is largely based on the Oslo_Aero model version in NorESM2, but has been refactored for use in CMIP7 with updates on aerosol size distribution, aerosol diagnostics and cloud interactions.",
+    "code_base": "https://github.com/NorESMhub/OSLO_AERO",
+    "component": "aerosol",
+    "family": "oslo_aero",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "oslo-aero-v3"
+}
