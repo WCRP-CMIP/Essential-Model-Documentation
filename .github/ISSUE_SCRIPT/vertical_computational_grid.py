@@ -56,8 +56,8 @@ def run(parsed_issue, issue, dry_run=False):
     data = {
         "@context":       "_context",
         "@id":            temp_id,
-        "@type":          ["wcrp:vertical_computational_grid",
-                           "esgvoc:vertical_computational_grid"],
+        "@type":          ["emd", "wcrp:vertical_computational_grid",
+                           "esgvoc:VerticalComputationalGrid"],
         "validation_key": temp_id,   # must match @id so rename workflow can update it
         "ui_label":       ui_label,
     }
