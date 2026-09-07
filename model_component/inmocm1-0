@@ -1,0 +1,18 @@
+{
+    "validation_key": "inmocm1-0",
+    "ui_label": "INMOCM1.0",
+    "description": "INMOCM1 (Institute of Numerical Mathematics Ocean Carbon Model, version 1.0) is a simple ocean biogeochemistry model (Volodin, 2007), that simulates the concentration evolution of dissolved inorganic carbon (DIC). The dynamics of DIC are defined by oceanic currents, vertical and isoneutral diffusion for temperature and salinity and fluxes from the atmosphere as well as into the deep ocean with die-off organisms.",
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1134/S0001433807030024"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "inmocm1-0"
+}
