@@ -24,7 +24,7 @@
     "scientific_domains": [
         "land-surface"
     ],
-    "shared_code_base": "private",
+    "shared_code_base": "Nested subgrid hierarchy architecture with independent biogeophysical processes per landunit/column/PFT.",
     "software_dependencies": "NetCDF, MPI, ESMF/MCT",
     "source_code_repository": "https://github.com/ESCOMP/CTSM",
     "variation_dimensions": "Version complexity, soil layers, vegetation representation, biogeochemical complexity.",
