@@ -30,7 +30,7 @@
         "ocean_biogeochemistry",
         "atmospheric_chemistry"
     ],
-    "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
+    "shared_code_base": "private",
     "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",
     "source_code_repository": "https://code.metoffice.gov.uk/",
     "variation_dimensions": "Horizontal resolution, atmospheric vertical levels, component selection, chemistry complexity.",
