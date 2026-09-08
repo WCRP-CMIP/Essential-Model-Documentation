@@ -1,0 +1,18 @@
+{
+    "validation_key": "iap-obgcmv2-0",
+    "ui_label": "IAP-OBGCMv2.0",
+    "description": "The IAP Ocean Biogeochemical General Circulation Model (IAP-OBGCMv2.0) comprises a total of 14 state variables: total dissolved inorganic carbon (DIC), total alkalinity (TA), nitrate (NO₃), ammonium (NH₄), phosphate (PO₄), dissolved iron (Fe), dissolved oxygen (O₂), non-diazotrophic phytoplankton (Phy) and diazotrophic phytoplankton (Diaz), zooplankton (Zoo), organic detritus (Det), labile dissolved organic nitrogen (LDON), labile dissolved organic carbon (LDOC), and nitrogen with other valence states (Nx). Among these, DIC, TA, PO₄, Fe, O₂, and LDOC are variables from the marine carbon cycle model IAP-OBGCMv1.0 (Xu et al., 2013), which can be run independently and drive the biogeochemical cycling of marine carbon through nutrient parameterization. The other eight variables are prognostic variables of the marine ecosystem module, all expressed in nitrogen equivalents, and can be used independently for marine ecosystem predictions. The marine ecosystem module is coupled with IAP-OBGCMv1.0 to form IAP-OBGCMv2.0, which explicitly describes the marine carbon biogeochemical cycle as driven by the marine ecosystem. The selection between the two IAP-OBGCM versions can be made via pre-compilation options (def-undef.h). In addition to the above prognostic variables, the model includes a diagnostic variable, biogenic calcium carbonate (CaCO₃). Its production rate is calculated from the rain ratio (the ratio of biogenic CaCO₃ export flux to particulate organic carbon export flux) and the production rate of particulate organic carbon (POC; a diagnostic variable in IAP-OBGCMv1.0, and calculated from detritus multiplied by the carbon-to-nitrogen ratio in IAP-OBGCMv2.0), to describe the carbonate pump.",
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.22657983"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "iap-obgcmv2-0"
+}
