@@ -1,0 +1,18 @@
+{
+    "validation_key": "cam7-nor",
+    "ui_label": "CAM7-Nor",
+    "description": "CAM7-Nor is the third version of the CAM model integration into the NorESM model. It is based on CAM7, but contains changes to tuning and embedded components such as the OSLO_AERO aerosol component.",
+    "code_base": "https://github.com/NorESMhub/CAM",
+    "component": "atmosphere",
+    "family": "cam",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam7-nor"
+}
