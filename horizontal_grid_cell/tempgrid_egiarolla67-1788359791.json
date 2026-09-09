@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_egiarolla67-1788359791",
+    "ui_label": "Horizontal grid cell with a linear spectral gaussian grid type and 1.875 x 1.875 degree resolution.",
+    "description": "**Atmospheric Model Horizontal Grid Description:** The atmospheric component utilizes a standard T62 Gaussian grid resulting from spectral truncation. It features a uniform horizontal resolution of 1.875° in longitude (192 grid points across 0°–360°E) and an approximate 1.875° spacing in latitude (94 Gaussian latitude points spanning from pole to pole). The global horizontal grid consists of a 192 × 94 array, yielding a total of 18,048 grid cells with an effective spatial resolution of approximately 200 km.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "linear-spectral-gaussian",
+    "n_cells": 18048,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -88.57217,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 62,
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 1.875,
+    "y_resolution": 1.875,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_egiarolla67-1788359791"
+}
