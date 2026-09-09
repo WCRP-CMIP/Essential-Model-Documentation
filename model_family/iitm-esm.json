@@ -1,0 +1,29 @@
+{
+    "validation_key": "IITM-ESM",
+    "ui_label": "IITM-ESM",
+    "description": "IITM-ESM focuses on understanding and simulating global and regional climate variability and change, with particular emphasis on the South Asian monsoon and its teleconnections. The model integrates atmosphere, ocean, land, sea ice and biogeochemical processes to represent key Earth-system interactions. Model development prioritizes improved process representation, coupled interactions and climate projections, particularly for the Indian region and surrounding oceans.  IITM-ESM is built on the NCEP Climate Forecast System (CFS) atmospheric framework, with MOM4p1 as the ocean component. It uses a common coupled code base integrating atmosphere, ocean, land, sea ice and biogeochemical processes. The shared physics and coupling framework supports consistent model development, evaluation and long-term climate simulations.  IITM-ESMv3-HR and IITM-ESMv3-LR share the same coupled model framework, but differ primarily in their horizontal resolution and configuration. The HR configuration (67km) provides enhanced resolution for improved representation of regional climate processes, while the LR configuration (~147km) is optimized for computationally efficient long-term coupled climate simulations.",
+    "collaborative_institutions": "",
+    "established": 2018,
+    "family_type": "model",
+    "primary_institution": "cccr-iitm",
+    "references": [
+        "https://doi.org/10.1029/2017MS001262"
+    ],
+    "representative_member": "IITM-ESMv3-HR",
+    "scientific_domains": [
+        "aerosol",
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "iitm-esm"
+}
