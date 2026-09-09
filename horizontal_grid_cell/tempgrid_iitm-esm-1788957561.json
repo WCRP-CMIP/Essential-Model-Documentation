@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_iitm-esm-1788957561",
+    "ui_label": "Horizontal grid cell with a cubic octahedral spectral reduced gaussian grid type and 67 x 70 km resolution.",
+    "description": "",
+    "alias": [
+        "TCO126"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubic-octahedral-spectral-reduced-gaussian",
+    "n_cells": 135168,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.46,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 126,
+    "units": "km",
+    "westernmost_longitude": 0,
+    "x_resolution": 67,
+    "y_resolution": 70,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_iitm-esm-1788957561"
+}
