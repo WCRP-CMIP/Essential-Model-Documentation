@@ -1,0 +1,18 @@
+{
+    "validation_key": "oslo-tropstrat-v3",
+    "ui_label": "OSLO_TropStrat.v3",
+    "description": "The OSLO_TropStrat model component is embedded in the CAM-Nor model component of the NorESM model. It is based on the TS1 troposphere-stratosphere chemistry scheme of the MOZART (Model for Ozone and Related chemical Tracers) model component in CESM, but has specific adaptations to provide interfaces to the OSLO_AERO aerosol model component. The scheme describes the chemical evolution of 205 species through gas-phase reactions (356), aqueous phase reactions (2), heterogeneous reactions (12 in the troposphere and 17 in the stratosphere) and photolysis (113).",
+    "code_base": "https://github.com/NorESMhub/CAM",
+    "component": "atmospheric-chemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/esd-16-1671-2025"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "oslo-tropstrat-v3"
+}
