@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_iitm-esm-1788961972",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 64 levels.",
+    "description": "",
+    "bottom_layer_thickness": 44,
+    "n_z": 64,
+    "n_z_range": "",
+    "top_layer_thickness": 6000,
+    "total_thickness": 58000,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_iitm-esm-1788961972"
+}
