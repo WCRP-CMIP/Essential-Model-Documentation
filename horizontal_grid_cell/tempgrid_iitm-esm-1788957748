@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_iitm-esm-1788957748",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 100 x 90 km resolution.",
+    "description": "",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 72000,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -81,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 81,
+    "x_resolution": 100,
+    "y_resolution": 90,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_iitm-esm-1788957748"
+}
