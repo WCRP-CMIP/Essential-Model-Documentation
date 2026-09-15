@@ -1,0 +1,28 @@
+{
+    "validation_key": "cam7",
+    "ui_label": "CAM7",
+    "description": "CAM7 is the atmospheric general circulation model of CESM3, developed at the NSF National Center for Atmospheric Research together with the CAM community. It simulates the resolved dynamics of the atmosphere together with parameterized turbulence, convection, clouds, precipitation, radiation, gravity-wave drag and aerosols, and is the successor to CAM6 (CESM2). The default configuration uses interactive troposphere–stratosphere chemistry from the MOZART chemical mechanism suite. CAM7 also supports a specified oxidants version with limited interactive gas-phase chemistry in the troposphere, mostly for tropospheric aerosol representation, including sulfate and organic aerosol. CAM7 is available in two vertical configurations: a Mid-Top (MT) configuration extending from the surface into the upper mesosphere (~80 km) and a Low-Top (LT) configuration extending to the upper stratosphere (~42 km).  <img width=\"1245\" height=\"504\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/bebc4fe0-54c2-4df4-bb67-b0fe88dd7602\" />  *Horizontal discretization of the `ne30pg3` grid: (a) six cubed-sphere faces, (b) 30 × 30 spectral elements per face, (c) the 4 × 4 GLL dynamics grid and the 3 × 3 physics/output grid within one element.*  Relative to CAM6 the CAM7 model has a raised model top and resolved stratosphere (enabling an internally generated QBO), doubled boundary-layer resolution, dry-mass vertical coordinate with condensate loading, separate physics grid with CSLAM transport, prognostic momentum fluxes in CLUBB, RTE-RRTMGP radiation with a transition to non-LTE longwave cooling (Fomichev et al. 1998) and additional shortwave heating from O₂ and O₃ photolysis in the upper mesosphere, updated PUMAS microphysics (with important bug fixes), and a new low-phase-speed frontal (\"moving mountain\") gravity-wave source. Removal of the CLUBB-top limiter and the extended RRTMGP temperature range allow stable simulation of very warm (hothouse) climates. CAM7 was tuned primarily in the coupled CESM3 system using both expert-guided and automated (QuadTune, perturbed-parameter ensemble) approaches; note that the CAM7 physics has therefore not been specifically tuned for AMIP-style (prescribed-SST) simulations.  <img width=\"1739\" height=\"656\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/2d1c308e-cb73-43b8-ac57-ac327bc285f6\" />  *Evolution of CAM physics, dynamical cores and vertical grids from CAM4 to CAM7.*",
+    "code_base": "https://github.com/ESCOMP/CAM",
+    "component": "atmosphere",
+    "family": "cam",
+    "references": [
+        "https://doi.org/10.1029/2025MS004957",
+        "https://doi.org/10.1029/2017MS001257",
+        "https://doi.org/10.1175/MWR-D-16-0258.1",
+        "https://doi.org/10.1175/MWR-D-18-0136.1",
+        "https://doi.org/10.5194/gmd-16-1735-2023",
+        "https://doi.org/10.1029/2019MS001621",
+        "https://doi.org/10.1029/98JD00799",
+        "https://doi.org/10.1029/2019MS001743",
+        "https://doi.org/10.1029/2025GL117854",
+        "https://doi.org/10.5194/gmd-18-9767-2025",
+        "https://doi.org/10.1029/2019MS001916"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam7"
+}
