@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789657046",
+    "ui_label": "height grid with 5 levels.",
+    "description": "Five-layer thermodynamic vertical grid of the SIS2 sea-ice model: one snow layer on top of four ice layers, defined separately for each of the five ice thickness categories (category bounds at 0.1, 0.3, 0.7 and 1.1 m). The four ice layers have equal thickness, each being one quarter of the ice thickness of the category, so the layer thicknesses vary in space and time with the local snow and ice conditions and no fixed values are reported. Ice dynamics treat the snow and ice layers as a single unit.",
+    "bottom_layer_thickness": "",
+    "n_z": 5,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_noah0kim-1789657046"
+}
