@@ -1,0 +1,18 @@
+{
+    "validation_key": "gfs",
+    "ui_label": "GFS",
+    "description": "The atmospheric component of IITM-ESMv3-HR is based on the NCEP GFS spectral model, configured at Triangular Cubic Octahedral TCO126 (126 waves) with an effective horizontal resolution of ~67 km. Key physical parameterizations include the Revised Simplified Arakawa–Schubert (SAS) convection scheme (Han et al., 2010), Zhao–Carr cloud microphysics, shortwave and longwave radiation, planetary boundary-layer turbulence, gravity-wave drag, and land–atmosphere surface fluxes. These schemes represent the key processes governing convection, cloud formation, precipitation, radiation and surface–atmosphere interactions.",
+    "code_base": "Private",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2017MS001262"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "gfs"
+}
