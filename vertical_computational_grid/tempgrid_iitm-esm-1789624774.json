@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_iitm-esm-1789624774",
+    "ui_label": "z-star grid with 50 levels.",
+    "description": "",
+    "bottom_layer_thickness": 366,
+    "n_z": 50,
+    "n_z_range": "",
+    "top_layer_thickness": 5,
+    "total_thickness": 5500,
+    "vertical_coordinate": "z-star",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_iitm-esm-1789624774"
+}
