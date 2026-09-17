@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789657623",
+    "ui_label": "depth grid with 20 levels.",
+    "description": "20-layer soil grid of the GFDL land model with fixed layer thicknesses increasing with depth from 0.02 m at the surface to 2.5 m at the bottom, reaching a total depth of 10 m (layer interfaces at 0.02, 0.06, 0.1, 0.15, 0.2, 0.3, 0.4, 0.6, 0.8, 1.0, 1.4, 1.8, 2.2, 2.6, 3.0, 4.0, 5.0, 6.0, 7.5 and 10.0 m; 10 layers within the top 1 m). The same grid is used for soil temperature, soil water and ice, and vertically resolved soil carbon. Lake tiles also use 20 layers and glacier tiles use 18 layers. The snow pack on top of the soil is represented by up to 5 additional layers whose thicknesses are fixed fractions (5, 20, 50, 20 and 5 %) of the snow depth; these are not included in the layer count.",
+    "bottom_layer_thickness": 2.5,
+    "n_z": 20,
+    "n_z_range": "",
+    "top_layer_thickness": 0.02,
+    "total_thickness": 10,
+    "vertical_coordinate": "depth",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_noah0kim-1789657623"
+}
