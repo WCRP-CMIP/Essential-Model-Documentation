@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789655440",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 49 levels.",
+    "description": "49-level hybrid sigma-pressure coordinate of the FV3 dynamical core (Lagrangian vertical coordinate with remapping to the reference hybrid levels). The model top is at 1 Pa (0.01 hPa, about 79 km). Levels are pure pressure levels above about 208 hPa (28 layers) and terrain-following hybrid levels below. The lowest layer is about 35 m thick (lowest full level at about 17 m above the surface), with 10 layers below 850 hPa and 24 layers above 100 hPa. Layer thicknesses in metres are approximate, computed for a surface pressure of 1013.25 hPa and the 1976 US Standard Atmosphere.",
+    "bottom_layer_thickness": 35,
+    "n_z": 49,
+    "n_z_range": "",
+    "top_layer_thickness": 5900,
+    "total_thickness": 79000,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_noah0kim-1789655440"
+}
