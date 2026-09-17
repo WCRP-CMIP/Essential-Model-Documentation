@@ -1,0 +1,32 @@
+{
+    "validation_key": "KIOST-ESM",
+    "ui_label": "KIOST-ESM",
+    "description": "KIOST-ESM is the family of coupled Earth system models developed at the Korea Institute of Ocean Science and Technology (KIOST) for climate variability and change research and for participation in CMIP, with a particular focus on ocean and air-sea interaction processes and the global carbon cycle.  All family members are built on the NOAA-GFDL modelling infrastructure (the Flexible Modeling System, FMS, and its coupler) and couple a finite-volume cubed-sphere atmosphere, a GFDL land model, a Modular Ocean Model (MOM) ocean with ocean biogeochemistry, and the SIS sea-ice model, with KIOST-specific modifications to physical parameterizations, tuning and configuration.  Family members differ in their base model generation, components and resolution. KIOST-ESM (CMIP6) is based on a low-resolution version of GFDL CM2.5 (about 200 km atmosphere, about 100 km MOM5 ocean), with a unified convection scheme for cumulus convection and an ocean mixed-layer parameterization that accounts for Langmuir circulation. KIOST-ESM2 (CMIP7) is based on GFDL ESM4 and uses a C96 (about 100 km) cubed-sphere atmosphere with 49 levels and interactive tropospheric-stratospheric chemistry and aerosols, a nominal 0.5 degree MOM6 ocean with 75 hybrid z*-isopycnal layers, the SIS2 sea-ice model and the COBALT ocean biogeochemistry model.",
+    "collaborative_institutions": [
+        "hyu"
+    ],
+    "established": 2025,
+    "family_type": "model",
+    "primary_institution": "kiost",
+    "references": [
+        "https://doi.org/10.1007/s12601-021-00001-7"
+    ],
+    "representative_member": "KIOST-ESM",
+    "scientific_domains": [
+        "atmosphere",
+        "aerosol",
+        "atmospheric-chemistry",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "kiost-esm"
+}
