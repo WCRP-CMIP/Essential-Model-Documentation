@@ -1,0 +1,44 @@
+{
+    "validation_key": "FGOALS-f3-L",
+    "ui_label": "FGOALS-f3-L",
+    "description": "CAS FGOALS-f3-L is composed of five components: version 2.2 of the Finite-volume Atmospheric Model (FAMIL) (Zhou et al., 2015; Bao et al., 2019; Li et al., 2019), which is the new generation atmospheric general circulation model of the Spectral Atmosphere Model of LASG (SAMIL) (Wu et al., 1996; Bao et al., 2010, 2013) (their main differences are shown in Table 1); version 3 of the LASG/IAP Climate system Ocean Model (LICOM3) (Liu et al., 2012); version 4.0 of the Community Land Model (CLM4) (Oleson et al., 2010); version 4 of the Los Alamos sea ice model (CICE4) (Hunke and Lipscomb, 2010); and version 7 of the coupled module from the National Center for Atmospheric Research (NCAR) (http://www.cesm.ucar.edu/ models/cesm1.0/cpl7/), which is used to exchange the fluxes among these components.",
+    "calendar": [
+        "standard"
+    ],
+    "coupled_components": [],
+    "crs": "ALOSiAe^",
+    "dynamic_components": [
+        "atmosphere",
+        "ocean",
+        "sea-ice",
+        "land-surface"
+    ],
+    "embedded_components": [],
+    "family": "fgoals",
+    "model_components": [
+        "atmosphere_um7.3_h102_v106",
+        "land-surface_surfex-v8-modeling-platform_h100_v101",
+        "ocean_nemo-v3-6_h101_v102",
+        "sea-ice_gelato_h101_v103"
+    ],
+    "name": "fgoals-f3-l",
+    "omitted_components": [
+        "atmospheric-chemistry",
+        "ocean-biogeochemistry",
+        "land-ice"
+    ],
+    "prescribed_components": [
+        "aerosol"
+    ],
+    "references": [
+        "https://doi.org/10.1007/s00376-019-9027-8"
+    ],
+    "release_year": 2019,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "fgoals-f3-l"
+}
