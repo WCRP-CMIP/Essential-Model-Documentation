@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789656855",
+    "ui_label": "ocean-hybrid-z-star-isopycnic-coordinate grid with 75 levels.",
+    "description": "75-layer hybrid vertical coordinate of MOM6 using the Arbitrary Lagrangian-Eulerian (ALE) algorithm with PPM_H4 remapping (HYCOM-like mode): z* coordinates in the upper ocean, with a minimum nominal layer thickness of 2 m at the surface, transitioning to isopycnal (potential density referenced to 2000 dbar, sigma2) coordinates in the ocean interior. The isopycnal target densities vary horizontally (three-dimensional target density field). The number of layers is 75 everywhere, but isopycnal layers that are denser or lighter than the local water column have vanishing thickness, so the bottom layer thickness varies in space and time from effectively zero to more than 1000 m, and no single value is reported. The maximum ocean depth is 6500 m and the minimum depth is 9.5 m.",
+    "bottom_layer_thickness": "",
+    "n_z": 75,
+    "n_z_range": "",
+    "top_layer_thickness": 2,
+    "total_thickness": 6500,
+    "vertical_coordinate": "ocean-hybrid-z-star-isopycnic-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_noah0kim-1789656855"
+}
