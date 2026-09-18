@@ -229,10 +229,29 @@ jobs:
             echo "Nothing to commit."; exit 0
           fi
           git commit -m "Rename tempgrid files with sequential ids [auto]"
+
+          # src-data is pushed by other workflows (issue-templates) and by merges
+          # in bursts, so this push can lose a race and be rejected non-fast-forward.
+          # The concurrency group above only serialises this workflow against itself.
+          # Rebase and retry; a persistent failure still surfaces on the last attempt,
+          # and the daily scheduled run recovers anything left behind.
+          for attempt in 1 2 3; do
+            git push origin src-data && exit 0
+            echo "Push rejected, rebasing onto src-data (attempt ${attempt}/3)."
+            git pull --rebase origin src-data || {
+              echo "Rebase failed; leaving these files for the scheduled run."
+              exit 1
+            }
+            sleep $((attempt * 5))
+          done
           git push origin src-data
 
+      # Skipped for pull_request events from forks: GITHUB_TOKEN is forced
+      # read-only there regardless of the permissions block above, so both the
+      # cancel and the dispatch below return 403. There is nothing to retrigger
+      # on a fork PR anyway, since no rename is committed.
       - name: Cancel and retrigger src-data-change
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
         run: |
           RUNS=$(gh run list --repo "$REPO" -w src-data-change.yml \
             --status in_progress --json databaseId --jq '.[].databaseId')
