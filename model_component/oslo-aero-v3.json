@@ -1,0 +1,18 @@
+{
+    "validation_key": "oslo-aero-v3",
+    "ui_label": "OSLO_AERO.v3",
+    "description": "The current version of the Oslo_Aero calculates concentrations and size distributions of sea-salt, mineral dust, organic matter, sulphate and black carbon. In addition, there are 4 aerosol pre-cursors gases, DMS, SO2, monoterpene and isoprene. The model uses a modal-sectional hybrid to represent the aerosol size and composition. It uses a background aerosol distribution of 10 fixed size log-normal modes. The background modes are divided into 8 modes of primary emissions, sea-salt, mineral dust and OC/BC from forest fires, 1 mode created from nucleation of sulphuric acid and low volatility organic compounds and 1 mode from implicitly assumed rapid formation and growth of sulphur particles near emission sources. The size of the background is then modified by material from condensation, coagulation and aqueous chemistry and mapped onto 44 size bins. It separates aerosol mass into static \"background\" tracers (which form log-normal modes to set initial number concentrations for dust, sea salt, or nucleation) and dynamic \"process\" tracers (which track aging, chemical composition changes, and mass additions like sulphate or organic condensates). It uses pre-calculated look-up tables derived from first principles to evaluate aerosol optical properties and cloud activation. It provides aerosol properties for radiation and cloud microphysical processes computed in the CAM model component. Oslo_Aero.v3 is largely based on the Oslo_Aero model version in NorESM2 but has been refactored for use in CMIP7 with updates on aerosol size distribution, aerosol diagnostics and cloud interactions.",
+    "code_base": "https://github.com/NorESMhub/OSLO_AERO",
+    "component": "aerosol",
+    "family": "oslo_aero",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "oslo-aero-v3"
+}
