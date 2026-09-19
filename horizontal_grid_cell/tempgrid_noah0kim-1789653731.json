@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789653731",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "MOM6 tripolar grid with nominal 0.5 degree resolution: 720 x 576 cells (414720 cells in total, including land). South of about 65N the grid is a Mercator-type latitude-longitude grid with a uniform zonal spacing of 0.5 degrees and a meridional spacing that varies from about 0.18 degrees near the southern boundary (78S) to 0.44 degrees in the subtropics, with refinement to about 0.26 degrees at the equator. North of about 65N a bipolar cap with two poles over land is used. Cell sizes vary from about 12 to 56 km in the x direction and from about 6 to 49 km in the y direction over ocean cells.",
+    "alias": [
+        "MOM6-0.5deg-mass"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 414720,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -77.91,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.25,
+    "x_resolution": 0.5,
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_noah0kim-1789653731"
+}
