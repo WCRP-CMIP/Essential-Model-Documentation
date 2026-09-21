@@ -1,0 +1,19 @@
+{
+    "validation_key": "fesim-2-8",
+    "ui_label": "FESIM 2.8",
+    "description": "1. Main processes simulated (additions only): No new processes relative to FESIM 2.7. The changes in this version are to the coupled surface thermodynamics used when FESIM runs under OpenIFS.  2. Key physics / parameterisations (new or upgraded): The coupled ice surface temperature is solved implicitly, linearised in dQ/dT about the surface temperature actually transmitted to OpenIFS at the last coupling exchange. That is the temperature at which OpenIFS evaluates its ice-tile fluxes for the coming interval, so the two components now agree on the linearisation point rather than FESIM using its own local temperature. An optional linear ramp from frozen to melting snow and ice albedo over a configurable temperature width below 273.15 K replaces the step at 273.15 K. An optional switch lets coupled snow melt follow the surface energy budget alone, as the uncoupled branch does, instead of requiring a surface temperature above 273 K.  3. Notable features of this version: The albedo ramp and the snow-melt switch are opt-in through the ice_therm namelist and default to FESIM 2.7 behaviour. The implicit surface-temperature anchor applies by default under OpenIFS coupling, falling back to the local temperature until the first coupling exchange has taken place. Two additional ice tracers are carried under OpenIFS coupling, which removes a floating-point exception at the first coupling step caused by a zero ice temperature being passed to the atmosphere.",
+    "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.8.0",
+    "component": "sea-ice",
+    "family": "fesim",
+    "references": [
+        "https://doi.org/10.5194/gmd-8-1747-2015",
+        "https://doi.org/10.5194/gmd-15-335-2022"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "fesim-2-8"
+}
