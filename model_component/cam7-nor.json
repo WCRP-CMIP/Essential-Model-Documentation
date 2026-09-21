@@ -1,0 +1,18 @@
+{
+    "validation_key": "cam7-nor",
+    "ui_label": "CAM7-Nor",
+    "description": "CAM7-Nor is the third version of the CAM model integration into the NorESM model. It is based on CAM7, the atmospheric general circulation model of CESM3 and the successor to CAM6, developed by NSF NCAR alongside the CAM community. It simulates resolved dynamics and key parameterized physical processes, including turbulence, convection, precipitation, radiation and gravity-wave drag. Horizontally a spectral-element (SE) dynamical core is used on either a 2° (ne16pg3, ~220 km) or 1° (ne30pg3, ~110 km) cubed-sphere grid. CSLAM handles tracer transport, while physics parameterizations run on a separate quasi-equal-area finite-volume grid. Vertically a hybrid dry-mass coordinate is used in a Low-Top (58 levels, ~42 km top) configuration, which doubles vertical resolution relative to CAM6. Boundary layer turbulence, shallow convection, cloud macrophysics are handled by the Cloud Layers Unified By Binormals (CLUBB) model, extended in CAM7 to include prognostic momentum fluxes and to operate above the tropopause. The Zhang-McFarlane scheme is used for deep convection. PUMAS (two-moment successor to MG2) with CAM7-Nor modifications to secondary ice nucleation and limits for ice particle numbers, is used for stratiform microphysics. Subgrid-scale orographic and gravity wave drag (GWD) is parameterized using Beljaars orographic form drag, anisotropic orographic GWD, convective (Beres) GWD, and non-orographic frontal GWD - including a low-phase-speed (\"moving mountains\") frontal source. CAM7-Nor continues to use the RRTMG longwave/shortwave radiation scheme of CAM6 for compatibility with the aerosol module, although an updated RTE+RRTMGP scheme is available in CAM7. Other differences from CAM7 are the embedded components OSLO_AERO.v3 for aerosols and OSLO_TropStrat.v3 for chemistry, along with different parameter tuning choices.",
+    "code_base": "https://github.com/NorESMhub/CAM",
+    "component": "atmosphere",
+    "family": "cam",
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam7-nor"
+}
