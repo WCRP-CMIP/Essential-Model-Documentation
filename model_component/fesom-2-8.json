@@ -1,0 +1,21 @@
+{
+    "validation_key": "fesom-2-8",
+    "ui_label": "FESOM 2.8",
+    "description": "1. Main processes simulated (additions only): Grounded icebergs are no longer held fixed. Their velocity is scaled by a factor between 0 and 1 set by how deeply the iceberg penetrates the seafloor, following Marsh et al. (2015), so icebergs can drift slowly off a shoal rather than accumulating in place. A prescribed seasonal calving cycle is restored: calving days are read per iceberg from input, and an iceberg is not advanced before its calving day.  2. Key physics / parameterisations (new or upgraded): The ice-shelf cavity freshwater flux calculation is corrected. Iceberg-related heat fluxes can be capped through a namelist switch. The iceberg trajectory calculation is fixed for grounded icebergs and no longer divides by zero at high northern latitudes.  3. Notable features of this version: Curtain output along ship tracks and moorings: vertical sections sampled along a user-supplied list of latitude and longitude vertices, joined by great circles, densified and snapped to the nearest mesh nodes. A bug in the solver preconditioner that slowed convergence in OpenMP reproducible mode is fixed. XIOS wet masking handles the freshwater and heat flux fields correctly. Runs with no icebergs are supported, halo indexing in the iceberg module is fixed, performance instrumentation is extended, and the mesh partitioner no longer overwrites existing level and edge files.",
+    "code_base": "https://github.com/FESOM/fesom2/releases/tag/2.8.0",
+    "component": "ocean",
+    "family": "fesom",
+    "references": [
+        "https://doi.org/10.5194/gmd-10-765-2017",
+        "https://doi.org/10.5194/gmd-12-4875-2019",
+        "https://doi.org/10.5194/gmd-15-335-2022",
+        "https://doi.org/10.5194/gmd-8-1547-2015"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "fesom-2-8"
+}
