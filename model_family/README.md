@@ -12,7 +12,7 @@ _No description provided yet._
 | **Entries** | 30 |
 | **Validation** | ✗ Not yet |
 | **Pydantic Model** | _Not yet implemented_ |
-| **JSON-LD** | [`emd:model_family`](https://emd.mipcvs.dev/model_family) |
+| **JSON-LD** | [`emd:model_family`](https://emd.wcrp-cmip.org/model_family) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/model_family) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
 | **Generated** | 2026-02-22 |
@@ -53,7 +53,7 @@ _No description provided yet._
 
 **Direct Access:**
 
-- JSON: [`https://emd.mipcvs.dev/model_family/access.json`](https://emd.mipcvs.dev/model_family/access.json)
+- JSON: [`https://emd.wcrp-cmip.org/model_family/access.json`](https://emd.wcrp-cmip.org/model_family/access.json)
 - Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Amodel_family/access)
 
 **Python (cmipld):**

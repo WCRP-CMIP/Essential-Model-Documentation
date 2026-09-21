@@ -11,6 +11,7 @@ by tempgrid-rename.yml, which scans existing h### files on src-data.
 """
 
 import os
+import re
 import time
 
 from cmipld.utils.id_generation import generate_id_from_issue
@@ -21,6 +22,24 @@ kind = __file__.split('/')[-1].replace('.py', '')
 
 IGNORE = {'issue_category', 'additional_collaborators', 'collaborators',
           'arrangement', 'additional_information', 'description'}
+
+# Free-text placeholders the issue form can emit for an unfilled field. These
+# must never become part of an @id (we were producing 'g250-_no response_').
+PLACEHOLDER_VALUES = {'not specified', 'none', '_no response_', 'n/a', ''}
+
+
+def _slug(value: str) -> str:
+    """
+    Normalise a free-text value into a safe @id / filename fragment.
+
+    Lowercase, then collapse every run of non-alphanumeric characters to a
+    single '-' and trim the ends. Subgrid @ids become filenames, and cmipld
+    stages those filenames with `git add`, so an @id containing whitespace or
+    a path separator (e.g. 'g251-v velocity') breaks the commit step and the
+    whole run dies before the PR/issue comments are posted.
+    """
+    return re.sub(r'[^a-z0-9]+', '-', (value or '').strip().lower()).strip('-')
+
 
 
 def _slot_fields(parsed_issue: dict, issue_body: str = '') -> list[dict]:
@@ -124,9 +143,17 @@ def run(parsed_issue, issue, dry_run=False):
     slot_report = []   # for update() summary
 
     for slot in slots:
-        # Lowercase the cell ID and variable types — these are links to other entries
-        cell       = slot['cell'].strip().lower()
-        vtypes     = sorted(v.strip().lower() for v in slot['variable_types'])
+        # Lowercase and slugify the cell ID and variable types — these are links
+        # to other entries, and they also become filenames.
+        cell       = _slug(slot['cell'])
+        if not cell:
+            print(f"\033[91m  ⚠ Slot {slot['n']}: unusable grid cell "
+                  f"'{slot['cell']}' — skipping slot.\033[0m", flush=True)
+            continue
+        vtypes     = sorted({
+            _slug(v) for v in slot['variable_types']
+            if v and v.strip().lower() not in PLACEHOLDER_VALUES
+        } - {''})
         vtype_slug = '-'.join(vtypes) if vtypes else 'untyped'
         sid        = f"{cell}-{vtype_slug}"
         file_path  = os.path.join('horizontal_subgrid', f"{sid}.json")
@@ -149,6 +176,11 @@ def run(parsed_issue, issue, dry_run=False):
         slot_report.append({**slot, 'sid': sid, 'reused': reused})
         tag = '♻ matched' if reused else '+ new'
         print(f"\033[92m  [{tag}] Slot {slot['n']}: subgrid '{sid}'\033[0m", flush=True)
+
+    if not subgrid_ids:
+        print('\033[91m  ❌ No usable subgrid slots after normalisation — '
+              'cannot build a computational grid.\033[0m', flush=True)
+        return None
 
     # Collect paths of matched subgrids so new_issue.py skips the 'file exists' check
     force_modify = {

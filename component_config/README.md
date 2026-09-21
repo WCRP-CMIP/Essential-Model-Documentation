@@ -12,7 +12,7 @@ _No description provided yet._
 | **Entries** | 7 |
 | **Validation** | ✗ Not yet |
 | **Pydantic Model** | _Not yet implemented_ |
-| **JSON-LD** | [`emd:component_config`](https://emd.mipcvs.dev/component_config) |
+| **JSON-LD** | [`emd:component_config`](https://emd.wcrp-cmip.org/component_config) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/component_config) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
 | **Generated** | 2026-02-22 |
@@ -38,7 +38,7 @@ _No description provided yet._
 
 **Direct Access:**
 
-- JSON: [`https://emd.mipcvs.dev/component_config/aerosol-tactic-h100-v100.json`](https://emd.mipcvs.dev/component_config/aerosol-tactic-h100-v100.json)
+- JSON: [`https://emd.wcrp-cmip.org/component_config/aerosol-tactic-h100-v100.json`](https://emd.wcrp-cmip.org/component_config/aerosol-tactic-h100-v100.json)
 - Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Acomponent_config/aerosol-tactic-h100-v100)
 
 **Python (cmipld):**
