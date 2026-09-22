@@ -1,0 +1,92 @@
+{
+    "validation_key": "NorESM3-LM",
+    "ui_label": "NorESM3-LM",
+    "description": "NorESM3-LM is the configuration of the Norwegian Earth System Model version 3 (NorESM3) with low horizontal resolution (L) atmosphere and land components (~220 km) and medium horizontal resolution (M) for ocean and sea-ice components (1° along the equator). In full complexity configuration, dynamic components are: atmosphere (CAM7-Nor) with embedded aerosol (OSLO_AERO.v3) and chemistry (OSLO_TropStrat.v3) components ; ocean (BLOM2) with embedded ocean-biogeochemistry (iHAMOCC2); land-surface (CLM6-FATES-Nor); sea-ice (CICE6.6.3-Nor); land-ice (CISM3-Nor). In addition, runoff is handled as a separate component (MOSART - Model for Scale Adaptive River Transport) interacting with land-surface, land-ice and ocean components. An interactive ocean surface wave component, WaveWatch3, is also available in NorESM3, but not activated in CMIP7 experiments. The overarching coupling infrastructure of NorESM3 is provided by Community Mediator for Earth Prediction Systems (CMEPS), utilising Earth System Modeling Framework (ESMF) for high-performance capabilities (e.g. run-time grid remapping and optimised parallel communication) and the National Unified Operational Prediction Capability (NUOPC) layer for interoperability between the NorESM3 components. With the Community Data Models for Earth Prediction Systems (CDEPS), NorESM can replace any dynamic components with a data component, providing a hierarchical modelling capability were various feedbacks in the coupled system can selectively be eliminated. The data components can ingest forcing data compliant with reduced complexity CMIP7 experiment protocols. For most CMIP7 experiments with dynamic atmosphere, the embedded chemistry component will be inactive and ozone and oxidants prescribed.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "land-ice"
+        ],
+        [
+            "atmosphere",
+            "land-surface"
+        ],
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "land-ice",
+            "land-surface"
+        ],
+        [
+            "land-ice",
+            "ocean"
+        ],
+        [
+            "land-surface",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "ocean"
+        ]
+    ],
+    "crs": "A[AcAe](Li,L,O,Si)Li(L,O)L(O)O[Ob](Si)Si",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-ice",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "atmospheric-chemistry",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ]
+    ],
+    "family": "noresm",
+    "model_components": [
+        "aerosol_oslo-aero-v3_h151_v163",
+        "atmosphere_cam7-nor_h151_v163",
+        "atmospheric-chemistry_oslo-tropstrat-v3_h151_v163",
+        "land-ice_cism3-nor_h145_v152",
+        "land-surface_clm6-fates-nor_h151_v164",
+        "ocean-biogeochemistry_ihamocc2_h144_v146",
+        "ocean_blom2_h144_v146",
+        "sea-ice_cice6-6-3-nor_h140_v151"
+    ],
+    "name": "noresm3-lm",
+    "omitted_components": [],
+    "prescribed_components": [],
+    "references": [
+        "https://doi.org/10.5194/gmd-13-6165-2020"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "noresm3-lm"
+}
