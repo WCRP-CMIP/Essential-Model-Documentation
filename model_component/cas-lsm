@@ -1,0 +1,19 @@
+{
+    "validation_key": "cas-lsm",
+    "ui_label": "CAS-LSM",
+    "description": "CAS-LSM (Chinese Academy of Sciences Land Surface Model) is a land-surface model developed from CLM4.5. It represents land–atmosphere exchanges of energy, water and momentum, vegetation processes, soil hydrology and thermal processes, and snow, with subgrid heterogeneity represented through land units, soil columns and plant functional types. CAS-LSM extends this framework with human water use and soil freeze–thaw front dynamics. Additional optional capabilities documented in the model publications include lateral groundwater flow, riverine dissolved inorganic nitrogen transport, and urban processes. Activation of these capabilities depends on the model configuration. The component is coupled to the FGOALS climate system through CPL7.",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "clm",
+    "references": [
+        "https://doi.org/10.1029/2020MS002171",
+        "https://doi.org/10.1029/2020MS002339"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cas-lsm"
+}
