@@ -12,7 +12,7 @@ Horizontal computational grid description (EMD v1.0 Section 4.1.1). A model comp
 | **Entries** | 4 |
 | **Validation** | ✓ Validated |
 | **Pydantic Model** | [`HorizontalComputationalGrid`](https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/horizontal_computational_grid.py) |
-| **JSON-LD** | [`emd:horizontal_computational_grid`](https://emd.mipcvs.dev/horizontal_computational_grid) |
+| **JSON-LD** | [`emd:horizontal_computational_grid`](https://emd.wcrp-cmip.org/horizontal_computational_grid) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/horizontal_computational_grid) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
 | **Generated** | 2026-02-22 |
@@ -74,7 +74,7 @@ def validate_at_least_one_subgrid(cls, v):
 
 **Direct Access:**
 
-- JSON: [`https://emd.mipcvs.dev/horizontal_computational_grid/h100.json`](https://emd.mipcvs.dev/horizontal_computational_grid/h100.json)
+- JSON: [`https://emd.wcrp-cmip.org/horizontal_computational_grid/h100.json`](https://emd.wcrp-cmip.org/horizontal_computational_grid/h100.json)
 - Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Ahorizontal_computational_grid/h100)
 
 **Python (cmipld):**

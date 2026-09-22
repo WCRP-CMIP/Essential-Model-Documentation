@@ -12,7 +12,7 @@ Horizontal subgrid description (EMD v1.0 Section 4.1.2). A horizontal subgrid de
 | **Entries** | 7 |
 | **Validation** | ✓ Validated |
 | **Pydantic Model** | [`HorizontalSubgrid`](https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/horizontal_subgrid.py) |
-| **JSON-LD** | [`emd:horizontal_subgrid`](https://emd.mipcvs.dev/horizontal_subgrid) |
+| **JSON-LD** | [`emd:horizontal_subgrid`](https://emd.wcrp-cmip.org/horizontal_subgrid) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/horizontal_subgrid) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
 | **Generated** | 2026-02-22 |
@@ -59,7 +59,7 @@ A description of the characteristics and location of the grid cells of this subg
 
 **Direct Access:**
 
-- JSON: [`https://emd.mipcvs.dev/horizontal_subgrid/s100.json`](https://emd.mipcvs.dev/horizontal_subgrid/s100.json)
+- JSON: [`https://emd.wcrp-cmip.org/horizontal_subgrid/s100.json`](https://emd.wcrp-cmip.org/horizontal_subgrid/s100.json)
 - Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Ahorizontal_subgrid/s100)
 
 **Python (cmipld):**

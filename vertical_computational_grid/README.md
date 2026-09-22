@@ -12,7 +12,7 @@ Vertical computational grid description (EMD v1.0 Section 4.2). The model compon
 | **Entries** | 7 |
 | **Validation** | ✓ Validated |
 | **Pydantic Model** | [`VerticalComputationalGrid`](https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/vertical_computational_grid.py) |
-| **JSON-LD** | [`emd:vertical_computational_grid`](https://emd.mipcvs.dev/vertical_computational_grid) |
+| **JSON-LD** | [`emd:vertical_computational_grid`](https://emd.wcrp-cmip.org/vertical_computational_grid) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/vertical_computational_grid) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
 | **Generated** | 2026-02-22 |
@@ -135,7 +135,7 @@ def validate_vertical_coordinate(cls, v):
 
 **Direct Access:**
 
-- JSON: [`https://emd.mipcvs.dev/vertical_computational_grid/v100.json`](https://emd.mipcvs.dev/vertical_computational_grid/v100.json)
+- JSON: [`https://emd.wcrp-cmip.org/vertical_computational_grid/v100.json`](https://emd.wcrp-cmip.org/vertical_computational_grid/v100.json)
 - Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Avertical_computational_grid/v100)
 
 **Python (cmipld):**
