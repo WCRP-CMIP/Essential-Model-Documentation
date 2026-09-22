@@ -10,7 +10,7 @@ Development repository for the EMD. This will link into the CVs and Universe Rep
 -------
 
 > [!NOTE]
-> FULL Documentation can be found at https://emd.mipcvs.dev/docs
+> FULL Documentation can be found at https://emd.wcrp-cmip.org/docs
 > 
 > This is also mirrored at: https://wcrp-cmip.github.io/Essential-Model-Documentation/docs
 > #### THIS REPOSITORY IS CURRENTLY UNDER ACTIVE DEVELOPMENT

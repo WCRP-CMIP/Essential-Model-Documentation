@@ -12,7 +12,7 @@ Top-level model description (EMD v1.0 Section 2). The following properties provi
 | **Entries** | 1 |
 | **Validation** | ✓ Validated |
 | **Pydantic Model** | [`Model`](https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/model.py) |
-| **JSON-LD** | [`emd:model`](https://emd.mipcvs.dev/model) |
+| **JSON-LD** | [`emd:model`](https://emd.wcrp-cmip.org/model) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/model) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
 | **Generated** | 2026-02-22 |
@@ -265,7 +265,7 @@ The year in which the top-level model being documented was released, or first us
 
 **Direct Access:**
 
-- JSON: [`https://emd.mipcvs.dev/model/cnrm-esm2-1e.json`](https://emd.mipcvs.dev/model/cnrm-esm2-1e.json)
+- JSON: [`https://emd.wcrp-cmip.org/model/cnrm-esm2-1e.json`](https://emd.wcrp-cmip.org/model/cnrm-esm2-1e.json)
 - Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Amodel/cnrm-esm2-1e)
 
 **Python (cmipld):**

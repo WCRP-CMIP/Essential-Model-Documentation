@@ -43,7 +43,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 # cmipld provides the LDR client, which knows the alt-base mappings (so
-# https://emd.mipcvs.dev/... is checked against wcrp-cmip.github.io/...
+# https://emd.wcrp-cmip.org/... is checked against wcrp-cmip.github.io/...
 # transparently).
 import cmipld
 
