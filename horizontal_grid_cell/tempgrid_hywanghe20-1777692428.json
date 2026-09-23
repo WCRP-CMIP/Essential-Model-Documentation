@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_hywanghe20-1777692428",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 2 x 2 degree resolution.",
+    "description": "No response",
+    "alias": [
+        "GAMIL3"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 14400,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 2,
+    "y_resolution": 2,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_hywanghe20-1777692428"
+}
