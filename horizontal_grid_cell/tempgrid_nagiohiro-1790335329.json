@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_nagiohiro-1790335329",
+    "ui_label": "Horizontal grid cell with a regular gaussian grid type.",
+    "description": "The horizontal grid is the same T85 Gaussian grid used for the MIROC6 atmosphere in CMIP6.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-gaussian",
+    "n_cells": 32768,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.462822,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 85,
+    "units": "",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_nagiohiro-1790335329"
+}
