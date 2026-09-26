@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_egiarolla67-1788358065",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "**Ocean Model Horizontal Grid Description:** The ocean component uses a tripolar horizontal grid with a uniform longitudinal resolution of 1.0° (spanning -280° to 80°). In latitude, the grid spacing varies smoothly: it is set to 0.25° in the equatorial region (10°S–10°N), increasing uniformly to 1.0° in mid-latitudes at 45°S and 45°N, and then refining gradually to 0.5° toward the poles (-90° and 90°). The tripolar fold is joined at 65°N.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 112320,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": 89.75,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 80,
+    "x_resolution": 1,
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_egiarolla67-1788358065"
+}
