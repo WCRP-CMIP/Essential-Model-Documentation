@@ -1,9 +1,9 @@
 {
   "@context": {
     "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/component_config/",
-    "@base": "https://emd.wcrp-cmip.org/component_config/",
+    "@base": "https://emd.mipcvs.dev/component_config/",
     "@esgvoc": "ComponentConfig",
-    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/ComponentConfig/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/ComponentConfig/",
     "horizontal_computational_grid": {
       "@context": "https://emd.wcrp-cmip.org/horizontal_computational_grid/_context",
       "@type": "@id"
@@ -38,6 +38,7 @@
     {"@id": "land-surface_hd-hydrological-discharge_h134_no-vertical"},
     {"@id": "aerosol_matrix_h132_v155"},
     {"@id": "land-surface_jules-v5-3_h113_v117"},
+    {"@id": "atmosphere_cam7_h149_v162"},
     {"@id": "land-surface_jules-vn5-1_h113_v117"},
     {"@id": "atmosphere_um7-3_h102_v106"},
     {"@id": "atmosphere_canam6_h115_v128"},
