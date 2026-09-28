@@ -1,0 +1,27 @@
+{
+    "validation_key": "GAMIL",
+    "ui_label": "GAMIL",
+    "description": "All GAMIL versions (from 1 to 3) share the same finite difference dynamical core that adopts semi-implicit external gravity wave scheme and uses a weighted equal area in high latitudes to compute stably in the polar regions without any filtering or smoothing (Wang et al., 2004). In this dynamical core, the total mass is conserved, and total effective energy conservation is also conserved under the standard stratification approximation. A latitude-longitude grid is used in the horizontal and a σ coordinate in the vertical based on the air pressure normalized by surface pressure with the model top at 2.194 hPa. The advection scheme is a two-step shape-preserving advection scheme (TSPAS) (Yu, 1994). The physical processes of GAMIL1 were initially taken from the Community Atmospheric Model version 2 (CAM2) (Collins et al., 2003), and then the convection parameterization, cumulus cloud fraction, and cloud microphysical scheme were upgraded in its second version (GAMIL2) along with tuning of 14 uncertain parameters (Li, Wang, et al., 2013).",
+    "collaborative_institutions": "",
+    "established": 2004,
+    "family_type": "component",
+    "primary_institution": "cas",
+    "references": [
+        "https://doi.org/10.1360/04za0001",
+        "https://doi.org/10.1007/s00376-013-2157-5",
+        "https://doi.org/10.1029/2020JD032574",
+        "https://doi.org/10.1029/2025JD045495"
+    ],
+    "representative_member": "GAMIL3",
+    "scientific_domains": [
+        "atmosphere"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "gamil"
+}
