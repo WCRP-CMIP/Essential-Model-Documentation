@@ -1,11 +1,11 @@
 {
   "validation_key": "g142",
   "ui_label": "Horizontal grid cell with a icosahedral geodesic grid type and 80 x 80 km resolution.",
-  "description": "",
+  "description": "Icosahedral nearly uniform-density grid at 80 km grid spacing. Used for atmosphere and land variables.",
   "alias": [
     
   ],
-  "grid_mapping": "latitude-longitude",
+  "grid_mapping": "latitude_longitude",
   "grid_type": "icosahedral-geodesic",
   "n_cells": 81920,
   "region": [
