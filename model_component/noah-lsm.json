@@ -1,0 +1,19 @@
+{
+    "validation_key": "noah-lsm",
+    "ui_label": "NOAH-LSM",
+    "description": "The IITM-ESM uses the Noah Land Surface Model (Noah-LSM) inherited from the CFSv2 framework to represent land–atmosphere interactions. It simulates soil temperature and moisture dynamics, surface energy and water balances, evapotranspiration, runoff, snow processes, and turbulent heat and moisture exchanges across multiple soil layers. The land-surface processes are based on the formulation of Ek et al. (2003), providing a physically consistent representation of land-surface hydrology and energy exchanges within the coupled Earth-system framework.",
+    "code_base": "",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2017MS001262",
+        "https://doi.org/10.1029/2002JD003296"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "noah-lsm"
+}
