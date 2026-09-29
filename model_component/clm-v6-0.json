@@ -1,0 +1,19 @@
+{
+    "validation_key": "clm-v6-0",
+    "ui_label": "CLM v6.0",
+    "description": "The Community Land Model version 6 (CLM6) simulates the exchange of water, energy, carbon and nitrogen between the atmosphere and terrestrial biosphere.  CLM6 represents physics, hydrology, trace gas production, snow, and soil biogeochemistry using similar approaches to CLM5. The model simulates prognostic fire, explicit crop management, permafrost soil physics and biogeochemistry, coupled carbon-nitrogen biogeochemistry, biogenic volatile organic compounds, and urban processes. Notable updates and improvements include new surface datasets, surface roughness scheme, dust module, fire model parameterization, biomass heat storage, snow albedo module, as well as additions of transient urban characteristics and lake datasets.",
+    "code_base": "https://github.com/ESCOMP/ctsm",
+    "component": "land-surface",
+    "family": "clm",
+    "references": [
+        "https://doi.org/10.1029/2018MS001583",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "clm-v6-0"
+}
