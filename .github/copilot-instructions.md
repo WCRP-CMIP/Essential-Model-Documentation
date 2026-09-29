@@ -1,6 +1,7 @@
 Before starting any review, read the following reference files in full:
 - `.github/emd-review-ref.json` — EMD field constraints, valid ranges, and CV rules (EMD v1.1 §2-4,7)
 - `.github/grids-review-ref.json` — CMIP7 output grid rules and nominal_resolution algorithm (Grids v2.0)
+- - `.github/review-checklist.ref` — Previous review comments that may be useful
 
 # GitHub Copilot Review Instructions — Essential Model Documentation (EMD)
 
