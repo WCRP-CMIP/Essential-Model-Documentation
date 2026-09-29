@@ -1,0 +1,76 @@
+{
+    "validation_key": "GISS-E3-1",
+    "ui_label": "GISS-E3.1",
+    "description": "This is the basic description of the GISS Earth System Model version being used for CMIP7. It couples the GISS Atmosphere, GISS Ocean, GISS sea ice, and (optionally interactive) aerosols and chemistry (and diagnostic carbon cycle).",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ],
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "aerosol",
+            "ocean-biogeochemistry"
+        ],
+        [
+            "aerosol",
+            "atmospheric-chemistry"
+        ],
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "atmospheric-chemistry",
+            "atmosphere"
+        ]
+    ],
+    "crs": "A[L](Ac,Ae,O,Si)Ac(Ae)Ae(Ob)O(Si)ObSiLi^",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "land-surface",
+            "atmosphere"
+        ]
+    ],
+    "family": "giss-e",
+    "model_components": [
+        "aerosol_matrix_h132_v155",
+        "atmosphere_giss-atmospheric-model-v3-1_h132_v155",
+        "ocean_giss-ocean-model_h160_v154"
+    ],
+    "name": "giss-e3-1",
+    "omitted_components": [],
+    "prescribed_components": [
+        "land-ice"
+    ],
+    "references": [
+        "https://doi.org/10.22541/essoar.15005381/v1 Other papers are still in preparation."
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "giss-e3-1"
+}
