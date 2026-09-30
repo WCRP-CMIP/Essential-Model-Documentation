@@ -1,0 +1,29 @@
+{
+    "validation_key": "MARBL",
+    "ui_label": "MARBL",
+    "description": "The Marine Biogeochemistry Library (MARBL) is the ocean biogeochemistry model in CESM versions 2 and 3. It is based on BEC, the Biogeochemistry Elemental Cycle model that was in CESM version 1. MARBL simulates marine carbon, nutrient, and oxygen cycling, including a representation of the planktonic marine ecosystem (NPZD-type); in CESM3 MARBL is configured with 4 phytoplankton types and 2 zooplankton types. MARBL has riverine inputs and sediment burial of nutrients and carbon.",
+    "collaborative_institutions": [
+        "uci"
+    ],
+    "established": 2004,
+    "family_type": "component",
+    "primary_institution": "ncar",
+    "references": [
+        "https://doi.org/10.1029/2004GB002220",
+        "https://doi.org/10.1175/JCLI-D-12-00566.1",
+        "https://doi.org/10.1029/2021MS002647",
+        "https://doi.org/10.1016/j.pocean.2024.103314"
+    ],
+    "representative_member": "CESM2",
+    "scientific_domains": [
+        "ocean-biogeochemistry"
+    ],
+    "website": "https://github.com/marbl-ecosys/MARBL",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "marbl"
+}
