@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_iitm-esm-1789625416",
+    "ui_label": "",
+    "description": "MOM4p1 uses an Arakawa B-grid horizontal discretization, in which the horizontal velocity components (u and v) are located at the corners of the tracer (T) grid cells, while scalar quantities such as temperature, salinity, and sea-surface height are defined at the cell centers.",
+    "arrangement": "arakawa-b",
+    "horizontal_subgrids": [
+        "g250-mass",
+        "g250-x-velocity-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_iitm-esm-1789625416"
+}
