@@ -1,0 +1,18 @@
+{
+    "validation_key": "topaz",
+    "ui_label": "TOPAZ",
+    "description": "The TOPAZ (Tracers of Ocean Phytoplankton with Allometric Zooplankton) model is the comprehensive ocean biogeochemistry component available within MOM4p1, designed to represent the interactions between marine ecosystems and oceanic biogeochemical cycles. It simulates multiple tracers associated with the carbon, nitrogen, phosphorus, silicon, iron, oxygen, and alkalinity cycles, along with phytoplankton and zooplankton dynamics. The model represents phytoplankton functional groups with growth regulated by light, temperature, and nutrient availability, including nitrogen, phosphorus, and iron limitation, and accounts for processes such as nutrient recycling and particle export. Through its representation of marine productivity, carbon cycling, and air–sea CO₂ exchange, TOPAZ enables MOM4p1-based Earth-system simulations to capture important ocean–carbon–climate feedbacks.",
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2017MS001262"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "topaz"
+}
