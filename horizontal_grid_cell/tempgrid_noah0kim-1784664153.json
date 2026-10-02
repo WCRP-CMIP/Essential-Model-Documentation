@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_noah0kim-1784664153",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type.",
+    "description": "Gnomonic (FV3 grid_type=0) cubed-sphere grid C96: six tiles of 96 x 96 cells (55296 cells in total), no stretching or nesting. Cell sizes are not uniform: cell width ranges from about 82 km (tile corners) to 116 km (tile centres), with a mean of about 96 km (nominal resolution 100 km).",
+    "alias": [
+        "C96-mass"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 55296,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.27,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 35,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_noah0kim-1784664153"
+}
