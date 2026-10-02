@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789688945",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type.",
+    "description": "Cells centred on the y-velocity (v) points of the FV3 D-grid on the C96 gnomonic cubed-sphere grid (FV3 grid_type=0)",
+    "alias": [
+        "C96-y-velocity"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "cubed-sphere",
+    "n_cells": 55296,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.48,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 170,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_noah0kim-1789688945"
+}
