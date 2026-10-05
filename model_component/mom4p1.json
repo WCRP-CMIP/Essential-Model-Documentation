@@ -1,0 +1,18 @@
+{
+    "validation_key": "mom4p1",
+    "ui_label": "MOM4p1",
+    "description": "The ocean component of IITM-ESMv3-HR is based on the MOM4p1 (Modular Ocean Model version 4.1). Key physical parameterizations include Gent–McWilliams/Redi mesoscale eddy mixing, K-profile parameterization (KPP) for vertical mixing, bottom boundary-layer processes, and sea-surface boundary fluxes. The model represents the key processes governing ocean circulation, heat and freshwater transport, mixed-layer evolution, mesoscale eddies, and air–sea interactions, which are central to the simulation of ocean heat transport, AMOC and climate variability.",
+    "code_base": "private",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2017MS001262"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mom4p1"
+}
