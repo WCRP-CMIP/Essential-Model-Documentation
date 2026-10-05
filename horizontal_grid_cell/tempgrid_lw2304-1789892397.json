@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_lw2304-1789892397",
+    "ui_label": "Horizontal grid cell with a stretched grid type.",
+    "description": "Global structured latitude–longitude grid (gamil2x2) used by the land-surface component of FGOALS-g3.5, with 180 longitude points and 80 latitude points. Longitudes are uniformly spaced at 2 degrees, from 0 to 358 degrees east. Latitudes extend from 90 degrees south to 90 degrees north, with approximately 2.025316-degree spacing at low and middle latitudes and progressively larger spacing towards the poles, reaching approximately 5.181142 degrees between adjacent latitude points. The grid is fixed in time and is non-Gaussian. “Stretched” is selected to represent the non-uniform meridional spacing. The cell count of 14,400 refers to the full horizontal grid before applying the land mask.",
+    "alias": [
+        "gamil2x2"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "stretched",
+    "n_cells": 14400,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 2,
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_lw2304-1789892397"
+}
