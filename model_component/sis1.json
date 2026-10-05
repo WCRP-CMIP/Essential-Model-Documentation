@@ -1,0 +1,18 @@
+{
+    "validation_key": "sis1",
+    "ui_label": "SIS1",
+    "description": "The sea-ice component uses the GFDL Sea Ice Simulator. It represents sea ice and snow using multiple vertical layers, and accounts for a range of sea-ice thickness categories. The model represents sea-ice dynamics using an elastic–viscous–plastic formulation and sea-ice thermodynamics following established energy-balance formulations, enabling simulation of ice motion, growth, melting, and interactions with the ocean and atmosphere.",
+    "code_base": "",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2017MS001262"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "sis1"
+}
