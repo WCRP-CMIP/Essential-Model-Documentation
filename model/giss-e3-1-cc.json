@@ -1,0 +1,78 @@
+{
+    "validation_key": "GISS-E3-1-CC",
+    "ui_label": "GISS-E3.1-CC",
+    "description": "This is the basic description of the GISS Earth System Model version being used for CMIP7. It couples the GISS Atmosphere, GISS Ocean, GISS sea ice, the NASA Ocean Biogeochemistry Model (NOBM) and (optionally interactive) MATRIX aerosols and chemistry, and a complete carbon cycle to allow for CO2 emission driven simulations. Depending on the physics version, the MATRIX aerosol and gas phase chemistry are calculated interactively, or are read in (from a pre-calculated atmospheric run). Interactive simulations are have short-lived climate forcers emissions prescribed. Sea ice runs on the ocean model grid. The land ice component is prescribed, but the implicit mass balance is calculated and used to feed discharge into the ocean on a region by region basis. Changing freshwater fluxes from the (prescribed) land ice component are read in based on observations (or separately calculated simulations). Some experiments will be run using an interactive fire module. The carbon cycle is fully interactive impacting the atmospheric CO2 and ocean albedo.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "atmospheric-chemistry",
+            "atmosphere"
+        ],
+        [
+            "aerosol",
+            "ocean-biogeochemistry"
+        ]
+    ],
+    "crs": "A[L](Ac,Ae,O,Si)AcAe(Ob)O(Ob,Si)ObSiLi^",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "land-surface",
+            "atmosphere"
+        ]
+    ],
+    "family": "giss-e",
+    "model_components": [
+        "ocean-biogeochemistry_nobmg_h160_v154",
+        "aerosol_matrix_h132_v155",
+        "atmosphere_giss-atmospheric-model-v3-1_h132_v155",
+        "ocean_giss-ocean-model_h160_v154"
+    ],
+    "name": "giss-e3-1-cc",
+    "omitted_components": [],
+    "prescribed_components": [
+        "land-ice"
+    ],
+    "references": [
+        "https://doi.org/10.22541/essoar.15005381/v1",
+        "https://doi.org/10.5194/gmd-19-9131-2026"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "giss-e3-1-cc"
+}
