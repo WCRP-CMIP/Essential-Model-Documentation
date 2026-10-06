@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_nagiohiro-1791270859",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 90 levels.",
+    "description": "This vertical grid consists of 91 half-levels defining 90 model layers and uses a hybrid sigma-pressure coordinate. The half-level pressure is defined as p = a2 + a3 ps, where a2 is in hPa and a3 is dimensionless. This 90-layer configuration is different from the 81-layer vertical grid used for the MIROC6 atmosphere in CMIP6. The a2 and a3 coefficients defining the half-levels are provided below.  (a_2) (hPa): 0.0000, 2.5769, 6.1846, 11.338, 17.523, 25.254, 34.531, 45.354, 57.207, 70.607, 85.038, 100.50, 119.05, 141.73, 168.53, 199.45, 231.41, 263.88, 292.56, 317.85, 340.10, 302.17, 268.88, 239.69, 214.12, 191.71, 172.08, 154.88, 139.80, 126.57, 114.95, 104.74, 95.750, 87.826, 80.833, 74.649, 69.122, 64.004, 59.266, 54.878, 50.815, 47.052, 43.569, 40.339, 37.342, 34.559, 31.971, 29.563, 27.321, 25.233, 23.286, 21.471, 19.778, 18.198, 16.724, 15.349, 14.066, 12.869, 11.753, 10.712, 9.7436, 8.8418, 8.0032, 7.2244, 6.5018, 5.8326, 5.2137, 4.6427, 4.1168, 3.6338, 3.1915, 2.7878, 2.4205, 2.0879, 1.7880, 1.5190, 1.2791, 1.0666, 0.87986, 0.71704, 0.57647, 0.45645, 0.35525, 0.26415, 0.18611, 0.12303, 0.075427, 0.042303, 0.021356, 0.0095203, 0.0000.  (a_3) (dimensionless): 1.0000, 0.99242, 0.98182, 0.96666, 0.94848, 0.92575, 0.89847, 0.86665, 0.83179, 0.79239, 0.74996, 0.70450, 0.64995, 0.58327, 0.50447, 0.41355, 0.31959, 0.22412, 0.13978, 0.065434, followed by 0.0000 for half-levels 21–91.",
+    "bottom_layer_thickness": "",
+    "n_z": 90,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_nagiohiro-1791270859"
+}
