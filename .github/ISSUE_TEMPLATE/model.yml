@@ -375,6 +375,7 @@ body:
         - "land-surface_mcm-ua-1-0land_h133_no-vertical"
         - "land-surface_moses2-1_h136_v117"
         - "land-surface_mri-agcm4-4-land-surface_h126_v131"
+        - "land-surface_noah-lsm_h163_v173"
         - "land-surface_surfex-v8-modeling-platform_h100_v101"
         - "ocean-biogeochemistry_cmoc_h111_v133"
         - "ocean-biogeochemistry_cmoc_h117_v107"
@@ -436,6 +437,7 @@ body:
         - "sea-ice_si3-cannemo_h117_v134"
         - "sea-ice_si3-gosi9_h110_v107"
         - "sea-ice_si3-gosi9_h118_v107"
+        - "sea-ice_sis1_h162_v174"
         - "sea-ice_sis2_h123_no-vertical"
     validations:
       required: true
