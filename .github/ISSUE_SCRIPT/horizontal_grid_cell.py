@@ -81,6 +81,11 @@ def run(parsed_issue, issue, dry_run=False):
     created_at = issue.get('created_at') or ''
     temp_id    = f"tempgrid_{generate_id_from_issue(author, created_at)['id']}" \
                  if created_at else f"tempgrid_{author}_{int(time.time())}"
+    # The author's GitHub handle may contain capitals. The JSON validator
+    # normalises @id to lowercase and renames the file to match, which breaks
+    # the caller that re-opens the path it wrote. Lowercase here so no rename
+    # is ever needed, and @id and validation_key stay in step.
+    temp_id    = temp_id.lower()
     file_path  = os.path.join('horizontal_grid_cell', f"{temp_id}.json")
 
     region = (parsed_issue.get('region') or '').strip().lower()

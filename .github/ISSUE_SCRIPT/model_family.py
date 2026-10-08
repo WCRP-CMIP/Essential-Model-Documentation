@@ -38,7 +38,7 @@ BAD_KEYS = {'id', 'type', 'context'}
 
 def _clean_id(s: str) -> str:
     """Normalise a family name to a slug: spaces/underscores → dashes, strip invalid chars."""
-    s = s.strip().replace(' ', '-').replace('_', '-')
+    s = s.strip().lower().replace(' ', '-').replace('_', '-')
     s = re.sub(r'[^A-Za-z0-9\-.]', '', s)
     return s
 
