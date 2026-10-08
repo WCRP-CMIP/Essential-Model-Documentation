@@ -1,0 +1,19 @@
+{
+    "validation_key": "lmdz6-5",
+    "ui_label": "LMDZ6.5",
+    "description": "LMDZ atmospheric general circulation model (IPSL).",
+    "code_base": "",
+    "component": "atmosphere",
+    "family": "lmdz",
+    "references": [
+        "https://doi.org/10.1029/2019MS001892",
+        "https://doi.org/10.1029/2020MS002225"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "lmdz6-5"
+}
