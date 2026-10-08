@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_ltroussellier-1791465946",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g111-mass",
+        "g242-x-velocity",
+        "g244-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_ltroussellier-1791465946"
+}
