@@ -1,0 +1,18 @@
+{
+    "validation_key": "orchidee-v2",
+    "ui_label": "ORCHIDEE v2",
+    "description": "ORCHIDEE land surface model (IPSL).",
+    "code_base": "",
+    "component": "land-surface",
+    "family": "orchidee",
+    "references": [
+        "https://doi.org/10.1029/2019MS002010"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "orchidee-v2"
+}
