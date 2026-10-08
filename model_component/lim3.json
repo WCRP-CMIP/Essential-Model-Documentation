@@ -1,0 +1,19 @@
+{
+    "validation_key": "lim3",
+    "ui_label": "LIM3",
+    "description": "LIM3.6 sea ice model, embedded in NEMO.",
+    "code_base": "",
+    "component": "sea-ice",
+    "family": "lim",
+    "references": [
+        "https://doi.org/10.5194/gmd-8-2991-2015",
+        "https://doi.org/10.1016/j.ocemod.2008.11.003"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "lim3"
+}
