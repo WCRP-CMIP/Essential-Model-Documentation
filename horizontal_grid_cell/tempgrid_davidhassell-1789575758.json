@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_davidhassell-1789575758",
+    "ui_label": "Horizontal grid cell with a cubed sphere grid type.",
+    "description": "A grid of ocean basins, each of which is represented by zonal cells that extend to the full width of each basin at each latitude.",
+    "alias": [
+        "Ocean basins"
+    ],
+    "grid_mapping": "",
+    "grid_type": "cubed-sphere",
+    "n_cells": "",
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.5,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_davidhassell-1789575758"
+}
