@@ -9,6 +9,6 @@ Use this form to change one or more fields in an existing JSON file on `src-data
 3,input,filename,Filename,"Filename to modify (with or without `.json`).",none,true,canesm5-1,,
 4,input,key,Field name,"The JSON key (top-level only) to add or replace. Leave blank if you are using **Changes** below.",none,false,description,,
 5,textarea,value,New value,"The new value. If it parses as JSON (e.g. a list, number, boolean, or object) it is stored as that type; otherwise it is stored as a string. Leave blank if you are using **Changes**.","none",false,"A scientific overview of the model...",,
-6,textarea,changes,Changes,"Optional. Change several fields at once with a JSON object of field name to new value. Use this instead of **Field name** / **New value**, not alongside them.","none",false,"{""n_cells"": 220509, ""southernmost_latitude"": -85.3556519090144}",,
+6,textarea,changes,Changes,"Optional. Change several fields at once with a JSON object of field name to new value. Use this instead of **Field name** / **New value**, not alongside them.","none",false,,,
 7,textarea,justification,Justification,"Explain why this change is needed. Reviewers will use this to decide whether to approve the change.",none,true,"e.g. The release_year was originally entered as 2022 but the model paper was published in 2024.",,
 8,input,collaborators,Additional Collaborators,GitHub usernames of additional contributors (comma-separated).,none,false,"user1,user2,user3,...",,
