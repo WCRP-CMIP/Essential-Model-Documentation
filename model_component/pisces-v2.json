@@ -1,0 +1,18 @@
+{
+    "validation_key": "pisces-v2",
+    "ui_label": "PISCES v2",
+    "description": "PISCES-v2 marine biogeochemistry model, embedded in NEMO.",
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "family": "pisces",
+    "references": [
+        "https://doi.org/10.5194/gmd-8-2465-2015"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "pisces-v2"
+}
