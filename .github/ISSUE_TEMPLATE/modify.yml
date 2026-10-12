@@ -1,5 +1,5 @@
 name: "Modify: change a field in an existing EMD entry"
-description: Update a single JSON field in any existing src-data file (opens a PR for review)
+description: Update one or several JSON fields in any existing src-data file (opens a PR for review)
 title: "[EMD] Modify: [do not edit]"
 labels: ['emd-submission', 'modify', 'Review']
 body:
@@ -8,7 +8,7 @@ body:
       value: |
         # Modify an existing entry
         
-        Use this form to change a single field in an existing JSON file on `src-data`. The change is opened as a pull request for review — nothing is pushed directly.
+        Use this form to change one or more fields in an existing JSON file on `src-data`. For a single field use **Field name** and **New value**; for several at once use **Changes**. The change is opened as a pull request for review — nothing is pushed directly.
         
         > [!NOTE]
         > If the file or folder does not exist the submission will fail. Use the relevant **stage** form to create new entries.
@@ -70,7 +70,7 @@ body:
     attributes:
       label: Field name
       description: |
-        The JSON key (top-level only) to add or replace.
+        The JSON key (top-level only) to add or replace. Leave blank if you are using **Changes** below.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -81,17 +81,17 @@ body:
         
         **The key must already exist on the file** — if it does not, the submission will fail. Use the relevant stage form to add new fields.
         
+        Leave this blank if you are changing several fields via **Changes**.
+        
         </details>
       placeholder: "description"
-    validations:
-      required: true
 
   - type: textarea
     id: value
     attributes:
       label: New value
       description: |
-        The new value. If it parses as JSON (e.g. a list, number, boolean, or object) it is stored as that type; otherwise it is stored as a string.
+        The new value. If it parses as JSON (e.g. a list, number, boolean, or object) it is stored as that type; otherwise it is stored as a string. Leave blank if you are using **Changes**.
         
         <details markdown="1">
         <summary>Detailed Guidance</summary>
@@ -110,8 +110,38 @@ body:
         
         </details>
       placeholder: "A scientific overview of the model..."
-    validations:
-      required: true
+
+  - type: textarea
+    id: changes
+    attributes:
+      label: Changes
+      description: |
+        Optional. Change several fields at once with a JSON object of field name to new value. Use this instead of **Field name** / **New value**, not alongside them.
+        
+        <details markdown="1">
+        <summary>Detailed Guidance</summary>
+        
+        **Changing several fields at once**
+        
+        A JSON object mapping field names to their new values:
+        
+        ```json
+        {
+          "n_cells": 220509,
+          "southernmost_latitude": -85.3556519090144,
+          "description": "The horizontal grid spacing varies locally between about 10 and 120 km."
+        }
+        ```
+        
+        Values keep their JSON type, so quote strings and leave numbers and booleans bare. Nested keys work with dot notation, e.g. `"metadata.version": "2.1"`.
+        
+        Every key must already exist on the file. They are checked before anything is written, so if one is wrong nothing changes and you can fix it and resubmit.
+        
+        Use this **or** **Field name** / **New value**, never both.
+        
+        Prefer this whenever one correction spans several fields. All the changes then land in a single commit, so the entry is never published in a part-updated state, and the reviewer sees the whole correction at once instead of a fragment of it.
+        
+        </details>
 
   - type: textarea
     id: justification
