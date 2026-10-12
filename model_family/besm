@@ -1,0 +1,31 @@
+{
+    "validation_key": "besm",
+    "ui_label": "BESM",
+    "description": "BESM (Brazilian Earth System Model) is the coupled Earth System Model developed at INPE/CPTEC (Brazil), used for seasonal-to-decadal prediction and for climate change projections, with contributions to CMIP5, CMIP6, and ongoing preparation for CMIP7 (including HighResMIP2).  **Scientific focus and approach**  BESM targets global coupled climate simulation and projection, spanning seasonal-to decadal prediction and multi-decadal/centennial climate change scenarios, with emphasis on tropical Atlantic and South American climate variability.  **Common code base and physics**  All family members couple the Brazilian Atmospheric Model (**BAM**) to the GFDL ocean model **MOM6** via the **FMS** coupler, with the GFDL sea ice model **SIS2**. Land surface is represented by **IBIS** in this configuration (SSiB is available in the coupling infrastructure but not used here; the COBALT ocean biogeochemistry model is likewise available but not active in this configuration).  **How family members differ**  Members differ mainly in atmosphere/ocean horizontal and vertical resolution and in the forcing/scenario configuration used — e.g. BESM-OA2.5 (CMIP5-era configuration) versus the current BESM3.0 configuration being prepared for CMIP7.",
+    "collaborative_institutions": [
+        "noaa-gfdl"
+    ],
+    "established": 2013,
+    "family_type": "model",
+    "primary_institution": "inpe",
+    "references": [
+        "https://doi.org/10.1175/JCLI-D-12-00580.1",
+        "https://doi.org/10.5194/gmd-12-1613-2019",
+        "https://doi.org/10.1007/s10236-015-0836-8"
+    ],
+    "representative_member": "BESM-3.0",
+    "scientific_domains": [
+        "atmosphere",
+        "ocean",
+        "sea-ice",
+        "land-surface"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "besm"
+}
