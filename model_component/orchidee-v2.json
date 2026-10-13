@@ -1,0 +1,18 @@
+{
+    "validation_key": "orchidee-v2",
+    "ui_label": "ORCHIDEE v2",
+    "description": "The land surface heterogeneity is described using fractions of 15 different plant functional types (PFTs) including bare soil. In each grid cell PFTs are grouped into three soil tiles (high and low vegetation and bare soil) with independent hydrological budgets to prevent water competition between high and low vegetation. Only one energy budget (and snow budget) is calculated for the whole grid. For the carbon, a separate budget is calculated for all PFTs. All components of the surface energy and water budgets as well as plant/soil carbon fluxes are computed on the atmospheric physics time step, while slow carbon processes (allocation, soil carbon dynamic, etc) are computed on a daily time step. A physically-based 11-layer soil hydrology scheme is used over 2 meters, with the same discretisation for heat diffusion, although heat diffusion further extend to 90 m. Soil freezing is only partly taken into account with the impact on soil thermal and hydraulic properties. For the carbon cycle, photosynthesis follows the scheme of Farquhar for C3 and Collatz for C4 plants. A down regulation term on the maximum photosynthetic capacity, as a function of atmospheric CO2 concentration, has been added to account for nutrient limitations in the future.",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "orchidee",
+    "references": [
+        "https://doi.org/10.1029/2019MS002010"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "orchidee-v2"
+}
