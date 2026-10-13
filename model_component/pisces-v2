@@ -1,0 +1,18 @@
+{
+    "validation_key": "pisces-v2",
+    "ui_label": "PISCES v2",
+    "description": "The biogeochemical model PISCES‐v2 simulates the lower trophic levels of marine ecosystem (phytoplankton, microzooplankton, and mesozooplankton) and the biogeochemical cycles of carbon and of the main nutrients (P, N, Fe, and Si). There are 24 prognostic variables (tracers) including two phytoplankton compartments (diatoms and nanophytoplankton), two zooplankton size classes (microzooplankton and mesozooplankton), and a description of the carbonate chemistry. Formulations in PISCES‐v2 are based on a mixed Monod/Quota formalism. On the one hand, stoichiometry of C/N/P is fixed and growth rate of phytoplankton is limited by the external availability in N, P, and Si. On the other hand, the iron and silicon quotas are variable and growth rate of phytoplankton is limited by the internal availability in Fe. Nutrients and/or carbon is supplied to the ocean from three different sources: atmospheric deposition, rivers, and sediment mobilization.",
+    "code_base": "private",
+    "component": "ocean-biogeochemistry",
+    "family": "pisces",
+    "references": [
+        "https://doi.org/10.5194/gmd-8-2465-2015"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "pisces-v2"
+}
