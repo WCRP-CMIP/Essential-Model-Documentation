@@ -1,0 +1,18 @@
+{
+    "validation_key": "iap-aacm",
+    "ui_label": "IAP-AACM",
+    "description": "1. Main processes simulated IAP-AACM simulates emissions, three-dimensional transport, chemical transformation, and removal of trace gases and aerosols from global to regional scales. Processes include advection, turbulent diffusion, gas-, aqueous- and heterogeneous chemistry, inorganic gas-particle partitioning, nucleation, condensation/evaporation and coagulation, and dry deposition and wet scavenging. Prognostic aerosols include major inorganic species, black carbon, primary and secondary organics, dust and sea salt. The APM extension also resolves particle number, size distribution, mixing state and coatings. In updated applications, DMS, dust, sea salt and biogenic VOC emissions are calculated online. 2. Key parameterizations CBM-Z represents gas-phase chemistry, ISORROPIA calculates inorganic thermodynamics and water uptake, RADM2 treats cloud chemistry and scavenging, and surface removal uses resistance-based dry deposition. The APM sectional framework uses ion-mediated nucleation and high-resolution bins for simulating new particle formation. A 1.5-D volatility basis set represents semi-volatile POA, multi-generation oxidation of VOCs and IVOCs, kinetic condensation of low-volatility products and equilibrium partitioning of semi-volatile products. 3. Notable features of this version A hallmark of the IAP-AACM is its multi-scale nesting capability, which ensures regional simulations—particularly for urban and East Asian pollution—are seamlessly driven by physically consistent boundary conditions from its global parent model. The system is flexibly coupled to the CAS-ESM via the CPL7 coupler and can alternatively run offline simulations forced by global WRF meteorological fields. Chemically, the model features a comprehensive CBM-Z gas-phase mechanism alongside a reduced aerosol-oriented scheme tailored for long-term climate integrations. In its latest configurations, IAP-AACM further incorporates the APM-VBS framework for combined aerosol mass and number simulation, integrated with MEGAN-DGVM to represent biogenic emission feedbacks.",
+    "code_base": "",
+    "component": "aerosol",
+    "family": "no-family",
+    "references": [
+        "https://doi.org/10.5194/acp-19-8269-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "iap-aacm"
+}
