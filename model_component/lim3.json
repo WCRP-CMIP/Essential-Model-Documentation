@@ -1,0 +1,19 @@
+{
+    "validation_key": "lim3",
+    "ui_label": "LIM3",
+    "description": "LIM3.6 is a multicategory halothermodynamic dynamic sea ice model embedded in the NEMO environment, based on the Arctic Ice Dynamics Joint EXperiment (AIDJEX) framework. LIM3.6 combines the ice thickness distribution approach, the conservation of horizontal momentum, treating sea ice as a 2‐D elastic‐viscous plastic continuum, horizontal transport, and energy‐conserving halothermodynamics. The multiple ice categories allow resolving the enhanced growth of thin ice and solar radiation uptake through thin ice and the redistribution of thin onto thick ice through ridging and rafting. Sea ice salinity is an integral part of the model, evolving dynamically to resolve brine entrapment and drainage and influencing sea ice thermal properties and ice‐ocean exchanges. Five thickness categories are used. Ice temperature and salinity fields are further discretized onto two vertical layers of sea ice and one layer of snow. Horizontally, the ice fields are resolved on the same grid as the ocean component.",
+    "code_base": "private",
+    "component": "sea-ice",
+    "family": "lim",
+    "references": [
+        "https://doi.org/10.5194/gmd-8-2991-2015",
+        "https://doi.org/10.1016/j.ocemod.2008.11.003"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "lim3"
+}
