@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_noah0kim-1789689176",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "Cells centred on the x-velocity (u) points of the MOM6 Arakawa-C grid on the nominal 0.5 degree tripolar grid, i.e. the midpoints of the eastern and western faces of the tracer cells (tracer cells: see the MOM6 0.5 degree mass grid cell, alias MOM6-0.5deg-mass). There are 720 x 576 = 414720 unique points, one per tracer cell; the model stores 721 x 576 values with symmetric memory because the zonally periodic boundary column is held twice.",
+    "alias": [
+        "MOM6-0.5deg-x-velocity"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 414720,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -77.91,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.5,
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_noah0kim-1789689176"
+}
