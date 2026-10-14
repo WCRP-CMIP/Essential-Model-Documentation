@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_takaokawasaki-1791951982",
+    "ui_label": "",
+    "description": "The ocean component of MIROC 7, COCO version 4.9, employs a tripolar horizontal grid with 360 × 256 grid cells. South of 63.33°N (360 × 208 grid cells), the grid is based on geographical longitude–latitude coordinates. North of 63.33°N, a generalized orthogonal curvilinear coordinate system is used, with two artificial poles located at (63.33°N, 60°E) and (63.33°N, 120°W). South of 63.33°N, the grid spacing is 1° in longitude and 1° × cos(θ) in latitude, where θ denotes latitude. North of 63.33°N, the horizontal grid spacing is approximately 50 km.  The grid consists of two staggered subgrids following the Arakawa B-grid configuration: - g010: Located at the center of each grid cell, where scalar variables (e.g., temperature, salinity, and pressure) are defined. - g011: Located at the northeastern corner of each grid cell, where both horizontal velocity components are defined.",
+    "arrangement": "arakawa-b",
+    "horizontal_subgrids": [
+        "g010-mass",
+        "g011-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_takaokawasaki-1791951982"
+}
