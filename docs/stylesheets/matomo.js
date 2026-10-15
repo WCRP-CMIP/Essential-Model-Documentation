@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Tiny layout with Accept and Deny buttons
     banner.innerHTML = `
-        <div>We use minimal cookies. <a href="/privacy-policy" style="color: #2563eb; text-decoration: underline;">Privacy Policy</a>.</div>
+        <div>We use minimal cookies. <a href="https://www.wcrp-cmip.org/privacy-policy/" style="color: #2563eb; text-decoration: underline;">Privacy Policy</a>.</div>
         <div style="display: flex; justify-content: flex-end; gap: 4px;">
             <button id="deny-cookies" style="background: transparent; color: #6b7280; border: 1px solid #d1d5db; padding: 2px 6px; font-size: 10px; cursor: pointer; border-radius: 2px;">Deny</button>
             <button id="accept-cookies" style="background: #2563eb; color: white; border: none; padding: 2px 6px; font-size: 10px; cursor: pointer; border-radius: 2px;">Accept</button>
