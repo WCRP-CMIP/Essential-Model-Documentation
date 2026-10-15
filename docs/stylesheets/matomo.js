@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // WEBSITE CONFIGURATION — EDIT THESE VALUES
     // ==========================================
 
-    const SITE_ID = "2"; // Matomo website ID for this site
+    const SITE_ID = "2"; // Matomo website ID
     const TRACKER_URL = "https://webstats.wcrp-cmip.org/matomo.php";
     const PRIVACY_URL = "https://www.wcrp-cmip.org/privacy-policy/";
 
-    // Unique storage keys for each Matomo site
+    // Separate banner preferences for each site
     const ACCEPT = "matomo_cookie_accepted_" + SITE_ID;
     const DENY = "matomo_cookie_denied_" + SITE_ID;
 
@@ -17,17 +17,27 @@ document.addEventListener("DOMContentLoaded", function () {
     // MATOMO TRACKER
     // ==========================================
 
-    // Find the tracker configured for this site.
-    // Your normal Matomo tracking code should load first.
-    const tracker = window.Matomo?.getAsyncTracker?.();
+    // Use an existing Matomo tracker if available.
+    // Otherwise, create a tracker for this website.
+    let tracker;
+
+    if (window.Matomo && typeof window.Matomo.getTracker === "function") {
+        tracker = window.Matomo.getTracker(TRACKER_URL, SITE_ID);
+    }
 
     function matomo(command) {
-        if (tracker) {
-            tracker.pushConsentRequest = tracker.pushConsentRequest || null;
-        }
+        if (!tracker) return;
 
-        if (window._paq) {
-            window._paq.push(command);
+        switch (command) {
+            case "rememberCookieConsentGiven":
+                tracker.rememberCookieConsentGiven();
+                break;
+            case "rememberCookieConsentDismissed":
+                tracker.rememberCookieConsentGiven(); 
+                break;
+            case "forgetCookieConsentGiven":
+                tracker.forgetCookieConsentGiven();
+                break;
         }
     }
 
@@ -37,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showBanner() {
         document.getElementById("matomo-cookie-banner")?.remove();
-        document.getElementById("matomo-withdraw")?.remove();
+        document.getElementById("matomo-status")?.remove();
 
         const banner = document.createElement("div");
         banner.id = "matomo-cookie-banner";
@@ -54,7 +64,10 @@ document.addEventListener("DOMContentLoaded", function () {
             font: 10px system-ui, sans-serif;
             border: 1px solid #e4e4e7;
             border-radius: 4px;
-            box-shadow: 0 2px 8px #0002;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         `;
 
         banner.innerHTML = `
@@ -62,56 +75,56 @@ document.addEventListener("DOMContentLoaded", function () {
                 We use cookies for analytics.
                 <a href="${PRIVACY_URL}"
                    style="color:#2563eb;text-decoration:underline">
-                   Privacy Policy
+                    Privacy Policy
                 </a>.
             </div>
-            <div style="display:flex;justify-content:flex-end;gap:4px;margin-top:6px">
-                <button id="cookie-deny" type="button">Deny</button>
-                <button id="cookie-accept" type="button">Accept</button>
+
+            <div style="display:flex;justify-content:flex-end;gap:4px">
+                <button id="cookie-deny" type="button"
+                    style="background:transparent;color:#6b7280;border:1px solid #d1d5db;padding:2px 6px;font-size:10px;cursor:pointer;border-radius:2px">
+                    Deny
+                </button>
+
+                <button id="cookie-accept" type="button"
+                    style="background:#2563eb;color:white;border:0;padding:2px 6px;font-size:10px;cursor:pointer;border-radius:2px">
+                    Accept
+                </button>
             </div>
         `;
 
-        banner.querySelectorAll("button").forEach(button => {
-            button.style.cssText =
-                "padding:2px 6px;font-size:10px;cursor:pointer";
-        });
-
-        banner.querySelector("#cookie-accept").style.cssText +=
-            ";background:#2563eb;color:white;border:0";
-
         document.body.appendChild(banner);
 
-        // Accept cookies
+        // ACCEPT
         banner.querySelector("#cookie-accept").onclick = function () {
             localStorage.setItem(ACCEPT, "true");
             localStorage.removeItem(DENY);
 
-            matomo(["rememberCookieConsentGiven"]);
-            showWithdraw();
+            matomo("rememberCookieConsentGiven");
+            showStatus("Withdraw cookie consent");
         };
 
-        // Deny until the next calendar day
+        // DENY: remember until the next calendar day
         banner.querySelector("#cookie-deny").onclick = function () {
             localStorage.removeItem(ACCEPT);
             localStorage.setItem(DENY, new Date().toDateString());
 
-            matomo(["rememberCookieConsentDismissed"]);
-            showWithdraw();
+            matomo("rememberCookieConsentDismissed");
+            showStatus("Cookies Blocked");
         };
     }
 
     // ==========================================
-    // WITHDRAW CONSENT LINK
+    // CLICKABLE STATUS LINK
     // ==========================================
 
-    function showWithdraw() {
+    function showStatus(text) {
         document.getElementById("matomo-cookie-banner")?.remove();
-        document.getElementById("matomo-withdraw")?.remove();
+        document.getElementById("matomo-status")?.remove();
 
         const link = document.createElement("a");
-        link.id = "matomo-withdraw";
+        link.id = "matomo-status";
         link.href = "#";
-        link.textContent = "Withdraw cookie consent";
+        link.textContent = text;
 
         link.style.cssText = `
             position: fixed;
@@ -121,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             font: 11px system-ui, sans-serif;
             color: #2563eb;
             text-decoration: underline;
+            cursor: pointer;
         `;
 
         link.onclick = function (event) {
@@ -129,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.removeItem(ACCEPT);
             localStorage.removeItem(DENY);
 
-            matomo(["forgetCookieConsentGiven"]);
+            matomo("forgetCookieConsentGiven");
             showBanner();
         };
 
@@ -144,9 +158,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const deniedToday =
         localStorage.getItem(DENY) === new Date().toDateString();
 
-    if (accepted || deniedToday) {
-        showWithdraw();
+    if (accepted) {
+        showStatus("Withdraw cookie consent");
+    } else if (deniedToday) {
+        showStatus("Cookies Blocked");
     } else {
         showBanner();
     }
+
 });
