@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const link = document.createElement("a");
         link.id = "matomo-withdraw";
         link.href = "#";
-        link.textContent = "Withdraw consent";
+        link.textContent = "Withdraw cookie consent.";
 
         link.style.cssText = `
             position: fixed;
