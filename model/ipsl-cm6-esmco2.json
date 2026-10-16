@@ -1,0 +1,62 @@
+{
+    "validation_key": "IPSL-CM6-ESMCO2",
+    "ui_label": "IPSL-CM6-ESMCO2",
+    "description": "IPSL-CM6-ESMCO2 can be run in concentration-driven and emission-driven mode. Its atmospheric component is LMDZ, its oceanic component is NEMO, which includes LIM3 for sea ice and PISCES for marine biogeochemistry, and its land surface model is ORCHIDEE. Carbon cycle is represented explicitly for CO2 only. Atmospheric chemistry and aerosols are not represented but prescribed. Land ice is prescribed.",
+    "calendar": [
+        "proleptic-gregorian"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ]
+    ],
+    "crs": "A[L](O)O[ObSi]Ac^Ae^Li^",
+    "dynamic_components": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "land-surface",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "ocean"
+        ]
+    ],
+    "family": "ipsl-cm",
+    "model_components": [
+        "atmosphere_lmdz6-5_h165_v159",
+        "land-surface_orchidee-v2_h165_v158",
+        "ocean_nemo-v3-6_h152_v167",
+        "ocean-biogeochemistry_pisces-v2_h152_v167",
+        "sea-ice_lim3_h152_v167"
+    ],
+    "name": "ipsl-cm6-esmco2",
+    "omitted_components": [],
+    "prescribed_components": [
+        "aerosol",
+        "atmospheric-chemistry",
+        "land-ice"
+    ],
+    "references": [
+        "https://doi.org/10.1029/2019MS002010"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "ipsl-cm6-esmco2"
+}
