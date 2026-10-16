@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_takaokawasaki-1791943913",
+    "ui_label": "ocean-sigma-z-coordinate grid with 63 levels.",
+    "description": "The model employs a hybrid sigma–z vertical coordinate system, in which the upper 10 layers use sigma coordinates normalized by the sea surface elevation and a reference depth of 50 m, while the underlying layers use fixed z coordinates. The vertical layer thickness gradually increases from 2 m at the surface to 660 m in the deepest layer. The upper 10 and 31 layers cover the upper 50 and 500 m, respectively. In polar regions, an additional 100-m-thick bottom boundary layer (BBL) is included to represent slope currents associated with dense water. The model has a total of 63 vertical layers, including the BBL.",
+    "bottom_layer_thickness": 660,
+    "n_z": 63,
+    "n_z_range": "",
+    "top_layer_thickness": 2,
+    "total_thickness": 7300,
+    "vertical_coordinate": "ocean-sigma-z-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_takaokawasaki-1791943913"
+}
