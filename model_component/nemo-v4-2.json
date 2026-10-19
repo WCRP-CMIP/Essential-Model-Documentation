@@ -1,0 +1,18 @@
+{
+    "validation_key": "nemo-v4-2",
+    "ui_label": "NEMO v4.2",
+    "description": "The ocean component is based on NEMO v4.2, whose ocean engine also hosts the SI3 sea-ice model and the PISCES ocean biogeochemistry model (registered as separate components). The configuration used is eORCA1, with a nonlinear free surface using the variable volume layer formulation, which makes all layer thicknesses vary in time. It uses a polynomial representation of the TEOS-10 equation of state. Vertical mixing of tracers and momentum uses the turbulent kinetic energy scheme and an energy-constrained parameterization of mixing due to internal tides. There is no constant background diffusivity other than a floor at molecular levels: 1.4e-6 m2 s-1 for momentum and 1.4e-7 m2 s-1 for tracers. Mixing induced by submesoscale processes in the mixed layer is also parameterized. A quadratic bottom friction boundary condition is applied, together with a parameterization of a diffusive bottom boundary layer for tracers with a coefficient of 1000 m2 s-1. The model uses an energy-enstrophy conserving scheme for momentum advection, and a no-slip boundary condition is applied to the momentum equations. Lateral diffusion of momentum is performed on geopotential surfaces with a Laplacian viscosity coefficient of 20000 m2 s-1. Lateral diffusion of tracers is performed along isoneutral surfaces using Laplacian mixing with a spatially varying coefficient of 1000 m2 s-1 at the equator, decreasing with grid spacing towards higher latitudes to less than 500 m2 s-1 poleward of 60N and 60S. In addition, adiabatic eddy mixing is parameterized with a coefficient varying spatially as a function of the Rossby radius and the local growth rate of baroclinic instabilities. The configuration also represents the interaction between incoming shortwave radiation and phytoplankton. A spatially varying geothermal heat flux is applied at the ocean bottom, with a global mean value of 66 mW m-2.",
+    "code_base": "private",
+    "component": "ocean",
+    "family": "nemo",
+    "references": [
+        "https://doi.org/10.5281/zenodo.6334656"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "nemo-v4-2"
+}
