@@ -1,0 +1,20 @@
+{
+    "validation_key": "recom-3-1",
+    "ui_label": "REcoM 3.1",
+    "description": "1. Main processes simulated: REcoM3 simulates the coupled marine cycles of carbon, nitrogen, silicon, iron and oxygen. The plankton ecosystem is represented at medium complexity with two phytoplankton groups, small phytoplankton and diatoms, plus a coccolithophore-like calcifying flux, two zooplankton groups, and detritus. Dissolved inorganic carbon and alkalinity are prognostic, and air-sea CO2 exchange is computed from the simulated surface carbonate system.  2. Key physics / parameterisations: Variable stoichiometry throughout, so intracellular C:N:Si:Fe:chlorophyll ratios respond to light, temperature and nutrient limitation rather than being fixed, following the regulated-quota formulation of Schartau et al. (2007) and Geider-type photoacclimation. Iron limitation and scavenging, silicon limitation of diatoms, temperature-dependent remineralisation, and sinking of detritus and calcite. Benthic layers close the budgets for carbon, nitrogen, silicon and calcite.  3. Notable features of this version: Works coupled with prognostic atmospheric CO2, so the ocean carbon flux feeds back on the atmospheric concentration rather than being diagnosed against a prescribed one. This closes the ocean side of the carbon cycle.",
+    "code_base": "https://github.com/RECOM-Regulated-Ecosystem-Model/REcoM/releases/tag/r3.1.3",
+    "component": "ocean-biogeochemistry",
+    "family": "recom",
+    "references": [
+        "https://doi.org/10.5194/bg-4-433-2007",
+        "https://doi.org/10.5194/gmd-7-2769-2014",
+        "https://doi.org/10.5194/gmd-16-4883-2023"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "recom-3-1"
+}
