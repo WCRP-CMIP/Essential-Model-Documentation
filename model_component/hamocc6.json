@@ -1,0 +1,18 @@
+{
+    "validation_key": "hamocc6",
+    "ui_label": "HAMOCC6",
+    "description": "The biogeochemical model HAMOCC6 (Paulsen et al., 2017) developed by the Max Planck Institute for Meteorology in Germany, is incorporated in BCC-ESM2. This model features a sophisticated three-dimensional plankton ecological dynamics module (an NPZD-type module employing phytoplankton, zooplankton, nutrient concentrations, and detritus as ecological state variables), and accounts for the remineralization of organic matter and its impacts on dissolved oxygen, nitrate, nitrous oxide, and sulfate, as well as nitrogen fixation processes that affect the marine carbon cycle. Moreover, through the coupler, the model has achieved two-way dynamic coupling of carbon fluxes with the atmospheric component model, allowing for online simulation of the ocean–atmosphere carbon cycle.",
+    "code_base": "",
+    "component": "ocean-biogeochemistry",
+    "family": "ihamocc",
+    "references": [
+        "https://doi.org/10.1002/2016MS000737"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "hamocc6"
+}
