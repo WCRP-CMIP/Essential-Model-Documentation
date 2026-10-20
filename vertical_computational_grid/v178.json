@@ -1,0 +1,18 @@
+{
+  "validation_key": "v178",
+  "ui_label": "ocean-sigma-z-coordinate grid with 63 levels.",
+  "description": "",
+  "bottom_layer_thickness": 660,
+  "n_z": 63,
+  "n_z_range": "",
+  "top_layer_thickness": 2,
+  "total_thickness": 7300,
+  "vertical_coordinate": "ocean-sigma-z-coordinate",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v178"
+}
