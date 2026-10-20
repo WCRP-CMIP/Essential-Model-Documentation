@@ -1,0 +1,18 @@
+{
+    "validation_key": "orchidee-v4-3-2",
+    "ui_label": "ORCHIDEE v4.3.2",
+    "description": "ORCHIDEE is the land surface model simulating energy, water, carbon and nitrogen exchanges between the land surface and the atmosphere. Land surface heterogeneity is described using fractions of 15 different plant functional types (PFTs) including bare soil. Carbon and nitrogen cycle dynamics are calculated for each PFT. For the water budget, PFTs are grouped into three soil tiles in each grid cell (high vegetation, low vegetation and bare soil) with independent hydrological budgets, while only one energy budget (and snow budget) is calculated for the whole grid cell. A physically-based 11-layer soil hydrology scheme is used over 2 m, with the same discretization for heat diffusion, although heat diffusion further extends to 90 m. For the carbon cycle, photosynthesis follows the scheme of Farquhar for C3 plants and Collatz for C4 plants. All components of the surface energy and water budgets as well as soil-plant-atmosphere fluxes are computed on the atmospheric physics time step, while slow vegetation-related processes (phenology, allocation, senescence) are computed on a daily time step. Between ORCHIDEE v2 used in CMIP6 and ORCHIDEE v4.3 used in CMIP7, major functionalities were added: (i) a dynamic nitrogen cycle that includes the effects of nitrogen on photosynthesis, phenology, allocation, litter and soil carbon decomposition; (ii) an updated carbon allocation scheme following the principles of the pipe model; (iii) a two-stream radiative transfer scheme in the canopy; (iv) a forest canopy structure driven by demographic processes and disturbances, including forest management; and (v) a representation of physical permafrost dynamics. Land ice is currently treated outside of ORCHIDEE (in LMDZ).",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "orchidee",
+    "references": [
+        "https://doi.org/10.1029/2019MS002010"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "orchidee-v4-3-2"
+}

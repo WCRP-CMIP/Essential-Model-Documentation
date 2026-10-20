@@ -1,0 +1,19 @@
+{
+    "validation_key": "bcc-agcm4-chem",
+    "ui_label": "BCC-AGCM4-Chem",
+    "description": "The BCC-AGCM3-Chem combines 66 gas-phase chemical species. Apart from 3 gas-phase species of dimethyl sulfide (DMS), sulfur dioxide (SO2) and ammonia (NH3), the other 63 gas-phase species are the same as those in the “standard version” of MOZART2, a global chemical transport model for the troposphere developed by the National Center for Atmospheric Research (NCAR) driven by meteorological fields from either climate models or assimilations of meteorological observations (Horowitz et al., 2003). Advection of all tracers in BCC-AGCM4-Chem is performed through a semi-Lagrangian scheme. There are 33 photolytic reactions and 135 chemical reactions involving 30 dry deposited chemical species and 25 soluble gas-phase species. Aerosols are prognostic variables in the atmospheric component BCC-AGCM4-Chem, as used in BCC-ESM1.0 (Wu et al., 2020). BCC-AGCM4-Chem is able to simulate global atmospheric composition and aerosols from anthropogenic emissions as forcing agents. The BCC-AGCM4-Chem combines 13 prognostic aerosol species including sulfate, 2 types of organic carbon (hydrophobic and hydrophilic), 2 types of black carbon (hydrophobic and hydrophilic), 4 categories of soil dust, and 4 categories of sea salt. Concentrations of all aerosols in BCC-ESM2 are mainly determined by advective transport, emission, dry deposition, gravitational settling, and wet scavenging by clouds and precipitation, except for sulfate which gas-phase and aqueous phase conversion from SO2 are also considered. The present version of aerosol scheme still belongs to a bulk aerosol model but the nucleation and coagulation of aerosols are still ignored.",
+    "code_base": "",
+    "component": "atmospheric-chemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2002JD002853",
+        "https://doi.org/10.5194/gmd-13-977-2020"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "bcc-agcm4-chem"
+}
