@@ -46,6 +46,7 @@ body:
       options:
         - "Not specified"
         - "arpege-climat_version_6_3"
+        - "bcc-agcm4-chem"
         - "bcc-agcm4-mr"
         - "bcc-avim3"
         - "bisicles-ukesm-ismip6-1_0"
@@ -102,6 +103,7 @@ body:
         - "hadcm3-sea-ice"
         - "hadocc"
         - "hadom3"
+        - "hamocc6"
         - "hd-hydrological-discharge"
         - "iap-agcm5-0"
         - "iap-obgcmv2-0"
@@ -130,6 +132,7 @@ body:
         - "lim2"
         - "lim3"
         - "lmdz6-5"
+        - "lmdz6-5-dynamico"
         - "lpj-guess-4-1"
         - "m-sim"
         - "masingar-mk-3r2"
@@ -154,11 +157,13 @@ body:
         - "mricom-5-4-sea-ice"
         - "nemo-gosi9"
         - "nemo-v3-6"
+        - "nemo-v4-2"
         - "nemo3-6"
         - "noah-lsm"
         - "nobmg"
         - "openifs-48r1"
         - "orchidee-v2"
+        - "orchidee-v4-3-2"
         - "oslo-aero-v3"
         - "oslo-tropstrat-v3"
         - "pisces-v2"
@@ -168,6 +173,7 @@ body:
         - "reprobus-c_v2_0"
         - "si3-cannemo"
         - "si3-gosi9"
+        - "si3-v4-2"
         - "sis1"
         - "sis2"
         - "surfex_v8_modeling_platform"
@@ -368,6 +374,7 @@ body:
         - "v175"
         - "v176"
         - "v177"
+        - "v178"
       default: 0
     validations:
       required: true
