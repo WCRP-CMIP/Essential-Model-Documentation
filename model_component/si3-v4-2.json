@@ -1,0 +1,20 @@
+{
+    "validation_key": "si3-v4-2",
+    "ui_label": "SI3 v4.2",
+    "description": "SI3 is a multi-category halo-thermodynamic and dynamic sea ice model embedded in the NEMO environment, successor to LIM3. It combines the ice thickness distribution approach, elastic-viscous-plastic rheology, horizontal transport, and energy-conserving halo-thermodynamics. Multiple ice categories resolve the enhanced growth of thin ice, the uptake of solar radiation, and redistribution through ridging and rafting. Sea ice salinity evolves dynamically, resolving brine entrapment and drainage and influencing sea ice thermal properties and ice-ocean exchanges. Horizontally, the ice fields are resolved on the same grid as the ocean component.",
+    "code_base": "private",
+    "component": "sea-ice",
+    "family": "si3",
+    "references": [
+        "https://doi.org/10.5281/zenodo.7534900",
+        "https://doi.org/10.5194/gmd-8-2991-2015",
+        "https://doi.org/10.1016/j.ocemod.2008.11.003"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "si3-v4-2"
+}
