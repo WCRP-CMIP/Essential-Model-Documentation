@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_emg1967-1792524374",
+    "ui_label": "",
+    "description": "This computational grid assembles the Arakawa C-grid staggering used by MOM6, shared with SIS2 (sea ice) through the Flexible Modeling System (FMS) coupling infrastructure. Scalar (mass) variables — temperature, salinity, and tracers — are located at the h-points (cell centers); the zonal velocity component is staggered at the u-points (east/west cell faces); and the meridional velocity component is staggered at the points (north/south cell faces). MOM6 and SIS2 share this identical horizontal grid and staggering, allowing direct coupling between the ocean and sea ice components without interpolation between different grid layouts.",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g260-mass",
+        "g260-x-velocity",
+        "g260-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_emg1967-1792524374"
+}
