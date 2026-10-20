@@ -1,0 +1,20 @@
+{
+    "validation_key": "lmdz6-5-dynamico",
+    "ui_label": "LMDZ6.5-DYNAMICO",
+    "description": "The atmospheric component is the LMDZ6.5 general circulation model with the DYNAMICO icosahedral dynamical core, which replaces the regular longitude-latitude finite-difference dynamical core used in previous versions. DYNAMICO solves the hydrostatic primitive equations on a quasi-uniform icosahedral-hexagonal C-grid (Voronoi mesh), providing a more uniform resolution across the globe. Physical parameterizations include a turbulent scheme based on a prognostic equation for the turbulent kinetic energy, a mass-flux \"Thermal Plume Model\" for the organized structures of the convective boundary layer, and a parameterization of the cold pools (wakes) created by the evaporation of convective rainfall. Deep convection uses the \"episodic mixing and buoyancy sorting\" scheme, with closure and triggering based on thermal plumes and wakes. The radiation scheme includes the RRTM code for thermal infrared radiation and an improved six-band scheme for solar radiation. Cloud cover and cloud water content are computed with statistical schemes using lognormal and bigaussian distributions. Compared to the IPSL-CM6A-LR version, the vertical grid was extended from 79 to 95 layers, with a refinement in the first 3 km essentially, to better represent boundary layer convection and clouds, which were automatically retuned with history matching approach.",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "lmdz",
+    "references": [
+        "https://doi.org/10.1029/2019MS001892",
+        "https://doi.org/10.1029/2020MS002225",
+        "https://doi.org/10.5194/gmd-8-3131-2015"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "lmdz6-5-dynamico"
+}
