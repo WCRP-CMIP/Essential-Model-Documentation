@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_lw2304-1792587970",
+    "ui_label": "",
+    "description": "Unstaggered horizontal computational grid for the CAS-LSM land-surface component of FGOALS-g3.5, using the gamil2x2 grid geometry registered as g257. The full horizontal grid contains 180 longitude points and 80 latitude points, with uniform 2-degree longitudinal spacing and non-uniform meridional spacing. Land-surface scalar states and surface momentum flux components are represented at the same horizontal grid locations. The atmospheric U and V wind components supplied to CAS-LSM are also associated with these land grid locations; no separate horizontally staggered velocity grids are used by the land component. Land units, soil columns and plant functional types represent subgrid heterogeneity within this horizontal grid.",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g257-mass-x-velocity-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_lw2304-1792587970"
+}
