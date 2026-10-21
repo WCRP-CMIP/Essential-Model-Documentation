@@ -1,0 +1,18 @@
+{
+  "validation_key": "h167",
+  "ui_label": "",
+  "description": "",
+  "arrangement": "arakawa-c",
+  "horizontal_subgrids": [
+    "g256-mass",
+    "g265-x-velocity",
+    "g264-y-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid"
+  ],
+  "@id": "h167"
+}
