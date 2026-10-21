@@ -1,0 +1,63 @@
+{
+    "validation_key": "IITM-ESMv3-HR",
+    "ui_label": "IITM-ESMv3-HR",
+    "description": "The IITM Earth System Model (IITM-ESMv3-HR) for CMIP7 uses a GFS-based atmospheric model (Triangular Cubic Octahedral, TCO126 grid, ~67km), MOM4p1 ocean model (1°), Sea Ice Simulator (SIS), Noah land-surface model with 24 vegetation types, and ocean biogeochemistry (TOPAZ), with the major components operating interactively. Atmosphere, ocean, sea ice, biogeochemistry, and land surface/subsurface processes are dynamically simulated, while land ice and atmospheric chemistry are omitted in the current configuration. The IITM-ESMv3 incorporates prescribed natural and anthropogenic aerosol forcing through updated time-varying distributions of aerosol optical depth (AOD), single scattering albedo (SSA), and asymmetry parameter (ASY) developed for CMIP7. The IITM-ESMv3 incorporates time-varying land use land cover changes following CMIP7 protocol. The coupled framework using Flexible Modeling System (FMS) enables interactive exchanges of energy, momentum, freshwater, and other tracers among the active Earth-system components.",
+    "calendar": [
+        "julian"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ],
+        [
+            "ocean",
+            "ocean-biogeochemistry"
+        ]
+    ],
+    "crs": "A[L](O)O(Ob,Si)ObSiAe^",
+    "dynamic_components": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "land-surface",
+            "atmosphere"
+        ]
+    ],
+    "family": "iitm-esm",
+    "model_components": [
+        "atmosphere_gfs_h163_v166",
+        "land-surface_noah-lsm_h163_v173",
+        "ocean-biogeochemistry_topaz1_h162_v168",
+        "ocean_mom4p1_h162_v168",
+        "sea-ice_sis1_h162_v174"
+    ],
+    "name": "iitm-esmv3-hr",
+    "omitted_components": [
+        "land-ice",
+        "atmospheric-chemistry"
+    ],
+    "prescribed_components": [
+        "aerosol"
+    ],
+    "references": [
+        "https://doi.org/10.1029/2017MS001262"
+    ],
+    "release_year": 2018,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "iitm-esmv3-hr"
+}
