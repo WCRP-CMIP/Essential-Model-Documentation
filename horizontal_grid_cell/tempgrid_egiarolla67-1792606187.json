@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_egiarolla67-1792606187",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "This horizontal grid cell describes the y-velocity (V-point) staggered location of the MOM6 tripolar ocean grid, sharing the same longitude structure as the mass (h-point) grid g260 (360 points), but offset by half a grid cell northward in latitude. This yields 313 latitude rows — one more than g260 — including an additional row at the southern edge (-90°). The resulting grid has 360 x 313 = 112,680 cells. The tripolar fold is positioned at 65°N, consistent with g260.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 112680,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 80,
+    "x_resolution": 1,
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_egiarolla67-1792606187"
+}
