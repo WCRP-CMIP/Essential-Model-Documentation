@@ -1,0 +1,63 @@
+{
+    "validation_key": "AWI-ESM3-5-2-cc-LR",
+    "ui_label": "AWI-ESM3-5-2-cc-LR",
+    "description": "AWI-ESM3-cc is the third generation of the AWI Earth System Model, configured here in its low resolution variant with dynamic vegetation and an interactive carbon cycle. It is a successor to the AWI-CM3 system described in Streffing et al. (2022, doi:10.5194/gmd-15-6399-2022), now with updated atmosphere and ocean cycles, the addition of LPJ-GUESS for dynamic vegetation, and REcoM for ocean biogeochemistry. The components are coupled through OASIS3-MCT5. This submission describes AWI-ESM3 version 3.5.2.  1. Dynamic components Atmosphere: OpenIFS 48r1 on a TCO95 reduced Gaussian grid of 40320 cells with 91 hybrid sigma-pressure levels, approximately 100 km resolution. Ocean: FESOM2.8 on the CORE3 unstructured triangular mesh of 220509 surface vertices and 426403 elements, on 47 z-levels, with horizontal resolution varying locally between about 10 and 120 km. Sea ice: FESIM2.8 with zero-layer thermodynamics, embedded in FESOM2 and sharing its surface mesh. Land surface and dynamic vegetation: LPJ-GUESS 4.1, running on the OpenIFS horizontal grid. Ocean biogeochemistry: REcoM 3.1, embedded in FESOM2 and sharing its mesh, simulating the coupled cycles of carbon, nitrogen, silicon, iron and oxygen with variable stoichiometry. Atmospheric CO2 is prognostic, so the simulated air-sea and land-atmosphere carbon fluxes feed back on the atmospheric concentration rather than being diagnosed against a prescribed one.  2. Prescribed components Tropospheric anthropogenic aerosol: MACv2-SP (Stevens et al. 2017), the simple-plumes climatology that supplies direct and first indirect aerosol effects from a prescribed plume description. Stratospheric aerosol: prescribed from the CMIP7 stratospheric aerosol forcing dataset. Atmospheric chemistry: not interactive; ozone is taken from the CMIP7 ozone forcing dataset. Non-CO2 greenhouse gases: prescribed concentrations.  3. Omitted components Dynamic land-ice: PISM is planned to couple into AWI-ESM3 in a future submission, but is not part of this configuration.",
+    "calendar": [
+        "proleptic-gregorian"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "land-surface"
+        ],
+        [
+            "atmosphere",
+            "ocean"
+        ]
+    ],
+    "crs": "A(L,O)LO[ObSi]Ac^Ae^",
+    "dynamic_components": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "sea-ice",
+            "ocean"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ]
+    ],
+    "family": "awi-esm3",
+    "model_components": [
+        "atmosphere_openifs-48r1_h154_v110",
+        "land-surface_lpj-guess-4-1_h153_v112",
+        "ocean_fesom-2-8_h155_v161",
+        "sea-ice_fesim-2-8_h155_no-vertical",
+        "ocean-biogeochemistry_recom-3-1_h155_v161"
+    ],
+    "name": "awi-esm3-5-2-cc-lr",
+    "omitted_components": [
+        "land-ice"
+    ],
+    "prescribed_components": [
+        "aerosol",
+        "atmospheric-chemistry"
+    ],
+    "references": [
+        "https://doi.org/10.5194/gmd-15-6399-2022"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "awi-esm3-5-2-cc-lr"
+}
