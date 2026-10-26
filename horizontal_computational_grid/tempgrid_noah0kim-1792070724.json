@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_noah0kim-1792070724",
+    "ui_label": "",
+    "description": "FV3 D-grid",
+    "arrangement": "arakawa-d",
+    "horizontal_subgrids": [
+        "g254-mass",
+        "g263-x-velocity",
+        "g255-y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_noah0kim-1792070724"
+}
