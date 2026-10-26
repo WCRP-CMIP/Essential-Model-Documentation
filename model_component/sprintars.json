@@ -1,0 +1,20 @@
+{
+    "validation_key": "sprintars",
+    "ui_label": "SPRINTARS",
+    "description": "The aerosol module SPRINTARS (Takemura et al., 2000, 2005, 2009) predicts the mass mixing ratios of major tropospheric aerosols, including black carbon, organic matter, sulfate, soil dust, and sea salt, as well as sulfate precursor gases (SO₂ and dimethyl sulfide). It represents aerosol emissions, transport, chemical processes, and deposition, and accounts for aerosol–radiation and aerosol–cloud interactions through coupling with MIROC's radiation and cloud–precipitation schemes.",
+    "code_base": "private",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2000JD900265",
+        "https://doi.org/10.1029/2004JD005029",
+        "https://doi.org/10.5194/acp-9-3061-2009"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "sprintars"
+}
