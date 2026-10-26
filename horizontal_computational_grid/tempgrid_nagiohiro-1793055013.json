@@ -1,0 +1,17 @@
+{
+    "validation_key": "tempgrid_nagiohiro-1793055013",
+    "ui_label": "",
+    "description": "T85 spectral grid with triangular truncation.",
+    "arrangement": "",
+    "horizontal_subgrids": [
+        "g266-mass",
+        "g266-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_nagiohiro-1793055013"
+}
