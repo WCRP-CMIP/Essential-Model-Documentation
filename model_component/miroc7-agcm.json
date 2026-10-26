@@ -1,0 +1,28 @@
+{
+    "validation_key": "miroc7-agcm",
+    "ui_label": "MIROC7-AGCM",
+    "description": "The MIROC7 atmospheric component is based on the CCSR-NIES atmospheric general circulation model, which has been developed through successive versions of the MIROC climate model (e.g., Watanabe et al., 2010; Tatebe et al., 2019). It uses a spectral dynamical core with T85 horizontal resolution (~1.4°) and a hybrid σ–p vertical coordinate with 90 levels and a model top at 0.004 hPa. Physical parameterizations include radiation (Sekiguchi and Nakajima, 2008), turbulence (Nakanishi and Niino, 2004), convection (Chikira and Sugiyama, 2010; Park and Bretherton, 2009), large-scale condensation (Watanabe et al., 2009), and gravity-wave drag (McFarlane, 1987; Hines, 1997). In MIROC7, the radiation and cloud physics have been updated, including prognostic precipitation (Michibata et al., 2019) and a new stratocumulus-cloud parameterization (Kawai et al., 2019).",
+    "code_base": "The MIROC7 model code is not publicly distributed.",
+    "component": "atmosphere",
+    "family": "miroc",
+    "references": [
+        "https://doi.org/10.1175/2010JCLI3679.1",
+        "https://doi.org/10.5194/gmd-12-2727-2019",
+        "https://doi.org/10.1016/j.jqsrt.2008.07.013",
+        "https://doi.org/10.1023/B:BOUN.0000020164.04146.98",
+        "https://doi.org/10.1175/2010JAS3316.1",
+        "https://doi.org/10.1175/2008JCLI2557.1",
+        "https://doi.org/10.1007/s00382-008-0489-0",
+        "https://doi.org/10.1029/2018MS001596",
+        "https://doi.org/10.1175/1520-0469(1987)044<1775:TEOOEG>2.0.CO;2",
+        "https://doi.org/10.1016/S1364-6826(96)00080-6",
+        "https://doi.org/10.5194/gmd-12-2875-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "miroc7-agcm"
+}
