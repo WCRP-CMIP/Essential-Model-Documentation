@@ -1,0 +1,13 @@
+{
+    "validation_key": "unstructured-triangular",
+    "ui_label": "Unstructured Triangular",
+    "description": "An unstructured mesh consisting solely of triangles.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "unstructured-triangular"
+}

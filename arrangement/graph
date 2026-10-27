@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/arrangement/",
+    "@base": "https://emd.wcrp-cmip.org/arrangement/",
+    "@esgvoc": "Arrangement",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/Arrangement/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "arakawa-c"},
+    {"@id": "arakawa-d"},
+    {"@id": "arakawa-e"},
+    {"@id": "arakawa-a"},
+    {"@id": "arakawa-b"}
+  ]
+}

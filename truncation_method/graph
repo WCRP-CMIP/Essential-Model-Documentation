@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/truncation_method/",
+    "@base": "https://emd.wcrp-cmip.org/truncation_method/",
+    "@esgvoc": "TruncationMethod",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/TruncationMethod/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "triangular"},
+    {"@id": "rhomboidal"}
+  ]
+}

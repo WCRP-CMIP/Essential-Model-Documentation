@@ -1,0 +1,17 @@
+{
+    "validation_key": "degree",
+    "ui_label": "Degrees",
+    "description": "Angular measurement in degrees for latitude/longitude coordinates.",
+    "alias": [
+        "deg",
+        "degrees"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:units",
+        "esgvoc:Units",
+        "constants"
+    ],
+    "@id": "degree"
+}

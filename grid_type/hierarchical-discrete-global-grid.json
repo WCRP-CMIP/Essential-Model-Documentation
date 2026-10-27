@@ -1,0 +1,13 @@
+{
+    "validation_key": "hierarchical-discrete-global-grid",
+    "ui_label": "Hierarchical Discrete Global Grid",
+    "description": "A tessellation of cells that exhaustively cover the spherical surface of the globe, with each resolution defined as a subdivision of cells at a base resolution, and cells at a given resolution having equal areas.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "hierarchical-discrete-global-grid"
+}

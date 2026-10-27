@@ -1,0 +1,13 @@
+{
+    "validation_key": "orthographic",
+    "ui_label": "Orthographic",
+    "description": "A form of parallel projection in which all the projection lines are orthogonal to the projection plane, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "orthographic"
+}

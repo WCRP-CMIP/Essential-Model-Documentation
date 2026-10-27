@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/grid_mapping/",
+    "@base": "https://emd.wcrp-cmip.org/grid_mapping/",
+    "@esgvoc": "GridMapping",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/GridMapping/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "stereographic"},
+    {"@id": "transverse-mercator"},
+    {"@id": "healpix"},
+    {"@id": "lambert-conformal-conic"},
+    {"@id": "latitude-longitude"},
+    {"@id": "orthographic"},
+    {"@id": "polar-stereographic"},
+    {"@id": "azimuthal-equidistant"},
+    {"@id": "mercator"},
+    {"@id": "rotated-latitude-longitude"},
+    {"@id": "lambert-cylindrical-equal-area"},
+    {"@id": "sinusoidal"},
+    {"@id": "vertical-perspective"},
+    {"@id": "lambert-azimuthal-equal-area"},
+    {"@id": "albers-conical-equal-area"},
+    {"@id": "geostationary"}
+  ]
+}

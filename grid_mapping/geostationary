@@ -1,0 +1,13 @@
+{
+    "validation_key": "geostationary",
+    "ui_label": "Geostationary",
+    "description": "A type of azimuthal projection designed to show the Earth as it appears to a geostationary satellite, offering a perspective that minimizes distortion for areas under view, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "geostationary"
+}

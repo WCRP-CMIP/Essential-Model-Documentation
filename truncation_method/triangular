@@ -1,0 +1,16 @@
+{
+    "validation_key": "triangular",
+    "ui_label": "Triangular Truncation",
+    "description": "Triangular truncation in spectral space where total wavenumber m+n ≤ N. Common notation: TL (triangular linear) or TQ (triangular quadratic).",
+    "alias": [
+        "T"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:truncation_method",
+        "esgvoc:TruncationMethod",
+        "constants"
+    ],
+    "@id": "triangular"
+}

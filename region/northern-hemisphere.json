@@ -1,0 +1,16 @@
+{
+    "validation_key": "northern-hemisphere",
+    "ui_label": "Northern Hemisphere",
+    "description": "The complete Earth surface from the equator to the North Pole, 0 to 90 degrees North latitude.",
+    "alias": [
+        "nhem"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:region",
+        "esgvoc:Region",
+        "constants"
+    ],
+    "@id": "northern-hemisphere"
+}

@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/region/",
+    "@base": "https://emd.wcrp-cmip.org/region/",
+    "@esgvoc": "Region",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/Region/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "northern-hemisphere"},
+    {"@id": "southern-hemisphere"},
+    {"@id": "arctic"},
+    {"@id": "antarctica"},
+    {"@id": "greenland"},
+    {"@id": "limited-area"},
+    {"@id": "global"},
+    {"@id": "30s-90s"},
+    {"@id": "tropics"}
+  ]
+}

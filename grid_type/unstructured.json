@@ -1,0 +1,13 @@
+{
+    "validation_key": "unstructured",
+    "ui_label": "Unstructured",
+    "description": "Irregular mesh without fixed connectivity pattern, allowing variable resolution and complex domain boundaries.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "unstructured"
+}

@@ -1,0 +1,14 @@
+{
+    "validation_key": "utc",
+    "ui_label": "UTC",
+    "description": "The Gregorian calendar with leap seconds prescribed by Coordinated Universal Time (UTC), as defined by the CF conventions.",
+    "alias": [],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:calendar",
+        "esgvoc:Calendar",
+        "constants"
+    ],
+    "@id": "utc"
+}

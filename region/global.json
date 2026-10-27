@@ -1,0 +1,16 @@
+{
+    "validation_key": "global",
+    "ui_label": "Global",
+    "description": "The complete Earth surface, 90 degrees North to 90 degrees South latitude, and all longitudes.",
+    "alias": [
+        "glb"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:region",
+        "esgvoc:Region",
+        "constants"
+    ],
+    "@id": "global"
+}

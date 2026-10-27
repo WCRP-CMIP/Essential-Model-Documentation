@@ -1,0 +1,17 @@
+{
+    "validation_key": "tropics",
+    "ui_label": "Tropics",
+    "description": "The tropical region between 23.5 degrees North and 23.5 degrees South latitude, bounded by the Tropic of Cancer and Tropic of Capricorn.",
+    "alias": [
+        "trop",
+        "tropical"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:region",
+        "esgvoc:Region",
+        "constants"
+    ],
+    "@id": "tropics"
+}

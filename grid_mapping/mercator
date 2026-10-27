@@ -1,0 +1,13 @@
+{
+    "validation_key": "mercator",
+    "ui_label": "Mercator",
+    "description": "Cylindrical map projection preserving angles, commonly used for ocean models.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "mercator"
+}

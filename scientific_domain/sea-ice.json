@@ -1,0 +1,17 @@
+{
+    "validation_key": "sea-ice",
+    "ui_label": "Sea Ice",
+    "description": "Sea Ice",
+    "alias": [
+        "seaice",
+        "seaIce"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:scientific_domain",
+        "esgvoc:ScientificDomain",
+        "universal",
+        "constants"
+    ],
+    "@id": "sea-ice"
+}

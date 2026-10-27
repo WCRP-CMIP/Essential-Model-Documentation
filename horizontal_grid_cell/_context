@@ -1,31 +1,31 @@
 {
   "@context": {
     "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/horizontal_grid_cell/",
-    "@base": "https://emd.mipcvs.dev/horizontal_grid_cell/",
+    "@base": "https://emd.wcrp-cmip.org/horizontal_grid_cell/",
     "@esgvoc": "HorizontalGridCell",
-    "@vocab": "https://emd.mipcvs.dev/docs/contents/HorizontalGridCell/",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/HorizontalGridCell/",
     "grid_mapping": {
-      "@context": "https://constants.mipcvs.dev/grid_mapping/_context",
+      "@context": "../grid_mapping/_context",
       "@type": "@id"
     },
     "grid_type": {
-      "@context": "https://constants.mipcvs.dev/grid_type/_context",
+      "@context": "../grid_type/_context",
       "@type": "@id"
     },
     "region": {
-      "@context": "https://constants.mipcvs.dev/region/_context",
+      "@context": "../region/_context",
       "@type": "@id"
     },
     "temporal_refinement": {
-      "@context": "https://constants.mipcvs.dev/temporal_refinement/_context",
+      "@context": "../temporal_refinement/_context",
       "@type": "@id"
     },
     "truncation_method": {
-      "@context": "https://constants.mipcvs.dev/truncation_method/_context",
+      "@context": "../truncation_method/_context",
       "@type": "@id"
     },
     "units": {
-      "@context": "https://constants.mipcvs.dev/units/_context",
+      "@context": "../units/_context",
       "@type": "@id"
     }
   }

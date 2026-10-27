@@ -1,0 +1,13 @@
+{
+    "validation_key": "polar-stereographic",
+    "ui_label": "Polar Stereographic",
+    "description": "An azimuthal projection that maps the Earth's surface onto a flat plane from a view point at one pole, projecting points from the globe to a plane tangent to the opposite pole, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "polar-stereographic"
+}

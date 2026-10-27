@@ -1,0 +1,39 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/grid_type/",
+    "@base": "https://emd.wcrp-cmip.org/grid_type/",
+    "@esgvoc": "GridType",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/GridType/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "linear-spectral-gaussian"},
+    {"@id": "tripolar"},
+    {"@id": "unstructured-quadrilateral"},
+    {"@id": "yin-yang"},
+    {"@id": "icosahedral-geodesic"},
+    {"@id": "rotated-pole"},
+    {"@id": "basin-by-latitude"},
+    {"@id": "unstructured-polygonal"},
+    {"@id": "regular-gaussian"},
+    {"@id": "icosahedral"},
+    {"@id": "spectral-gaussian"},
+    {"@id": "discrete-points"},
+    {"@id": "regular-latitude-longitude"},
+    {"@id": "displaced-pole"},
+    {"@id": "quadratic-spectral-gaussian"},
+    {"@id": "unstructured-triangular"},
+    {"@id": "spectral-reduced-gaussian"},
+    {"@id": "stretched"},
+    {"@id": "icosahedral-geodesic-dual"},
+    {"@id": "plane-projection"},
+    {"@id": "cubed-sphere"},
+    {"@id": "hierarchical-discrete-global-grid"},
+    {"@id": "discrete-lines"},
+    {"@id": "reduced-gaussian"},
+    {"@id": "cubic-octahedral-spectral-reduced-gaussian"},
+    {"@id": "unstructured"}
+  ]
+}

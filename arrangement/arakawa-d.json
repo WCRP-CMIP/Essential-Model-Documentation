@@ -1,0 +1,13 @@
+{
+    "validation_key": "arakawa-d",
+    "ui_label": "Arakawa D-grid",
+    "description": "The Arakawa D grid places velocity-related quantities at the centres of mass cell edges, such that each component is tangential to its edge.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:arrangement",
+        "esgvoc:Arrangement",
+        "constants"
+    ],
+    "@id": "arakawa-d"
+}

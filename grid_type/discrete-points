@@ -1,0 +1,13 @@
+{
+    "validation_key": "discrete-points",
+    "ui_label": "Discrete Points",
+    "description": "A grid of multiple unconnected point locations, where each point is a single cell.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "discrete-points"
+}

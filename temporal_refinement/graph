@@ -1,0 +1,16 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/temporal_refinement/",
+    "@base": "https://emd.wcrp-cmip.org/temporal_refinement/",
+    "@esgvoc": "TemporalRefinement",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/TemporalRefinement/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "static"},
+    {"@id": "adaptive"},
+    {"@id": "dynamically-stretched"}
+  ]
+}

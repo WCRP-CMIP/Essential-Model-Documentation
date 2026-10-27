@@ -1,0 +1,13 @@
+{
+    "validation_key": "unstructured-polygonal",
+    "ui_label": "Unstructured Polygonal",
+    "description": "An unstructured mesh consisting of arbitrary polygons.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "unstructured-polygonal"
+}

@@ -1,0 +1,13 @@
+{
+    "validation_key": "sinusoidal",
+    "ui_label": "Sinusoidal",
+    "description": "An equal-area projection that accurately represents area but distorts shape, especially at the edges, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "sinusoidal"
+}

@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/units/",
+    "@base": "https://emd.wcrp-cmip.org/units/",
+    "@esgvoc": "Units",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/Units/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "pa"},
+    {"@id": "meter"},
+    {"@id": "k"},
+    {"@id": "km"},
+    {"@id": "degree"}
+  ]
+}

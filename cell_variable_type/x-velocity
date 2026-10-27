@@ -1,0 +1,13 @@
+{
+    "validation_key": "x-velocity",
+    "ui_label": "X Velocity",
+    "description": "Variables representing the X component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the X direction is longitude.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+    ],
+    "@id": "x-velocity"
+}

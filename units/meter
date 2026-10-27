@@ -1,0 +1,19 @@
+{
+    "validation_key": "meter",
+    "ui_label": "Meters",
+    "description": "Distance measurement in meters for projected coordinate systems.",
+    "alias": [
+        "m",
+        "metre",
+        "meters",
+        "metres"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:units",
+        "esgvoc:Units",
+        "constants"
+    ],
+    "@id": "meter"
+}

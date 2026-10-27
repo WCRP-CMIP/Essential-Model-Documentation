@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/calendar/",
+    "@base": "https://emd.wcrp-cmip.org/calendar/",
+    "@esgvoc": "Calendar",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/Calendar/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "none"},
+    {"@id": "utc"},
+    {"@id": "julian"},
+    {"@id": "standard"},
+    {"@id": "366day"},
+    {"@id": "tai"},
+    {"@id": "proleptic-gregorian"},
+    {"@id": "365day"},
+    {"@id": "360day"}
+  ]
+}
