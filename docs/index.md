@@ -201,10 +201,15 @@ Each folder corresponds to a distinct scientific concept that varies independent
 </details>
 
 ---
+
 ### Become a reviewer
+
+<details markdown="1">
+<summary>Lend us your scientific knowledge</summary>
+
 If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form).
 
-
+</details>
 
 ---
 

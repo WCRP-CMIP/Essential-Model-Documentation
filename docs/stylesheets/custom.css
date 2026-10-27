@@ -104,7 +104,7 @@ button:has(.tabler-icon-copy) {
 header {
   background: var(--emd-bg) !important;
   border-bottom: 1px solid var(--emd-border) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: none !important;
   position: relative;
 }
 
@@ -148,7 +148,7 @@ header [data-slot="title"] {
   font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif !important;
   font-weight: 600 !important;
   color: var(--emd-primary-dark) !important;
-  font-size: 1.25rem !important;
+  font-size: 1.1rem !important;
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
@@ -156,23 +156,23 @@ header [data-slot="title"] {
 /* Logo: larger than the original (was 2rem), and its link grows with it instead of staying 2rem tall. */
 header a:has(> span > img[src$="cmip-logo.svg"]) {
   height: auto !important;
-  gap: 0.7rem !important;
+  gap: 0.6rem !important;
 }
 header a > span:has(> img[src$="cmip-logo.svg"]),
 header img[src$="cmip-logo.svg"] {
-  width: 2.5rem !important;
-  height: 2.5rem !important;
+  width: 2.125rem !important;
+  height: 2.125rem !important;
 }
 
 /* Header: a little more room at the sides than the original (1.5rem -> 2rem each side) and
-   a compact height (original 3.5rem). Everything in it is vertically centred, and the sidebar
+   a compact height (original 3.5rem, now 2.75rem). Everything in it is vertically centred, and the sidebar
    and sticky offsets follow this one value. */
 header .container-wrapper {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
 }
 body.theme-default {
-  --header-height: 3.25rem;
+  --header-height: 2.75rem;
 }
 
 /* GitHub repo link in title */
@@ -528,6 +528,7 @@ details {
 }
 
 details summary {
+  font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif;
   color: var(--emd-primary-dark);
   font-weight: 600;
   cursor: pointer;
@@ -770,7 +771,7 @@ article h6:hover {
 }
 
 article h1 {
-  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif !important;
   font-size: 2rem !important;
   font-weight: 700 !important;
   color: var(--emd-text) !important;
@@ -780,7 +781,7 @@ article h1 {
 }
 
 article h2 {
-  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif !important;
   font-size: 1.4rem !important;
   font-weight: 600 !important;
   color: var(--emd-text) !important;
@@ -790,14 +791,14 @@ article h2 {
 }
 
 article h3 {
-  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif !important;
   font-size: 1.1rem !important;
   font-weight: 600 !important;
   color: var(--emd-text) !important;
 }
 
 article h4 {
-  font-family: "Noto Sans", var(--font-sans), system-ui !important;
+  font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif !important;
   font-size: 0.95rem !important;
   font-weight: 600 !important;
   color: var(--emd-text) !important;
@@ -1810,7 +1811,7 @@ th[data-sort="desc"] .sort-indicator {
   display: block;
   padding: .5rem .85rem;
   color: var(--emd-text, #1e293b);
-  font-family: "Noto Sans", var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: "Lexend", "Noto Sans", var(--font-sans), system-ui, sans-serif;
   font-weight: 500;
   font-size: .78rem;                 /* was 1rem */
   line-height: 1.3;
@@ -1825,3 +1826,60 @@ th[data-sort="desc"] .sort-indicator {
   .emd-home-card,
   .emd-home-card-title { transition: none; }
 }
+
+/* ============================================================
+   HIDEABLE PANELS: left sidebar + right-hand "On this page" outline
+   Each panel is a column beside the content. Hiding one removes its column, and the content
+   column (flex-1) takes the width it frees.
+     sidebar : [data-slot="sidebar"], shown from the lg breakpoint (64rem) up
+     outline : the last child of [data-slot="docs"], shown from the xl breakpoint (80rem) up
+   The toggle buttons are added by setupSidebarToggle() / setupOutlineToggle() in custom.js;
+   the saved choices are the .sidebar-hidden / .toc-hidden classes on <html>.
+   ============================================================ */
+html.sidebar-hidden [data-slot="sidebar"],
+html.toc-hidden [data-slot="docs"] > div:last-child {
+  display: none !important;
+}
+
+/* The reading-width cap set earlier (article.w-full / .typography / .prose at 1200px) would stop the
+   content from using the room a hidden panel frees, so lift it while either panel is hidden. It stays
+   capped at 1600px so lines do not become unreadably long on very large screens. */
+html.sidebar-hidden article.w-full,
+html.toc-hidden article.w-full,
+html.sidebar-hidden .typography,
+html.toc-hidden .typography,
+html.sidebar-hidden .prose,
+html.toc-hidden .prose {
+  max-width: 1600px !important;
+}
+
+/* Toggle buttons: no panel below its breakpoint, so no button either. */
+#sidebar-toggle,
+#toc-toggle { display: none; }
+
+#sidebar-toggle,
+#toc-toggle {
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--emd-text-secondary);
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+#sidebar-toggle svg,
+#toc-toggle svg { width: 1.1rem; height: 1.1rem; stroke: currentColor !important; fill: none; }
+#sidebar-toggle:hover,
+#toc-toggle:hover { background: var(--emd-bg-tertiary); color: var(--emd-text); }
+#sidebar-toggle:focus-visible,
+#toc-toggle:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+#sidebar-toggle[aria-pressed="true"],
+#toc-toggle[aria-pressed="true"] { color: var(--emd-primary); }     /* pressed = panel hidden */
+
+@media (min-width: 64rem) { #sidebar-toggle { display: inline-flex; } }
+@media (min-width: 80rem) { #toc-toggle { display: inline-flex; } }

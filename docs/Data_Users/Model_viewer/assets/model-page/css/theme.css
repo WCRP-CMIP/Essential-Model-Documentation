@@ -1,3 +1,12 @@
+/* Lexend, the CMIP wordmark face, for titles. One shared copy lives in docs/assets/. */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("../../../../../assets/lexend-latin.woff2") format("woff2");
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
 /* theme.css — EMD model page. Warm-paper, scientific-doc aesthetic. */
 
@@ -34,7 +43,7 @@
 .eyebrow { margin: 0; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 a.eyebrow-home { display: inline-block; text-decoration: none; color: var(--muted); transition: color .15s; }
 a.eyebrow-home:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-.model-title { margin: .15rem 0 0; font-size: 2.1rem; font-weight: 750; letter-spacing: -.01em; }
+.model-title { font-family: "Lexend", "Helvetica Neue", Arial, sans-serif; margin: .15rem 0 0; font-size: 2.1rem; font-weight: 750; letter-spacing: -.01em; }
 .header-links { display: flex; align-items: center; gap: .5rem; margin-top: .5rem; font-size: .8rem; }
 .header-link { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--line-strong); padding-bottom: 1px; transition: color .15s, border-color .15s; }
 .header-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
@@ -71,7 +80,7 @@ a.eyebrow-home:hover { color: var(--accent); text-decoration: underline; text-un
 
 /* ---- cards ---- */
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.25rem 1.35rem; }
-.card-title { margin: 0 0 .35rem; font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
+.card-title { font-family: "Lexend", "Helvetica Neue", Arial, sans-serif; margin: 0 0 .35rem; font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
 .card-sub { margin: 0 0 1rem; font-size: .82rem; color: var(--muted); }
 .overview-desc { margin: .25rem 0 1.1rem; font-size: .95rem; }
 
@@ -81,7 +90,7 @@ details.card.collapsible { padding: 0; overflow: hidden; }
 .card-summary::-webkit-details-marker { display: none; }
 .card-summary::before { content: "▶"; font-size: .7rem; color: var(--muted); transition: transform .15s; flex: none; }
 details.card.collapsible[open] > .card-summary::before { transform: rotate(90deg); }
-.card-summary-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
+.card-summary-title { font-family: "Lexend", "Helvetica Neue", Arial, sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
 details.card.collapsible[open] > .card-summary { border-bottom: 1px solid var(--line); }
 .card-body { padding: 1.1rem 1.35rem 1.25rem; }
 .card-body > .card-sub:first-child { margin-top: 0; }

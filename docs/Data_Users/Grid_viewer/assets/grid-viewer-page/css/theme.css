@@ -1,3 +1,12 @@
+/* Lexend, the CMIP wordmark face, for titles. One shared copy lives in docs/assets/. */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url("../../../../../assets/lexend-latin.woff2") format("woff2");
+}
+
 /* theme.css — EMD grid-cells page.
    Uses only --emd-* variables defined in stylesheets/custom.css.
    No colour or font definitions here — those live in the shared stylesheet. */
@@ -60,7 +69,7 @@
 .eyebrow { margin: 0; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--emd-text-tertiary); font-weight: 600; }
 a.eyebrow-home { text-decoration: none; color: var(--emd-text-tertiary); transition: color .15s; }
 a.eyebrow-home:hover { color: var(--emd-primary); }
-.gc-title { margin: .2rem 0 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -.02em; color: var(--emd-text); }
+.gc-title { font-family: "Lexend", "Helvetica Neue", Arial, sans-serif; margin: .2rem 0 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -.02em; color: var(--emd-text); }
 
 /* ============================================================
    SHELL
@@ -444,7 +453,7 @@ details.gc-scatter-card > .gc-scatter-body { margin-top: .5rem; }
 .gc-table-card { background: var(--emd-bg); border: 1px solid var(--emd-border); border-radius: 6px; overflow: hidden; }
 
 .gc-table-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .65rem 1rem; border-bottom: 1px solid var(--emd-border); }
-.gc-table-title { margin: 0; font-size: .875rem; font-weight: 600; color: var(--emd-text); }
+.gc-table-title { font-family: "Lexend", "Helvetica Neue", Arial, sans-serif; margin: 0; font-size: .875rem; font-weight: 600; color: var(--emd-text); }
 .gc-count-pill { font-size: .72rem; color: var(--emd-text-tertiary); }
 
 .gc-table-wrap { overflow-x: auto; }
