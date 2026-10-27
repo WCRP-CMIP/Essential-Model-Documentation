@@ -1,0 +1,125 @@
+/* participation.css — model-participation page.
+   Loaded after the grid viewer's theme.css, which supplies the page shell,
+   header, search box, pill group and table. Only what is specific to this page
+   lives here, and only --emd-* variables are used. */
+
+/* Page title in Lexend, the CMIP wordmark face — self-hosted (assets/participation-page/fonts),
+   as in the ESGF-view app. font-display:block so the title never flashes in a fallback face. */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url('../fonts/lexend-latin.woff2') format('woff2');
+}
+.gc-title {
+  font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 2.6rem; line-height: 1.1; margin-top: .35rem;      /* was 1.8rem */
+}
+/* The "EMD DOCUMENTATION" wordmark above the title, which links home. */
+.gc-header .eyebrow { font-size: .95rem; letter-spacing: .08em; }   /* was .68rem */
+
+/* Controls: small and quiet, secondary to the table. The search box and both
+   dropdowns share one understated look: hairline border, no fill, muted text. */
+.mp-controls { display: flex; flex: 1 1 auto; flex-wrap: nowrap; align-items: center; gap: .4rem; margin: 0; min-width: 0; }
+/* Search is the flexible part: it shrinks before anything wraps. */
+.mp-controls .gc-search-row { flex: 1 1 260px; min-width: 110px; max-width: 300px; }
+.mp-select { flex: 0 0 auto; }
+/* The header row itself never wraps, and the count keeps its place on the right. */
+.gc-table-head { flex-wrap: nowrap; }
+.gc-table-head .gc-count-pill { flex: 0 0 auto; white-space: nowrap; }
+/* Only on a phone-width screen is there genuinely no room: then allow wrapping. */
+@media (max-width: 640px) {
+  .gc-table-head { flex-wrap: wrap; }
+  .mp-controls { flex-wrap: wrap; }
+}
+.mp-controls .gc-search-input,
+.mp-select {
+  font: inherit; font-size: .76rem; padding: .28rem .55rem;
+  border: 1px solid var(--emd-border-light); border-radius: 4px;
+  background: transparent; color: var(--emd-text-secondary); box-shadow: none;
+}
+.mp-controls .gc-search-input { width: 100%; }
+.mp-controls .gc-search-input::placeholder { font-size: .76rem; color: var(--emd-text-tertiary); }
+.mp-select { cursor: pointer; }
+.mp-select option { background: var(--emd-bg); color: var(--emd-text); }
+.mp-controls .gc-search-input:hover,
+.mp-select:hover { border-color: var(--emd-border); }
+.mp-controls .gc-search-input:focus,
+.mp-select:focus-visible { outline: none; border-color: var(--emd-primary); box-shadow: none; }
+
+/* Sortable column headers: a real button inside the th so they work by keyboard. */
+.mp-sort {
+  all: unset; cursor: pointer; display: inline-block;
+  font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit;
+}
+.mp-sort:hover { color: var(--emd-primary); }
+.mp-sort:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; border-radius: 3px; }
+
+/* Loading bar in the "Published data" column title */
+.mp-bar {
+  display: block; height: 3px; margin-top: .4rem; min-width: 5rem;
+  background: var(--emd-border); border-radius: 2px; overflow: hidden;
+  opacity: 1; transition: opacity .5s;
+}
+.mp-bar-fill { height: 100%; width: 0; background: var(--emd-primary); transition: width .35s ease; }
+.mp-bar.done { opacity: 0; }
+.mp-bar.error .mp-bar-fill { width: 100% !important; background: #dc2626; }
+
+/* Institution cell: name (a link to ROR when known) over the country */
+.mp-inst { display: block; font-weight: 600; color: var(--emd-text); }
+a.mp-inst-link { text-decoration: none; }
+a.mp-inst-link:hover { color: var(--emd-primary); text-decoration: underline; }
+a.mp-inst-link:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; border-radius: 2px; }
+.mp-inst-sub { display: block; font-size: .72rem; color: var(--emd-text-tertiary); }
+.mp-country-code { margin-left: .35rem; font-size: .68rem; opacity: .8; }
+
+/* Family tags: rounded rectangles in the page's blue, normal weight.
+     solid outline  — the institution is the primary developer
+     dashed outline — the institution is a collaborator
+   Hover swaps to the neutral colour. */
+.mp-chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+.mp-chip {
+  display: inline-block; padding: .1rem .55rem; border-radius: 5px;
+  border: 1px solid var(--emd-primary); background: var(--emd-bg);
+  color: var(--emd-primary-dark); font-size: .68rem; font-weight: 400; line-height: 1.55; text-decoration: none;
+}
+.mp-chip:hover { border-color: var(--emd-text-secondary); color: var(--emd-text); }
+.mp-chip:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+.mp-chip--primary { border-style: solid; }
+.mp-chip--collaborator { border-style: dashed; }
+
+/* Published-data cell: one rectangular button per model (a link to its EMD page)
+   with its dataset count inside, stacked one per row. */
+.mp-td-pub { white-space: nowrap; min-width: 9rem; }
+.mp-pub { display: flex; flex-direction: column; align-items: stretch; gap: .25rem; }
+.mp-pub-btn {
+  display: flex; align-items: baseline; justify-content: space-between; gap: .9rem;
+  padding: .1rem .5rem; border: 1px solid var(--emd-primary); border-radius: 5px;
+  background: var(--emd-primary-light); color: var(--emd-primary-dark);
+  font-size: .68rem; line-height: 1.55; text-decoration: none;
+}
+.mp-pub-btn:hover { border-color: var(--emd-text-secondary); color: var(--emd-text); }
+.mp-pub-btn:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
+.mp-pub-n { font-size: .64rem; opacity: .85; font-variant-numeric: tabular-nums; }
+.mp-pub-total {
+  margin-top: .2rem; padding-top: .2rem; border-top: 1px solid var(--emd-border-light);
+  font-size: .72rem; color: var(--emd-text-tertiary); text-align: right; font-variant-numeric: tabular-nums;
+}
+.mp-pub-none { color: var(--emd-text-tertiary); }
+
+/* Statement about who manages the institution data */
+.mp-callout {
+  margin: 1rem 0 0; padding: .6rem .85rem; max-width: 80ch;
+  border: 1px solid var(--emd-border); border-left: 3px solid var(--emd-primary); border-radius: 4px;
+  background: var(--emd-bg); font-size: .82rem; color: var(--emd-text-secondary);
+}
+.mp-callout strong { color: var(--emd-text); font-weight: 600; }
+.mp-callout a { color: var(--emd-primary-dark); }
+
+.mp-note { margin: .75rem 0 0; font-size: .78rem; color: var(--emd-text-tertiary); max-width: 80ch; }
+
+.mp-issues { margin: .75rem 0 0; font-size: .78rem; color: var(--emd-text-secondary); }
+.mp-issues summary { cursor: pointer; color: var(--emd-text-tertiary); }
+.mp-issues ul { margin: .4rem 0 0 1.1rem; padding: 0; }
+.mp-issues li { margin: .15rem 0; }

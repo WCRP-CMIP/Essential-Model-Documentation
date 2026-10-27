@@ -59,13 +59,13 @@ You have several options:
 There is no fixed date, but EMD registration must be completed **before any data is submitted to ESGF**. Plan around your own publication timeline.
 
 **How do I know when action is required during review?**  
-You will receive a GitHub notification. The [Progress Tracker](https://emd.mipcvs.dev/docs/Progress_Tracker) is the easiest place to check — entries needing action are flagged with a flashing red **"Changes Requested"** label.
+You will receive a GitHub notification. The [Progress Tracker](Modelling_centres/Progress_tracker.html) is the easiest place to check — entries needing action are flagged with a flashing red **"Changes Requested"** label.
 
 **Should I reply in the pull request or the issue?**  
 Always reply in the **pull request**. Replies in the issue will eventually be picked up, but the PR is the primary place for review conversation.
 
 **How do I find our where I am in the EMD registration process** <br>
-The [Progress Tracker](https://emd.mipcvs.dev/docs/Progress_Tracker) will show you where you are in the EMD registration process.
+The [Progress Tracker](Modelling_centres/Progress_tracker.html) will show you where you are in the EMD registration process.
 
 ---
 
@@ -88,5 +88,5 @@ Spreadsheet templates are available below to help collate information internally
 ## Further Help
 
 - Full field definitions: [EMD Specification (Zenodo)](https://zenodo.org/records/17853724)
-- Progress Tracker: [Progress Tracker](Progress_Tracker.html)
+- Progress Tracker: [Progress Tracker](Modelling_centres/Progress_tracker.html)
 - Contact: [emd@wcrp-cmip.org](mailto:emd@wcrp-cmip.org)

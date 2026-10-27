@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMD · Vertical grids</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+<!-- Dark mode: apply saved pref before first paint to avoid flicker -->
+<script>
+  (function () {
+    var saved = localStorage.getItem('emd-gc-dark');
+    if (saved === 'true') document.documentElement.classList.add('dark');
+  })();
+</script>
+
+<!-- EMD design tokens — mirrors custom.css :root block -->
+<style>
+  :root {
+    --emd-primary:        #2196f3;
+    --emd-primary-light:  #bbdefb;
+    --emd-primary-dark:   #1976d2;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    /* was #94a3b8 — 2.57:1 on white, failed WCAG AA (needs 4.5:1).
+       #64748b gives 4.76:1 while keeping the same de-emphasised feel. */
+    --emd-text-tertiary:  #64748b;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-bg-tertiary:    #f1f5f9;
+    --emd-border:         #e2e8f0;
+    --emd-border-light:   #f1f5f9;
+  }
+  .dark {
+    --emd-bg:             #1a1d20;
+    --emd-bg-secondary:   #22262b;
+    --emd-bg-tertiary:    #2b3038;
+    --emd-border:         #3a4048;
+    --emd-border-light:   #2b3038;
+    --emd-text:           #f0f2f4;
+    --emd-text-secondary: #c8cdd4;
+    --emd-text-tertiary:  #7e8894;
+    --emd-primary:        #60a5fa;
+    --emd-primary-light:  rgba(96,165,250,.15);
+    --emd-primary-dark:   #93c5fd;
+  }
+  html, body { margin: 0; background: var(--emd-bg-secondary); transition: background .2s; }
+</style>
+
+<link rel="stylesheet" href="../assets/grid-viewer-page/css/theme.css" />
+</head>
+<body>
+
+<div id="emd-grid-cells-page"></div>
+
+<!-- dark mode toggle — wired up after the page module mounts the header -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Wait a tick for the JS module to render the header
+    setTimeout(function () {
+      var header = document.querySelector('.gc-header');
+      if (!header) return;
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      var btn = document.createElement('button');
+      btn.id = 'gc-dark-toggle';
+      btn.setAttribute('aria-label', 'Toggle dark mode');
+      btn.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      btn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
+
+      btn.addEventListener('click', function () {
+        var nowDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('emd-gc-dark', nowDark);
+        btn.innerHTML = nowDark ? SUN_SVG : MOON_SVG;
+        btn.setAttribute('title', nowDark ? 'Switch to light mode' : 'Switch to dark mode');
+      });
+
+      header.appendChild(btn);
+    }, 50);
+  });
+
+  var MOON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  var SUN_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+</script>
+
+<script type="module">
+  import { initGridViewer } from "../assets/grid-viewer-page/js/main.js";
+  initGridViewer({
+    folder: "vertical_computational_grid",
+    title: "Vertical grids",
+    tableTitle: "Vertical grids",
+    noun: "vertical grids",
+    // vertical grids have no grid_type; colour by coordinate system instead
+    colourKey: "vertical_coordinate",
+  });
+</script>
+
+</body>
+</html>
