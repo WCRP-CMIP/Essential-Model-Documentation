@@ -1,0 +1,13 @@
+{
+    "validation_key": "sea-water-pressure",
+    "ui_label": "Sea Water Pressure",
+    "description": "Sea water pressure is the pressure that exists in the medium of sea water, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "sea-water-pressure"
+}

@@ -1,0 +1,12 @@
+{
+    "validation_key": "ocean-hybrid-z-star-isopycnic-coordinate",
+    "ui_label": "ocean_hybrid_z*_isopycnic_coordinate",
+    "description": "Ocean hybrid z* isopycnic coordinate, as described by [Adcroft et al. (2019)](http://dx.doi.org/10.1029/2019MS001726).",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "ocean-hybrid-z-star-isopycnic-coordinate"
+}

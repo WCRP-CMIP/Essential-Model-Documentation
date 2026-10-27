@@ -4,9 +4,9 @@
   "description": "FV3 D-grid",
   "arrangement": "arakawa-d",
   "horizontal_subgrids": [
-    "g254-mass",
-    "g263-x-velocity",
-    "g255-y-velocity"
+    "g254_mass",
+    "g263_x-velocity",
+    "g255_y-velocity"
   ],
   "@context": "_context",
   "@type": [

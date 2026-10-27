@@ -1,0 +1,13 @@
+{
+    "validation_key": "u-velocity",
+    "ui_label": "U Velocity",
+    "description": "Variables representing the u component of the velocity vector, by convention the zonal (west-east) component, aligned with longitude on a latitude-longitude grid.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+    ],
+    "@id": "u-velocity"
+}

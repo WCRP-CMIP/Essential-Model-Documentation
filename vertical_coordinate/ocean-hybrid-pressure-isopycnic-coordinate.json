@@ -1,0 +1,12 @@
+{
+    "validation_key": "ocean-hybrid-pressure-isopycnic-coordinate",
+    "ui_label": "ocean_hybrid_pressure_isopycnic_coordinate",
+    "description": "Ocean hybrid pressure isopycnic coordinate, as described by [Bleck (2002)](https://doi.org/10.1016/S1463-5003(01)00012-9).",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "ocean-hybrid-pressure-isopycnic-coordinate"
+}

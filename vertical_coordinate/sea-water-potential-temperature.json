@@ -1,0 +1,13 @@
+{
+    "validation_key": "sea-water-potential-temperature",
+    "ui_label": "Sea Water Potential Temperature",
+    "description": "Sea water potential temperature is the temperature a parcel of sea water would have if moved adiabatically to sea level pressure, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "sea-water-potential-temperature"
+}

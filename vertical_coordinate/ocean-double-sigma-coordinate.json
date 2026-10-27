@@ -1,0 +1,13 @@
+{
+    "validation_key": "ocean-double-sigma-coordinate",
+    "ui_label": "Ocean Double Sigma Coordinate",
+    "description": "Parametric ocean double sigma coordinate, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "ocean-double-sigma-coordinate"
+}
