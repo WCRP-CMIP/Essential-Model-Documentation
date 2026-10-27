@@ -1,0 +1,13 @@
+{
+    "validation_key": "plane-projection",
+    "ui_label": "Plane Projection",
+    "description": "Any transformation employed to represent the spherical surface of the globe on a plane.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "plane-projection"
+}

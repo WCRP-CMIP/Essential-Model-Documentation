@@ -1,0 +1,16 @@
+{
+    "validation_key": "southern-hemisphere",
+    "ui_label": "Southern Hemisphere",
+    "description": "The complete Earth surface from the equator to the South Pole, 0 to 90 degrees South latitude.",
+    "alias": [
+        "shem"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:region",
+        "esgvoc:Region",
+        "constants"
+    ],
+    "@id": "southern-hemisphere"
+}

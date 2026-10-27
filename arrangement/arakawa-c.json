@@ -1,0 +1,13 @@
+{
+    "validation_key": "arakawa-c",
+    "ui_label": "Arakawa C-grid",
+    "description": "The Arakawa C grid places velocity-related quantities at the centres of mass cell edges, such that each component is perpendicular to its edge.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:arrangement",
+        "esgvoc:Arrangement",
+        "constants"
+    ],
+    "@id": "arakawa-c"
+}

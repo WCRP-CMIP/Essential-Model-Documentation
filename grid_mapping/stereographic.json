@@ -1,0 +1,13 @@
+{
+    "validation_key": "stereographic",
+    "ui_label": "Stereographic",
+    "description": "A projection that preserves the angles between intersecting lines and curves on the sphere, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "stereographic"
+}

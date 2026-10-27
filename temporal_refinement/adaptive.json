@@ -1,0 +1,13 @@
+{
+    "validation_key": "adaptive",
+    "ui_label": "Adaptive",
+    "description": "Grid resolution changes dynamically during the simulation based on solution features.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:temporal_refinement",
+        "esgvoc:TemporalRefinement",
+        "constants"
+    ],
+    "@id": "adaptive"
+}

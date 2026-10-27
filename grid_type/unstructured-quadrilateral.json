@@ -1,0 +1,13 @@
+{
+    "validation_key": "unstructured-quadrilateral",
+    "ui_label": "Unstructured Quadrilateral",
+    "description": "An unstructured mesh consisting solely of quadrilaterals.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "unstructured-quadrilateral"
+}

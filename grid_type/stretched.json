@@ -1,0 +1,13 @@
+{
+    "validation_key": "stretched",
+    "ui_label": "Stretched",
+    "description": "A grid with higher resolution concentrated over an area of interest, at the expense of lower resolution elsewhere.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "stretched"
+}

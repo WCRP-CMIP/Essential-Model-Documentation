@@ -1,0 +1,13 @@
+{
+    "validation_key": "lambert-conformal-conic",
+    "ui_label": "Lambert Conformal Conic",
+    "description": "A projection that preserves the shape of small areas by using a cone placed over the Earth's surface, with the projection onto the cone occurring along lines radiating from the Earth's centre, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "lambert-conformal-conic"
+}

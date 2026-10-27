@@ -1,0 +1,13 @@
+{
+    "validation_key": "icosahedral",
+    "ui_label": "Icosahedral",
+    "description": "Grid based on subdividing an icosahedron projected onto a sphere, providing quasi-uniform global coverage.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_type",
+        "esgvoc:GridType",
+        "constants"
+    ],
+    "@id": "icosahedral"
+}

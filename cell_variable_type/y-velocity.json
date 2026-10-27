@@ -1,0 +1,13 @@
+{
+    "validation_key": "y-velocity",
+    "ui_label": "Y Velocity",
+    "description": "Variables representing the Y component of the velocity vector and certain horizontal fluxes of mass, energy, momentum, etc. For a grid defined by spherical polar coordinates, the Y direction is latitude.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+    ],
+    "@id": "y-velocity"
+}

@@ -1,0 +1,13 @@
+{
+    "validation_key": "transverse-mercator",
+    "ui_label": "Transverse Mercator",
+    "description": "A projection that rotates the Mercator projection cylinder 90 degrees to be tangent to the Earth along a meridian instead of the equator, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "transverse-mercator"
+}
