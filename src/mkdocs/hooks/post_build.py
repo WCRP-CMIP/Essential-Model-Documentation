@@ -989,6 +989,46 @@ def on_page_context(context, page, config, nav, **kwargs):
     return context
 
 
+# ── Cookie banner + analytics on every page ─────────────────────────────────
+#
+# stylesheets/matomo.js holds the cookie banner and the Matomo tracking. It does nothing inside
+# an iframe, and tracks only on the live hostnames (see LIVE_HOSTS in that file). It is added to
+# EVERY built HTML page here, and is NOT listed under extra_javascript in mkdocs.yml, because
+# extra_javascript reaches only the pages MkDocs builds from Markdown: the hand-written HTML
+# pages (viewers, tracker, dashboards) are copied as they are and would be missed.
+
+_ANALYTICS_FILE = 'stylesheets/matomo.js'
+_ANALYTICS_SKIP = {'404.html'}       # a mistyped address should not be counted as a visit
+#                                        (pages that only redirect elsewhere are skipped too, see below)
+
+
+def inject_analytics(site_dir: Path) -> int:
+    """Add the analytics script to every HTML page that does not already reference it."""
+    injected = 0
+    for html in site_dir.rglob('*.html'):
+        rel = html.relative_to(site_dir)
+        if rel.name in _ANALYTICS_SKIP:
+            continue
+        content = html.read_text(encoding='utf-8', errors='ignore')
+        if 'matomo.js' in content:                     # already there: keeps repeat builds from stacking tags
+            continue
+        if re.search(r'http-equiv=["\']?refresh', content, re.I):
+            continue                                   # a pure redirect page: the visitor leaves at once
+        prefix = '../' * (len(rel.parts) - 1) or './'  # path back up to the site root, from this page
+        tag = f'<script src="{prefix}{_ANALYTICS_FILE}"></script>'
+        # insert before the LAST </body>, in case the text also appears inside a script
+        for closing in ('</body>', '</html>'):
+            at = content.rfind(closing)
+            if at >= 0:
+                new = content[:at] + f'  {tag}\n' + content[at:]
+                break
+        else:
+            new = content + f'\n{tag}\n'
+        html.write_text(new, encoding='utf-8')
+        injected += 1
+    return injected
+
+
 # ── Old addresses: redirect from the 404 page ───────────────────────────────
 #
 # docs/remapping_map.json lists every old address and where it now lives:
@@ -1104,6 +1144,9 @@ def on_post_build(config, **kwargs):
 
     # 6. Inject search into standalone pages
     inject_search(site_dir)
+
+    # 6b. Cookie banner + analytics on every page, MkDocs-built and hand-written alike
+    print(f'  [post_build] Analytics script added to {inject_analytics(site_dir)} HTML files')
 
     # 7. Old addresses: the 404 pages look them up in docs/remapping_map.json
     inject_404_redirect(site_dir)
