@@ -17,7 +17,7 @@ The Essential Model Documentation (EMD) is CMIP7's structured registry of climat
     <img class="emd-home-card-img" src="assets/home-cards/model-participation.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">Model Participation</span>
   </a>
-  <a class="emd-home-card" href="https://esgf-view.pages.dev/" target="_blank" rel="noopener" aria-label="What’s been published (ESGF viewer, opens in a new tab)">
+  <a class="emd-home-card" href="https://esgf.wcrp-cmip.org/" target="_blank" rel="noopener" aria-label="What’s been published (ESGF viewer, opens in a new tab)">
     <img class="emd-home-card-img" src="assets/home-cards/esgf-viewer.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">What’s been published</span>
   </a>

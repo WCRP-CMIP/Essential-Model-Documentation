@@ -989,6 +989,97 @@ def on_page_context(context, page, config, nav, **kwargs):
     return context
 
 
+# ── Old addresses: redirect from the 404 page ───────────────────────────────
+#
+# docs/remapping_map.json lists every old address and where it now lives:
+#   { "urls": [ { "from": "Model/", "to": "Data_Users/Model_viewer/" }, ... ] }
+# (paths relative to the docs folder). No page is generated per old address. The 404
+# page looks the missing address up in that file and, if it is listed, sends the visitor
+# on, keeping the ?query and #anchor (so /Model/?model=ukesm1-3-ll lands on the same model).
+#
+# GitHub Pages and Cloudflare Pages both show a ROOT-level 404.html for any missing
+# address, so write_root_404() puts one beside the root index.html (as root_redirect()
+# does). inject_404_redirect() adds the same lookup to the theme's own 404 page, which is
+# what the local `mkdocs serve` shows.
+
+_404_LOOKUP = r"""<script>
+(function () {
+  var path = decodeURIComponent(location.pathname);
+  var at = path.indexOf('/docs/');
+  // Published under /docs/. The local dev server serves the docs at the site root.
+  var bases = at >= 0 ? [path.slice(0, at + 6)] : ['/', '/docs/'];
+  var want = (at >= 0 ? path.slice(at + 6) : path).replace(/^\/+/, '').replace(/index\.html$/, '').replace(/\/+$/, '');
+  var norm = function (p) { return p.replace(/^\/+/, '').replace(/index\.html$/, '').replace(/\/+$/, ''); };
+  var attempt = function (k) {
+    if (k >= bases.length || !want) return;
+    fetch(bases[k] + 'remapping_map.json')
+      .then(function (r) { if (!r.ok) throw new Error('no map'); return r.json(); })
+      .then(function (map) {
+        var hit = (map.urls || []).filter(function (u) { return norm(u.from) === want; })[0];
+        if (hit) location.replace(bases[k] + hit.to.replace(/^\/+/, '') + location.search + location.hash);
+      })
+      .catch(function () { attempt(k + 1); });
+  };
+  attempt(0);
+})();
+</script>
+"""
+
+_404_ROOT_PAGE = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found · Essential Model Documentation</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 34rem; margin: 14vh auto; padding: 0 1.5rem; color: #1e293b; }
+  h1 { font-size: 1.4rem; }
+  a { color: #1976d2; }
+</style>
+</head>
+<body>
+<h1>This page has moved or no longer exists</h1>
+<p>If you followed an old link, you should be taken to its new address in a moment.
+Otherwise, start from the <a id="home" href="/docs/">EMD documentation</a>.</p>
+<script>
+  (function () {
+    var path = location.pathname, at = path.indexOf('/docs/');
+    var project = location.hostname.slice(-10) === '.github.io' ? '/' + (path.split('/')[1] || '') : '';
+    document.getElementById('home').href = at >= 0 ? path.slice(0, at + 6) : project + '/docs/';
+  })();
+</script>
+""" + _404_LOOKUP + """</body>
+</html>
+"""
+
+
+def inject_404_redirect(site_dir: Path) -> bool:
+    """
+    Make the built site's own 404 page do the old-address lookup (it is what `mkdocs serve`
+    shows for a missing address). Adds the lookup to the theme's 404 page if there is one;
+    if the theme has none, writes the same self-contained page used at the site root.
+    """
+    page = site_dir / '404.html'
+    if not page.exists():
+        page.write_text(_404_ROOT_PAGE, encoding='utf-8')
+        return True
+    html = page.read_text(encoding='utf-8', errors='ignore')
+    if 'remapping_map.json' in html:
+        return True
+    html = html.replace('</body>', _404_LOOKUP + '</body>', 1) if '</body>' in html else html + _404_LOOKUP
+    page.write_text(html, encoding='utf-8')
+    return True
+
+
+def write_root_404(site_dir: Path):
+    """Write the root-level 404.html that GitHub Pages / Cloudflare Pages serve for missing addresses."""
+    try:
+        (site_dir.parent / '404.html').write_text(_404_ROOT_PAGE, encoding='utf-8')
+    except Exception as e:
+        print(f'  [post_build] root 404 failed: {e}')
+
+
 def on_post_build(config, **kwargs):
     site_dir = Path(config['site_dir']).resolve()
     docs_dir = Path(config['docs_dir']).resolve()
@@ -1013,3 +1104,7 @@ def on_post_build(config, **kwargs):
 
     # 6. Inject search into standalone pages
     inject_search(site_dir)
+
+    # 7. Old addresses: the 404 pages look them up in docs/remapping_map.json
+    inject_404_redirect(site_dir)
+    write_root_404(site_dir)
