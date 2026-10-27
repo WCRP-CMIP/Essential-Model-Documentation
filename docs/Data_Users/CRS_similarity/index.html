@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRS similarity (experimental) · Essential Model Documentation</title>
+<link rel="stylesheet" href="assets/crs-similarity/css/style.css">
+</head>
+<body>
+<main class="cs-page">
+  <header class="cs-header">
+    <a class="cs-eyebrow" id="cs-home" href="../../">Essential Model Documentation</a>
+    <h1 class="cs-title">CRS similarity <span class="cs-badge">experimental</span></h1>
+    <p class="cs-intro">
+      Models grouped by the <em>structure</em> of their Canonical Realm String: which realms they run,
+      which realms are embedded in others, which are coupled, and which are prescribed.
+      Move the slider to group more or less strictly; open <strong>Adjust what counts</strong> to change
+      how much each kind of feature matters. See <a href="#cs-method">How it works</a> below.
+    </p>
+  </header>
+
+  <p class="cs-status" id="cs-status">Loading the models…</p>
+
+  <section class="cs-card" id="cs-groups-card" hidden>
+    <div class="cs-controls" id="cs-controls"></div>
+    <div id="cs-groups"></div>
+  </section>
+
+  <section class="cs-card" id="cs-matrix-card" hidden>
+    <h2>Similarity matrix and tree</h2>
+    <p class="cs-sub">Ordered by the clustering tree. Outlined blocks are the groups above; the dashed line on
+      the tree is the current cut. Click a cell to compare that pair below.</p>
+    <div class="cs-matrix-scroll" id="cs-matrix"></div>
+  </section>
+
+  <section class="cs-card" id="cs-pair-card" hidden>
+    <h2>Compare two models</h2>
+    <div id="cs-pair"></div>
+  </section>
+
+  <section class="cs-card" id="cs-method">
+    <h2>How it works</h2>
+    <div id="cs-method-body"></div>
+  </section>
+</main>
+<script type="module" src="assets/crs-similarity/js/main.js"></script>
+</body>
+</html>

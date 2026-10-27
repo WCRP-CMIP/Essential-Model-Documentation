@@ -19,7 +19,7 @@ const svg = (tag, attrs = {}) => {
 };
 
 // short label used inside the small embedded circles
-function shortRealm(code) {
+export function shortRealm(code) {
   const map = {
     "atmosphere": "atm", "atmospheric-chemistry": "chem", "aerosol": "aer",
     "land-surface": "land", "land-ice": "ice", "ocean": "ocn",
@@ -81,26 +81,13 @@ function drawLegend(clone, { footerTop }) {
   clone.appendChild(g);
 }
 
-export function mountCrsDiagram(root, model, { modelId } = {}) {
-  const crs = model.crs;
-  const body = [];
-
-  if (!crs) {
-    body.push(Object.assign(document.createElement("p"),
-      { className: "card-sub", textContent: "No CRS string is defined for this model." }));
-    root.appendChild(card("Coupling topology (CRS)", body, { extraClass: "crs-diagram" }));
-    return;
-  }
-
-  // CRS string display — each realm code coloured by its realm; embedded
-  // (square-bracketed) codes shown paler; structural glyphs muted.
-  const codeLine = document.createElement("div");
-  codeLine.className = "crs-string";
-  codeLine.appendChild(renderCrsCode(crs));
-  body.push(codeLine);
-
-  const { embeddings, couplingPairs, roots, prescribed } = parse(crs);
+/** The CRS "spheres" diagram as an <svg>: root realms on a ring, embedded realms inside their
+ *  host, couplings as dashed arcs, prescribed realms outlined. Used by the coupling topology
+ *  card below and by the CRS similarity page (which also passes `varies`: realms present in
+ *  every model of a group but run differently, and `shortLabels` for small diagrams). */
+export function crsSvg({ embeddings = [], couplingPairs = [], roots = [], prescribed = [] } = {}, { varies = [], shortLabels = false } = {}) {
   const preSet = new Set(prescribed);
+  const varSet = new Set(varies);
 
   // parent → [children]
   const childrenOf = new Map();
@@ -156,10 +143,12 @@ export function mountCrsDiagram(root, model, { modelId } = {}) {
     const p = pos.get(code);
     const color = realmColor(code);
     const isPre = preSet.has(code);
+    const isVar = !isPre && varSet.has(code);   // in every model of a group, but run differently
     const kids = childrenOf.get(code) || [];
 
-    const r = isPre ? PRE_R : PR;        // prescribed spheres are 70% the size
-    const g = svg("g", { class: `crs-node${isPre ? " prescribed" : ""}`, transform: `translate(${p.x},${p.y})` });
+    const r = (isPre || isVar) ? PRE_R : PR;   // prescribed (and 'varies') spheres are 70% the size
+    const g = svg("g", { class: `crs-node${isPre ? " prescribed" : isVar ? " varies" : ""}`, transform: `translate(${p.x},${p.y})` });
+    if (shortLabels) { const tt = svg("title"); tt.textContent = realmLabel(code); g.appendChild(tt); }
 
     if (isPre) {
       // prescribed: an outlined circle with no fill and a realm-coloured
@@ -167,18 +156,25 @@ export function mountCrsDiagram(root, model, { modelId } = {}) {
       // signals an external, one-way boundary forcing.
       g.appendChild(svg("circle", { r: r + 4, class: "crs-pre-halo", style: `--realm:${color}` }));
       g.appendChild(svg("circle", { r, class: "crs-pre-circle", style: `--realm:${color}` }));
+    } else if (isVar) {
+      g.appendChild(svg("circle", { r, class: "crs-varies", style: `--realm:${color}` }));
     } else {
       g.appendChild(svg("circle", { r, class: "crs-sphere", style: `--realm:${color}` }));
     }
 
     // parent label — nudged up when it has children so it doesn't overlap
     const lbl = svg("text", { x: 0, y: kids.length ? -r * 0.5 : 0, class: "crs-sphere-label" });
-    lbl.textContent = realmLabel(code);
+    lbl.textContent = shortLabels ? shortRealm(code) : realmLabel(code);
     g.appendChild(lbl);
 
     if (isPre) {
       const tag = svg("text", { x: 0, y: r * 0.72, class: "crs-pre-tag" });
       tag.textContent = "prescribed";
+      g.appendChild(tag);
+    }
+    if (isVar) {
+      const tag = svg("text", { x: 0, y: r * 0.72, class: "crs-pre-tag" });
+      tag.textContent = "varies";
       g.appendChild(tag);
     }
 
@@ -198,6 +194,29 @@ export function mountCrsDiagram(root, model, { modelId } = {}) {
     }
     s.appendChild(g);
   }
+  return s;
+}
+
+export function mountCrsDiagram(root, model, { modelId } = {}) {
+  const crs = model.crs;
+  const body = [];
+
+  if (!crs) {
+    body.push(Object.assign(document.createElement("p"),
+      { className: "card-sub", textContent: "No CRS string is defined for this model." }));
+    root.appendChild(card("Coupling topology (CRS)", body, { extraClass: "crs-diagram" }));
+    return;
+  }
+
+  // CRS string display — each realm code coloured by its realm; embedded
+  // (square-bracketed) codes shown paler; structural glyphs muted.
+  const codeLine = document.createElement("div");
+  codeLine.className = "crs-string";
+  codeLine.appendChild(renderCrsCode(crs));
+  body.push(codeLine);
+
+  const { embeddings, couplingPairs, roots, prescribed } = parse(crs);
+  const s = crsSvg({ embeddings, couplingPairs, roots, prescribed });
 
   // The diagram sits in a canvas with a small tool button (download as SVG) in its corner.
   const canvas = document.createElement("div");

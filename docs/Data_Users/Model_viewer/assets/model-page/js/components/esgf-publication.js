@@ -74,7 +74,7 @@ export async function mountEsgfPublication(root, model, { base, esgfRoot, modelI
   add("", el("div", {}, [summaryNode(rows), cumulativeChartNode(rows, "updated")]));
   add("Output grids", await outputGridsNode(rows, resolver));
   add("Frequencies", frequenciesNode(rows));
-  add("Variables", variablesNode(rows), { collapsed: true });
+  add("Variables", variablesNode(rows));   // the word cloud is always shown (not collapsible)
 
   if (!subsEl.children.length) return;
   root.appendChild(card("ESGF Publication", [subsEl], { extraClass: "esgf-publication" }));
