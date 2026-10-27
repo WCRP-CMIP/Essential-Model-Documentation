@@ -1,0 +1,16 @@
+{
+    "validation_key": "standard",
+    "ui_label": "Standard (Gregorian)",
+    "description": "Mixed Gregorian/Julian calendar as defined by UDUNITS. This is the default calendar assumed if no calendar attribute is specified. A deprecated alternative name for this calendar is 'gregorian'.",
+    "alias": [
+        "gregorian"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:calendar",
+        "esgvoc:Calendar",
+        "universal",
+        "constants"
+    ],
+    "@id": "standard"
+}

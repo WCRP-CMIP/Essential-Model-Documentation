@@ -1,0 +1,14 @@
+{
+    "validation_key": "none",
+    "ui_label": "None",
+    "description": "No calendar - used for data without a temporal dimension or for time-invariant fields.",
+    "alias": [],
+    "@context": "_context",
+    "@type": [
+        "wcrp:calendar",
+        "esgvoc:Calendar",
+        "universal",
+        "constants"
+    ],
+    "@id": "none"
+}

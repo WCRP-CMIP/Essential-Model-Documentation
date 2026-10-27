@@ -1,0 +1,13 @@
+{
+    "validation_key": "static",
+    "ui_label": "Static",
+    "description": "Grid resolution remains constant throughout the simulation.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:temporal_refinement",
+        "esgvoc:TemporalRefinement",
+        "constants"
+    ],
+    "@id": "static"
+}

@@ -1,0 +1,13 @@
+{
+    "validation_key": "azimuthal-equidistant",
+    "ui_label": "Azimuthal Equidistant",
+    "description": "A projection that maintains the correct distance and direction from a central point to all other points on the map, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "azimuthal-equidistant"
+}

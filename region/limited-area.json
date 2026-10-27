@@ -1,0 +1,13 @@
+{
+    "validation_key": "limited-area",
+    "ui_label": "Limited Area",
+    "description": "Any contiguous subregion of the Earth's surface, used to indicate a limited area model that may be placed over different geographical regions independently of the model formulation.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:region",
+        "esgvoc:Region",
+        "constants"
+    ],
+    "@id": "limited-area"
+}

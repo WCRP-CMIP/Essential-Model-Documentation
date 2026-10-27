@@ -1,0 +1,16 @@
+{
+    "validation_key": "rhomboidal",
+    "ui_label": "Rhomboidal Truncation",
+    "description": "Rhomboidal truncation in spectral space where |m| ≤ M and |n-m| ≤ N. Provides more uniform resolution across latitudes than triangular truncation.",
+    "alias": [
+        "R"
+    ],
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:truncation_method",
+        "esgvoc:TruncationMethod",
+        "constants"
+    ],
+    "@id": "rhomboidal"
+}

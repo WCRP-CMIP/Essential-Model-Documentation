@@ -1,0 +1,13 @@
+{
+    "validation_key": "healpix",
+    "ui_label": "HEALPix",
+    "description": "The hierarchical equal area isolatitude pixelisation of a sphere based on subdivision of a distorted rhombic dodecahedron (HEALPix), as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:grid_mapping",
+        "esgvoc:GridMapping",
+        "constants"
+    ],
+    "@id": "healpix"
+}

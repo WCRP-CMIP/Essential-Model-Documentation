@@ -1,0 +1,13 @@
+{
+    "validation_key": "velocity",
+    "ui_label": "Velocity",
+    "description": "Variables representing the velocity vector when it is not partitioned into X and Y components (such as for some unstructured grids).",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+    ],
+    "@id": "velocity"
+}

@@ -1,0 +1,13 @@
+{
+    "validation_key": "arakawa-b",
+    "ui_label": "Arakawa B-grid",
+    "description": "The Arakawa B grid places velocity-related quantities at the corners of mass cells.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:arrangement",
+        "esgvoc:Arrangement",
+        "constants"
+    ],
+    "@id": "arakawa-b"
+}
