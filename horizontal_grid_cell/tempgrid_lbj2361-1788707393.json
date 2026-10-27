@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_lbj2361-1788707393",
+    "ui_label": "Horizontal grid cell with a plane projection grid type and 4 x 4 km resolution.",
+    "description": "Regular 4 km × 4 km Cartesian vertex grid for horizontal velocity variables in the CISM Greenland configuration, using the EPSG:3413 polar stereographic projection (WGS84). The grid consists of 415 × 703 vertices and is staggered by half a grid cell in both horizontal directions relative to the 416 × 704 cell-centre scalar grid. Both horizontal velocity components (u and v) are colocated at these vertices, consistent with the Arakawa B-grid arrangement used by CISM. The projection has a latitude of origin of 90°N, a standard parallel of 70°N, a central meridian of 45°W, and zero false easting and northing.",
+    "alias": [
+        "CISM Greenland 4 km vertex velocity grid"
+    ],
+    "grid_mapping": "polar-stereographic",
+    "grid_type": "plane-projection",
+    "n_cells": 291745,
+    "region": [
+        "greenland"
+    ],
+    "southernmost_latitude": 58.28028,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "km",
+    "westernmost_longitude": 303.16836,
+    "x_resolution": 4,
+    "y_resolution": 4,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_lbj2361-1788707393"
+}
