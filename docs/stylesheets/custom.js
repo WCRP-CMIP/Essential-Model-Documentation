@@ -21,18 +21,6 @@
   };
 })();
 
-// ============================================
-// SIDEBAR + "ON THIS PAGE" OUTLINE — remembered hidden/shown state.
-// Applied immediately so a hidden panel never flashes on load.
-// The toggle buttons themselves are added by setupSidebarToggle() / setupOutlineToggle() below.
-// ============================================
-(function () {
-  try {
-    if (localStorage.getItem('emd-toc-hidden') === '1') document.documentElement.classList.add('toc-hidden');
-    if (localStorage.getItem('emd-sidebar-hidden') === '1') document.documentElement.classList.add('sidebar-hidden');
-  } catch (e) {}
-})();
-
 // Configuration
 const CONFIG = {
   repoUrl: 'https://github.com/WCRP-CMIP/Essential-Model-Documentation',
@@ -147,75 +135,6 @@ function fixNavDisplay() {
     });
   }, 50);
 }
-
-// ============================================
-// HIDEABLE PANELS: the left sidebar and the right-hand "On this page" outline
-// Each has a toggle button; hiding a panel removes its column and the content column
-// (flex-1) takes the freed width. The choice is remembered per panel in localStorage
-// ('emd-sidebar-hidden' / 'emd-toc-hidden') and applied early, see the top of this file.
-// The buttons only show where the panel exists: the sidebar from lg (64rem), the outline
-// from xl (80rem) — see #sidebar-toggle / #toc-toggle in custom.css.
-// ============================================
-function makePanelToggle({ id, hiddenClass, storageKey, shape, hideLabel, showLabel }) {
-  const root = document.documentElement;
-  const btn = document.createElement('button');
-  btn.id = id;
-  btn.type = 'button';
-  btn.innerHTML =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-    '<rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="' + shape + '"></path></svg>';
-  const paint = () => {
-    const hidden = root.classList.contains(hiddenClass);
-    const label = hidden ? showLabel : hideLabel;
-    btn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
-    btn.setAttribute('aria-label', label);
-    btn.title = label;
-  };
-  btn.addEventListener('click', () => {
-    const hidden = root.classList.toggle(hiddenClass);
-    try { localStorage.setItem(storageKey, hidden ? '1' : '0'); } catch (e) {}
-    paint();
-  });
-  paint();
-  return btn;
-}
-
-// Left navigation sidebar: the button goes in the header row, just before the logo.
-function setupSidebarToggle() {
-  if (document.getElementById('sidebar-toggle')) return;
-  const sidebar = document.querySelector('[data-slot="sidebar"]');
-  const menu = document.getElementById('menu-button');            // mobile-only menu button, first in the header row
-  const row = menu ? menu.parentElement : null;
-  if (!sidebar || !row) return;
-  const btn = makePanelToggle({
-    id: 'sidebar-toggle', hiddenClass: 'sidebar-hidden', storageKey: 'emd-sidebar-hidden', shape: 'M9 4v16',
-    hideLabel: 'Hide the navigation sidebar', showLabel: 'Show the navigation sidebar',
-  });
-  row.insertBefore(btn, menu.nextElementSibling);                 // between the menu button and the logo link
-}
-
-// Right-hand "On this page" outline: the button goes beside the page title's copy / previous / next buttons.
-function setupOutlineToggle() {
-  if (document.getElementById('toc-toggle')) return;
-  const outline = document.querySelector('[view-transition-name="toc"]');
-  const group = document.querySelector('#page-header > div');
-  // Nothing to hide on a page whose outline is empty.
-  if (!outline || !group || !outline.querySelector('a')) return;
-  const btn = makePanelToggle({
-    id: 'toc-toggle', hiddenClass: 'toc-hidden', storageKey: 'emd-toc-hidden', shape: 'M15 4v16',
-    hideLabel: 'Hide the “On this page” outline', showLabel: 'Show the “On this page” outline',
-  });
-  group.insertBefore(btn, group.firstChild);
-}
-
-// Start each one independently, so a problem in the long init() below (or in the other
-// toggle) can never stop it from appearing.
-document.addEventListener('DOMContentLoaded', function () {
-  [setupSidebarToggle, setupOutlineToggle].forEach(function (fn) {
-    try { fn(); } catch (e) { console.error('[EMD] ' + fn.name + ' failed:', e); }
-  });
-});
 
 function init() {
   setupHeaderControls();

@@ -1764,15 +1764,9 @@ th[data-sort="desc"] .sort-indicator {
    ============================================================ */
 .emd-home-cards {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));   /* as many across as fit; wraps by itself on small screens */
   gap: 1rem;
   margin: .75rem 0 1.75rem;
-}
-@media (max-width: 960px) {
-  .emd-home-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 520px) {
-  .emd-home-cards { grid-template-columns: 1fr; }
 }
 
 .emd-home-card {
@@ -1826,60 +1820,3 @@ th[data-sort="desc"] .sort-indicator {
   .emd-home-card,
   .emd-home-card-title { transition: none; }
 }
-
-/* ============================================================
-   HIDEABLE PANELS: left sidebar + right-hand "On this page" outline
-   Each panel is a column beside the content. Hiding one removes its column, and the content
-   column (flex-1) takes the width it frees.
-     sidebar : [data-slot="sidebar"], shown from the lg breakpoint (64rem) up
-     outline : the last child of [data-slot="docs"], shown from the xl breakpoint (80rem) up
-   The toggle buttons are added by setupSidebarToggle() / setupOutlineToggle() in custom.js;
-   the saved choices are the .sidebar-hidden / .toc-hidden classes on <html>.
-   ============================================================ */
-html.sidebar-hidden [data-slot="sidebar"],
-html.toc-hidden [data-slot="docs"] > div:last-child {
-  display: none !important;
-}
-
-/* The reading-width cap set earlier (article.w-full / .typography / .prose at 1200px) would stop the
-   content from using the room a hidden panel frees, so lift it while either panel is hidden. It stays
-   capped at 1600px so lines do not become unreadably long on very large screens. */
-html.sidebar-hidden article.w-full,
-html.toc-hidden article.w-full,
-html.sidebar-hidden .typography,
-html.toc-hidden .typography,
-html.sidebar-hidden .prose,
-html.toc-hidden .prose {
-  max-width: 1600px !important;
-}
-
-/* Toggle buttons: no panel below its breakpoint, so no button either. */
-#sidebar-toggle,
-#toc-toggle { display: none; }
-
-#sidebar-toggle,
-#toc-toggle {
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--emd-text-secondary);
-  cursor: pointer;
-  transition: background-color .15s ease, color .15s ease;
-}
-#sidebar-toggle svg,
-#toc-toggle svg { width: 1.1rem; height: 1.1rem; stroke: currentColor !important; fill: none; }
-#sidebar-toggle:hover,
-#toc-toggle:hover { background: var(--emd-bg-tertiary); color: var(--emd-text); }
-#sidebar-toggle:focus-visible,
-#toc-toggle:focus-visible { outline: 2px solid var(--emd-primary); outline-offset: 2px; }
-#sidebar-toggle[aria-pressed="true"],
-#toc-toggle[aria-pressed="true"] { color: var(--emd-primary); }     /* pressed = panel hidden */
-
-@media (min-width: 64rem) { #sidebar-toggle { display: inline-flex; } }
-@media (min-width: 80rem) { #toc-toggle { display: inline-flex; } }

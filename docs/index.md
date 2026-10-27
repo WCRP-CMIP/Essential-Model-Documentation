@@ -17,9 +17,21 @@ The Essential Model Documentation (EMD) is CMIP7's structured registry of climat
     <img class="emd-home-card-img" src="assets/home-cards/model-participation.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">Model Participation</span>
   </a>
+  <a class="emd-home-card" href="https://esgf-view.pages.dev/" target="_blank" rel="noopener" aria-label="What’s been published (ESGF viewer, opens in a new tab)">
+    <img class="emd-home-card-img" src="assets/home-cards/esgf-viewer.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">What’s been published</span>
+  </a>
+  <a class="emd-home-card" href="https://observablehq.com/@wolfiex/reading-the-emd-in-your-own-work" target="_blank" rel="noopener" aria-label="Reading the EMD in your own work (Observable notebook, opens in a new tab)">
+    <img class="emd-home-card-img" src="assets/home-cards/observable-notebook.jpg" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Reading the EMD in your own work</span>
+  </a>
   <a class="emd-home-card" href="Modelling_centres/Progress_tracker.html" aria-label="Progress Tracker">
     <img class="emd-home-card-img" src="assets/home-cards/progress-tracker.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">Progress Tracker</span>
+  </a>
+  <a class="emd-home-card" href="Modelling_centres/Progress_feed/" aria-label="Progress Feed">
+    <img class="emd-home-card-img" src="assets/home-cards/progress-feed.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Progress Feed</span>
   </a>
 </div>
 
