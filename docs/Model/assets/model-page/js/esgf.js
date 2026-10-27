@@ -13,13 +13,21 @@
 import * as Arrow from "https://esm.sh/apache-arrow@21";
 import { decompress } from "https://esm.sh/fzstd@0.1";
 
-// Defensive: allow zstd-compressed Arrow bodies. Files written uncompressed
-// read natively; this only matters if a compressed file ever appears.
-try { Arrow.compressionRegistry.set(Arrow.CompressionType.ZSTD, { decode: b => decompress(b) }); } catch {}
+// The published Arrow files are zstd-compressed, so a decoder is required.
+// fzstd can hand back a view whose byteOffset is not a multiple of 8, and Arrow
+// then throws "start offset of BigInt64Array should be a multiple of 8" — so any
+// misaligned result is re-homed in a fresh buffer. (Same fix as the ESGF-view app.)
+try {
+  Arrow.compressionRegistry.set(Arrow.CompressionType.ZSTD, {
+    decode: b => { const out = decompress(b); return out.byteOffset % 8 === 0 ? out : out.slice(); },
+  });
+} catch {}
 
-// Published ESGF-arrow bundle (Cloudflare Pages). One Arrow file per model at
-// the site root: <ESGF_ROOT>/<validation_key>.arrow  (e.g. /UKESM1-3-LL.arrow).
-export const ESGF_ROOT = "https://esgf-arrow.pages.dev";
+// Published ESGF-arrow bundle (Cloudflare Pages). One Arrow file per model in
+// the CMIP7 collection folder: <ESGF_ROOT>/<validation_key>.arrow
+// (e.g. /CMIP7/UKESM1-3-LL.arrow). The folder name is upper-case and the host
+// is case-sensitive: /cmip7/ returns 404.
+export const ESGF_ROOT = "https://esgf-arrow.pages.dev/CMIP7";
 
 // Timestamps come back as epoch-ms (number or bigint) → JS number.
 const toMs = v => (v == null ? null : Number(v));
