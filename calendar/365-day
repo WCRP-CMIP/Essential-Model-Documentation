@@ -1,0 +1,16 @@
+{
+    "validation_key": "365-day",
+    "ui_label": "365-day (No Leap)",
+    "description": "A calendar in which each year consists of 365 days with no leap years. All months have their standard lengths (28 days for February).",
+    "alias": [
+        "noleap"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:calendar",
+        "esgvoc:Calendar",
+        "universal",
+        "constants"
+    ],
+    "@id": "365-day"
+}

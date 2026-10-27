@@ -1,0 +1,13 @@
+{
+    "validation_key": "atmosphere-hybrid-height-coordinate",
+    "ui_label": "Atmosphere Hybrid Height Coordinate",
+    "description": "Parametric atmosphere hybrid height coordinate, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "atmosphere-hybrid-height-coordinate"
+}

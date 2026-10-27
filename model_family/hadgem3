@@ -25,10 +25,10 @@
     "scientific_domains": [
         "atmosphere",
         "ocean",
-        "land_surface",
-        "sea_ice",
-        "ocean_biogeochemistry",
-        "atmospheric_chemistry"
+        "land-surface",
+        "sea-ice",
+        "ocean-biogeochemistry",
+        "atmospheric-chemistry"
     ],
     "shared_code_base": "Unified Model atmosphere, NEMO ocean, CICE sea ice, JULES land surface, OASIS coupler.",
     "software_dependencies": "Unified Model build system, NEMO, CICE, JULES, OASIS3-MCT, NetCDF/HDF5, MPI",

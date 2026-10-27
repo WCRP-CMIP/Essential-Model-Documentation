@@ -1,0 +1,13 @@
+{
+    "validation_key": "height",
+    "ui_label": "Height",
+    "description": "Vertical distance above a reference surface.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "height"
+}

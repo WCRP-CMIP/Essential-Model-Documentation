@@ -2,7 +2,7 @@
 Handler for Horizontal Computational Grid registration (Stage 2a)
 
 Produces N+1 files per submission:
-  horizontal_subgrid/{cell}-{vtype}.json               — one per slot (content-addressed, e.g. g100-mass)
+  horizontal_subgrid/{cell}_{vtype}.json               — one per slot (content-addressed, e.g. g100_mass)
   horizontal_computational_grid/tempgrid_{author}-{timestamp}.json — temporary comp grid file
 
 Subgrid IDs remain content-addressed for deduplication.
@@ -159,8 +159,10 @@ def run(parsed_issue, issue, dry_run=False):
             _slug(v) for v in slot['variable_types']
             if v and v.strip().lower() not in PLACEHOLDER_VALUES
         } - {''})
-        vtype_slug = '-'.join(vtypes) if vtypes else 'untyped'
-        sid        = f"{cell}-{vtype_slug}"
+        # '_' separates the parts of a subgrid ID and '-' stays inside a part,
+        # matching component_config IDs (e.g. g180_mass_x-velocity_y-velocity).
+        vtype_slug = '_'.join(vtypes) if vtypes else 'untyped'
+        sid        = f"{cell}_{vtype_slug}"
         file_path  = os.path.join('horizontal_subgrid', f"{sid}.json")
         reused     = os.path.exists(os.path.join(repo_root, file_path))
 
@@ -245,7 +247,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
     subgrid_ids = files_to_write.get('_subgrid_ids', [])
 
     # Build a lookup of subgrid dicts for validator substitution.
-    # Keys are the bare subgrid IDs (e.g. "g100-mass").
+    # Keys are the bare subgrid IDs (e.g. "g100_mass").
     subgrid_lookup = {
         data['@id']: {k: v for k, v in data.items() if not k.startswith('_')}
         for fp, data in files_to_write.items()

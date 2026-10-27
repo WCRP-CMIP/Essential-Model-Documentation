@@ -1,0 +1,19 @@
+{
+    "validation_key": "g141_mass_velocity_x-velocity_y-velocity",
+    "ui_label": "",
+    "description": "",
+    "cell_variable_type": [
+        "mass",
+        "velocity",
+        "x-velocity",
+        "y-velocity"
+    ],
+    "horizontal_grid_cell": "g141",
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_subgrid",
+        "esgvoc:HorizontalSubgrid",
+        "emd"
+    ],
+    "@id": "g141_mass_velocity_x-velocity_y-velocity"
+}

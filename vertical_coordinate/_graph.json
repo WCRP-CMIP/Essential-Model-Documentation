@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/vertical_coordinate/",
+    "@base": "https://emd.wcrp-cmip.org/vertical_coordinate/",
+    "@esgvoc": "VerticalCoordinate",
+    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/VerticalCoordinate/"
+  },
+  "@type": [
+    "Collection"
+  ],
+  "contents": [
+    {"@id": "ocean-hybrid-z-star-isopycnic-coordinate"},
+    {"@id": "atmosphere-hybrid-height-coordinate"},
+    {"@id": "sea-water-potential-temperature"},
+    {"@id": "geopotential-height"},
+    {"@id": "height"},
+    {"@id": "ocean-hybrid-pressure-isopycnic-coordinate"},
+    {"@id": "ocean-sigma-z-coordinate"},
+    {"@id": "atmosphere-hybrid-sigma-pressure-coordinate"},
+    {"@id": "air-pressure"},
+    {"@id": "sea-water-pressure"},
+    {"@id": "atmosphere-sigma-coordinate"},
+    {"@id": "ocean-s-coordinate"},
+    {"@id": "ocean-double-sigma-coordinate"},
+    {"@id": "ocean-s-coordinate-g2"},
+    {"@id": "ocean-sigma-coordinate"},
+    {"@id": "atmosphere-sleve-coordinate"},
+    {"@id": "depth"},
+    {"@id": "z-star"},
+    {"@id": "atmosphere-ln-pressure-coordinate"},
+    {"@id": "ocean-s-coordinate-g1"},
+    {"@id": "land-ice-sigma-coordinate"},
+    {"@id": "air-potential-temperature"}
+  ]
+}

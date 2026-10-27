@@ -1,0 +1,13 @@
+{
+    "validation_key": "vorticity",
+    "ui_label": "Vorticity",
+    "description": "Variables representing the vorticity of the horizontal velocity field, i.e. its local rotation (the vertical component of the curl). Used for grids on which vorticity is carried as a variable in its own right, such as in spectral vorticity-divergence formulations, or is located at its own positions on the grid.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+    ],
+    "@id": "vorticity"
+}

@@ -1,0 +1,13 @@
+{
+    "validation_key": "geopotential-height",
+    "ui_label": "Geopotential Height",
+    "description": "Geopotential height is the geopotential divided by the standard acceleration due to gravity, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "geopotential-height"
+}

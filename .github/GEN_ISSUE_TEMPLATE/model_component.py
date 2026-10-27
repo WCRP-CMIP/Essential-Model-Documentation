@@ -11,6 +11,6 @@ component_family = name_entry(
 )
 
 DATA = {
-    'component_type': graph_entry('constants:scientific_domain/_graph.json'),
+    'component_type': graph_entry('emd:scientific_domain/_graph.json'),
     'component_family': component_family,
 }

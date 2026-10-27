@@ -4,9 +4,9 @@
   "description": "Arakawa C-grid 1.25 x 1.0 regular lat-lon for use in atmospheric modelling.",
   "arrangement": "arakawa-c",
   "horizontal_subgrids": [
-    "g230-mass",
-    "g225-x-velocity",
-    "g224-y-velocity"
+    "g230_mass",
+    "g225_x-velocity",
+    "g224_y-velocity"
   ],
   "@context": "_context",
   "@type": [

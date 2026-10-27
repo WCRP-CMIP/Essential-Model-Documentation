@@ -237,5 +237,5 @@ When adding new CV fields or grid types:
 
 ## References
 
-- [WCRP Constants Repository](https://github.com/WCRP-CMIP/WCRP-constants)
-- [Grid Type Graph](https://raw.githubusercontent.com/WCRP-CMIP/WCRP-constants/refs/heads/production/grid_type/_graph.json)
+- [Essential Model Documentation (the constants vocabularies now live here)](https://github.com/WCRP-CMIP/Essential-Model-Documentation)
+- [Grid Type Graph](https://wcrp-cmip.github.io/Essential-Model-Documentation/grid_type/_graph.json)

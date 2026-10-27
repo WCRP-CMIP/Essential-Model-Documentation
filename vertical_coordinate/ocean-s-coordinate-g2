@@ -1,0 +1,13 @@
+{
+    "validation_key": "ocean-s-coordinate-g2",
+    "ui_label": "Ocean S Coordinate G2",
+    "description": "Parametric ocean s-coordinate, generic form 2, as defined by the CF conventions.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:vertical_coordinate",
+        "esgvoc:VerticalCoordinate",
+        "constants"
+    ],
+    "@id": "ocean-s-coordinate-g2"
+}
