@@ -151,8 +151,8 @@ The horizontal grid linked in the configuration must be scientifically appropria
 
 ### Vertical grid reference doesn't match the component type
 
-- `ocean_biogeochemistry` should share the ocean's vertical grid, not have its own atmospheric vertical grid.
-- `land_surface` should reference a soil-depth vertical grid, not an atmospheric one.
+- `ocean-biogeochemistry` should share the ocean's vertical grid, not have its own atmospheric vertical grid.
+- `land-surface` should reference a soil-depth vertical grid, not an atmospheric one.
 
 ### Grid references point to unmerged or temporary entries
 

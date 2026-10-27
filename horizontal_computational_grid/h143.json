@@ -4,8 +4,8 @@
   "description": "each atm grid box has 2 east-west TS ocean grid boxes under it.",
   "arrangement": "arakawa-b",
   "horizontal_subgrids": [
-    "g214-mass",
-    "g215-velocity"
+    "g214_mass",
+    "g215_velocity"
   ],
   "@context": "_context",
   "@type": [

@@ -2,8 +2,8 @@
 from cmipld.utils.ldparse import graph_entry
 
 DATA = {
-    'arrangement': graph_entry('constants:arrangement/_graph.json'),
-    'cell_variable_type': graph_entry('constants:cell_variable_type/_graph.json'),
+    'arrangement': graph_entry('emd:arrangement/_graph.json'),
+    'cell_variable_type': graph_entry('emd:cell_variable_type/_graph.json'),
     'horizontal_grid_cells': graph_entry('emd:horizontal_grid_cell/_graph.json'),
     'subgrids': graph_entry('emd:horizontal_subgrid/_graph.json'),
 }

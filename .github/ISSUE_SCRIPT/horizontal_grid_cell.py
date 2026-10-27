@@ -31,12 +31,12 @@ _NUMERIC_KEYS = re.compile(r'_(resolution|number|longitude|latitude|cells|trunca
 
 # CV fields that may be submitted as ui_label — map field name to graph URL
 CV_FIELDS = {
-    'grid_type':          'constants:grid_type/_graph.json',
-    'grid_mapping':       'constants:grid_mapping/_graph.json',
-    'region':             'constants:region/_graph.json',
-    'temporal_refinement':'constants:temporal_refinement/_graph.json',
-    'units':              'constants:units/_graph.json',
-    'truncation_method':  'constants:truncation_method/_graph.json',
+    'grid_type':          'emd:grid_type/_graph.json',
+    'grid_mapping':       'emd:grid_mapping/_graph.json',
+    'region':             'emd:region/_graph.json',
+    'temporal_refinement':'emd:temporal_refinement/_graph.json',
+    'units':              'emd:units/_graph.json',
+    'truncation_method':  'emd:truncation_method/_graph.json',
 }
 
 # Cache reverse maps so we only fetch each graph once per run

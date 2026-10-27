@@ -3,7 +3,7 @@ import cmipld
 from cmipld.utils.ldparse import graph_entry, name_entry
 
 # Get scientific domains with ui_labels
-domains_data = cmipld.get('constants:scientific_domain/_graph.json', 2).get('contents', [])
+domains_data = cmipld.get('emd:scientific_domain/_graph.json', 2).get('contents', [])
 domain_labels = [d.get('ui_label', d.get('validation_key')) for d in domains_data if isinstance(d, dict)]
 
 # Generate all pairings using ui_labels: a -> b where a != b
@@ -27,7 +27,7 @@ component_configs = sorted(list(set([c for c in component_configs_raw if 'tempgr
 
 DATA = {
     'component': sorted(domain_labels),
-    'calendar': graph_entry('constants:calendar/_graph.json'),
+    'calendar': graph_entry('emd:calendar/_graph.json'),
     'model_family': model_family,
     'component_configs': component_configs,
     'embedded_pairs': sorted(embedded_pairs),

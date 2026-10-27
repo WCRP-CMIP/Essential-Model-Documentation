@@ -1,0 +1,13 @@
+{
+    "validation_key": "divergence",
+    "ui_label": "Divergence",
+    "description": "Variables representing the horizontal divergence of the velocity field, i.e. the local rate at which the horizontal flow spreads out from, or converges toward, a point. Used for grids on which divergence is carried as a variable in its own right, such as in spectral vorticity-divergence formulations.",
+    "@context": "_context",
+    "@type": [
+        "universal",
+        "wcrp:cell_variable_type",
+        "esgvoc:CellVariableType",
+        "constants"
+    ],
+    "@id": "divergence"
+}

@@ -18,12 +18,12 @@ Defines the scientific domains of the Earth system that model components represe
 | --- | --- | --- |
 | aerosol | aerosol | aerosol |
 | atmosphere | atmos | atmos |
-| atmospheric_chemistry | atmoschem | atmoschem, atmosChem |
-| land_surface | land | land |
-| land_ice | landice | landice, landIce |
+| atmospheric-chemistry | atmoschem | atmoschem, atmosChem |
+| land-surface | land | land |
+| land-ice | landice | landice, landIce |
 | ocean | ocean | ocean |
-| ocean_biogeochemistry | ocnbgchem | ocnbgchem, ocnBgchem |
-| sea_ice | seaice | seaice, seaIce |
+| ocean-biogeochemistry | ocnbgchem | ocnbgchem, ocnBgchem |
+| sea-ice | seaice | seaice, seaIce |
 
 </section>
 

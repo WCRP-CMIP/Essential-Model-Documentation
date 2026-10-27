@@ -4,8 +4,8 @@
   "description": "Mass at cell vertices, velocities at cell centers.",
   "arrangement": "arakawa-b",
   "horizontal_subgrids": [
-    "g161-mass",
-    "g164-velocity"
+    "g161_mass",
+    "g164_velocity"
   ],
   "@context": "_context",
   "@type": [

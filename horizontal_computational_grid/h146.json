@@ -4,9 +4,9 @@
   "description": "Arakawa-C lat-lon grid with displaced North Pole for use in oceanic modelling.",
   "arrangement": "arakawa-c",
   "horizontal_subgrids": [
-    "g211-mass",
-    "g219-x-velocity",
-    "g212-y-velocity"
+    "g211_mass",
+    "g219_x-velocity",
+    "g212_y-velocity"
   ],
   "@context": "_context",
   "@type": [
