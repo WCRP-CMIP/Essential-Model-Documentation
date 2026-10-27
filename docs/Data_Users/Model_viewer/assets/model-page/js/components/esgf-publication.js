@@ -8,6 +8,7 @@
 import { el, card } from "../dom.js";
 import { Resolver } from "../resolver.js";
 import { loadDatasetsForBox } from "../esgf.js";
+import { setHeaderChip } from "./header.js";
 import { cumulativeChartNode } from "./cumulative-chart.js";
 import { outputGridsNode } from "./output-grids.js";
 import { frequenciesNode, variablesNode } from "./dataset-facets.js";
@@ -45,9 +46,21 @@ function summaryNode(rows) {
   );
 }
 
-export async function mountEsgfPublication(root, model, { base, esgfRoot } = {}) {
+export async function mountEsgfPublication(root, model, { base, esgfRoot, modelId } = {}) {
   const rows = await loadDatasetsForBox("ESGF Publication", model, esgfRoot);
   if (!rows) return;
+
+  // Datasets published: add them to the chips at the top of the page (only when there are any).
+  // Retracted datasets are not published, so they are left out of the count.
+  const retracted = rows.reduce((n, r) => n + (r.retracted ? 1 : 0), 0);
+  const published = rows.length - retracted;
+  if (published > 0) {
+    setHeaderChip(modelId, "published", `${published.toLocaleString()} datasets`, {
+      title: retracted
+        ? `${published.toLocaleString()} datasets published to ESGF (${retracted.toLocaleString()} retracted, not counted)`
+        : "Datasets published to ESGF",
+    });
+  }
 
   const resolver = base ? new Resolver(base) : null;
   const subsEl = el("div", {});

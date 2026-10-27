@@ -53,6 +53,31 @@ function drawModelHintConnector(note) {
     d: `M ${ux1} ${uy} Q ${(ux1 + ux2) / 2} ${uy + 3}, ${ux2} ${uy}` }));
 }
 
+// Chips added after the header was first drawn, for example the datasets published once the
+// ESGF data has loaded. They are kept per model so that (a) a re-draw of the header, such as
+// the model list arriving, puts them back, and (b) a slow load for one model can never land
+// on the header of another.
+const lateChips = new Map();   // modelId -> Map(key -> { value, title })
+
+function drawLateChips(facts, modelId) {
+  facts.querySelectorAll("[data-late-chip]").forEach(n => n.remove());
+  for (const [key, c] of lateChips.get(modelId) || []) {
+    facts.appendChild(el("span", { class: `chip chip-${key}`, "data-late-chip": key, title: c.title || null }, [
+      el("span", { class: "chip-key" }, key), c.value,
+    ]));
+  }
+}
+
+/** Add (or, with an empty value, remove) a chip in the header's row of facts. `value` is shown as text. */
+export function setHeaderChip(modelId, key, value, { title = "" } = {}) {
+  if (!modelId) return;
+  if (!lateChips.has(modelId)) lateChips.set(modelId, new Map());
+  if (value == null || value === "") lateChips.get(modelId).delete(key);
+  else lateChips.get(modelId).set(key, { value: String(value), title });
+  const facts = document.querySelector(`.header-facts[data-model="${CSS.escape(modelId)}"]`);
+  if (facts) drawLateChips(facts, modelId);
+}
+
 export function mountHeader(root, model, { onModelChange, models = [], current, pickerHint = false } = {}) {
   const title = model.ui_label || model.name || model["@id"] || "Model";
   const family = model.family;
@@ -116,7 +141,7 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
     window.addEventListener("scroll", dismissOnScroll, { once: true, passive: true });
   }
 
-  const facts = el("div", { class: "header-facts" }, [
+  const facts = el("div", { class: "header-facts", "data-model": current || "" }, [
     family && el("span", { class: "chip chip-family" }, [
       el("span", { class: "chip-key" }, "family"), family,
     ]),
@@ -131,6 +156,7 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
       el("code", {}, crs),
     ]),
   ]);
+  drawLateChips(facts, current);   // chips that arrived before this (re-)draw
 
   // "EMD" eyebrow links back to the site home. NAV_PREFIX is injected per-page
   // by the mkdocs post-build step and points at the site root from any depth;
@@ -141,13 +167,10 @@ export function mountHeader(root, model, { onModelChange, models = [], current, 
   // NAV_PREFIX may be set after this renders; refresh the href once it's available.
   requestAnimationFrame(() => { if (window.NAV_PREFIX) eyebrow.href = window.NAV_PREFIX; });
 
-  // Subtle in-context links: open the standalone schema-view page (for the
-  // current model) and the "understanding this page" guide. Both point at real
-  // HTML pages so they open in the browser rather than downloading.
-  const schemaHref = `assets/emd_model_graph.html?model=${encodeURIComponent(current || "")}`;
+  // Subtle in-context link to the "understanding this page" guide. It points at a real
+  // HTML page so it opens in the browser rather than downloading. (The schema diagram
+  // is on this page itself, further down: see components/hierarchy.js.)
   const links = el("nav", { class: "header-links" }, [
-    el("a", { class: "header-link", href: schemaHref, target: "_blank", rel: "noopener" }, "Schema view"),
-    el("span", { class: "header-link-sep", "aria-hidden": "true" }, "·"),
     el("a", { class: "header-link", href: "assets/viewer_instructions.html", target: "_blank", rel: "noopener" },
       "Understanding this page"),
   ]);

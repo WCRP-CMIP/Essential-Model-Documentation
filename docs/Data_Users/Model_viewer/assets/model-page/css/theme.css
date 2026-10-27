@@ -19,6 +19,7 @@
   --line-strong: #c9d2e0;
   --accent: #1f4e79;
   --accent-soft: #e8f0f8;
+  --emd-blue: #2196f3;           /* the EMD / CMIP logo blue (the site's --emd-primary) */
   --dynamic: #2d6a4f;
   --prescribed: #b0873a;
   --omitted: #9aa3b0;
@@ -69,6 +70,8 @@ a.eyebrow-home:hover { color: var(--accent); text-decoration: underline; text-un
 .chip { display: inline-flex; align-items: center; gap: .4rem; padding: .32rem .7rem; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; font-size: .82rem; box-shadow: var(--shadow); }
 .chip-key { font-size: .64rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; }
 .chip-family { background: var(--accent-soft); border-color: #cfe0f0; }
+.chip-published { background: #e3f3e9; border-color: #b9dcc8; }
+.chip-published .chip-key { color: #2d6a4f; }
 .chip-crs code { font-size: .82rem; color: var(--accent); font-weight: 600; }
 
 /* ---- body layout ---- */
@@ -172,12 +175,17 @@ details.card.collapsible[open] > .card-summary { border-bottom: 1px solid var(--
 .h-key { display: grid; grid-template-columns: max-content 1fr; gap: .2rem .8rem; margin: 0 0 1rem; }
 .h-key dt { font-size: .64rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 700; align-self: baseline; }
 .h-key dd { margin: 0; font-size: .82rem; color: var(--ink); }
+/* the coupling topology (CRS) diagram: same corner tool button as the schema's zoom bar */
+.crs-canvas { position: relative; max-width: 620px; margin: 0 auto; }
 .hierarchy-canvas { position: relative; width: 100%; height: 560px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper); }
 .hierarchy-canvas svg { width: 100%; height: 100%; display: block; cursor: grab; }
 .hierarchy-canvas svg:active { cursor: grabbing; }
-.hierarchy-zoom { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
-.hierarchy-zoom button { width: 28px; height: 28px; border: 1px solid var(--line-strong); background: var(--panel); border-radius: 6px; cursor: pointer; font-size: .9rem; color: var(--ink); display: inline-grid; place-items: center; padding: 0; }
-.hierarchy-zoom button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.hierarchy-zoom, .crs-tools { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
+.hierarchy-zoom button, .crs-tools button { width: 28px; height: 28px; border: 1px solid var(--line-strong); background: var(--panel); border-radius: 6px; cursor: pointer; font-size: .9rem; color: var(--ink); display: inline-grid; place-items: center; padding: 0; }
+.hierarchy-zoom button:hover, .crs-tools button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* the SVG download button: EMD-blue icon (a line icon, drawn in the button's text colour); white on hover, as the other buttons */
+.hierarchy-zoom button[data-z="svg"], .crs-tools button[data-z="svg"] { color: var(--emd-blue); }
+.hierarchy-zoom button[data-z="svg"]:hover, .crs-tools button[data-z="svg"]:hover { color: #fff; }
 
 .h-link { fill: none; stroke: var(--line-strong); stroke-width: 1.3; }
 .h-link.family { stroke: #6a3aa8; stroke-dasharray: 4 3; }

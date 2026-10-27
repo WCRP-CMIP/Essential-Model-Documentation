@@ -1,12 +1,14 @@
 // components/hierarchy.js — model → realm → grids → subgrids → cells force graph.
 //
-// Refactored from Model-CRS/emd_model_graph.html into a mountable component.
+// This is the only schema view: it was refactored from a standalone page (emd_model_graph.html),
+// which has since been removed. The zoom bar's download button saves the whole graph as an SVG.
 // Requires d3 v7 on the page (window.d3). Fetches + resolves nested JSON-LD in
 // the browser, then renders a tiered force layout (model at top, grid cells at
 // the bottom) with embedded-parent nests, coupling arcs, hover spotlight, zoom.
 
 import { Resolver, short } from "../resolver.js";
 import { realmColor } from "../crs.js";
+import { exportSvg, DOWNLOAD_ICON } from "../svg-export.js";
 
 const FIELD_TYPE = {
   "model_components": "component_config",
@@ -225,7 +227,7 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
 
   const wrap = document.createElement("section");
   wrap.className = "card hierarchy";
-  wrap.id = "schema";                       // anchor target for the header "Schema view" link
+  wrap.id = "schema";                       // anchor target, so the diagram can be linked to as #schema
   wrap.innerHTML = `<h2 class="card-title">EMD schema</h2>
     <dl class="h-key">
       <dt>hover</dt><dd>highlights a node's parents and children</dd>
@@ -243,7 +245,8 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
     `<button data-z="out" title="Zoom out" aria-label="Zoom out">−</button>` +
     `<button data-z="fit" title="Fit to view" aria-label="Fit to view">` +
       `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">` +
-      `<path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/></svg></button>`;
+      `<path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/></svg></button>` +
+    `<button data-z="svg" title="Download as SVG" aria-label="Download the schema as an SVG file">${DOWNLOAD_ICON}</button>`;
   holder.appendChild(zoombar);
   wrap.appendChild(holder);
   root.appendChild(wrap);
@@ -387,18 +390,25 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
     sim.on("end.fit", fit);
     rail(d3.zoomIdentity);
 
-    function fit() {
-      const w = holder.clientWidth || W, hgt = H, pad = 50;
-      let m = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
+    function bounds() {
+      const m = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
       graph.nodes.forEach(n => { m.x0 = Math.min(m.x0, n.x - n.w / 2); m.x1 = Math.max(m.x1, n.x + n.w / 2); m.y0 = Math.min(m.y0, n.y - n.h / 2); m.y1 = Math.max(m.y1, n.y + n.h / 2); });
+      return m;
+    }
+    function fitTransform() {
+      const w = holder.clientWidth || W, hgt = H, pad = 50;
+      const m = bounds();
       const spanX = Math.max(m.x1 - m.x0, 10), spanY = Math.max(m.y1 - m.y0, 10);
       const availW = Math.max(w - LEFT_RAIL - pad, 100), availH = Math.max(hgt - 2 * pad, 100);
       const scale = Math.min(availW / spanX, availH / spanY);
       const tx = LEFT_RAIL + (availW - scale * spanX) / 2 - scale * m.x0;
       const ty = pad + (availH - scale * spanY) / 2 - scale * m.y0;
-      svg.transition().duration(400).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+      return d3.zoomIdentity.translate(tx, ty).scale(scale);
     }
+    function fit() { svg.transition().duration(400).call(zoom.transform, fitTransform()); }
     holder._fit = fit;
+    holder._bounds = bounds;                  // used by the SVG download
+    holder._rows = { tiers, rowY };           // row labels need re-placing in the download too
   }
 
   zoombar.addEventListener("click", e => {
@@ -407,7 +417,41 @@ export async function mountHierarchy(root, { modelId, base, depth = 8 }) {
     if (z === "in") svg.transition().duration(200).call(zoom.scaleBy, 1.4);
     else if (z === "out") svg.transition().duration(200).call(zoom.scaleBy, 1 / 1.4);
     else if (z === "fit" && holder._fit) holder._fit();
+    else if (z === "svg") downloadSvg(btn);
   });
+
+  // Save the whole graph as an SVG, at natural size and trimmed to its content, whatever the
+  // current pan / zoom. The on-screen diagram is not touched: the export works on a clone
+  // (see ../svg-export.js).
+  async function downloadSvg(btn) {
+    if (!holder._bounds) return;
+    const b = holder._bounds(), PAD = 44;
+    const tf = { k: 1, x: LEFT_RAIL + PAD - b.x0, y: PAD - b.y0 };
+    const outW = Math.ceil(LEFT_RAIL + 2 * PAD + (b.x1 - b.x0)), outH = Math.ceil(2 * PAD + (b.y1 - b.y0));
+    const { tiers, rowY } = holder._rows;
+    btn.disabled = true;
+    try {
+      await exportSvg(svgEl, {
+        title: `EMD schema: ${modelId}`,
+        fileName: `emd-${modelId}-schema`,
+        subtitle: `model ${modelId}`,
+        heading: `EMD schema · ${modelId}`,
+        footer: 84,                           // room under the diagram for the watermark
+        prepare(clone) {
+          clone.setAttribute("viewBox", `0 0 ${outW} ${outH}`);
+          clone.classList.remove("focus");    // no hover spotlight in the file
+          clone.querySelectorAll(".hot").forEach(n => n.classList.remove("hot"));
+          const g = clone.querySelector(":scope > g:not(.h-rail)");
+          if (g) g.setAttribute("transform", `translate(${tf.x},${tf.y}) scale(${tf.k})`);
+          clone.querySelectorAll("g.h-rail text.h-row").forEach((t, i) => t.setAttribute("y", tf.y + tf.k * rowY.get(tiers[i])));
+        },
+      });
+    } catch (e) {
+      console.error("Could not save the schema as SVG:", e);
+    } finally {
+      btn.disabled = false;
+    }
+  }
 
   render();
   let rT;

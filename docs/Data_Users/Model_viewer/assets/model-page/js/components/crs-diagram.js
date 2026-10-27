@@ -9,6 +9,7 @@
 
 import { parse, toName, realmLabel, realmColor, sortCodes } from "../crs.js";
 import { card } from "../dom.js";
+import { exportSvg, DOWNLOAD_ICON } from "../svg-export.js";
 
 const NS = "http://www.w3.org/2000/svg";
 const svg = (tag, attrs = {}) => {
@@ -60,7 +61,27 @@ function renderCrsCode(crs) {
   return code;
 }
 
-export function mountCrsDiagram(root, model) {
+// The legend, redrawn as SVG in the footer of the downloaded file (the on-screen legend is HTML).
+function drawLegend(clone, { footerTop }) {
+  const y = footerTop + 34;
+  const g = svg("g", {});
+  const label = (x, t) => {
+    const n = svg("text", { x, y: y + 4, "font-size": 11, fill: "#5d6b82", "font-family": "Lexend, 'Helvetica Neue', Arial, sans-serif" });
+    n.textContent = t; g.appendChild(n);
+  };
+  let x = 14;
+  g.appendChild(svg("circle", { cx: x + 7, cy: y, r: 7, fill: "#1f4e79" }));
+  label(x + 20, "dynamic realm"); x += 112;
+  g.appendChild(svg("circle", { cx: x + 7, cy: y, r: 6, fill: "none", stroke: "#5d6b82", "stroke-width": 2 }));
+  label(x + 20, "prescribed"); x += 92;
+  g.appendChild(svg("circle", { cx: x + 5, cy: y, r: 5, fill: "#1f4e79", "fill-opacity": 0.5, stroke: "#ffffff", "stroke-width": 1 }));
+  label(x + 16, "embedded"); x += 84;
+  g.appendChild(svg("line", { x1: x, y1: y, x2: x + 20, y2: y, stroke: "#8792a3", "stroke-width": 2, "stroke-dasharray": "5 4" }));
+  label(x + 28, "coupling");
+  clone.appendChild(g);
+}
+
+export function mountCrsDiagram(root, model, { modelId } = {}) {
   const crs = model.crs;
   const body = [];
 
@@ -178,7 +199,36 @@ export function mountCrsDiagram(root, model) {
     s.appendChild(g);
   }
 
-  body.push(s);
+  // The diagram sits in a canvas with a small tool button (download as SVG) in its corner.
+  const canvas = document.createElement("div");
+  canvas.className = "crs-canvas";
+  canvas.appendChild(s);
+  const tools = document.createElement("div");
+  tools.className = "crs-tools";
+  tools.innerHTML = `<button data-z="svg" title="Download as SVG" aria-label="Download the coupling topology as an SVG file">${DOWNLOAD_ICON}</button>`;
+  canvas.appendChild(tools);
+  tools.addEventListener("click", async e => {
+    const btn = e.target.closest("button"); if (!btn) return;
+    btn.disabled = true;
+    try {
+      const name = modelId || model.validation_key || model["@id"] || "model";
+      await exportSvg(s, {
+        title: `EMD coupling topology: ${name}`,
+        fileName: `emd-${name}-coupling-topology`,
+        subtitle: `model ${name}`,
+        heading: `Coupling topology · ${name}`,
+        subheading: `CRS  ${crs}`,
+        header: 58,                          // room above the diagram for the heading + CRS string
+        footer: 84,                          // room below for the legend and the watermark
+        decorate: drawLegend,
+      });
+    } catch (err) {
+      console.error("Could not save the coupling topology as SVG:", err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  body.push(canvas);
 
   // legend
   const legend = document.createElement("div");

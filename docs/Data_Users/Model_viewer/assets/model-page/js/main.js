@@ -86,7 +86,7 @@ async function main() {
     body.appendChild(colMain);
 
     mountOverview(colMain, model);
-    mountCrsDiagram(colMain, model);
+    mountCrsDiagram(colMain, model, { modelId: current });
     mountReferences(colMain, model);
 
     // full-width stack below, in order:
@@ -97,7 +97,7 @@ async function main() {
     mountHierarchy(full, { modelId: current, base: BASE, depth: DEPTH });
     await mountComponentsDetail(full, model, { base: BASE });
     await mountGrids(full, model, { base: BASE });
-    await mountEsgfPublication(full, model, { base: BASE });
+    await mountEsgfPublication(full, model, { base: BASE, modelId: current });
     mountRawJson(full, model, { base: BASE });   // always the very last section
   }
 
