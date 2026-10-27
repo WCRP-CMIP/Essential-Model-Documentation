@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMD · Model participation</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+<meta name="color-scheme" content="light dark" />
+<!-- Theme: follow the computer's light/dark setting before first paint (no flicker).
+     A choice made with the toggle button is saved under the grid viewer's key and wins
+     over the computer's setting; choosing the same theme as the computer clears it. -->
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('emd-gc-dark'); } catch (e) {}
+    var system = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var dark = saved === null ? system : saved === 'true';
+    document.documentElement.classList.toggle('dark', dark);
+  })();
+</script>
+
+<!-- EMD design tokens — mirrors custom.css :root block -->
+<style>
+  :root {
+    color-scheme: light;
+    --emd-primary:        #2196f3;
+    --emd-primary-light:  #bbdefb;
+    --emd-primary-dark:   #1976d2;
+    --emd-text:           #1e293b;
+    --emd-text-secondary: #475569;
+    --emd-text-tertiary:  #64748b;
+    --emd-bg:             #ffffff;
+    --emd-bg-secondary:   #f8fafc;
+    --emd-bg-tertiary:    #f1f5f9;
+    --emd-border:         #e2e8f0;
+    --emd-border-light:   #f1f5f9;
+  }
+  .dark {
+    color-scheme: dark;
+    --emd-bg:             #1a1d20;
+    --emd-bg-secondary:   #22262b;
+    --emd-bg-tertiary:    #2b3038;
+    --emd-border:         #3a4048;
+    --emd-border-light:   #2b3038;
+    --emd-text:           #f0f2f4;
+    --emd-text-secondary: #c8cdd4;
+    --emd-text-tertiary:  #7e8894;
+    --emd-primary:        #60a5fa;
+    --emd-primary-light:  rgba(96,165,250,.15);
+    --emd-primary-dark:   #93c5fd;
+  }
+  html, body { margin: 0; background: var(--emd-bg-secondary); transition: background .2s; }
+</style>
+
+<!-- Shared page shell, header, search, pills and table from the grid viewer,
+     then the few rules specific to this page. -->
+<link rel="stylesheet" href="../grid_viewer/assets/grid-viewer-page/css/theme.css" />
+<link rel="stylesheet" href="assets/participation-page/css/participation.css" />
+</head>
+<body>
+
+<div id="emd-model-participation-page"></div>
+
+<!-- theme toggle — wired up after the page module mounts the header; the page also
+     follows the computer's theme live until a theme is chosen with the button -->
+<script>
+  var MOON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  var SUN_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+
+  var themeBtn = null;
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function isDark() { return document.documentElement.classList.contains('dark'); }
+  function savedChoice() { try { return localStorage.getItem('emd-gc-dark'); } catch (e) { return null; } }
+  function paintButton() {
+    if (!themeBtn) return;
+    themeBtn.innerHTML = isDark() ? SUN_SVG : MOON_SVG;
+    themeBtn.setAttribute('title', isDark() ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  // Follow the computer's theme as it changes, unless one was chosen with the button.
+  if (darkQuery && darkQuery.addEventListener) {
+    darkQuery.addEventListener('change', function (e) {
+      if (savedChoice() !== null) return;
+      document.documentElement.classList.toggle('dark', e.matches);
+      paintButton();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Wait a tick for the JS module to render the header
+    setTimeout(function () {
+      var header = document.querySelector('.gc-header');
+      if (!header) return;
+
+      themeBtn = document.createElement('button');
+      themeBtn.id = 'gc-dark-toggle';
+      themeBtn.setAttribute('aria-label', 'Toggle dark mode');
+      paintButton();
+
+      themeBtn.addEventListener('click', function () {
+        var nowDark = document.documentElement.classList.toggle('dark');
+        try {
+          // Picking the computer's own theme goes back to following it.
+          if (darkQuery && nowDark === darkQuery.matches) localStorage.removeItem('emd-gc-dark');
+          else localStorage.setItem('emd-gc-dark', nowDark);
+        } catch (e) {}
+        paintButton();
+      });
+
+      header.appendChild(themeBtn);
+    }, 50);
+  });
+</script>
+
+<script type="module">
+  import { initParticipation } from "./assets/participation-page/js/main.js";
+  initParticipation();
+</script>
+
+</body>
+</html>
