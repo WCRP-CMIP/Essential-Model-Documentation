@@ -301,8 +301,12 @@ body:
         
         </details>
       options:
+        - "divergence"
         - "mass"
+        - "u-velocity"
+        - "v-velocity"
         - "velocity"
+        - "vorticity"
         - "x-velocity"
         - "y-velocity"
     validations:
@@ -515,8 +519,12 @@ body:
       multiple: true
       label: Variable Types (variable types at this cell location)
       options:
+        - "divergence"
         - "mass"
+        - "u-velocity"
+        - "v-velocity"
         - "velocity"
+        - "vorticity"
         - "x-velocity"
         - "y-velocity"
 
@@ -727,8 +735,12 @@ body:
       multiple: true
       label: Variable Types (variable types at this cell location)
       options:
+        - "divergence"
         - "mass"
+        - "u-velocity"
+        - "v-velocity"
         - "velocity"
+        - "vorticity"
         - "x-velocity"
         - "y-velocity"
 
@@ -939,8 +951,12 @@ body:
       multiple: true
       label: Variable Types (variable types at this cell location)
       options:
+        - "divergence"
         - "mass"
+        - "u-velocity"
+        - "v-velocity"
         - "velocity"
+        - "vorticity"
         - "x-velocity"
         - "y-velocity"
 
