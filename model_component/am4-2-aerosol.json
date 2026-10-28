@@ -1,0 +1,20 @@
+{
+    "validation_key": "am4-2-aerosol",
+    "ui_label": "AM4.2-aerosol",
+    "description": "1. Main processes simulated Interactive aerosol component embedded in the Geophysical Fluid Dynamics Laboratory (GFDL) Atmosphere Model version 4.2 (AM4.2), following the aerosol framework of AM4.1. It simulates aerosol formation coupled to the gas-phase chemistry, together with wet and dry deposition processes.  2. Key physics/parameterizations Interactive aerosol–cloud–radiation interactions, including aerosol–radiation interactions in the GFDL radiation scheme. Fully coupled exchanges of dust, iron and reactive nitrogen among the atmosphere, land and ocean.  3. Notable features of this version AM4.2 retains the overall aerosol framework of AM4.1 but adopts the Morrison–Gettelman two-moment cloud microphysics with prognostic precipitation, in which cloud droplet and ice crystal number concentrations are coupled to aerosol activation. It also provides a framework for coupling prognostic fire emissions from LM4.2 to the atmospheric chemistry and aerosol modules, enabling two-way fire–composition–climate feedbacks.",
+    "code_base": "Private",
+    "component": "aerosol",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2019MS002032",
+        "https://doi.org/10.22541/essoar.15005375/v1",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "am4-2-aerosol"
+}
