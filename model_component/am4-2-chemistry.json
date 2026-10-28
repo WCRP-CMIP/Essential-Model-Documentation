@@ -1,0 +1,20 @@
+{
+    "validation_key": "am4-2-chemistry",
+    "ui_label": "AM4.2-chemistry",
+    "description": "1. Main processes simulated Atmospheric chemistry component embedded in the Geophysical Fluid Dynamics Laboratory (GFDL) Atmosphere Model version 4.2 (AM4.2), the atmospheric model of KIOST-ESM2. It is a comprehensive atmospheric chemistry module that explicitly represents both tropospheric and stratospheric chemistry, including gas-phase and heterogeneous reactions, interactive ozone chemistry, reactive nitrogen and sulfur cycles, aerosol formation, and wet and dry deposition processes.  2. Key physics/parameterizations The chemistry scheme follows the chemistry–climate formulation of AM4.1 (Horowitz et al., 2020). It is coupled with interactive aerosol–cloud–radiation interactions and with fully coupled exchanges of dust, iron and reactive nitrogen among the atmosphere, land and ocean, enabling comprehensive chemistry–climate simulations.  3. Notable features of this version AM4.2 retains the chemical framework of AM4.1 and adds a framework for coupling prognostic fire emissions from the land model (LM4.2) directly to the atmospheric chemistry module, enabling consistent two-way interactions among terrestrial ecosystems, atmospheric composition and climate. Interactive atmospheric chemistry is new in KIOST-ESM2; KIOST-ESM1 did not include an atmospheric chemistry component.",
+    "code_base": "Private",
+    "component": "atmospheric-chemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2019MS002032",
+        "https://doi.org/10.22541/essoar.15005375/v1",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "am4-2-chemistry"
+}
