@@ -1,0 +1,21 @@
+{
+    "validation_key": "lm4-2",
+    "ui_label": "LM4.2",
+    "description": "1. Main processes simulated Land component of KIOST-ESM2, based on the Geophysical Fluid Dynamics Laboratory (GFDL) Land Model version 4.2 (LM4.2), which builds directly upon LM4.1 (Shevliakova et al., 2024). It represents terrestrial ecosystem dynamics, hydrology and biogeochemical processes by incorporating interactive vegetation dynamics, soil carbon cycling, land-use change and fire disturbance within a fully coupled land–atmosphere framework, providing a physically consistent representation of terrestrial carbon, water and energy exchanges.  2. Key physics/parameterizations Sub-grid land-surface heterogeneity is represented with a mosaic tiling approach, in which each grid cell is partitioned into primary and secondary vegetation, cropland, pasture and rangeland, with fractional coverage evolving dynamically in response to land-use change, vegetation succession and fire. Vegetation structure follows the Perfect Plasticity Approximation (PPA), together with prognostic phenology, carbon allocation, mortality and plant hydraulics. Soil biogeochemistry uses the Carbon, Organisms, Rhizosphere, and Protection in the Soil Environment (CORPSE) microbial decomposition model, and multilayer soil heat and moisture transport follows Milly et al. (2014). Fire is simulated with the Fire Including Natural and Agricultural Lands version 2 (FINAL v2) global fire model, which explicitly represents burned area, fire spread, fuel consumption, vegetation carbon loss, natural and anthropogenic ignitions, and fire suppression.  3. Notable features of this version Relative to LM4.1, LM4.2 introduces a framework for coupling prognostic fire emissions to the atmospheric chemistry and aerosol modules in AM4.2, enabling consistent two-way interactions among terrestrial ecosystems, atmospheric composition and climate. In KIOST-ESM2 it replaces LM3.0 used in KIOST-ESM1.",
+    "code_base": "Private",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2023MS003922",
+        "https://doi.org/10.22541/essoar.15005375/v1",
+        "https://doi.org/10.5194/gmd-11-815-2018",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "lm4-2"
+}
