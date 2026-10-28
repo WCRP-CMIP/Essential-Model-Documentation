@@ -1,0 +1,22 @@
+{
+    "validation_key": "mom6-kiost-esm2",
+    "ui_label": "MOM6-KIOST-ESM2",
+    "description": "1. Main processes simulated Ocean component of KIOST-ESM2, based on the Geophysical Fluid Dynamics Laboratory (GFDL) Modular Ocean Model version 6 (MOM6), following the OM4 configuration (Adcroft et al., 2019). MOM6 employs a hydrostatic primitive-equation dynamical core formulated in generalized vertical coordinates using an Arbitrary Lagrangian–Eulerian (ALE) framework, allowing flexible representation of hybrid vertical coordinates while reducing spurious diapycnal mixing. The model is configured on a nominal 0.5° horizontal grid with 75 hybrid vertical layers, consisting of z coordinates in the surface mixed layer and isopycnal coordinates in the stratified ocean interior.  2. Key physics/parameterizations The physical parameterizations largely follow the standard OM4 configuration. Vertical turbulent mixing uses the energetics-based planetary boundary layer (ePBL) scheme; mixed-layer restratification associated with submesoscale instabilities is parameterized with the Fox-Kemper mixed-layer eddy (MLE) scheme; lateral momentum diffusion combines Laplacian and biharmonic horizontal viscosity; and unresolved shear-driven mixing uses the Jackson shear-mixing scheme.  3. Notable features of this version Four modifications relative to OM4 have been implemented in KIOST-ESM2. (1) Bathymetry is constructed from GEBCO2024 merged with the BADA2024 dataset around the Korean Peninsula, improving regional coastal and shelf topography. (2) The porous-barrier sub-grid scale topography parameterization of Adcroft (2013) represents each grid-cell face as a vertically varying permeable barrier using shallowest, deepest and mean depths derived from finer-resolution bathymetry; to avoid overly restrictive barriers on the 0.5° grid, the barrier statistics are computed from the merged bathymetry first aggregated onto an intermediate 1/12° grid, following Wang et al. (2024). (3) The second-order enstrophy-conserving Sadourny (1975) potential vorticity reconstruction of OM4 is replaced by the thickness-weighted WENO reconstruction of Zhang et al. (2026), which remains numerically robust under vanishing isopycnal layers, reduces dispersive numerical errors and provides implicit dissipation near the grid scale; a three-point stencil is used in place of the original seven-point stencil, given the 0.5° resolution. (4) A three-dimensional target density structure replaces the globally uniform OM4 target density profile for the hybrid vertical coordinate: a modified profile constructed from the characteristic density structure and water-mass properties of the Pacific Ocean is applied to the Pacific and Indian Oceans, the original OM4 profile is retained elsewhere, and the two are blended by linear interpolation across a 5°S–34°S transition zone. This substantially increases the number of active isopycnal layers throughout the Pacific by reducing vanishing layers, providing greater effective vertical resolution for regional density structures, water masses and large-scale circulation. In KIOST-ESM2 it replaces MOM5 used in KIOST-ESM1.",
+    "code_base": "Private",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2019MS001726",
+        "https://doi.org/10.1016/j.ocemod.2013.03.002",
+        "https://doi.org/10.1029/2023MS004056",
+        "https://doi.org/10.1029/2025MS005376",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "mom6-kiost-esm2"
+}
