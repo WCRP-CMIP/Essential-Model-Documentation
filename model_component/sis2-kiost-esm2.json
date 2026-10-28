@@ -1,0 +1,20 @@
+{
+    "validation_key": "sis2-kiost-esm2",
+    "ui_label": "SIS2-KIOST-ESM2",
+    "description": "1. Main processes simulated Sea-ice component of KIOST-ESM2, the Geophysical Fluid Dynamics Laboratory (GFDL) Sea Ice Simulator version 2 (SIS2), configured consistently with the GFDL ESM4.1 framework and run on the MOM6 0.5° ocean grid. It simulates sea-ice thermodynamics, sea-ice dynamics and iceberg processes.  2. Key physics/parameterizations Compared with SIS, SIS2 includes improved representations of sea-ice thermodynamics, dynamics and iceberg processes, providing a more physically consistent coupling between the ocean and sea-ice components.  3. Notable features of this version In KIOST-ESM2 the sea-ice component has been upgraded from the Sea Ice Simulator (SIS) used in KIOST-ESM1 to SIS2, following the GFDL ESM4.1 configuration.",
+    "code_base": "https://github.com/NOAA-GFDL/SIS2",
+    "component": "sea-ice",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2019MS001726",
+        "https://doi.org/10.1029/2019MS002015",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "sis2-kiost-esm2"
+}
