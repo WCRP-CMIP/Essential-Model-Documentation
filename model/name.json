@@ -1,0 +1,33 @@
+{
+    "validation_key": "name",
+    "ui_label": "name",
+    "description": "desc",
+    "calendar": [
+        "standard"
+    ],
+    "coupled_components": [],
+    "crs": "OOb",
+    "dynamic_components": [
+        "ocean",
+        "ocean-biogeochemistry"
+    ],
+    "embedded_components": [],
+    "family": "access-esm",
+    "model_components": [
+        "aerosol_glomap-mode_h119_v115"
+    ],
+    "name": "name",
+    "omitted_components": [],
+    "prescribed_components": [],
+    "references": [
+        "noen"
+    ],
+    "release_year": 111,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "name"
+}
