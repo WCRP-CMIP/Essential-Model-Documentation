@@ -2,9 +2,9 @@ name: ⌕ PR Review — label PR and notify linked issue
 
 # Triggers:
 #   pull_request_review         — review submitted (approve / request changes / comment)
-#                                  Mirrors the top-level review body to the linked issue.
+#                                 Mirrors the top-level review body to the linked issue.
 #   pull_request_review_comment — individual inline comment left on the diff as part of a review
-#                                  Mirrors the comment + file/line context to the linked issue.
+#                                 Mirrors the comment + file/line context to the linked issue.
 #
 # Plain PR thread comments (issue_comment) are intentionally NOT picked up —
 # only comments that are formally part of a GitHub review are mirrored.
@@ -33,6 +33,7 @@ jobs:
       REPO_OWNER:   ${{ github.repository_owner }}
       PR_NUMBER:    ${{ github.event.pull_request.number }}
       PR_BODY:      ${{ github.event.pull_request.body }}
+      PR_TITLE:     ${{ github.event.pull_request.title }}
       PR_URL:       ${{ github.event.pull_request.html_url }}
       REVIEWER:     ${{ github.event.review.user.login }}
       REVIEW_STATE: ${{ github.event.review.state }}
@@ -43,10 +44,32 @@ jobs:
       # ── 1. Label + housekeeping ─────────────────────────────────────────────
       - name: Add review label and update linked issue labels
         run: |
-          # Parse linked issue numbers once from the event payload — no API call needed
-          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
-            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
-            | grep -oE '[0-9]+' || true)
+          # Fetch linked/closing issue numbers via GitHub API (most reliable)
+          REPO_NAME="${REPO#*/}"
+          ISSUE_NUMBERS=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  closingIssuesReferences(first: 5) {
+                    nodes { number }
+                  }
+                }
+              }
+            }' -F owner="$REPO_OWNER" -F repo="$REPO_NAME" -F pr="$PR_NUMBER" \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number' 2>/dev/null || true)
+
+          # Fallback to regex parsing on PR body if API returns nothing
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\r' ' ' | tr '\n' ' ' \
+              | grep -oiE '(Resolves|Fixes|Closes|Issue)?[[:space:]]*:?[[:space:]]*#[0-9]+' \
+              | grep -oE '[0-9]+' || true)
+          fi
+
+          # Safely extract and clean the first issue number and export variables
+          FIRST_ISSUE=$(echo "$ISSUE_NUMBERS" | head -n 1 | tr -d '[:space:]')
+          echo "ISSUE_NUM=$FIRST_ISSUE" >> "$GITHUB_ENV"
+          echo "REVIEWER_LOGIN=${REVIEWER}" >> "$GITHUB_ENV"
+          echo "PR_TITLE=${PR_TITLE}" >> "$GITHUB_ENV"
 
           case "$REVIEW_STATE" in
             approved)
@@ -61,13 +84,6 @@ jobs:
             --color "$COLOR" --description "$DESC" --force 2>/dev/null || true
           gh pr edit "$PR_NUMBER" --repo "$REPO" --add-label "$LABEL"
 
-          # approved or changes_requested:
-          #   - remove changes-made from PR + issues
-          #   - mirror the review-state label ($LABEL) to linked issues so the
-          #     Progress Tracker (which scans issues, not PRs) can see it
-          #   - remove the opposite review-state label from the PR and from the
-          #     linked issues, so neither ever carries both 'approved' and
-          #     'changes-requested' at once
           if [ "$REVIEW_STATE" = "changes_requested" ] || [ "$REVIEW_STATE" = "approved" ]; then
             if [ "$REVIEW_STATE" = "approved" ]; then
               OPPOSITE_LABEL="changes-requested"
@@ -75,12 +91,12 @@ jobs:
               OPPOSITE_LABEL="approved"
             fi
 
-            gh pr edit "$PR_NUMBER" --repo "$REPO" --remove-label "changes-made"    2>/dev/null || true
+            gh pr edit "$PR_NUMBER" --repo "$REPO" --remove-label "changes-made"     2>/dev/null || true
             gh pr edit "$PR_NUMBER" --repo "$REPO" --remove-label "$OPPOSITE_LABEL" 2>/dev/null || true
 
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
-              gh issue edit "$issue_num" --repo "$REPO" --remove-label "changes-made"    2>/dev/null || true
+              gh issue edit "$issue_num" --repo "$REPO" --remove-label "changes-made"     2>/dev/null || true
               gh issue edit "$issue_num" --repo "$REPO" --remove-label "$OPPOSITE_LABEL" 2>/dev/null || true
               gh issue edit "$issue_num" --repo "$REPO" --add-label    "$LABEL"          2>/dev/null || true
               echo "| #${issue_num} | label set to \`${LABEL}\` |" >> "$GITHUB_STEP_SUMMARY"
@@ -88,7 +104,6 @@ jobs:
             echo "| changes-made | removed ($REVIEW_STATE) |" >> "$GITHUB_STEP_SUMMARY"
           fi
 
-          # approved: remove needs-review + set project board to Done
           if [ "$REVIEW_STATE" = "approved" ]; then
             while IFS= read -r issue_num; do
               [ -z "$issue_num" ] && continue
@@ -163,9 +178,24 @@ jobs:
       # ── 3. Mirror review body to linked issue ──────────────────────────────
       - name: Mirror review to linked issue
         run: |
-          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
-            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
-            | grep -oE '[0-9]+' || true)
+          REPO_NAME="${REPO#*/}"
+          ISSUE_NUMBERS=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  closingIssuesReferences(first: 5) {
+                    nodes { number }
+                  }
+                }
+              }
+            }' -F owner="$REPO_OWNER" -F repo="$REPO_NAME" -F pr="$PR_NUMBER" \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number' 2>/dev/null || true)
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\r' ' ' | tr '\n' ' ' \
+              | grep -oiE '(Resolves|Fixes|Closes|Issue)?[[:space:]]*:?[[:space:]]*#[0-9]+' \
+              | grep -oE '[0-9]+' || true)
+          fi
 
           if [ -z "$ISSUE_NUMBERS" ]; then
             echo "| linked issue | none found |" >> "$GITHUB_STEP_SUMMARY"
@@ -206,6 +236,17 @@ jobs:
             echo "| #${issue_num} | review mirrored |" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$ISSUE_NUMBERS"
           rm -f "$MIRROR_FILE" "$NOTE_FILE"
+          
+      - name: LOG RUN
+        uses: WCRP-CMIP/CMIPLD/actions/matomo@main
+        continue-on-error: true
+        with:
+          site-id: "4"
+          base-url: "${{ github.server_url }}/${{ github.repository }}"
+          path: "/issues/${{ env.ISSUE_NUM }}?reviewer=${{ env.REVIEWER_LOGIN }}"
+          title: "Reviewer: ${{ env.REVIEWER_LOGIN }}"
+
+
 
   # ── Inline diff comment (part of a review) ────────────────────────────────
   handle_review_comment:
@@ -218,8 +259,8 @@ jobs:
       REPO:        ${{ github.repository }}
       PR_NUMBER:   ${{ github.event.pull_request.number }}
       PR_BODY:     ${{ github.event.pull_request.body }}
-      PR_URL:      ${{ github.event.pull_request.html_url }}
       PR_TITLE:    ${{ github.event.pull_request.title }}
+      PR_URL:      ${{ github.event.pull_request.html_url }}
       REVIEWER:    ${{ github.event.comment.user.login }}
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_ID:  ${{ github.event.comment.id }}
@@ -228,9 +269,29 @@ jobs:
       # ── 1. Add reviewer-comment label ──────────────────────────────────────
       - name: Add reviewer-comment label
         run: |
-          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
-            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
-            | grep -oE '[0-9]+' || true)
+          REPO_NAME="${REPO#*/}"
+          ISSUE_NUMBERS=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  closingIssuesReferences(first: 5) {
+                    nodes { number }
+                  }
+                }
+              }
+            }' -F owner="$REPO_OWNER" -F repo="$REPO_NAME" -F pr="$PR_NUMBER" \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number' 2>/dev/null || true)
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\r' ' ' | tr '\n' ' ' \
+              | grep -oiE '(Resolves|Fixes|Closes|Issue)?[[:space:]]*:?[[:space:]]*#[0-9]+' \
+              | grep -oE '[0-9]+' || true)
+          fi
+
+          FIRST_ISSUE=$(echo "$ISSUE_NUMBERS" | head -n 1 | tr -d '[:space:]')
+          echo "ISSUE_NUM=$FIRST_ISSUE" >> "$GITHUB_ENV"
+          echo "REVIEWER_LOGIN=${REVIEWER}" >> "$GITHUB_ENV"
+          echo "PR_TITLE=${PR_TITLE}" >> "$GITHUB_ENV"
 
           gh label create "reviewer-comment" --repo "$REPO" \
             --color "f0c419" \
@@ -260,9 +321,24 @@ jobs:
       # ── 3. Mirror inline comment to linked issue ───────────────────────────
       - name: Mirror inline comment to linked issue
         run: |
-          ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\n' ' ' \
-            | grep -oiE '(Resolves|Fixes|Closes)[[:space:]]+#[0-9]+' \
-            | grep -oE '[0-9]+' || true)
+          REPO_NAME="${REPO#*/}"
+          ISSUE_NUMBERS=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  closingIssuesReferences(first: 5) {
+                    nodes { number }
+                  }
+                }
+              }
+            }' -F owner="$REPO_OWNER" -F repo="$REPO_NAME" -F pr="$PR_NUMBER" \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number' 2>/dev/null || true)
+
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            ISSUE_NUMBERS=$(echo "$PR_BODY" | tr '\r' ' ' | tr '\n' ' ' \
+              | grep -oiE '(Resolves|Fixes|Closes|Issue)?[[:space:]]*:?[[:space:]]*#[0-9]+' \
+              | grep -oE '[0-9]+' || true)
+          fi
 
           if [ -z "$ISSUE_NUMBERS" ]; then
             echo "| linked issue | none found |" >> "$GITHUB_STEP_SUMMARY"
@@ -273,9 +349,9 @@ jobs:
             --jq '{body: .body, path: .path, line: (.line // .original_line)}' \
             2>/dev/null || true)
 
-          COMMENT_BODY=$(echo "$COMMENT_DATA" | jq -r '.body' 2>/dev/null || true)
-          FILE_PATH=$(echo "$COMMENT_DATA"    | jq -r '.path' 2>/dev/null || true)
-          LINE_NUM=$(echo "$COMMENT_DATA"     | jq -r '.line' 2>/dev/null || true)
+          COMMENT_BODY=$(echo "$COMMENT_DATA"    | jq -r '.body' 2>/dev/null || true)
+          FILE_PATH=$(echo "$COMMENT_DATA"     | jq -r '.path' 2>/dev/null || true)
+          LINE_NUM=$(echo "$COMMENT_DATA"      | jq -r '.line' 2>/dev/null || true)
 
           if [ -n "$FILE_PATH" ] && [ "$FILE_PATH" != "null" ]; then
             if [ -n "$LINE_NUM" ] && [ "$LINE_NUM" != "null" ]; then
@@ -306,3 +382,13 @@ jobs:
             echo "| #${issue_num} | inline comment mirrored |" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$ISSUE_NUMBERS"
           rm -f "$MIRROR_FILE" "$NOTE_FILE"
+
+  
+      - name: LOG RUN
+        uses: WCRP-CMIP/CMIPLD/actions/matomo@main
+        continue-on-error: true
+        with:
+          site-id: "4"
+          base-url: "${{ github.server_url }}/${{ github.repository }}"
+          path: "/issues/${{ env.ISSUE_NUM }}?reviewer=${{ env.REVIEWER_LOGIN }}"
+          title: "Reviewer: ${{ env.REVIEWER_LOGIN }}"

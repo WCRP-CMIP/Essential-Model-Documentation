@@ -9,13 +9,13 @@
     "Collection"
   ],
   "contents": [
-    {"@id": "vorticity"},
-    {"@id": "v-velocity"},
-    {"@id": "mass"},
-    {"@id": "divergence"},
-    {"@id": "u-velocity"},
     {"@id": "velocity"},
+    {"@id": "divergence"},
+    {"@id": "mass"},
+    {"@id": "u-velocity"},
     {"@id": "x-velocity"},
-    {"@id": "y-velocity"}
+    {"@id": "y-velocity"},
+    {"@id": "vorticity"},
+    {"@id": "v-velocity"}
   ]
 }
