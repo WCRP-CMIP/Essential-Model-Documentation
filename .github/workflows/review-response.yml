@@ -213,7 +213,7 @@ jobs:
         with:
           site-id: "4"
           base-url: "${{ github.server_url }}/${{ github.repository }}"
-          path: "/issues/${issue_num}?reviewer=${{ github.event.review.user.login || 'unknown' }}"
+          path: "/issues/${{ env.ISSUE_NUM }}?reviewer=${{ github.event.review.user.login || 'unknown' }}"
           title: "Reviewer: ${{ github.event.issue.title }}"
 
 
@@ -325,6 +325,6 @@ jobs:
         with:
           site-id: "4"
           base-url: "${{ github.server_url }}/${{ github.repository }}"
-          path: "/issues/${issue_num}?reviewer=${{ github.event.review.user.login || 'unknown' }}"
+          path: "/issues/${{ env.ISSUE_NUM }}?reviewer=${{ github.event.review.user.login || 'unknown' }}"
           title: "Reviewer: ${{ github.event.issue.title }}"
 
