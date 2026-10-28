@@ -206,6 +206,17 @@ jobs:
             echo "| #${issue_num} | review mirrored |" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$ISSUE_NUMBERS"
           rm -f "$MIRROR_FILE" "$NOTE_FILE"
+          
+      - name: LOG RUN
+        uses: WCRP-CMIP/CMIPLD/actions/matomo@main
+        continue-on-error: true
+        with:
+          site-id: "4"
+          base-url: "${{ github.server_url }}/${{ github.repository }}"
+          path: "/issues/${issue_num}?reviewer=${{ github.event.review.user.login || 'unknown' }}"
+          title: "Reviewer: ${{ github.event.issue.title }}"
+
+
 
   # ── Inline diff comment (part of a review) ────────────────────────────────
   handle_review_comment:
