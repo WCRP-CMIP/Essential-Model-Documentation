@@ -1,0 +1,21 @@
+{
+    "validation_key": "am4-2",
+    "ui_label": "AM4.2",
+    "description": "1. Main processes simulated Atmospheric general circulation component of KIOST-ESM2, based on the Geophysical Fluid Dynamics Laboratory (GFDL) Atmospheric Model version 4.2 (AM4.2), which inherits the fundamental dynamical framework of AM4.1. It simulates atmospheric dynamics, radiation, moist convection, clouds, turbulence and gravity-wave drag, coupled to interactive atmospheric chemistry and aerosols that are registered as separate components.  2. Key physics/parameterizations Finite-Volume Cubed-Sphere (FV3) dynamical core at C96 horizontal resolution (~100 km) with 49 hybrid sigma-pressure levels extending from the surface to approximately 1 Pa (~80 km). GFDL radiation scheme, together with updated parameterizations for moist convection, cloud microphysics, turbulence, gravity-wave drag and aerosol–radiation interactions.  3. Notable features of this version Relative to AM4.1, AM4.2 retains the overall dynamical, physical, chemical and aerosol framework but adopts the Morrison–Gettelman two-moment cloud microphysics (MG2) scheme with prognostic precipitation, which prognostically predicts cloud droplet and ice crystal number concentrations coupled with aerosol activation. AM4.2 also provides a framework for coupling prognostic fire emissions from the land model (LM4.2) to atmospheric chemistry and aerosols, enabling two-way fire–composition–climate feedbacks. In KIOST-ESM2 it replaces AM2 used in KIOST-ESM1.",
+    "code_base": "Private",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.22541/essoar.15005375/v1",
+        "https://doi.org/10.1029/2019MS002032",
+        "https://doi.org/10.1029/2022MS003111",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "am4-2"
+}
