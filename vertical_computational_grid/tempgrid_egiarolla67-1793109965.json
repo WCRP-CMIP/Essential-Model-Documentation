@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_egiarolla67-1793109965",
+    "ui_label": "ocean-hybrid-pressure-isopycnic-coordinate grid with 63 levels.",
+    "description": "MOM6 in layered (isopycnal) mode, without ALE regridding. There are 63 layers: a 2-layer bulk mixed layer and 2 buffer layers at the top, over 59 isopycnal layers in the interior. Target potential densities (sigma-2) range from 1009.42 to 1038.30 kg m-3. Layer thicknesses vary in space and time, and interior layers can have near-zero thickness where their density does not occur. The model is Boussinesq; \"hybrid-pressure-isopycnic\" was chosen as the closest option, since there is no option for a pure isopycnic coordinate with a bulk mixed layer.",
+    "bottom_layer_thickness": "",
+    "n_z": 63,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": 6000,
+    "vertical_coordinate": "ocean-hybrid-pressure-isopycnic-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_egiarolla67-1793109965"
+}
