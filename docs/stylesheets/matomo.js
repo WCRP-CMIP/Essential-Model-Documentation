@@ -13,25 +13,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const DENY = "matomo_cookie_denied_" + SITE_ID;
 
     // ==========================================
-    // MATOMO TRACKER
+    // MATOMO TRACKER: send each visit to the server
     // ==========================================
+    // Loads Matomo and records the page view. Visits are counted without cookies until the visitor
+    // accepts (requireCookieConsent); the banner below decides about cookies. Sent only from the
+    // live sites, and not when the page is embedded in a frame.
 
-    let tracker;
+    const LIVE_HOSTS = ["emd.wcrp-cmip.org", "wcrp-cmip.github.io"];
+    const SEND = LIVE_HOSTS.indexOf(location.hostname) !== -1 && window.self === window.top;
 
-    if (window.Matomo && typeof window.Matomo.getTracker === "function") {
-        tracker = window.Matomo.getTracker(TRACKER_URL, SITE_ID);
+    window._paq = window._paq || [];
+    if (SEND) {
+        _paq.push(["requireCookieConsent"]);          // must come before trackPageView
+        _paq.push(["setTrackerUrl", TRACKER_URL]);
+        _paq.push(["setSiteId", SITE_ID]);
+        _paq.push(["trackPageView"]);
+        _paq.push(["enableLinkTracking"]);
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://webstats.wcrp-cmip.org/matomo.js";
+        document.head.appendChild(script);
     }
 
+    // The banner's choices, passed to the same tracker (queued, so they work before Matomo has loaded)
     function matomo(command) {
-        if (!tracker) return;
-
-        switch (command) {
-            case "rememberCookieConsentGiven":
-                tracker.rememberCookieConsentGiven();
-                break;
-            case "forgetCookieConsentGiven":
-                tracker.forgetCookieConsentGiven(); // Clears cookies and keeps tracking cookielessly
-                break;
+        if (!SEND) return;
+        if (command === "rememberCookieConsentGiven" || command === "forgetCookieConsentGiven") {
+            _paq.push([command]);   // forget... clears cookies and keeps tracking cookielessly
         }
     }
 
