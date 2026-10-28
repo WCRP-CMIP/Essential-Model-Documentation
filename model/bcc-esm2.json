@@ -1,0 +1,75 @@
+{
+    "validation_key": "BCC-ESM2",
+    "ui_label": "BCC-ESM2",
+    "description": "BCC-ESM2 is an updated version of BCC-ESM1, which was used for CMIP6 (Wu et al., 2020). The atmosphere, land surface, sea ice, and ocean components share the same configurations as BCC-CSM3-MR, but BCC-ESM2 incorporates interactive atmospheric chemistry and aerosols along with their feedbacks. The atmospheric component, BCC-AGCM4-Chem, combines 66 gas-phase chemical species and 13 bulk aerosol compounds. Following its predecessor BCC-AGCM3-Chem (Wu et al., 2020) used in BCC-ESM1, these species in BCC-AGCM4-Chem are treated interactively through processes including emission, transport, gas-phase chemical reactions, secondary aerosol formation, gravitational settling, dry deposition, wet scavenging by clouds and precipitation, and aerosol effects on radiation, clouds, and precipitation. When forced with CMIP7-prescribed anthropogenic emissions, prognostic aerosols and GHG (including CO2 and O3) effects on radiation are included. The concentrations of other greenhouse gases (including CH4, N2O, CFC11, and CFC12) from CMIP7-prescribed monthly data are still used for their radiation calculations, although they are prognostic variables.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "atmosphere",
+            "land-surface"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ]
+    ],
+    "crs": "A[Ac[Ae]](L,O,Si)LO[Ob](Si)Si",
+    "dynamic_components": [
+        "atmospheric-chemistry",
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice",
+        "aerosol"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmospheric-chemistry"
+        ],
+        [
+            "atmospheric-chemistry",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ]
+    ],
+    "family": "bcc-csm",
+    "model_components": [
+        "atmospheric-chemistry_bcc-agcm4-chem_h156_v140",
+        "land-surface_bcc-avim3_h156_v137",
+        "atmosphere_bcc-agcm4-mr_h156_v140",
+        "ocean-biogeochemistry_hamocc6_h161_v143",
+        "sea-ice_cam-ice1_h161_v150",
+        "ocean_mom5-p25_h161_v143"
+    ],
+    "name": "bcc-esm2",
+    "omitted_components": [
+        "land-ice"
+    ],
+    "prescribed_components": [],
+    "references": [
+        "https://doi.org/10.5194/gmd-13-977-2020"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "bcc-esm2"
+}
