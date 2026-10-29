@@ -26,7 +26,6 @@
         }
     </style>
     <link href="/stylesheets/custom.css" rel="stylesheet" />
-    <link href="/stylesheets/footer-override.css" rel="stylesheet" />
 
     
 
@@ -275,18 +274,6 @@
                 <div class="text-muted-foreground text-sm font-medium">Menu</div>
                 <div class="flex flex-col gap-3">
                     
-                    <a class="text-2xl font-medium" href="/Editing_the_EMD/">
-                        
-                        Editing the EMD
-                        
-                    </a>
-                    
-                    <a class="text-2xl font-medium" href="/Progress_Feed/">
-                        
-                        EMD Submission Feed
-                        
-                    </a>
-                    
                     <a class="text-2xl font-medium" href="/.">
                         
                         Essential Model Documentation (EMD)
@@ -307,17 +294,32 @@
             <div class="flex flex-col gap-8">
                 
                 <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Developer Guidance</div>
+                    <div class="text-muted-foreground text-sm font-medium">Data Users</div>
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="/Developer_Guidance/Workflows_and_Automation/">
+                        <a class="text-2xl font-medium" href="/Data_Users/Extract_the_data/">
+                            
+                            Extract the data
+                            
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="flex flex-col gap-4">
+                    <div class="text-muted-foreground text-sm font-medium">Developers</div>
+                    
+                    <div class="flex flex-col gap-3">
+                        
+                        <a class="text-2xl font-medium" href="/Developers/Workflows_and_automation/">
                             
                             How a Submission is Processed
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Developer_Guidance/Issue_Templates/">
+                        <a class="text-2xl font-medium" href="/Developers/Issue_templates/">
                             
                             Issue Templates — Structure and Maintenance
                             
@@ -328,50 +330,47 @@
                 </div>
                 
                 <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">EMD health</div>
+                    <div class="text-muted-foreground text-sm font-medium">Modelling centres</div>
                     
                     <div class="flex flex-col gap-3">
                         
-                        <a class="text-2xl font-medium" href="/EMD_health/">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/Editing_the_EMD/">
                             
-                            EMD Health Dashboard — how the graphs are computed
+                            Editing the EMD
                             
                         </a>
                         
-                    </div>
-                    
-                </div>
-                
-                <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Information for Submitters</div>
-                    
-                    <div class="flex flex-col gap-3">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/Progress_feed/">
+                            
+                            EMD Submission Feed
+                            
+                        </a>
                         
-                        <a class="text-2xl font-medium" href="/Information_for_Submitters/Submission-Guide/">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/Submission_guide/">
                             
                             EMD Submission Guide
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Information_for_Submitters/Registering_an_Institution/">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/Registering_an_institution/">
                             
                             Registering an Institution
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Information_for_Submitters/Using_GitHub_Forms/">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/Using_GitHub_forms/">
                             
                             Using GitHub Forms
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Information_for_Submitters/What_to_expect_on_submission/">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/What_to_expect_on_submission/">
                             
                             What to Expect on Submission
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Information_for_Submitters/Error_Meanings/">
+                        <a class="text-2xl font-medium" href="/Modelling_centres/Error_meanings/">
                             
                             When Things Go Wrong
                             
@@ -382,38 +381,29 @@
                 </div>
                 
                 <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Model</div>
+                    <div class="text-muted-foreground text-sm font-medium">Reviewers</div>
                     
                     <div class="flex flex-col gap-3">
                         
-                    </div>
-                    
-                </div>
-                
-                <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Reviewer Guidance</div>
-                    
-                    <div class="flex flex-col gap-3">
-                        
-                        <a class="text-2xl font-medium" href="/Reviewer_Guidance/Review_Checklist/">
+                        <a class="text-2xl font-medium" href="/Reviewers/Review_checklist/">
                             
                             EMD Reviewer Checklist — Common Mistakes by File Type
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Reviewer_Guidance/Interpreting_The_Review_Summary/">
+                        <a class="text-2xl font-medium" href="/Reviewers/Interpreting_the_review_summary/">
                             
                             Interpreting the Review Summary
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Reviewer_Guidance/Review_Options/">
+                        <a class="text-2xl font-medium" href="/Reviewers/Review_options/">
                             
                             Review Options
                             
                         </a>
                         
-                        <a class="text-2xl font-medium" href="/Reviewer_Guidance/Reviewer_Information/">
+                        <a class="text-2xl font-medium" href="/Reviewers/Reviewer_information/">
                             
                             Reviewer Information
                             
@@ -473,10 +463,6 @@
 
      
 
-<script src="/stylesheets/matomo.js"></script>
-
-     
-
 <script src="/search/main.js"></script>
 
 
@@ -497,7 +483,7 @@
   "prerender": [
     {
       "where": {
-          "selector_matches": ["#next-button", "#previous-button"]
+        "selector_matches": ["#next-button", "#previous-button"]
       }
     }
   ]

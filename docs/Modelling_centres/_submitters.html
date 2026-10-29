@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    background: transparent;
+    color: #1a1a2e;
+  }
+
+  #toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 10px;
+  }
+
+  #search {
+    padding: 5px 9px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: inherit;
+    width: 220px;
+  }
+
+  #count { font-size: 11px; color: #888; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 6px 8px;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
+  }
+
+  tbody tr:hover { background: #f8fafc; }
+
+  td { padding: 7px 8px; vertical-align: middle; }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #e2e8f0;
+    margin-right: 7px;
+  }
+
+  .name-cell a {
+    font-weight: 500;
+    color: #2d3748;
+    text-decoration: none;
+  }
+  .name-cell a:hover { text-decoration: underline; color: #3182ce; }
+
+  .handle {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: #a0aec0;
+    margin-left: 2px;
+  }
+
+  .orcid-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: #a6ce39;
+    text-decoration: none;
+    background: #f0f9e8;
+    border: 1px solid #d4edaa;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  .orcid-link:hover { background: #e4f5c9; }
+
+  .issue-link {
+    display: inline-block;
+    font-size: 11px;
+    color: #4a5568;
+    text-decoration: none;
+    background: #edf2f7;
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin: 1px 2px 1px 0;
+    white-space: nowrap;
+  }
+  .issue-link:hover { background: #e2e8f0; color: #2d3748; }
+  .issue-link.closed { color: #a0aec0; background: #f7f7f7; }
+
+  .count-badge {
+    display: inline-block;
+    background: #e2e8f0;
+    color: #4a5568;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  #loading { padding: 20px 4px; color: #888; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <input id="search" placeholder="Search name or handle…" oninput="filter()" />
+  <span id="count"></span>
+</div>
+
+<div id="loading">Loading…</div>
+
+<table id="tbl" style="display:none">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>ORCID</th>
+      <th>Submissions</th>
+      <th>Issues / PRs</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<script>
+const owner = "WCRP-CMIP";
+const repo  = "Essential-Model-Documentation";
+const label = "emd-submission";
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function fetchAll(url) {
+  let page = 1, out = [];
+  while (true) {
+    const res = await fetch(`${url}&per_page=100&page=${page}`);
+    if (res.status === 403) { await sleep(1500); continue; }
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) break;
+    out = out.concat(data);
+    page++;
+  }
+  return out;
+}
+
+async function fetchProfile(login) {
+  const r = await fetch(`https://api.github.com/users/${login}`);
+  return r.ok ? r.json() : null;
+}
+
+async function fetchSocials(login) {
+  try {
+    const r = await fetch(`https://api.github.com/users/${login}/social_accounts`);
+    return r.ok ? r.json() : [];
+  } catch { return []; }
+}
+
+function extractOrcid(socials, bio) {
+  for (const s of (socials || []))
+    if (s.provider === 'orcid' || (s.url||'').includes('orcid.org')) return s.url;
+  const m = (bio||'').match(/https?:\/\/orcid\.org\/[\d-]{19}/);
+  return m ? m[0] : null;
+}
+
+function orcidId(url) { return url.replace(/https?:\/\/orcid\.org\//, ''); }
+
+function cleanTitle(title) {
+  return title
+    .replace(/^\s*(new|modify)\s*:\s*/i, '')
+    .replace(/\b(horizontal_grid_cell|horizontal_computational_grid|vertical_computational_grid|model_component|model_family|model|component_config|horizontal_subgrid)\b/gi, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const rows = document.querySelectorAll('#tbody tr');
+  let n = 0;
+  rows.forEach(r => {
+    const show = !q || r.dataset.search.includes(q);
+    r.style.display = show ? '' : 'none';
+    if (show) n++;
+  });
+  document.getElementById('count').textContent = `${n} submitter${n !== 1 ? 's' : ''}`;
+}
+
+(async () => {
+  // fetch all issues + PRs with label
+  const issues = await fetchAll(
+    `https://api.github.com/repos/${owner}/${repo}/issues?state=all&labels=${label}`
+  );
+
+  // group by login
+  const byLogin = {};
+  for (const item of issues) {
+    const login = item.user.login;
+    if (!byLogin[login]) byLogin[login] = [];
+    byLogin[login].push(item);
+  }
+
+  const logins = Object.keys(byLogin).sort((a,b) => byLogin[b].length - byLogin[a].length);
+  document.getElementById('count').textContent = `${logins.length} submitters`;
+
+  document.getElementById('loading').remove();
+  document.getElementById('tbl').style.display = '';
+
+  const tbody = document.getElementById('tbody');
+
+  const BATCH = 5;
+  for (let i = 0; i < logins.length; i += BATCH) {
+    const batch = logins.slice(i, i + BATCH);
+    await Promise.all(batch.map(async login => {
+      const [profile, socials] = await Promise.all([fetchProfile(login), fetchSocials(login)]);
+      if (!profile) return;
+
+      const orcid = extractOrcid(socials, profile.bio);
+      const items = byLogin[login];
+      const count = items.length;
+
+      const tr = document.createElement('tr');
+      tr.dataset.search = `${(profile.name||'').toLowerCase()} ${login.toLowerCase()}`;
+
+      // Name cell
+      const tdName = document.createElement('td');
+      tdName.className = 'name-cell';
+      tdName.innerHTML = `
+        <img class="avatar" src="${profile.avatar_url}" alt="${login}" />
+        <a href="${profile.html_url}" target="_blank">${profile.name || login}</a>
+        <span class="handle">@${login}</span>`;
+
+      // ORCID cell
+      const tdOrcid = document.createElement('td');
+      if (orcid) {
+        tdOrcid.innerHTML = `<a class="orcid-link" href="${orcid}" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 256 256" fill="#a6ce39">
+            <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm-12.7 190.7H92.4V96.5h22.9v94.2zm-11.5-107c-7.3 0-12-4.8-12-10.8s4.8-10.8 12.3-10.8c7.5 0 12 4.7 12.1 10.8s-4.7 10.8-12.4 10.8zm96.3 107h-22.9v-50.4c0-12.1-4.3-20.3-15.1-20.3-8.2 0-13.1 5.5-15.3 10.9-.8 1.9-1 4.5-1 7.2v52.7H123.9s.3-85.5 0-94.2h22.9v13.3c3-4.7 8.5-11.4 20.8-11.4 15.2 0 26.6 9.9 26.6 31.2l-.1 61.1z"/>
+          </svg>
+          ${orcidId(orcid)}
+        </a>`;
+      }
+
+      // Count cell
+      const tdCount = document.createElement('td');
+      tdCount.innerHTML = `<span class="count-badge">${count}</span>`;
+
+      // Issues cell
+      const tdIssues = document.createElement('td');
+      items.slice(0, 8).forEach(item => {
+        const isPR = !!item.pull_request;
+        const isClosed = item.state === 'closed';
+        const cls = isClosed ? 'issue-link closed' : 'issue-link';
+        const prefix = isPR ? '⤷' : '#';
+        const a = document.createElement('a');
+        a.className = cls;
+        a.href = item.html_url;
+        a.target = '_blank';
+        a.title = item.title;
+        a.textContent = `${prefix}${item.number}`;
+        tdIssues.appendChild(a);
+      });
+      if (items.length > 8) {
+        const span = document.createElement('span');
+        span.style.cssText = 'font-size:11px;color:#a0aec0;margin-left:4px';
+        span.textContent = `+${items.length - 8} more`;
+        tdIssues.appendChild(span);
+      }
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdOrcid);
+      tr.appendChild(tdCount);
+      tr.appendChild(tdIssues);
+      tbody.appendChild(tr);
+    }));
+    if (i + BATCH < logins.length) await sleep(300);
+  }
+
+  filter();
+})();
+</script>
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/geist.css"><link rel="stylesheet" href="../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../";
+
+(function(){
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "group", "label": "Data Users", "url": "/Data_Users/", "children": [{"type": "link", "label": "Model viewer", "url": "/Data_Users/Model_viewer/"}, {"type": "link", "label": "Grid viewer", "url": "/Data_Users/Grid_viewer/"}, {"type": "link", "label": "Model participation", "url": "/Data_Users/Model_participation/"}, {"type": "link", "label": "Extract the data", "url": "/Data_Users/Extract_the_data/"}]}, {"type": "group", "label": "Modelling centres", "url": "/Modelling_centres/", "children": [{"type": "link", "label": "Submission guide", "url": "/Modelling_centres/Submission_guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Modelling_centres/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an institution", "url": "/Modelling_centres/Registering_an_institution/"}, {"type": "link", "label": "Using GitHub forms", "url": "/Modelling_centres/Using_GitHub_forms/"}, {"type": "link", "label": "Error meanings", "url": "/Modelling_centres/Error_meanings/"}, {"type": "link", "label": "Editing the EMD", "url": "/Modelling_centres/Editing_the_EMD/"}, {"type": "link", "label": "Find your submissions", "url": "/Modelling_centres/Find_your_submissions.html"}, {"type": "link", "label": "Progress tracker", "url": "/Modelling_centres/Progress_tracker.html"}, {"type": "link", "label": "Progress feed", "url": "/Modelling_centres/Progress_feed/"}]}, {"type": "group", "label": "Reviewers", "url": "/Reviewers/", "children": [{"type": "link", "label": "Reviewer information", "url": "/Reviewers/Reviewer_information/"}, {"type": "link", "label": "Interpreting the review summary", "url": "/Reviewers/Interpreting_the_review_summary/"}, {"type": "link", "label": "Review options", "url": "/Reviewers/Review_options/"}, {"type": "link", "label": "Review checklist", "url": "/Reviewers/Review_checklist/"}]}, {"type": "group", "label": "Developers", "url": "/Developers/", "children": [{"type": "link", "label": "Issue templates", "url": "/Developers/Issue_templates/"}, {"type": "link", "label": "Workflows and automation", "url": "/Developers/Workflows_and_automation/"}, {"type": "link", "label": "EMD health", "url": "/Developers/EMD_health/"}]}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}];
+var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
+function rel(u){return PFX+(u||'').replace(/^\//,'');}
+function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
+function active(u){
+  if(!u)return false;
+  /* Home: key off u==='/' BEFORE resolving rel() — on a sub-path
+     deployment rel('/') resolves to e.g. '/docs', not '', so the old
+     p==='' guard was never reached and Home matched every page. */
+  if(u==='/'){
+    var a=document.createElement('a');a.href=rel(u);
+    var p=a.pathname.replace(/\/$/,'');
+    var c=cur();
+    return c===p||(p===''&&(c===''||c=='/'));
+  }
+  var a=document.createElement('a');a.href=rel(u);
+  var p=a.pathname.replace(/\/$/,'');
+  var c=cur();
+  return c===p||c.startsWith(p+'/');
+}
+var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+function grpActive(g){
+  for(var i=0;i<(g.children||[]).length;i++){
+    var c=g.children[i];
+    if(c.type==='link'&&active(c.url))return true;
+    if(c.type==='group'&&grpActive(c))return true;
+  }
+  return g.url&&active(g.url);
+}
+function render(items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    if(it.type==='link'){
+      h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>'+it.label+'</a>';
+    } else {
+      var on=grpActive(it);
+      var col=on?'':' collapsed';
+      var id='g'+Math.random().toString(36).slice(2);
+      h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
+      h+='<div id="'+id+'" class="nav-group-children'+col+'">';
+      /* Overview link intentionally omitted — group URL is the section header */
+      h+=render(it.children||[]);
+      h+='</div></div>';
+    }
+  }
+  return h;
+}
+window.toggleNav=function(el,id){
+  el.classList.toggle('collapsed');
+  document.getElementById(id).classList.toggle('collapsed');
+};
+function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+}
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
+}
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
+if(document.readyState==='loading')
+  document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+  <script src="../stylesheets/matomo.js"></script>
+</body>
+</html>

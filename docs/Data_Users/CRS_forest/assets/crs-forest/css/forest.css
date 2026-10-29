@@ -1,0 +1,100 @@
+/* CRS random forest (experimental) — the page's own styles. Colours, cards, chips and the
+   coloured CRS strings come from the CRS similarity page's stylesheet (linked first). */
+
+.rf-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; font-size: .9rem; }
+.rf-hint { color: var(--muted); font-size: .8rem; }
+.rf-field { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; }
+.rf-controls select, .rf-controls input { font: inherit; font-weight: 400; padding: .2rem .4rem; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.rf-seed { width: 5.5rem; }
+.rf-role { font-size: .7rem; color: var(--muted); margin-left: .2rem; }
+
+.rf-cols { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.2rem 2rem; }
+@media (max-width: 900px) { .rf-cols { grid-template-columns: 1fr; } }
+.rf-h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 .5rem; }
+
+/* one question per row: chips | wording | bar | value */
+.rf-q { display: grid; grid-template-columns: 7.8rem minmax(0, 1fr) 110px 3.4rem; align-items: center; gap: .6rem; padding: .3rem 0; border-bottom: 1px dashed var(--line); font-size: .84rem; }
+.rf-q:last-child { border-bottom: 0; }
+.rf-q-label { min-width: 0; }
+.rf-q-note { color: var(--muted); font-size: .76rem; }
+.rf-q-val { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-size: .8rem; white-space: nowrap; }
+.rf-bar { display: block; height: 8px; border-radius: 2px; background: var(--soft); overflow: hidden; }
+.rf-bar span { display: block; height: 100%; background: var(--emd-blue); }
+
+/* groups: one pair of columns across all cards (model names | CRS strings), as on the similarity page */
+.rf-groups { display: grid; grid-template-columns: max-content 1fr; column-gap: 1.2rem; row-gap: .9rem; }
+.rf-group { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; grid-template-rows: none; }
+.rf-group > h3, .rf-group > .rf-why { grid-column: 1 / -1; }
+.rf-members { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; list-style: none; margin: 0 0 .4rem; padding: 0; }
+.rf-members li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; padding: .18rem 0; border-bottom: 1px dashed var(--line); font-size: .86rem; }
+.rf-members li:last-child { border-bottom: 0; }
+.rf-members a { font-weight: 700; text-decoration: none; }
+.rf-members .fam { color: var(--muted); font-size: .76rem; }
+.rf-members li > .cs-crs { justify-self: center; text-align: center; }
+
+/* the decision tree, left to right: question box -> "yes" / "no" branches -> ... -> leaves */
+.dt-scroll { overflow-x: auto; padding: .3rem 0 .6rem; }
+.dt-node { display: flex; align-items: center; }
+.dt-q { flex: 0 0 auto; width: 10.5rem; display: flex; flex-direction: column; gap: .25rem; padding: .4rem .5rem;
+  border: 1.5px solid var(--line); border-radius: 4px; background: var(--paper); font-size: .76rem; cursor: default; }
+.dt-q-text { font-weight: 600; line-height: 1.3; }
+.dt-q-n { color: var(--muted); font-size: .68rem; }
+.dt-branches { position: relative; display: flex; flex-direction: column; margin-left: .9rem; }
+.dt-branches::before { content: ""; position: absolute; left: -.9rem; top: 50%; width: .9rem; border-top: 1.5px solid var(--muted); }
+.dt-branch { position: relative; padding: .3rem 0 .3rem 2.3rem; }
+.dt-branch::before { content: ""; position: absolute; left: 0; top: 50%; width: 2.3rem; border-top: 1.5px solid var(--muted); }
+.dt-branch::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1.5px solid var(--muted); }
+.dt-branch:first-child::after { top: 50%; }
+.dt-branch:last-child::after { bottom: 50%; }
+.dt-edge { position: absolute; left: .45rem; top: calc(50% - 1.1rem); font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+.dt-edge.yes { color: var(--emd-blue); }
+.dt-edge.no { color: var(--muted); }
+.dt-leaf { width: 11rem; padding: .35rem .5rem; border: 1.5px solid var(--accent); border-radius: 4px; background: var(--panel); font-size: .76rem; }
+.dt-leaf-head { color: var(--muted); font-size: .66rem; margin-bottom: .15rem; }
+.dt-leaf-models a { display: block; font-weight: 600; text-decoration: none; line-height: 1.35; }
+
+/* the group card that comes up at the bottom of the screen while a tree node is pointed at */
+.rf-hover { position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%); z-index: 50;
+  width: min(1100px, calc(100% - 2rem)); max-height: 45vh; overflow: auto; pointer-events: none;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: .6rem .8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+.rf-hover[hidden] { display: none; }
+.rf-hover .rf-group { border: 0; padding: 0; background: none; }
+.dt-q:hover, .dt-leaf:hover { border-color: var(--emd-blue); }
+#rf-groups-controls { margin-bottom: .6rem; }
+/* All have / None have (on the group cards and in the tree's hover panel): a thin grey box around each item
+   made of more than one part: a pair (aer ⊂ atm, atm ↔ ice) or a realm with how it is run (aer embedded) */
+:root { --boxed: #b3bcc9; }
+@media (prefers-color-scheme: dark) { :root { --boxed: #56627a; } }
+.rf-why .cs-item.boxed, #rf-questions .cs-item.boxed, .rf-examples .cs-item.boxed, #rf-pairs .cs-item.boxed { border: 1px solid var(--boxed); border-radius: 3px; padding: .12rem .22rem; }
+/* importance list: the chips centred in a slightly wider left column, so the longest boxed pair fits on one line */
+#rf-questions .rf-q { grid-template-columns: 9.6rem minmax(0, 1fr) 110px 3.4rem; }
+#rf-questions .rf-q-chip { display: flex; justify-content: center; }
+
+/* tree download button, collapsible groups, importance list, references */
+.dt-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.dt-download { display: inline-flex; align-items: center; gap: .35rem; color: var(--emd-blue); }
+#rf-groups-details > summary { cursor: pointer; }
+#rf-groups-details > summary h2 { display: inline; margin: 0 .5rem 0 0; }
+#rf-groups-details > summary .cs-sub { display: inline; }
+#rf-groups-details[open] > summary { margin-bottom: .7rem; }
+.rf-imp { max-width: 860px; }
+.rf-refs { font-size: .84rem; max-width: 62rem; padding-left: 1.2rem; }
+.rf-refs li { margin: .2rem 0; }
+
+/* worked examples for the importance list */
+.rf-examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: .8rem; max-width: 62rem; margin: 0 0 .9rem; }
+.rf-example { border: 1px solid var(--line); border-left: 3px solid var(--emd-blue); border-radius: 6px; padding: .5rem .7rem; font-size: .84rem; }
+.rf-example.low { border-left-color: var(--muted); }
+.rf-example-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .25rem; }
+.rf-example-head .rf-q-val { margin-left: auto; }
+.rf-example p { margin: 0; }
+.rf-caveat { color: var(--muted); font-size: .8rem; max-width: 62rem; margin: .7rem 0 0; }
+
+/* questions that go together: chips | & | chips | wording + counts | phi */
+.rf-cols-even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 1000px) { .rf-cols-even { grid-template-columns: 1fr; } }
+.rf-pairrow { display: grid; grid-template-columns: 9.6rem auto 9.6rem minmax(0, 1fr) 2.8rem; align-items: center; gap: .45rem; padding: .3rem 0; border-bottom: 1px dashed var(--line); font-size: .8rem; }
+.rf-pairrow:last-child { border-bottom: 0; }
+.rf-pairrow .rf-q-chip { display: flex; justify-content: center; }
+.rf-pair-q { color: var(--ink); }

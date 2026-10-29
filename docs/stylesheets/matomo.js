@@ -1,4 +1,17 @@
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
+
+function init() {
+
+    // ==========================================
+    // IFRAMES: NO BANNER AND NO TRACKING
+    // ==========================================
+    // A page shown inside an iframe (for example the Progress feed embedded on the home page) is
+    // already counted as part of the page around it, and it has no room for a banner.
+    try {
+        if (window.self !== window.top) return;
+    } catch (e) {
+        return; // the browser blocked the check: that only happens when we are framed
+    }
 
     // ==========================================
     // WEBSITE CONFIGURATION — EDIT THESE VALUES
@@ -6,6 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const SITE_ID = "2"; // Matomo website ID
     const TRACKER_URL = "https://webstats.wcrp-cmip.org/matomo.php";
+    const MATOMO_JS = "https://webstats.wcrp-cmip.org/matomo.js";
+
+    // Only these hostnames are tracked. Anywhere else (a local `mkdocs serve`, a preview copy)
+    // the banner still shows so it can be tried out, but no visit is sent and Matomo is not loaded.
+    const LIVE_HOSTS = ["emd.wcrp-cmip.org", "wcrp-cmip.github.io"];
+    const LIVE = LIVE_HOSTS.indexOf(location.hostname) !== -1;
     const PRIVACY_URL = "https://www.wcrp-cmip.org/privacy-policy/";
 
     // Separate banner preferences for each site
@@ -15,32 +34,34 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==========================================
     // MATOMO TRACKER: send each visit to the server
     // ==========================================
-    // Loads Matomo and records the page view. Visits are counted without cookies until the visitor
-    // accepts (requireCookieConsent); the banner below decides about cookies. Sent only from the
-    // live sites, and not when the page is embedded in a frame.
 
-    const LIVE_HOSTS = ["emd.wcrp-cmip.org", "wcrp-cmip.github.io"];
-    const SEND = LIVE_HOSTS.indexOf(location.hostname) !== -1 && window.self === window.top;
-
-    window._paq = window._paq || [];
-    if (SEND) {
-        _paq.push(["requireCookieConsent"]);          // must come before trackPageView
-        _paq.push(["setTrackerUrl", TRACKER_URL]);
-        _paq.push(["setSiteId", SITE_ID]);
-        _paq.push(["trackPageView"]);
-        _paq.push(["enableLinkTracking"]);
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = "https://webstats.wcrp-cmip.org/matomo.js";
-        document.head.appendChild(script);
+    // Every page visit is recorded. Only the COOKIES depend on the visitor's choice:
+    // requireCookieConsent makes Matomo count the visit without setting any cookie until
+    // consent is given, so Deny (or no answer yet) still records the visit, cookielessly.
+    // Commands go through Matomo's own queue (_paq), so it does not matter whether Matomo's
+    // script has finished loading when they are sent. Always look window._paq up afresh:
+    // when Matomo's script loads it REPLACES the global with its own object, so a copy
+    // kept from before would silently swallow every later command (such as the Accept button).
+    function matomo(...command) {
+        if (!LIVE) return;
+        (window._paq = window._paq || []).push(command);
     }
 
-    // The banner's choices, passed to the same tracker (queued, so they work before Matomo has loaded)
-    function matomo(command) {
-        if (!SEND) return;
-        if (command === "rememberCookieConsentGiven" || command === "forgetCookieConsentGiven") {
-            _paq.push([command]);   // forget... clears cookies and keeps tracking cookielessly
-        }
+    const accepted = localStorage.getItem(ACCEPT) === "true";
+    const deniedToday = localStorage.getItem(DENY) === new Date().toDateString();
+
+    matomo("requireCookieConsent");                    // must come before trackPageView
+    matomo(accepted ? "rememberCookieConsentGiven" : "forgetCookieConsentGiven");
+    matomo("setTrackerUrl", TRACKER_URL);
+    matomo("setSiteId", SITE_ID);
+    matomo("trackPageView");
+    matomo("enableLinkTracking");
+
+    if (LIVE) {
+        const matomoScript = document.createElement("script");
+        matomoScript.async = true;
+        matomoScript.src = MATOMO_JS;
+        document.head.appendChild(matomoScript);
     }
 
     // ==========================================
@@ -74,11 +95,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         banner.innerHTML = `
             <div>
-                We use cookies for analytics.
+                May we use cookies for CMIP analytics?
                 <a href="${PRIVACY_URL}"
                    style="color:#2563eb;text-decoration:underline">
                     Privacy Policy
-                </a>.
+                </a>
             </div>
 
             <div style="display:flex;justify-content:flex-end;gap:4px">
@@ -156,19 +177,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // INITIAL STATE
     // ==========================================
 
-    const accepted = localStorage.getItem(ACCEPT) === "true";
-    const deniedToday = localStorage.getItem(DENY) === new Date().toDateString();
-
     if (accepted) {
-        matomo("rememberCookieConsentGiven");
         showStatus("Withdraw cookie consent");
     } else if (deniedToday) {
-        matomo("forgetCookieConsentGiven");
         showStatus("Cookies Blocked");
     } else {
-        // If no choice made yet, ensure cookies are withheld while visits are recorded
-        matomo("forgetCookieConsentGiven");
+        // No choice yet: cookies stay withheld (see above) while visits are still recorded
         showBanner();
     }
 
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+} else {
+    init();
+}
+
+})();

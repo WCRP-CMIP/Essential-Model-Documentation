@@ -1,71 +1,75 @@
 {
-  "Progress_Tracker": 1,
-  "Progress_Feed": 800,
   "index": 0,
-  "Submission-Guide": -1,
-  "Information_for_Submitters": {
-    ".": 0,
-    "Submission-Guide": 1,
+  "Data_Users": {
+    ".": 1,
+    "Model_viewer": {
+      ".": 1,
+      "assets": -1,
+      "index": -1
+    },
+    "Grid_viewer": {
+      ".": 2,
+      "horizontal": -1,
+      "vertical": -1,
+      "assets": -1,
+      "index": -1
+    },
+    "Model_participation": {
+      ".": 3,
+      "assets": -1,
+      "index": -1
+    },
+    "Analysis": -1,
+    "Extract_the_data": 4,
+    "CRS_similarity": -1,
+    "CRS_forest": -1
+  },
+  "Modelling_centres": {
+    ".": 2,
+    "Submission_guide": 1,
     "What_to_expect_on_submission": 2,
-    "Registering_an_Institution": 3,
-    "Using_GitHub_Forms": 999,
-    "Error_Meanings": null,
+    "Registering_an_institution": 3,
+    "Using_GitHub_forms": 4,
+    "Error_meanings": 5,
+    "Editing_the_EMD": 6,
+    "Find_your_submissions": 7,
+    "Progress_tracker": 8,
+    "Progress_feed": 9,
     "_submitters": -1
   },
-  "Developer_Guidance": {
-    ".": 999,
-    "Issue_Templates": null,
-    "find_your_submissions": null,
-    "Workflows_and_Automation": null
+  "Reviewers": {
+    ".": 3,
+    "Reviewer_information": 1,
+    "Interpreting_the_review_summary": 2,
+    "Review_options": 3,
+    "Review_checklist": 4
   },
+  "Developers": {
+    ".": 4,
+    "Issue_templates": 1,
+    "Workflows_and_automation": 2,
+    "EMD_health": {
+      ".": 3,
+      "index": -1,
+      "README": -1,
+      "PR_Analysis": -1,
+      "PR_Author_Response": -1,
+      "PR_First_Response": -1,
+      "PR_Throughput": -1,
+      "PR_Timeline": -1,
+      "pr_dashboard": -1,
+      "assets": -1,
+      "scripts": -1
+    }
+  },
+  "FAQ": 999,
+  "Contact_us": 1000,
   "assets": -1,
   "links.yml": -1,
   "nav_order.json": -1,
   "scripts": -1,
   "stylesheets": -1,
   "image.png": -1,
-  "Reviewer_Guidance": {
-    ".": 55,
-    "Interpreting_The_Review_Summary": 2,
-    "Review_Options": 4,
-    "Reviewer_Information": 1,
-    "Review_Checklist": null
-  },
-  "FAQ": 999,
-  "Contact_us": 1000,
-  "Model": {
-    "emd_model_graph": -1,
-    "assets": -1,
-    "index": -1,
-    ".": 3
-  },
-  "model_participation": {
-    "assets": -1,
-    "index": -1,
-    ".": 4,
-    "_stage_test": null
-  },
-  "EMD_health": {
-    ".": 6,
-    "index": -1,
-    "README": -1,
-    "PR_Analysis": -1,
-    "PR_Author_Response": -1,
-    "PR_First_Response": -1,
-    "PR_Throughput": -1,
-    "PR_Timeline": -1,
-    "pr_dashboard": -1,
-    "assets": -1,
-    "scripts": -1
-  },
-  "grid_viewer": {
-    ".": 2,
-    "horizontal": null,
-    "vertical": null,
-    "assets": -1,
-    "index": -1
-  },
-  "Analysis": -1,
   "css": -1,
   "fonts": -1,
   "icons": -1,
@@ -101,7 +105,5 @@
     "Vertical_Computational_Grids_data.json": -1,
     "Vertical_Computational_Grids_raw.json": -1
   },
-  "editing_the_emd": null,
-  "editing_the_EMD": null,
-  "Editing_the_EMD": null
+  "remapping_map.json": -1
 }

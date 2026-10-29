@@ -31,32 +31,20 @@ const CONFIG = {
 
 // Detect the base path from current URL
 // Works for localhost and production domains
-function detectBasePath() {
-  const path = window.location.pathname;
-  const parts = path.split('/').filter(Boolean);
-  
-  // Check if we're on localhost or production
-  const isLocalhost = window.location.hostname === 'localhost' || 
-                      window.location.hostname === '127.0.0.1';
-  
-  // Find the base path (first path component that matches url_prefix or common pattern)
-  const urlPrefix = 'emd';
-  
-  // If path starts with urlPrefix, use it
-  if (parts.length > 0 && parts[0] === urlPrefix) {
-    return '/' + urlPrefix + '/';
-  }
-  
-  // On localhost with mkdocs serve, typically no base path
-  if (isLocalhost && parts.length > 0) {
-    // Check if first part looks like a base path (not a page)
-    if (!parts[0].includes('.html') && parts.length > 1) {
-      return '/' + parts[0] + '/';
-    }
-  }
-  
-  // Default to root
+// The site root, worked out from this script's own address: custom.js lives in <root>/stylesheets/, so
+// this is right at every page depth and wherever the site is hosted ("/" locally, "/docs/" on
+// emd.wcrp-cmip.org, the repository path on GitHub Pages). Read once, while the script first runs.
+const SITE_ROOT_PATH = (function () {
+  try {
+    const src = (document.currentScript && document.currentScript.src) ||
+      Array.from(document.scripts).map(x => x.src).find(x => /\/stylesheets\/custom\.js(\?|#|$)/.test(x));
+    if (src) return new URL('../', src).pathname;
+  } catch (e) {}
   return '/';
+})();
+
+function detectBasePath() {
+  return SITE_ROOT_PATH;
 }
 
 // Load custom links from links.yml
@@ -64,12 +52,7 @@ async function loadCustomLinks() {
   try {
     // Use MkDocs base_url to get correct path from any page depth
     const baseUrl = detectBasePath();
-    const paths = [
-      baseUrl + 'links.yml',
-      baseUrl + '/links.yml',
-      './links.yml',
-      '/links.yml'
-    ];
+    const paths = [baseUrl + 'links.yml'];   // docs/links.yml, at the site root
     let text = null;
     
     for (const path of paths) {
@@ -144,7 +127,6 @@ function init() {
   fixNavDisplay();
   addCustomLinks();
   updateFooter();
-  addVersionSelector();
   setupHeaderAnchors();
   setupTabbedContent();
   processDetailsMarkdown();
@@ -505,52 +487,6 @@ function updateFooter() {
       docsDiv.appendChild(attribution);
     }
   }
-}
-
-// ============================================
-// VERSION SELECTOR
-// ============================================
-
-function addVersionSelector() {
-  if (document.querySelector('.version-selector')) return;
-  
-  const baseUrl = detectBasePath();
-  
-  fetch(baseUrl + '../versions.json')
-    .then(r => r.ok ? r.json() : Promise.reject())
-    .then(versions => {
-      if (!versions?.length) return;
-
-      const pathParts = window.location.pathname.split('/').filter(p => p);
-      const current = versions.find(v => 
-        pathParts.includes(v.version) || v.aliases?.some(a => pathParts.includes(a))
-      );
-
-      const dropdown = document.createElement('div');
-      dropdown.className = 'version-selector';
-      dropdown.innerHTML = `
-        <select id="version-select">
-          ${versions.map(v => `
-            <option value="${v.version}" ${current?.version === v.version ? 'selected' : ''}>
-              ${v.aliases?.includes('latest') ? `${v.version} (latest)` : v.version}
-            </option>
-          `).join('')}
-        </select>
-      `;
-
-      const header = document.querySelector('header');
-      const target = header?.querySelector('.ml-auto') || header;
-      target?.insertBefore(dropdown, target.firstChild);
-
-      dropdown.querySelector('select').addEventListener('change', e => {
-        const path = window.location.pathname;
-        const pattern = current ? `(${current.version}|${current.aliases?.join('|') || ''})` : '';
-        window.location.href = pattern 
-          ? path.replace(new RegExp(`/${pattern}/`), `/${e.target.value}/`)
-          : baseUrl + e.target.value + '/';
-      });
-    })
-    .catch(() => {});
 }
 
 // Export for debugging

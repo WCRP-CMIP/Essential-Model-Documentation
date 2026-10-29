@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRS random forest (experimental) · Essential Model Documentation</title>
+<link rel="stylesheet" href="../CRS_similarity/assets/crs-similarity/css/style.css">
+<link rel="stylesheet" href="assets/crs-forest/css/forest.css">
+</head>
+<body>
+<main class="cs-page">
+  <header class="cs-header">
+    <a class="cs-eyebrow" id="rf-home" href="../../">Essential Model Documentation</a>
+    <h1 class="cs-title">CRS random forest <span class="cs-badge">experimental</span></h1>
+    <p class="cs-intro">
+      A random forest of decision trees, each asking yes/no questions about the structure of the models'
+      Canonical Realm Strings: <em>has land ice?</em>, <em>land surface inside the atmosphere?</em>,
+      <em>land ice ↔ ocean coupled?</em> Two models are <strong>alike</strong> when the trees keep putting them
+      in the same place, and the questions the trees ask show <strong>why</strong>.
+      See <a href="#rf-method">How it works</a>; for the overlap-based view see <a href="../CRS_similarity/">CRS similarity</a>.
+    </p>
+  </header>
+
+  <p class="cs-status" id="rf-status">Loading the models…</p>
+
+  <section class="cs-card" id="rf-controls-card" hidden><div id="rf-controls"></div></section>
+
+  <section class="cs-card" id="rf-tree-card" hidden>
+    <h2>Splits as a decision tree</h2>
+    <p class="cs-sub">One summary tree over the real models, built from the forest's likeness: each split is the yes/no question
+      that best divides its models into two internally alike sides. A branch stops once its models are as alike as the
+      slider says (it also sets the <a href="#rf-groups-card">Likeness groups</a>). Point at a question or an end group
+      to see its models at the bottom of the screen.</p>
+    <div id="rf-groups-controls"></div>
+    <div id="rf-tree"></div>
+  </section>
+
+  <section class="cs-card" id="rf-groups-card" hidden>
+    <details id="rf-groups-details">
+      <summary><h2>Likeness groups</h2> <span class="cs-sub">grouped at the likeness set above the tree; the same cards come up when you point at the tree</span></summary>
+      <div id="rf-groups"></div>
+    </details>
+  </section>
+
+  <section class="cs-card" id="rf-questions-card" hidden>
+    <h2>How much the forest relies on each question</h2>
+    <p class="cs-sub">Each bar is how much a question helped the forest's trees. A <b>high</b> score means knowing the
+      answer tells you a lot about the rest of a model's structure; a <b>low</b> score means it tells you little.
+      The two examples are worked out from the current forest.</p>
+    <div class="rf-examples" id="rf-examples"></div>
+    <div id="rf-questions"></div>
+    <p class="rf-caveat">This describes structure as written in the CRS strings, not how well a model performs. With a few
+      dozen models, small differences between bars are noise: compare a few seeds. The tree above chooses its questions
+      differently (the best two-way division of the models), so its first question need not be the top bar.
+      Measure: mean decrease in <a href="https://en.wikipedia.org/wiki/Decision_tree_learning#Gini_impurity" target="_blank" rel="noopener">Gini impurity</a>.
+      Hover a question for other wordings that split the models the same way.</p>
+  </section>
+
+  <section class="cs-card" id="rf-pairs-card" hidden>
+    <h2>Questions that go together</h2>
+    <p class="cs-sub">Pairs of questions whose answers go together across the models, measured by the
+      <a href="https://en.wikipedia.org/wiki/Phi_coefficient" target="_blank" rel="noopener">phi correlation</a>:
+      1 = always the same answer, 0 = unrelated, −1 = always opposite answers. Pairs about the same realm are left out
+      (they are linked by definition), and so are questions that fewer than 3 models answer yes, or no (one or two models
+      agreeing by chance would look like a perfect match). Counts: both yes · only the first · only the second · neither.</p>
+    <div id="rf-pairs"></div>
+  </section>
+
+  <section class="cs-card" id="rf-method">
+    <h2>How it works</h2>
+    <div id="rf-method-body"></div>
+  </section>
+</main>
+<div class="rf-hover" id="rf-hover" hidden></div>
+<script type="module" src="assets/crs-forest/js/main.js"></script>
+  <!-- emd-nav-v1 --><link rel="stylesheet" href="../../css/base.css"><link rel="stylesheet" href="../../css/geist.css"><link rel="stylesheet" href="../../stylesheets/emd-nav.css"><script>var NAV_PREFIX="../../";
+
+(function(){
+var NAV=[{"type": "link", "label": "Home", "url": "/"}, {"type": "group", "label": "Data Users", "url": "/Data_Users/", "children": [{"type": "link", "label": "Model viewer", "url": "/Data_Users/Model_viewer/"}, {"type": "link", "label": "Grid viewer", "url": "/Data_Users/Grid_viewer/"}, {"type": "link", "label": "Model participation", "url": "/Data_Users/Model_participation/"}, {"type": "link", "label": "Extract the data", "url": "/Data_Users/Extract_the_data/"}]}, {"type": "group", "label": "Modelling centres", "url": "/Modelling_centres/", "children": [{"type": "link", "label": "Submission guide", "url": "/Modelling_centres/Submission_guide/"}, {"type": "link", "label": "What to expect on submission", "url": "/Modelling_centres/What_to_expect_on_submission/"}, {"type": "link", "label": "Registering an institution", "url": "/Modelling_centres/Registering_an_institution/"}, {"type": "link", "label": "Using GitHub forms", "url": "/Modelling_centres/Using_GitHub_forms/"}, {"type": "link", "label": "Error meanings", "url": "/Modelling_centres/Error_meanings/"}, {"type": "link", "label": "Editing the EMD", "url": "/Modelling_centres/Editing_the_EMD/"}, {"type": "link", "label": "Find your submissions", "url": "/Modelling_centres/Find_your_submissions.html"}, {"type": "link", "label": "Progress tracker", "url": "/Modelling_centres/Progress_tracker.html"}, {"type": "link", "label": "Progress feed", "url": "/Modelling_centres/Progress_feed/"}]}, {"type": "group", "label": "Reviewers", "url": "/Reviewers/", "children": [{"type": "link", "label": "Reviewer information", "url": "/Reviewers/Reviewer_information/"}, {"type": "link", "label": "Interpreting the review summary", "url": "/Reviewers/Interpreting_the_review_summary/"}, {"type": "link", "label": "Review options", "url": "/Reviewers/Review_options/"}, {"type": "link", "label": "Review checklist", "url": "/Reviewers/Review_checklist/"}]}, {"type": "group", "label": "Developers", "url": "/Developers/", "children": [{"type": "link", "label": "Issue templates", "url": "/Developers/Issue_templates/"}, {"type": "link", "label": "Workflows and automation", "url": "/Developers/Workflows_and_automation/"}, {"type": "link", "label": "EMD health", "url": "/Developers/EMD_health/"}]}, {"type": "link", "label": "FAQ", "url": "/FAQ/"}, {"type": "link", "label": "Contact us", "url": "/Contact_us.html"}];
+var PFX=(typeof NAV_PREFIX!=='undefined')?NAV_PREFIX:'';
+function rel(u){return PFX+(u||'').replace(/^\//,'');}
+function cur(){return window.location.pathname.replace(/\/$/,'')||'/';}
+function active(u){
+  if(!u)return false;
+  /* Home: key off u==='/' BEFORE resolving rel() — on a sub-path
+     deployment rel('/') resolves to e.g. '/docs', not '', so the old
+     p==='' guard was never reached and Home matched every page. */
+  if(u==='/'){
+    var a=document.createElement('a');a.href=rel(u);
+    var p=a.pathname.replace(/\/$/,'');
+    var c=cur();
+    return c===p||(p===''&&(c===''||c=='/'));
+  }
+  var a=document.createElement('a');a.href=rel(u);
+  var p=a.pathname.replace(/\/$/,'');
+  var c=cur();
+  return c===p||c.startsWith(p+'/');
+}
+var chv='<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+function grpActive(g){
+  for(var i=0;i<(g.children||[]).length;i++){
+    var c=g.children[i];
+    if(c.type==='link'&&active(c.url))return true;
+    if(c.type==='group'&&grpActive(c))return true;
+  }
+  return g.url&&active(g.url);
+}
+function render(items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    if(it.type==='link'){
+      h+='<a href="'+rel(it.url)+'"'+(active(it.url)?' class="active"':'')+'>'+it.label+'</a>';
+    } else {
+      var on=grpActive(it);
+      var col=on?'':' collapsed';
+      var id='g'+Math.random().toString(36).slice(2);
+      h+='<div><div class="nav-group-label'+col+'" onclick="toggleNav(this,\''+id+'\')">'+chv+it.label+'</div>';
+      h+='<div id="'+id+'" class="nav-group-children'+col+'">';
+      /* Overview link intentionally omitted — group URL is the section header */
+      h+=render(it.children||[]);
+      h+='</div></div>';
+    }
+  }
+  return h;
+}
+window.toggleNav=function(el,id){
+  el.classList.toggle('collapsed');
+  document.getElementById(id).classList.toggle('collapsed');
+};
+function navHtml(){return'<div id="custom-nav">'+render(NAV)+'</div>';}
+
+function initStandalone(){
+  /* Standalone .html page — nav hidden by default, tab reveals drawer */
+  if(document.getElementById('emd-nav-drawer'))return;
+
+  /* Scrim */
+  var scrim=document.createElement('div');
+  scrim.id='emd-nav-scrim';
+  document.body.appendChild(scrim);
+
+  /* Drawer */
+  var drawer=document.createElement('div');
+  drawer.id='emd-nav-drawer';
+  var hdr=document.createElement('div');
+  hdr.id='emd-nav-drawer-header';
+  var ttl=document.createElement('span');
+  ttl.id='emd-nav-drawer-title';
+  ttl.textContent='Navigation';
+  var cls=document.createElement('button');
+  cls.id='emd-nav-drawer-close';
+  cls.setAttribute('aria-label','Close navigation');
+  cls.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  hdr.appendChild(ttl);hdr.appendChild(cls);
+  drawer.appendChild(hdr);
+  var navWrap=document.createElement('div');
+  navWrap.innerHTML=navHtml();
+  drawer.appendChild(navWrap);
+  document.body.appendChild(drawer);
+
+  /* Tab */
+  var tab=document.createElement('div');
+  tab.id='emd-nav-tab';
+  tab.setAttribute('aria-label','Open navigation');
+  tab.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  document.body.appendChild(tab);
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    scrim.classList.add('open');
+    tab.classList.add('hidden');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    scrim.classList.remove('open');
+    tab.classList.remove('hidden');
+  }
+  tab.addEventListener('click', openDrawer);
+  cls.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+}
+
+function initMkDocs(){
+  /* MkDocs-themed page — inject into sidebar slot */
+  var s=document.querySelector('[data-slot="sidebar-content"]');
+  if(!s)return false;
+  var old=s.querySelector('#custom-nav');if(old)old.remove();
+  var sp=s.querySelector('.h-\\(--top-spacing\\)');
+  var d=document.createElement('div');d.innerHTML=navHtml();
+  if(sp&&sp.nextSibling)s.insertBefore(d.firstChild,sp.nextSibling);else s.appendChild(d.firstChild);
+
+  /* Mobile drawer */
+  if(!document.getElementById('mobile-nav-overlay')){
+    var o=document.createElement('div');
+    o.id='mobile-nav-overlay';
+    o.innerHTML='<div id="mobile-nav-drawer">'+navHtml()+'</div>';
+    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+    document.body.appendChild(o);
+    var b=document.getElementById('menu-button');
+    if(b)b.addEventListener('click',function(e){e.stopPropagation();o.classList.toggle('open');});
+  }
+  return true;
+}
+
+function init(){
+  if(!initMkDocs()) initStandalone();
+}
+if(document.readyState==='loading')
+  document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+  <script src="../../stylesheets/matomo.js"></script>
+</body>
+</html>
