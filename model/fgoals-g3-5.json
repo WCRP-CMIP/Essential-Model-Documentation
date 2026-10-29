@@ -1,0 +1,61 @@
+{
+    "validation_key": "FGOALS-g3-5",
+    "ui_label": "FGOALS-g3.5",
+    "description": "FGOALS-g is a fully coupled global climate model developed by the Institute of Atmospheric Physics, Chinese Academy of Sciences (IAP, CAS). It consists of four dynamically coupled components: atmosphere (GAMIL3), ocean (LICOM3), land (CAS-LSM), and sea ice (CICE4), integrated through CPL7 or C-Coupler2 (Li et al., 2020). The updated FGOALS-g3.5 configuration improves riverine freshwater exchange through nearest-neighbor mapping (Tseng et al., 2016) and revises the Indonesian Seaway bathymetry to better represent the Indonesian Throughflow. Greenhouse gas concentrations, ozone, solar irradiance, aerosols, and land-use changes are prescribed according to CMIP experimental protocols. Aerosol effects are represented using the simplified MACv2-SP approach. Fully interactive atmospheric chemistry, prognostic aerosol microphysics, coupled carbon-cycle biogeochemistry, and dynamic ice sheets are not explicitly represented.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "atmosphere",
+            "land-surface"
+        ],
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ]
+    ],
+    "crs": "A(L,O,Si)LO(Si)SiAc^Ae^Li^",
+    "dynamic_components": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "sea-ice"
+    ],
+    "embedded_components": [],
+    "family": "cas-fgoals-g3.5",
+    "model_components": [
+        "atmosphere_gamil3_h170_v169",
+        "land-surface_cas-lsm_h170_v148",
+        "ocean_licom-v3-0_h138_v142",
+        "sea-ice_cice4-0_h138_no-vertical"
+    ],
+    "name": "fgoals-g3-5",
+    "omitted_components": [
+        "ocean-biogeochemistry"
+    ],
+    "prescribed_components": [
+        "aerosol",
+        "atmospheric-chemistry",
+        "land-ice"
+    ],
+    "references": [
+        "https://doi.org/10.1029/2019MS002012"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "fgoals-g3-5"
+}
