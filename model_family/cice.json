@@ -1,0 +1,31 @@
+{
+    "validation_key": "cice",
+    "ui_label": "CICE",
+    "description": "The CICE model is the CICE Consortium model which is used in several coupled model configurations.",
+    "collaborative_institutions": [
+        "nsf-ncar",
+        "danish meteorological institute",
+        "access-nri",
+        "noaa-emc",
+        "noaa-gfdl",
+        "naval research laboratory"
+    ],
+    "established": 2015,
+    "family_type": "model",
+    "primary_institution": "doe-lanl",
+    "references": [
+        "https://cice-consortium-cice.readthedocs.io/en/main/"
+    ],
+    "representative_member": "CESM",
+    "scientific_domains": [
+        "sea-ice"
+    ],
+    "website": "https://github.com/CICE-Consortium/CICE",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "cice"
+}
