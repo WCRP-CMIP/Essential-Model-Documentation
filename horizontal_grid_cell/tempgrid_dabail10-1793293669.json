@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_dabail10-1793293669",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 0.66 x 0.66 degree resolution.",
+    "description": "This is for CESM3-CICE6. This uses the same grid as CESM3-MOM6.",
+    "alias": [],
+    "grid_mapping": "rotated-latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 259200,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": "",
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": "",
+    "x_resolution": 0.66,
+    "y_resolution": 0.66,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_dabail10-1793293669"
+}
