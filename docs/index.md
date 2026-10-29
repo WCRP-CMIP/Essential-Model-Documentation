@@ -1,39 +1,58 @@
 # Essential Model Documentation (EMD)
 
-## Status updates
-The Essential Model Documentation (EMD) is CMIP7's structured registry of climate model configurations — capturing grids, components, and how they fit together. [Submit a new entry](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose), track progress in the [Progress Tracker](Progress_Tracker.html), or browse approved submissions in the [Feed](Progress_Feed.md).
+The Essential Model Documentation (EMD) is CMIP7's structured registry of climate model configurations — capturing grids, components, and how they fit together. [Submit a new entry](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose), track progress in the [Progress Tracker](Modelling_centres/Progress_tracker.html), or browse approved submissions in the [Feed](Modelling_centres/Progress_feed.md).
+
+## Explore the data
 
 <div class="emd-home-cards">
-  <a class="emd-home-card" href="grid_viewer/" aria-label="Grid Finder">
+  <a class="emd-home-card" href="Data_Users/Grid_viewer/" aria-label="Grid Finder">
     <img class="emd-home-card-img" src="assets/home-cards/grid-finder.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">Grid Finder</span>
   </a>
-  <a class="emd-home-card" href="Model/" aria-label="Model Viewer">
+  <a class="emd-home-card" href="Data_Users/Model_viewer/" aria-label="Model Viewer">
     <img class="emd-home-card-img" src="assets/home-cards/model-viewer.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">Model Viewer</span>
   </a>
-  <a class="emd-home-card" href="Progress_Tracker.html" aria-label="Progress Tracker">
+  <a class="emd-home-card" href="Data_Users/Model_participation/" aria-label="Model Participation">
+    <img class="emd-home-card-img" src="assets/home-cards/model-participation.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Model Participation</span>
+  </a>
+  <a class="emd-home-card" href="https://esgf.wcrp-cmip.org/" target="_blank" rel="noopener" aria-label="What’s been published (ESGF viewer, opens in a new tab)">
+    <img class="emd-home-card-img" src="assets/home-cards/esgf-viewer.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">What’s been published</span>
+  </a>
+  <a class="emd-home-card" href="https://observablehq.com/@wolfiex/reading-the-emd-in-your-own-work" target="_blank" rel="noopener" aria-label="Reading the EMD in your own work (Observable notebook, opens in a new tab)">
+    <img class="emd-home-card-img" src="assets/home-cards/observable-notebook.jpg" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Reading the EMD in your own work</span>
+  </a>
+  <a class="emd-home-card" href="Modelling_centres/Progress_tracker.html" aria-label="Progress Tracker">
     <img class="emd-home-card-img" src="assets/home-cards/progress-tracker.png" alt="" loading="lazy" />
     <span class="emd-home-card-title">Progress Tracker</span>
   </a>
+  <a class="emd-home-card" href="Modelling_centres/Progress_feed/" aria-label="Progress Feed">
+    <img class="emd-home-card-img" src="assets/home-cards/progress-feed.png" alt="" loading="lazy" />
+    <span class="emd-home-card-title">Progress Feed</span>
+  </a>
 </div>
+
+## Status updates
 
 Recent updates include:
 
-1. **Progress tracker** : View the status of all your submissions using our [submission tracker](Progress_Tracker.html). 
+1. **Progress tracker** : View the status of all your submissions using our [submission tracker](Modelling_centres/Progress_tracker.html). 
 2. **Questions** : Please send an email to [emd@wcrp-cmip.org](mailto:emd@wcrp-cmip.org). Users may need to [subscribe](Contact_us.html) first.   
 3. **Submission and Escalation Protocol**: Coming soon. 
 
 
 ### Latest EMD approvals
-<iframe src="./Progress_Feed/?limit=10&minimal=true" style="width:100%;border:none;max-height:600px;min-height:400"></iframe>
-[See all approved EMD items](./Progress_Feed/)
+<iframe src="./Modelling_centres/Progress_feed/?limit=10&minimal=true" style="width:100%;border:none;max-height:600px;min-height:400"></iframe>
+[See all approved EMD items](Modelling_centres/Progress_feed.md)
 
 ---
 
 ## Registering a new item in the EMD
 Registration for the EMD is available on the [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose). 
-Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. Full instructions are provided in the [**submission guide**](Information_for_Submitters/Submission-Guide/). To know what to expect after submission and what the actions mean, these are described in the [What to expect](Information_for_Submitters/What_to_expect_on_submission/) page. For information on what is or is not allowed at each stage please consult the [latest version of the specification](https://doi.org/10.5281/zenodo.15439551).
+Alternatively click on the relevant stage / cell in the diagram below to be directed to your required form. Full instructions are provided in the [**submission guide**](Modelling_centres/Submission_guide.md). To know what to expect after submission and what the actions mean, these are described in the [What to expect](Modelling_centres/What_to_expect_on_submission.md) page. For information on what is or is not allowed at each stage please consult the [latest version of the specification](https://doi.org/10.5281/zenodo.15439551).
 
 #### EMD Structure Diagram
 
@@ -41,7 +60,7 @@ Alternatively click on the relevant stage / cell in the diagram below to be dire
 You will only be required to fill in one form per stage. 
 
 Each stage will require a brief (human) review process before you can continue. 
-You may click on any box to be taken to the GitHub submission inputs, or use the links provided in the [**submission guide**](Information_for_Submitters/Submission-Guide/).*
+You may click on any box to be taken to the GitHub submission inputs, or use the links provided in the [**submission guide**](Modelling_centres/Submission_guide.md).*
 <!-- Note: asterisks (*) in the SVG below are SVG text elements, not markdown -->
 
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1131.8521456731507 744.0435253901935"><!-- svg-source:excalidraw --><metadata/><defs><style class="style-fonts">
@@ -49,15 +68,19 @@ You may click on any box to be taken to the GitHub submission inputs, or use the
 
 ---
 
-## What is the Essential Model Documentation?
+<details markdown="1">
+<summary>What is the Essential Model Documentation?</summary>
 
 The EMD is a structured, machine-readable record of how climate models are built. For every model that contributes data to CMIP7, it captures the grids it runs on, the software components it uses, and how those components are coupled together.
 
 It answers the questions that model output alone cannot: *What resolution did this model actually run at? Is this the same ocean grid as that other model? Which components are interactive and which are prescribed?*
 
+</details>
+
 ---
 
-## What does it contain?
+<details markdown="1">
+<summary>What does it contain?</summary>
 
 The EMD is organised into nine linked record types, assembled from the bottom up. Items marked with an asterisk (&#42;) are the only ones you will be required to fill in for your EMD submission.
 
@@ -120,9 +143,12 @@ Component configurations bind a component version to a specific horizontal and v
 
 Models are the complete assembled system — listing every component configuration, declaring which earth system realms are active or prescribed, recording how components are coupled or embedded within one another, and referencing the ESM family the model belongs to.
 
+</details>
+
 ---
 
-## Repository Structure?
+<details markdown="1">
+<summary>Repository Structure?</summary>
 
 ### The core principle
 
@@ -168,7 +194,6 @@ For further guidance on specifying a `source_id`, please see the [CMIP7 guidance
 
 Each folder corresponds to a distinct scientific concept that varies independently of the others, so that any one aspect of a model configuration can be linked , shared, or be modified (corrected) without causing breaking errors or duplication.
 
-
 ---
 
 #### Who does this affect?
@@ -185,13 +210,18 @@ Each folder corresponds to a distinct scientific concept that varies independent
 - **Reproducibility**  
   A model record pinned to specific component versions and grid IDs is an unambiguous description of a configuration — enough to reconstruct what was run.
 
-
+</details>
 
 ---
+
 ### Become a reviewer
+
+<details markdown="1">
+<summary>Lend us your scientific knowledge</summary>
+
 If you are likely to know even a little about any part of the EMD and are keen to help keep CMIP clear and accessible (usable), we are in need of people to help. Each review should take about 5 mintues, and we do not expect more than 30 minutes a week, hopefully quieting down after the first batch of publications. To apply use [this link](https://airtable.com/apphXCUgASIeT6jCz/pag2oVCHWXFCkJQ3A/form).
 
-
+</details>
 
 ---
 
@@ -209,3 +239,22 @@ A list of people who have contributed to the EMD by engaging with the process.
 - [EMD Specification v1.1](https://doi.org/10.5281/zenodo.17853724) — the complete specification with property definitions, controlled vocabularies, and worked examples
 - [CMIP7 Grid Guidance v1.0](https://doi.org/10.5281/zenodo.15697025) — companion guidance on grid description
 - [GitHub repository](https://github.com/WCRP-CMIP/Essential-Model-Documentation) — source data, issue tracker, and contribution workflow
+
+<script>
+/* Sections above are collapsed by default. If a link targets something inside one of
+   them (for example #source-model), open it and scroll there instead of landing on hidden text. */
+(function () {
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    var opened = false;
+    for (var d = target.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) {
+      if (!d.open) { d.open = true; opened = true; }
+    }
+    if (opened) target.scrollIntoView();
+  }
+  window.addEventListener('hashchange', function () { openFor(location.hash); });
+  document.addEventListener('DOMContentLoaded', function () { openFor(location.hash); });
+})();
+</script>

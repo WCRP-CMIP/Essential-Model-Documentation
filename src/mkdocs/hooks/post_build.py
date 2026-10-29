@@ -989,6 +989,197 @@ def on_page_context(context, page, config, nav, **kwargs):
     return context
 
 
+# ── Cookie banner + analytics on every page ─────────────────────────────────
+#
+# stylesheets/matomo.js holds the cookie banner and the Matomo tracking. It does nothing inside
+# an iframe, and tracks only on the live hostnames (see LIVE_HOSTS in that file). It is added to
+# EVERY built HTML page here, and is NOT listed under extra_javascript in mkdocs.yml, because
+# extra_javascript reaches only the pages MkDocs builds from Markdown: the hand-written HTML
+# pages (viewers, tracker, dashboards) are copied as they are and would be missed.
+
+_ANALYTICS_FILE = 'stylesheets/matomo.js'
+_ANALYTICS_SKIP = {'404.html'}       # a mistyped address should not be counted as a visit
+#                                        (pages that only redirect elsewhere are skipped too, see below)
+
+
+def inject_analytics(site_dir: Path) -> int:
+    """Add the analytics script to every HTML page that does not already reference it."""
+    injected = 0
+    for html in site_dir.rglob('*.html'):
+        rel = html.relative_to(site_dir)
+        if rel.name in _ANALYTICS_SKIP:
+            continue
+        content = html.read_text(encoding='utf-8', errors='ignore')
+        if 'matomo.js' in content:                     # already there: keeps repeat builds from stacking tags
+            continue
+        if re.search(r'http-equiv=["\']?refresh', content, re.I):
+            continue                                   # a pure redirect page: the visitor leaves at once
+        prefix = '../' * (len(rel.parts) - 1) or './'  # path back up to the site root, from this page
+        tag = f'<script src="{prefix}{_ANALYTICS_FILE}"></script>'
+        # insert before the LAST </body>, in case the text also appears inside a script
+        for closing in ('</body>', '</html>'):
+            at = content.rfind(closing)
+            if at >= 0:
+                new = content[:at] + f'  {tag}\n' + content[at:]
+                break
+        else:
+            new = content + f'\n{tag}\n'
+        html.write_text(new, encoding='utf-8')
+        injected += 1
+    return injected
+
+
+# ── Old addresses: redirect from the 404 page ───────────────────────────────
+#
+# docs/remapping_map.json lists every old address and where it now lives:
+#   { "urls": [ { "from": "Model/", "to": "Data_Users/Model_viewer/" }, ... ] }
+# (paths relative to the docs folder). No page is generated per old address. The 404
+# page looks the missing address up in that file and, if it is listed, sends the visitor
+# on, keeping the ?query and #anchor (so /Model/?model=ukesm1-3-ll lands on the same model).
+#
+# GitHub Pages and Cloudflare Pages both show a ROOT-level 404.html for any missing
+# address, so write_root_404() puts one beside the root index.html (as root_redirect()
+# does); inject_404_redirect() writes the same page into the site (what the local
+# `mkdocs serve` shows). The page is the site's own look: the built home page's shell (header,
+# menu, footer, fonts) with the article swapped for the message (build_404_page). If that
+# shell cannot be found, the plain self-contained page below is used instead.
+
+_404_LOOKUP = r"""<script>
+(function () {
+  var path = decodeURIComponent(location.pathname);
+  var at = path.indexOf('/docs/');
+  // Published under /docs/. The local dev server serves the docs at the site root.
+  var bases = at >= 0 ? [path.slice(0, at + 6)] : ['/', '/docs/'];
+  var want = (at >= 0 ? path.slice(at + 6) : path).replace(/^\/+/, '').replace(/index\.html$/, '').replace(/\/+$/, '');
+  var norm = function (p) { return p.replace(/^\/+/, '').replace(/index\.html$/, '').replace(/\/+$/, ''); };
+  var attempt = function (k) {
+    if (k >= bases.length || !want) return;
+    fetch(bases[k] + 'remapping_map.json')
+      .then(function (r) { if (!r.ok) throw new Error('no map'); return r.json(); })
+      .then(function (map) {
+        var hit = (map.urls || []).filter(function (u) { return norm(u.from) === want; })[0];
+        if (hit) location.replace(bases[k] + hit.to.replace(/^\/+/, '') + location.search + location.hash);
+      })
+      .catch(function () { attempt(k + 1); });
+  };
+  attempt(0);
+})();
+</script>
+"""
+
+_404_ROOT_PAGE = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found · Essential Model Documentation</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 34rem; margin: 14vh auto; padding: 0 1.5rem; color: #1e293b; }
+  h1 { font-size: 1.4rem; }
+  a { color: #1976d2; }
+</style>
+</head>
+<body>
+<h1>Page not found</h1>
+<p>The page you're looking for doesn't exist or has been moved. Start from the <a id="home" href="/docs/">EMD documentation</a>.</p>
+<script>
+  (function () {
+    var path = location.pathname, at = path.indexOf('/docs/');
+    var project = location.hostname.slice(-10) === '.github.io' ? '/' + (path.split('/')[1] || '') : '';
+    document.getElementById('home').href = at >= 0 ? path.slice(0, at + 6) : project + '/docs/';
+  })();
+</script>
+""" + _404_LOOKUP + """</body>
+</html>
+"""
+
+
+# One 404 page is served for a missing address at ANY depth, so every relative link in the borrowed
+# shell is pointed at the site root with a <base> tag: ".../docs/" when published, "/" on the
+# local dev server.
+_404_BASE_SCRIPT = r"""<script>
+  (function () {
+    var p = location.pathname, i = p.indexOf('/docs/'), base;
+    if (i >= 0) base = p.slice(0, i + 6);
+    else if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) base = '/';
+    else base = (location.hostname.slice(-10) === '.github.io' ? '/' + (p.split('/')[1] || '') : '') + '/docs/';
+    document.write('<base href="' + base + '">');
+  })();
+</script>
+"""
+
+_404_ARTICLE = """<article class="w-full" view-transition-name="page">
+    <div class="nf">
+      <p class="nf-code">404</p>
+      <h1>Page not found</h1>
+      <p class="nf-msg">The page you're looking for doesn't exist or has been moved.</p>
+    </div>
+  </article>"""
+
+# centred in the page content, in the site's own colours (light and dark come from the theme's variables)
+_404_STYLE = """<style>
+  .nf { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .75rem; padding: 5rem 1rem 6rem; }
+  .nf-code { margin: 0; font: 600 7rem/1 Lexend, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.04em; color: var(--muted-foreground); opacity: .55; }
+  /* the site's article headings carry !important (rule underneath, padding, margin): undo that here only */
+  article .nf h1 { margin: 0 !important; padding: 0 !important; border: 0 !important; font-size: 1.75rem !important; font-weight: 600 !important; line-height: 2.25rem; }
+  .nf-msg { margin: 0; max-width: 28rem; color: var(--muted-foreground); }
+</style>
+"""
+
+
+def build_404_page(site_dir: Path):
+    """The 404 page in the site's own look: the built home page's shell with the page content swapped
+    for the message. Returns None if the shell is not there (the caller then uses the plain page)."""
+    try:
+        shell = (site_dir / 'index.html').read_text(encoding='utf-8')
+    except Exception:
+        return None
+    start = shell.find('<article class="w-full" view-transition-name="page">')
+    end = shell.find('</article>', start) if start >= 0 else -1
+    if start < 0 or end < 0:
+        return None
+    page = shell[:start] + _404_ARTICLE + shell[end + len('</article>'):]
+    page = re.sub(r'<title>.*?</title>', '<title>Page not found \u00b7 Essential Model Documentation</title>', page, count=1, flags=re.S)
+    page = re.sub(r'<link[^>]*rel="canonical"[^>]*>', '', page)             # not the home page's address
+    page = re.sub(r'<a href="#[^"]*"[^>]*data-depth="\d+"[^>]*>.*?</a>', '', page, flags=re.S)   # the home page's "On This Page" links
+    page = re.sub(r'<p[^>]*>\s*On This Page\s*</p>', '', page)
+    page = re.sub(r'<script[^>]*matomo\.js[^>]*></script>', '', page)       # a mistyped address is not a visit
+    head = '\n<meta name="robots" content="noindex">\n' + _404_BASE_SCRIPT + _404_STYLE
+    page = re.sub(r'<head[^>]*>', lambda m: m.group(0) + head, page, count=1)
+    return page.replace('</body>', _404_LOOKUP + '</body>', 1) if '</body>' in page else page + _404_LOOKUP
+
+
+def _404_page(site_dir: Path) -> str:
+    return build_404_page(site_dir) or _404_ROOT_PAGE
+
+
+def inject_404_redirect(site_dir: Path) -> bool:
+    """
+    Make the built site's own 404 page do the old-address lookup (it is what `mkdocs serve`
+    shows for a missing address). Adds the lookup to the theme's 404 page if there is one;
+    if the theme has none, writes the same self-contained page used at the site root.
+    """
+    page = site_dir / '404.html'
+    if not page.exists():
+        page.write_text(_404_page(site_dir), encoding='utf-8')
+        return True
+    html = page.read_text(encoding='utf-8', errors='ignore')
+    if 'remapping_map.json' in html:
+        return True
+    html = html.replace('</body>', _404_LOOKUP + '</body>', 1) if '</body>' in html else html + _404_LOOKUP
+    page.write_text(html, encoding='utf-8')
+    return True
+
+
+def write_root_404(site_dir: Path):
+    """Write the root-level 404.html that GitHub Pages / Cloudflare Pages serve for missing addresses."""
+    try:
+        (site_dir.parent / '404.html').write_text(_404_page(site_dir), encoding='utf-8')
+    except Exception as e:
+        print(f'  [post_build] root 404 failed: {e}')
+
+
 def on_post_build(config, **kwargs):
     site_dir = Path(config['site_dir']).resolve()
     docs_dir = Path(config['docs_dir']).resolve()
@@ -1013,3 +1204,10 @@ def on_post_build(config, **kwargs):
 
     # 6. Inject search into standalone pages
     inject_search(site_dir)
+
+    # 6b. Cookie banner + analytics on every page, MkDocs-built and hand-written alike
+    print(f'  [post_build] Analytics script added to {inject_analytics(site_dir)} HTML files')
+
+    # 7. Old addresses: the 404 pages look them up in docs/remapping_map.json
+    inject_404_redirect(site_dir)
+    write_root_404(site_dir)

@@ -41,13 +41,11 @@ extra:
 
 extra_css:
   - stylesheets/custom.css
-  - stylesheets/footer-override.css
 
 extra_javascript:
   - stylesheets/custom.js
   - stylesheets/embed.js
   - https://unpkg.com/mermaid@10/dist/mermaid.min.js
-  - stylesheets/matomo.js
 
 markdown_extensions:
   - admonition

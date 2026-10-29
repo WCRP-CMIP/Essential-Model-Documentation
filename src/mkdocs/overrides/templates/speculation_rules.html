@@ -1,0 +1,14 @@
+{#- Override of the shadcn theme's templates/speculation_rules.html: the theme's copy has a trailing
+    comma after the selector list, which makes the JSON invalid ("Unexpected token" in the console).
+    Same rules, valid JSON: the next / previous pages are prerendered. -#}
+<script type="speculationrules">
+{
+  "prerender": [
+    {
+      "where": {
+        "selector_matches": ["#next-button", "#previous-button"]
+      }
+    }
+  ]
+}
+</script>

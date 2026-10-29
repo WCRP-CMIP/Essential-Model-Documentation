@@ -1,0 +1,294 @@
+{
+  "description": "Remapping of the EMD documentation when docs/ was regrouped by audience (Data Users, Modelling centres, Reviewers, Developers). 'files' lists every move made with git mv (paths relative to docs/); 'urls' lists every old page address and where it now redirects (paths relative to the site root).",
+  "date": "2026-10-27",
+  "site_root": "https://emd.wcrp-cmip.org/docs/",
+  "groups": {
+    "Data_Users": "Data Users — understanding the contents",
+    "Modelling_centres": "Modelling centres — submitting and tracking documentation",
+    "Reviewers": "Reviewers",
+    "Developers": "Developers"
+  },
+  "files": [
+    {
+      "from": "Model",
+      "to": "Data_Users/Model_viewer",
+      "type": "folder"
+    },
+    {
+      "from": "grid_viewer",
+      "to": "Data_Users/Grid_viewer",
+      "type": "folder"
+    },
+    {
+      "from": "model_participation",
+      "to": "Data_Users/Model_participation",
+      "type": "folder"
+    },
+    {
+      "from": "Analysis",
+      "to": "Data_Users/Analysis",
+      "type": "folder"
+    },
+    {
+      "from": "Information_for_Submitters/Submission-Guide.md",
+      "to": "Modelling_centres/Submission_guide.md",
+      "type": "file"
+    },
+    {
+      "from": "Information_for_Submitters/What_to_expect_on_submission.md",
+      "to": "Modelling_centres/What_to_expect_on_submission.md",
+      "type": "file"
+    },
+    {
+      "from": "Information_for_Submitters/Registering_an_Institution.md",
+      "to": "Modelling_centres/Registering_an_institution.md",
+      "type": "file"
+    },
+    {
+      "from": "Information_for_Submitters/Using_GitHub_Forms.md",
+      "to": "Modelling_centres/Using_GitHub_forms.md",
+      "type": "file"
+    },
+    {
+      "from": "Information_for_Submitters/Error_Meanings.md",
+      "to": "Modelling_centres/Error_meanings.md",
+      "type": "file"
+    },
+    {
+      "from": "Information_for_Submitters/_submitters.html",
+      "to": "Modelling_centres/_submitters.html",
+      "type": "file"
+    },
+    {
+      "from": "Editing_the_EMD.md",
+      "to": "Modelling_centres/Editing_the_EMD.md",
+      "type": "file"
+    },
+    {
+      "from": "Developer_Guidance/find_your_submissions.html",
+      "to": "Modelling_centres/Find_your_submissions.html",
+      "type": "file"
+    },
+    {
+      "from": "Progress_Tracker.html",
+      "to": "Modelling_centres/Progress_tracker.html",
+      "type": "file"
+    },
+    {
+      "from": "Progress_Feed.md",
+      "to": "Modelling_centres/Progress_feed.md",
+      "type": "file"
+    },
+    {
+      "from": "Reviewer_Guidance/Reviewer_Information.md",
+      "to": "Reviewers/Reviewer_information.md",
+      "type": "file"
+    },
+    {
+      "from": "Reviewer_Guidance/Interpreting_The_Review_Summary.md",
+      "to": "Reviewers/Interpreting_the_review_summary.md",
+      "type": "file"
+    },
+    {
+      "from": "Reviewer_Guidance/Review_Options.md",
+      "to": "Reviewers/Review_options.md",
+      "type": "file"
+    },
+    {
+      "from": "Reviewer_Guidance/Review_Checklist.md",
+      "to": "Reviewers/Review_checklist.md",
+      "type": "file"
+    },
+    {
+      "from": "Developer_Guidance/Issue_Templates.md",
+      "to": "Developers/Issue_templates.md",
+      "type": "file"
+    },
+    {
+      "from": "Developer_Guidance/Workflows_and_Automation.md",
+      "to": "Developers/Workflows_and_automation.md",
+      "type": "file"
+    },
+    {
+      "from": "EMD_health",
+      "to": "Developers/EMD_health",
+      "type": "folder"
+    }
+  ],
+  "urls": [
+    {
+      "from": "Analysis/",
+      "to": "Data_Users/Analysis/",
+      "stub": "docs/Analysis/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Developer_Guidance/Issue_Templates/",
+      "to": "Developers/Issue_templates/",
+      "stub": "docs/Developer_Guidance/Issue_Templates/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Developer_Guidance/Workflows_and_Automation/",
+      "to": "Developers/Workflows_and_automation/",
+      "stub": "docs/Developer_Guidance/Workflows_and_Automation/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Developer_Guidance/find_your_submissions.html",
+      "to": "Modelling_centres/Find_your_submissions.html",
+      "stub": "docs/Developer_Guidance/find_your_submissions.html",
+      "keeps_query": true
+    },
+    {
+      "from": "EMD_health/PR_Analysis.html",
+      "to": "Developers/EMD_health/PR_Analysis.html",
+      "stub": "docs/EMD_health/PR_Analysis.html",
+      "keeps_query": true
+    },
+    {
+      "from": "EMD_health/PR_Author_Response.html",
+      "to": "Developers/EMD_health/PR_Author_Response.html",
+      "stub": "docs/EMD_health/PR_Author_Response.html",
+      "keeps_query": true
+    },
+    {
+      "from": "EMD_health/PR_First_Response.html",
+      "to": "Developers/EMD_health/PR_First_Response.html",
+      "stub": "docs/EMD_health/PR_First_Response.html",
+      "keeps_query": true
+    },
+    {
+      "from": "EMD_health/PR_Throughput.html",
+      "to": "Developers/EMD_health/PR_Throughput.html",
+      "stub": "docs/EMD_health/PR_Throughput.html",
+      "keeps_query": true
+    },
+    {
+      "from": "EMD_health/PR_Timeline.html",
+      "to": "Developers/EMD_health/PR_Timeline.html",
+      "stub": "docs/EMD_health/PR_Timeline.html",
+      "keeps_query": true
+    },
+    {
+      "from": "EMD_health/",
+      "to": "Developers/EMD_health/",
+      "stub": "docs/EMD_health/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Editing_the_EMD/",
+      "to": "Modelling_centres/Editing_the_EMD/",
+      "stub": "docs/Editing_the_EMD/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Information_for_Submitters/Error_Meanings/",
+      "to": "Modelling_centres/Error_meanings/",
+      "stub": "docs/Information_for_Submitters/Error_Meanings/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Information_for_Submitters/Registering_an_Institution/",
+      "to": "Modelling_centres/Registering_an_institution/",
+      "stub": "docs/Information_for_Submitters/Registering_an_Institution/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Information_for_Submitters/Submission-Guide/",
+      "to": "Modelling_centres/Submission_guide/",
+      "stub": "docs/Information_for_Submitters/Submission-Guide/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Information_for_Submitters/Using_GitHub_Forms/",
+      "to": "Modelling_centres/Using_GitHub_forms/",
+      "stub": "docs/Information_for_Submitters/Using_GitHub_Forms/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Information_for_Submitters/What_to_expect_on_submission/",
+      "to": "Modelling_centres/What_to_expect_on_submission/",
+      "stub": "docs/Information_for_Submitters/What_to_expect_on_submission/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Information_for_Submitters/_submitters.html",
+      "to": "Modelling_centres/_submitters.html",
+      "stub": "docs/Information_for_Submitters/_submitters.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Model/emd_model_graph.html",
+      "to": "Data_Users/Model_viewer/",
+      "stub": "docs/Model/emd_model_graph.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Model/",
+      "to": "Data_Users/Model_viewer/",
+      "stub": "docs/Model/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Progress_Feed/",
+      "to": "Modelling_centres/Progress_feed/",
+      "stub": "docs/Progress_Feed/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Progress_Tracker.html",
+      "to": "Modelling_centres/Progress_tracker.html",
+      "stub": "docs/Progress_Tracker.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Reviewer_Guidance/Interpreting_The_Review_Summary/",
+      "to": "Reviewers/Interpreting_the_review_summary/",
+      "stub": "docs/Reviewer_Guidance/Interpreting_The_Review_Summary/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Reviewer_Guidance/Review_Checklist/",
+      "to": "Reviewers/Review_checklist/",
+      "stub": "docs/Reviewer_Guidance/Review_Checklist/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Reviewer_Guidance/Review_Options/",
+      "to": "Reviewers/Review_options/",
+      "stub": "docs/Reviewer_Guidance/Review_Options/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Reviewer_Guidance/Reviewer_Information/",
+      "to": "Reviewers/Reviewer_information/",
+      "stub": "docs/Reviewer_Guidance/Reviewer_Information/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "Submission-Guide/",
+      "to": "Modelling_centres/Submission_guide/",
+      "stub": "docs/Submission-Guide/index.html",
+      "keeps_query": false
+    },
+    {
+      "from": "grid_viewer/horizontal/",
+      "to": "Data_Users/Grid_viewer/horizontal/",
+      "stub": "docs/grid_viewer/horizontal/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "grid_viewer/",
+      "to": "Data_Users/Grid_viewer/",
+      "stub": "docs/grid_viewer/index.html",
+      "keeps_query": true
+    },
+    {
+      "from": "grid_viewer/vertical/",
+      "to": "Data_Users/Grid_viewer/vertical/",
+      "stub": "docs/grid_viewer/vertical/index.html",
+      "keeps_query": true
+    }
+  ]
+}
