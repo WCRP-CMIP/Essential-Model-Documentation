@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRS random forest (experimental) · Essential Model Documentation</title>
+<link rel="stylesheet" href="../CRS_similarity/assets/crs-similarity/css/style.css">
+<link rel="stylesheet" href="assets/crs-forest/css/forest.css">
+</head>
+<body>
+<main class="cs-page">
+  <header class="cs-header">
+    <a class="cs-eyebrow" id="rf-home" href="../../">Essential Model Documentation</a>
+    <h1 class="cs-title">CRS random forest <span class="cs-badge">experimental</span></h1>
+    <p class="cs-intro">
+      A random forest of decision trees, each asking yes/no questions about the structure of the models'
+      Canonical Realm Strings: <em>has land ice?</em>, <em>land surface inside the atmosphere?</em>,
+      <em>land ice ↔ ocean coupled?</em> Two models are <strong>alike</strong> when the trees keep putting them
+      in the same place, and the questions the trees ask show <strong>why</strong>.
+      See <a href="#rf-method">How it works</a>; for the overlap-based view see <a href="../CRS_similarity/">CRS similarity</a>.
+    </p>
+  </header>
+
+  <p class="cs-status" id="rf-status">Loading the models…</p>
+
+  <section class="cs-card" id="rf-controls-card" hidden><div id="rf-controls"></div></section>
+
+  <section class="cs-card" id="rf-tree-card" hidden>
+    <h2>Splits as a decision tree</h2>
+    <p class="cs-sub">One summary tree over the real models, built from the forest's likeness: each split is the yes/no question
+      that best divides its models into two internally alike sides. A branch stops once its models are as alike as the
+      slider says (it also sets the <a href="#rf-groups-card">Likeness groups</a>). Point at a question or an end group
+      to see its models at the bottom of the screen.</p>
+    <div id="rf-groups-controls"></div>
+    <div id="rf-tree"></div>
+  </section>
+
+  <section class="cs-card" id="rf-groups-card" hidden>
+    <details id="rf-groups-details">
+      <summary><h2>Likeness groups</h2> <span class="cs-sub">grouped at the likeness set above the tree; the same cards come up when you point at the tree</span></summary>
+      <div id="rf-groups"></div>
+    </details>
+  </section>
+
+  <section class="cs-card" id="rf-questions-card" hidden>
+    <h2>How much the forest relies on each question</h2>
+    <p class="cs-sub">Each bar is how much a question helped the forest's trees. A <b>high</b> score means knowing the
+      answer tells you a lot about the rest of a model's structure; a <b>low</b> score means it tells you little.
+      The two examples are worked out from the current forest.</p>
+    <div class="rf-examples" id="rf-examples"></div>
+    <div id="rf-questions"></div>
+    <p class="rf-caveat">This describes structure as written in the CRS strings, not how well a model performs. With a few
+      dozen models, small differences between bars are noise: compare a few seeds. The tree above chooses its questions
+      differently (the best two-way division of the models), so its first question need not be the top bar.
+      Measure: mean decrease in <a href="https://en.wikipedia.org/wiki/Decision_tree_learning#Gini_impurity" target="_blank" rel="noopener">Gini impurity</a>.
+      Hover a question for other wordings that split the models the same way.</p>
+  </section>
+
+  <section class="cs-card" id="rf-pairs-card" hidden>
+    <h2>Questions that go together</h2>
+    <p class="cs-sub">Pairs of questions whose answers go together across the models, measured by the
+      <a href="https://en.wikipedia.org/wiki/Phi_coefficient" target="_blank" rel="noopener">phi correlation</a>:
+      1 = always the same answer, 0 = unrelated, −1 = always opposite answers. Pairs about the same realm are left out
+      (they are linked by definition), and so are questions that fewer than 3 models answer yes, or no (one or two models
+      agreeing by chance would look like a perfect match). Counts: both yes · only the first · only the second · neither.</p>
+    <div id="rf-pairs"></div>
+  </section>
+
+  <section class="cs-card" id="rf-method">
+    <h2>How it works</h2>
+    <div id="rf-method-body"></div>
+  </section>
+</main>
+<div class="rf-hover" id="rf-hover" hidden></div>
+<script type="module" src="assets/crs-forest/js/main.js"></script>
+</body>
+</html>

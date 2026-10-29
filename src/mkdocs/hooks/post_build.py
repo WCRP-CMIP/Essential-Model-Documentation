@@ -1039,8 +1039,10 @@ def inject_analytics(site_dir: Path) -> int:
 #
 # GitHub Pages and Cloudflare Pages both show a ROOT-level 404.html for any missing
 # address, so write_root_404() puts one beside the root index.html (as root_redirect()
-# does). inject_404_redirect() adds the same lookup to the theme's own 404 page, which is
-# what the local `mkdocs serve` shows.
+# does); inject_404_redirect() writes the same page into the site (what the local
+# `mkdocs serve` shows). The page is the site's own look: the built home page's shell (header,
+# menu, footer, fonts) with the article swapped for the message (build_404_page). If that
+# shell cannot be found, the plain self-contained page below is used instead.
 
 _404_LOOKUP = r"""<script>
 (function () {
@@ -1079,9 +1081,8 @@ _404_ROOT_PAGE = r"""<!DOCTYPE html>
 </style>
 </head>
 <body>
-<h1>This page has moved or no longer exists</h1>
-<p>If you followed an old link, you should be taken to its new address in a moment.
-Otherwise, start from the <a id="home" href="/docs/">EMD documentation</a>.</p>
+<h1>Page not found</h1>
+<p>The page you're looking for doesn't exist or has been moved. Start from the <a id="home" href="/docs/">EMD documentation</a>.</p>
 <script>
   (function () {
     var path = location.pathname, at = path.indexOf('/docs/');
@@ -1094,6 +1095,65 @@ Otherwise, start from the <a id="home" href="/docs/">EMD documentation</a>.</p>
 """
 
 
+# One 404 page is served for a missing address at ANY depth, so every relative link in the borrowed
+# shell is pointed at the site root with a <base> tag: ".../docs/" when published, "/" on the
+# local dev server.
+_404_BASE_SCRIPT = r"""<script>
+  (function () {
+    var p = location.pathname, i = p.indexOf('/docs/'), base;
+    if (i >= 0) base = p.slice(0, i + 6);
+    else if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) base = '/';
+    else base = (location.hostname.slice(-10) === '.github.io' ? '/' + (p.split('/')[1] || '') : '') + '/docs/';
+    document.write('<base href="' + base + '">');
+  })();
+</script>
+"""
+
+_404_ARTICLE = """<article class="w-full" view-transition-name="page">
+    <div class="nf">
+      <p class="nf-code">404</p>
+      <h1>Page not found</h1>
+      <p class="nf-msg">The page you're looking for doesn't exist or has been moved.</p>
+    </div>
+  </article>"""
+
+# centred in the page content, in the site's own colours (light and dark come from the theme's variables)
+_404_STYLE = """<style>
+  .nf { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .75rem; padding: 5rem 1rem 6rem; }
+  .nf-code { margin: 0; font: 600 7rem/1 Lexend, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.04em; color: var(--muted-foreground); opacity: .55; }
+  /* the site's article headings carry !important (rule underneath, padding, margin): undo that here only */
+  article .nf h1 { margin: 0 !important; padding: 0 !important; border: 0 !important; font-size: 1.75rem !important; font-weight: 600 !important; line-height: 2.25rem; }
+  .nf-msg { margin: 0; max-width: 28rem; color: var(--muted-foreground); }
+</style>
+"""
+
+
+def build_404_page(site_dir: Path):
+    """The 404 page in the site's own look: the built home page's shell with the page content swapped
+    for the message. Returns None if the shell is not there (the caller then uses the plain page)."""
+    try:
+        shell = (site_dir / 'index.html').read_text(encoding='utf-8')
+    except Exception:
+        return None
+    start = shell.find('<article class="w-full" view-transition-name="page">')
+    end = shell.find('</article>', start) if start >= 0 else -1
+    if start < 0 or end < 0:
+        return None
+    page = shell[:start] + _404_ARTICLE + shell[end + len('</article>'):]
+    page = re.sub(r'<title>.*?</title>', '<title>Page not found \u00b7 Essential Model Documentation</title>', page, count=1, flags=re.S)
+    page = re.sub(r'<link[^>]*rel="canonical"[^>]*>', '', page)             # not the home page's address
+    page = re.sub(r'<a href="#[^"]*"[^>]*data-depth="\d+"[^>]*>.*?</a>', '', page, flags=re.S)   # the home page's "On This Page" links
+    page = re.sub(r'<p[^>]*>\s*On This Page\s*</p>', '', page)
+    page = re.sub(r'<script[^>]*matomo\.js[^>]*></script>', '', page)       # a mistyped address is not a visit
+    head = '\n<meta name="robots" content="noindex">\n' + _404_BASE_SCRIPT + _404_STYLE
+    page = re.sub(r'<head[^>]*>', lambda m: m.group(0) + head, page, count=1)
+    return page.replace('</body>', _404_LOOKUP + '</body>', 1) if '</body>' in page else page + _404_LOOKUP
+
+
+def _404_page(site_dir: Path) -> str:
+    return build_404_page(site_dir) or _404_ROOT_PAGE
+
+
 def inject_404_redirect(site_dir: Path) -> bool:
     """
     Make the built site's own 404 page do the old-address lookup (it is what `mkdocs serve`
@@ -1102,7 +1162,7 @@ def inject_404_redirect(site_dir: Path) -> bool:
     """
     page = site_dir / '404.html'
     if not page.exists():
-        page.write_text(_404_ROOT_PAGE, encoding='utf-8')
+        page.write_text(_404_page(site_dir), encoding='utf-8')
         return True
     html = page.read_text(encoding='utf-8', errors='ignore')
     if 'remapping_map.json' in html:
@@ -1115,7 +1175,7 @@ def inject_404_redirect(site_dir: Path) -> bool:
 def write_root_404(site_dir: Path):
     """Write the root-level 404.html that GitHub Pages / Cloudflare Pages serve for missing addresses."""
     try:
-        (site_dir.parent / '404.html').write_text(_404_ROOT_PAGE, encoding='utf-8')
+        (site_dir.parent / '404.html').write_text(_404_page(site_dir), encoding='utf-8')
     except Exception as e:
         print(f'  [post_build] root 404 failed: {e}')
 
