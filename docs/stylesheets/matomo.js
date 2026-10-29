@@ -32,7 +32,7 @@ function init() {
     const DENY = "matomo_cookie_denied_" + SITE_ID;
 
     // ==========================================
-    // MATOMO TRACKER
+    // MATOMO TRACKER: send each visit to the server
     // ==========================================
 
     // Every page visit is recorded. Only the COOKIES depend on the visitor's choice:

@@ -21,6 +21,17 @@ on:
       - "model_component/**"
       - "model_family/**"
       - "vertical_computational_grid/**"
+      - "arrangement/**"
+      - "calendar/**"
+      - "cell_variable_type/**"
+      - "grid_mapping/**"
+      - "grid_type/**"
+      - "region/**"
+      - "scientific_domain/**"
+      - "temporal_refinement/**"
+      - "truncation_method/**"
+      - "units/**"
+      - "vertical_coordinate/**"
 
   workflow_dispatch:
 

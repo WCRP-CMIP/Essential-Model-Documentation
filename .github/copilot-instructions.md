@@ -117,8 +117,8 @@ For `component_config` files, check:
 
 - Does the horizontal grid referenced match the component domain?
 - Does the vertical grid referenced make sense for the component type?
-  - `ocean_biogeochemistry` should share the ocean's vertical grid
-  - `land_surface` should have a soil-depth vertical grid, not an atmospheric one
+  - `ocean-biogeochemistry` should share the ocean's vertical grid
+  - `land-surface` should have a soil-depth vertical grid, not an atmospheric one
 
 > **Note:** For `horizontal_computational_grid` and `component_config` files, do not use `[!TIP]` blocks or suggest specific data corrections. Do not comment on data types, array vs. string representations, field formats, schema consistency, or structural conventions. Raise scientific concerns only, using `[!NOTE]`, `[!WARNING]`, or `[!CAUTION]` as appropriate.
 
