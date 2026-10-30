@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_epitome76-1793374146",
+    "ui_label": "Horizontal grid cell with a tripolar grid type.",
+    "description": "",
+    "alias": [
+        "eORCA025",
+        "V-"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 1735200,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.4875,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "",
+    "westernmost_longitude": 53.5,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_epitome76-1793374146"
+}
