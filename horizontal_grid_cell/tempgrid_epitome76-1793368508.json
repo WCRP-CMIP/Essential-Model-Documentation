@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_epitome76-1793368508",
+    "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 0.8333334 x 0.55555725 degree resolution.",
+    "description": "Grid points for v velocity of UM N216 grid",
+    "alias": [
+        "N216",
+        "N216 (325x432)"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "regular-latitude-longitude",
+    "n_cells": 140400,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -90,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.41666666,
+    "x_resolution": 0.8333334,
+    "y_resolution": 0.55555725,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_epitome76-1793368508"
+}
