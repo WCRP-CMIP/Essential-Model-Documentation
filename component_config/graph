@@ -1,9 +1,9 @@
 {
   "@context": {
     "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/component_config/",
-    "@base": "https://emd.wcrp-cmip.org/component_config/",
+    "@base": "https://emd.mipcvs.dev/component_config/",
     "@esgvoc": "ComponentConfig",
-    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/ComponentConfig/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/ComponentConfig/",
     "horizontal_computational_grid": {
       "@context": "../horizontal_computational_grid/_context",
       "@type": "@id"
@@ -143,6 +143,7 @@
     {"@id": "aerosol_sprintars_h172_v177"},
     {"@id": "ocean_icon-o-1-1_h129_v121"},
     {"@id": "land-surface_orchidee-v2_h165_v158"},
+    {"@id": "land-surface_clm-v6-0_h149_v164"},
     {"@id": "land-surface_icon-land-1-1_h130_v122"},
     {"@id": "atmosphere_canam5-1_h108_v114"},
     {"@id": "sea-ice_mcm-ua-1-0seaice_h143_no-vertical"},
