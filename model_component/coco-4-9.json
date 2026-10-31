@@ -1,0 +1,18 @@
+{
+    "validation_key": "coco-4-9",
+    "ui_label": "COCO 4.9",
+    "description": "1. Main processes simulated COCO 4.9 simulates global ocean circulation and sea ice dynamics and thermodynamics, including the transport of heat, salt, and other tracers, ocean mixing and convection, and interactions between the ocean, sea ice, and atmosphere. 2. Key physics/parameterizations The ocean model solves the primitive equations under the hydrostatic and Boussinesq approximations with an explicit free surface. Key parameterizations include second-order moment tracer advection, isopycnal and thickness diffusion, vertical turbulent mixing, and a bottom boundary layer scheme for dense water flows along continental slopes. The sea ice model includes a multi-category sea ice thickness distribution and elastic–viscous–plastic (EVP) rheology. 3. Notable features of this version COCO 4.9 incorporates several improvements in ocean and sea ice physics, including the introduction of a generic length scale (GLS) turbulence closure scheme for vertical mixing, tidal mixing parameterized using energy dissipation rates estimated from an external tidal model, and geothermal heat flux at the ocean floor. The sea ice model also includes ice age and melt pond parameterizations to improve the representation of sea ice albedo.",
+    "code_base": "",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5194/gmd-12-2727-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "coco-4-9"
+}
