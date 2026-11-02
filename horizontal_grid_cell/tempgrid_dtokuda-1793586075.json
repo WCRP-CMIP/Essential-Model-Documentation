@@ -1,0 +1,27 @@
+{
+    "validation_key": "tempgrid_dtokuda-1793586075",
+    "ui_label": "Horizontal grid cell with a unstructured grid type and 0.5 x 0.5 degree resolution.",
+    "description": "The native ILS land grid contains 120964 distinct model cells with positive effective area: 94427 unit-catchment elements shared by MATSIRO and CaMa-Flood in the river-bearing domain and 26537 additional non-river elements used by MATSIRO. Catchment and non-river supports are represented by labelled pixels on a geographic one-arcminute raster. A real non-river contribution consists of non-catchment land within its 0.5-degree address rectangle. A virtual non-river contribution uses a weighted ocean-class support to supply additional effective land area required for consistency with the ocean-derived land area on the atmospheric grid. Real and virtual contributions can share one non-river cell ID and are combined into that cell's area; they are not counted as separate cells. This is an unstructured collection of catchment and masked or weighted land elements, not a uniform rectangular physical mesh. The native cell count excludes storage padding. The 360 by 720 river address array and MATSIRO's concatenated 720 by 720 river/non-river storage array do not define physical cell widths and are separate from the two land-cover tiles. Exchanges between MATSIRO and CaMa-Flood over the shared river domain use one-to-one cell correspondence without spatial remapping or aggregation. The 3600-second exchange interval, AVR and lag=-1 settings describe separate temporal treatment. Published land fields are subsequently remapped to the regular 0.5-degree output grid g131.",
+    "alias": [],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "unstructured",
+    "n_cells": 120964,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.75,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.25,
+    "x_resolution": 0.5,
+    "y_resolution": 0.5,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_dtokuda-1793586075"
+}
