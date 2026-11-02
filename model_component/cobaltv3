@@ -1,0 +1,20 @@
+{
+    "validation_key": "cobaltv3",
+    "ui_label": "COBALTv3",
+    "description": "1. Main processes simulated Ocean biogeochemistry component of KIOST-ESM2, the Carbon, Ocean Biogeochemistry and Lower Trophics version 3 (COBALTv3) model developed at the Geophysical Fluid Dynamics Laboratory (GFDL) (Stock et al., 2025), embedded in the Modular Ocean Model version 6 (MOM6) ocean component. COBALT represents marine ecosystem processes through an explicit size-structured plankton food web, remineralization of sinking organic matter, and coupling of nutrient cycles among the ocean, atmosphere, land and cryosphere, providing a simulation of the biological pump, marine ecosystem dynamics and global biogeochemical cycles.  2. Key physics/parameterizations Relative to COBALTv2 (Stock et al., 2020) implemented in GFDL ESM4.1, COBALTv3 introduces a fourth phytoplankton functional type to better represent pico-, nano- and microphytoplankton communities, enhanced zooplankton feeding flexibility, explicit phytoplankton sinking, and updated size-dependent physiological parameters controlling phytoplankton growth, nutrient uptake and mortality. It also introduces dynamic stoichiometry, allowing phytoplankton elemental ratios to vary in response to environmental conditions rather than assuming fixed ratios, and improved representations of phytoplankton photoacclimation and photoadaptation.  3. Notable features of this version In KIOST-ESM2 the ocean biogeochemical component has been upgraded from the Tracers of Ocean Phytoplankton with Allometric Zooplankton version 2 (TOPAZ2) model used in KIOST-ESM1 to COBALTv3. Relative to TOPAZ2, COBALT incorporates a substantially more sophisticated representation of marine ecosystem processes, improved remineralization of sinking organic matter and enhanced nutrient-cycle coupling, leading to a more realistic simulation of chlorophyll variability and ecosystem dynamics.",
+    "code_base": "https://github.com/NOAA-GFDL/ocean_BGC",
+    "component": "ocean-biogeochemistry",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1029/2024MS004701",
+        "https://doi.org/10.1029/2019MS002043",
+        "https://paper.under.review"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cobaltv3"
+}
