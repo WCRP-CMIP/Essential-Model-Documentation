@@ -1,0 +1,27 @@
+{
+  "validation_key": "g273",
+  "ui_label": "Horizontal grid cell with a regular gaussian grid type and 145 x 140 km resolution.",
+  "description": "",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-gaussian",
+  "n_cells": 34816,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -88.9277,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "km",
+  "westernmost_longitude": 0,
+  "x_resolution": 145,
+  "y_resolution": 140,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g273"
+}
