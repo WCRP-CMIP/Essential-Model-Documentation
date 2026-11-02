@@ -1,0 +1,24 @@
+{
+    "validation_key": "famil2-2",
+    "ui_label": "FAMIL2.2",
+    "description": "The atmospheric component, FAMIL, uses a finite- volume dynamical core (Lin, 2004) on a cubed-sphere grid (Putman and Lin, 2007), with six tiles across the globe. In FAMIL, each tile contains 96 grid cells (C96). Globally, the longitudes along the equator are divided into 384 grid cells, and the latitudes are divided into 192 grid cells, which is ap- proximately equal to a 1◦ horizontal resolution. In the vertical direction, the model uses hybrid coordinates over 32 layers, and the model top is at 2.16 hPa. The main physical packages include a new moisture turbulence parameterization scheme for the boundary layer (Bretherton and Park, 2009), with shallow convection updated (Wang and Zhang, 2014). The Geophysical Fluid Dynamics Laboratory version of a single-moment six-category cloud microphysics scheme (Lin et al., 1983; Harris and Lin, 2014) is adopted to predict the bulk contents of water vapor, cloud water, cloud ice, rain, snow and graupel. For the cloud fraction diagnosis, the Xu and Randall (1996) scheme is used, which considers not only relative humidity but also the cloud mixing ratio, thus pro- viding a more precise cloud fraction. A convection-resolving precipitation parameterization (© 2017 FAMIL Development Team) is used where, in contrast to the conventional convective parameterization, convective and stratiform precipitation are calculated explicitly. The Rapid Radiative Transfer Model for GCMs (RRTMG) (Clough et al., 2005) was introduced into the model as the main radiation transfer, which utilizes the correlated k-distribution technique to eﬃciently calculate the irradiance and heating rate in 14 shortwave and 16 long- wave spectral intervals. Finally, a gravity wave drag scheme is also used, based on Palmer et al. (1986).",
+    "code_base": "",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "He",
+        "B.",
+        "and Coauthors",
+        "2019: CAS FGOALS-f3-L model datasets for CMIP6 historical Atmospheric Model Inter-comparison Project simulation. Adv. Atmos. Sci.",
+        "36(8)",
+        "771–778",
+        "https://doi.org/10.1007/s00376-019-9027-8."
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "famil2-2"
+}
