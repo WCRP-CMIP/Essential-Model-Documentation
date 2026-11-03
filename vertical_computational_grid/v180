@@ -1,0 +1,18 @@
+{
+  "validation_key": "v180",
+  "ui_label": "depth grid with 6 levels.",
+  "description": "The structured vertical coordinate, layer count and thickness values describe the soil grid. Snow and lake water use separate vertical discretizations, as detailed below. Soil heat and soil water are both calculated on a common six-layer vertical grid, with interfaces at 0, 0.05, 0.25, 1, 2, 4 and 14 m below the surface. Their thicknesses are 0.05, 0.20, 0.75, 1, 2 and 10 m; both land-cover tiles share this geometry. Snow uses zero active layers in the absence of snow and one to three mass layers when snow is present. Lake water uses five layers with depth-dependent thicknesses. Lake ice and snow on lake ice are represented separately. CaMa-Flood represents water storage and hydraulic depth without a vertically discretized water column; its ten floodplain elevation intervals describe subgrid hypsometry, not water layers.",
+  "bottom_layer_thickness": 10,
+  "n_z": 6,
+  "n_z_range": "",
+  "top_layer_thickness": 0.05,
+  "total_thickness": 14,
+  "vertical_coordinate": "depth",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v180"
+}
