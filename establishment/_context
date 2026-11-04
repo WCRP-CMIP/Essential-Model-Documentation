@@ -4,6 +4,10 @@
         "@base": "https://emd.wcrp-cmip.org/establishment/",
         "@esgvoc": "Institution",
         "@vocab": "https://emd.wcrp-cmip.org/docs/contents/Establishment/"
+        "members": {
+            "@context": "_context",
+            "@type": "@id"
+        },
         
     }
 } 
