@@ -76,7 +76,7 @@ jobs:
         continue-on-error: true
         run: |
           echo ${pwd}
-          pip install requests json
+          pip install requests
           # get the establishments and from esgvoc due to non-compatibility issues. 
           python .github/scripts/esgvoc_establishments.py
 
