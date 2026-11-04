@@ -85,7 +85,7 @@ jobs:
         continue-on-error: true
         uses: EndBug/add-and-commit@v9
         with:
-          add: '.github/'
+          add: '[".github/","establishment/"]'
           author_name: 'cmip-ipo'
           author_email: 'actions@wcrp-cmip.org'
           message: 'Auto-update issue templates'
