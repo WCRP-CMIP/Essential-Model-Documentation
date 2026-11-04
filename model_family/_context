@@ -1,19 +1,15 @@
 {
     "@context": {
         "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/model_family/",
-        "@base": "https://emd.mipcvs.dev/model_family/",
+        "@base": "https://emd.wcrp-cmip.org/model_family/",
         "@esgvoc": "ModelFamily",
-        "@vocab": "https://emd.mipcvs.dev/docs/contents/ModelFamily/",
+        "@vocab": "https://emd.wcrp-cmip.org/docs/contents/ModelFamily/",
         "collaborative_institutions": {
-            "@context": {
-                "@base": "https://esgvoc.ipsl.fr/api/v1/universe/data_descriptors/institution/terms/"
-            },
+            "@context": "../establishment/_context",
             "@type": "@id"
         },
         "primary_institution": {
-            "@context": {
-                "@base": "https://esgvoc.ipsl.fr/api/v1/universe/data_descriptors/institution/terms/"
-            },
+            "@context": "../establishment/_context",
             "@type": "@id"
         },
         "references": {
