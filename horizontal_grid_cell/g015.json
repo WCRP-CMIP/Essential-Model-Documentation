@@ -1,0 +1,27 @@
+{
+  "validation_key": "g015",
+    "ui_label": "Horizontal grid with a single cell for 30S-90S.",
+  "description": "A single grid cell for the geographical region of 30 to 90 degrees south.",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 1,
+  "region": [
+    "30S-90S"
+  ],
+  "southernmost_latitude": -60,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 180,
+  "x_resolution": 360,
+  "y_resolution": 60,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g015"
+}
