@@ -1,0 +1,32 @@
+{
+    "@id": "dwd",
+    "description": "German Meteorological Service (Deutscher Wetterdienst)",
+    "drs_name": "DWD",
+    "members": [
+        "dwd"
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution"
+    ],
+    "acronyms": [
+        "DWD"
+    ],
+    "labels": [
+        "Deutscher Wetterdienst",
+        "German Meteorological Service"
+    ],
+    "location": [
+        {
+            "city": "Offenbach",
+            "country": "Germany",
+            "lat": 50.10061,
+            "lon": 8.76647
+        }
+    ],
+    "ror": "02nrqs528",
+    "urls": [
+        "https://www.dwd.de/",
+        "http://en.wikipedia.org/wiki/Deutscher_Wetterdienst"
+    ]
+}
