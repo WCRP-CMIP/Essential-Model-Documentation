@@ -9,10 +9,16 @@ for kind in ['organisation','institution']:
     allitems = requests.get(f'{BASE}{kind}/terms').json()
     for select in allitems:
 
-        if kind == "organisation":
-            select['members'] = [ i.get('id')for i in select['members'] ]
-
         id = select.get('id')
+        
+        if kind == "organisation":
+            select['members'] = [ i.get('id') for i in select['members'] if i.get('id') != id ]
+            if not len(select['members') :
+                # no members - we do not self-loop - that is silly!
+                continue
+            
+
+        
         if id: 
 
             current = {"@id":id,**select}
@@ -28,6 +34,8 @@ for kind in ['organisation','institution']:
             
             DATA[id]['@type'] = list(set(DATA.get('@type',[kind])).union([kind]))
             del DATA[id]['id'],DATA[id]['type']
+
+            
 
 
 
