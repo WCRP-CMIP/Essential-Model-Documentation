@@ -11,12 +11,12 @@
   "contents": [
     {"@id": "none"},
     {"@id": "standard"},
-    {"@id": "366-day"},
-    {"@id": "365-day"},
-    {"@id": "tai"},
+    {"@id": "utc"},
+    {"@id": "proleptic-gregorian"},
     {"@id": "julian"},
     {"@id": "360-day"},
-    {"@id": "utc"},
-    {"@id": "proleptic-gregorian"}
+    {"@id": "366-day"},
+    {"@id": "tai"},
+    {"@id": "365-day"}
   ]
 }

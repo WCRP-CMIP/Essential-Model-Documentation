@@ -9,21 +9,21 @@
     "Collection"
   ],
   "contents": [
-    {"@id": "lambert-azimuthal-equal-area"},
-    {"@id": "stereographic"},
-    {"@id": "transverse-mercator"},
+    {"@id": "geostationary"},
+    {"@id": "polar-stereographic"},
+    {"@id": "rotated-latitude-longitude"},
     {"@id": "mercator"},
     {"@id": "vertical-perspective"},
-    {"@id": "sinusoidal"},
-    {"@id": "rotated-latitude-longitude"},
-    {"@id": "latitude-longitude"},
-    {"@id": "polar-stereographic"},
     {"@id": "lambert-conformal-conic"},
+    {"@id": "stereographic"},
     {"@id": "azimuthal-equidistant"},
-    {"@id": "healpix"},
-    {"@id": "geostationary"},
     {"@id": "lambert-cylindrical-equal-area"},
     {"@id": "albers-conical-equal-area"},
-    {"@id": "orthographic"}
+    {"@id": "sinusoidal"},
+    {"@id": "healpix"},
+    {"@id": "transverse-mercator"},
+    {"@id": "orthographic"},
+    {"@id": "lambert-azimuthal-equal-area"},
+    {"@id": "latitude-longitude"}
   ]
 }
