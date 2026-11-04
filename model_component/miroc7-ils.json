@@ -1,0 +1,23 @@
+{
+    "validation_key": "miroc7-ils",
+    "ui_label": "MIROC7-ILS",
+    "description": "MIROC7-ILS is the land component of MIROC7. It combines the MATSIRO land-surface model (Takata et al., 2003) and the CaMa-Flood river and floodplain model within the Integrated Land Simulator framework (Nitta et al., 2020). MATSIRO retains the land-surface physical parameterizations used in MIROC6 (Tatebe et al., 2019; MATSIRO6 Document Writing Team, 2021), representing surface energy and water exchanges, canopy interception and transpiration, soil heat and moisture transport with liquid and frozen water, snow, and lake processes. CaMa-Flood routes runoff from MATSIRO and represents river storage and floodplain inundation (Yamazaki et al., 2011, 2013). A CaMa-derived lake-inflow quantity is returned to MATSIRO and used by its lake model. In the river-bearing domain, MATSIRO and CaMa-Flood operate on the same unit-catchment grid and exchange fields without spatial remapping or aggregation between the two models. MATSIRO additionally represents non-river land elements to maintain consistency with the ocean model's land-sea mask. Land variables submitted to CMIP are remapped during post-processing to a regular 0.5-degree latitude-longitude grid. Relative to the MIROC6 land configuration, changes include spatial resolution, basin-oriented grid representation, field-exchange timing, and the replacement of TRIP river routing with CaMa-Flood.",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "miroc",
+    "references": [
+        "https://doi.org/10.1186/s40645-020-00383-7",
+        "https://doi.org/10.1016/S0921-8181(03)00030-4",
+        "https://doi.org/10.15083/0002000181",
+        "https://doi.org/10.1029/2010WR009726",
+        "https://doi.org/10.1002/wrcr.20552",
+        "https://doi.org/10.5194/gmd-12-2727-2019"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "miroc7-ils"
+}
