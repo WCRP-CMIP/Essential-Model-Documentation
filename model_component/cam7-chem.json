@@ -1,0 +1,19 @@
+{
+    "validation_key": "cam7-chem",
+    "ui_label": "CAM7-chem",
+    "description": "[CAM7](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/src-data/model_component/cam7.json) can be run with different chemistry configurations. For CMIP7 fast-track simulations, we use the so-called T4S and TSO chemical mechanisms.  - **T4S (default for CMIP7)** is the interactive troposphere–stratosphere chemistry for climate simulations from the MOZART chemical mechanism suite (Zhang et al., 2026). The tropospheric mechanism (T4) includes detailed oxidation pathways for O<sub>3</sub>, NO<sub>x</sub>, HO<sub>x</sub>, methane (CH<sub>4</sub>), carbon monoxide (CO), and other non-methane volatile organic compounds (NMVOCs), which interact with the aerosol scheme, radiation, and transport. The stratospheric mechanism (S) includes key gas-phase reactions involving odd-oxygen (Ox), odd-nitrogen (NOx), odd-hydrogen (HOx), odd-chlorine (ClOx), and odd-bromine (BrOx) families, as well as 17 heterogeneous reactions to represent stratospheric chemistry and ozone comprehensively (Gettelman et al., 2018). We calculate photolysis using a lookup table and include additional shortwave heating at high altitudes from the photolysis of O<sub>2</sub> and O<sub>3</sub> by solar ultraviolet radiation. This includes both direct thermal heating and chemical potential heating. The additional shortwave heating is merged with the shortwave heating at lower altitudes (50 to 5 Pa).  - **SO (specified oxidants):** is the limited interactive gas-phase chemistry in the troposphere, mostly for tropospheric aerosol representation, including sulfate and organic aerosol; oxidant fields are prescribed from the T4S simulation, greenhouse-gas concentrations are prescribed at the model surface, and some loss rates are included for H<sub>2</sub>O and methane. Stratospheric ozone and aerosols are prescribed from the T4S simulations. This configuration is intended for applications where the cost of full chemistry is not justified.",
+    "code_base": "",
+    "component": "atmospheric-chemistry",
+    "family": "cam",
+    "references": [
+        "https://doi.org/10.1029/2018MS001488",
+        "https://doi.org/10.1029/2025MS005640"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cam7-chem"
+}
