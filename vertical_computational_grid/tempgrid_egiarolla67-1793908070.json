@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_egiarolla67-1793908070",
+    "ui_label": "atmosphere-sigma-coordinate grid with 42 levels.",
+    "description": "Pure sigma coordinate with the model top at p = 0. Thicknesses are nominal values from the standard atmosphere (ps = 1013.25 hPa). The highest model level (sigma ~0.002, ~2 hPa, ~42 km) is used as the top of the grid; the top layer thickness is from the ~5 hPa interface (~35.8 km) to that level.",
+    "bottom_layer_thickness": 68,
+    "n_z": 42,
+    "n_z_range": "",
+    "top_layer_thickness": 6400,
+    "total_thickness": 42200,
+    "vertical_coordinate": "atmosphere-sigma-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_egiarolla67-1793908070"
+}
