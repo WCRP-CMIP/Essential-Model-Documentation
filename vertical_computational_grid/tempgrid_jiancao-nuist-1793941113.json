@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_jiancao-nuist-1793941113",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid with 47 levels.",
+    "description": "47-level atmospheric hybrid sigma-pressure vertical grid of ECHAM v6.3.02 with model top at 0.01 hPa (1 Pa, ~80 km).",
+    "bottom_layer_thickness": "",
+    "n_z": 47,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": 80000,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_jiancao-nuist-1793941113"
+}
