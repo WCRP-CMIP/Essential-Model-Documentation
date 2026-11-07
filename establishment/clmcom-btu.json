@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-btu",
+    "validation_key": "clmcom-btu",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Brandenburg University of Technology Cottbus-Senftenberg",
     "drs_name": "CLMcom-BTU",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-btu"
 }

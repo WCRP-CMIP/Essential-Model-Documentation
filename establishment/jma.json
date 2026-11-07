@@ -1,19 +1,24 @@
 {
-    "@id": "jma",
+    "validation_key": "jma",
+    "ui_label": "",
     "description": "JMA",
-    "drs_name": "JMA",
-    "members": [
-        "jma"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "JMA",
     "labels": [
         "Japanese Meterorological Agency"
     ],
     "location": [],
+    "members": [
+        "jma"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "jma"
 }

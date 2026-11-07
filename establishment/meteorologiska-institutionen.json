@@ -1,10 +1,11 @@
 {
-    "@id": "meteorologiska-institutionen",
+    "validation_key": "meteorologiska-institutionen",
+    "ui_label": "",
     "description": "Stockholm University",
-    "drs_name": "MISU",
     "acronyms": [
         "MISU"
     ],
+    "drs_name": "MISU",
     "labels": [
         "Stockholm University",
         "Stockholms universitet",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "meteorologiska-institutionen"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "university-college-dublin",
+    "validation_key": "university-college-dublin",
+    "ui_label": "",
     "description": "University College Dublin",
-    "drs_name": "UCD",
     "acronyms": [
         "UCD"
     ],
+    "drs_name": "UCD",
     "labels": [
         "An Col\\'aiste Ollscoile Baile \\'Atha Cliath",
         "University College Dublin",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "university-college-dublin"
 }

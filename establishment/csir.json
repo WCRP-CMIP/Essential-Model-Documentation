@@ -1,10 +1,11 @@
 {
-    "@id": "csir",
+    "validation_key": "csir",
+    "ui_label": "",
     "description": "Council for Scientific and Industrial Research",
-    "drs_name": "CSIR",
     "acronyms": [
         "CSIR"
     ],
+    "drs_name": "CSIR",
     "labels": [
         "Council for Scientific and Industrial Research"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "csir"
 }

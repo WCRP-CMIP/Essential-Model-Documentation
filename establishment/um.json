@@ -1,10 +1,11 @@
 {
-    "@id": "um",
+    "validation_key": "um",
+    "ui_label": "",
     "description": "University of Michigan",
-    "drs_name": "UM",
     "acronyms": [
         "UM"
     ],
+    "drs_name": "UM",
     "labels": [
         "University of Michigan"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "um"
 }

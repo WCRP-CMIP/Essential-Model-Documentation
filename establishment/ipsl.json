@@ -1,17 +1,11 @@
 {
-    "@id": "ipsl",
+    "validation_key": "ipsl",
+    "ui_label": "",
     "description": "Institut Pierre-Simon Laplace",
-    "drs_name": "IPSL",
-    "members": [
-        "ipsl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IPSL"
     ],
+    "drs_name": "IPSL",
     "labels": [
         "Institut Pierre-Simon Laplace"
     ],
@@ -23,8 +17,19 @@
             "lon": 2.332105
         }
     ],
+    "members": [
+        "ipsl"
+    ],
     "ror": "02haar591",
     "urls": [
         "https://www.ipsl.fr/en/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ipsl"
 }

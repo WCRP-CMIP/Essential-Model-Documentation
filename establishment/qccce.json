@@ -1,15 +1,9 @@
 {
-    "@id": "qccce",
+    "validation_key": "qccce",
+    "ui_label": "",
     "description": "Queensland Climate Change Centre of Excellence",
-    "drs_name": "QCCCE",
-    "members": [
-        "qccce"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "QCCCE",
     "labels": [
         "Queensland Climate Change Centre of Excellence"
     ],
@@ -21,6 +15,17 @@
             "lon": 153.02997
         }
     ],
+    "members": [
+        "qccce"
+    ],
     "ror": "037405308",
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "qccce"
 }

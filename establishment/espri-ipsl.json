@@ -1,20 +1,25 @@
 {
-    "@id": "espri-ipsl",
+    "validation_key": "espri-ipsl",
+    "ui_label": "",
     "description": "ESPRI-IPSL",
-    "drs_name": "ESPRI-IPSL",
-    "members": [
-        "espri",
-        "ipsl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "ESPRI-IPSL",
     "labels": [
         "Ensemble de Services Pour la Recherche, Institut Pierre Simon Laplace (France)"
     ],
     "location": [],
+    "members": [
+        "espri",
+        "ipsl"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "espri-ipsl"
 }

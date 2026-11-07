@@ -1,5 +1,6 @@
 {
-    "@id": "rubisco",
+    "validation_key": "rubisco",
+    "ui_label": "",
     "description": "RUBISCO",
     "drs_name": "RUBISCO",
     "members": [
@@ -15,6 +16,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "rubisco"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "aad-dcceew",
+    "validation_key": "aad-dcceew",
+    "ui_label": "",
     "description": "The Australian Antarctic Division is a part of the Department of Climate Change, Energy, the Environment and Water (DCCEEW). AAD staff contribute to the development and application of ACCESS.",
-    "drs_name": "AAD-DCCEEW",
     "acronyms": [
         "AAD"
     ],
+    "drs_name": "AAD-DCCEEW",
     "labels": [
         "Australian Antarctic Division of the Department of Climate Change, Energy, the Environment and Water",
         "Australian Antarctic Division"
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "aad-dcceew"
 }

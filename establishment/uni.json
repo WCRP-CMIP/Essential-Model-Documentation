@@ -1,10 +1,11 @@
 {
-    "@id": "uni",
+    "validation_key": "uni",
+    "ui_label": "",
     "description": "Bergen Research Foundation",
-    "drs_name": "UNI",
     "acronyms": [
         "UNI"
     ],
+    "drs_name": "UNI",
     "labels": [
         "Bergen Research Foundation"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uni"
 }

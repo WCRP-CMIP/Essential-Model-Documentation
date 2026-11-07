@@ -1,18 +1,12 @@
 {
-    "@id": "llnl",
+    "validation_key": "llnl",
+    "ui_label": "",
     "description": "Lawrence Livermore National Laboratory",
-    "drs_name": "LLNL",
-    "members": [
-        "llnl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "LLNL",
         "LLL"
     ],
+    "drs_name": "LLNL",
     "labels": [
         "Lawrence Livermore National Laboratory"
     ],
@@ -24,8 +18,19 @@
             "lon": -121.76801
         }
     ],
+    "members": [
+        "llnl"
+    ],
     "ror": "041nk4h53",
     "urls": [
         "https://www.llnl.gov/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "llnl"
 }

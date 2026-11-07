@@ -1,15 +1,9 @@
 {
-    "@id": "uooulu",
+    "validation_key": "uooulu",
+    "ui_label": "",
     "description": "University of Oulu",
-    "drs_name": "UoOulu",
-    "members": [
-        "uooulu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UoOulu",
     "labels": [
         "University of Oulu"
     ],
@@ -21,8 +15,19 @@
             "lon": 65.01236
         }
     ],
+    "members": [
+        "uooulu"
+    ],
     "ror": "03yj89h83",
     "urls": [
         "http://www.oulu.fi/english/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uooulu"
 }

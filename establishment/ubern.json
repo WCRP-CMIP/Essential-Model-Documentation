@@ -1,18 +1,12 @@
 {
-    "@id": "ubern",
+    "validation_key": "ubern",
+    "ui_label": "",
     "description": "University of Bern",
-    "drs_name": "UBERN",
-    "members": [
-        "ubern"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UBERN",
         "UB"
     ],
+    "drs_name": "UBERN",
     "labels": [
         "University of Bern",
         "Universit\\\"at Bern",
@@ -27,8 +21,19 @@
             "lon": 7.44744
         }
     ],
+    "members": [
+        "ubern"
+    ],
     "ror": "02k7v4d05",
     "urls": [
         "https://www.unibe.ch/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ubern"
 }

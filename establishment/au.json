@@ -1,10 +1,11 @@
 {
-    "@id": "au",
+    "validation_key": "au",
+    "ui_label": "",
     "description": "Aarhus University",
-    "drs_name": "AU",
     "acronyms": [
         "AU"
     ],
+    "drs_name": "AU",
     "labels": [
         "Aarhus Universitet",
         "Aarhus University"
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "au"
 }

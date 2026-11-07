@@ -1,17 +1,11 @@
 {
-    "@id": "mps",
+    "validation_key": "mps",
+    "ui_label": "",
     "description": "Max Planck Institute for Solar System Research",
-    "drs_name": "MPS",
-    "members": [
-        "mps"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "MPS"
     ],
+    "drs_name": "MPS",
     "labels": [
         "Max Planck Institute for Solar System Research"
     ],
@@ -23,8 +17,19 @@
             "lon": 51.561218
         }
     ],
+    "members": [
+        "mps"
+    ],
     "ror": "02j6gm739",
     "urls": [
         "http://www.mps.mpg.de/en"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mps"
 }

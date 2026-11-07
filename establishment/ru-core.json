@@ -1,17 +1,9 @@
 {
-    "@id": "ru-core",
+    "validation_key": "ru-core",
+    "ui_label": "",
     "description": "Ramkhamhaeng University Center Of Regional Climate Change and Renewable Energy",
-    "drs_name": "RU-CORE",
-    "members": [
-        "core",
-        "ru",
-        "ru-core"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "RU-CORE",
     "labels": [
         "Ramkhamhaeng University"
     ],
@@ -23,8 +15,21 @@
             "lon": -74.0060152
         }
     ],
+    "members": [
+        "core",
+        "ru",
+        "ru-core"
+    ],
     "ror": "00mrw8k38",
     "urls": [
         "http://www.ru.ac.th/th/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ru-core"
 }

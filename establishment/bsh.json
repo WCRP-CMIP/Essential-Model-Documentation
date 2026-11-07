@@ -1,10 +1,11 @@
 {
-    "@id": "bsh",
+    "validation_key": "bsh",
+    "ui_label": "",
     "description": "Federal Maritime and Hydrographic Agency of Germany",
-    "drs_name": "BSH",
     "acronyms": [
         "BSH"
     ],
+    "drs_name": "BSH",
     "labels": [
         "Federal Maritime and Hydrographic Agency of Germany"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bsh"
 }

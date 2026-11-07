@@ -1,17 +1,11 @@
 {
-    "@id": "cornell",
+    "validation_key": "cornell",
+    "ui_label": "",
     "description": "Cornell University",
-    "drs_name": "CORNELL",
-    "members": [
-        "cornell"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CORNELL"
     ],
+    "drs_name": "CORNELL",
     "labels": [
         "Cornell University"
     ],
@@ -23,8 +17,19 @@
             "lon": -76.473503
         }
     ],
+    "members": [
+        "cornell"
+    ],
     "ror": "05bnh6r87",
     "urls": [
         "https://www.cornell.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cornell"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "cccma",
+    "validation_key": "cccma",
+    "ui_label": "",
     "description": "Environment and Climate Change Canada",
-    "drs_name": "CCCma",
-    "members": [
-        "cccma"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ECCC"
     ],
+    "drs_name": "CCCma",
     "labels": [
         "Environment and Climate Change Canada"
     ],
@@ -23,8 +17,19 @@
             "lon": -75.709324
         }
     ],
+    "members": [
+        "cccma"
+    ],
     "ror": "026ny0e17",
     "urls": [
         "https://www.canada.ca/en/environment-climate-change.html"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cccma"
 }

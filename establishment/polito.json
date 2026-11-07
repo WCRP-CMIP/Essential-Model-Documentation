@@ -1,10 +1,11 @@
 {
-    "@id": "polito",
+    "validation_key": "polito",
+    "ui_label": "",
     "description": "Polytechnic University of Turin",
-    "drs_name": "POLITO",
     "acronyms": [
         "POLITO"
     ],
+    "drs_name": "POLITO",
     "labels": [
         "Politecnico di Torino",
         "Polytechnic University of Turin",
@@ -26,6 +27,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "polito"
 }

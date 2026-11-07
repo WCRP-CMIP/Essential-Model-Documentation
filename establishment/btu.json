@@ -1,10 +1,11 @@
 {
-    "@id": "btu",
+    "validation_key": "btu",
+    "ui_label": "",
     "description": "Brandenburg University of Technology Cottbus-Senftenberg",
-    "drs_name": "BTU",
     "acronyms": [
         "BTU"
     ],
+    "drs_name": "BTU",
     "labels": [
         "Brandenburg University of Technology Cottbus-Senftenberg"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "btu"
 }

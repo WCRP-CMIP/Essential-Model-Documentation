@@ -1,10 +1,11 @@
 {
-    "@id": "nilu",
+    "validation_key": "nilu",
+    "ui_label": "",
     "description": "Established in 1969, NILU (the Climate and Environmental Research Institute) is an independent, non-profit organization based in Kjeller, Norway. It conducts scientific research focusing on atmospheric composition, air quality, climate change, and the impact of environmental toxins on health and ecosystems. The institute operates advanced analytical laboratories and global atmospheric observatories, including key monitoring facilities in the Arctic and Antarctica. Leveraging this data, NILU provides expert consulting, monitoring services, and scientific advice to governments, industries, and international organisations.",
-    "drs_name": "NILU",
     "acronyms": [
         "NILU"
     ],
+    "drs_name": "NILU",
     "labels": [
         "NILU",
         "Norsk Institutt for Luftforskning",
@@ -27,6 +28,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nilu"
 }

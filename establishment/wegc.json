@@ -1,17 +1,11 @@
 {
-    "@id": "wegc",
+    "validation_key": "wegc",
+    "ui_label": "",
     "description": "Wegener Center for Climate and Global Change, University of Graz, Graz, Austria",
-    "drs_name": "WEGC",
-    "members": [
-        "wegc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "WEGC"
     ],
+    "drs_name": "WEGC",
     "labels": [
         "Wegener Center for Climate and Global Change, University of Graz, Graz, Austria"
     ],
@@ -23,8 +17,19 @@
             "lon": 15.44197
         }
     ],
+    "members": [
+        "wegc"
+    ],
     "ror": "01faaaf77",
     "urls": [
         "https://www.uni-graz.at/en/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "wegc"
 }

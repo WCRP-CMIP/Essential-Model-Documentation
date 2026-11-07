@@ -1,10 +1,11 @@
 {
-    "@id": "anu",
+    "validation_key": "anu",
+    "ui_label": "",
     "description": "The Australian National University hosts the ACCESS-NRI and NCI NCRIS facilities. ANU staff are ACCESS developers and users.",
-    "drs_name": "ANU",
     "acronyms": [
         "ANU"
     ],
+    "drs_name": "ANU",
     "labels": [
         "Australian National University"
     ],
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "anu"
 }

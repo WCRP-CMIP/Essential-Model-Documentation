@@ -1,17 +1,11 @@
 {
-    "@id": "nkua",
+    "validation_key": "nkua",
+    "ui_label": "",
     "description": "National and Kapodistrian University of Athens",
-    "drs_name": "NKUA",
-    "members": [
-        "nkua"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NKUA"
     ],
+    "drs_name": "NKUA",
     "labels": [
         "National and Kapodistrian University of Athens"
     ],
@@ -23,8 +17,19 @@
             "lon": 23.754866
         }
     ],
+    "members": [
+        "nkua"
+    ],
     "ror": "04gnjpq42",
     "urls": [
         "https://www.uoa.gr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nkua"
 }

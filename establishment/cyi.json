@@ -1,17 +1,11 @@
 {
-    "@id": "cyi",
+    "validation_key": "cyi",
+    "ui_label": "",
     "description": "Cyprus Institute",
-    "drs_name": "CYI",
-    "members": [
-        "cyi"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CYI"
     ],
+    "drs_name": "CYI",
     "labels": [
         "Cyprus Institute",
         "CyI"
@@ -24,8 +18,19 @@
             "lon": 33.35397
         }
     ],
+    "members": [
+        "cyi"
+    ],
     "ror": "01q8k8p90",
     "urls": [
         "http://www.cyi.ac.cy/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cyi"
 }

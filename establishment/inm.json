@@ -1,18 +1,12 @@
 {
-    "@id": "inm",
+    "validation_key": "inm",
+    "ui_label": "",
     "description": "Institute of Numerical Mathematics, Russian Academy of Sciences",
-    "drs_name": "INM",
-    "members": [
-        "inm"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "INM",
         "INM RAS"
     ],
+    "drs_name": "INM",
     "labels": [
         "Institute of Numerical Mathematics",
         "{\\CYRF}{\\cyre}{\\cyrd}{\\cyre}{\\cyrr}{\\cyra}{\\cyrl}{\\cyrsftsn}{\\cyrn}{\\cyro}{\\cyre} {\\cyrg}{\\cyro}{\\cyrs}{\\cyru}{\\cyrd}{\\cyra}{\\cyrr}{\\cyrs}{\\cyrt}{\\cyrv}{\\cyre}{\\cyrn}{\\cyrn}{\\cyro}{\\cyre} {\\cyrb}{\\cyryu}{\\cyrd}{\\cyrzh}{\\cyre}{\\cyrt}{\\cyrn}{\\cyro}{\\cyre} {\\cyru}{\\cyrch}{\\cyrr}{\\cyre}{\\cyrzh}{\\cyrd}{\\cyre}{\\cyrn}{\\cyri}{\\cyre} {\\cyrn}{\\cyra}{\\cyru}{\\cyrk}{\\cyri} {\\CYRI}{\\cyrn}{\\cyrs}{\\cyrt}{\\cyri}{\\cyrt}{\\cyru}{\\cyrt} {\\cyrv}{\\cyrery}{\\cyrch}{\\cyri}{\\cyrs}{\\cyrl}{\\cyri}{\\cyrt}{\\cyre}{\\cyrl}{\\cyrsftsn}{\\cyrn}{\\cyro}{\\cyrishrt} {\\cyrm}{\\cyra}{\\cyrt}{\\cyre}{\\cyrm}{\\cyra}{\\cyrt}{\\cyri}{\\cyrk}{\\cyri} {\\CYRR}{\\cyro}{\\cyrs}{\\cyrs}{\\cyri}{\\cyrishrt}{\\cyrs}{\\cyrk}{\\cyro}{\\cyrishrt} {\\cyra}{\\cyrk}{\\cyra}{\\cyrd}{\\cyre}{\\cyrm}{\\cyri}{\\cyri} {\\cyrn}{\\cyra}{\\cyru}{\\cyrk}"
@@ -25,9 +19,20 @@
             "lon": 37.61556
         }
     ],
+    "members": [
+        "inm"
+    ],
     "ror": "00520ey40",
     "urls": [
         "https://www.inm.ras.ru/",
         "http://www.inm.ras.ru/inm_en_ver/index.htm"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "inm"
 }

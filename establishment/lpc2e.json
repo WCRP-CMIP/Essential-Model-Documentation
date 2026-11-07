@@ -1,17 +1,11 @@
 {
-    "@id": "lpc2e",
+    "validation_key": "lpc2e",
+    "ui_label": "",
     "description": "Laboratoire de Physique et Chimie de l'Environnement et de l'Espace",
-    "drs_name": "LPC2E",
-    "members": [
-        "lpc2e"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "LPC2E"
     ],
+    "drs_name": "LPC2E",
     "labels": [
         "Laboratoire de Physique et Chimie de l'Environnement et de l'Espace"
     ],
@@ -23,8 +17,19 @@
             "lon": 47.90289
         }
     ],
+    "members": [
+        "lpc2e"
+    ],
     "ror": "049k66y27",
     "urls": [
         "https://www.lpc2e.cnrs.fr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "lpc2e"
 }

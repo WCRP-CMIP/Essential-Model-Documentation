@@ -1,17 +1,11 @@
 {
-    "@id": "utas",
+    "validation_key": "utas",
+    "ui_label": "",
     "description": "University of Tasmania",
-    "drs_name": "UTAS",
-    "members": [
-        "utas"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UTAS"
     ],
+    "drs_name": "UTAS",
     "labels": [
         "University of Tasmania"
     ],
@@ -23,8 +17,19 @@
             "lon": 147.325
         }
     ],
+    "members": [
+        "utas"
+    ],
     "ror": "01nfmeh72",
     "urls": [
         "https://www.utas.edu.au/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "utas"
 }

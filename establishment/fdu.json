@@ -1,14 +1,15 @@
 {
-    "@id": "fdu",
+    "validation_key": "fdu",
+    "ui_label": "",
     "description": "Fudan University",
-    "drs_name": "fdu",
     "acronyms": [
         "FDU"
     ],
+    "drs_name": "fdu",
     "labels": [
         "Fudan University",
-        "\u590d\u65e6\u5927\u5b66",
-        "\u5fa9\u65e6\u5927\u5b78"
+        "复旦大学",
+        "復旦大學"
     ],
     "location": [
         {
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fdu"
 }

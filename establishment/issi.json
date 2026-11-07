@@ -1,17 +1,11 @@
 {
-    "@id": "issi",
+    "validation_key": "issi",
+    "ui_label": "",
     "description": "International Space Science Institute",
-    "drs_name": "ISSI",
-    "members": [
-        "issi"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ISSI"
     ],
+    "drs_name": "ISSI",
     "labels": [
         "International Space Science Institute"
     ],
@@ -23,8 +17,19 @@
             "lon": 46.952897
         }
     ],
+    "members": [
+        "issi"
+    ],
     "ror": "01xm30661",
     "urls": [
         "http://www.issibern.ch/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "issi"
 }

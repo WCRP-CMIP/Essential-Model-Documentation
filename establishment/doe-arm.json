@@ -1,19 +1,24 @@
 {
-    "@id": "doe-arm",
+    "validation_key": "doe-arm",
+    "ui_label": "",
     "description": "DOE-ARM",
-    "drs_name": "DOE-ARM",
-    "members": [
-        "doe-arm"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "DOE-ARM",
     "labels": [
         "U.S. Department of Energy, Atmospheric Radiation Measurment Program"
     ],
     "location": [],
+    "members": [
+        "doe-arm"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "doe-arm"
 }

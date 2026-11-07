@@ -1,17 +1,11 @@
 {
-    "@id": "bas",
+    "validation_key": "bas",
+    "ui_label": "",
     "description": "British Antarctic Survey",
-    "drs_name": "BAS",
-    "members": [
-        "bas"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "BAS"
     ],
+    "drs_name": "BAS",
     "labels": [
         "British Antarctic Survey"
     ],
@@ -23,9 +17,20 @@
             "lon": 0.11667
         }
     ],
+    "members": [
+        "bas"
+    ],
     "ror": "01rhff309",
     "urls": [
         "https://www.bas.ac.uk/",
         "https://en.wikipedia.org/wiki/British_Antarctic_Survey"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bas"
 }

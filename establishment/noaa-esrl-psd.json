@@ -1,19 +1,24 @@
 {
-    "@id": "noaa-esrl-psd",
+    "validation_key": "noaa-esrl-psd",
+    "ui_label": "",
     "description": "NOAA-ESRL-PSD",
-    "drs_name": "NOAA-ESRL-PSD",
-    "members": [
-        "noaa-esrl-psd"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NOAA-ESRL-PSD",
     "labels": [
         "NOAA Earth System Research Laboratory, Physical Sciences Division, Boulder, CO 80305, USA"
     ],
     "location": [],
+    "members": [
+        "noaa-esrl-psd"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "noaa-esrl-psd"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "access-nri",
+    "validation_key": "access-nri",
+    "ui_label": "",
     "description": "ACCESS-NRI is a NCRIS-funded National Research Infrastructure (NRI) created to support development and research with the Australian Community Climate and Earth System Simulator (ACCESS) modelling system.",
-    "drs_name": "ACCESS-NRI",
     "acronyms": [
         "ACCESS-NRI"
     ],
+    "drs_name": "ACCESS-NRI",
     "labels": [
         "The Australian Community Climate and Earth System Simulator National Research Infrastructure",
         "Australia's Climate Simulator",
@@ -26,6 +27,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "access-nri"
 }

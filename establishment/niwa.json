@@ -1,17 +1,11 @@
 {
-    "@id": "niwa",
+    "validation_key": "niwa",
+    "ui_label": "",
     "description": "National Institute of Water and Atmospheric Research",
-    "drs_name": "NIWA",
-    "members": [
-        "niwa"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NIWA"
     ],
+    "drs_name": "NIWA",
     "labels": [
         "National Institute of Water and Atmospheric Research"
     ],
@@ -23,8 +17,19 @@
             "lon": 174.76172
         }
     ],
+    "members": [
+        "niwa"
+    ],
     "ror": "04hxcaz34",
     "urls": [
         "https://www.niwa.co.nz/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "niwa"
 }

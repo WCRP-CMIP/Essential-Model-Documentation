@@ -1,17 +1,11 @@
 {
-    "@id": "mpi-m",
+    "validation_key": "mpi-m",
+    "ui_label": "",
     "description": "Max Planck Institute for Meteorology",
-    "drs_name": "MPI-M",
-    "members": [
-        "mpi-m"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "MPI-M"
     ],
+    "drs_name": "MPI-M",
     "labels": [
         "Max Planck Institute for Meteorology",
         "Max-Planck-Institut f\\\"ur Meteorologie"
@@ -24,9 +18,20 @@
             "lon": 9.99302
         }
     ],
+    "members": [
+        "mpi-m"
+    ],
     "ror": "05esem239",
     "urls": [
         "http://www.mpimet.mpg.de/en/home.html",
         "https://en.wikipedia.org/wiki/Max_Planck_Institute_for_Meteorology"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mpi-m"
 }

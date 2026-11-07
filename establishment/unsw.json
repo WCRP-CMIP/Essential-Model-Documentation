@@ -1,17 +1,11 @@
 {
-    "@id": "unsw",
+    "validation_key": "unsw",
+    "ui_label": "",
     "description": "University of New South Wales",
-    "drs_name": "UNSW",
-    "members": [
-        "unsw"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UNSW"
     ],
+    "drs_name": "UNSW",
     "labels": [
         "UNSW Sydney",
         "University of New South Wales"
@@ -24,9 +18,20 @@
             "lon": 151.20732
         }
     ],
+    "members": [
+        "unsw"
+    ],
     "ror": "03r8z3t63",
     "urls": [
         "https://www.unsw.edu.au/",
         "http://en.wikipedia.org/wiki/University_of_New_South_Wales"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "unsw"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "ipsl-wegc",
+    "validation_key": "ipsl-wegc",
+    "ui_label": "",
     "description": "ipsl-wegc institute",
     "drs_name": "IPSL-WEGC",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ipsl-wegc"
 }

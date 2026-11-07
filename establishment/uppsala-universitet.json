@@ -1,10 +1,11 @@
 {
-    "@id": "uppsala-universitet",
+    "validation_key": "uppsala-universitet",
+    "ui_label": "",
     "description": "Uppsala University",
-    "drs_name": "UU-SE",
     "acronyms": [
         "UU-SE"
     ],
+    "drs_name": "UU-SE",
     "labels": [
         "Uppsala University",
         "Uppsala universitet",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uppsala-universitet"
 }

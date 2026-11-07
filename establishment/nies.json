@@ -1,10 +1,11 @@
 {
-    "@id": "nies",
+    "validation_key": "nies",
+    "ui_label": "",
     "description": "National Institute for Environmental Studies",
-    "drs_name": "NIES",
     "acronyms": [
         "NIES"
     ],
+    "drs_name": "NIES",
     "labels": [
         "National Institute for Environmental Studies"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nies"
 }

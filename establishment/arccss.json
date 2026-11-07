@@ -1,19 +1,24 @@
 {
-    "@id": "arccss",
+    "validation_key": "arccss",
+    "ui_label": "",
     "description": "ARCCSS",
-    "drs_name": "ARCCSS",
-    "members": [
-        "arccss"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "ARCCSS",
     "labels": [
         "ARC Centre of Excellence for Climate System Science, NSW, Australia,"
     ],
     "location": [],
+    "members": [
+        "arccss"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "arccss"
 }

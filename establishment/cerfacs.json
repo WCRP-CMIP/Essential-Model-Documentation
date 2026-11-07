@@ -1,10 +1,11 @@
 {
-    "@id": "cerfacs",
+    "validation_key": "cerfacs",
+    "ui_label": "",
     "description": "Centre Europ\\'een de Recherche et de Formation Avanc\\'ee en Calcul Scientifique",
-    "drs_name": "CERFACS",
     "acronyms": [
         "CERFACS"
     ],
+    "drs_name": "CERFACS",
     "labels": [
         "Centre Europ\\'een de Recherche et de Formation Avanc\\'ee en Calcul Scientifique"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cerfacs"
 }

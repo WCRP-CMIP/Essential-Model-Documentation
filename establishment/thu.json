@@ -1,17 +1,11 @@
 {
-    "@id": "thu",
+    "validation_key": "thu",
+    "ui_label": "",
     "description": "Tsinghua University",
-    "drs_name": "THU",
-    "members": [
-        "thu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "THU"
     ],
+    "drs_name": "THU",
     "labels": [
         "Tsinghua University"
     ],
@@ -23,8 +17,19 @@
             "lon": 116.325414
         }
     ],
+    "members": [
+        "thu"
+    ],
     "ror": "03cve4549",
     "urls": [
         "http://www.tsinghua.edu.cn/publish/newthuen/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "thu"
 }

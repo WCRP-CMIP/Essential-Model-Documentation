@@ -1,18 +1,11 @@
 {
-    "@id": "uq-dec",
+    "validation_key": "uq-dec",
+    "ui_label": "",
     "description": "UQ [University of Queensland, Brisbane, Australia]; DEC [Department of Energy and Climate, Brisbane, Australia]",
-    "drs_name": "UQ-DEC",
-    "members": [
-        "uq",
-        "uq-dec"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UQ-DEC"
     ],
+    "drs_name": "UQ-DEC",
     "labels": [
         "UQ [University of Queensland, Brisbane, Australia]; DEC [Department of Energy and Climate, Brisbane, Australia]"
     ],
@@ -24,8 +17,20 @@
             "lon": 153.012866
         }
     ],
+    "members": [
+        "uq",
+        "uq-dec"
+    ],
     "ror": "00rqy9422",
     "urls": [
         "https://www.uq.edu.au/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uq-dec"
 }

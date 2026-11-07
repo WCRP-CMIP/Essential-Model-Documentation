@@ -1,11 +1,12 @@
 {
-    "@id": "lbnl",
+    "validation_key": "lbnl",
+    "ui_label": "",
     "description": "Lawrence Berkeley National Laboratory",
-    "drs_name": "LBNL",
     "acronyms": [
         "LBNL",
         "LBL"
     ],
+    "drs_name": "LBNL",
     "labels": [
         "Lawrence Berkeley National Laboratory"
     ],
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "lbnl"
 }

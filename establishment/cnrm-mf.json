@@ -1,5 +1,6 @@
 {
-    "@id": "cnrm-mf",
+    "validation_key": "cnrm-mf",
+    "ui_label": "",
     "description": "CNRM [Centre National de Recherches Meteorologiques, Toulouse, France]; MF [Meteo France, Toulouse, France]",
     "drs_name": "CNRM-MF",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cnrm-mf"
 }

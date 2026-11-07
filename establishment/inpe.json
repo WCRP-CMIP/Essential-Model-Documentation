@@ -1,17 +1,11 @@
 {
-    "@id": "inpe",
+    "validation_key": "inpe",
+    "ui_label": "",
     "description": "Instituto Nacional de Pesquisas Espaciais",
-    "drs_name": "INPE",
-    "members": [
-        "inpe"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "INPE"
     ],
+    "drs_name": "INPE",
     "labels": [
         "Instituto Nacional de Pesquisas Espaciais",
         "National Institute for Space Research"
@@ -24,10 +18,21 @@
             "lon": -45.88694
         }
     ],
+    "members": [
+        "inpe"
+    ],
     "ror": "04xbn6x09",
     "urls": [
         "https://www.inpe.br/",
         "https://www.gov.br/inpe/pt-br",
         "https://en.wikipedia.org/wiki/National_Institute_for_Space_Research"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "inpe"
 }

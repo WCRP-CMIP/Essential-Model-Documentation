@@ -1,5 +1,6 @@
 {
-    "@id": "solaris-heppa",
+    "validation_key": "solaris-heppa",
+    "ui_label": "",
     "description": "",
     "drs_name": "SOLARIS-HEPPA",
     "members": [
@@ -10,6 +11,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "solaris-heppa"
 }

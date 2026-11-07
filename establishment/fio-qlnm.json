@@ -1,5 +1,6 @@
 {
-    "@id": "fio-qlnm",
+    "validation_key": "fio-qlnm",
+    "ui_label": "",
     "description": "FIO-QLNM",
     "drs_name": "FIO-QLNM",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fio-qlnm"
 }

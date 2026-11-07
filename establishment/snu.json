@@ -1,17 +1,11 @@
 {
-    "@id": "snu",
+    "validation_key": "snu",
+    "ui_label": "",
     "description": "Seoul National University",
-    "drs_name": "SNU",
-    "members": [
-        "snu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "SNU"
     ],
+    "drs_name": "SNU",
     "labels": [
         "Seoul National University"
     ],
@@ -23,8 +17,19 @@
             "lon": 126.951894
         }
     ],
+    "members": [
+        "snu"
+    ],
     "ror": "04h9pn542",
     "urls": [
         "http://www.snu.ac.kr/index.html"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "snu"
 }

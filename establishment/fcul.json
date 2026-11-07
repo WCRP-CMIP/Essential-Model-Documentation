@@ -1,14 +1,19 @@
 {
-    "@id": "fcul",
+    "validation_key": "fcul",
+    "ui_label": "",
     "description": "",
-    "drs_name": "",
     "acronyms": [],
+    "drs_name": "",
     "labels": [],
     "location": [],
     "ror": "",
     "urls": [],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fcul"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "dwd-bsh",
+    "validation_key": "dwd-bsh",
+    "ui_label": "",
     "description": "DWD [Deutscher Wetterdienst]; BSH [Bundesamt fuer Seeschifffahrt und Hydrographie]",
     "drs_name": "DWD-BSH",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dwd-bsh"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "uba",
+    "validation_key": "uba",
+    "ui_label": "",
     "description": "Universidad de Buenos Aires",
-    "drs_name": "UBA",
     "acronyms": [
         "UBA"
     ],
+    "drs_name": "UBA",
     "labels": [
         "Universidad de Buenos Aires"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uba"
 }

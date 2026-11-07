@@ -1,17 +1,11 @@
 {
-    "@id": "vua",
+    "validation_key": "vua",
+    "ui_label": "",
     "description": "Vrije Universiteit Amsterdam",
-    "drs_name": "VUA",
-    "members": [
-        "vua"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "VU"
     ],
+    "drs_name": "VUA",
     "labels": [
         "VU Amsterdam",
         "Vrije Universiteit Amsterdam"
@@ -24,9 +18,20 @@
             "lon": 4.88969
         }
     ],
+    "members": [
+        "vua"
+    ],
     "ror": "008xxew50",
     "urls": [
         "https://vu.nl/",
         "http://en.wikipedia.org/wiki/VU_University_Amsterdam"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "vua"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "fzj-idl",
+    "validation_key": "fzj-idl",
+    "ui_label": "",
     "description": "fzj-idl institute",
     "drs_name": "FZJ-IDL",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fzj-idl"
 }

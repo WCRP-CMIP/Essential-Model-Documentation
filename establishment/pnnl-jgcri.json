@@ -1,17 +1,11 @@
 {
-    "@id": "pnnl-jgcri",
+    "validation_key": "pnnl-jgcri",
+    "ui_label": "",
     "description": "Joint Global Change Research Institute",
-    "drs_name": "PNNL-JGCRI",
-    "members": [
-        "pnnl-jgcri"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "JGCRI"
     ],
+    "drs_name": "PNNL-JGCRI",
     "labels": [
         "Joint Global Change Research Institute"
     ],
@@ -23,8 +17,19 @@
             "lon": -76.9217851
         }
     ],
+    "members": [
+        "pnnl-jgcri"
+    ],
     "ror": "058cmd703",
     "urls": [
         "http://www.globalchange.umd.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "pnnl-jgcri"
 }

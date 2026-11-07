@@ -1,19 +1,24 @@
 {
-    "@id": "cmip-ipo",
+    "validation_key": "cmip-ipo",
+    "ui_label": "",
     "description": "CMIP-IPO",
-    "drs_name": "CMIP-IPO",
-    "members": [
-        "cmip-ipo"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "CMIP-IPO",
     "labels": [
         "CMIP International Project Office, UK"
     ],
     "location": [],
+    "members": [
+        "cmip-ipo"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cmip-ipo"
 }

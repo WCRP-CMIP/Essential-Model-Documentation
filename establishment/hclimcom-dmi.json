@@ -1,5 +1,6 @@
 {
-    "@id": "hclimcom-dmi",
+    "validation_key": "hclimcom-dmi",
+    "ui_label": "",
     "description": "HARMONIE Climate Modelling Community (HCLIMcom) partner: Danish Meteorological Institute (DMI)",
     "drs_name": "HCLIMcom-DMI",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hclimcom-dmi"
 }

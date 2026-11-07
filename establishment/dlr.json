@@ -1,17 +1,11 @@
 {
-    "@id": "dlr",
+    "validation_key": "dlr",
+    "ui_label": "",
     "description": "The German Aerospace Center DLR is the Federal Republic of Germany's research centre for aviation, space, energy, transport, and security. The DLR Institute of Atmospheric Physics conducts research into the physics and chemistry of the global atmosphere, from the ground up to the upper edge of the middle atmosphere at an altitude of approximately 120 km.",
-    "drs_name": "DLR",
-    "members": [
-        "dlr"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "DLR"
     ],
+    "drs_name": "DLR",
     "labels": [
         "Deutsches Zentrum f\\\"ur Luft- und Raumfahrt (e.V.)",
         "Deutsches Zentrum f\\\"ur Luft- und Raumfahrt",
@@ -27,10 +21,21 @@
             "lon": 6.95
         }
     ],
+    "members": [
+        "dlr"
+    ],
     "ror": "04bwf3e34",
     "urls": [
         "https://www.dlr.de/en/pa/",
         "https://www.dlr.de/",
         "http://en.wikipedia.org/wiki/German_Aerospace_Center"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dlr"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "dres",
+    "validation_key": "dres",
+    "ui_label": "",
     "description": "Deltares",
-    "drs_name": "DRES",
-    "members": [
-        "dres"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "DRES"
     ],
+    "drs_name": "DRES",
     "labels": [
         "Deltares"
     ],
@@ -23,8 +17,19 @@
             "lon": 4.35556
         }
     ],
+    "members": [
+        "dres"
+    ],
     "ror": "01deh9c76",
     "urls": [
         "https://www.deltares.nl/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dres"
 }

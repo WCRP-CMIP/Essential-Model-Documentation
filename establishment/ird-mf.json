@@ -1,5 +1,6 @@
 {
-    "@id": "ird-mf",
+    "validation_key": "ird-mf",
+    "ui_label": "",
     "description": "IRD [Institut de Recherche pour le Developpement, Noumea (New Caledonia), France]; MF [Meteo France, Toulouse, France]",
     "drs_name": "IRD-MF",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ird-mf"
 }

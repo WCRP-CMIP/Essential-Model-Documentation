@@ -1,17 +1,11 @@
 {
-    "@id": "ifca",
+    "validation_key": "ifca",
+    "ui_label": "",
     "description": "Instituto de Fisica de Cantabria (IFCA), CSIC-Universidad de Cantabria",
-    "drs_name": "IFCA",
-    "members": [
-        "ifca"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IFCA"
     ],
+    "drs_name": "IFCA",
     "labels": [
         "Instituto de Fisica de Cantabria (IFCA), CSIC-Universidad de Cantabria"
     ],
@@ -23,8 +17,19 @@
             "lon": -3.80218
         }
     ],
+    "members": [
+        "ifca"
+    ],
     "ror": "040kx1j83",
     "urls": [
         "https://ifca.unican.es/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ifca"
 }

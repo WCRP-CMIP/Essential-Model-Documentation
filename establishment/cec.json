@@ -1,18 +1,12 @@
 {
-    "@id": "cec",
+    "validation_key": "cec",
+    "ui_label": "",
     "description": "Max Planck Institute for Chemical Energy Conversion",
-    "drs_name": "CEC",
-    "members": [
-        "cec"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CEC",
         "MPI CEC"
     ],
+    "drs_name": "CEC",
     "labels": [
         "Max Planck Institute for Chemical Energy Conversion",
         " Max Planck Institut f\\\"ur Chemische Energiekonversion"
@@ -25,8 +19,19 @@
             "lon": 6.8885
         }
     ],
+    "members": [
+        "cec"
+    ],
     "ror": "048nfjm95",
     "urls": [
         "https://www.cec.mpg.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cec"
 }
