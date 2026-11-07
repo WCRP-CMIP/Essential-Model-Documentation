@@ -1,10 +1,11 @@
 {
-    "@id": "espri",
+    "validation_key": "espri",
+    "ui_label": "",
     "description": "Research Institute for Chromatography",
-    "drs_name": "ESPRI",
     "acronyms": [
         "RIC"
     ],
+    "drs_name": "ESPRI",
     "labels": [
         "Research Institute for Chromatography"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "espri"
 }

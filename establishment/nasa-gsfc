@@ -1,19 +1,24 @@
 {
-    "@id": "nasa-gsfc",
+    "validation_key": "nasa-gsfc",
+    "ui_label": "",
     "description": "NASA-GSFC",
-    "drs_name": "NASA-GSFC",
-    "members": [
-        "nasa-gsfc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NASA-GSFC",
     "labels": [
         "NASA Goddard Space Flight Center, Greenbelt MD, USA"
     ],
     "location": [],
+    "members": [
+        "nasa-gsfc"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nasa-gsfc"
 }

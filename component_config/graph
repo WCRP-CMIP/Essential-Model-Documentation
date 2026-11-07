@@ -1,9 +1,9 @@
 {
   "@context": {
     "@alt_base": "https://wcrp-cmip.github.io/Essential-Model-Documentation/component_config/",
-    "@base": "https://emd.wcrp-cmip.org/component_config/",
+    "@base": "https://emd.mipcvs.dev/component_config/",
     "@esgvoc": "ComponentConfig",
-    "@vocab": "https://emd.wcrp-cmip.org/docs/contents/ComponentConfig/",
+    "@vocab": "https://emd.mipcvs.dev/docs/contents/ComponentConfig/",
     "horizontal_computational_grid": {
       "@context": "../horizontal_computational_grid/_context",
       "@type": "@id"
@@ -76,6 +76,7 @@
     {"@id": "atmosphere_openifs-48r1_h107_v113"},
     {"@id": "sea-ice_m-sim_h139_no-vertical"},
     {"@id": "atmospheric-chemistry_bcc-agcm4-chem_h156_v140"},
+    {"@id": "atmosphere_am4-2_h169_v172"},
     {"@id": "atmospheric-chemistry_co2box-v1-0_no-horizontal_no-vertical"},
     {"@id": "ocean-biogeochemistry_recom-3-1_h155_v161"},
     {"@id": "ocean_blom2_h144_v146"},
@@ -89,6 +90,7 @@
     {"@id": "aerosol_classic_h102_v106"},
     {"@id": "ocean_nemo-v3-6_h120_v107"},
     {"@id": "land-surface_lpj-guess-4-1_h153_v112"},
+    {"@id": "ocean_mom6-kiost-esm2_h167_v175"},
     {"@id": "atmosphere_bcc-agcm4-mr_h156_v140"},
     {"@id": "sea-ice_lim3_h152_v167"},
     {"@id": "land-ice_bisicles-ukesm1-3_h135_no-vertical"},
@@ -121,9 +123,11 @@
     {"@id": "ocean-biogeochemistry_cmoc_h111_v133"},
     {"@id": "ocean-biogeochemistry_iap-obgcmv2-0_h141_v142"},
     {"@id": "ocean-biogeochemistry_pisces-v2_h152_v167"},
+    {"@id": "land-surface_lm4-2_h169_v176"},
     {"@id": "atmosphere_mcm-ua-1-0atmosphere_h133_v138"},
     {"@id": "ocean_gfdl-om4p5_h123_v120"},
     {"@id": "atmospheric-chemistry_mri-ccm3-2_h128_v132"},
+    {"@id": "sea-ice_sis2-kiost-esm2_h167_v171"},
     {"@id": "atmosphere_miroc7-agcm_h172_v177"},
     {"@id": "atmosphere_gfdl-am4p5_h131_v111"},
     {"@id": "land-surface_mri-agcm4-4-land-surface_h126_v131"},
@@ -153,6 +157,7 @@
     {"@id": "ocean_coco-4-9_h171_v178"},
     {"@id": "ocean_mom5-p25_h161_v143"},
     {"@id": "aerosol_oslo-aero-v3_h151_v163"},
+    {"@id": "atmospheric-chemistry_am4-2-chemistry_h169_v172"},
     {"@id": "land-ice_pism-v1-2-line_h124_v135"},
     {"@id": "ocean-biogeochemistry_nobmg_h160_v154"},
     {"@id": "atmosphere_gfs_h163_v166"},

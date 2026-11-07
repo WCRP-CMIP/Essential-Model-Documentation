@@ -1,17 +1,11 @@
 {
-    "@id": "uofmd",
+    "validation_key": "uofmd",
+    "ui_label": "",
     "description": "University of Maryland, College Park",
-    "drs_name": "UofMD",
-    "members": [
-        "uofmd"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UMD"
     ],
+    "drs_name": "UofMD",
     "labels": [
         "University of Maryland, College Park"
     ],
@@ -23,8 +17,19 @@
             "lon": -76.93692
         }
     ],
+    "members": [
+        "uofmd"
+    ],
     "ror": "047s2c258",
     "urls": [
         "http://www.umd.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uofmd"
 }

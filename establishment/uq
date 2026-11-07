@@ -1,10 +1,11 @@
 {
-    "@id": "uq",
+    "validation_key": "uq",
+    "ui_label": "",
     "description": "The University of Queensland",
-    "drs_name": "",
     "acronyms": [
         "UQ"
     ],
+    "drs_name": "",
     "labels": [
         "The University of Queensland",
         "University of Queensland"
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uq"
 }

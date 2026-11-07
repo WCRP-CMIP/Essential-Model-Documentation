@@ -1,10 +1,11 @@
 {
-    "@id": "fio",
+    "validation_key": "fio",
+    "ui_label": "",
     "description": "First Institute of Oceanography",
-    "drs_name": "FIO",
     "acronyms": [
         "FIO"
     ],
+    "drs_name": "FIO",
     "labels": [
         "First Institute of Oceanography"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fio"
 }

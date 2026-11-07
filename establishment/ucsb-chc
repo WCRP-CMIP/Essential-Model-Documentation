@@ -1,19 +1,24 @@
 {
-    "@id": "ucsb-chc",
+    "validation_key": "ucsb-chc",
+    "ui_label": "",
     "description": "UCSB-CHC",
-    "drs_name": "UCSB-CHC",
-    "members": [
-        "ucsb-chc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UCSB-CHC",
     "labels": [
         "University of California, Santa Barbara, Climate Hazards Center"
     ],
     "location": [],
+    "members": [
+        "ucsb-chc"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ucsb-chc"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "ncc",
+    "validation_key": "ncc",
+    "ui_label": "",
     "description": "NorESM Climate modeling Consortium (NCC) consists of Norwegian institutions MET-Norway, NORCE, NERSC, UiB, UiO, NILU and CICERO with a joint ambition to develop and maintain the Norwegian Earth System Model (NorESM) as a cutting-edge climate model and contribute to future Coupled Model Intercomparison Projects, climate assessment reports and scenario computations for climate services.",
     "drs_name": "NCC",
     "members": [
@@ -13,6 +14,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ncc"
 }

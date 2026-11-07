@@ -1,5 +1,6 @@
 {
-    "@id": "unsw-ccrc",
+    "validation_key": "unsw-ccrc",
+    "ui_label": "",
     "description": "Climate Change Research Centre, University of New South Wales, Sydney, Australia",
     "drs_name": "UNSW-CCRC",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "unsw-ccrc"
 }

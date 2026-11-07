@@ -1,17 +1,11 @@
 {
-    "@id": "smhi",
+    "validation_key": "smhi",
+    "ui_label": "",
     "description": "Swedish Meteorological and Hydrological Institute",
-    "drs_name": "SMHI",
-    "members": [
-        "smhi"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "SMHI"
     ],
+    "drs_name": "SMHI",
     "labels": [
         "Ruotsin meteorologinen ja hydrologinen laitos",
         "Sveriges Meteorologiska och Hydrologiska Institut",
@@ -26,9 +20,20 @@
             "lon": 16.1826
         }
     ],
+    "members": [
+        "smhi"
+    ],
     "ror": "00hgzve81",
     "urls": [
         "https://www.smhi.se/",
         "https://en.wikipedia.org/wiki/Swedish_Meteorological_and_Hydrological_Institute"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "smhi"
 }

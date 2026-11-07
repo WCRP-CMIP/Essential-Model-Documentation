@@ -1,10 +1,11 @@
 {
-    "@id": "mf",
+    "validation_key": "mf",
+    "ui_label": "",
     "description": "M\\'et\\'eo-France",
-    "drs_name": "MF",
     "acronyms": [
         "MF"
     ],
+    "drs_name": "MF",
     "labels": [
         "M\\'et\\'eo-France"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mf"
 }

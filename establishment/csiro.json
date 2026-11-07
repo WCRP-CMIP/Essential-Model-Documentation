@@ -1,17 +1,11 @@
 {
-    "@id": "csiro",
+    "validation_key": "csiro",
+    "ui_label": "",
     "description": "Commonwealth Scientific and Industrial Research Organisation",
-    "drs_name": "CSIRO",
-    "members": [
-        "csiro"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CSIRO"
     ],
+    "drs_name": "CSIRO",
     "labels": [
         "Commonwealth Scientific and Industrial Research Organisation"
     ],
@@ -23,8 +17,19 @@
             "lon": 149.12807
         }
     ],
+    "members": [
+        "csiro"
+    ],
     "ror": "03qn8fb07",
     "urls": [
         "http://www.csiro.au/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "csiro"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "messy-consortium",
+    "validation_key": "messy-consortium",
+    "ui_label": "",
     "description": "The Modular Earth Submodel System (MESSy) Consortium",
     "drs_name": "MESSy-Consortium",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "messy-consortium"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "gerics",
+    "validation_key": "gerics",
+    "ui_label": "",
     "description": "Climate Service Center Germany, Helmholtz Centre hereon GmbH",
-    "drs_name": "GERICS",
-    "members": [
-        "gerics"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "GERICS"
     ],
+    "drs_name": "GERICS",
     "labels": [
         "Climate Service Center Germany, Helmholtz Centre hereon GmbH"
     ],
@@ -23,8 +17,19 @@
             "lon": 10.002121
         }
     ],
+    "members": [
+        "gerics"
+    ],
     "ror": "022rwzq94",
     "urls": [
         "https://www.gerics.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "gerics"
 }

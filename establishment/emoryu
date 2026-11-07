@@ -1,19 +1,24 @@
 {
-    "@id": "emoryu",
+    "validation_key": "emoryu",
+    "ui_label": "",
     "description": "EmoryU",
-    "drs_name": "EmoryU",
-    "members": [
-        "emoryu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "EmoryU",
     "labels": [
         "Emory University, GA, USA"
     ],
     "location": [],
+    "members": [
+        "emoryu"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "emoryu"
 }

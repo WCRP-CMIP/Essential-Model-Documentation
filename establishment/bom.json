@@ -1,17 +1,11 @@
 {
-    "@id": "bom",
+    "validation_key": "bom",
+    "ui_label": "",
     "description": "Bureau of Meteorology",
-    "drs_name": "BOM",
-    "members": [
-        "bom"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "BOM"
     ],
+    "drs_name": "BOM",
     "labels": [
         "Bureau of Meteorology"
     ],
@@ -23,8 +17,19 @@
             "lon": 144.950945
         }
     ],
+    "members": [
+        "bom"
+    ],
     "ror": "04dkp1p98",
     "urls": [
         "http://www.bom.gov.au/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bom"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "senamhi-per",
+    "validation_key": "senamhi-per",
+    "ui_label": "",
     "description": "National Meteorology and Hydrology Service of Peru, Lima, Peru",
     "drs_name": "SENAMHI-PER",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "senamhi-per"
 }

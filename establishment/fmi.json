@@ -1,17 +1,11 @@
 {
-    "@id": "fmi",
+    "validation_key": "fmi",
+    "ui_label": "",
     "description": "Finnish Meteorological Institute",
-    "drs_name": "FMI",
-    "members": [
-        "fmi"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "FMI"
     ],
+    "drs_name": "FMI",
     "labels": [
         "Finnish Meteorological Institute",
         "Ilmatieteen Laitos",
@@ -25,9 +19,20 @@
             "lon": 24.93545
         }
     ],
+    "members": [
+        "fmi"
+    ],
     "ror": "05hppb561",
     "urls": [
         "http://en.ilmatieteenlaitos.fi/",
         "https://en.wikipedia.org/wiki/Finnish_Meteorological_Institute"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fmi"
 }

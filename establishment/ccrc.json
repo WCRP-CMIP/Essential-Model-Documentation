@@ -1,10 +1,11 @@
 {
-    "@id": "ccrc",
+    "validation_key": "ccrc",
+    "ui_label": "",
     "description": "Climate Change Research Centre",
-    "drs_name": "CCRC",
     "acronyms": [
         "CCRC"
     ],
+    "drs_name": "CCRC",
     "labels": [
         "Climate Change Research Centre",
         "UNSW Climate Change Research Centre",
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ccrc"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-eth",
+    "validation_key": "clmcom-eth",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Federal Institute of Technology Zurich",
     "drs_name": "CLMcom-ETH",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-eth"
 }

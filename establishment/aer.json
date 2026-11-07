@@ -1,17 +1,11 @@
 {
-    "@id": "aer",
+    "validation_key": "aer",
+    "ui_label": "",
     "description": "Atmospheric and Environmental Research",
-    "drs_name": "AER",
-    "members": [
-        "aer"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "AER"
     ],
+    "drs_name": "AER",
     "labels": [
         "Atmospheric and Environmental Research"
     ],
@@ -23,8 +17,19 @@
             "lon": -71.256946
         }
     ],
+    "members": [
+        "aer"
+    ],
     "ror": "04cg70g73",
     "urls": [
         "http://www.aer.com/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "aer"
 }

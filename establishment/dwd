@@ -1,17 +1,11 @@
 {
-    "@id": "dwd",
+    "validation_key": "dwd",
+    "ui_label": "",
     "description": "German Meteorological Service (Deutscher Wetterdienst)",
-    "drs_name": "DWD",
-    "members": [
-        "dwd"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "DWD"
     ],
+    "drs_name": "DWD",
     "labels": [
         "Deutscher Wetterdienst",
         "German Meteorological Service"
@@ -24,9 +18,20 @@
             "lon": 8.76647
         }
     ],
+    "members": [
+        "dwd"
+    ],
     "ror": "02nrqs528",
     "urls": [
         "https://www.dwd.de/",
         "http://en.wikipedia.org/wiki/Deutscher_Wetterdienst"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dwd"
 }

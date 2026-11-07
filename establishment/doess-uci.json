@@ -1,19 +1,24 @@
 {
-    "@id": "doess-uci",
+    "validation_key": "doess-uci",
+    "ui_label": "",
     "description": "DoESS-UCI",
-    "drs_name": "DoESS-UCI",
-    "members": [
-        "doess-uci"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "DoESS-UCI",
     "labels": [
         "Department of Earth System Science, University of California Irvine"
     ],
     "location": [],
+    "members": [
+        "doess-uci"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "doess-uci"
 }

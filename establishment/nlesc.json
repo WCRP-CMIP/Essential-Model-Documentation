@@ -1,10 +1,11 @@
 {
-    "@id": "nlesc",
+    "validation_key": "nlesc",
+    "ui_label": "",
     "description": "Netherlands eScience Center",
-    "drs_name": "NLeSC",
     "acronyms": [
         "NLeSC"
     ],
+    "drs_name": "NLeSC",
     "labels": [
         "Netherlands eScience Center"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nlesc"
 }

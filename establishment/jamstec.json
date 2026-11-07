@@ -1,10 +1,11 @@
 {
-    "@id": "jamstec",
+    "validation_key": "jamstec",
+    "ui_label": "",
     "description": "Japan Agency for Marine-Earth Science and Technology",
-    "drs_name": "JAMSTEC",
     "acronyms": [
         "JAMSTEC"
     ],
+    "drs_name": "JAMSTEC",
     "labels": [
         "Japan Agency for Marine-Earth Science and Technology"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "jamstec"
 }

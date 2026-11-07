@@ -1,17 +1,11 @@
 {
-    "@id": "ua",
+    "validation_key": "ua",
+    "ui_label": "",
     "description": "University of Arizona",
-    "drs_name": "UA",
-    "members": [
-        "ua"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UA"
     ],
+    "drs_name": "UA",
     "labels": [
         "University of Arizona"
     ],
@@ -23,8 +17,19 @@
             "lon": -110.92648
         }
     ],
+    "members": [
+        "ua"
+    ],
     "ror": "03m2x1q45",
     "urls": [
         "http://www.arizona.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ua"
 }

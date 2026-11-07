@@ -1,17 +1,11 @@
 {
-    "@id": "eawag",
+    "validation_key": "eawag",
+    "ui_label": "",
     "description": "Swiss Federal Institute of Aquatic Science and Technology",
-    "drs_name": "EAWAG",
-    "members": [
-        "eawag"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "EAWAG"
     ],
+    "drs_name": "EAWAG",
     "labels": [
         "Swiss Federal Institute of Aquatic Science and Technology"
     ],
@@ -23,8 +17,19 @@
             "lon": 47.39724
         }
     ],
+    "members": [
+        "eawag"
+    ],
     "ror": "00pc48d59",
     "urls": [
         "http://www.eawag.ch/en/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "eawag"
 }

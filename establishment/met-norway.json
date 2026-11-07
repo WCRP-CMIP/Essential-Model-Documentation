@@ -1,19 +1,24 @@
 {
-    "@id": "met-norway",
+    "validation_key": "met-norway",
+    "ui_label": "",
     "description": "MET-Norway",
-    "drs_name": "MET-Norway",
-    "members": [
-        "met-norway"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "MET-Norway",
     "labels": [
         "Norwegian Meteorological Institute"
     ],
     "location": [],
+    "members": [
+        "met-norway"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "met-norway"
 }

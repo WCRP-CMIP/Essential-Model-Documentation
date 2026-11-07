@@ -1,15 +1,9 @@
 {
-    "@id": "uootago",
+    "validation_key": "uootago",
+    "ui_label": "",
     "description": "University of Otago",
-    "drs_name": "UoOtago",
-    "members": [
-        "uootago"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UoOtago",
     "labels": [
         "University of Otago"
     ],
@@ -21,8 +15,19 @@
             "lon": -45.87416
         }
     ],
+    "members": [
+        "uootago"
+    ],
     "ror": "01jmxt844",
     "urls": [
         "http://www.otago.ac.nz/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uootago"
 }

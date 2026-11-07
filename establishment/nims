@@ -1,10 +1,11 @@
 {
-    "@id": "nims",
+    "validation_key": "nims",
+    "ui_label": "",
     "description": "National Institute of Meteorological Sciences",
-    "drs_name": "NIMS",
     "acronyms": [
         "NIMS"
     ],
+    "drs_name": "NIMS",
     "labels": [
         "National Institute of Meteorological Sciences"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nims"
 }

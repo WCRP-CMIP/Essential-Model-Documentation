@@ -1,17 +1,11 @@
 {
-    "@id": "boun",
+    "validation_key": "boun",
+    "ui_label": "",
     "description": "Bogazici University",
-    "drs_name": "BOUN",
-    "members": [
-        "boun"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "BOUN"
     ],
+    "drs_name": "BOUN",
     "labels": [
         "Bogazici University"
     ],
@@ -23,8 +17,19 @@
             "lon": 29.0439
         }
     ],
+    "members": [
+        "boun"
+    ],
     "ror": "03z9tma90",
     "urls": [
         "https://bogazici.edu.tr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "boun"
 }

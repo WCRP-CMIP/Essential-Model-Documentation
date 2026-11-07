@@ -1,19 +1,24 @@
 {
-    "@id": "wur",
+    "validation_key": "wur",
+    "ui_label": "",
     "description": "WUR",
-    "drs_name": "WUR",
-    "members": [
-        "wur"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "WUR",
     "labels": [
         "Wageningen Universit, Netherlands"
     ],
     "location": [],
+    "members": [
+        "wur"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "wur"
 }

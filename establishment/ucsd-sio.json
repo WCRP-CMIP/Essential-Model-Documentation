@@ -1,20 +1,25 @@
 {
-    "@id": "ucsd-sio",
+    "validation_key": "ucsd-sio",
+    "ui_label": "",
     "description": "UCSD-SIO",
-    "drs_name": "UCSD-SIO",
-    "members": [
-        "ucsd",
-        "sio"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UCSD-SIO",
     "labels": [
         "University of California, San Diego, Scripps Institution of Oceanography"
     ],
     "location": [],
+    "members": [
+        "ucsd",
+        "sio"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ucsd-sio"
 }

@@ -1,19 +1,24 @@
 {
-    "@id": "esso",
+    "validation_key": "esso",
+    "ui_label": "",
     "description": "ESSO",
-    "drs_name": "ESSO",
-    "members": [
-        "esso"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "ESSO",
     "labels": [
         "Indian National Centre for Ocean Information Services"
     ],
     "location": [],
+    "members": [
+        "esso"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "esso"
 }

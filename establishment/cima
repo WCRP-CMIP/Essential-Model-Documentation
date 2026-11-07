@@ -1,10 +1,11 @@
 {
-    "@id": "cima",
+    "validation_key": "cima",
+    "ui_label": "",
     "description": "Instituto de Ciencias de la Atm\\'osfera y Cambio Clim\\'atico",
-    "drs_name": "CIMA",
     "acronyms": [
         "ICAyCC"
     ],
+    "drs_name": "CIMA",
     "labels": [
         "Instituto de Ciencias de la Atm\\'osfera y Cambio Clim\\'atico"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cima"
 }

@@ -1,19 +1,24 @@
 {
-    "@id": "osu",
+    "validation_key": "osu",
+    "ui_label": "",
     "description": "OSU",
-    "drs_name": "OSU",
-    "members": [
-        "osu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "OSU",
     "labels": [
         "Oregon State University, OR, USA"
     ],
     "location": [],
+    "members": [
+        "osu"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "osu"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "task",
+    "validation_key": "task",
+    "ui_label": "",
     "description": "TASK [Centre of Informatics TASK, Gdansk University of Technology, Gdansk, Poland]",
-    "drs_name": "TASK",
     "acronyms": [
         "TASK"
     ],
+    "drs_name": "TASK",
     "labels": [
         "Centre of Informatics TASK"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "task"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "cnrm-cerfacs",
+    "validation_key": "cnrm-cerfacs",
+    "ui_label": "",
     "description": "CNRM (Centre National de Recherches Meteorologiques, Toulouse 31057, France), CERFACS (Centre Europeen de Recherche et de Formation Avancee en Calcul Scientifique, Toulouse 31057, France)",
     "drs_name": "CNRM-CERFACS",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cnrm-cerfacs"
 }

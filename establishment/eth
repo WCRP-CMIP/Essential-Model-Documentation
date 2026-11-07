@@ -1,17 +1,11 @@
 {
-    "@id": "eth",
+    "validation_key": "eth",
+    "ui_label": "",
     "description": "ETH Zurich",
-    "drs_name": "ETH",
-    "members": [
-        "eth"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ETH"
     ],
+    "drs_name": "ETH",
     "labels": [
         "ETH"
     ],
@@ -23,8 +17,19 @@
             "lon": 8.55
         }
     ],
+    "members": [
+        "eth"
+    ],
     "ror": "05a28rw58",
     "urls": [
         "https://ethz.ch/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "eth"
 }

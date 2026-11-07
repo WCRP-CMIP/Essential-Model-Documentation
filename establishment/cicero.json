@@ -1,17 +1,11 @@
 {
-    "@id": "cicero",
+    "validation_key": "cicero",
+    "ui_label": "",
     "description": "The CICERO Center for International Climate Research is an independent, non-profit research foundation based in Oslo, Norway. Established by the Norwegian government in 1990, it serves as one of the Nordic region's premier interdisciplinary institutes dedicated to studying climate change and environmental issues. Its research spans physical climate science, climate economics, international policy, and public communication to help decision-makers navigate global climate challenges. Beyond fundamental research, CICERO actively contributes to IPCC assessment reports and provides expert evaluation to strengthen national and international climate agreements.",
-    "drs_name": "CICERO",
-    "members": [
-        "cicero"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CICERO"
     ],
+    "drs_name": "CICERO",
     "labels": [
         "CICERO Center for International Climate Research",
         "CICERO Senter for Klimaforskning"
@@ -24,9 +18,20 @@
             "lon": 10.74609
         }
     ],
+    "members": [
+        "cicero"
+    ],
     "ror": "01gw5dy53",
     "urls": [
         "https://cicero.oslo.no/",
         "https://en.wikipedia.org/wiki/Centre_for_International_Climate_and_Environmental_Research"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cicero"
 }

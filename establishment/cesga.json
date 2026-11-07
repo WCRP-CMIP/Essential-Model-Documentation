@@ -1,17 +1,11 @@
 {
-    "@id": "cesga",
+    "validation_key": "cesga",
+    "ui_label": "",
     "description": "Centro de Supercomputaci\\'on de Galicia",
-    "drs_name": "",
-    "members": [
-        "cesga"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CESGA"
     ],
+    "drs_name": "",
     "labels": [
         "Centro de Supercomputaci\\'on de Galicia",
         "The Supercomputing Center of Galicia"
@@ -24,8 +18,19 @@
             "lon": -8.54569
         }
     ],
+    "members": [
+        "cesga"
+    ],
     "ror": "02z51cq88",
     "urls": [
         "https://www.cesga.es/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cesga"
 }

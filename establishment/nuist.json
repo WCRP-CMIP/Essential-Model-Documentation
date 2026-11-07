@@ -1,18 +1,12 @@
 {
-    "@id": "nuist",
+    "validation_key": "nuist",
+    "ui_label": "",
     "description": "Nanjing University",
-    "drs_name": "NUIST",
-    "members": [
-        "nuist"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NU",
         "NJU "
     ],
+    "drs_name": "NUIST",
     "labels": [
         "Nanjing University"
     ],
@@ -24,8 +18,19 @@
             "lon": 118.775
         }
     ],
+    "members": [
+        "nuist"
+    ],
     "ror": "01rxvg760",
     "urls": [
         "http://www.nju.edu.cn/english/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nuist"
 }

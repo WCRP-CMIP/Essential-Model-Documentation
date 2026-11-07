@@ -1,10 +1,11 @@
 {
-    "@id": "monash",
+    "validation_key": "monash",
+    "ui_label": "",
     "description": "Monash University staff and students contribute to the development and application of ACCESS. Monash University leads the Australian Research Council Centre of Excellence for the Weather of the 21st Century.",
-    "drs_name": "Monash",
     "acronyms": [
         "Monash"
     ],
+    "drs_name": "Monash",
     "labels": [
         "Monash University"
     ],
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "monash"
 }

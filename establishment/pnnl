@@ -1,10 +1,11 @@
 {
-    "@id": "pnnl",
+    "validation_key": "pnnl",
+    "ui_label": "",
     "description": "Pacific Northwest National Laboratory",
-    "drs_name": "PNNL",
     "acronyms": [
         "PNNL"
     ],
+    "drs_name": "PNNL",
     "labels": [
         "Pacific Northwest National Laboratory"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "pnnl"
 }

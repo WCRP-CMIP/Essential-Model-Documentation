@@ -1,17 +1,11 @@
 {
-    "@id": "uoft",
+    "validation_key": "uoft",
+    "ui_label": "",
     "description": "University of Toronto",
-    "drs_name": "UofT",
-    "members": [
-        "uoft"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UofT"
     ],
+    "drs_name": "UofT",
     "labels": [
         "University of Toronto"
     ],
@@ -23,8 +17,19 @@
             "lon": -79.3957
         }
     ],
+    "members": [
+        "uoft"
+    ],
     "ror": "03dbr7087",
     "urls": [
         "https://www.utoronto.ca/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uoft"
 }

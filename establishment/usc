@@ -1,10 +1,11 @@
 {
-    "@id": "usc",
+    "validation_key": "usc",
+    "ui_label": "",
     "description": "Universidade de Santiago de Compostela",
-    "drs_name": "USC",
     "acronyms": [
         "USC"
     ],
+    "drs_name": "USC",
     "labels": [
         "Santiago de Compostelako Unibertsitatea",
         "Universidad de Santiago de Compostela",
@@ -27,6 +28,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "usc"
 }

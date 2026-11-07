@@ -1,15 +1,9 @@
 {
-    "@id": "aor",
+    "validation_key": "aor",
+    "ui_label": "",
     "description": "Astronomical Observatory of Rome",
-    "drs_name": "AoR",
-    "members": [
-        "aor"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "AoR",
     "labels": [
         "Astronomical Observatory of Rome"
     ],
@@ -21,8 +15,19 @@
             "lon": 41.921669
         }
     ],
+    "members": [
+        "aor"
+    ],
     "ror": "02hnp4676",
     "urls": [
         "http://web.oa-roma.inaf.it/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "aor"
 }

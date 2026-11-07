@@ -1,20 +1,25 @@
 {
-    "@id": "dlr-bira",
+    "validation_key": "dlr-bira",
+    "ui_label": "",
     "description": "DLR-BIRA",
-    "drs_name": "DLR-BIRA",
-    "members": [
-        "dlr",
-        "bira"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "DLR-BIRA",
     "labels": [
         "Deutsches Zentrum fur Luft- und Raumfahrt, Royal Belgian Institute for Space Aeronomy"
     ],
     "location": [],
+    "members": [
+        "dlr",
+        "bira"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dlr-bira"
 }

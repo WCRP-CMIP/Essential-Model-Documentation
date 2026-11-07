@@ -1,10 +1,11 @@
 {
-    "@id": "ichec",
+    "validation_key": "ichec",
+    "ui_label": "",
     "description": "Irish Centre for High-End Computing",
-    "drs_name": "ICHEC",
     "acronyms": [
         "ICHEC"
     ],
+    "drs_name": "ICHEC",
     "labels": [
         "Irish Centre for High-End Computing"
     ],
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ichec"
 }

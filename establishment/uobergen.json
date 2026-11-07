@@ -1,17 +1,11 @@
 {
-    "@id": "uobergen",
+    "validation_key": "uobergen",
+    "ui_label": "",
     "description": "University of Bergen",
-    "drs_name": "UoBergen",
-    "members": [
-        "uobergen"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UiB"
     ],
+    "drs_name": "UoBergen",
     "labels": [
         "Bergenin Yliopisto",
         "Universitas Bergensis",
@@ -26,9 +20,20 @@
             "lon": 5.32415
         }
     ],
+    "members": [
+        "uobergen"
+    ],
     "ror": "03zga2b32",
     "urls": [
         "http://www.uib.no/",
         "http://en.wikipedia.org/wiki/University_of_Bergen"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uobergen"
 }

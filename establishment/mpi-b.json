@@ -1,15 +1,9 @@
 {
-    "@id": "mpi-b",
+    "validation_key": "mpi-b",
+    "ui_label": "",
     "description": "Max Planck Institute for Biogeochemistry",
-    "drs_name": "MPI-B",
-    "members": [
-        "mpi-b"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "MPI-B",
     "labels": [
         "Max Planck Institute for Biogeochemistry"
     ],
@@ -21,8 +15,19 @@
             "lon": 11.567222
         }
     ],
+    "members": [
+        "mpi-b"
+    ],
     "ror": "051yxp643",
     "urls": [
         "http://www.bgc-jena.mpg.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mpi-b"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "aemet",
+    "validation_key": "aemet",
+    "ui_label": "",
     "description": "Agencia Estatal de Meteorolog{\\'\\i}a",
-    "drs_name": "AEMET",
     "acronyms": [
         "AEMET"
     ],
+    "drs_name": "AEMET",
     "labels": [
         "Agencia Estatal de Meteorolog{\\'\\i}a",
         "Ag\\`encia Estatal de Meteorologia",
@@ -27,6 +28,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "aemet"
 }

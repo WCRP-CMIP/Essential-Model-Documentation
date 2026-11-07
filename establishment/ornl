@@ -1,17 +1,11 @@
 {
-    "@id": "ornl",
+    "validation_key": "ornl",
+    "ui_label": "",
     "description": "Oak Ridge National Laboratory",
-    "drs_name": "ORNL",
-    "members": [
-        "ornl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ORNL"
     ],
+    "drs_name": "ORNL",
     "labels": [
         "Oak Ridge National Laboratory"
     ],
@@ -23,8 +17,19 @@
             "lon": -84.26964
         }
     ],
+    "members": [
+        "ornl"
+    ],
     "ror": "01qz5mb56",
     "urls": [
         "https://www.ornl.gov/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ornl"
 }

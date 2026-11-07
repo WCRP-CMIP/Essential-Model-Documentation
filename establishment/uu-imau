@@ -1,19 +1,11 @@
 {
-    "@id": "uu-imau",
+    "validation_key": "uu-imau",
+    "ui_label": "",
     "description": "Institute for Marine and Atmospheric research Utrecht (IMAU), Utrecht University",
-    "drs_name": "UU-IMAU",
-    "members": [
-        "imau",
-        "uu",
-        "uu-imau"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UU-IMAU"
     ],
+    "drs_name": "UU-IMAU",
     "labels": [
         "Institute for Marine and Atmospheric research Utrecht (IMAU), Utrecht University",
         "Rijksuniversiteit Utrecht",
@@ -28,9 +20,22 @@
             "lon": 5.12222
         }
     ],
+    "members": [
+        "imau",
+        "uu",
+        "uu-imau"
+    ],
     "ror": "04pp8hn57",
     "urls": [
         "https://www.uu.nl/",
         "http://en.wikipedia.org/wiki/Utrecht_University"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uu-imau"
 }

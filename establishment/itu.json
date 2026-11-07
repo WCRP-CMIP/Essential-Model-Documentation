@@ -1,11 +1,12 @@
 {
-    "@id": "itu",
+    "validation_key": "itu",
+    "ui_label": "",
     "description": "Founded in 1773 as the Imperial School of Naval Engineering, Istanbul Technical University (\\.IT\\\"U) is one of the world's oldest and most prestigious institutions dedicated to higher technical education. Located across several prominent campuses in Istanbul, the university serves as Turkey's premier public hub for engineering, architecture, and natural sciences. It boasts extensive global recognition, including the highest number of ABET-accredited engineering programs of any university worldwide. Through initiatives like its ARI Teknokent science park, \\.IT\\\"U continues to bridge academic research with industrial innovation, producing generations of influential scientists, entrepreneurs, and leaders.",
-    "drs_name": "ITU",
     "acronyms": [
         "ITU",
         "\\.IT\\\"U"
     ],
+    "drs_name": "ITU",
     "labels": [
         "Istanbul Technical University",
         "\\.Istanbul Teknik \\\"Universitesi",
@@ -26,6 +27,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "itu"
 }

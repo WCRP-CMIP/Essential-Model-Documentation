@@ -1,10 +1,11 @@
 {
-    "@id": "ntnu",
+    "validation_key": "ntnu",
+    "ui_label": "",
     "description": "Norwegian University of Science and Technology",
-    "drs_name": "NTNU",
     "acronyms": [
         "NTNU"
     ],
+    "drs_name": "NTNU",
     "labels": [
         "Norges Teknisk-Naturvitenskapelige Universitet",
         "Norjan teknis-luonnontieteellinen yliopisto",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ntnu"
 }

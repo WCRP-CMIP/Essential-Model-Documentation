@@ -1,17 +1,11 @@
 {
-    "@id": "auth",
+    "validation_key": "auth",
+    "ui_label": "",
     "description": "Aristotle University of Thessaloniki",
-    "drs_name": "AUTH",
-    "members": [
-        "auth"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "AUTH"
     ],
+    "drs_name": "AUTH",
     "labels": [
         "Aristotle University of Thessaloniki"
     ],
@@ -23,8 +17,19 @@
             "lon": 22.959222
         }
     ],
+    "members": [
+        "auth"
+    ],
     "ror": "02j61yw88",
     "urls": [
         "https://www.auth.gr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "auth"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "nbi",
+    "validation_key": "nbi",
+    "ui_label": "",
     "description": "Niels Bohr Institute, University of Copenhagen",
-    "drs_name": "NBI",
     "acronyms": [
         "UCPH"
     ],
+    "drs_name": "NBI",
     "labels": [
         "K{\\o}benhavns Universitet",
         "University of Copenhagen",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nbi"
 }

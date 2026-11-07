@@ -1,10 +1,11 @@
 {
-    "@id": "jlu",
+    "validation_key": "jlu",
+    "ui_label": "",
     "description": "Justus-Liebig-Universit\\\"at Gie{\\ss}en",
-    "drs_name": "JLU",
     "acronyms": [
         "JLU"
     ],
+    "drs_name": "JLU",
     "labels": [
         "Justus-Liebig-Universit\\\"at Gie{\\ss}en"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "jlu"
 }

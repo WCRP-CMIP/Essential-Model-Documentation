@@ -1,10 +1,11 @@
 {
-    "@id": "tuc",
+    "validation_key": "tuc",
+    "ui_label": "",
     "description": "Technical University of Crete",
-    "drs_name": "TUC",
     "acronyms": [
         "TUC"
     ],
+    "drs_name": "TUC",
     "labels": [
         "Technical University of Crete",
         "Universit\\'e technique de cr\\`ete",
@@ -26,6 +27,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "tuc"
 }

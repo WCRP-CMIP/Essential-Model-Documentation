@@ -1,5 +1,6 @@
 {
-    "@id": "e3sm-project",
+    "validation_key": "e3sm-project",
+    "ui_label": "",
     "description": "E3SM-Project",
     "drs_name": "E3SM-Project",
     "members": [
@@ -14,6 +15,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "e3sm-project"
 }

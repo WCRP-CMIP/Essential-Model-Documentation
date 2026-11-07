@@ -1,10 +1,11 @@
 {
-    "@id": "ifaeci",
+    "validation_key": "ifaeci",
+    "ui_label": "",
     "description": "Institut fran\\c{c}ais d'\\'etudes sur l'Asie centrale",
-    "drs_name": "IFAECI",
     "acronyms": [
         "IFEAC"
     ],
+    "drs_name": "IFAECI",
     "labels": [
         "Institut fran\\c{c}ais d'\\'etudes sur l'Asie centrale"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ifaeci"
 }

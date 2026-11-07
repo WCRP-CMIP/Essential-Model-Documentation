@@ -1,19 +1,24 @@
 {
-    "@id": "cru-uea",
+    "validation_key": "cru-uea",
+    "ui_label": "",
     "description": "CRU-UEA",
-    "drs_name": "CRU-UEA",
-    "members": [
-        "cru-uea"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "CRU-UEA",
     "labels": [
         "Climatic Research Unit, University of East Anglia, Norwich, UK"
     ],
     "location": [],
+    "members": [
+        "cru-uea"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cru-uea"
 }

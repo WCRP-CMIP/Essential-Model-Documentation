@@ -1,10 +1,11 @@
 {
-    "@id": "lund-university",
+    "validation_key": "lund-university",
+    "ui_label": "",
     "description": "Lund University",
-    "drs_name": "Lund-University",
     "acronyms": [
         "Lund-University"
     ],
+    "drs_name": "Lund-University",
     "labels": [
         "Lund University",
         "Lundin yliopisto",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "lund-university"
 }

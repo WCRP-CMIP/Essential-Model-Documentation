@@ -1,15 +1,9 @@
 {
-    "@id": "ouranos",
+    "validation_key": "ouranos",
+    "ui_label": "",
     "description": "Ouranos Consortium on Regional Climatology and Climate Change Adaptation",
-    "drs_name": "OURANOS",
-    "members": [
-        "ouranos"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "OURANOS",
     "labels": [
         "Ouranos Consortium on Regional Climatology and Climate Change Adaptation"
     ],
@@ -21,8 +15,19 @@
             "lon": -73.57214
         }
     ],
+    "members": [
+        "ouranos"
+    ],
     "ror": "0565gth98",
     "urls": [
         "https://www.ouranos.ca/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ouranos"
 }

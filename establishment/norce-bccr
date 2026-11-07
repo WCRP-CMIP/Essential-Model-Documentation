@@ -1,5 +1,6 @@
 {
-    "@id": "norce-bccr",
+    "validation_key": "norce-bccr",
+    "ui_label": "",
     "description": "NORCE [NORCE Norwegian Research Centre, Bergen, Norway]; BCCR [Bjerknes Centre for Climate Research, Bergen, Norway]",
     "drs_name": "NORCE-BCCR",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "norce-bccr"
 }

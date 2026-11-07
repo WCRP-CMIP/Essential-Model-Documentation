@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-kit",
+    "validation_key": "clmcom-kit",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Karlsruhe Institute of Technology",
     "drs_name": "CLMcom-KIT",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-kit"
 }

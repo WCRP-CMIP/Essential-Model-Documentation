@@ -1,17 +1,11 @@
 {
-    "@id": "enea",
+    "validation_key": "enea",
+    "ui_label": "",
     "description": "Italian National Agency for New Technologies, Energy and the Environment",
-    "drs_name": "ENEA",
-    "members": [
-        "enea"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ENEA"
     ],
+    "drs_name": "ENEA",
     "labels": [
         "Agenzia Nazionale per le Nuove Tecnologie, l'Energia e lo Sviluppo Economico Sostenibile",
         "Italian National Agency for New Technologies, Energy and Sustainable Economic Development",
@@ -25,9 +19,20 @@
             "lon": 12.51133
         }
     ],
+    "members": [
+        "enea"
+    ],
     "ror": "02an8es95",
     "urls": [
         "http://www.enea.it/",
         "https://en.wikipedia.org/wiki/ENEA_(Italy)"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "enea"
 }

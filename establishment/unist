@@ -1,21 +1,15 @@
 {
-    "@id": "unist",
+    "validation_key": "unist",
+    "ui_label": "",
     "description": "Ulsan National Institute of Science and Technology",
-    "drs_name": "unist",
-    "members": [
-        "unist"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UNIST"
     ],
+    "drs_name": "unist",
     "labels": [
         "Ulsan Gwahak Gisul Daehakgyo",
         "Ulsan National Institute of Science and Technology",
-        "\uc6b8\uc0b0\uacfc\ud559\uae30\uc220\ub300\ud559\uad50"
+        "울산과학기술대학교"
     ],
     "location": [
         {
@@ -25,8 +19,19 @@
             "lon": 129.31667
         }
     ],
+    "members": [
+        "unist"
+    ],
     "ror": "017cjz748",
     "urls": [
         "https://www.unist.ac.kr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "unist"
 }

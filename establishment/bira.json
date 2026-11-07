@@ -1,11 +1,12 @@
 {
-    "@id": "bira",
+    "validation_key": "bira",
+    "ui_label": "",
     "description": "Royal Belgian Institute for Space Aeronomy",
-    "drs_name": "BIRA",
     "acronyms": [
         "BIRA",
         "IASB"
     ],
+    "drs_name": "BIRA",
     "labels": [
         "Royal Belgian Institute for Space Aeronomy"
     ],
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bira"
 }

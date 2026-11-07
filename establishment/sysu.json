@@ -1,19 +1,13 @@
 {
-    "@id": "sysu",
+    "validation_key": "sysu",
+    "ui_label": "",
     "description": "Sun Yat-sen University, a public university in Guangzhou, China.",
-    "drs_name": "SYSU",
-    "members": [
-        "sysu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "SYSU",
     "labels": [
         "Sun Yat-sen University",
-        "\u4e2d\u5c71\u5927\u5b66",
-        "\u4e2d\u5c71\u5927\u5b66"
+        "中山大学",
+        "中山大学"
     ],
     "location": [
         {
@@ -23,10 +17,21 @@
             "lon": 113.25
         }
     ],
+    "members": [
+        "sysu"
+    ],
     "ror": "0064kty71",
     "urls": [
         "https://www.sysu.edu.cn/sysuen/",
         "https://www.sysu.edu.cn/",
         "http://en.wikipedia.org/wiki/Sun_Yat-sen_University"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "sysu"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-hzg",
+    "validation_key": "clmcom-hzg",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Helmholtz-Zentrum Hereon",
     "drs_name": "CLMcom-HZG",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-hzg"
 }

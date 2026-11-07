@@ -1,5 +1,6 @@
 {
-    "@id": "ethz",
+    "validation_key": "ethz",
+    "ui_label": "",
     "description": "ethz institute",
     "drs_name": "ETHZ",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ethz"
 }

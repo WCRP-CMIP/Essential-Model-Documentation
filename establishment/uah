@@ -1,19 +1,24 @@
 {
-    "@id": "uah",
+    "validation_key": "uah",
+    "ui_label": "",
     "description": "UAH",
-    "drs_name": "UAH",
-    "members": [
-        "uah"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UAH",
     "labels": [
         "University of Alcala, Spain"
     ],
     "location": [],
+    "members": [
+        "uah"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uah"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "ull",
+    "validation_key": "ull",
+    "ui_label": "",
     "description": "Universidad de La Laguna",
-    "drs_name": "ull",
-    "members": [
-        "ull"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ULL"
     ],
+    "drs_name": "ull",
     "labels": [
         "Universidad de La Laguna",
         "Universidade de La Laguna",
@@ -25,8 +19,19 @@
             "lon": -16.32014
         }
     ],
+    "members": [
+        "ull"
+    ],
     "ror": "01r9z8p25",
     "urls": [
         "https://www.ull.es/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ull"
 }

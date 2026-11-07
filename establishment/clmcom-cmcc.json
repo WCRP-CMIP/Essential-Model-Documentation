@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-cmcc",
+    "validation_key": "clmcom-cmcc",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Euro-Mediterranean Center on Climate Change (CMCC Foundation)",
     "drs_name": "CLMcom-CMCC",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-cmcc"
 }

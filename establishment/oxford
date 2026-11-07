@@ -1,10 +1,11 @@
 {
-    "@id": "oxford",
+    "validation_key": "oxford",
+    "ui_label": "",
     "description": "University of Oxford",
-    "drs_name": "Oxford",
     "acronyms": [
         "Oxford"
     ],
+    "drs_name": "Oxford",
     "labels": [
         "University of Oxford"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "oxford"
 }

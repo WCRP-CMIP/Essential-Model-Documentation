@@ -1,10 +1,11 @@
 {
-    "@id": "cnr",
+    "validation_key": "cnr",
+    "ui_label": "",
     "description": "National Research Council",
-    "drs_name": "",
     "acronyms": [
         "CNR"
     ],
+    "drs_name": "",
     "labels": [
         "Consiglio Nazionale delle Ricerche",
         "National Research Council"
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cnr"
 }

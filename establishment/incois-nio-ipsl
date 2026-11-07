@@ -1,21 +1,26 @@
 {
-    "@id": "incois-nio-ipsl",
+    "validation_key": "incois-nio-ipsl",
+    "ui_label": "",
     "description": "INCOIS-NIO-IPSL",
+    "acronyms": [],
     "drs_name": "INCOIS-NIO-IPSL",
+    "labels": [
+        "Joint research colloboration between INCOIS(India), NIO(India) and IPSL(France)"
+    ],
+    "location": [],
     "members": [
         "incois",
         "nio",
         "ipsl"
     ],
+    "ror": null,
+    "urls": [],
     "@context": "_context",
     "@type": [
-        "institution"
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
     ],
-    "acronyms": [],
-    "labels": [
-        "Joint research colloboration between INCOIS(India), NIO(India) and IPSL(France)"
-    ],
-    "location": [],
-    "ror": null,
-    "urls": []
+    "@id": "incois-nio-ipsl"
 }

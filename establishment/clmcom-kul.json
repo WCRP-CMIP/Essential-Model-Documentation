@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-kul",
+    "validation_key": "clmcom-kul",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: KU Leuven",
     "drs_name": "CLMcom-KUL",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-kul"
 }

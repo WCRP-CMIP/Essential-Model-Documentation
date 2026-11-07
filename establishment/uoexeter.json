@@ -1,17 +1,16 @@
 {
-    "@id": "uoexeter",
+    "validation_key": "uoexeter",
+    "ui_label": "",
     "description": "",
-    "drs_name": "uoexeter",
-    "members": [
-        "uoexeter"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UCLA"
     ],
+    "aliases": [
+        " Prifysgol Caerwysg"
+    ],
+    "cmip_acronym": "uoexeter",
+    "drs_name": "uoexeter",
+    "established": 1955,
     "labels": [],
     "location": [
         {
@@ -21,14 +20,20 @@
             "lon": -3.534519
         }
     ],
+    "members": [
+        "uoexeter"
+    ],
+    "name": "University of Exeter",
     "ror": "03yghzc09",
     "urls": [
         "https://www.exeter.ac.uk/"
     ],
-    "aliases": [
-        " Prifysgol Caerwysg"
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
     ],
-    "cmip-acronym": "uoexeter",
-    "established": 1955,
-    "name": "University of Exeter"
+    "@id": "uoexeter"
 }

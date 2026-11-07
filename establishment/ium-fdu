@@ -1,5 +1,6 @@
 {
-    "@id": "ium-fdu",
+    "validation_key": "ium-fdu",
+    "ui_label": "",
     "description": "IUM [Institute of Urban Meteorology, China Meteorological Administration,  Beijing, China]; FDU [Fudan University, Shanghai, China]",
     "drs_name": "IUM-FDU",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ium-fdu"
 }

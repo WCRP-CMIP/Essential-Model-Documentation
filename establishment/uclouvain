@@ -1,8 +1,9 @@
 {
-    "@id": "uclouvain",
+    "validation_key": "uclouvain",
+    "ui_label": "",
     "description": "Earth and Life Institute, Universit\\'e catholique de Louvain.",
-    "drs_name": "uclouvain",
     "acronyms": [],
+    "drs_name": "uclouvain",
     "labels": [
         "Catholic University of Louvain",
         "UCLouvain",
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uclouvain"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "nasa-giss",
+    "validation_key": "nasa-giss",
+    "ui_label": "",
     "description": "Goddard Institute for Space Studies",
-    "drs_name": "NASA-GISS",
-    "members": [
-        "nasa-giss"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "GISS"
     ],
+    "drs_name": "NASA-GISS",
     "labels": [
         "Goddard Institute for Space Studies"
     ],
@@ -23,8 +17,19 @@
             "lon": -74.00597
         }
     ],
+    "members": [
+        "nasa-giss"
+    ],
     "ror": "01cyfxe35",
     "urls": [
         "http://www.giss.nasa.gov/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nasa-giss"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "lasp",
+    "validation_key": "lasp",
+    "ui_label": "",
     "description": "Laboratory for Atmospheric and Space Physics",
-    "drs_name": "LASP",
     "acronyms": [
         "LASP"
     ],
+    "drs_name": "LASP",
     "labels": [
         "Laboratory for Atmospheric and Space Physics"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "lasp"
 }

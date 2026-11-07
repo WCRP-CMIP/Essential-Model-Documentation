@@ -1,10 +1,11 @@
 {
-    "@id": "incois",
+    "validation_key": "incois",
+    "ui_label": "",
     "description": "Indian National Centre for Ocean Information Services",
-    "drs_name": "INCOIS",
     "acronyms": [
         "INCOIS"
     ],
+    "drs_name": "INCOIS",
     "labels": [
         "Indian National Centre for Ocean Information Services"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "incois"
 }

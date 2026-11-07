@@ -1,17 +1,11 @@
 {
-    "@id": "cnrm",
+    "validation_key": "cnrm",
+    "ui_label": "",
     "description": "Centre National de Recherches Meteorologiques",
-    "drs_name": "CNRM",
-    "members": [
-        "cnrm"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CNRM"
     ],
+    "drs_name": "CNRM",
     "labels": [
         "Centre National de Recherches M\\'et\\'eorologiques",
         "UMR 3589",
@@ -25,9 +19,20 @@
             "lon": 1.44367
         }
     ],
+    "members": [
+        "cnrm"
+    ],
     "ror": "004rej139",
     "urls": [
         "https://www.umr-cnrm.fr/en/homepage/",
         "http://www.cnrm.meteo.fr/?lang=fr"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cnrm"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "auth-mc",
+    "validation_key": "auth-mc",
+    "ui_label": "",
     "description": "Aristotle University of Thessaloniki, Department of Meteorology & Climatology",
-    "drs_name": "AUTH-MC",
-    "members": [
-        "auth-mc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "AUTH-MC"
     ],
+    "drs_name": "AUTH-MC",
     "labels": [
         "Aristotle University of Thessaloniki, Department of Meteorology & Climatology"
     ],
@@ -23,8 +17,19 @@
             "lon": 22.959222
         }
     ],
+    "members": [
+        "auth-mc"
+    ],
     "ror": "02j61yw88",
     "urls": [
         "https://www.auth.gr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "auth-mc"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "uqam",
+    "validation_key": "uqam",
+    "ui_label": "",
     "description": "Universit\\'e du Qu\\'ebec \\`a Montr\\'eal",
-    "drs_name": "UQAM",
-    "members": [
-        "uqam"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UQAM"
     ],
+    "drs_name": "UQAM",
     "labels": [
         "Universit\\'e du Qu\\'ebec \\`a Montr\\'eal",
         "University of Quebec in Montreal",
@@ -25,8 +19,19 @@
             "lon": -73.5614
         }
     ],
+    "members": [
+        "uqam"
+    ],
     "ror": "002rjbv21",
     "urls": [
         "https://uqam.ca/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uqam"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "knmi",
+    "validation_key": "knmi",
+    "ui_label": "",
     "description": "Royal Netherlands Meteorological Institute",
-    "drs_name": "KNMI",
-    "members": [
-        "knmi"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "KNMI"
     ],
+    "drs_name": "KNMI",
     "labels": [
         "Koninklijk Nederlands Meteorologisch Instituut",
         "Royal Netherlands Meteorological Institute"
@@ -24,9 +18,20 @@
             "lon": 5.18056
         }
     ],
+    "members": [
+        "knmi"
+    ],
     "ror": "05dfgh554",
     "urls": [
         "https://www.knmi.nl/",
         "https://en.wikipedia.org/wiki/Royal_Netherlands_Meteorological_Institute"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "knmi"
 }

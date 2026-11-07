@@ -1,10 +1,11 @@
 {
-    "@id": "nci",
+    "validation_key": "nci",
+    "ui_label": "",
     "description": "The National Computational Infrastructure is one of Australia's two Tier-1 high-performance data, storage and computing organisations. NCI provides the computing platform for ACCESS and supports data publication, including hosting an ESGF node.",
-    "drs_name": "NCI",
     "acronyms": [
         "NCI"
     ],
+    "drs_name": "NCI",
     "labels": [
         "National Computational Infrastructure",
         "NCI Australia",
@@ -26,6 +27,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nci"
 }

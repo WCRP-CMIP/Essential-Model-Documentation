@@ -1,18 +1,12 @@
 {
-    "@id": "hms",
+    "validation_key": "hms",
+    "ui_label": "",
     "description": "Hungarian Meteorological Service",
-    "drs_name": "HMS",
-    "members": [
-        "hms"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "HMS",
         "OMSZ"
     ],
+    "drs_name": "HMS",
     "labels": [
         "Hungarian Meteorological Service",
         "Orsz\\'agos Meteorol\\'ogiai Szolg\\'alat"
@@ -25,8 +19,19 @@
             "lon": 19.0280834
         }
     ],
+    "members": [
+        "hms"
+    ],
     "ror": "05jc7nb82",
     "urls": [
         "http://www.met.hu/en/idojaras/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hms"
 }

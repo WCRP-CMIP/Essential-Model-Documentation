@@ -1,19 +1,24 @@
 {
-    "@id": "pku",
+    "validation_key": "pku",
+    "ui_label": "",
     "description": "PKU",
-    "drs_name": "PKU",
-    "members": [
-        "pku"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "PKU",
     "labels": [
         "Peking University, Beijing, China"
     ],
     "location": [],
+    "members": [
+        "pku"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "pku"
 }

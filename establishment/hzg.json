@@ -1,10 +1,11 @@
 {
-    "@id": "hzg",
+    "validation_key": "hzg",
+    "ui_label": "",
     "description": "Helmholtz-Zentrum Hereon",
-    "drs_name": "HZG",
     "acronyms": [
         "HZG"
     ],
+    "drs_name": "HZG",
     "labels": [
         "Helmholtz-Zentrum Hereon",
         "Helmholtz-Zentrum Geesthacht Centre for Materials and Coastal Research"
@@ -21,6 +22,10 @@
     "urls": [],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hzg"
 }

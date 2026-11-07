@@ -1,17 +1,11 @@
 {
-    "@id": "ncar",
+    "validation_key": "ncar",
+    "ui_label": "",
     "description": "The National Science Foundation National Center for Atmospheric Research (NSF NCAR) manages the development and maintenance of the Community Earth System Model (CESM).",
-    "drs_name": "NCAR",
-    "members": [
-        "ncar"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NCAR"
     ],
+    "drs_name": "NCAR",
     "labels": [
         "National Center for Atmospheric Research",
         "Boulder",
@@ -28,9 +22,20 @@
             "lon": -105.27055
         }
     ],
+    "members": [
+        "ncar"
+    ],
     "ror": "05cvfcr44",
     "urls": [
         "https://ncar.ucar.edu/",
         "http://en.wikipedia.org/wiki/National_Center_for_Atmospheric_Research"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ncar"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "csir-wits-csiro",
+    "validation_key": "csir-wits-csiro",
+    "ui_label": "",
     "description": "Council for Scientific and Industrial Research - University of the Witwatersrand - Commonwealth Scientific and Industrial Research Organisation",
     "drs_name": "CSIR-Wits-CSIRO",
     "members": [
@@ -9,6 +10,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "csir-wits-csiro"
 }

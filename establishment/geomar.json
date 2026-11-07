@@ -1,10 +1,11 @@
 {
-    "@id": "geomar",
+    "validation_key": "geomar",
+    "ui_label": "",
     "description": "GEOMAR Helmholtz Centre for Ocean Research Kiel",
-    "drs_name": "GEOMAR",
     "acronyms": [
         "IFM-GEOMAR"
     ],
+    "drs_name": "GEOMAR",
     "labels": [
         "GEOMAR Helmholtz Centre for Ocean Research Kiel"
     ],
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "geomar"
 }

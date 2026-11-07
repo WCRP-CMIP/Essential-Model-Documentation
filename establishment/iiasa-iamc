@@ -1,5 +1,6 @@
 {
-    "@id": "iiasa-iamc",
+    "validation_key": "iiasa-iamc",
+    "ui_label": "",
     "description": "",
     "drs_name": "IIASA-IAMC",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "iiasa-iamc"
 }

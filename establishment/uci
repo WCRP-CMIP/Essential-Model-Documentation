@@ -1,17 +1,11 @@
 {
-    "@id": "uci",
+    "validation_key": "uci",
+    "ui_label": "",
     "description": "University of California, Irvine",
-    "drs_name": "UCI",
-    "members": [
-        "uci"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UCI"
     ],
+    "drs_name": "UCI",
     "labels": [
         "University of California, Irvine"
     ],
@@ -23,8 +17,19 @@
             "lon": -117.842642
         }
     ],
+    "members": [
+        "uci"
+    ],
     "ror": "04gyf1771",
     "urls": [
         "http://uci.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uci"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "dkrz",
+    "validation_key": "dkrz",
+    "ui_label": "",
     "description": "German Climate Computing Centre",
-    "drs_name": "DKRZ",
-    "members": [
-        "dkrz"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "DKRZ"
     ],
+    "drs_name": "DKRZ",
     "labels": [
         "German Climate Computing Centre"
     ],
@@ -23,8 +17,19 @@
             "lon": 9.99302
         }
     ],
+    "members": [
+        "dkrz"
+    ],
     "ror": "03ztgj037",
     "urls": [
         "https://www.dkrz.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dkrz"
 }

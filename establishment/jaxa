@@ -1,19 +1,24 @@
 {
-    "@id": "jaxa",
+    "validation_key": "jaxa",
+    "ui_label": "",
     "description": "JAXA",
-    "drs_name": "JAXA",
-    "members": [
-        "jaxa"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "JAXA",
     "labels": [
         "The Japan Aerospace Exploration Agency"
     ],
     "location": [],
+    "members": [
+        "jaxa"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "jaxa"
 }

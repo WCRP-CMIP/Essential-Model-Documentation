@@ -1,5 +1,6 @@
 {
-    "@id": "rmib-ugent",
+    "validation_key": "rmib-ugent",
+    "ui_label": "",
     "description": "Royal Meteorological Institute of Belgium & Ghent University downscaling consortium",
     "drs_name": "RMIB-UGent",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "rmib-ugent"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "hclimcom",
+    "validation_key": "hclimcom",
+    "ui_label": "",
     "description": "HARMONIE Climate Modelling Community (HCLIMcom)",
     "drs_name": "HCLIMCOM",
     "members": [
@@ -9,6 +10,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hclimcom"
 }

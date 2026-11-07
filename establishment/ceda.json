@@ -1,19 +1,24 @@
 {
-    "@id": "ceda",
+    "validation_key": "ceda",
+    "ui_label": "",
     "description": "CEDA",
-    "drs_name": "CEDA",
-    "members": [
-        "ceda"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "CEDA",
     "labels": [
         "Centre for Environmental Data Analysis, RAL Space, STFC Rutherford Appleton Laboratory, Chilton, Didcot; National Centre for Earth Observation, UK"
     ],
     "location": [],
+    "members": [
+        "ceda"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ceda"
 }

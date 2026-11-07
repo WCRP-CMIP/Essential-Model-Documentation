@@ -1,13 +1,14 @@
 {
-    "@id": "hyu",
+    "validation_key": "hyu",
+    "ui_label": "",
     "description": "Hanyang University is a leading research university in South Korea, contributing to Earth system modeling and climate science in collaboration with KIOST.",
-    "drs_name": "HYU",
     "acronyms": [
         "HYU"
     ],
+    "drs_name": "HYU",
     "labels": [
         "Hanyang University",
-        "\ud55c\uc591\ub300\ud559\uad50"
+        "한양대학교"
     ],
     "location": [
         {
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hyu"
 }

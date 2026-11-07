@@ -1,15 +1,9 @@
 {
-    "@id": "bcc",
+    "validation_key": "bcc",
+    "ui_label": "",
     "description": "Beijing Biocytogen (China)",
-    "drs_name": "BCC",
-    "members": [
-        "bcc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "BCC",
     "labels": [
         "Beijing Biocytogen (China)"
     ],
@@ -21,8 +15,19 @@
             "lon": 116.383679
         }
     ],
+    "members": [
+        "bcc"
+    ],
     "ror": "01spyyb53",
     "urls": [
         "http://www.bbctg.com.cn/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bcc"
 }

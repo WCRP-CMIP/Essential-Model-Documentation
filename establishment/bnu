@@ -1,20 +1,14 @@
 {
-    "@id": "bnu",
+    "validation_key": "bnu",
+    "ui_label": "",
     "description": "Beaconhouse National University",
-    "drs_name": "BNU",
-    "members": [
-        "bnu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "BNU"
     ],
+    "drs_name": "BNU",
     "labels": [
         "Beaconhouse National University",
-        "\u0628\u06cc\u06a9\u0646 \u06c1\u0627\u0624\u0633 \u0646\u06cc\u0634\u0646\u0644 \u06cc\u0648\u0646\u06cc\u0648\u0631\u0633\u0679\u06cc"
+        "بیکن ہاؤس نیشنل یونیورسٹی"
     ],
     "location": [
         {
@@ -24,9 +18,20 @@
             "lon": 74.35071
         }
     ],
+    "members": [
+        "bnu"
+    ],
     "ror": "03e6rv013",
     "urls": [
         "http://www.bnu.edu.pk/",
         "https://en.wikipedia.org/wiki/Beaconhouse_National_University"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bnu"
 }

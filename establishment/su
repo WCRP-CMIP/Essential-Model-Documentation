@@ -1,10 +1,11 @@
 {
-    "@id": "su",
+    "validation_key": "su",
+    "ui_label": "",
     "description": "Founded in 1878 as a college in the spirit of the Enlightenment, Stockholm University is a premier public research institution and one of Scandinavia's largest universities. It accommodates over 30,000 students across four primary faculties: Law, Humanities, Social Sciences, and Natural Sciences. Located in the heart of Sweden's capital, the university's main campus is uniquely situated within the Royal National City Park. Globally recognised for high-calibre research and international academic programs, the institution is consistently ranked among the world's top universities.",
-    "drs_name": "SU",
     "acronyms": [
         "SU"
     ],
+    "drs_name": "SU",
     "labels": [
         "Stockholm University",
         "Stockholms universitet",
@@ -25,6 +26,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "su"
 }

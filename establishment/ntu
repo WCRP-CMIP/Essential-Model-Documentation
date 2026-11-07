@@ -1,17 +1,11 @@
 {
-    "@id": "ntu",
+    "validation_key": "ntu",
+    "ui_label": "",
     "description": "National Taiwan University",
-    "drs_name": "NTU",
-    "members": [
-        "ntu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NTU"
     ],
+    "drs_name": "NTU",
     "labels": [
         "National Taiwan University"
     ],
@@ -23,8 +17,19 @@
             "lon": 121.536
         }
     ],
+    "members": [
+        "ntu"
+    ],
     "ror": "05bqach95",
     "urls": [
         "http://www.ntu.edu.tw/english/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ntu"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "csiro-arccss",
+    "validation_key": "csiro-arccss",
+    "ui_label": "",
     "description": "CSIRO-ARCCSS",
     "drs_name": "CSIRO-ARCCSS",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "csiro-arccss"
 }

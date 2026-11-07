@@ -1,5 +1,6 @@
 {
-    "@id": "iaceth",
+    "validation_key": "iaceth",
+    "ui_label": "",
     "description": "ETH Zurich",
     "drs_name": "IACETH",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "iaceth"
 }

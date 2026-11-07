@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-dwd",
+    "validation_key": "clmcom-dwd",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: German Meteorological Service",
     "drs_name": "CLMcom-DWD",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-dwd"
 }

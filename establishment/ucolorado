@@ -1,17 +1,11 @@
 {
-    "@id": "ucolorado",
+    "validation_key": "ucolorado",
+    "ui_label": "",
     "description": "University of Colorado System",
-    "drs_name": "UColorado",
-    "members": [
-        "ucolorado"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CU"
     ],
+    "drs_name": "UColorado",
     "labels": [
         "University of Colorado System"
     ],
@@ -23,8 +17,19 @@
             "lon": -105.27055
         }
     ],
+    "members": [
+        "ucolorado"
+    ],
     "ror": "00jc20583",
     "urls": [
         "http://www.cu.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ucolorado"
 }

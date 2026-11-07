@@ -1,10 +1,11 @@
 {
-    "@id": "snl",
+    "validation_key": "snl",
+    "ui_label": "",
     "description": "Sandia National Laboratories",
-    "drs_name": "SNL",
     "acronyms": [
         "SNL"
     ],
+    "drs_name": "SNL",
     "labels": [
         "Sandia National Laboratories"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "snl"
 }

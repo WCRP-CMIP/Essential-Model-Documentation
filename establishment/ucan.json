@@ -1,17 +1,11 @@
 {
-    "@id": "ucan",
+    "validation_key": "ucan",
+    "ui_label": "",
     "description": "Universidad de Cantabria",
-    "drs_name": "UCAN",
-    "members": [
-        "ucan"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UC"
     ],
+    "drs_name": "UCAN",
     "labels": [
         "Universidad de Cantabria"
     ],
@@ -23,8 +17,19 @@
             "lon": -3.80444
         }
     ],
+    "members": [
+        "ucan"
+    ],
     "ror": "046ffzj20",
     "urls": [
         "https://web.unican.es/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ucan"
 }

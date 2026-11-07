@@ -1,10 +1,11 @@
 {
-    "@id": "ugent",
+    "validation_key": "ugent",
+    "ui_label": "",
     "description": "Ghent University",
-    "drs_name": "UGent",
     "acronyms": [
         "UGent"
     ],
+    "drs_name": "UGent",
     "labels": [
         "Ghent University"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ugent"
 }

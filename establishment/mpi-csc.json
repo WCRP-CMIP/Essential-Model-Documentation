@@ -1,18 +1,12 @@
 {
-    "@id": "mpi-csc",
+    "validation_key": "mpi-csc",
+    "ui_label": "",
     "description": "Climate Service Center, Max Planck Institute for Meteorology",
-    "drs_name": "MPI-CSC",
-    "members": [
-        "mpi-csc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "MPI-CSC",
         "GERICS"
     ],
+    "drs_name": "MPI-CSC",
     "labels": [
         "Climate Service Center, Max Planck Institute for Meteorology"
     ],
@@ -24,8 +18,19 @@
             "lon": 10.002121
         }
     ],
+    "members": [
+        "mpi-csc"
+    ],
     "ror": "022rwzq94",
     "urls": [
         "https://www.gerics.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mpi-csc"
 }

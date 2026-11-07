@@ -1,17 +1,11 @@
 {
-    "@id": "cmcc",
+    "validation_key": "cmcc",
+    "ui_label": "",
     "description": "Euro-Mediterranean Center on Climate Change (CMCC Foundation)",
-    "drs_name": "CMCC",
-    "members": [
-        "cmcc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CMCC"
     ],
+    "drs_name": "CMCC",
     "labels": [
         "Euro-Mediterranean Center on Climate Change (CMCC Foundation)"
     ],
@@ -23,8 +17,19 @@
             "lon": 18.194769
         }
     ],
+    "members": [
+        "cmcc"
+    ],
     "ror": "01tf11a61",
     "urls": [
         "https://www.cmcc.it/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cmcc"
 }

@@ -1,19 +1,24 @@
 {
-    "@id": "uw",
+    "validation_key": "uw",
+    "ui_label": "",
     "description": "UW",
-    "drs_name": "UW",
-    "members": [
-        "uw"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UW",
     "labels": [
         "University of Washington, USA"
     ],
     "location": [],
+    "members": [
+        "uw"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uw"
 }

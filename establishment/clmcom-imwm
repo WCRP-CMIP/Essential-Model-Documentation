@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-imwm",
+    "validation_key": "clmcom-imwm",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Institute of Meteorology and Water Management",
     "drs_name": "CLMcom-IMWM",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-imwm"
 }

@@ -1,18 +1,12 @@
 {
-    "@id": "noaa-gfdl",
+    "validation_key": "noaa-gfdl",
+    "ui_label": "",
     "description": "US National Oceanic and Atmospheric Administration's Geophysical Fluid Dynamics Laboratory.",
-    "drs_name": "NOAA-GFDL",
-    "members": [
-        "noaa-gfdl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "GFDL",
         "NOAA GFDL"
     ],
+    "drs_name": "NOAA-GFDL",
     "labels": [
         "Department of Commerce Geophysical Fluid Dynamics Laboratory",
         "Geophysical Fluid Dynamics Laboratory",
@@ -34,9 +28,20 @@
             "lon": -74.65905
         }
     ],
+    "members": [
+        "noaa-gfdl"
+    ],
     "ror": "03vmn1898",
     "urls": [
         "https://www.gfdl.noaa.gov/",
         "https://en.wikipedia.org/wiki/Geophysical_Fluid_Dynamics_Laboratory"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "noaa-gfdl"
 }

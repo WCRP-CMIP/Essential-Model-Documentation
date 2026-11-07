@@ -1,18 +1,12 @@
 {
-    "@id": "uib",
+    "validation_key": "uib",
+    "ui_label": "",
     "description": "Established in 1946 with institutional roots dating back to 1825, the University of Bergen (UiB) is Norway's second-oldest university and a leading public research institution. Instead of a isolated suburban campus, its faculties and departments are integrated directly into the city center of Bergen, primarily centred around Nyg\\r{a}rdsh{\\o}yden. The university serves roughly 20,000 students across seven faculties, including humanities, law, natural sciences, medicine, psychology, social sciences, and fine art. Globally recognised for its academic excellence, UiB places a strong strategic focus on marine research, climate and energy transition, and global development challenges.",
-    "drs_name": "UiB",
-    "members": [
-        "uib"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UIB",
         "UiB"
     ],
+    "drs_name": "UiB",
     "labels": [
         "University of Bergen",
         "Bergenin Yliopisto",
@@ -27,10 +21,21 @@
             "lon": 5.32415
         }
     ],
+    "members": [
+        "uib"
+    ],
     "ror": "03zga2b32",
     "urls": [
         "https://www.uib.no/",
         "http://www.uib.no/",
         "http://en.wikipedia.org/wiki/University_of_Bergen"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uib"
 }

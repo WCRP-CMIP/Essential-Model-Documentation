@@ -1,20 +1,14 @@
 {
-    "@id": "cas",
+    "validation_key": "cas",
+    "ui_label": "",
     "description": "Chinese Academy of Sciences",
-    "drs_name": "CAS",
-    "members": [
-        "cas"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CAS"
     ],
+    "drs_name": "CAS",
     "labels": [
         "Chinese Academy of Sciences",
-        "\u4e2d\u56fd\u79d1\u5b66\u9662"
+        "中国科学院"
     ],
     "location": [
         {
@@ -24,10 +18,21 @@
             "lon": 116.39723
         }
     ],
+    "members": [
+        "cas"
+    ],
     "ror": "034t30j35",
     "urls": [
         "http://english.cas.cn/",
         "https://www.cas.cn/",
         "http://en.wikipedia.org/wiki/Chinese_Academy_of_Sciences"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cas"
 }

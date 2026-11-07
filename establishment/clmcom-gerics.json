@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-gerics",
+    "validation_key": "clmcom-gerics",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Climate Service Center Germany",
     "drs_name": "CLMcom-GERICS",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-gerics"
 }

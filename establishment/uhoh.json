@@ -1,17 +1,11 @@
 {
-    "@id": "uhoh",
+    "validation_key": "uhoh",
+    "ui_label": "",
     "description": "University of Hohenheim",
-    "drs_name": "UHOH",
-    "members": [
-        "uhoh"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UHOH"
     ],
+    "drs_name": "UHOH",
     "labels": [
         "University of Hohenheim"
     ],
@@ -23,8 +17,19 @@
             "lon": 9.212
         }
     ],
+    "members": [
+        "uhoh"
+    ],
     "ror": "00b1c9541",
     "urls": [
         "https://www.uni-hohenheim.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uhoh"
 }

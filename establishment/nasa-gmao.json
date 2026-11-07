@@ -1,19 +1,24 @@
 {
-    "@id": "nasa-gmao",
+    "validation_key": "nasa-gmao",
+    "ui_label": "",
     "description": "NASA-GMAO",
-    "drs_name": "NASA-GMAO",
-    "members": [
-        "nasa-gmao"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NASA-GMAO",
     "labels": [
         "NASA-GMAO (NASA Global Modeling and Assimilation Office),Greenbelt MD, USA"
     ],
     "location": [],
+    "members": [
+        "nasa-gmao"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nasa-gmao"
 }

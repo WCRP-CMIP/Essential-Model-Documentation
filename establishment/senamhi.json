@@ -1,10 +1,11 @@
 {
-    "@id": "senamhi",
+    "validation_key": "senamhi",
+    "ui_label": "",
     "description": "Servicio Nacional de Meteorolog{\\'\\i}a e Hidrolog{\\'\\i}a del Per\\'u",
-    "drs_name": "senamhi",
     "acronyms": [
         "SENAMHI"
     ],
+    "drs_name": "senamhi",
     "labels": [
         "Servicio Nacional de Meteorolog{\\'\\i}a e Hidrolog{\\'\\i}a del Per\\'u"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "senamhi"
 }

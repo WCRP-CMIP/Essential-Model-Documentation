@@ -1,19 +1,24 @@
 {
-    "@id": "cnes",
+    "validation_key": "cnes",
+    "ui_label": "",
     "description": "CNES",
-    "drs_name": "CNES",
-    "members": [
-        "cnes"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "CNES",
     "labels": [
         "Centre national d'etudes spatiales"
     ],
     "location": [],
+    "members": [
+        "cnes"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cnes"
 }

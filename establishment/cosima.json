@@ -1,10 +1,11 @@
 {
-    "@id": "cosima",
+    "validation_key": "cosima",
+    "ui_label": "",
     "description": "Consortium for Ocean-Sea Ice Modelling in Australia",
-    "drs_name": "COSIMA",
     "acronyms": [
         "COSIMA"
     ],
+    "drs_name": "COSIMA",
     "labels": [
         "Consortium for Ocean-Sea Ice Modelling in Australia"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cosima"
 }

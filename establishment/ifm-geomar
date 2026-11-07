@@ -1,17 +1,11 @@
 {
-    "@id": "ifm-geomar",
+    "validation_key": "ifm-geomar",
+    "ui_label": "",
     "description": "GEOMAR Helmholtz Centre for Ocean Research Kiel",
-    "drs_name": "IFM-GEOMAR",
-    "members": [
-        "ifm-geomar"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IFM-GEOMAR"
     ],
+    "drs_name": "IFM-GEOMAR",
     "labels": [
         "GEOMAR Helmholtz Centre for Ocean Research Kiel",
         "GEOMAR Helmholtz-Zentrum f\\\"ur Ozeanforschung Kiel",
@@ -25,10 +19,21 @@
             "lon": 10.13489
         }
     ],
+    "members": [
+        "ifm-geomar"
+    ],
     "ror": "02h2x0161",
     "urls": [
         "https://www.geomar.de/",
         "http://www.geomar.de/en/",
         "https://en.wikipedia.org/wiki/GEOMAR_Helmholtz_Centre_for_Ocean_Research_Kiel"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ifm-geomar"
 }

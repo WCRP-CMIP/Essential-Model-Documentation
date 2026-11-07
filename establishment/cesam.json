@@ -1,10 +1,11 @@
 {
-    "@id": "cesam",
+    "validation_key": "cesam",
+    "ui_label": "",
     "description": "Centro de Estudos Ambientais e Marinhos",
-    "drs_name": "",
     "acronyms": [
         "CESAM"
     ],
+    "drs_name": "",
     "labels": [
         "Center for Environmental and Marine Studies",
         "Centro de Estudos Ambientais e Marinhos"
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cesam"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "ird",
+    "validation_key": "ird",
+    "ui_label": "",
     "description": "Institut de Recherche pour le D\\'eveloppement",
-    "drs_name": "IRD",
     "acronyms": [
         "IRD"
     ],
+    "drs_name": "IRD",
     "labels": [
         "Institut de Recherche pour le D\\'eveloppement"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ird"
 }

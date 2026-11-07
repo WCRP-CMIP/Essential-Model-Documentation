@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-awi",
+    "validation_key": "clmcom-awi",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Alfred Wegener Institute, Helmholtz Centre for Polar and Marine Research",
     "drs_name": "CLMcom-AWI",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-awi"
 }

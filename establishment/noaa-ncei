@@ -1,19 +1,24 @@
 {
-    "@id": "noaa-ncei",
+    "validation_key": "noaa-ncei",
+    "ui_label": "",
     "description": "NOAA-NCEI",
-    "drs_name": "NOAA-NCEI",
-    "members": [
-        "noaa-ncei"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NOAA-NCEI",
     "labels": [
         "NOAA National Centers for Environmental Information, Asheville, NC 28801, USA"
     ],
     "location": [],
+    "members": [
+        "noaa-ncei"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "noaa-ncei"
 }

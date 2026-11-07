@@ -1,19 +1,24 @@
 {
-    "@id": "rss",
+    "validation_key": "rss",
+    "ui_label": "",
     "description": "RSS",
-    "drs_name": "RSS",
-    "members": [
-        "rss"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "RSS",
     "labels": [
         "Remote Sensing Systems, Santa Rosa, CA USA"
     ],
     "location": [],
+    "members": [
+        "rss"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "rss"
 }

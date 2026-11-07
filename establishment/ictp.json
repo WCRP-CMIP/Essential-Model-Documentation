@@ -1,17 +1,11 @@
 {
-    "@id": "ictp",
+    "validation_key": "ictp",
+    "ui_label": "",
     "description": "The Abdus Salam International Centre for Theoretical Physics",
-    "drs_name": "ICTP",
-    "members": [
-        "ictp"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "ICTP"
     ],
+    "drs_name": "ICTP",
     "labels": [
         "Abdus Salam International Centre for Theoretical Physics",
         "Centro Internazionale di Fisica Teorica Abdus Salam",
@@ -27,9 +21,20 @@
             "lon": 13.77678
         }
     ],
+    "members": [
+        "ictp"
+    ],
     "ror": "009gyvm78",
     "urls": [
         "https://www.ictp.it/",
         "https://en.wikipedia.org/wiki/International_Centre_for_Theoretical_Physics"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ictp"
 }

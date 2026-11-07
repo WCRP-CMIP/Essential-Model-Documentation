@@ -1,10 +1,11 @@
 {
-    "@id": "iiasa",
+    "validation_key": "iiasa",
+    "ui_label": "",
     "description": "International Institue for Applied Systems Analysis",
-    "drs_name": "IIASA",
     "acronyms": [
         "IIASA"
     ],
+    "drs_name": "IIASA",
     "labels": [
         "International Institue for Applied Systems Analysis"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "iiasa"
 }

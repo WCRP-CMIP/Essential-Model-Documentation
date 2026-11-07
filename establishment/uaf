@@ -1,17 +1,11 @@
 {
-    "@id": "uaf",
+    "validation_key": "uaf",
+    "ui_label": "",
     "description": "University of Alaska Fairbanks",
-    "drs_name": "UAF",
-    "members": [
-        "uaf"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UAF"
     ],
+    "drs_name": "UAF",
     "labels": [
         "Universidad de Alaska Fairbanks",
         "University of Alaska Fairbanks",
@@ -25,9 +19,20 @@
             "lon": -147.71639
         }
     ],
+    "members": [
+        "uaf"
+    ],
     "ror": "01j7nq853",
     "urls": [
         "http://www.uaf.edu/",
         "http://en.wikipedia.org/wiki/University_of_Alaska_Fairbanks"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uaf"
 }

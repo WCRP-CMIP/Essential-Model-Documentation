@@ -1,17 +1,11 @@
 {
-    "@id": "bccr",
+    "validation_key": "bccr",
+    "ui_label": "",
     "description": "Bjerknes Centre for Climate Research",
-    "drs_name": "BCCR",
-    "members": [
-        "bccr"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "BCCR"
     ],
+    "drs_name": "BCCR",
     "labels": [
         "Bjerknes Centre for Climate Research"
     ],
@@ -23,8 +17,19 @@
             "lon": 5.32415
         }
     ],
+    "members": [
+        "bccr"
+    ],
     "ror": "011n96f14",
     "urls": [
         "http://www.bjerknes.uib.no/en/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bccr"
 }

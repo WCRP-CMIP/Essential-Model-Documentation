@@ -1,11 +1,12 @@
 {
-    "@id": "uio",
+    "validation_key": "uio",
+    "ui_label": "",
     "description": "Founded in 1811 as Royal Frederick University, the University of Oslo is Norway's oldest higher education institution. It is a premier public research university located in the nation's capital, serving nearly 28,000 students across eight specialised faculties including Law, Medicine, and Humanities. Recognised consistently among the world's top 100 universities, its distinguished history includes affiliation with five Nobel Prize laureates. While its historic central campus in downtown Oslo houses the Faculty of Law, the university's main academic operations are centred at its modern Blindern campus.",
-    "drs_name": "UiO",
     "acronyms": [
         "UIO",
         "UiO"
     ],
+    "drs_name": "UiO",
     "labels": [
         "University of Oslo",
         "Oslon Yliopisto",
@@ -28,6 +29,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uio"
 }

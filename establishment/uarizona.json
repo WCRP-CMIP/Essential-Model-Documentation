@@ -1,18 +1,12 @@
 {
-    "@id": "uarizona",
+    "validation_key": "uarizona",
+    "ui_label": "",
     "description": "The University of Arizona is a public research university in Tucson, Arizona, USA. It conducts extensive research in atmospheric sciences, climate modeling, hydrology, and Earth system science. The institution participates in global climate research collaborations and develops numerical models for environmental and climate applications.",
-    "drs_name": "UArizona",
-    "members": [
-        "uarizona"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UArizona",
         "UA"
     ],
+    "drs_name": "UArizona",
     "labels": [
         "The University of Arizona",
         "University of Arizona",
@@ -33,10 +27,21 @@
             "lon": -112.07404
         }
     ],
+    "members": [
+        "uarizona"
+    ],
     "ror": "03m2x1q45",
     "urls": [
         "https://www.arizona.edu/",
         "http://www.arizona.edu/",
         "http://en.wikipedia.org/wiki/University_of_Arizona"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uarizona"
 }

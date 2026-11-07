@@ -1,8 +1,9 @@
 {
-    "@id": "ineris",
+    "validation_key": "ineris",
+    "ui_label": "",
     "description": "Institut national de l'environnement industriel et des risques",
-    "drs_name": "INERIS",
     "acronyms": [],
+    "drs_name": "INERIS",
     "labels": [
         "Institut national de l'environnement industriel et des risques",
         "French National Institute for Industrial Environment and Risks"
@@ -21,6 +22,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ineris"
 }

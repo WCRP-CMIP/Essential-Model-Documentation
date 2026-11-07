@@ -1,17 +1,11 @@
 {
-    "@id": "fzj",
+    "validation_key": "fzj",
+    "ui_label": "",
     "description": "Forschungszentrum J\\\"ulich",
-    "drs_name": "FZJ",
-    "members": [
-        "fzj"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "FZJ"
     ],
+    "drs_name": "FZJ",
     "labels": [
         "Forschungszentrum J\\\"ulich"
     ],
@@ -23,8 +17,19 @@
             "lon": 6.36267
         }
     ],
+    "members": [
+        "fzj"
+    ],
     "ror": "02nv7yv05",
     "urls": [
         "https://www.fz-juelich.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fzj"
 }

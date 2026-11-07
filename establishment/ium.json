@@ -1,14 +1,15 @@
 {
-    "@id": "ium",
+    "validation_key": "ium",
+    "ui_label": "",
     "description": "China Meteorological Administration",
-    "drs_name": "ium",
     "acronyms": [
         "CMA"
     ],
+    "drs_name": "ium",
     "labels": [
         "Central Military Commission Meteorological Bureau",
         "China Meteorological Administration",
-        "\u4e2d\u56fd\u6c14\u8c61\u5c40"
+        "中国气象局"
     ],
     "location": [
         {
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ium"
 }

@@ -1,29 +1,9 @@
 {
-    "@id": "ucla",
+    "validation_key": "ucla",
+    "ui_label": "",
     "description": "",
-    "drs_name": "UCLA",
-    "members": [
-        "ucla"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UCLA"
-    ],
-    "labels": [],
-    "location": [
-        {
-            "city": "Los Angeles",
-            "country": "United States of America",
-            "lat": 34.067761,
-            "lon": -118.445146
-        }
-    ],
-    "ror": "046rm7j60",
-    "urls": [
-        "https://www.ucla.edu/"
     ],
     "aliases": [
         "Universit\\'e de Californie \\`a Los Angeles",
@@ -33,7 +13,32 @@
         "Universidad de California en Los \\'Angeles",
         "UCLA"
     ],
-    "cmip-acronym": "UCLA",
+    "cmip_acronym": "UCLA",
+    "drs_name": "UCLA",
     "established": 1881,
-    "name": "University of California, Los Angeles"
+    "labels": [],
+    "location": [
+        {
+            "city": "Los Angeles",
+            "country": "United States of America",
+            "lat": 34.067761,
+            "lon": -118.445146
+        }
+    ],
+    "members": [
+        "ucla"
+    ],
+    "name": "University of California, Los Angeles",
+    "ror": "046rm7j60",
+    "urls": [
+        "https://www.ucla.edu/"
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ucla"
 }

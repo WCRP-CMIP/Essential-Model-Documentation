@@ -1,15 +1,9 @@
 {
-    "@id": "uoleeds",
+    "validation_key": "uoleeds",
+    "ui_label": "",
     "description": "University of Leeds",
-    "drs_name": "UoLeeds",
-    "members": [
-        "uoleeds"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UoLeeds",
     "labels": [
         "University of Leeds"
     ],
@@ -21,8 +15,19 @@
             "lon": 53.79648
         }
     ],
+    "members": [
+        "uoleeds"
+    ],
     "ror": "024mrxd33",
     "urls": [
         "http://www.leeds.ac.uk/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uoleeds"
 }

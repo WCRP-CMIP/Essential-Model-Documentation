@@ -1,10 +1,11 @@
 {
-    "@id": "hereon",
+    "validation_key": "hereon",
+    "ui_label": "",
     "description": "Helmholtz-Zentrum Hereon",
-    "drs_name": "Hereon",
     "acronyms": [
         "Hereon"
     ],
+    "drs_name": "Hereon",
     "labels": [
         "Helmholtz-Zentrum Hereon"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hereon"
 }

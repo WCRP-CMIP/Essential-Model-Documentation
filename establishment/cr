@@ -1,17 +1,11 @@
 {
-    "@id": "cr",
+    "validation_key": "cr",
+    "ui_label": "",
     "description": "Climate Resource (Australia)",
-    "drs_name": "CR",
-    "members": [
-        "cr"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CR"
     ],
+    "drs_name": "CR",
     "labels": [
         "Climate Resource (Australia)",
         "Climate Resource",
@@ -26,8 +20,19 @@
             "lon": 144.96332
         }
     ],
+    "members": [
+        "cr"
+    ],
     "ror": "01kk86953",
     "urls": [
         "https://www.climate-resource.com/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cr"
 }

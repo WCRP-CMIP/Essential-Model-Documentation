@@ -1,18 +1,12 @@
 {
-    "@id": "dhmz",
+    "validation_key": "dhmz",
+    "ui_label": "",
     "description": "Croatian Meteorological and Hydrological Service",
-    "drs_name": "DHMZ",
-    "members": [
-        "dhmz"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "DHMZ",
         "MHS"
     ],
+    "drs_name": "DHMZ",
     "labels": [
         "Croatian Meteorological and Hydrological Service",
         "Dr\\v{z}avni hidrometeorolo\\v{s}ki zavod",
@@ -26,8 +20,19 @@
             "lon": 15.9722
         }
     ],
+    "members": [
+        "dhmz"
+    ],
     "ror": "02w95hf30",
     "urls": [
         "https://meteo.hr/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dhmz"
 }

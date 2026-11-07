@@ -1,17 +1,11 @@
 {
-    "@id": "metno",
+    "validation_key": "metno",
+    "ui_label": "",
     "description": "Norwegian Meteorological Institute",
-    "drs_name": "METNo",
-    "members": [
-        "metno"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "METNo"
     ],
+    "drs_name": "METNo",
     "labels": [
         "Meteorologisk institutt",
         "Norwegian Meteorological Institute",
@@ -25,9 +19,20 @@
             "lon": 10.74609
         }
     ],
+    "members": [
+        "metno"
+    ],
     "ror": "001n36p86",
     "urls": [
         "http://met.no/",
         "https://en.wikipedia.org/wiki/Norwegian_Meteorological_Institute"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "metno"
 }

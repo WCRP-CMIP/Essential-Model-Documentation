@@ -1,19 +1,24 @@
 {
-    "@id": "nasa-jpl",
+    "validation_key": "nasa-jpl",
+    "ui_label": "",
     "description": "NASA-JPL",
-    "drs_name": "NASA-JPL",
-    "members": [
-        "nasa-jpl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NASA-JPL",
     "labels": [
         "NASA Jet Propulsion Laboratory, Pasadena, CA 91109, USA"
     ],
     "location": [],
+    "members": [
+        "nasa-jpl"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nasa-jpl"
 }

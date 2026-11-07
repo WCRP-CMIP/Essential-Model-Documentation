@@ -1,17 +1,11 @@
 {
-    "@id": "kit",
+    "validation_key": "kit",
+    "ui_label": "",
     "description": "Karlsruhe Institute of Technology",
-    "drs_name": "KIT",
-    "members": [
-        "kit"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "KIT"
     ],
+    "drs_name": "KIT",
     "labels": [
         "Das Karlsruher Institut f\\\"ur Technologie (KIT) - Die Forschungsuniversit\\\"at in der Helmholtz-Gemeinschaft",
         "Das Karlsruher Institut f\\\"ur Technologie (KIT) - Die Universit\\\"at in der Helmholtz-Gemeinschaft",
@@ -28,9 +22,20 @@
             "lon": 8.40444
         }
     ],
+    "members": [
+        "kit"
+    ],
     "ror": "04t3en479",
     "urls": [
         "https://www.kit.edu/",
         "http://en.wikipedia.org/wiki/Karlsruhe_Institute_of_Technology"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "kit"
 }

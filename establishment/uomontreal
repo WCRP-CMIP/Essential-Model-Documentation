@@ -1,17 +1,11 @@
 {
-    "@id": "uomontreal",
+    "validation_key": "uomontreal",
+    "ui_label": "",
     "description": "Universit\\'e de Montr\\'eal",
-    "drs_name": "UoMontreal",
-    "members": [
-        "uomontreal"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "UdeM"
     ],
+    "drs_name": "UoMontreal",
     "labels": [
         "Universit\\'e de Montr\\'eal"
     ],
@@ -23,8 +17,19 @@
             "lon": -73.5807
         }
     ],
+    "members": [
+        "uomontreal"
+    ],
     "ror": "0161xgx34",
     "urls": [
         "http://www.umontreal.ca/english/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uomontreal"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "aori",
+    "validation_key": "aori",
+    "ui_label": "",
     "description": "Ocean Atmosphere Systems (Germany)",
-    "drs_name": "AORI",
     "acronyms": [
         "AORI"
     ],
+    "drs_name": "AORI",
     "labels": [
         "Ocean Atmosphere Systems (Germany)"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "aori"
 }

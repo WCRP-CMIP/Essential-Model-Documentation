@@ -1,5 +1,6 @@
 {
-    "@id": "task-imwm",
+    "validation_key": "task-imwm",
+    "ui_label": "",
     "description": "TASK [Centre of Informatics TASK, Gdansk University of Technology, Gdansk, Poland]; IMWM [Institute of Meteorology and Water Management, Warsaw, Poland]",
     "drs_name": "TASK-IMWM",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "task-imwm"
 }

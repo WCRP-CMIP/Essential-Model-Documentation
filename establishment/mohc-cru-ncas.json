@@ -1,19 +1,24 @@
 {
-    "@id": "mohc-cru-ncas",
+    "validation_key": "mohc-cru-ncas",
+    "ui_label": "",
     "description": "MOHC-CRU-NCAS",
-    "drs_name": "MOHC-CRU-NCAS",
-    "members": [
-        "mohc-cru-ncas"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "MOHC-CRU-NCAS",
     "labels": [
         "Joint research collaboration between MOHC(UK), CRU-UEA (UK) and NCAS (UK)"
     ],
     "location": [],
+    "members": [
+        "mohc-cru-ncas"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mohc-cru-ncas"
 }

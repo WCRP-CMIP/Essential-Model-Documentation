@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-guf",
+    "validation_key": "clmcom-guf",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Goethe University Frankfurt",
     "drs_name": "CLMcom-GUF",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-guf"
 }

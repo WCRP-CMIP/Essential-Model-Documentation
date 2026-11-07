@@ -1,5 +1,6 @@
 {
-    "@id": "idl-fcul",
+    "validation_key": "idl-fcul",
+    "ui_label": "",
     "description": "Instituto Dom Luiz, Faculdade de Ciencias, Universidade de Lisboa",
     "drs_name": "IDL-FCUL",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "idl-fcul"
 }

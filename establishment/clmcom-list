@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-list",
+    "validation_key": "clmcom-list",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Luxembourg Institute of Science and Technology",
     "drs_name": "CLMcom-LIST",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-list"
 }

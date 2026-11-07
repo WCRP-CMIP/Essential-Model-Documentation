@@ -1,19 +1,24 @@
 {
-    "@id": "uci-chrs",
+    "validation_key": "uci-chrs",
+    "ui_label": "",
     "description": "UCI-CHRS",
-    "drs_name": "UCI-CHRS",
-    "members": [
-        "uci-chrs"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UCI-CHRS",
     "labels": [
         "Center for Hydrometeorology and Remote Sensing"
     ],
     "location": [],
+    "members": [
+        "uci-chrs"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uci-chrs"
 }

@@ -1,10 +1,11 @@
 {
-    "@id": "nau",
+    "validation_key": "nau",
+    "ui_label": "",
     "description": "Northern Arizona University",
-    "drs_name": "NAU",
     "acronyms": [
         "NAU"
     ],
+    "drs_name": "NAU",
     "labels": [
         "Northern Arizona University"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nau"
 }

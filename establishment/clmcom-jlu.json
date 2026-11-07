@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-jlu",
+    "validation_key": "clmcom-jlu",
+    "ui_label": "",
     "description": "clmcom-jlu institute",
     "drs_name": "CLMCOM-JLU",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-jlu"
 }

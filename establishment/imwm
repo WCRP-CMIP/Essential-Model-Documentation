@@ -1,17 +1,11 @@
 {
-    "@id": "imwm",
+    "validation_key": "imwm",
+    "ui_label": "",
     "description": "Institute of Meteorology and Water Management",
-    "drs_name": "IMWM",
-    "members": [
-        "imwm"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IMWM"
     ],
+    "drs_name": "IMWM",
     "labels": [
         "Institute of Meteorology and Water Management"
     ],
@@ -23,8 +17,19 @@
             "lon": 20.96136
         }
     ],
+    "members": [
+        "imwm"
+    ],
     "ror": "0406s2v03",
     "urls": [
         "https://imgw.pl/en/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "imwm"
 }

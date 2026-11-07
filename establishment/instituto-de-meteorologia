@@ -1,10 +1,11 @@
 {
-    "@id": "instituto-de-meteorologia",
+    "validation_key": "instituto-de-meteorologia",
+    "ui_label": "",
     "description": "Portuguese Sea and Atmosphere Institute",
-    "drs_name": "IPMA",
     "acronyms": [
         "IPMA"
     ],
+    "drs_name": "IPMA",
     "labels": [
         "Instituto Portugu\\^es do Mar e da Atmosfera",
         "Portuguese Sea and Atmosphere Institute"
@@ -24,6 +25,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "instituto-de-meteorologia"
 }

@@ -1,19 +1,24 @@
 {
-    "@id": "imperialcollege",
+    "validation_key": "imperialcollege",
+    "ui_label": "",
     "description": "ImperialCollege",
-    "drs_name": "ImperialCollege",
-    "members": [
-        "imperialcollege"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "ImperialCollege",
     "labels": [
         "Imperial College, London, UK"
     ],
     "location": [],
+    "members": [
+        "imperialcollege"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "imperialcollege"
 }

@@ -1,15 +1,9 @@
 {
-    "@id": "uom",
+    "validation_key": "uom",
+    "ui_label": "",
     "description": "University of Melbourne",
-    "drs_name": "UoM",
-    "members": [
-        "uom"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "UoM",
     "labels": [
         "University of Melbourne"
     ],
@@ -21,8 +15,19 @@
             "lon": 144.96332
         }
     ],
+    "members": [
+        "uom"
+    ],
     "ror": "01ej9dk98",
     "urls": [
         "http://www.unimelb.edu.au/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "uom"
 }

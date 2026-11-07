@@ -1,17 +1,11 @@
 {
-    "@id": "pnnl-waccem",
+    "validation_key": "pnnl-waccem",
+    "ui_label": "",
     "description": "Pacific Northwest National Laboratory",
-    "drs_name": "PNNL-WACCEM",
-    "members": [
-        "pnnl-waccem"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "PNNL"
     ],
+    "drs_name": "PNNL-WACCEM",
     "labels": [
         "Pacific Northwest National Laboratory"
     ],
@@ -23,8 +17,19 @@
             "lon": -119.28446
         }
     ],
+    "members": [
+        "pnnl-waccem"
+    ],
     "ror": "05h992307",
     "urls": [
         "http://www.pnnl.gov/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "pnnl-waccem"
 }

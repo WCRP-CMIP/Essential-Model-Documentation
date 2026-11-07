@@ -1,11 +1,12 @@
 {
-    "@id": "bsc",
+    "validation_key": "bsc",
+    "ui_label": "",
     "description": "Barcelona Supercomputing Center",
-    "drs_name": "BSC",
     "acronyms": [
         "BSC",
         "BSC-CNS"
     ],
+    "drs_name": "BSC",
     "labels": [
         "Barcelona Supercomputing Center",
         "Centre Nacional de Supercomputaci\\'o",
@@ -26,6 +27,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "bsc"
 }

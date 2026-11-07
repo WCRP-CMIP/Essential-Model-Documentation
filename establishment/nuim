@@ -1,17 +1,11 @@
 {
-    "@id": "nuim",
+    "validation_key": "nuim",
+    "ui_label": "",
     "description": "National University of Ireland, Maynooth",
-    "drs_name": "NUIM",
-    "members": [
-        "nuim"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NUIM"
     ],
+    "drs_name": "NUIM",
     "labels": [
         "National University of Ireland, Maynooth",
         "Ollscoil na h\\'Eireann M\\'a Nuad",
@@ -25,8 +19,19 @@
             "lon": -6.5922
         }
     ],
+    "members": [
+        "nuim"
+    ],
     "ror": "048nfjm95",
     "urls": [
         "https://www.maynoothuniversity.ie/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nuim"
 }

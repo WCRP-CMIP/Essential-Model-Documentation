@@ -1,17 +1,11 @@
 {
-    "@id": "dmi",
+    "validation_key": "dmi",
+    "ui_label": "",
     "description": "Danish Meteorological Institute",
-    "drs_name": "DMI",
-    "members": [
-        "dmi"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "DMI"
     ],
+    "drs_name": "DMI",
     "labels": [
         "Danish Meteorological Institute",
         "Danmarks Meteorologiske Institut",
@@ -26,9 +20,20 @@
             "lon": 12.56553
         }
     ],
+    "members": [
+        "dmi"
+    ],
     "ror": "020m6x732",
     "urls": [
         "https://www.dmi.dk/",
         "https://en.wikipedia.org/wiki/Danish_Meteorological_Institute"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "dmi"
 }

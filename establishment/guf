@@ -1,10 +1,11 @@
 {
-    "@id": "guf",
+    "validation_key": "guf",
+    "ui_label": "",
     "description": "Goethe University Frankfurt",
-    "drs_name": "GUF",
     "acronyms": [
         "GUF"
     ],
+    "drs_name": "GUF",
     "labels": [
         "Goethe University Frankfurt"
     ],
@@ -20,6 +21,10 @@
     "urls": [],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "guf"
 }

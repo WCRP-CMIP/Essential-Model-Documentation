@@ -1,10 +1,11 @@
 {
-    "@id": "wits",
+    "validation_key": "wits",
+    "ui_label": "",
     "description": "University of the Witwatersrand",
-    "drs_name": "WITS",
     "acronyms": [
         "Wits"
     ],
+    "drs_name": "WITS",
     "labels": [
         "University of the Witwatersrand"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "wits"
 }

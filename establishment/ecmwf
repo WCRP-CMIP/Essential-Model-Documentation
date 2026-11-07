@@ -1,19 +1,24 @@
 {
-    "@id": "ecmwf",
+    "validation_key": "ecmwf",
+    "ui_label": "",
     "description": "ECMWF",
-    "drs_name": "ECMWF",
-    "members": [
-        "ecmwf"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "ECMWF",
     "labels": [
         "The European Centre for Medium-Range Weather Forecasts, Shinfield Park, Reading RG2 9AX, UK"
     ],
     "location": [],
+    "members": [
+        "ecmwf"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ecmwf"
 }

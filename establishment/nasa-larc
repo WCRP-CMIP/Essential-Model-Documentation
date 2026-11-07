@@ -1,19 +1,24 @@
 {
-    "@id": "nasa-larc",
+    "validation_key": "nasa-larc",
+    "ui_label": "",
     "description": "NASA-LaRC",
-    "drs_name": "NASA-LaRC",
-    "members": [
-        "nasa-larc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NASA-LaRC",
     "labels": [
         "NASA-LaRC (Langley Research Center) Hampton, Va"
     ],
     "location": [],
+    "members": [
+        "nasa-larc"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nasa-larc"
 }

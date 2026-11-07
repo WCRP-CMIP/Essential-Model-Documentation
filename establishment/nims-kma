@@ -1,22 +1,16 @@
 {
-    "@id": "nims-kma",
+    "validation_key": "nims-kma",
+    "ui_label": "",
     "description": "The National Institute of Meteorological Sciences (NIMS) is the research institute of the Korea Meteorological Administration (KMA). NIMS conducts research in weather, climate, atmospheric science, and Earth system modeling, and develops climate model datasets for national and international research activities, including CMIP.",
-    "drs_name": "NIMS-KMA",
-    "members": [
-        "nims-kma"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NIMS-KMA",
         "NIMS"
     ],
+    "drs_name": "NIMS-KMA",
     "labels": [
         "National Institute of Meteorological Sciences - Korea Meteorological Administration",
         "National Institute of Meteorological Sciences",
-        "\uad6d\ub9bd\uae30\uc0c1\uacfc\ud559\uc6d0"
+        "국립기상과학원"
     ],
     "location": [
         {
@@ -26,9 +20,20 @@
             "lon": 126.56181
         }
     ],
+    "members": [
+        "nims-kma"
+    ],
     "ror": "04m2hj141",
     "urls": [
         "http://www.nims.go.kr/AE/MA/main.jsp",
         "http://www.nimr.go.kr/AE/MA/main.jsp"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nims-kma"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "idl",
+    "validation_key": "idl",
+    "ui_label": "",
     "description": "Instituto Dom Luiz, Faculdade de Ciencias, Universidade de Lisboa",
-    "drs_name": "IDL",
-    "members": [
-        "idl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IDL"
     ],
+    "drs_name": "IDL",
     "labels": [
         "Instituto Dom Luiz, Faculdade de Ciencias, Universidade de Lisboa",
         "Instituto Dom Luiz"
@@ -24,8 +18,19 @@
             "lon": -9.13333
         }
     ],
+    "members": [
+        "idl"
+    ],
     "ror": "046ggxs83",
     "urls": [
         "http://idl.campus.ciencias.ulisboa.pt/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "idl"
 }

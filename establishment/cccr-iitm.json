@@ -1,17 +1,11 @@
 {
-    "@id": "cccr-iitm",
+    "validation_key": "cccr-iitm",
+    "ui_label": "",
     "description": "Indian Institute of Tropical Meteorology",
-    "drs_name": "CCCR-IITM",
-    "members": [
-        "cccr-iitm"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IITM"
     ],
+    "drs_name": "CCCR-IITM",
     "labels": [
         "Indian Institute of Tropical Meteorology"
     ],
@@ -23,8 +17,19 @@
             "lon": 73.85535
         }
     ],
+    "members": [
+        "cccr-iitm"
+    ],
     "ror": "03jf2m686",
     "urls": [
         "http://www.tropmet.res.in/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cccr-iitm"
 }

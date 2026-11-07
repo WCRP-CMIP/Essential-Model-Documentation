@@ -1,17 +1,11 @@
 {
-    "@id": "iamc",
+    "validation_key": "iamc",
+    "ui_label": "",
     "description": "NorESM Climate Modeling Consortium",
-    "drs_name": "IAMC",
-    "members": [
-        "iamc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "IAMC"
     ],
+    "drs_name": "IAMC",
     "labels": [
         "NorESM Climate Modeling Consortium"
     ],
@@ -23,8 +17,19 @@
             "lon": 5.32415
         }
     ],
+    "members": [
+        "iamc"
+    ],
     "ror": "02grwav03",
     "urls": [
         "https://www.noresm.org/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "iamc"
 }

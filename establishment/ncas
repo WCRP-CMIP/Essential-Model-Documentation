@@ -1,17 +1,11 @@
 {
-    "@id": "ncas",
+    "validation_key": "ncas",
+    "ui_label": "",
     "description": "UK National Centre for Atmospheric Science",
-    "drs_name": "NCAS",
-    "members": [
-        "ncas"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NCAS"
     ],
+    "drs_name": "NCAS",
     "labels": [
         "National Centre for Atmospheric Science"
     ],
@@ -23,9 +17,20 @@
             "lon": -1.54785
         }
     ],
+    "members": [
+        "ncas"
+    ],
     "ror": "01wwwe276",
     "urls": [
         "https://ncas.ac.uk/",
         "http://en.wikipedia.org/wiki/National_Centre_for_Atmospheric_Science"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ncas"
 }

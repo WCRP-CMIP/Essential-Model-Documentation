@@ -1,19 +1,24 @@
 {
-    "@id": "gloh2o",
+    "validation_key": "gloh2o",
+    "ui_label": "",
     "description": "GloH2O",
-    "drs_name": "GloH2O",
-    "members": [
-        "gloh2o"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "GloH2O",
     "labels": [
         "gloh2o.org"
     ],
     "location": [],
+    "members": [
+        "gloh2o"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "gloh2o"
 }

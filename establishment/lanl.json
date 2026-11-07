@@ -1,10 +1,11 @@
 {
-    "@id": "lanl",
+    "validation_key": "lanl",
+    "ui_label": "",
     "description": "Los Alamos National Laboratory",
-    "drs_name": "LANL",
     "acronyms": [
         "LANL"
     ],
+    "drs_name": "LANL",
     "labels": [
         "Los Alamos National Laboratory"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "lanl"
 }

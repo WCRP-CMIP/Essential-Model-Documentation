@@ -1,17 +1,11 @@
 {
-    "@id": "nerc",
+    "validation_key": "nerc",
+    "ui_label": "",
     "description": "Natural Environment Research Council",
-    "drs_name": "NERC",
-    "members": [
-        "nerc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "NERC"
     ],
+    "drs_name": "NERC",
     "labels": [
         "Natural Environment Research Council"
     ],
@@ -23,9 +17,20 @@
             "lon": -1.78116
         }
     ],
+    "members": [
+        "nerc"
+    ],
     "ror": "02b5d8509",
     "urls": [
         "https://www.ukri.org/councils/nerc/",
         "http://en.wikipedia.org/wiki/Natural_Environment_Research_Council"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nerc"
 }

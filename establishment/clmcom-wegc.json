@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-wegc",
+    "validation_key": "clmcom-wegc",
+    "ui_label": "",
     "description": "clmcom-wegc institute",
     "drs_name": "CLMcom-WEGC",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-wegc"
 }

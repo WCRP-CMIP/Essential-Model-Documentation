@@ -1,10 +1,11 @@
 {
-    "@id": "qnlm",
+    "validation_key": "qnlm",
+    "ui_label": "",
     "description": "Qingdao National Laboratory for Marine Science and Technology",
-    "drs_name": "QNLM",
     "acronyms": [
         "QNLM"
     ],
+    "drs_name": "QNLM",
     "labels": [
         "Qingdao National Laboratory for Marine Science and Technology"
     ],
@@ -22,6 +23,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "qnlm"
 }

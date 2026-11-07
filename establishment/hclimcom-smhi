@@ -1,5 +1,6 @@
 {
-    "@id": "hclimcom-smhi",
+    "validation_key": "hclimcom-smhi",
+    "ui_label": "",
     "description": "HARMONIE Climate Modelling Community (HCLIMcom) partner: Swedish Meteorological and Hydrological Institute (SMHI)",
     "drs_name": "HCLIMcom-SMHI",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "hclimcom-smhi"
 }

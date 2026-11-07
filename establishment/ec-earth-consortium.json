@@ -1,5 +1,6 @@
 {
-    "@id": "ec-earth-consortium",
+    "validation_key": "ec-earth-consortium",
+    "ui_label": "",
     "description": "EC-Earth-Consortium",
     "drs_name": "EC-Earth-Consortium",
     "members": [
@@ -37,6 +38,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ec-earth-consortium"
 }

@@ -1,15 +1,9 @@
 {
-    "@id": "mohc",
+    "validation_key": "mohc",
+    "ui_label": "",
     "description": "Met Office Hadley Centre",
-    "drs_name": "MOHC",
-    "members": [
-        "mohc"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "MOHC",
     "labels": [
         "Met Office",
         "Meteorological Office"
@@ -22,9 +16,20 @@
             "lon": -3.52751
         }
     ],
+    "members": [
+        "mohc"
+    ],
     "ror": "01ch2yn61",
     "urls": [
         "http://www.metoffice.gov.uk/",
         "http://en.wikipedia.org/wiki/Met_Office"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "mohc"
 }

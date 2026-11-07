@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom",
+    "validation_key": "clmcom",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom)",
     "drs_name": "CLMcom",
     "members": [
@@ -19,6 +20,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom"
 }

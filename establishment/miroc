@@ -1,5 +1,6 @@
 {
-    "@id": "miroc",
+    "validation_key": "miroc",
+    "ui_label": "",
     "description": "MIROC is a collaborative climate modeling consortium in Japan that develops and applies the MIROC climate model for climate research and international model intercomparison projects.",
     "drs_name": "MIROC",
     "members": [
@@ -10,6 +11,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "miroc"
 }

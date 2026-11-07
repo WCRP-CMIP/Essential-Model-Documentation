@@ -1,19 +1,24 @@
 {
-    "@id": "knmi-wur",
+    "validation_key": "knmi-wur",
+    "ui_label": "",
     "description": "KNMI-WUR",
-    "drs_name": "KNMI-WUR",
-    "members": [
-        "knmi-wur"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "KNMI-WUR",
     "labels": [
         "Multi-institute/agency collaboration"
     ],
     "location": [],
+    "members": [
+        "knmi-wur"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "knmi-wur"
 }

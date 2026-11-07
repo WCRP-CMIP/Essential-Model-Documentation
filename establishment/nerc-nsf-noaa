@@ -1,19 +1,24 @@
 {
-    "@id": "nerc-nsf-noaa",
+    "validation_key": "nerc-nsf-noaa",
+    "ui_label": "",
     "description": "NERC-NSF-NOAA",
-    "drs_name": "NERC-NSF-NOAA",
-    "members": [
-        "nerc-nsf-noaa"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "NERC-NSF-NOAA",
     "labels": [
         "Multi-institute/agency collaboration"
     ],
     "location": [],
+    "members": [
+        "nerc-nsf-noaa"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "nerc-nsf-noaa"
 }

@@ -1,5 +1,6 @@
 {
-    "@id": "clmcom-fzj",
+    "validation_key": "clmcom-fzj",
+    "ui_label": "",
     "description": "Climate Limited-area Modelling Community (CLMcom) partner: Forschungszentrum Juelich",
     "drs_name": "CLMcom-FZJ",
     "members": [
@@ -7,6 +8,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "clmcom-fzj"
 }

@@ -1,17 +1,11 @@
 {
-    "@id": "fuberlin",
+    "validation_key": "fuberlin",
+    "ui_label": "",
     "description": "Freie Universit\\\"at Berlin",
-    "drs_name": "FUBerlin",
-    "members": [
-        "fuberlin"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "FU"
     ],
+    "drs_name": "FUBerlin",
     "labels": [
         "Freie Universit\\\"at Berlin"
     ],
@@ -23,8 +17,19 @@
             "lon": 52.52437
         }
     ],
+    "members": [
+        "fuberlin"
+    ],
     "ror": "046ak2485",
     "urls": [
         "https://www.fu-berlin.de/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "fuberlin"
 }

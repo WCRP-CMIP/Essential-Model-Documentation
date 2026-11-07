@@ -1,19 +1,11 @@
 {
-    "@id": "cesam-ua",
+    "validation_key": "cesam-ua",
+    "ui_label": "",
     "description": "Center for Environmental and Marine Studies (CESAM), Aveiro University (UA)",
-    "drs_name": "CESAM-UA",
-    "members": [
-        "cesam",
-        "cesam-ua",
-        "ua"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CESAM-UA"
     ],
+    "drs_name": "CESAM-UA",
     "labels": [
         "Center for Environmental and Marine Studies (CESAM), Aveiro University (UA)"
     ],
@@ -25,8 +17,21 @@
             "lon": -8.657462
         }
     ],
+    "members": [
+        "cesam",
+        "cesam-ua",
+        "ua"
+    ],
     "ror": "03q36qm19",
     "urls": [
         "https://www.cesam-la.pt/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cesam-ua"
 }

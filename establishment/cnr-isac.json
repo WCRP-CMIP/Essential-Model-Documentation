@@ -1,19 +1,11 @@
 {
-    "@id": "cnr-isac",
+    "validation_key": "cnr-isac",
+    "ui_label": "",
     "description": "Institute of Atmospheric Sciences and Climate",
-    "drs_name": "CNR-ISAC",
-    "members": [
-        "cnr",
-        "cnr-isac",
-        "isac"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [
         "CNR-ISAC"
     ],
+    "drs_name": "CNR-ISAC",
     "labels": [
         "Institute of Atmospheric Sciences and Climate",
         "Istituto di Scienze dell'Atmosfera e del Clima"
@@ -26,8 +18,21 @@
             "lon": 11.33875
         }
     ],
+    "members": [
+        "cnr",
+        "cnr-isac",
+        "isac"
+    ],
     "ror": "00n8ttd98",
     "urls": [
         "http://www.isac.cnr.it/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "cnr-isac"
 }

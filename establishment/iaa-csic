@@ -1,11 +1,12 @@
 {
-    "@id": "iaa-csic",
+    "validation_key": "iaa-csic",
+    "ui_label": "",
     "description": "Instituto de Astrof{\\'\\i}sica de Andaluc{\\'\\i}a",
-    "drs_name": "IAA-CSIC",
     "acronyms": [
         "IAA",
         "IAA-CSIC"
     ],
+    "drs_name": "IAA-CSIC",
     "labels": [
         "Instituto de Astrof{\\'\\i}sica de Andaluc{\\'\\i}a"
     ],
@@ -23,6 +24,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "institution"
-    ]
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "iaa-csic"
 }

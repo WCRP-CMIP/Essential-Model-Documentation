@@ -1,15 +1,9 @@
 {
-    "@id": "isu",
+    "validation_key": "isu",
+    "ui_label": "",
     "description": "Iowa State University",
-    "drs_name": "ISU",
-    "members": [
-        "isu"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "ISU",
     "labels": [
         "Iowa State University"
     ],
@@ -21,8 +15,19 @@
             "lon": -73.9893
         }
     ],
+    "members": [
+        "isu"
+    ],
     "ror": "04rswrd78",
     "urls": [
         "https://www.iastate.edu/"
-    ]
+    ],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "isu"
 }

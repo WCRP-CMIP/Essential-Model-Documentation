@@ -1,5 +1,6 @@
 {
-    "@id": "ipsl-ineris",
+    "validation_key": "ipsl-ineris",
+    "ui_label": "",
     "description": "IPSL (Institut Pierre Simon Laplace) and INERIS (Institut National de l Environnement industriel et des RISques)",
     "drs_name": "IPSL-INERIS",
     "members": [
@@ -8,6 +9,10 @@
     ],
     "@context": "_context",
     "@type": [
-        "organisation"
-    ]
+        "organisation",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "ipsl-ineris"
 }

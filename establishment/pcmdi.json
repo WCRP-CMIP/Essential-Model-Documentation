@@ -1,20 +1,25 @@
 {
-    "@id": "pcmdi",
+    "validation_key": "pcmdi",
+    "ui_label": "",
     "description": "PCMDI",
-    "drs_name": "PCMDI",
-    "members": [
-        "pcmdi",
-        "llnl"
-    ],
-    "@context": "_context",
-    "@type": [
-        "institution"
-    ],
     "acronyms": [],
+    "drs_name": "PCMDI",
     "labels": [
         "Program for Climate Model Diagnosis and Intercomparison, Lawrence Livermore National Laboratory, Livermore, CA 94550, USA"
     ],
     "location": [],
+    "members": [
+        "pcmdi",
+        "llnl"
+    ],
     "ror": null,
-    "urls": []
+    "urls": [],
+    "@context": "_context",
+    "@type": [
+        "institution",
+        "wcrp:establishment",
+        "esgvoc:Establishment",
+        "emd"
+    ],
+    "@id": "pcmdi"
 }
