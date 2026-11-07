@@ -34,6 +34,7 @@ function init() {
     // ==========================================
     // MATOMO TRACKER: send each visit to the server
     // ==========================================
+<<<<<<< HEAD
 
     // Every page visit is recorded. Only the COOKIES depend on the visitor's choice:
     // requireCookieConsent makes Matomo count the visit without setting any cookie until
@@ -45,6 +46,26 @@ function init() {
     function matomo(...command) {
         if (!LIVE) return;
         (window._paq = window._paq || []).push(command);
+=======
+    // Loads Matomo and records the page view. Visits are counted without cookies until the visitor
+    // accepts (requireCookieConsent); the banner below decides about cookies. Sent from every
+    // hostname (the live sites, a local server, a preview copy), and not when the page is
+    // embedded in a frame. There is deliberately no hostname list.
+
+    const SEND = window.self === window.top;
+
+    window._paq = window._paq || [];
+    if (SEND) {
+        _paq.push(["requireCookieConsent"]);          // must come before trackPageView
+        _paq.push(["setTrackerUrl", TRACKER_URL]);
+        _paq.push(["setSiteId", SITE_ID]);
+        _paq.push(["trackPageView"]);
+        _paq.push(["enableLinkTracking"]);
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://webstats.wcrp-cmip.org/matomo.js";
+        document.head.appendChild(script);
+>>>>>>> df7b6dc1 (tracker fix)
     }
 
     const accepted = localStorage.getItem(ACCEPT) === "true";
