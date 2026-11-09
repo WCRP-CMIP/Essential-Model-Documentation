@@ -1,0 +1,20 @@
+{
+    "validation_key": "cesm3-cice6",
+    "ui_label": "CESM3-CICE6",
+    "description": "We use the CICE Consortium model which simulates sea-ice dynamics and thermodynamics and includes a subgridscale ice thickness distribution (ITD). For CESM3-CICE6 we use the most of the defaults from the CICE Consortium. The main differences in the CESM3-CICE6 include: sea-level ponds (Clemens-Sewall et al. in prep), floe size distribution with new wave fracturing (Tremblay and Roach 2026), and the one-step congelation growth of Plante et al. 2024. The following are the namelist changes from the standard CICE configuration:  ``` congel_freeze = 'one-step' tr_ponds_sealvl = .true. tscale_pnd_drain = 0.5 wave_frac_spec = 'alt' (not yet in the Consortium code) ```",
+    "code_base": "https://github.com/ESCOMP/CICE",
+    "component": "sea-ice",
+    "family": "cice",
+    "references": [
+        "https://doi.org/10.5281/zenodo.1205674",
+        "https://essopenarchive.org/doi/full/10.22541/essoar.15009646",
+        "https://doi.org/10.5194/tc-18-1685-2024"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "cesm3-cice6"
+}
