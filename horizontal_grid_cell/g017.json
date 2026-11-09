@@ -1,0 +1,27 @@
+{
+  "validation_key": "g017",
+  "ui_label": "Horizontal grid with a single cell for Antarctica.",
+    "description": "A single grid cell for the geographical region of Antarctica,",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 1,
+  "region": [
+    "antarctica"
+  ],
+  "southernmost_latitude": "",
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "",
+  "westernmost_longitude": "",
+  "x_resolution": "",
+  "y_resolution": "",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g017"
+}
