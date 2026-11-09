@@ -1,0 +1,16 @@
+{
+  "validation_key": "h173",
+  "ui_label": "",
+  "description": "Unstaggered (Arakawa-A) grid for a spectral atmosphere model: T62 triangular truncation with a quadratic Gaussian transform grid (192 x 96, ~1.875 deg). All grid-point variables, including both wind components, are at the same points.",
+  "arrangement": "arakawa-a",
+  "horizontal_subgrids": [
+    "g268_mass_x-velocity_y-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid"
+  ],
+  "@id": "h173"
+}
