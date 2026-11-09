@@ -1,0 +1,27 @@
+{
+  "validation_key": "g016",
+  "ui_label": "Horizontal grid cell with a single cell for Greenland.",
+    "description": "A single grid cell for the geographical region of Greenland,",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "regular-latitude-longitude",
+  "n_cells": 1,
+  "region": [
+    "greenland"
+  ],
+  "southernmost_latitude": "",
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "",
+  "westernmost_longitude": "",
+  "x_resolution": "",
+  "y_resolution": "",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g016"
+}
