@@ -286,6 +286,7 @@ body:
         - "g275"
         - "g276"
         - "g277"
+        - "g278"
       default: 0
     validations:
       required: true
@@ -314,6 +315,7 @@ body:
         - "mass"
         - "u-velocity"
         - "v-velocity"
+        - "velocity"
         - "vorticity"
         - "x-velocity"
         - "y-velocity"
@@ -528,6 +530,7 @@ body:
         - "g275"
         - "g276"
         - "g277"
+        - "g278"
       default: 0
 
   - type: dropdown
@@ -540,6 +543,7 @@ body:
         - "mass"
         - "u-velocity"
         - "v-velocity"
+        - "velocity"
         - "vorticity"
         - "x-velocity"
         - "y-velocity"
@@ -752,6 +756,7 @@ body:
         - "g275"
         - "g276"
         - "g277"
+        - "g278"
       default: 0
 
   - type: dropdown
@@ -764,6 +769,7 @@ body:
         - "mass"
         - "u-velocity"
         - "v-velocity"
+        - "velocity"
         - "vorticity"
         - "x-velocity"
         - "y-velocity"
@@ -976,6 +982,7 @@ body:
         - "g275"
         - "g276"
         - "g277"
+        - "g278"
       default: 0
 
   - type: dropdown
@@ -988,6 +995,7 @@ body:
         - "mass"
         - "u-velocity"
         - "v-velocity"
+        - "velocity"
         - "vorticity"
         - "x-velocity"
         - "y-velocity"
