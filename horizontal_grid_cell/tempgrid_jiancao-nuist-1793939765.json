@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_jiancao-nuist-1793939765",
+    "ui_label": "Horizontal grid cell with a quadratic spectral gaussian grid type and 0.9375 x 0.935 degree resolution.",
+    "description": "Regular Gaussian horizontal grid (384 longitudes x 192 Gaussian latitudes = 73,728 cells) associated with triangular spectral truncation T127. Zonal spacing is uniform at 0.9375 degrees; meridional Gaussian spacing is ~0.935 degrees near the Equator.",
+    "alias": [
+        "T127",
+        "N96 (384x192)"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "quadratic-spectral-gaussian",
+    "n_cells": 73728,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -89.284228,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 127,
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 0.9375,
+    "y_resolution": 0.935,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_jiancao-nuist-1793939765"
+}
