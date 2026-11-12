@@ -1,0 +1,18 @@
+{
+    "validation_key": "marbl1",
+    "ui_label": "MARBL1",
+    "description": "The Marine Biogeochemistry Library version 1 (MARBL1) is the ocean biogeochemistry model in CESM version 3. MARBL is originally based on BEC, the Biogeochemistry Elemental Cycle model that was in CESM version 1. MARBL simulates marine carbon, nutrient, and oxygen cycling, including a representation of the planktonic marine ecosystem (NPZD-type). MARBL1 in CESM3 has a 4 phytoplankton/2 zooplankton marine planktonic ecosystem and fully flexible phytoplankton stoichiometry, including variable C:N ratios. It has a calcifying plankton type, which is sensitive to ocean acidification. MARBL1 has updated iron cycling, with sources from rivers, sediments, and atmospheric dust and black carbon.",
+    "code_base": "https://github.com/marbl-ecosys/MARBL",
+    "component": "ocean-biogeochemistry",
+    "family": "marbl",
+    "references": [
+        "https://doi.org/10.1029/2021MS002647"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "marbl1"
+}
