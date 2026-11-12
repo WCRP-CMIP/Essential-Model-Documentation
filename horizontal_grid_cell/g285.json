@@ -1,0 +1,27 @@
+{
+  "validation_key": "g285",
+  "ui_label": "Horizontal grid cell with a unstructured grid type and 0.5 x 0.5 degree resolution.",
+  "description": "For data submission, MATSIRO fields are remapped to the regular 0.5-degree latitude-longitude output grid g131. CaMa-Flood fields submitted as unit-catchment values retain their native catchment geometry. Both representations have a spatial resolution of 0.5 degrees.  The native ILS land grid contains 120964 distinct model cells with positive effective area: 94427 unit-catchment elements shared by MATSIRO and CaMa-Flood in the river-bearing domain, and 26537 additional non-river elements used only by MATSIRO for consistency with the ocean-derived land area on the atmospheric grid. The native grid has a horizontal spatial resolution of 0.5 degrees. The stated resolution does not imply that each native cell has a width and height of exactly 0.5 degrees. This resolution applies to the native unit-catchment representation as well as to the regular latitude-longitude representation used for remapped output. This is an unstructured collection of catchment and masked or weighted land elements, not a uniform rectangular physical mesh. Exchanges between MATSIRO and CaMa-Flood over the shared river domain use one-to-one cell correspondence without spatial remapping or aggregation. The 3600-second exchange interval, AVR and lag=-1 settings describe separate temporal treatment.",
+  "alias": [],
+  "grid_mapping": "latitude-longitude",
+  "grid_type": "unstructured",
+  "n_cells": 120964,
+  "region": [
+    "global"
+  ],
+  "southernmost_latitude": -89.75,
+  "temporal_refinement": "static",
+  "truncation_method": "",
+  "truncation_number": "",
+  "units": "degree",
+  "westernmost_longitude": 0.25,
+  "x_resolution": 0.5,
+  "y_resolution": 0.5,
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_grid_cell",
+    "esgvoc:HorizontalGridCell"
+  ],
+  "@id": "g285"
+}
