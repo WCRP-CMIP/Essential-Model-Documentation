@@ -1,0 +1,78 @@
+{
+    "validation_key": "KIOST-ESM2",
+    "ui_label": "KIOST-ESM2",
+    "description": "1. Dynamic components KIOST-ESM2 is the coupled Earth system model of the Korea Institute of Ocean Science and Technology (KIOST), developed on the Geophysical Fluid Dynamics Laboratory (GFDL) ESM4.1 framework as the successor to KIOST-ESM1. The atmosphere is the GFDL Atmosphere Model version 4.2 (AM4.2) with the Finite-Volume Cubed-Sphere (FV3) dynamical core at C96 (~100 km) resolution and 49 hybrid sigma-pressure levels, including interactive tropospheric and stratospheric atmospheric chemistry and aerosols and two-moment cloud microphysics. The land component is the GFDL Land Model version 4.2 (LM4.2) with interactive vegetation dynamics, soil carbon cycling, land-use change and the FINAL version 2 fire model. The ocean is the Modular Ocean Model version 6 (MOM6) on a nominal 0.5 degree horizontal grid with 75 hybrid z*–isopycnal layers, with KIOST-specific developments (three-dimensional target density, porous-barrier topography, WENO potential vorticity reconstruction, GEBCO2024/BADA2024 bathymetry). Ocean biogeochemistry is the Carbon, Ocean Biogeochemistry and Lower Trophics version 3 (COBALTv3) model. Sea ice is the GFDL Sea Ice Simulator version 2 (SIS2).  2. Prescribed components Land ice is not dynamically simulated and is treated as a prescribed boundary condition within the land component.  3. Omitted components None.",
+    "calendar": [
+        "365-day"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "sea-ice"
+        ],
+        [
+            "atmosphere",
+            "land-surface"
+        ],
+        [
+            "land-surface",
+            "sea-ice"
+        ],
+        [
+            "ocean",
+            "sea-ice"
+        ]
+    ],
+    "crs": "A[AcAe](L,Si)L(Si)O[Ob](Si)SiLi^",
+    "dynamic_components": [
+        "aerosol",
+        "atmosphere",
+        "atmospheric-chemistry",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ],
+        [
+            "atmospheric-chemistry",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ]
+    ],
+    "family": "kiost-esm",
+    "model_components": [
+        "aerosol_am4-2-aerosol_h169_v172",
+        "atmosphere_am4-2_h169_v172",
+        "atmospheric-chemistry_am4-2-chemistry_h169_v172",
+        "land-surface_lm4-2_h169_v176",
+        "ocean-biogeochemistry_cobaltv3_h167_v175",
+        "sea-ice_sis2-kiost-esm2_h167_v171",
+        "ocean_mom6-kiost-esm2_h167_v175"
+    ],
+    "name": "kiost-esm2",
+    "omitted_components": [],
+    "prescribed_components": [
+        "land-ice"
+    ],
+    "references": [
+        "https://paper.under.review",
+        "https://doi.org/10.1029/2019MS002015",
+        "https://doi.org/10.1007/s12601-021-00001-7"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "kiost-esm2"
+}
