@@ -291,6 +291,8 @@ body:
         - "g280"
         - "g281"
         - "g282"
+        - "g283"
+        - "g284"
       default: 0
     validations:
       required: true
@@ -539,6 +541,8 @@ body:
         - "g280"
         - "g281"
         - "g282"
+        - "g283"
+        - "g284"
       default: 0
 
   - type: dropdown
@@ -769,6 +773,8 @@ body:
         - "g280"
         - "g281"
         - "g282"
+        - "g283"
+        - "g284"
       default: 0
 
   - type: dropdown
@@ -999,6 +1005,8 @@ body:
         - "g280"
         - "g281"
         - "g282"
+        - "g283"
+        - "g284"
       default: 0
 
   - type: dropdown

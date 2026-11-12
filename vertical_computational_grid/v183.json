@@ -1,0 +1,18 @@
+{
+  "validation_key": "v183",
+  "ui_label": "depth grid with 6 levels.",
+  "description": "Soil grid of the MATSIRO land-surface model in MIROC-ES3. Soil heat and soil water are calculated on a common six-layer grid with interfaces at 0, 0.05, 0.25, 1, 2, 4 and 14 m below the surface (layer thicknesses 0.05, 0.20, 0.75, 1, 2 and 10 m). Snow has a variable number of layers, from one to three, depending on the snow water equivalent.",
+  "bottom_layer_thickness": 10,
+  "n_z": 6,
+  "n_z_range": "",
+  "top_layer_thickness": 0.05,
+  "total_thickness": 14,
+  "vertical_coordinate": "depth",
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:vertical_computational_grid",
+    "esgvoc:VerticalComputationalGrid"
+  ],
+  "@id": "v183"
+}
