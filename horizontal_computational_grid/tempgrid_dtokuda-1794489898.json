@@ -1,0 +1,16 @@
+{
+    "validation_key": "tempgrid_dtokuda-1794489898",
+    "ui_label": "",
+    "description": "ILS uses the native 0.5-degree land grid g285, comprising shared MATSIRO/CaMa-Flood unit catchments and additional MATSIRO-only non-river cells. Land and catchment states are cell-based; CaMa-Flood discharge and channel velocity refer to downstream river connections and are indexed by the upstream cell. No Arakawa A-E classification is assigned. For data submission, MATSIRO fields are remapped to the regular 0.5-degree latitude-longitude grid g131, while CaMa-Flood fields submitted as unit-catchment values retain their native geometry.",
+    "arrangement": "",
+    "horizontal_subgrids": [
+        "g285_mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "tempgrid_dtokuda-1794489898"
+}
