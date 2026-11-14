@@ -1,0 +1,27 @@
+{
+    "validation_key": "nesm",
+    "ui_label": "NESM",
+    "description": "The Nanjing University of Information Science and Technology Earth System Model (NESM) family is a coupled climate and Earth system modelling framework developed at NUIST for seamless climate simulation, prediction, and CMIP participation.",
+    "collaborative_institutions": "",
+    "established": "",
+    "family_type": "model",
+    "primary_institution": "nuist",
+    "references": [
+        "https://doi.org/10.5194/gmd-11-2975-2018"
+    ],
+    "representative_member": "NESM3",
+    "scientific_domains": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "sea-ice"
+    ],
+    "website": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "nesm"
+}
