@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_janstreffing-1794858556",
+    "ui_label": "Horizontal grid cell with a unstructured grid type and 1 x 1 degree resolution.",
+    "description": "Reduced latitude-longitude grid with 169 latitude rows regularly spaced at 1 degree from 78S to 90N, 1 degree longitudinal spacing at the equator and progressively fewer points towards the poles. Only sea points are carried: of the 40930 points on the full reduced grid, 29530 sea points remain.",
+    "alias": [
+        "WAM",
+        "ecWAM"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "unstructured",
+    "n_cells": 29530,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -78,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0,
+    "x_resolution": 1,
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_janstreffing-1794858556"
+}
