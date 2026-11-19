@@ -1,7 +1,7 @@
 {
     "validation_key": "ARTS-ESM-M",
     "ui_label": "ARTS-ESM-M",
-    "description": "The ARTS-M model is developed based on the INMCM5 that participated in CMIP6. ARTS-ESM-M is a medium-resolution model that incorporates updates to the low-resolution ARTS-ESM-L model as well as a set of new features. The core of the ARTS-ESM-M is a coupled model of global circulation of atmosphere and ocean. The atmospheric component includes land surface and interactive aerosol modules. The oceanic component is supplemented with sea ice dynamics and thermodynamics sub-model. Three dimensional concentrations of ozone are prescribed.",
+    "description": "The ARTS-ESM-M model is developed based on the INMCM5 that participated in CMIP6. ARTS-ESM-M is a medium-resolution model that incorporates updates to the low-resolution ARTS-ESM-L model as well as a set of new features. The core of the ARTS-ESM-M is a coupled model of global circulation of atmosphere and ocean. The atmospheric component includes land surface and interactive aerosol modules. The oceanic component embeds sea ice dynamics and thermodynamics sub-model as well as simple ocean biogeochemistry sub-model. Three dimensional concentrations of ozone are prescribed.",
     "calendar": [
         "365-day"
     ],
@@ -15,18 +15,23 @@
             "aerosol"
         ]
     ],
-    "crs": "A[L](Ae,O)AeO[Si]Ac^",
+    "crs": "A[L](Ae,O)AeO[ObSi]Ac^",
     "dynamic_components": [
         "atmosphere",
         "aerosol",
         "land-surface",
         "ocean",
+        "ocean-biogeochemistry",
         "sea-ice"
     ],
     "embedded_components": [
         [
             "land-surface",
             "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
         ],
         [
             "sea-ice",
@@ -39,6 +44,7 @@
         "atmosphere_inmam6m_h148_v141",
         "land-surface_inmlnd2-2_h148_v165",
         "ocean_inmom6m_h150_v153",
+        "ocean-biogeochemistry_inmocm1-0_h150_v153",
         "sea-ice_inmice2m_h150_no-vertical"
     ],
     "name": "arts-esm-m",
