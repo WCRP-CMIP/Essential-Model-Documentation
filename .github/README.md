@@ -6,6 +6,7 @@ Development repository for the EMD. This will link into the CVs and Universe Rep
 
 [![Update Issue Templates](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/issue-templates.yml/badge.svg)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/issue-templates.yml) [![∆ src-data](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/src-data-change.yml/badge.svg?branch=src-data)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/src-data-change.yml)
 [![→ workflows](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/sync-workflows.yml/badge.svg)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/sync-workflows.yml)
+[![EMD errors](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/WCRP-CMIP/Essential-Model-Documentation/emd-badges/emd-validation.json)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/actions/workflows/emd-validate.yml)
 
 -------
 
