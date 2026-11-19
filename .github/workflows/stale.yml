@@ -26,10 +26,10 @@ jobs:
           days-before-issue-close: 30
 
           stale-pr-message: >
-            This pull request has been automatically marked as stale due to lack of activity for 60 days.
+            This pull request has been automatically marked as stale due to lack of activity for 90 days.
             It will be closed in 30 days if no further activity occurs. To save add the `keep-open` label.
           close-pr-message: 'Closed due to inactivity.'
-          days-before-pr-stale: 60
+          days-before-pr-stale: 90
           days-before-pr-close: 30
 
           stale-issue-label: 'stale'
