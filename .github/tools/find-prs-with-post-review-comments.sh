@@ -6,7 +6,7 @@
 # Inline comments shown in blue, thread comments in violet.
 #
 # Usage:
-#   ./find-prs-with-post-review-comments.sh [--state open|closed|all] [--limit N]
+#   .github/tools/find-prs-with-post-review-comments.sh [--state open|closed|all] [--limit N]
 #
 # Defaults: --state open  --limit 50
 

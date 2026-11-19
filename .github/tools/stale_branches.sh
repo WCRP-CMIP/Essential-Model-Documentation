@@ -5,8 +5,8 @@
 # (and no open ones) — safe candidates for deletion.
 #
 # Usage:
-#   .github/stale_branches.sh          # list stale branches
-#   .github/stale_branches.sh --delete # delete them (with confirmation)
+#   .github/tools/stale_branches.sh          # list stale branches
+#   .github/tools/stale_branches.sh --delete # delete them (with confirmation)
 
 set -euo pipefail
 

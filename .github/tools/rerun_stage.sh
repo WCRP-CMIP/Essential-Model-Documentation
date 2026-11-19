@@ -3,10 +3,10 @@
 # the "New Issue Processing" workflow for each one.
 #
 # Usage:
-#   .github/rerun_stage.sh                        # dry run, matches 'Stage 1'
-#   .github/rerun_stage.sh "Stage 2"              # dry run, custom pattern
-#   .github/rerun_stage.sh --run                  # trigger workflows, matches 'Stage 1'
-#   .github/rerun_stage.sh "Stage 2" --run        # trigger workflows, custom pattern
+#   .github/tools/rerun_stage.sh                        # dry run, matches 'Stage 1'
+#   .github/tools/rerun_stage.sh "Stage 2"              # dry run, custom pattern
+#   .github/tools/rerun_stage.sh --run                  # trigger workflows, matches 'Stage 1'
+#   .github/tools/rerun_stage.sh "Stage 2" --run        # trigger workflows, custom pattern
 #
 # Requires: gh CLI authenticated to WCRP-CMIP/Essential-Model-Documentation
 

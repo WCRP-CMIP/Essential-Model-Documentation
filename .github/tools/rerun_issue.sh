@@ -2,10 +2,10 @@
 # Manually re-run the New Issue Processing workflow on a single issue.
 #
 # Usage:
-#   .github/rerun_issue.sh <issue_number>
+#   .github/tools/rerun_issue.sh <issue_number>
 #
 # Example:
-#   .github/rerun_issue.sh 43
+#   .github/tools/rerun_issue.sh 43
 
 set -euo pipefail
 

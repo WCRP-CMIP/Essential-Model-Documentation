@@ -3,8 +3,8 @@
 #
 # Lists all open PRs linked to closed issues via Resolves/Fixes/Closes #N.
 # Usage:
-#   .github/close_linked_prs.sh         # dry run — print only
-#   .github/close_linked_prs.sh --run   # close PRs and comment
+#   .github/tools/close_linked_prs.sh         # dry run — print only
+#   .github/tools/close_linked_prs.sh --run   # close PRs and comment
 
 set -euo pipefail
 
