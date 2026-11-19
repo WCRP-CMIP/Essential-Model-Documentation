@@ -9,13 +9,13 @@
     "Collection"
   ],
   "contents": [
+    {"@id": "land-surface"},
+    {"@id": "ocean"},
+    {"@id": "atmospheric-chemistry"},
     {"@id": "atmosphere"},
-    {"@id": "ocean-biogeochemistry"},
     {"@id": "aerosol"},
     {"@id": "sea-ice"},
-    {"@id": "ocean"},
-    {"@id": "land-ice"},
-    {"@id": "atmospheric-chemistry"},
-    {"@id": "land-surface"}
+    {"@id": "ocean-biogeochemistry"},
+    {"@id": "land-ice"}
   ]
 }
