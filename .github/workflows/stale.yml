@@ -1,4 +1,4 @@
-name: ⌛ Stale Issues
+name: Stale Issues
 description: Mark and close stale issues
 
 permissions:
@@ -20,20 +20,20 @@ jobs:
 
           stale-issue-message: >
             This issue has been automatically marked as stale due to lack of activity.
-            It will be closed in 7 days if no further activity occurs.
+            It will be closed in 30 days if no further activity occurs. To save add the `keep-open` label.
           close-issue-message: 'Closed due to inactivity.'
-          days-before-issue-stale: 60
-          days-before-issue-close: 7
+          days-before-issue-stale: 120
+          days-before-issue-close: 30
 
           stale-pr-message: >
-            This pull request has been automatically marked as stale due to lack of activity.
-            It will be closed in 7 days if no further activity occurs.
+            This pull request has been automatically marked as stale due to lack of activity for 90 days.
+            It will be closed in 30 days if no further activity occurs. To save add the `keep-open` label.
           close-pr-message: 'Closed due to inactivity.'
-          days-before-pr-stale: 30
-          days-before-pr-close: 7
+          days-before-pr-stale: 90
+          days-before-pr-close: 30
 
           stale-issue-label: 'stale'
           stale-pr-label: 'stale'
 
-          exempt-issue-labels: 'pinned,security,bug'
-          exempt-pr-labels: 'pinned,security'
+          exempt-issue-labels: 'pinned,security,bug,keep-open'
+          exempt-pr-labels: 'pinned,security,keep-open'
