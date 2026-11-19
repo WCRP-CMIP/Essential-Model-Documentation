@@ -3,11 +3,11 @@
 #
 # Lists open PRs, the issues they reference, and their review status.
 # Usage:
-#   .github/pr_issue_map.sh                  # all open PRs
-#   .github/pr_issue_map.sh --approved       # only approved PRs
-#   .github/pr_issue_map.sh --needs-review   # only unapproved PRs
-#   .github/pr_issue_map.sh --all            # include closed PRs
-#   .github/pr_issue_map.sh --json           # JSON output
+#   .github/tools/pr_issue_map.sh                  # all open PRs
+#   .github/tools/pr_issue_map.sh --approved       # only approved PRs
+#   .github/tools/pr_issue_map.sh --needs-review   # only unapproved PRs
+#   .github/tools/pr_issue_map.sh --all            # include closed PRs
+#   .github/tools/pr_issue_map.sh --json           # JSON output
 
 set -euo pipefail
 

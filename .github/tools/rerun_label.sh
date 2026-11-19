@@ -16,12 +16,12 @@
 # Dry-run by default — you must pass --yes to actually dispatch anything.
 #
 # Usage:
-#   .github/rerun_label.sh horizontal_grid_cell
-#   .github/rerun_label.sh horizontal_grid_cell --yes
-#   .github/rerun_label.sh horizontal_grid_cell --yes --skip approved,changes-requested
-#   RERUN_SLEEP=45 .github/rerun_label.sh model --yes
+#   .github/tools/rerun_label.sh horizontal_grid_cell
+#   .github/tools/rerun_label.sh horizontal_grid_cell --yes
+#   .github/tools/rerun_label.sh horizontal_grid_cell --yes --skip approved,changes-requested
+#   RERUN_SLEEP=45 .github/tools/rerun_label.sh model --yes
 #
-# See also: .github/rerun_issue.sh for a single issue.
+# See also: .github/tools/rerun_issue.sh for a single issue.
 
 set -euo pipefail
 
