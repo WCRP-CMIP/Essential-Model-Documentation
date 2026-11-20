@@ -177,35 +177,34 @@ jobs:
           rm -rf "$GITHUB_WORKSPACE/docs" "$GITHUB_WORKSPACE/src"
           git checkout origin/docs -- src 2>/dev/null && echo "Copied src/" || echo "No src/ on docs branch"
           git checkout origin/docs -- docs 2>/dev/null && echo "Copied docs/" || true
+          # The Zensical build is driven from the docs branch root (removed again after the build)
+          git checkout origin/docs -- Makefile zensical.toml && echo "Copied Makefile and zensical.toml"
 
       - name: Install dependencies
         run: |
           npm install -g jsonld-recursive
-          MKDOCS_DIR="$GITHUB_WORKSPACE/src/mkdocs"
-          if [ -f "$MKDOCS_DIR/requirements.txt" ]; then
-            pip install -r "$MKDOCS_DIR/requirements.txt"
-          else
-            echo "WARNING: requirements.txt not found, using fallback"
-            pip install mkdocs mkdocs-material mkdocs-shadcn mkdocs-gen-files mkdocs-literate-nav pymdown-extensions beautifulsoup4 cmipld
-          fi
+          # Zensical, the page generators' packages (cmipld, ...) and the post-build hook's
+          make install
 
       - name: Pre-build diagnostics
         run: |
           echo "## Pre-build diagnostics" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** $(git -C $GITHUB_WORKSPACE rev-parse --abbrev-ref HEAD)" >> $GITHUB_STEP_SUMMARY
 
-      - name: Build MkDocs site
+      - name: Build site with Zensical
         run: |
           ldr server stop 2>/dev/null || true
           ldr server start
           echo "LDR server started"
 
-          mkdocs build -f "$GITHUB_WORKSPACE/src/mkdocs/mkdocs.yml"
+          # make build = page generators -> zensical build -> post-build hook
+          # (src/zensical/post_build.py: number prefixes, sidebar, analytics, root redirect and 404)
+          make build
 
           BUILD_DIR="$GITHUB_WORKSPACE/build"
           if [ ! -d "$BUILD_DIR" ]; then echo "Error: no build dir"; exit 1; fi
 
-          rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs"
+          rm -rf "$GITHUB_WORKSPACE/src" "$GITHUB_WORKSPACE/mkdocs" "$GITHUB_WORKSPACE/Makefile" "$GITHUB_WORKSPACE/zensical.toml"
           [ -d "$GITHUB_WORKSPACE/docs" ] && rm -rf "$GITHUB_WORKSPACE/docs"
           mv "$BUILD_DIR" "$GITHUB_WORKSPACE/docs"
 
