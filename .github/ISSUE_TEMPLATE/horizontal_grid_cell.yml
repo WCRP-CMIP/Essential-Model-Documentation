@@ -66,7 +66,33 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "Not specified"
+        - "Basin by Latitude"
+        - "Cubed Sphere"
+        - "Cubic Octahedral Spectral Reduced Gaussian"
+        - "Discrete Lines"
+        - "Discrete Points"
+        - "Displaced Pole"
+        - "Hierarchical Discrete Global Grid"
+        - "Icosahedral"
+        - "Icosahedral Geodesic"
+        - "Icosahedral Geodesic Dual"
+        - "Linear Spectral Gaussian"
+        - "Plane Projection"
+        - "Quadratic Spectral Gaussian"
+        - "Reduced Gaussian"
+        - "Regular Gaussian"
+        - "Regular Latitude-Longitude"
+        - "Rotated Pole"
+        - "Spectral Gaussian"
+        - "Spectral Reduced Gaussian"
+        - "Stretched"
+        - "Tripolar"
+        - "Unstructured"
+        - "Unstructured Polygonal"
+        - "Unstructured Quadrilateral"
+        - "Unstructured Triangular"
+        - "Yin-Yang"
       default: 0
     validations:
       required: true
@@ -92,7 +118,23 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "Not specified"
+        - "Albers Conical Equal Area"
+        - "Azimuthal Equidistant"
+        - "Geostationary"
+        - "HEALPix"
+        - "Lambert Azimuthal Equal Area"
+        - "Lambert Conformal Conic"
+        - "Lambert Cylindrical Equal Area"
+        - "Latitude-Longitude"
+        - "Mercator"
+        - "Orthographic"
+        - "Polar Stereographic"
+        - "Rotated Latitude-Longitude"
+        - "Sinusoidal"
+        - "Stereographic"
+        - "Transverse Mercator"
+        - "Vertical Perspective"
       default: 0
     validations:
       required: true
@@ -119,7 +161,16 @@ body:
         
         </details>
       options:
-        - "No options available"
+        - "Not specified"
+        - "30S-90S"
+        - "Antarctica"
+        - "Arctic"
+        - "Global"
+        - "Greenland"
+        - "Limited Area"
+        - "Northern Hemisphere"
+        - "Southern Hemisphere"
+        - "Tropics"
     validations:
       required: true
 
@@ -143,6 +194,8 @@ body:
         </details>
       options:
         - "Not specified"
+        - "Adaptive"
+        - "Dynamically Stretched"
         - "Static"
       default: 0
     validations:
@@ -193,8 +246,11 @@ body:
       description: The units used for resolution values.
       options:
         - "Not specified"
+        - "Degrees"
         - "Kelvin"
+        - "Kilometre"
         - "Meters"
+        - "Pascal"
       default: 0
 
   - type: input
@@ -275,6 +331,7 @@ body:
         </details>
       options:
         - "Not specified"
+        - "Rhomboidal Truncation"
         - "Triangular Truncation"
       default: 0
 
