@@ -9,7 +9,14 @@
   Header and footer sizes are in px so they stay the same at every screen width
   (Material's rem grows from 20px to 24px on wide screens).
 */
-@import url("https://fonts.googleapis.com/css2?family=Akshar:wght@500;600&display=swap");
+/* Lexend, the CMIP wordmark face, for headings. Self-hosted (variable font, 100-900). */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/lexend-latin.woff2") format("woff2");
+}
 
 /* ── Brand ──────────────────────────────────────────────────────────── */
 :root {
@@ -23,7 +30,7 @@
   --cmip-rule: #e9ecef;
   --cmip-wash: #f8f9fa;
   --cmip-navy-tint: #eef0fb;
-  --cmip-font-heading: "Akshar", "Plus Jakarta Sans", sans-serif;
+  --cmip-font-heading: "Lexend", "Plus Jakarta Sans", sans-serif;
 
   --md-default-fg-color: var(--cmip-body);
   --md-primary-fg-color: var(--cmip-navy);
@@ -43,7 +50,7 @@
   font-family: var(--cmip-font-heading);
   color: var(--cmip-navy);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 .md-typeset a:hover { color: var(--cmip-navy-hover); text-decoration: underline; }
@@ -172,48 +179,71 @@
 .emd-header__repo:hover { opacity: 1; color: var(--cmip-navy); }
 .emd-header__repo svg { width: 20px; height: 20px; fill: currentColor; }
 
-/* ── Sidebar: placement only. Its look comes from css/base.css + emd-nav.css. */
+/* ── Sidebar ────────────────────────────────────────────────────────── */
+/* The menu is injected by post_build.py and styled by emd-nav.css, which reads
+   the variables below. Set here, on the sidebar only, they give it the page's
+   font and the CMIP colours; the active page and hovers match the header links. */
+.emd-sidebar {
+  --font-sans: var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  --sidebar-foreground: var(--cmip-body);
+  --sidebar-accent: var(--cmip-wash);
+  --sidebar-accent-foreground: var(--cmip-navy);
+  --sidebar-border: var(--cmip-rule);
+  --muted-foreground: var(--cmip-muted);
+  --emd-primary: var(--cmip-navy);
+  --font-weight-semibold: 600;
+}
+
 /* The drawer title bar is for small screens only. */
 @media screen and (min-width: 76.25em) {
   .emd-sidebar__title { display: none; }
 }
 .emd-sidebar .emd-sidebar__content { padding: 4px 0 24px; }
 
-/* emd-nav.css spaces the menu in rem, written for shadcn's 16px root.
-   Restated in px so the menu keeps its size under Material's larger root. */
-.emd-sidebar #custom-nav { padding: 4px 0; }
+/* emd-nav.css spaces the menu in rem, written for a 16px root. Restated in px
+   so the menu keeps its size under Material's larger root. */
+.emd-sidebar #custom-nav { padding: 4px 0; font-size: 14px; }
 .emd-sidebar #custom-nav a,
-.emd-sidebar .nav-group-label { padding: 4.8px 10px; }
-.emd-sidebar .nav-group-label { gap: 4.8px; }
+.emd-sidebar .nav-group-label { padding: 6px 10px; font-size: 14px; border-radius: 6px; }
+.emd-sidebar .nav-group-label { gap: 6px; }
 .emd-sidebar .nav-group-children { padding-left: 8px; margin-left: 16px; margin-bottom: 2px; }
 
-/* External links, added by custom.js from docs/links.yml (same values as before). */
+/* Active page: navy on the light navy tint, as in the header. */
+.emd-sidebar #custom-nav a.active,
+.emd-sidebar #custom-nav a.active:hover {
+  color: var(--cmip-navy);
+  background: var(--cmip-navy-tint);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* External links, added by custom.js from docs/links.yml. */
 .emd-sidebar .custom-links-section {
   margin-top: 16px;
-  padding-top: 8px;
-  border-top: 1px solid var(--emd-border-light);
+  padding-top: 12px;
+  border-top: 1px solid var(--cmip-rule);
 }
 .emd-sidebar .custom-links-title {
-  font-family: "Noto Sans", var(--font-sans);
-  font-size: 8.8px;
-  font-weight: 700;
+  font-family: var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--emd-text-tertiary);
-  padding: 8px 9.6px 4.8px;
+  color: var(--cmip-faint);
+  padding: 4px 10px 6px;
 }
 .emd-sidebar .custom-link {
   display: block;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  color: var(--emd-text-secondary);
-  padding: 4.8px 9.6px;
-  margin: 1px 6.4px;
-  border-radius: 4px;
+  font-family: var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  font-size: 13px;
+  color: var(--cmip-muted);
+  padding: 5px 10px;
+  margin: 1px 0;
+  border-radius: 6px;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
-.emd-sidebar .custom-link:hover { background: var(--emd-bg-secondary); color: var(--emd-text); }
+.emd-sidebar .custom-link:hover { background: var(--cmip-wash); color: var(--cmip-navy); }
 
 /* ── Footer ─────────────────────────────────────────────────────────── */
 .md-footer.emd-footer {
