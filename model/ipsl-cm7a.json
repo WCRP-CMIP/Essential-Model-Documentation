@@ -1,0 +1,63 @@
+{
+    "validation_key": "IPSL-CM7A",
+    "ui_label": "IPSL-CM7A",
+    "description": "IPSL-CM7A is the new-generation climate model of the Institut Pierre-Simon Laplace (IPSL), successor to the IPSL-CM6A-LR model used for CMIP6 (Boucher et al., 2020). Its main novelty is a new atmospheric dynamical core that replaces the regular longitude-latitude grid with a quasi-uniform icosahedral grid, avoiding the clustering of grid points near the poles. For CMIP7, the model is run with prescribed atmospheric greenhouse gas concentrations (concentration-driven) only.  Five components are dynamically simulated. The atmosphere is simulated by LMDZ6.5 with the DYNAMICO icosahedral-hexagonal dynamical core, on a grid of about 36,000 cells (about 150 km resolution) with 95 vertical levels, refined in the lowest 3 km to better represent boundary-layer convection and clouds. The land surface model ORCHIDEE v4.3, embedded in the atmosphere, computes the surface energy, water, carbon and nitrogen budgets, with land heterogeneity described by 15 plant functional types, and includes forest demography and management as well as permafrost physics. The ocean is simulated by NEMO v4.2 in the eORCA1 configuration (nominal 1° resolution) with 75 vertical levels. The sea ice model SI3 and the marine biogeochemistry model PISCES v2, which represents the lower trophic levels of the marine ecosystem and the cycles of carbon and the main nutrients, run within NEMO on the ocean grid. The atmosphere and the ocean exchange energy, water and momentum through a coupler.  Three components are prescribed rather than simulated: aerosols, atmospheric chemistry and land ice.",
+    "calendar": [
+        "proleptic-gregorian"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ]
+    ],
+    "crs": "A[L](O)O[ObSi]Ac^Ae^Li^",
+    "dynamic_components": [
+        "atmosphere",
+        "land-surface",
+        "ocean",
+        "ocean-biogeochemistry",
+        "sea-ice"
+    ],
+    "embedded_components": [
+        [
+            "land-surface",
+            "atmosphere"
+        ],
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
+        [
+            "sea-ice",
+            "ocean"
+        ]
+    ],
+    "family": "ipsl-cm",
+    "model_components": [
+        "atmosphere_lmdz6-5-dynamico_h164_v170",
+        "land-surface_orchidee-v4-3-2_h164_v158",
+        "ocean_nemo-v4-2_h152_v167",
+        "ocean-biogeochemistry_pisces-v2_h152_v167",
+        "sea-ice_si3-v4-2_h152_v167"
+    ],
+    "name": "ipsl-cm7a",
+    "omitted_components": [],
+    "prescribed_components": [
+        "aerosol",
+        "atmospheric-chemistry",
+        "land-ice"
+    ],
+    "references": [
+        "https://doi.org/10.1029/2019MS002010",
+        "https://doi.org/10.5194/gmd-8-3131-2015"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "ipsl-cm7a"
+}
