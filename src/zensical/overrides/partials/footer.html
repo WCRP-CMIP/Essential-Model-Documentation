@@ -1,0 +1,44 @@
+{#-
+  EMD footer: a light block with the CMIP badge and a one-line description,
+  three link columns, and a bottom bar with the copyright and the licence.
+
+  The columns come from extra.footer_columns in zensical.toml. A link with a
+  full address opens in a new tab; a page path stays on the site.
+-#}
+<footer class="md-footer emd-footer">
+  <div class="md-grid emd-footer__main">
+    <div class="emd-footer__brand">
+      <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" class="emd-brand emd-brand--footer"
+         aria-label="{{ config.site_name }}">
+        <span class="emd-brand__badge">{% include "partials/logo.html" %}</span>
+      </a>
+      <p class="emd-footer__about">{{ config.extra.footer_about | d(config.site_description, true) }}</p>
+    </div>
+
+    {% for column in config.extra.footer_columns %}
+      <div class="emd-footer__col">
+        <h2 class="emd-footer__heading">{{ column.title }}</h2>
+        <ul class="emd-footer__list">
+          {% for link in column.links %}
+            {% set external = link.url[:4] == "http" %}
+            <li>
+              <a href="{{ link.url if external else link.url | url }}" class="emd-footer__link"
+                 {% if external %}target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="emd-footer__bar">
+    <div class="md-grid emd-footer__bar-inner">
+      <span>&copy; {{ config.copyright }}</span>
+      {% if config.extra.licence %}
+        <a href="{{ config.extra.licence.url }}" class="emd-footer__link" target="_blank" rel="noopener">
+          {{ config.extra.licence.title }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</footer>

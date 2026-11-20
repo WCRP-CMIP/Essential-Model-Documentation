@@ -1,0 +1,46 @@
+{#-
+  EMD header: a white bar with a thin gold top edge. Left: the CMIP badge and
+  the site name. Right: the section links, a search box and the repository icon.
+
+  The section links come from extra.header_links in zensical.toml, listed in
+  the same order as the sidebar. A link is highlighted while the current page
+  is inside its section (the "section" value is the start of the page URL).
+-#}
+<header class="md-header emd-header" data-md-component="header">
+  <nav class="md-header__inner md-grid emd-header__inner" aria-label="{{ lang.t('header') }}">
+    <label class="md-header__button md-icon emd-header__menu" for="__drawer" aria-label="{{ lang.t('nav') }}">
+      {% include ".icons/material/menu.svg" %}
+    </label>
+
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" class="emd-brand"
+       title="{{ config.site_name | e }}" aria-label="{{ config.site_name }}" data-md-component="logo">
+      <span class="emd-brand__badge">{% include "partials/logo.html" %}</span>
+      <span class="emd-brand__title">{{ config.site_name }}</span>
+    </a>
+
+    <ul class="emd-header__links">
+      {% for link in config.extra.header_links %}
+        {#- A slice, not .startswith(): Zensical's template engine has no string methods. -#}
+        {% set active = page and page.url and page.url[:link.section | length] == link.section %}
+        <li>
+          <a href="{{ link.url | url }}"
+             class="emd-header__link{% if active %} emd-header__link--active{% endif %}"
+             {% if active %}aria-current="true"{% endif %}>{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {#- Zensical's search: a button that opens the search dialog (also on ⌘K / Ctrl K).
+        emd-theme.css styles it as the search pill. -#}
+    <div class="emd-header__search">
+      {% include "partials/search.html" %}
+    </div>
+
+    {% if config.repo_url %}
+      <a href="{{ config.repo_url }}" class="emd-header__repo" title="{{ config.repo_name | e }}"
+         aria-label="{{ config.repo_name | e }}" target="_blank" rel="noopener">
+        {% include ".icons/fontawesome/brands/github.svg" %}
+      </a>
+    {% endif %}
+  </nav>
+</header>

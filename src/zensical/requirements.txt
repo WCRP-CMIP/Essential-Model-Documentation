@@ -1,0 +1,14 @@
+# Essential Model Documentation: dependencies for the Zensical build.
+# Install with: make install
+
+# Zensical: the site builder (successor to Material for MkDocs). Search is built in.
+zensical==0.0.67
+pymdown-extensions>=10.0
+pyyaml>=6.0
+beautifulsoup4>=4.9.0
+
+# The page generators in docs/scripts/ (run by `make generate`)
+cmipld @ git+https://github.com/WCRP-CMIP/CMIPLD.git
+jinja2>=3.0.0
+tqdm>=4.0.0
+numpy>=1.24.0

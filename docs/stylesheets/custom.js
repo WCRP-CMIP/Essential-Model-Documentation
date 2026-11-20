@@ -396,6 +396,9 @@ function setupHeaderAnchors() {
 // ============================================
 
 function updateFooter() {
+  // Material/Zensical pages already have their own footer: leave it alone.
+  if (document.querySelector('.md-footer')) return;
+
   // Hide the shadcn footer entirely
   const shadcnFooter = document.querySelector('footer');
   if (shadcnFooter) {

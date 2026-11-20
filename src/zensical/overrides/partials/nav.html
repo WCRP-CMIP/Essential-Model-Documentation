@@ -1,0 +1,19 @@
+{#-
+  Primary sidebar. The menu itself is not drawn here: after the build,
+  src/mkdocs/hooks/post_build.py injects it (built from docs/nav_order.json)
+  into the element marked data-slot="sidebar-content", and custom.js adds the
+  external links from docs/links.yml below it. This keeps the sidebar exactly
+  as it was under the shadcn theme.
+
+  The same element is the mobile drawer, so the title bar (logo and site
+  name) is kept for small screens; CSS hides it on wide screens.
+-#}
+<nav class="md-nav md-nav--primary emd-sidebar" aria-label="{{ lang.t('nav') }}" data-md-level="0">
+  <label class="md-nav__title emd-sidebar__title" for="__drawer">
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-nav__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+      {% include "partials/logo.html" %}
+    </a>
+    {{ config.site_name }}
+  </label>
+  <div data-slot="sidebar-content" data-sidebar="content" class="emd-sidebar__content"></div>
+</nav>

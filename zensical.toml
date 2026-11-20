@@ -1,0 +1,126 @@
+# ── Essential Model Documentation: site configuration for Zensical ─────────────
+# Built with `make build` from the repository root (see the Makefile). Zensical
+# runs no MkDocs hooks or gen-files scripts, so the Makefile runs the EMD page
+# generators before the build and the sidebar/prefix post-processing after it.
+
+site_name = "Essential Model Documentation"
+site_url = ""
+# Do not use a site_url with an extension (e.g. github.io): links would carry
+# it and break when deployed to GitHub Pages.
+repo_url = "https://github.com/WCRP-CMIP/Essential-Model-Documentation"
+repo_name = "WCRP-CMIP/Essential-Model-Documentation"
+site_description = "Model documentation for CMIP7: the models, components and grids behind each simulation."
+site_author = "WCRP-CMIP"
+copyright = "CMIP International Project Office"
+
+docs_dir = "docs"
+site_dir = "build"
+use_directory_urls = true
+
+# The sidebar's look is set by css/base.css (linked by post_build.py), the
+# injected emd-nav.css and custom.js; emd-theme.css styles the rest.
+extra_css = ["stylesheets/emd-theme.css"]
+extra_javascript = [
+  "stylesheets/custom.js",
+  "stylesheets/embed.js",
+  "https://unpkg.com/mermaid@10/dist/mermaid.min.js",
+]
+
+[theme]
+name = "material"
+variant = "classic"
+language = "en"
+custom_dir = "src/zensical/overrides"
+logo = "assets/cmip-logo-white.svg"
+favicon = "assets/favicon.svg"
+features = [
+  "navigation.top",
+  "search.suggest",
+  "search.highlight",
+  "toc.follow",
+  "content.code.copy",
+]
+
+[theme.font]
+text = "Plus Jakarta Sans"
+code = "Roboto Mono"
+
+[theme.palette]
+scheme = "default"
+primary = "custom"
+accent = "custom"
+
+[plugins.search]
+lang = "en"
+separator = '[\s\-\.]+'
+
+# ── Header and footer content ──────────────────────────────────────────────────
+[extra]
+generator = false
+footer_about = "Model documentation for CMIP7: the models, components and grids behind each simulation."
+licence = { title = "Content licensed CC BY 4.0", url = "https://creativecommons.org/licenses/by/4.0/" }
+
+# Header section links, in the sidebar's order (docs/nav_order.json). A link is
+# highlighted while the current page's URL starts with its "section".
+header_links = [
+  { title = "Data users", url = "Data_Users/Extract_the_data/", section = "Data_Users/" },
+  { title = "Modelling centres", url = "Modelling_centres/Submission_guide/", section = "Modelling_centres/" },
+  { title = "Reviewers", url = "Reviewers/Reviewer_information/", section = "Reviewers/" },
+  { title = "Developers", url = "Developers/Workflows_and_automation/", section = "Developers/" },
+]
+
+[[extra.footer_columns]]
+title = "Documentation"
+links = [
+  { title = "Data users", url = "Data_Users/Extract_the_data/" },
+  { title = "Submission guide", url = "Modelling_centres/Submission_guide/" },
+  { title = "Reviewers", url = "Reviewers/Reviewer_information/" },
+  { title = "FAQ", url = "FAQ/" },
+]
+
+[[extra.footer_columns]]
+title = "Contribute"
+links = [
+  { title = "Submit a model", url = "https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose" },
+  { title = "GitHub repository", url = "https://github.com/WCRP-CMIP/Essential-Model-Documentation" },
+  { title = "Developers", url = "Developers/Workflows_and_automation/" },
+]
+
+[[extra.footer_columns]]
+title = "CMIP"
+links = [
+  { title = "wcrp-cmip.org", url = "https://wcrp-cmip.org/" },
+  { title = "CMIP7 guidance", url = "https://guidance.mipcvs.dev/" },
+  { title = "Contact us", url = "Contact_us.html" },
+]
+
+# ── Markdown (same extensions as the MkDocs build) ─────────────────────────────
+[markdown_extensions]
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+tables = {}
+
+[markdown_extensions.toc]
+permalink = true
+toc_depth = 3
+
+[markdown_extensions.pymdownx]
+details = {}
+inlinehilite = {}
+
+[markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+
+[markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+
+[markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+
+[markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
