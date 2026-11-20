@@ -19,10 +19,12 @@ use_directory_urls = true
 
 # The sidebar's look is set by css/base.css (linked by post_build.py), the
 # injected emd-nav.css and custom.js; emd-theme.css styles the rest.
-extra_css = ["stylesheets/emd-theme.css"]
+# emd-content.css holds the page-content styles carried over from custom.css.
+extra_css = ["stylesheets/emd-content.css", "stylesheets/emd-theme.css"]
 extra_javascript = [
   "stylesheets/custom.js",
   "stylesheets/embed.js",
+  "stylesheets/emd-theme.js",
   "https://unpkg.com/mermaid@10/dist/mermaid.min.js",
 ]
 
