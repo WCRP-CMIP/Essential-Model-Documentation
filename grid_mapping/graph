@@ -9,21 +9,21 @@
     "Collection"
   ],
   "contents": [
-    {"@id": "mercator"},
-    {"@id": "healpix"},
-    {"@id": "lambert-cylindrical-equal-area"},
-    {"@id": "sinusoidal"},
-    {"@id": "transverse-mercator"},
     {"@id": "lambert-conformal-conic"},
-    {"@id": "stereographic"},
-    {"@id": "orthographic"},
-    {"@id": "rotated-latitude-longitude"},
-    {"@id": "geostationary"},
-    {"@id": "azimuthal-equidistant"},
-    {"@id": "albers-conical-equal-area"},
-    {"@id": "vertical-perspective"},
-    {"@id": "lambert-azimuthal-equal-area"},
     {"@id": "latitude-longitude"},
-    {"@id": "polar-stereographic"}
+    {"@id": "rotated-latitude-longitude"},
+    {"@id": "albers-conical-equal-area"},
+    {"@id": "stereographic"},
+    {"@id": "geostationary"},
+    {"@id": "vertical-perspective"},
+    {"@id": "polar-stereographic"},
+    {"@id": "healpix"},
+    {"@id": "lambert-azimuthal-equal-area"},
+    {"@id": "mercator"},
+    {"@id": "orthographic"},
+    {"@id": "sinusoidal"},
+    {"@id": "azimuthal-equidistant"},
+    {"@id": "transverse-mercator"},
+    {"@id": "lambert-cylindrical-equal-area"}
   ]
 }
