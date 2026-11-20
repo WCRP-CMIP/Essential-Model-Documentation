@@ -7,13 +7,15 @@
 //
 // Loading is staged so the page is usable at once:
 //   1. model families  -> table (institutions + tags) renders immediately
-//   2. institution registry records -> country + ROR links fill in
+//   2. institution records -> name, country + ROR links fill in. They are read by
+//      resolving the families' institution links: the model_family _context says
+//      which EMD folder those ids point at (establishment), and each id is read
+//      from <base>/<that folder>/<id>.json on the same site.
 //   3. the models list -> each model's Arrow file is read -> "Published data"
 //      column fills in last, with a loading bar in its title
 //
 // Optional query params:
 //   ?base=<url>      EMD registry root (default: the published site)
-//   ?universe=<url>  institution registry root
 //   ?arrow=<url>     ESGF Arrow collection root (default .../CMIP7)
 //   ?modelpage=<url> EMD Model page (default https://emd.wcrp-cmip.org/docs/Data_Users/Model_viewer/)
 //   ?type=model|component   ?mode=primary   ?q=<search>   (initial view)
@@ -30,9 +32,10 @@ const SOURCE = "https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/
 // A model links to its page in the EMD documentation: <page>?model=<model id>.
 const MODEL_PAGE = (PARAMS.get("modelpage") || "https://emd.wcrp-cmip.org/docs/Data_Users/Model_viewer/").replace(/\/?$/, "/");
 
-// Institution records (with their location and ROR id) live in the WCRP universe registry.
-const UNIVERSE = (PARAMS.get("universe") || "https://wcrp-cmip.github.io/WCRP-universe/").replace(/\/?$/, "/");
-const ORG_FOLDER = "organisation";
+// The family fields that hold institution ids. The model_family _context links them
+// to another EMD folder; INSTITUTION_FOLDER is used if the context cannot be read.
+const INSTITUTION_FIELDS = ["primary_institution", "collaborative_institutions"];
+const INSTITUTION_FOLDER = "establishment";
 
 // ESGF Arrow bundle: one file per model, named after it: <root>/<validation_key>.arrow.
 // The collection folder is upper-case and the host is case-sensitive.
@@ -40,10 +43,10 @@ const ARROW_ROOT = (PARAMS.get("arrow") || "https://esgf-arrow.pages.dev/CMIP7")
 // How many Arrow files are downloaded and read at once.
 const ARROW_CONCURRENCY = 4;
 
-// institution id -> { names, codes, label, ror, tip } once looked up; null when
-// the registry has no record for it. Absent while still loading.
+// institution id -> { names, codes, label, fullName, ror, tip } once resolved; null
+// when there is no record for it. Absent while still loading.
 const countries = new Map();
-const countryText = r => { const c = countries.get(r.id); return c ? c.names.join(", ") : ""; };
+const countryText = r => { const c = countries.get(r.id); return c ? [c.fullName, ...c.names].join(" ") : ""; };
 
 // Published data read from the models' Arrow files. status: waiting -> loading -> done | error.
 const pub = { status: "waiting", byFamily: new Map(), unattributed: [], failed: [], checked: 0, published: 0, error: "" };
@@ -179,11 +182,9 @@ export async function initParticipation() {
   ]));
 
   shell.appendChild(el("p", { class: "mp-callout" }, [
-    el("strong", {}, "Institutions are managed by "),
-    el("a", { href: "https://github.com/ESGF/esgf-vocab", target: "_blank", rel: "noopener" }, "ESGVOC (IPSL)"),
-    el("strong", {}, ", not by the EMD. "),
-    "Names, acronyms and locations come from the ESGVOC institution registry. For corrections to an " +
-    "institution’s location or acronym, please contact the ESGVOC team.",
+    el("strong", {}, "Institution names, countries and ROR links "),
+    "are read from the EMD’s establishment records, which each family’s institution fields link to. " +
+    "Hover over an institution for its full name, and over its country for the city.",
   ]));
   shell.appendChild(el("p", { class: "mp-note" },
     "Tags: a solid blue outline marks the primary developer and a dashed outline a collaborator. " +
@@ -232,17 +233,19 @@ export async function initParticipation() {
   function institutionCell(r) {
     if (r.id === UNASSIGNED) return el("span", { class: "mp-inst" }, r.label);
     const c = countries.get(r.id);
+    const label = (c && c.label) || r.label;
+    const full = c && c.fullName ? `${c.fullName} (${r.id})` : r.id;
     const name = c && c.ror
       ? el("a", {
           class: "mp-inst mp-inst-link", href: c.ror, target: "_blank", rel: "noopener",
-          title: `${r.id} — open ${c.label} on ROR`,
-        }, r.label)
-      : el("span", { class: "mp-inst", title: r.id }, r.label);
+          title: `${full} — open on ROR`,
+        }, label)
+      : el("span", { class: "mp-inst", title: full }, label);
 
     let sub;
     if (!countries.has(r.id)) sub = el("span", { class: "mp-inst-sub", title: "Looking up…" }, "…");
-    else if (!c) sub = el("span", { class: "mp-inst-sub", title: "No registry record found for this id (or it could not be loaded)" }, "—");
-    else if (!c.names.length) sub = el("span", { class: "mp-inst-sub", title: `Registry record “${c.label}” has no location` }, "—");
+    else if (!c) sub = el("span", { class: "mp-inst-sub", title: "No establishment record found for this id (or it could not be loaded)" }, "—");
+    else if (!c.names.length) sub = el("span", { class: "mp-inst-sub", title: `The establishment record for ${c.label} has no location` }, "—");
     else sub = el("span", { class: "mp-inst-sub", title: c.tip }, [
       c.names.join(", "),
       c.codes ? el("span", { class: "mp-country-code" }, c.codes) : null,
@@ -315,8 +318,8 @@ export async function initParticipation() {
   loadAfterwards();
 
   async function loadAfterwards() {
-    // ---- stage 2: country + ROR link ----
-    await loadCountries(ids);
+    // ---- stage 2: institution name, country + ROR link, from the resolved records ----
+    await loadInstitutions(ids);
     render();
     const missing = ids.filter(id => countries.get(id) === null);
     const noLoc = ids.filter(id => countries.get(id) && !countries.get(id).names.length);
@@ -325,8 +328,8 @@ export async function initParticipation() {
       countryIssues.hidden = false;
       countryIssues.appendChild(el("summary", {}, `Institutions without a country (${missing.length + noLoc.length})`));
       countryIssues.appendChild(el("ul", {}, [
-        missing.length ? el("li", {}, `No registry record found: ${missing.map(i => i.toUpperCase()).join(", ")}`) : null,
-        noLoc.length ? el("li", {}, `Registry record has no location: ${noLoc.map(i => i.toUpperCase()).join(", ")}`) : null,
+        missing.length ? el("li", {}, `No establishment record found: ${missing.map(i => i.toUpperCase()).join(", ")}`) : null,
+        noLoc.length ? el("li", {}, `Establishment record has no location: ${noLoc.map(i => i.toUpperCase()).join(", ")}`) : null,
       ]));
     }
 
@@ -398,28 +401,48 @@ export async function initParticipation() {
   }
 }
 
-// Fetch <universe>/organisation/<id>.json for each institution id and keep its
-// country and ROR link. A missing or unreadable record is stored as null, so one
-// bad id never blocks the rest.
-async function loadCountries(ids) {
-  const registry = new Resolver(UNIVERSE);
+// Resolve the institution ids the families use. The model_family _context links the
+// institution fields to another EMD folder, e.g.
+//   "primary_institution": { "@context": "../establishment/_context", "@type": "@id" }
+// so an id like "mohc" resolves to <base>establishment/mohc.json. Each record gives
+// the short name (drs_name), the full name (description), the location and the ROR
+// id. A missing or unreadable record is stored as null, so one bad id never blocks the rest.
+async function loadInstitutions(ids) {
+  const resolver = new Resolver(BASE);
+  const folder = await institutionFolder();
   await Promise.all(ids.map(async id => {
     try {
-      const org = await registry.fetchDoc(ORG_FOLDER, id);
-      const found = countryOf(org);
-      const label = org.ui_label || id;
+      const rec = await resolver.fetchDoc(folder, id);
+      const found = countryOf(rec);
+      const label = String(rec.drs_name || rec.ui_label || "").trim() || id.toUpperCase();
       const where = found.map(c => c.city).filter(Boolean).join("; ");
       countries.set(id, {
         names: [...new Set(found.map(c => c.name))],
         codes: [...new Set(found.map(c => c.code).filter(Boolean))].join(", "),
         label,
-        ror: rorUrl(org.ror),
-        tip: [where, `registry entry: ${label}`].filter(Boolean).join(" — "),
+        fullName: String(rec.description || "").trim(),
+        ror: rorUrl(rec.ror),
+        tip: [where, `${folder}/${id}`].filter(Boolean).join(" — "),
       });
     } catch (_) {
       countries.set(id, null);
     }
   }));
+}
+
+// The folder the institution fields link to, read from <base>model_family/_context.
+async function institutionFolder() {
+  try {
+    const res = await fetch(BASE + FOLDER + "/_context", { headers: { Accept: "application/json" } });
+    if (!res.ok) throw new Error(res.status);
+    const ctx = (await res.json())["@context"] || {};
+    for (const field of INSTITUTION_FIELDS) {
+      const target = ctx[field] && ctx[field]["@context"];          // "../establishment/_context"
+      const parts = String(target || "").split("/").filter(p => p && p !== "..");
+      if (parts.length >= 2 && parts[parts.length - 1] === "_context") return parts[parts.length - 2];
+    }
+  } catch (_) { /* fall through */ }
+  return INSTITUTION_FOLDER;
 }
 
 // The registry stores the bare ROR id ("02haar591"); accept a full URL too.

@@ -1,0 +1,359 @@
+/*
+  EMD theme on Material (built with Zensical): CMIP colours and fonts, a light
+  header (option B) and a light four-column footer.
+
+  The sidebar's own look comes from css/base.css + the injected emd-nav.css;
+  this file only places it and restates its spacing in px (see the sidebar
+  section below).
+
+  Header and footer sizes are in px so they stay the same at every screen width
+  (Material's rem grows from 20px to 24px on wide screens).
+*/
+/* Lexend, the CMIP wordmark face, for headings. Self-hosted (variable font, 100-900). */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/lexend-latin.woff2") format("woff2");
+}
+
+/* ── Brand ──────────────────────────────────────────────────────────── */
+:root {
+  --cmip-navy: #000546;
+  --cmip-navy-hover: #000438;
+  --cmip-gold: #f2b30d;
+  --cmip-teal: #64d2cd;
+  --cmip-body: #212529;
+  --cmip-muted: #52525b;
+  --cmip-faint: #71717a;
+  --cmip-rule: #e9ecef;
+  --cmip-wash: #f8f9fa;
+  --cmip-navy-tint: #eef0fb;
+  --cmip-font-heading: "Lexend", "Plus Jakarta Sans", sans-serif;
+
+  --md-default-fg-color: var(--cmip-body);
+  --md-primary-fg-color: var(--cmip-navy);
+  --md-primary-fg-color--dark: var(--cmip-navy-hover);
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: var(--cmip-navy);
+  --md-typeset-a-color: var(--cmip-navy);
+  --md-footer-bg-color: var(--cmip-wash);
+  --md-footer-fg-color: var(--cmip-muted);
+
+  --emd-header-h: 64px;
+}
+
+/* Page grid: wider than Material's 1220px, so the content column between the
+   two side menus has room for four home-page cards across, as before. */
+.md-grid { max-width: 1300px; }
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-family: var(--cmip-font-heading);
+  color: var(--cmip-navy);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset a:hover { color: var(--cmip-navy-hover); text-decoration: underline; }
+
+/* ── Badge: the white CMIP logo on a navy tile (header and footer) ───── */
+.emd-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: var(--cmip-navy);
+  text-decoration: none;
+}
+.emd-brand__badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--cmip-navy);
+  border-radius: 8px;
+  padding: 7px 12px;
+  flex-shrink: 0;
+}
+.emd-brand__badge img,
+.emd-brand__badge svg { height: 26px; width: auto; display: block; }
+.emd-brand__title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+.md-header.emd-header {
+  background: #ffffff;
+  color: var(--cmip-navy);
+  border-top: 3px solid var(--cmip-gold);
+  border-bottom: 1px solid var(--cmip-rule);
+  box-shadow: none;
+}
+.md-header.emd-header[data-md-state="shadow"],
+.md-header--shadow.emd-header { box-shadow: 0 1px 8px rgba(0, 5, 70, 0.06); }
+
+.emd-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: var(--emd-header-h);
+  padding: 0 16px;
+}
+.emd-header__menu { color: var(--cmip-navy); margin: 0 -4px 0 0; }
+
+.emd-header__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+}
+.emd-header__link {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cmip-muted);
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.emd-header__link:hover { color: var(--cmip-navy); background: var(--cmip-wash); }
+.emd-header__link--active,
+.emd-header__link--active:hover { color: var(--cmip-navy); background: var(--cmip-navy-tint); }
+
+/* Search: Zensical's own button, which opens the search dialog (also on
+   Cmd K / Ctrl K). Restyled as a light pill: its ::before is the magnifier and
+   its ::after the keyboard shortcut. */
+.emd-header__search { display: flex; align-items: center; }
+/* Zensical hides .md-search below 60em; keep it at every width. */
+.emd-header .md-search { display: block; margin: 0; padding: 0; }
+.emd-header .md-search__button {
+  width: 190px;
+  height: 34px;
+  padding-left: 34px;
+  padding-right: 48px;
+  font-size: 13px;
+  color: var(--cmip-faint);
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.emd-header .md-search__button:hover,
+.emd-header .md-search__button:focus {
+  color: var(--cmip-muted);
+  background: #ffffff;
+  border-color: #c9c9d1;
+  box-shadow: 0 0 0 3px var(--cmip-navy-tint);
+}
+.emd-header .md-search__button::before {
+  left: 10px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  background-color: var(--cmip-faint);
+}
+.emd-header .md-search__button::after {
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 3px 6px;
+  font: 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--cmip-faint);
+  background: var(--cmip-wash);
+  border: 1px solid #e4e4e7;
+  border-radius: 4px;
+}
+
+.emd-header__repo {
+  display: flex;
+  color: var(--cmip-body);
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+.emd-header__repo:hover { opacity: 1; color: var(--cmip-navy); }
+.emd-header__repo svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ── Sidebar ────────────────────────────────────────────────────────── */
+/* The menu is injected by post_build.py and styled by emd-nav.css, which reads
+   the variables below. Set here, on the sidebar only, they give it the page's
+   font and the CMIP colours; the active page and hovers match the header links. */
+.emd-sidebar {
+  --font-sans: var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  --sidebar-foreground: var(--cmip-body);
+  --sidebar-accent: var(--cmip-wash);
+  --sidebar-accent-foreground: var(--cmip-navy);
+  --sidebar-border: var(--cmip-rule);
+  --muted-foreground: var(--cmip-muted);
+  --emd-primary: var(--cmip-navy);
+  --font-weight-semibold: 600;
+}
+
+/* The drawer title bar is for small screens only. */
+@media screen and (min-width: 76.25em) {
+  .emd-sidebar__title { display: none; }
+}
+.emd-sidebar .emd-sidebar__content { padding: 4px 0 24px; }
+
+/* emd-nav.css spaces the menu in rem, written for a 16px root. Restated in px
+   so the menu keeps its size under Material's larger root. */
+.emd-sidebar #custom-nav { padding: 4px 0; font-size: 14px; }
+.emd-sidebar #custom-nav a,
+.emd-sidebar .nav-group-label { padding: 6px 10px; font-size: 14px; border-radius: 6px; }
+.emd-sidebar .nav-group-label { gap: 6px; }
+.emd-sidebar .nav-group-children { padding-left: 8px; margin-left: 16px; margin-bottom: 2px; }
+
+/* Active page: navy on the light navy tint, as in the header. */
+.emd-sidebar #custom-nav a.active,
+.emd-sidebar #custom-nav a.active:hover {
+  color: var(--cmip-navy);
+  background: var(--cmip-navy-tint);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* External links, added by custom.js from docs/links.yml. */
+.emd-sidebar .custom-links-section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cmip-rule);
+}
+.emd-sidebar .custom-links-title {
+  font-family: var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cmip-faint);
+  padding: 4px 10px 6px;
+}
+.emd-sidebar .custom-link {
+  display: block;
+  font-family: var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  font-size: 13px;
+  color: var(--cmip-muted);
+  padding: 5px 10px;
+  margin: 1px 0;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.emd-sidebar .custom-link:hover { background: var(--cmip-wash); color: var(--cmip-navy); }
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+.md-footer.emd-footer {
+  background: var(--cmip-wash);
+  color: var(--cmip-muted);
+  border-top: 1px solid var(--cmip-rule);
+}
+.emd-footer__main {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr);
+  gap: 32px;
+  padding: 36px 16px 28px;
+}
+.emd-footer__about {
+  margin: 12px 0 0;
+  max-width: 300px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--cmip-faint);
+}
+.emd-footer__heading {
+  margin: 0 0 12px;
+  font: 600 13px/1.3 var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  color: var(--cmip-navy);
+}
+.emd-footer__list { list-style: none; margin: 0; padding: 0; }
+.emd-footer__list li { margin: 0 0 8px; }
+.emd-footer .emd-footer__link {
+  font-size: 13px;
+  color: var(--cmip-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.emd-footer .emd-footer__link:hover { color: var(--cmip-navy); text-decoration: underline; }
+
+.emd-footer__bar { border-top: 1px solid var(--cmip-rule); }
+.emd-footer__bar-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #a1a1aa;
+}
+.emd-footer__bar .emd-footer__link { font-size: 12px; color: #a1a1aa; }
+
+/* ── Right-hand menu ("On this page") ────────────────────────────────
+   Collapsed by default: the whole column slides out to a slim tab at the right,
+   and the page content widens into the space. The toggle button and the
+   collapsed classes are added by emd-theme.js; Material's own title stays in
+   the page for its small-screen drawer. */
+.md-sidebar--secondary .emd-toc > .md-nav__title { display: none; }
+
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary.emd-toc-column {
+    transition: width 0.25s ease, margin 0.25s ease;
+  }
+  .md-sidebar--secondary.emd-toc-column--collapsed {
+    width: 44px;
+    margin-left: 8px;
+  }
+}
+
+.emd-toc__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid var(--cmip-rule);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--cmip-navy);
+  font: 600 13px/1.3 var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.emd-toc__toggle:hover { background: var(--cmip-wash); border-color: #d4d4d8; }
+.emd-toc__toggle svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.25s; }
+
+/* Open: the chevron points right ("push it away"). Collapsed: left ("pull it out"),
+   and only the chevron shows, in a narrow tab. */
+.emd-toc .emd-toc__toggle svg { transform: rotate(-90deg); }
+.emd-toc--collapsed .emd-toc__toggle svg { transform: rotate(90deg); }
+.emd-toc-column--collapsed .emd-toc__toggle { justify-content: center; padding: 7px 0; }
+.emd-toc-column--collapsed .emd-toc__toggle span { display: none; }
+
+.emd-toc--collapsed > .md-nav__list { display: none; }
+.emd-toc > .md-nav__list { margin-top: 8px; }
+
+/* ── Small screens ──────────────────────────────────────────────────── */
+@media screen and (max-width: 76.1875em) {
+  .emd-header__links { display: none; }
+  .emd-header__search { margin-left: auto; }
+}
+@media screen and (max-width: 44.9375em) {
+  .emd-brand__title { font-size: 14px; }
+  .emd-header .md-search__button { width: 36px; padding: 0; font-size: 0; }
+  .emd-header .md-search__button::before { left: 50%; transform: translate(-50%, -50%); }
+  .emd-header .md-search__button::after { display: none; }
+  .emd-footer__main { grid-template-columns: 1fr 1fr; }
+  .emd-footer__brand { grid-column: 1 / -1; }
+  .emd-footer__bar-inner { flex-direction: column; }
+}
