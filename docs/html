@@ -1,506 +1,360 @@
-<!DOCTYPE html>
 
-<html lang="en">
-
-<head>
-    <script>
-        const base_url = (new URL("/.", window.location)).href.replace(/\/+$/, ""); /* for search plugin notably */
-    </script>
-    <script integrity="sha384-m6cZ+Whl1ci89lidlu8DH4C+sZLNOYBvImtjUIhUK+iaNffXhqtbYgBVuuPfRsa0" src="/js/dark.js"></script>
-
-
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <link href="/assets/favicon.svg" rel="icon" />
-
-    <link href="/css/base.css" rel="stylesheet" />
-    <link href="/css/geist.css" rel="stylesheet" />
-
-    
-
-    <style>
-        :root {
-            --theme-accent: oklch(62.3% 0.214 259.815);
-        }
-    </style>
-    <link href="/stylesheets/custom.css" rel="stylesheet" />
-
-    
-
-    <script integrity="sha384-2hn3q9jeDV70Gb3DuyWPKgeRxkowIjEpcHeOXSvWCEq2uHJHvXiVer7rbM8HYzYz"
-        src="/js/callbacks.js"></script>
-    <script defer="" integrity="sha384-ljmRPFWw/c4kKFaKY5DIe8bgppHI9VBBrg7WZa8UPd23U9dEFesxZ1Ng8Hzjq2WB"
-        src="/js/toc.js"></script>
-
-    
-
-    
-
-    
-
-    
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("a.headerlink").forEach(function (link) {
-            link.addEventListener("click", function (e) {
-                e.preventDefault();
-
-                // Build the full URL with the anchor fragment
-                const url = window.location.origin + window.location.pathname + this.getAttribute("href");
-
-                navigator.clipboard.writeText(url).then(function () {
-                    // Optional: brief visual feedback
-                });
-            });
-        });
-    });
-</script>
-    
-
-    
-    
-</head>
-
-<body
-    class="text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] lg:[--header-height:calc(var(--spacing)*16)] xl:[--footer-height:calc(var(--spacing)*24)] theme-default">
-    <div class="bg-background relative z-10 flex min-h-svh flex-col" id="inner-body">
-        <header class="bg-background sticky top-0 z-50 w-full" view-transition-name="header">
-    <div class="container-wrapper 3xl:fixed:px-0 px-6">
-        <div class="3xl:fixed:container flex h-(--header-height) items-center gap-2 **:data-[slot=separator]:!h-4">
-            <button id="burger-button" data-slot="popover-trigger" onclick="onMobileMenuButtonClick(event)" class="group"
-    
-    type="button" aria-haspopup="dialog" data-state="closed">
-    <div class="relative flex h-8 w-4 items-center justify-center">
-        <div class="relative size-4">
-            <!-- 16px x 16px -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="0" x2="16" y1="5" y2="5"
-                    class="group-data-[state=open]:translate-y-[2.25px] group-data-[state=open]:-translate-x-[2.25px] group-data-[state=open]:rotate-45 transition-all duration-300 origin-center" />
-                <line x1="0" x2="16" y1="11" y2="11"
-                    class="group-data-[state=open]:-translate-y-[2.25px] group-data-[state=open]:-translate-x-[2.25px] group-data-[state=open]:-rotate-45 transition-all duration-300 origin-center" />
-            </svg>
-        </div>
-
-        <span class="sr-only">Toggle Menu</span>
-    </div>
-    <span class="flex h-8 items-center text-lg leading-none font-medium">Menu</span>
-</button>
-            <a data-slot="button" class="button ghost gap-2 hidden lg:flex"
-    
-    href="//">
-    <span class="flex flex-row justify-center items-center">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Model documentation for CMIP7">
+      
+      
+        <meta name="author" content="WCRP-CMIP">
+      
+      
+      
+      
+      
         
+      
+      
+      <link rel="icon" href="/assets/favicon.svg">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Essential Model Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="/assets/stylesheets/classic/main.cfc7948b.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="/assets/stylesheets/classic/palette.bf1c5cd6.min.css">
+      
+      
 
-
-
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.34 209.89">
-<defs><style>.cmip-logo-fill{fill:#2196f3;}</style></defs>
-<g>
-<path class="cmip-logo-fill" d="M89.88,117.19c.86-.86,1.89-1.56,3.08-2.05s2.43-.7,3.72-.7c1.08,0,2.05,.16,2.97,.43,.92,.32,1.78,.7,2.54,1.24s1.51,1.19,2.21,1.89l5.13-5.88c-.97-1.13-2.16-2.16-3.56-3.02-1.35-.86-2.86-1.46-4.42-1.89-1.56-.43-3.18-.65-4.86-.65-2.64,0-5.07,.43-7.28,1.35-2.21,.92-4.15,2.16-5.77,3.72-1.62,1.62-2.91,3.51-3.83,5.66-.92,2.16-1.4,4.53-1.4,7.12s.43,5.07,1.29,7.23c.86,2.21,2.1,4.1,3.72,5.72,1.62,1.62,3.51,2.86,5.72,3.72,2.21,.86,4.59,1.29,7.23,1.29,1.67,0,3.34-.22,5.02-.59,1.67-.43,3.18-.97,4.53-1.73,1.35-.7,2.48-1.56,3.29-2.48l-4.05-6.42c-.65,.65-1.35,1.24-2.16,1.78-.81,.49-1.67,.92-2.64,1.19-.97,.32-1.94,.43-3.02,.43-1.56,0-2.97-.22-4.21-.7-1.29-.49-2.37-1.13-3.24-2.05-.92-.92-1.56-1.94-2.1-3.18-.49-1.24-.76-2.59-.76-4.15s.27-2.97,.76-4.21c.54-1.13,1.24-2.16,2.1-3.08Z"/>
-<path class="cmip-logo-fill" d="M149.49,107.32h-7.23l-10.09,16.18-9.93-16.18h-7.55v34.63h8.15v-10.79c0-3.18-.05-5.99-.22-8.31-.05-.54-.11-1.13-.16-1.67l7.82,12.35h3.29l8.09-12.52c-.05,.7-.16,1.4-.16,2.16-.16,2.37-.22,5.07-.22,8.04v10.79h8.15v-34.69h.05Z"/>
-<polygon class="cmip-logo-fill" points="177.38 114.44 177.38 107.32 157.21 107.32 157.21 114.44 163.03 114.44 163.03 134.94 157.21 134.94 157.21 142.01 177.38 142.01 177.38 134.94 171.45 134.94 171.45 114.44 177.38 114.44"/>
-<path class="cmip-logo-fill" d="M210.24,112.87c-1.03-1.73-2.37-3.08-4.05-4.05-1.73-.97-3.61-1.51-5.83-1.51h-14.94v34.63h8.36v-11.6h6.53c2.16,0,4.1-.49,5.83-1.51,1.73-1.03,3.08-2.43,4.05-4.21,1.03-1.78,1.51-3.78,1.51-6.04,.05-2.05-.49-3.99-1.46-5.72Zm-7.66,8.15c-.38,.65-.86,1.13-1.46,1.51-.59,.38-1.24,.54-2,.54h-5.5v-8.25h5.56c.7,0,1.4,.16,2,.49,.59,.32,1.08,.81,1.46,1.4s.54,1.29,.54,2.16c-.05,.81-.22,1.51-.59,2.16Z"/>
-</g>
-<g>
-<path class="cmip-logo-fill" d="M76.64,165.19c-.11,0-.22-.01-.33-.05-30.88-8.5-52.45-36.84-52.45-68.91,0-39.41,32.06-71.47,71.47-71.47s71.47,32.06,71.47,71.47c0,.69-.56,1.25-1.25,1.25s-1.25-.56-1.25-1.25c0-38.03-30.94-68.96-68.96-68.96S26.36,58.21,26.36,96.23c0,30.94,20.81,58.29,50.61,66.49,.67,.18,1.06,.87,.87,1.54-.15,.56-.66,.92-1.21,.92Z"/>
-<path class="cmip-logo-fill" d="M53.55,141.57c-.31,0-.62-.11-.86-.34-12.48-11.83-19.35-27.81-19.35-45,0-34.18,27.81-61.99,61.99-61.99s61.99,27.81,61.99,61.99c0,.69-.56,1.25-1.25,1.25s-1.25-.56-1.25-1.25c0-32.8-26.68-59.48-59.48-59.48s-59.48,26.68-59.48,59.48c0,16.49,6.59,31.83,18.57,43.18,.5,.48,.52,1.27,.05,1.77-.25,.26-.58,.39-.91,.39Z"/>
-<path class="cmip-logo-fill" d="M45.81,109.34c-.57,0-1.08-.39-1.22-.96-.94-3.95-1.42-8.04-1.42-12.15,0-28.76,23.4-52.15,52.15-52.15s52.15,23.4,52.15,52.15c0,.69-.56,1.25-1.25,1.25s-1.25-.56-1.25-1.25c0-27.38-22.27-49.65-49.65-49.65s-49.65,22.27-49.65,49.65c0,3.91,.46,7.8,1.35,11.57,.16,.67-.25,1.35-.93,1.51-.1,.02-.2,.03-.29,.03Z"/>
-<path class="cmip-logo-fill" d="M135.99,97.48c-.69,0-1.25-.56-1.25-1.25,0-21.74-17.68-39.42-39.42-39.42-8.02,0-15.73,2.39-22.31,6.92-4.4,3.03-8.09,6.84-10.96,11.34-.37,.58-1.15,.76-1.73,.38-.58-.37-.76-1.15-.38-1.73,3.05-4.79,6.97-8.84,11.65-12.06,7-4.81,15.2-7.36,23.73-7.36,23.12,0,41.93,18.81,41.93,41.93,0,.69-.56,1.25-1.25,1.25Z"/>
-<path class="cmip-logo-fill" d="M125.66,97.48c-.69,0-1.25-.56-1.25-1.25,0-16.04-13.05-29.09-29.09-29.09-3.52,0-6.96,.62-10.22,1.85-.65,.24-1.37-.08-1.61-.73-.24-.65,.09-1.37,.73-1.61,3.55-1.33,7.28-2.01,11.1-2.01,17.42,0,31.59,14.17,31.59,31.59,0,.69-.56,1.25-1.25,1.25Z"/>
-<path class="cmip-logo-fill" d="M115.56,97.48c-.69,0-1.25-.56-1.25-1.25,0-5.81-2.61-11.22-7.15-14.85-.54-.43-.63-1.22-.2-1.76s1.22-.63,1.76-.2c5.14,4.11,8.09,10.23,8.09,16.8,0,.69-.56,1.25-1.25,1.25Z"/>
-<path class="cmip-logo-fill" d="M175.98,97.59h-60.42c-.69,0-1.25-.56-1.25-1.25s.56-1.25,1.25-1.25h60.42c.69,0,1.25,.56,1.25,1.25s-.56,1.25-1.25,1.25Z"/>
-<path class="cmip-logo-fill" d="M95.53,178.31c-45.21,0-81.99-36.78-81.99-81.99S50.32,14.33,95.53,14.33s81.99,36.78,81.99,81.99c0,.69-.56,1.25-1.25,1.25s-1.25-.56-1.25-1.25c0-43.83-35.66-79.48-79.48-79.48S16.05,52.49,16.05,96.32s35.66,79.48,79.48,79.48c2.71,0,5.45-.14,8.13-.41,.7-.06,1.3,.43,1.37,1.12,.07,.69-.43,1.3-1.12,1.37-2.77,.28-5.59,.42-8.38,.42Z"/>
-</g>
-</svg>
-
-
-
-
-    </span>
 
     
-    <h1>Essential Model Documentation</h1>
     
-</a>
-            
-            <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-                <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-                    <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-    <button onclick="onSearchBarClick(event)" data-slot="dialog-trigger" data-variant="outline" data-size="default"
-    class="search secondary" type="button" aria-haspopup="dialog" aria-controls="search-dialog" data-state="closed">
-    <span class="hidden lg:inline-flex">Search documentation...</span>
-    <span class="inline-flex lg:hidden">Search...</span>
-</button>
-</div>
-<dialog id="search-dialog" onclick="onSearchDialogClick(event)"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-lg shadow-lg border overflow-hidden p-0">
-    <div class="w-lg gap-4">
-        <div class="flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground">
-            <div data-slot="command-input-wrapper" class="flex h-9 items-center gap-2 border-b px-3">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-    class="lucide lucide-search size-4 shrink-0 opacity-50">
-    <circle cx="11" cy="11" r="8"></circle>
-    <path d="m21 21-4.3-4.3"></path>
-</svg>
-                <input data-slot="command-input"
-                    class="placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
-                    placeholder="Search documentation..." cmdk-input="" autocomplete="off" autocorrect="off"
-                    spellcheck="false" aria-label="Search documentation" type="search" value=""
-                    oninput="onInputHandler(event)">
-            </div>
-        </div>
-        <div id="mkdocs-search-results">
-            <!-- search results go there -->
-        </div>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="/stylesheets/emd-content.css">
+    
+      <link rel="stylesheet" href="/stylesheets/emd-theme.css">
+    
+    <script>__md_scope=new URL("/",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        <a href="#__skip" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
-</dialog>
-<script>
-    document.removeEventListener("keydown", searchShortcutHandler);
-    document.addEventListener("keydown", searchShortcutHandler);
-</script>
-                </div>
-                
-                
-                <div data-orientation="vertical" role="none" data-slot="separator"
-    class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px">
-</div>
-                <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation" class="button ghost">
-    <svg viewBox="0 0 438.549 438.549" class="h-4.5">
-    <path fill="currentColor"
-        d="M409.132 114.573c-19.608-33.596-46.205-60.194-79.798-79.8-33.598-19.607-70.277-29.408-110.063-29.408-39.781 0-76.472 9.804-110.063 29.408-33.596 19.605-60.192 46.204-79.8 79.8C9.803 148.168 0 184.854 0 224.63c0 47.78 13.94 90.745 41.827 128.906 27.884 38.164 63.906 64.572 108.063 79.227 5.14.954 8.945.283 11.419-1.996 2.475-2.282 3.711-5.14 3.711-8.562 0-.571-.049-5.708-.144-15.417a2549.81 2549.81 0 01-.144-25.406l-6.567 1.136c-4.187.767-9.469 1.092-15.846 1-6.374-.089-12.991-.757-19.842-1.999-6.854-1.231-13.229-4.086-19.13-8.559-5.898-4.473-10.085-10.328-12.56-17.556l-2.855-6.57c-1.903-4.374-4.899-9.233-8.992-14.559-4.093-5.331-8.232-8.945-12.419-10.848l-1.999-1.431c-1.332-.951-2.568-2.098-3.711-3.429-1.142-1.331-1.997-2.663-2.568-3.997-.572-1.335-.098-2.43 1.427-3.289 1.525-.859 4.281-1.276 8.28-1.276l5.708.853c3.807.763 8.516 3.042 14.133 6.851 5.614 3.806 10.229 8.754 13.846 14.842 4.38 7.806 9.657 13.754 15.846 17.847 6.184 4.093 12.419 6.136 18.699 6.136 6.28 0 11.704-.476 16.274-1.423 4.565-.952 8.848-2.383 12.847-4.285 1.713-12.758 6.377-22.559 13.988-29.41-10.848-1.14-20.601-2.857-29.264-5.14-8.658-2.286-17.605-5.996-26.835-11.14-9.235-5.137-16.896-11.516-22.985-19.126-6.09-7.614-11.088-17.61-14.987-29.979-3.901-12.374-5.852-26.648-5.852-42.826 0-23.035 7.52-42.637 22.557-58.817-7.044-17.318-6.379-36.732 1.997-58.24 5.52-1.715 13.706-.428 24.554 3.853 10.85 4.283 18.794 7.952 23.84 10.994 5.046 3.041 9.089 5.618 12.135 7.708 17.705-4.947 35.976-7.421 54.818-7.421s37.117 2.474 54.823 7.421l10.849-6.849c7.419-4.57 16.18-8.758 26.262-12.565 10.088-3.805 17.802-4.853 23.134-3.138 8.562 21.509 9.325 40.922 2.279 58.24 15.036 16.18 22.559 35.787 22.559 58.817 0 16.178-1.958 30.497-5.853 42.966-3.9 12.471-8.941 22.457-15.125 29.979-6.191 7.521-13.901 13.85-23.131 18.986-9.232 5.14-18.182 8.85-26.84 11.136-8.662 2.286-18.415 4.004-29.263 5.146 9.894 8.562 14.842 22.077 14.842 40.539v60.237c0 3.422 1.19 6.279 3.572 8.562 2.379 2.279 6.136 2.95 11.276 1.995 44.163-14.653 80.185-41.062 108.068-79.226 27.88-38.161 41.825-81.126 41.825-128.906-.01-39.771-9.818-76.454-29.414-110.049z">
-    </path>
-</svg>
-    
-</a>
-                
-
-
-                
-
-                
-                
-                
-                <div class="hidden 3xl:flex items-center gap-2">
-                    <div data-orientation="vertical" role="none" data-slot="separator"
-    class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px">
-</div>
-                    <button class="ghost icon" title="Toggle layout" onclick="toggleLayout(event)">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-    class="lucide lucide-gallery-horizontal">
-    <path d="M2 3v18"></path>
-    <rect width="12" height="18" x="6" y="3" rx="2"></rect>
-    <path d="M22 3v18"></path>
-</svg>
-</button>
-                </div>
-                <div data-orientation="vertical" role="none" data-slot="separator"
-    class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px">
-</div>
-                <button class="ghost icon" onclick="onThemeSwitch(event)" title="Toggle theme">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-    class="size-4.5">
-    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-    <path d="M12 3l0 18"></path>
-    <path d="M12 9l4.65 -4.65"></path>
-    <path d="M12 14.3l7.37 -7.37"></path>
-    <path d="M12 19.6l8.85 -8.85"></path>
-</svg>
-</button>
-            </div>
-        </div>
+    <div data-md-component="announce">
+      
     </div>
+    
+    
+      <header class="md-header emd-header" data-md-component="header">
+  <nav class="md-header__inner md-grid emd-header__inner" aria-label="Header">
+    <label class="md-header__button md-icon emd-header__menu" for="__drawer" aria-label="Navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <a href="/" class="emd-brand"
+       title="Essential Model Documentation" aria-label="Essential Model Documentation" data-md-component="logo">
+      <span class="emd-brand__badge">
+  <img src="/assets/cmip-logo-white.svg" alt="Essential Model Documentation">
+</span>
+      <span class="emd-brand__title">Essential Model Documentation</span>
+    </a>
+
+    <ul class="emd-header__links">
+      
+        <li>
+          <a href="/Data_Users/Model_viewer/"
+             class="emd-header__link"
+             >Data users</a>
+        </li>
+      
+        <li>
+          <a href="/Modelling_centres/Submission_guide/"
+             class="emd-header__link"
+             >Modelling centres</a>
+        </li>
+      
+        <li>
+          <a href="/Reviewers/Reviewer_information/"
+             class="emd-header__link"
+             >Reviewers</a>
+        </li>
+      
+        <li>
+          <a href="/Developers/Workflows_and_automation/"
+             class="emd-header__link"
+             >Developers</a>
+        </li>
+      
+    </ul><div class="emd-header__search">
+      <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+    </div>
+
+    
+      <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation" class="emd-header__repo" title="WCRP-CMIP&#x2f;Essential-Model-Documentation"
+         aria-label="WCRP-CMIP&#x2f;Essential-Model-Documentation" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+      </a>
+    
+  </nav>
 </header>
-        <main class="flex flex-1 flex-col">
-            <div class="container-wrapper flex flex-1 flex-col px-2">
-                <div class="group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex w-full 3xl:fixed:container 3xl:fixed:px-3 min-h-min flex-1 items-start px-0 [--sidebar-width:220px] [--top-spacing:0] lg:grid lg:grid-cols-[var(--sidebar-width)_minmax(0,1fr)] lg:[--sidebar-width:240px] lg:[--top-spacing:calc(var(--spacing)*4)]"
-                    data-slot="sidebar-wrapper"
-                    style="--sidebar-width:calc(var(--spacing) * 72);--sidebar-width-icon:3rem;">
-                    <div class="w-(--sidebar-width) flex-col text-sidebar-foreground sticky top-[calc(var(--header-height)+0.6rem)] z-30 hidden max-h-[calc(100svh-10rem)] overscroll-none bg-transparent [--sidebar-menu-width:--spacing(56)] lg:flex"
-                        data-slot="sidebar">
-                        <div class="h-9"></div>
-                        <div
-                            class="absolute top-8 z-10 h-8 w-(--sidebar-menu-width) shrink-0 bg-gradient-to-b from-background via-background/80 to-background/50 blur-xs">
-                        </div>
-                        <div
-                            class="absolute top-12 right-2 bottom-0 hidden h-full w-px bg-gradient-to-b from-transparent via-border to-transparent lg:flex">
-                        </div>
-                        <div class="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden mx-auto no-scrollbar w-(--sidebar-menu-width) overflow-x-hidden px-2"
-                            data-sidebar="content" data-slot="sidebar-content" view-transition-name="sidebar">
-                            
-                            
-                            
-                        </div>
-                    </div>
-                    <div class="h-full w-full">
-                        <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full" data-slot="docs">
-                            <div class="flex min-w-0 flex-1 flex-col">
-                                <div class="h-(--top-spacing) shrink-0"></div>
-                                
-<div class='h-full flex flex-row items-center justify-center'>
-    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='w-1/2'>
-        <path d='M0 0h24v24H0z' fill='none' />
-        <g fill='none' fill-rule='evenodd' clip-rule='evenodd'>
-            <path fill='var(--color-muted)'
-                d='M12.276 15.59c-.277-.662-2.117-.054-2.874 1.706a5.39 5.39 0 0 0 .964 5.877a2.99 2.99 0 0 0 4.592-1.473a7.12 7.12 0 0 0-.94-5.43c-.414-.458-1.353-.988-1.742-.68m-.136.496a2.17 2.17 0 0 0-1.713 1.603a4.5 4.5 0 0 0 .727 4.404a1.69 1.69 0 0 0 2.567-.83c.33-.883.375-4.492-1.263-4.906a.43.43 0 0 1-.318-.271' />
-            <path fill='var(--color-muted)'
-                d='M13.019.337c-.2-.458-1.431-.39-2.078-.146a9.2 9.2 0 0 0-3.608 4.108c-3.192 5.907-3.78 9.218 2.746 9.734c2.484.177 4.98-.078 7.377-.754a2.44 2.44 0 0 0 1.705-2.763C18.929 8.668 14.624-.528 13.019.336m-.2.536a.4.4 0 0 1-.276.028C9.386.25 6.273 9.22 6.32 10.718c.082 2.829 8.758 2.105 10.629 1.342c.69-.276 1.014-.596.93-1.41a25 25 0 0 0-1.657-4.49C13.502.143 13.062 1.527 12.82.875z' />
-            <path fill='var(--color-muted)'
-                d='M12.46 9.179c-.25-.702-2.486-.172-1.914 1.533a1.381 1.381 0 0 0 2.567.141c.406-.975-.238-1.666-.652-1.674zm-.121-1.13c1.177-5.432-2-8.29-.83-.03a.415.415 0 1 0 .83.03' />
-            <path fill='var(--color-muted)'
-                d='M19.917 21.432c.243 2.04.23 2.62.754 2.565c.525-.056.33-.415.276-2.708c.83-.133 1.758-.108 1.692-.694c-.067-.585-.813-.356-1.71-.298c-.042-2.263-.034-2.21-.147-4.24c-.166-2.507-5.338 3.336-4.68 4.745c.45.926 2.782.744 3.815.63m-.122-1.077c-.11-1.105-.149-1.735-.237-2.926a10 10 0 0 0-1.79 2.27c-.46.896-.49.515.276.595q.873.09 1.751.053zM5.35 21.07c.222 1.882.206 2.763.772 2.71s.326-.477.277-2.781c.878-.07 1.76-.022 1.693-.62c-.058-.513-.552-.353-1.713-.367c-.038-2.183-.036-2.166-.143-4.17a.666.666 0 0 0-1.028-.513A19.2 19.2 0 0 0 1.38 20.34a.67.67 0 0 0 .627.845s1.724-.027 3.343-.116m-.117-1.077c-.097-1.01-.12-1.382-.213-2.647a30 30 0 0 0-1.934 2.583c.602.022 1.38.047 2.147.064' />
-        </g>
-    </svg>
-</div>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary emd-sidebar" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title emd-sidebar__title" for="__drawer">
+    <a href="/" title="Essential Model Documentation" class="md-nav__button md-logo" aria-label="Essential Model Documentation" data-md-component="logo">
+      
+  <img src="/assets/cmip-logo-white.svg" alt="Essential Model Documentation">
 
-                            </div>
-                            
-                            <dialog id="bottom-sidebar" onclick="onBottomSidebarDialogClick(event)" class="bg-transparent"
-    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 58px); min-width: max-content; --radix-popper-transform-origin: 0% 0px; will-change: transform; z-index: 50; --radix-popper-available-width: 504px; --radix-popper-available-height: 857px; --radix-popper-anchor-width: 72.94999694824219px; --radix-popper-anchor-height: 32px;">
-    <div data-side="bottom" data-align="start" data-state="open" role="dialog" data-slot="popover-content"
-        class="text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 origin-(--radix-popover-content-transform-origin) border outline-hidden bg-background/90 no-scrollbar h-(--radix-popper-available-height) w-(--radix-popper-available-width) overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
-        style="--radix-popover-content-transform-origin: var(--radix-popper-transform-origin); --radix-popover-content-available-width: var(--radix-popper-available-width); --radix-popover-content-available-height: var(--radix-popper-available-height); --radix-popover-trigger-width: var(--radix-popper-anchor-width); --radix-popover-trigger-height: var(--radix-popper-anchor-height);"
-        tabindex="-1">
-        <div class="flex flex-col gap-12 overflow-auto px-6 py-6">
-            
-            
-            
-            
-            
-
-            
-            <div class="flex flex-col gap-4">
-                <div class="text-muted-foreground text-sm font-medium">Menu</div>
-                <div class="flex flex-col gap-3">
-                    
-                    <a class="text-2xl font-medium" href="/.">
-                        
-                        Essential Model Documentation (EMD)
-                        
-                    </a>
-                    
-                    <a class="text-2xl font-medium" href="/FAQ/">
-                        
-                        Frequently Asked Questions
-                        
-                    </a>
-                    
+    </a>
+    Essential Model Documentation
+  </label>
+  <div data-slot="sidebar-content" data-sidebar="content" class="emd-sidebar__content"></div>
+</nav>
+                  </div>
                 </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  <h1>404 - Not found</h1>
+
+              </article>
             </div>
-            
-
-            
-            <div class="flex flex-col gap-8">
-                
-                <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Data Users</div>
-                    
-                    <div class="flex flex-col gap-3">
-                        
-                        <a class="text-2xl font-medium" href="/Data_Users/Extract_the_data/">
-                            
-                            Extract the data
-                            
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-                
-                <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Developers</div>
-                    
-                    <div class="flex flex-col gap-3">
-                        
-                        <a class="text-2xl font-medium" href="/Developers/Workflows_and_automation/">
-                            
-                            How a Submission is Processed
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Developers/Issue_templates/">
-                            
-                            Issue Templates — Structure and Maintenance
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Developers/Validating_records/">
-                            
-                            Validating EMD Records
-                            
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-                
-                <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Modelling centres</div>
-                    
-                    <div class="flex flex-col gap-3">
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/Editing_the_EMD/">
-                            
-                            Editing the EMD
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/Progress_feed/">
-                            
-                            EMD Submission Feed
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/Submission_guide/">
-                            
-                            EMD Submission Guide
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/Registering_an_institution/">
-                            
-                            Registering an Institution
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/Using_GitHub_forms/">
-                            
-                            Using GitHub Forms
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/What_to_expect_on_submission/">
-                            
-                            What to Expect on Submission
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Modelling_centres/Error_meanings/">
-                            
-                            When Things Go Wrong
-                            
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-                
-                <div class="flex flex-col gap-4">
-                    <div class="text-muted-foreground text-sm font-medium">Reviewers</div>
-                    
-                    <div class="flex flex-col gap-3">
-                        
-                        <a class="text-2xl font-medium" href="/Reviewers/Review_checklist/">
-                            
-                            EMD Reviewer Checklist — Common Mistakes by File Type
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Reviewers/Interpreting_the_review_summary/">
-                            
-                            Interpreting the Review Summary
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Reviewers/Review_options/">
-                            
-                            Review Options
-                            
-                        </a>
-                        
-                        <a class="text-2xl font-medium" href="/Reviewers/Reviewer_information/">
-                            
-                            Reviewer Information
-                            
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-                
-            </div>
-            
-
-            
-            
-
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer emd-footer">
+  <div class="md-grid emd-footer__main">
+    <div class="emd-footer__brand">
+      <a href="/" class="emd-brand emd-brand--footer"
+         aria-label="Essential Model Documentation">
+        <span class="emd-brand__badge">
+  <img src="/assets/cmip-logo-white.svg" alt="Essential Model Documentation">
+</span>
+      </a>
+      <p class="emd-footer__about">Model documentation for CMIP7</p>
     </div>
-</dialog>
-                            <div
-                                class="sticky top-[calc(var(--header-height)+1px)] ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
-                                <div class="h-(--top-spacing) shrink-0"></div>
-                                
-                                
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer view-transition-name="footer"
-    class="group-has-[.section-soft]/body:bg-surface/40 3xl:fixed:bg-transparent dark:bg-transparent">
-    <div class="container-wrapper px-4 xl:px-6">
-        <div class="flex h-(--footer-height) items-center justify-between">
-            <div class="text-muted-foreground w-full text-center text-xs leading-loose sm:text-sm">
-                
-                Built by<!-- --> <span>WCRP-CMIP</span> &mdash;
-                
-                <a href="https://github.com/asiffer/mkdocs-shadcn">shadcn theme</a> provided by
-                <a href="https://github.com/asiffer">@asiffer</a>
-            </div>
-        </div>
+
+    
+      <div class="emd-footer__col">
+        <h2 class="emd-footer__heading">Documentation</h2>
+        <ul class="emd-footer__list">
+          
+            
+            <li>
+              <a href="/Data_Users/Extract_the_data/" class="emd-footer__link"
+                 >Data users</a>
+            </li>
+          
+            
+            <li>
+              <a href="/Modelling_centres/Submission_guide/" class="emd-footer__link"
+                 >Submission guide</a>
+            </li>
+          
+            
+            <li>
+              <a href="/Reviewers/Reviewer_information/" class="emd-footer__link"
+                 >Reviewers</a>
+            </li>
+          
+            
+            <li>
+              <a href="/FAQ/" class="emd-footer__link"
+                 >FAQ</a>
+            </li>
+          
+        </ul>
+      </div>
+    
+      <div class="emd-footer__col">
+        <h2 class="emd-footer__heading">Contribute</h2>
+        <ul class="emd-footer__list">
+          
+            
+            <li>
+              <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/issues/new/choose" class="emd-footer__link"
+                 target="_blank" rel="noopener">Submit a model</a>
+            </li>
+          
+            
+            <li>
+              <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation" class="emd-footer__link"
+                 target="_blank" rel="noopener">GitHub repository</a>
+            </li>
+          
+            
+            <li>
+              <a href="/Developers/Workflows_and_automation/" class="emd-footer__link"
+                 >Developers</a>
+            </li>
+          
+        </ul>
+      </div>
+    
+      <div class="emd-footer__col">
+        <h2 class="emd-footer__heading">CMIP</h2>
+        <ul class="emd-footer__list">
+          
+            
+            <li>
+              <a href="https://wcrp-cmip.org/" class="emd-footer__link"
+                 target="_blank" rel="noopener">wcrp-cmip.org</a>
+            </li>
+          
+            
+            <li>
+              <a href="https://guidance.mipcvs.dev/" class="emd-footer__link"
+                 target="_blank" rel="noopener">CMIP7 guidance</a>
+            </li>
+          
+            
+            <li>
+              <a href="/Contact_us.html" class="emd-footer__link"
+                 >Contact us</a>
+            </li>
+          
+        </ul>
+      </div>
+    
+  </div>
+
+  <div class="emd-footer__bar">
+    <div class="md-grid emd-footer__bar-inner">
+      <span>&copy; CMIP International Project Office</span>
+      
+        <a href="https://creativecommons.org/licenses/by/4.0/" class="emd-footer__link" target="_blank" rel="noopener">
+          Content licensed CC BY 4.0
+        </a>
+      
     </div>
+  </div>
 </footer>
+      
     </div>
-     
-
-<script src="/stylesheets/custom.js"></script>
-
-     
-
-<script src="/stylesheets/embed.js"></script>
-
-     
-
-<script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
-
-     
-
-<script src="/search/main.js"></script>
-
-
-    
-
-    <script integrity="sha384-JLNLRFGzvOp0up707XKgSnAjjt1w5BF/+lbeLQvlf6mNwf0m89IXFdpNAk4t6Hcs"
-        src="/js/copy-button.js"></script>
-    <script integrity="sha384-JBx6cBEiyhK1KPwZgBHiI6GDaAmvlOxMQFyWAZTEpW5Ifo5XQ2LBcJ61GVOumwF1"
-        src="/js/sidebar.js"></script>
-    <script integrity="sha384-fNURFMRt0p/HqXnQnV4+CT9dX1GiU5F0fC3pFbg7gfoANytoUMErSW7suWSBkSuF"
-        src="/js/slider.js"></script>
-    <script>updatePygmentsStylesheet();</script>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
     
     
     
-    <script type="speculationrules">
-{
-  "prerender": [
-    {
-      "where": {
-        "selector_matches": ["#next-button", "#previous-button"]
-      }
-    }
-  ]
-}
-</script>
-</body>
-
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"/","features":["navigation.top","search.suggest","search.highlight","toc.follow","content.code.copy"],"redirect":null,"search":"/assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="/assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+        <script src="/stylesheets/custom.js"></script>
+      
+        <script src="/stylesheets/embed.js"></script>
+      
+        <script src="/stylesheets/emd-theme.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  </body>
 </html>
