@@ -34,7 +34,7 @@
   --md-footer-bg-color: var(--cmip-wash);
   --md-footer-fg-color: var(--cmip-muted);
 
-  --emd-header-h: 56px;
+  --emd-header-h: 64px;
 }
 
 .md-typeset h1,
@@ -61,12 +61,12 @@
   display: inline-flex;
   align-items: center;
   background: var(--cmip-navy);
-  border-radius: 6px;
-  padding: 5px 8px;
+  border-radius: 8px;
+  padding: 7px 12px;
   flex-shrink: 0;
 }
 .emd-brand__badge img,
-.emd-brand__badge svg { height: 18px; width: auto; display: block; }
+.emd-brand__badge svg { height: 26px; width: auto; display: block; }
 .emd-brand__title {
   font-size: 15px;
   font-weight: 600;
