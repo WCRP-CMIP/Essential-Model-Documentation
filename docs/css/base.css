@@ -29,12 +29,8 @@
   --sidebar-border: oklch(92.2% 0 0);
   --sidebar-width: 240px;
   --muted-foreground: oklch(55.6% 0 0);
-
-  /* Active sidebar link and external-link colours (from the old custom.css). */
-  --emd-primary: #2196f3;
-  --emd-text: #1e293b;
-  --emd-text-secondary: #475569;
-  --emd-text-tertiary: #94a3b8;
-  --emd-bg-secondary: #f8fafc;
-  --emd-border-light: #f1f5f9;
 }
+
+/* No --emd-* colours here: stand-alone pages (Model viewer, Grid viewer, Model
+   participation…) set their own, with dark-mode values, and this file is linked
+   after them, so anything set here would override their dark mode. */

@@ -7,6 +7,23 @@
   embed mode and table footer - figure controls - homepage cards.
 */
 
+/* Colours the content styles below read (the light values of the old custom.css).
+   Only Zensical-built pages load this file, so stand-alone pages keep their own. */
+:root {
+  --emd-primary: #2196f3;
+  --emd-primary-light: #bbdefb;
+  --emd-primary-dark: #1976d2;
+  --emd-accent: #2196f3;
+  --emd-text: #1e293b;
+  --emd-text-secondary: #475569;
+  --emd-text-tertiary: #94a3b8;
+  --emd-bg: #ffffff;
+  --emd-bg-secondary: #f8fafc;
+  --emd-bg-tertiary: #f1f5f9;
+  --emd-border: #e2e8f0;
+  --emd-border-light: #f1f5f9;
+}
+
 @font-face {
   font-family: Virgil; /* set name */
   src: url(../assets/Virgil.woff2); /* relative to stylesheets/custom.css */
