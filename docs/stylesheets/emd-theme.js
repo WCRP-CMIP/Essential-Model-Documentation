@@ -20,6 +20,10 @@
 
       nav.dataset.emdToc = "1";
       nav.classList.add("emd-toc", "emd-toc--collapsed");
+      // The whole right-hand column slides out to a slim tab while collapsed, so
+      // the page content can widen into the space (see emd-theme.css).
+      var column = nav.closest(".md-sidebar--secondary");
+      if (column) column.classList.add("emd-toc-column", "emd-toc-column--collapsed");
       if (!list.id) list.id = "emd-toc-list-" + i;
 
       var button = document.createElement("button");
@@ -27,10 +31,13 @@
       button.className = "emd-toc__toggle";
       button.setAttribute("aria-controls", list.id);
       button.setAttribute("aria-expanded", "false");
+      button.setAttribute("title", "Show " + title.textContent.trim().toLowerCase());
       button.innerHTML = "<span>" + title.textContent.trim() + "</span>" + CHEVRON;
       button.addEventListener("click", function () {
         var open = !nav.classList.toggle("emd-toc--collapsed");
+        if (column) column.classList.toggle("emd-toc-column--collapsed", !open);
         button.setAttribute("aria-expanded", String(open));
+        button.setAttribute("title", (open ? "Hide " : "Show ") + title.textContent.trim().toLowerCase());
       });
       title.insertAdjacentElement("afterend", button);
     });

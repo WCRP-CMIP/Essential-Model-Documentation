@@ -294,15 +294,30 @@
 }
 .emd-footer__bar .emd-footer__link { font-size: 12px; color: #a1a1aa; }
 
-/* ── Right-hand menu ("On this page"): collapsed until its button is clicked.
-   The button is added by emd-theme.js; Material's title stays for small screens. */
+/* ── Right-hand menu ("On this page") ────────────────────────────────
+   Collapsed by default: the whole column slides out to a slim tab at the right,
+   and the page content widens into the space. The toggle button and the
+   collapsed classes are added by emd-theme.js; Material's own title stays in
+   the page for its small-screen drawer. */
 .md-sidebar--secondary .emd-toc > .md-nav__title { display: none; }
+
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary.emd-toc-column {
+    transition: width 0.25s ease, margin 0.25s ease;
+  }
+  .md-sidebar--secondary.emd-toc-column--collapsed {
+    width: 44px;
+    margin-left: 8px;
+  }
+}
+
 .emd-toc__toggle {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   width: 100%;
+  min-height: 34px;
   padding: 7px 10px;
   border: 1px solid var(--cmip-rule);
   border-radius: 8px;
@@ -310,12 +325,21 @@
   color: var(--cmip-navy);
   font: 600 13px/1.3 var(--md-text-font-family, "Plus Jakarta Sans", sans-serif);
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
 .emd-toc__toggle:hover { background: var(--cmip-wash); border-color: #d4d4d8; }
-.emd-toc__toggle svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s; }
-.emd-toc--collapsed .emd-toc__toggle svg { transform: rotate(-90deg); }
+.emd-toc__toggle svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.25s; }
+
+/* Open: the chevron points right ("push it away"). Collapsed: left ("pull it out"),
+   and only the chevron shows, in a narrow tab. */
+.emd-toc .emd-toc__toggle svg { transform: rotate(-90deg); }
+.emd-toc--collapsed .emd-toc__toggle svg { transform: rotate(90deg); }
+.emd-toc-column--collapsed .emd-toc__toggle { justify-content: center; padding: 7px 0; }
+.emd-toc-column--collapsed .emd-toc__toggle span { display: none; }
+
 .emd-toc--collapsed > .md-nav__list { display: none; }
 .emd-toc > .md-nav__list { margin-top: 8px; }
 
