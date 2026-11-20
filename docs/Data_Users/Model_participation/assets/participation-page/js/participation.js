@@ -115,10 +115,10 @@ export function buildRows(records, { includeCollaborators = true } = {}) {
 
 export const totalOf = r => r.components.length + r.models.length;
 
-// Country (or countries) of a registry `organisation` record. Two record shapes
-// exist in the registry:
-//   newer: location = [ { country_name, country_code, name (city), ... } ]
-//   older: location =   { country: [ "United Kingdom", "GB" ], city, ... }
+// Country (or countries) of an institution record. Record shapes seen:
+//   EMD establishment: location = [ { city, country, lat, lon } ]   (country is a name)
+//   newer registry:    location = [ { country_name, country_code, name (city), ... } ]
+//   older registry:    location =   { country: [ "United Kingdom", "GB" ], city, ... }
 // Returns [] when the record has no usable location.
 export function countryOf(org) {
   const locs = Array.isArray(org?.location) ? org.location : org?.location ? [org.location] : [];
