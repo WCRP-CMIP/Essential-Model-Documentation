@@ -169,7 +169,7 @@ def run(parsed_issue, issue, dry_run=False):
         subgrid_data = {
             "@context":              "_context",
             "@id":                   sid,
-            "@type":                 ["wcrp:horizontal_subgrid", "esgvoc:HorizontalSubgrid", "emd"],
+            "@type":                 ["wcrp:horizontal_subgrid", "emd"],
             "validation_key":        sid,
             "horizontal_grid_cell":  cell,
         }
@@ -198,8 +198,7 @@ def run(parsed_issue, issue, dry_run=False):
     hgrid_data = {
         "@context":            "_context",
         "@id":                 temp_id,
-        "@type":               ["emd", "wcrp:horizontal_computational_grid",
-                                "esgvoc:HorizontalComputationalGrid"],
+        "@type":               ["emd", "wcrp:horizontal_computational_grid"],
         "validation_key":      temp_id,
         "horizontal_subgrids": subgrid_ids,
     }

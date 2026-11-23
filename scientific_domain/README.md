@@ -1,51 +1,47 @@
+# Scientific Domain
 
-<section id="description">
+_No description provided yet._
 
-# Scientific Domain (universal)
+---
 
-## Description
-Defines the scientific domains of the Earth system that model components represent. These correspond to the component types defined in EMD (Essential Model Documentation) specification. The `alias` field contains legacy identifiers from the realm vocabulary for backward compatibility.
+## Quick Reference
 
-[View in HTML](https://wcrp-cmip.github.io/Essential-Model-Documentation/scientific_domain/scientific_domain)
+| | |
+|---|---|
+| **Type URI** | `emd:scientific_domain` |
+| **Entries** | 8 |
+| **Validation** | ✗ Not yet |
+| **Pydantic Model** | _Not yet implemented_ |
+| **JSON-LD** | [`emd:scientific_domain`](https://emd.wcrp-cmip.org/scientific_domain) |
+| **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/scientific_domain) |
+| **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
+| **Generated** | 2026-11-23 |
 
-</section>
+---
 
-<section id="mapping">
+## Schema
 
-## Mapping from Realm
+*No Pydantic model available. Fields extracted from JSON files.*
 
-| Scientific Domain | Old Realm ID | Aliases |
-| --- | --- | --- |
-| aerosol | aerosol | aerosol |
-| atmosphere | atmos | atmos |
-| atmospheric-chemistry | atmoschem | atmoschem, atmosChem |
-| land-surface | land | land |
-| land-ice | landice | landice, landIce |
-| ocean | ocean | ocean |
-| ocean-biogeochemistry | ocnbgchem | ocnbgchem, ocnBgchem |
-| sea-ice | seaice | seaice, seaIce |
+| Field | Type |
+|-------|------|
+| `description` | _unknown_ |
+| `alias` | _unknown_ |
+| `ui_label` | _unknown_ |
+| `validation_key` | _unknown_ |
 
-</section>
-
-<section id="info">
-
-| Item | Reference |
-| --- | --- |
-| Type | `wcrp:scientific_domain` |
-| JSON-LD | `universal:scientific_domain` |
-| Expanded reference link | [https://wcrp-cmip.github.io/Essential-Model-Documentation/scientific_domain](https://wcrp-cmip.github.io/Essential-Model-Documentation/scientific_domain) |
-
-</section>
-
-<section id="usage">
+---
 
 ## Usage
 
-### Getting a File
+**Direct Access:**
+
+- JSON: [`https://emd.wcrp-cmip.org/scientific_domain/aerosol.json`](https://emd.wcrp-cmip.org/scientific_domain/aerosol.json)
+- Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Ascientific_domain/aerosol)
+
+**Python (cmipld):**
 
 ```python
 import cmipld
-cmipld.get("universal:scientific_domain/atmosphere")
+data = cmipld.get("emd:scientific_domain/aerosol")
 ```
-
-</section>

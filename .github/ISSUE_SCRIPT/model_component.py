@@ -82,7 +82,7 @@ def run(parsed_issue, issue, dry_run=False):
     component_data = {
         "@context":       "_context",
         "@id":            name_slug,
-        "@type":          ["emd", "wcrp:model_component", "esgvoc:ModelComponent"],
+        "@type":          ["emd", "wcrp:model_component"],
         "validation_key": name_slug,
         "ui_label":       component_name,
         "component":      component_type,
@@ -115,7 +115,7 @@ def run(parsed_issue, issue, dry_run=False):
         config_data = {
             "@context":                      "_context",
             "@id":                           config_id,
-            "@type":                         ["emd", "wcrp:component_config", "esgvoc:ComponentConfig"],
+            "@type":                         ["emd", "wcrp:component_config"],
             "validation_key":                config_id,
             "ui_label":                      config_id,
             "model_component":               name_slug,

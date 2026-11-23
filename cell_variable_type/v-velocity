@@ -4,10 +4,7 @@
     "description": "Variables representing the v component of the velocity vector, by convention the meridional (south-north) component, aligned with latitude on a latitude-longitude grid.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:cell_variable_type",
-        "esgvoc:CellVariableType",
-        "constants",
         "emd"
     ],
     "@id": "v-velocity"

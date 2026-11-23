@@ -4,10 +4,7 @@
     "description": "A projection that rotates the Mercator projection cylinder 90 degrees to be tangent to the Earth along a meridian instead of the equator, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_mapping",
-        "esgvoc:GridMapping",
-        "constants",
         "emd"
     ],
     "@id": "transverse-mercator"

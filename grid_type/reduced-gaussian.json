@@ -4,10 +4,7 @@
     "description": "A Gaussian grid for which the number of longitudinal points is reduced as the poles are approached.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_type",
-        "esgvoc:GridType",
-        "constants",
         "emd"
     ],
     "@id": "reduced-gaussian"

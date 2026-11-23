@@ -1,15 +1,47 @@
 # Truncation Method
 
-Spectral truncation methods used in atmospheric and ocean models that employ spectral transform methods.
+_No description provided yet._
 
-## Entries
+---
 
-| ID | Label | Description |
-|----|-------|-------------|
-| triangular | Triangular Truncation | Total wavenumber m+n ≤ N (e.g., T42, TL127) |
-| rhomboidal | Rhomboidal Truncation | Zonal wavenumber constraint |m| ≤ M and |n-m| ≤ N |
+## Quick Reference
 
-## Aliases
+| | |
+|---|---|
+| **Type URI** | `emd:truncation_method` |
+| **Entries** | 2 |
+| **Validation** | ✗ Not yet |
+| **Pydantic Model** | _Not yet implemented_ |
+| **JSON-LD** | [`emd:truncation_method`](https://emd.wcrp-cmip.org/truncation_method) |
+| **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/truncation_method) |
+| **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
+| **Generated** | 2026-11-23 |
 
-- `T` → triangular
-- `R` → rhomboidal
+---
+
+## Schema
+
+*No Pydantic model available. Fields extracted from JSON files.*
+
+| Field | Type |
+|-------|------|
+| `description` | _unknown_ |
+| `alias` | _unknown_ |
+| `ui_label` | _unknown_ |
+| `validation_key` | _unknown_ |
+
+---
+
+## Usage
+
+**Direct Access:**
+
+- JSON: [`https://emd.wcrp-cmip.org/truncation_method/rhomboidal.json`](https://emd.wcrp-cmip.org/truncation_method/rhomboidal.json)
+- Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Atruncation_method/rhomboidal)
+
+**Python (cmipld):**
+
+```python
+import cmipld
+data = cmipld.get("emd:truncation_method/rhomboidal")
+```

@@ -1,7 +1,6 @@
 # Model Family Template Data
 from cmipld.utils.ldparse import graph_entry
 import time
-import requests
 
 def graph_entry_with_retry(url, depth=2, max_retries=3):
     """Wrapper around graph_entry with retry logic for timeout issues"""
@@ -17,10 +16,9 @@ def graph_entry_with_retry(url, depth=2, max_retries=3):
             else:
                 print(f"  ❌ All {max_retries} attempts failed")
                 raise
-BASE = "https://esgvoc.ipsl.fr/api/v1/universe/data_descriptors/"
 
 DATA = {
-    'institution': list(set(i.get('id') for i in requests.get(f'{BASE}organisation/terms').json()).union(set(i.get('id') for i in requests.get(f'{BASE}institution/terms').json()))),
+    'institution': graph_entry_with_retry('emd:establishment/_graph.json'),
     'component': graph_entry_with_retry('emd:scientific_domain/_graph.json'),
     'family_type': ['model', 'component'],
 }

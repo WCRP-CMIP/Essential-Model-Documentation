@@ -4,10 +4,7 @@
     "description": "An unstructured mesh consisting of arbitrary polygons.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_type",
-        "esgvoc:GridType",
-        "constants",
         "emd"
     ],
     "@id": "unstructured-polygonal"

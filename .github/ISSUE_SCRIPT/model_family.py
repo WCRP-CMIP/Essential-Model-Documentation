@@ -20,6 +20,16 @@ _name_similarity = _importlib_util.module_from_spec(_spec)
 _spec.loader.exec_module(_name_similarity)
 build_similarity_report = _name_similarity.build_similarity_report
 
+# Same pattern for the EMD_tests pydantic check.
+_val_spec = _importlib_util.spec_from_file_location(
+    '_emd_validation',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_emd_validation.py'),
+)
+_emd_validation = _importlib_util.module_from_spec(_val_spec)
+_val_spec.loader.exec_module(_emd_validation)
+validation_block = _emd_validation.validation_block
+print_validation = _emd_validation.print_summary
+
 kind = __file__.split('/')[-1].replace('.py', '')
 
 # Fields that come in as comma- or newline-separated strings → lists
@@ -71,18 +81,13 @@ def run(parsed_issue, issue, dry_run=False):
     atid           = _clean_id(family_name)
     family_type    = (parsed_issue.get('family_type') or '').strip().lower() or 'model'
 
-    # @type based on family_type
-    if family_type == 'component':
-        wcrp_type   = 'wcrp:model_family'
-        esgvoc_type = 'esgvoc:ModelFamily'
-    else:
-        wcrp_type   = 'wcrp:model_family'
-        esgvoc_type = 'esgvoc:ModelFamily'
+    # @type is the same for both family types
+    wcrp_type = 'wcrp:model_family'
 
     data = {
         "@context":       "_context",
         "@id":            atid.lower(),
-        "@type":          ["emd", wcrp_type, esgvoc_type],
+        "@type":          ["emd", wcrp_type],
         "validation_key": atid,
         "ui_label":       family_name.strip(),
         "family_type":    family_type,
@@ -159,4 +164,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         # Lightweight check: flag suspiciously similar existing names in the same folder.
         folder = os.path.dirname(file_path) or 'model_family'
         proposed_id = data.get('@id', '')
-        data['_validation_report'] = build_similarity_report(proposed_id, folder)
+        schema = validation_block(folder, data)
+        print_validation(folder, data)
+        data['_validation_report'] = '\n\n'.join(
+            p for p in (schema, build_similarity_report(proposed_id, folder)) if p
+        )

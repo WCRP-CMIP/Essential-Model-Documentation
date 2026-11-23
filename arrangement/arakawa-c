@@ -1,13 +1,10 @@
 {
-    "validation_key": "arakawa-c",
+    "validation_key": "arakawa_c",
     "ui_label": "Arakawa C-grid",
-    "description": "The Arakawa C grid places velocity-related quantities at the centres of mass cell edges, such that each component is perpendicular to its edge.",
+    "description": "Staggered arrangement in which the horizontal velocity components are separated from each other and from mass, each component sitting at the centre of a cell edge and directed normal (perpendicular) to that edge: mass-related quantities at the cell centre, the zonal component on the east and west edges and the meridional component on the north and south edges. Divergence and the pressure-gradient force are then differenced across a single grid spacing, giving the best representation of gravity-wave propagation and geostrophic adjustment of any of the arrangements once the Rossby radius is resolved; the cost is that the Coriolis term requires averaging neighbouring velocity points. It is the most widely used arrangement in current atmosphere and ocean models. The D grid places the same components tangential to their edges instead.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:arrangement",
-        "esgvoc:Arrangement",
-        "constants",
         "emd"
     ],
     "@id": "arakawa-c"

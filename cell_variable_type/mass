@@ -4,10 +4,7 @@
     "description": "Mass-related variables, including those representing thermodynamic and hydrodynamic quantities.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:cell_variable_type",
-        "esgvoc:CellVariableType",
-        "constants",
         "emd"
     ],
     "@id": "mass"

@@ -1,13 +1,10 @@
 {
-    "validation_key": "arakawa-e",
+    "validation_key": "arakawa_e",
     "ui_label": "Arakawa E-grid",
-    "description": "The Arakawa E grid places mass-related quantities at the centres of velocity cell edges.",
+    "description": "Staggered arrangement equivalent to the B grid rotated by 45 degrees: mass-related quantities sit at the centres of the edges of the velocity cells, so mass and velocity points alternate along the diagonals of the mesh. Both velocity components remain collocated, as on the B grid, so the Coriolis term needs no averaging, and the arrangement inherits the B grid's geostrophic-adjustment behaviour on a mesh turned through 45 degrees. It is used in a small number of models, notably some of the step-mountain (Eta) and NMM family.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:arrangement",
-        "esgvoc:Arrangement",
-        "constants",
         "emd"
     ],
     "@id": "arakawa-e"

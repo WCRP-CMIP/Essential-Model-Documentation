@@ -4,10 +4,7 @@
     "description": "A projection that accurately preserves the area of all regions on a map, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_mapping",
-        "esgvoc:GridMapping",
-        "constants",
         "emd"
     ],
     "@id": "lambert-azimuthal-equal-area"

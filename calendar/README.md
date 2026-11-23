@@ -1,51 +1,47 @@
+# Calendar
 
-<section id="description">
+_No description provided yet._
 
-# Calendar (universal)
+---
 
-## Description
-Defines the calendar systems used in climate models for time representation. These follow the CF Conventions calendar definitions. The `alias` field contains alternative names for each calendar type.
+## Quick Reference
 
-[View in HTML](https://wcrp-cmip.github.io/Essential-Model-Documentation/calendar/calendar)
+| | |
+|---|---|
+| **Type URI** | `emd:calendar` |
+| **Entries** | 9 |
+| **Validation** | ✗ Not yet |
+| **Pydantic Model** | _Not yet implemented_ |
+| **JSON-LD** | [`emd:calendar`](https://emd.wcrp-cmip.org/calendar) |
+| **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/calendar) |
+| **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
+| **Generated** | 2026-11-23 |
 
-</section>
+---
 
-<section id="calendars">
+## Schema
 
-## Available Calendars
+*No Pydantic model available. Fields extracted from JSON files.*
 
-| Calendar | Description | Aliases |
-| --- | --- | --- |
-| standard | Mixed Gregorian/Julian calendar (default) | gregorian |
-| proleptic_gregorian | Gregorian rules extended before 1582-10-15 | - |
-| 360_day | 12 months × 30 days = 360 days/year | - |
-| 365_day | 365 days/year, no leap years | noleap |
-| 366_day | 366 days/year, every year is leap | all_leap |
-| julian | Julian calendar with 4-year leap cycle | - |
-| none | No calendar (time-invariant data) | - |
+| Field | Type |
+|-------|------|
+| `description` | _unknown_ |
+| `alias` | _unknown_ |
+| `ui_label` | _unknown_ |
+| `validation_key` | _unknown_ |
 
-</section>
-
-<section id="info">
-
-| Item | Reference |
-| --- | --- |
-| Type | `wcrp:calendar` |
-| JSON-LD | `universal:calendar` |
-| Expanded reference link | [https://wcrp-cmip.github.io/Essential-Model-Documentation/calendar](https://wcrp-cmip.github.io/Essential-Model-Documentation/calendar) |
-| CF Conventions | [Calendar](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#calendar) |
-
-</section>
-
-<section id="usage">
+---
 
 ## Usage
 
-### Getting a File
+**Direct Access:**
+
+- JSON: [`https://emd.wcrp-cmip.org/calendar/360-day.json`](https://emd.wcrp-cmip.org/calendar/360-day.json)
+- Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Acalendar/360-day)
+
+**Python (cmipld):**
 
 ```python
 import cmipld
-cmipld.get("universal:calendar/standard")
+data = cmipld.get("emd:calendar/360-day")
 ```
-
-</section>

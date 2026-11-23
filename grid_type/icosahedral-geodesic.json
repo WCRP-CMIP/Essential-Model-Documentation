@@ -4,10 +4,7 @@
     "description": "A grid that uses triangular tiles based on the subdivision of an icosahedron.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_type",
-        "esgvoc:GridType",
-        "constants",
         "emd"
     ],
     "@id": "icosahedral-geodesic"

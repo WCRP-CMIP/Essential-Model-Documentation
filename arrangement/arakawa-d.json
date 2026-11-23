@@ -1,13 +1,10 @@
 {
-    "validation_key": "arakawa-d",
+    "validation_key": "arakawa_d",
     "ui_label": "Arakawa D-grid",
-    "description": "The Arakawa D grid places velocity-related quantities at the centres of mass cell edges, such that each component is tangential to its edge.",
+    "description": "Staggered arrangement that places each horizontal velocity component at the centre of a cell edge but directed tangential (parallel) to that edge, with mass-related quantities at the cell centre. It is the transpose of the C grid, in which the same points carry the component normal to the edge, and it represents vorticity rather than divergence on the compact single-grid-spacing stencil. The D grid is rarely used on its own and appears mainly as the second half of combined C-D or CD schemes, where the two arrangements are used in alternation to gain the advantages of both.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:arrangement",
-        "esgvoc:Arrangement",
-        "constants",
         "emd"
     ],
     "@id": "arakawa-d"
