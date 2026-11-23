@@ -1,0 +1,26 @@
+{
+    "validation_key": "not-a-real-",
+    "ui_label": "not a real !",
+    "description": "a green ship sails",
+    "collaborative_institutions": [
+        "aor",
+        "aer"
+    ],
+    "established": null,
+    "family_type": "model",
+    "primary_institution": "aor",
+    "references": [
+        "mysite.dev"
+    ],
+    "scientific_domains": [
+        "land-ice"
+    ],
+    "website": "https://google.com",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_family",
+        "esgvoc:ModelFamily"
+    ],
+    "@id": "not-a-real-"
+}
