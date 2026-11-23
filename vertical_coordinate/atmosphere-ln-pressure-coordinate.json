@@ -4,10 +4,7 @@
     "description": "Parametric atmosphere natural log pressure coordinate, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:vertical_coordinate",
-        "esgvoc:VerticalCoordinate",
-        "constants",
         "emd"
     ],
     "@id": "atmosphere-ln-pressure-coordinate"

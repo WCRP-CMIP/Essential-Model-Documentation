@@ -4,10 +4,7 @@
     "description": "Vertical distance below a reference surface (e.g., sea surface, land surface).",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:vertical_coordinate",
-        "esgvoc:VerticalCoordinate",
-        "constants",
         "emd"
     ],
     "@id": "depth"

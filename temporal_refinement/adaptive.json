@@ -4,10 +4,7 @@
     "description": "Grid resolution changes dynamically during the simulation based on solution features.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:temporal_refinement",
-        "esgvoc:TemporalRefinement",
-        "constants",
         "emd"
     ],
     "@id": "adaptive"

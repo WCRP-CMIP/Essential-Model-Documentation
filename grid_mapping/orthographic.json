@@ -4,10 +4,7 @@
     "description": "A form of parallel projection in which all the projection lines are orthogonal to the projection plane, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_mapping",
-        "esgvoc:GridMapping",
-        "constants",
         "emd"
     ],
     "@id": "orthographic"

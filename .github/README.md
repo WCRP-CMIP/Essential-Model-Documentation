@@ -25,7 +25,7 @@ The forms are accessible from the issue tabs above, however all relevant links, 
 - [x] Go to the Documentation Pages
 - [ ] Read any guidance
 - [ ] Look at the specificaiton document (linked in the left hand menu of the documentation)
-- [ ] Use the progress tracker or issue form links to open the relevant inputs for submission. Do these in order!
+- [ ] Use the [progress tracker](https://emd.wcrp-cmip.org/docs/Modelling_centres/Progress_tracker.html) or issue form links to open the relevant inputs for submission. Do these in order!
 
 
 

@@ -1,13 +1,10 @@
 {
-    "validation_key": "arakawa-a",
+    "validation_key": "arakawa_a",
     "ui_label": "Arakawa A-grid",
-    "description": "The Arakawa A grid places mass- and velocity-related quantities at the same location on each grid cell.",
+    "description": "Unstaggered (collocated) arrangement: mass-related quantities such as pressure, temperature and layer thickness and both horizontal velocity components are held at the same point, the centre of each grid cell. It is the simplest arrangement to code and the only one in which no averaging is needed to form any term, but because divergence and the pressure-gradient force are then differenced across two grid spacings rather than one, the A grid supports a spurious checkerboard mode and represents short-wavelength gravity waves and geostrophic adjustment poorly. The staggered B, C, D and E arrangements all separate velocity from mass to avoid this.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:arrangement",
-        "esgvoc:Arrangement",
-        "constants",
         "emd"
     ],
     "@id": "arakawa-a"

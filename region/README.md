@@ -1,88 +1,47 @@
+# Region
 
-<section id="description">
+_No description provided yet._
 
-# Region  (universal)
+---
 
+## Quick Reference
 
-
-## Description
-Defines the geographic regions used for data subsetting in CMIP7. Regions specify spatial domains for which model output is provided (e.g., global, northern hemisphere, Antarctica, Greenland).
-
-[View in HTML](https://wcrp-cmip.github.io/Essential-Model-Documentation/region/region)
-
-</section>
-
-
-
-<section id="info">
-
-
-| Item | Reference |
-| --- | --- |
-| Type | `wrcp:region` |
 | | |
-| JSON-LD | `universal:region` |
-| Expanded reference link | [https://wcrp-cmip.github.io/Essential-Model-Documentation/region](https://wcrp-cmip.github.io/Essential-Model-Documentation/region) |
-| Developer Repo | [![Open in GitHub](https://img.shields.io/badge/Open-GitHub-blue?logo=github&style=flat-square)](https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/region) |
+|---|---|
+| **Type URI** | `emd:region` |
+| **Entries** | 9 |
+| **Validation** | ✗ Not yet |
+| **Pydantic Model** | _Not yet implemented_ |
+| **JSON-LD** | [`emd:region`](https://emd.wcrp-cmip.org/region) |
+| **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/region) |
+| **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
+| **Generated** | 2026-11-23 |
 
+---
 
-</section>
+## Schema
 
-<section id="schema">
+*No Pydantic model available. Fields extracted from JSON files.*
 
-## Content Schema
+| Field | Type |
+|-------|------|
+| `description` | _unknown_ |
+| `alias` | _unknown_ |
+| `ui_label` | _unknown_ |
+| `validation_key` | _unknown_ |
 
-- **`id`** (**str**) 
-  Region identifier
-- **`description`** (**str**) 
-  Description of the geographic region
-- **`ui_label`** (**str**) 
-  User-friendly label for the region
-- **`type`** (**str**) 
-  Type classification
-
-
-
-
-
-</section>   
-
-<section id="usage">
+---
 
 ## Usage
 
-### Online Viewer 
-To view a file in a browser use the content link with `.json` appended. 
-eg. https://github.com/WCRP-CMIP/Essential-Model-Documentation/tree/main/region/glb.json
+**Direct Access:**
 
-### Getting a File. 
+- JSON: [`https://emd.wcrp-cmip.org/region/30s-90s.json`](https://emd.wcrp-cmip.org/region/30s-90s.json)
+- Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Aregion/30s-90s)
 
-A short example of how to integrate the computed ld file into your code. 
-
-```python
-
-import cmipld
-cmipld.get( "universal:region/glb")
-
-```
-
-### Framing
-Framing is a way we can filter the downloaded data to match what we want. 
-```js
-frame = {
-            "@context": "https://emd.wcrp-cmip.org/region/_context",
-            "@type": "wcrp:region",
-            "keys we want": "",
-            "@explicit": True
-
-        }
-        
-```
+**Python (cmipld):**
 
 ```python
-
 import cmipld
-cmipld.frame( "universal:region/glb" , frame)
-
+data = cmipld.get("emd:region/30s-90s")
 ```
-</section>

@@ -132,7 +132,7 @@ class TestType:
 
     def test_type_entries(self):
         _, data = _run(_base_issue())
-        assert set(data['@type']) == {'emd', 'wcrp:model', 'esgvoc:Model'}
+        assert set(data['@type']) == {'emd', 'wcrp:model'}
 
 
 # ─── Linked references ────────────────────────────────────

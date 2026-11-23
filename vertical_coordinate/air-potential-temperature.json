@@ -4,10 +4,7 @@
     "description": "Air potential temperature is the temperature a parcel of air would have if moved dry adiabatically to a standard pressure, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:vertical_coordinate",
-        "esgvoc:VerticalCoordinate",
-        "constants",
         "emd"
     ],
     "@id": "air-potential-temperature"

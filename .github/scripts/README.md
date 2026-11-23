@@ -237,5 +237,5 @@ When adding new CV fields or grid types:
 
 ## References
 
-- [Essential Model Documentation (the constants vocabularies now live here)](https://github.com/WCRP-CMIP/Essential-Model-Documentation)
+- [Essential Model Documentation (all EMD vocabularies live here)](https://github.com/WCRP-CMIP/Essential-Model-Documentation)
 - [Grid Type Graph](https://wcrp-cmip.github.io/Essential-Model-Documentation/grid_type/_graph.json)

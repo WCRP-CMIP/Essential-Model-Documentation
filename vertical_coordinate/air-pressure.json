@@ -4,10 +4,7 @@
     "description": "Air pressure is the pressure that exists in the medium of air, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:vertical_coordinate",
-        "esgvoc:VerticalCoordinate",
-        "constants",
         "emd"
     ],
     "@id": "air-pressure"

@@ -74,7 +74,7 @@ def _fetch_context(ctx_url: str) -> dict:
     Fetch a remote `_context` document and return its `@context` dict.
 
     Strategy: resolve the canonical URL via cmipld's `test_load` (which maps
-    e.g. https://constants.mipcvs.dev → wcrp-cmip.github.io), then fetch
+    e.g. https://emd.wcrp-cmip.org → wcrp-cmip.github.io), then fetch
     that resolved URL directly with urllib. The `preview` field from
     test_load is unreliable for large contexts (it's a truncated snippet),
     so we always fetch the real document.

@@ -4,10 +4,7 @@
     "description": "Land ice (glaciers, ice-caps and ice-sheets resting on bedrock and also includes ice-shelves) sigma coordinate, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:vertical_coordinate",
-        "esgvoc:VerticalCoordinate",
-        "constants",
         "emd"
     ],
     "@id": "land-ice-sigma-coordinate"

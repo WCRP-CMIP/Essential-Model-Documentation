@@ -175,9 +175,18 @@ class EMDRecord(BaseModel):
 
     @model_validator(mode="after")
     def validation_key_matches_id(self):
-        """validation_key is @id, in any case."""
-        if self.validation_key.lower() != self.id:
-            raise ValueError(f"validation_key '{self.validation_key}' must equal @id '{self.id}' (case aside)")
+        """validation_key is @id, in any case, with '-' and '_' treated alike.
+
+        Some vocabularies spell the key with '_' where the id uses '-'
+        (arrangement/arakawa-a carries validation_key 'arakawa_a'), so the two
+        separators are interchangeable here.
+        """
+        def same(value: str) -> str:
+            return value.lower().replace("_", "-")
+
+        if same(self.validation_key) != same(self.id):
+            raise ValueError(f"validation_key '{self.validation_key}' must equal @id '{self.id}' "
+                             f"(case and '-'/'_' aside)")
         return self
 
     @model_validator(mode="after")

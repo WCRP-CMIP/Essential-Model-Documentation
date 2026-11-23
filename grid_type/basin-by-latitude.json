@@ -4,10 +4,7 @@
     "description": "A grid of ocean basins, each of which is represented by zonal cells that extend to the full width of each basin at each latitude.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_type",
-        "esgvoc:GridType",
-        "constants",
         "emd"
     ],
     "@id": "basin-by-latitude"
