@@ -10,7 +10,7 @@ Highlights (per EMD model-level lists):
 
 Only structural types become graph nodes (model, model_family,
 component_config, model_component, h-grid, v-grid, subgrid, grid_cell).
-Universal-vocab values (arrangement, realm, vertical_coordinate, grid_type,
+Controlled-vocabulary values (arrangement, realm, vertical_coordinate, grid_type,
 cell_variable_type, ...) are rendered inline in the parent's label, never as
 nodes of their own.
 
@@ -88,7 +88,7 @@ MODEL_META_KEYS = {
     "dynamic_components", "embedded_components", "family",
 }
 
-# Universal-vocab fields — values are folded into the parent label, never
+# Controlled-vocabulary fields — values are folded into the parent label, never
 # emitted as standalone nodes (even if resolved into dicts by cmipld).
 INLINE_VOCAB_KEYS = {
     "arrangement", "grid_mapping", "grid_type",

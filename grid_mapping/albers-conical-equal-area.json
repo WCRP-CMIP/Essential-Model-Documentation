@@ -4,10 +4,7 @@
     "description": "A projection that preserves area but not shape, creating accurate representations of large, east-west-oriented land masses, as defined by the CF conventions.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:grid_mapping",
-        "esgvoc:GridMapping",
-        "constants",
         "emd"
     ],
     "@id": "albers-conical-equal-area"

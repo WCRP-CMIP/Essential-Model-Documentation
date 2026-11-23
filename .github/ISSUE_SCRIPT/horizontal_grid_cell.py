@@ -109,7 +109,7 @@ def run(parsed_issue, issue, dry_run=False):
     data = {
         "@context":       "_context",
         "@id":            temp_id,
-        "@type":          ["emd", "wcrp:horizontal_grid_cell", "esgvoc:HorizontalGridCell"],
+        "@type":          ["emd", "wcrp:horizontal_grid_cell"],
         "validation_key": temp_id,   # must match @id so rename workflow can update it
         "ui_label":       ui_label,
         "description":    description,
@@ -167,7 +167,7 @@ def run(parsed_issue, issue, dry_run=False):
         pydantic_data['region'] = region_val[0] if region_val else None
     elif not region_val:
         pydantic_data.pop('region', None)
-    # Translate units → horizontal_units (esgvoc model field name).
+    # Translate units → horizontal_units (the EMD model field name).
     if 'units' in pydantic_data and 'horizontal_units' not in pydantic_data:
         pydantic_data['horizontal_units'] = pydantic_data.pop('units')
 

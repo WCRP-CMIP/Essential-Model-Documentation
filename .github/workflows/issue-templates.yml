@@ -72,15 +72,6 @@ jobs:
           exit 0
 
 
-      - name: Duplicate institutions from esgvoc 
-        continue-on-error: true
-        run: |
-          echo ${pwd}
-          pip install requests
-          # get the establishments and from esgvoc due to non-compatibility issues. 
-          python .github/scripts/esgvoc_establishments.py
-
-          
       - name: Commit changes
         continue-on-error: true
         uses: EndBug/add-and-commit@v9

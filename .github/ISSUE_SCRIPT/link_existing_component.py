@@ -261,7 +261,7 @@ def run(parsed_issue, issue, dry_run=False):
         'model_component':               component,
         'vertical_computational_grid':   v_grid if v_grid not in _PLACEHOLDER else '',
         '@context':                      '_context',
-        '@type':                         ['emd', 'wcrp:component_config', 'esgvoc:ComponentConfig'],
+        '@type':                         ['emd', 'wcrp:component_config'],
         '@id':                           config_id,
     }
 

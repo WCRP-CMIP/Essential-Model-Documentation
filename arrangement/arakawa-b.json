@@ -1,13 +1,10 @@
 {
-    "validation_key": "arakawa-b",
+    "validation_key": "arakawa_b",
     "ui_label": "Arakawa B-grid",
-    "description": "The Arakawa B grid places velocity-related quantities at the corners of mass cells.",
+    "description": "Staggered arrangement in which the two horizontal velocity components stay together but are offset from mass: mass-related quantities sit at the cell centre and both velocity components sit at the cell corners. Because the components are collocated, the Coriolis term is evaluated locally with no averaging, which makes the B grid well behaved when the Rossby radius of deformation is poorly resolved, as in coarse-resolution ocean models. Divergence and the pressure gradient are still differenced across two grid spacings, so the B grid handles gravity waves less well than the C grid, which separates the velocity components instead.",
     "@context": "_context",
     "@type": [
-        "universal",
         "wcrp:arrangement",
-        "esgvoc:Arrangement",
-        "constants",
         "emd"
     ],
     "@id": "arakawa-b"

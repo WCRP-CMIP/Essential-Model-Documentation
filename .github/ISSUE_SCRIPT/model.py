@@ -4,7 +4,7 @@ Handler for Model (source_id) registration (Stage 4)
 Produces one file:
   model/{source_id}.json  — the complete CMIP source_id record
 
-Schema field names (from esgvoc):
+Schema field names:
   model_components   — list of component_config IDs
   coupled_components — list of coupling groups
   references         — list of DOI strings
@@ -26,6 +26,16 @@ _name_similarity = _importlib_util.module_from_spec(_spec)
 _spec.loader.exec_module(_name_similarity)
 build_similarity_report = _name_similarity.build_similarity_report
 build_details_block = _name_similarity.build_details_block
+
+# Same pattern for the EMD_tests pydantic check.
+_val_spec = _importlib_util.spec_from_file_location(
+    '_emd_validation',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_emd_validation.py'),
+)
+_emd_validation = _importlib_util.module_from_spec(_val_spec)
+_val_spec.loader.exec_module(_emd_validation)
+validation_block = _emd_validation.validation_block
+print_validation = _emd_validation.print_summary
 
 kind = __file__.split('/')[-1].replace('.py', '')
 
@@ -168,7 +178,7 @@ def run(parsed_issue, issue, dry_run=False):
     data = {
         "@context":       "_context",
         "@id":            source_id_lower,
-        "@type":          ["emd", "wcrp:model", "esgvoc:Model"],
+        "@type":          ["emd", "wcrp:model"],
         "validation_key": validation_key,
         "ui_label":       source_id,
         "name":           source_id_lower,
@@ -317,7 +327,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             references=data.get('references', []),
         )
         similarity = build_similarity_report(proposed_id, folder)
-        data['_validation_report'] = '\n\n'.join(p for p in (details, similarity) if p)
+        schema = validation_block(folder, data)
+        print_validation(folder, data)
+        data['_validation_report'] = '\n\n'.join(
+            p for p in (schema, details, similarity) if p
+        )
 
     if model_data and source_id:
         clean = {k: v for k, v in model_data.items() if not k.startswith('_')}

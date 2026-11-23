@@ -1,6 +1,6 @@
 # Vertical Computational Grid
 
-Vertical computational grid description (EMD v1.0 Section 4.2). The model component's vertical computational grid is described by a subset of the following properties.
+One vertical grid. Thicknesses are in metres. A value left out must be explained in description.
 
 ---
 
@@ -9,122 +9,192 @@ Vertical computational grid description (EMD v1.0 Section 4.2). The model compon
 | | |
 |---|---|
 | **Type URI** | `emd:vertical_computational_grid` |
-| **Entries** | 7 |
+| **Entries** | 87 |
 | **Validation** | ✓ Validated |
-| **Pydantic Model** | [`VerticalComputationalGrid`](https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/vertical_computational_grid.py) |
+| **Pydantic Model** | [`VerticalComputationalGrid`](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py) |
 | **JSON-LD** | [`emd:vertical_computational_grid`](https://emd.wcrp-cmip.org/vertical_computational_grid) |
 | **Source** | [View on GitHub](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/src-data/vertical_computational_grid) |
 | **Contribute** | [Submit or Edit](https://github.com/wcrp-cmip/Essential-Model-Documentation/tree/main?tab=readme-ov-file#contributing) |
-| **Generated** | 2026-02-22 |
+| **Generated** | 2026-11-23 |
 
 ---
 
 ## Schema
 
-The JSON structure and validation for this vocabulary is defined using the [`VerticalComputationalGrid`](https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/vertical_computational_grid.py) Pydantic model in [esgvoc](https://github.com/ESGF/esgf-vocab). This ensures data consistency and provides automatic validation of all entries. *Click field name for description.*
+The JSON structure and validation for this vocabulary is defined using the [`VerticalComputationalGrid`](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py) pydantic model, kept alongside the data in [`.github/EMD_tests`](https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests). This ensures data consistency and provides automatic validation of all entries. *Click field name for description.*
 
 ### Required Fields
 
 | Field | Type | Constraints | References |
 |-------|------|-------------|------------|
-| [vertical_coordinate](#vertical_coordinate) | `str | Coordinate` | - | [`vertical_coordinate`](../vertical_coordinate/) |
+| [context](#context) | `Literal` | - | - |
+| [validation_key](#validation_key) | `str` | - | - |
 
 ### Optional Fields
 
 | Field | Type | Constraints | References |
 |-------|------|-------------|------------|
-| [description](#description) | `Optional[str]` | - | - |
-| [bottom_layer_thickness](#bottom_layer_thickness) | `Optional[float]` | - | - |
-| [n_z](#n_z) | `Optional[int]` | min=1 | - |
-| [n_z_range](#n_z_range) | `Optional[List[int]]` | min_length=2, max_length=2 | - |
-| [top_layer_thickness](#top_layer_thickness) | `Optional[float]` | - | - |
-| [top_of_model](#top_of_model) | `Optional[float]` | - | - |
+| [description](#description) | `str | None` | - | - |
+| [bottom_layer_thickness](#bottom_layer_thickness) | `Optional[Annotated]` | - | - |
+| [n_z](#n_z) | `Optional[Annotated]` | - | - |
+| [n_z_range](#n_z_range) | `list[Annotated[int, FieldInfo(annotation=NoneType, required=True, metadata=[Gt(gt=0)])]] | None` | min_length=2, max_length=2 | - |
+| [top_layer_thickness](#top_layer_thickness) | `Optional[Annotated]` | - | - |
+| [total_thickness](#total_thickness) | `Optional[Annotated]` | - | - |
+| [ui_label](#ui_label) | `str | None` | - | - |
+| [vertical_coordinate](#vertical_coordinate) | `Optional[Annotated]` | - | - |
 
 ### Field Descriptions
 
 <a id="description"></a>
 #### Description
 
-A description of the vertical grid. A description is only required if there is information that is not covered by any of the other properties. Omit when not required.
+_No description available._
 
 <a id="bottom_layer_thickness"></a>
 #### Bottom Layer Thickness
 
-The thickness of the bottom model layer (i.e. the layer closest to the centre of the Earth). The value should be reported as a dimensional (as opposed to parametric) quantity. All measurements are in metres (EMD v1.0).
+_No description available._
+
+<a id="context"></a>
+#### Context
+
+_No description available._
 
 <a id="n_z"></a>
 #### N Z
 
-The number of layers (i.e. grid cells) in the Z direction. Omit when not applicable or not constant. If the number of layers varies in time or across the horizontal grid, then the n_z_range property may be used instead.
-
-<details markdown="1" id="n_z-validate_n_z_exclusivity" open>
-<summary><strong>Validation:</strong> validate_n_z_exclusivity <a href="https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/vertical_computational_grid.py">[source]</a></summary>
-
-Validate that n_z and n_z_range are mutually exclusive.
-
-```python
-def validate_n_z_exclusivity(cls, v, info):
-        """Validate that n_z and n_z_range are mutually exclusive."""
-        if v is not None and info.data.get("n_z_range") is not None:
-            raise ValueError("n_z and n_z_range cannot both be set")
-        return v
-```
-
-</details>
+_No description available._
 
 <a id="n_z_range"></a>
 #### N Z Range
 
-The minimum and maximum number of layers for vertical grids with a time- or space-varying number of layers. Omit if the n_z property has been set.
-
-<details markdown="1" id="n_z_range-validate_n_z_range" open>
-<summary><strong>Validation:</strong> validate_n_z_range <a href="https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/vertical_computational_grid.py">[source]</a></summary>
-
-Validate that n_z_range has exactly 2 values and min <= max.
-
-```python
-def validate_n_z_range(cls, v):
-        """Validate that n_z_range has exactly 2 values and min <= max."""
-        if v is not None:
-            if len(v) != 2:
-                raise ValueError("n_z_range must contain exactly 2 values [min, max]")
-            if v[0] > v[1]:
-                raise ValueError("n_z_range: minimum must be <= maximum")
-            if any(val < 1 for val in v):
-                raise ValueError("n_z_range values must be >= 1")
-        return v
-```
-
-</details>
+_No description available._
 
 <a id="top_layer_thickness"></a>
 #### Top Layer Thickness
 
-The thickness of the top model layer (i.e. the layer furthest away from the centre of the Earth). The value should be reported as a dimensional (as opposed to parametric) quantity. All measurements are in metres (EMD v1.0).
+_No description available._
 
-<a id="top_of_model"></a>
-#### Top Of Model
+<a id="total_thickness"></a>
+#### Total Thickness
 
-The upper boundary of the top model layer (i.e. the upper boundary of the layer that is furthest away from the centre of the Earth). The value should be relative to the lower boundary of the bottom layer of the model, or an appropriate datum (such as mean sea level). All measurements are in metres (EMD v1.0).
+_No description available._
+
+<a id="ui_label"></a>
+#### Ui Label
+
+_No description available._
+
+<a id="validation_key"></a>
+#### Validation Key
+
+_No description available._
 
 <a id="vertical_coordinate"></a>
 #### Vertical Coordinate
 
-The coordinate type of the vertical grid. Taken from 7.11 vertical_coordinate CV. If there is no vertical grid, then the value 'none' must be selected.
+_No description available._
 
-<details markdown="1" id="vertical_coordinate-validate_vertical_coordinate" open>
-<summary><strong>Validation:</strong> validate_vertical_coordinate <a href="https://github.com/ESGF/esgf-vocab/blob/main/src/esgvoc/api/data_descriptors/EMD_models/vertical_computational_grid.py">[source]</a></summary>
+### Other Validations
 
-Validate that vertical_coordinate is not empty if it's a string.
+<details markdown="1" id="other-n_z_or_n_z_range" open>
+<summary><strong>n_z_or_n_z_range</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py">[source]</a></summary>
+
+A fixed level count or a range, not both (EMD Appendix B 4.2).
 
 ```python
-def validate_vertical_coordinate(cls, v):
-        """Validate that vertical_coordinate is not empty if it's a string."""
-        if isinstance(v, str):
-            if not v.strip():
-                raise ValueError("Vertical coordinate cannot be empty")
-            return v.strip()
-        return v
+def n_z_or_n_z_range(self):
+        """A fixed level count or a range, not both (EMD Appendix B 4.2)."""
+        not_both(self, "n_z", "n_z_range")
+        return self
+```
+
+</details>
+
+<details markdown="1" id="other-range_runs_low_to_high" open>
+<summary><strong>range_runs_low_to_high</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py">[source]</a></summary>
+
+n_z_range is [minimum, maximum].
+
+```python
+def range_runs_low_to_high(self):
+        """n_z_range is [minimum, maximum]."""
+        if self.n_z_range and self.n_z_range[0] > self.n_z_range[1]:
+            raise ValueError(f"n_z_range {self.n_z_range} must be [minimum, maximum]")
+        return self
+```
+
+</details>
+
+<details markdown="1" id="other-description_explains_what_is_left_out" open>
+<summary><strong>description_explains_what_is_left_out</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py">[source]</a></summary>
+
+When a property is left out, description must be set to explain it (EMD Appendix B 4.2).
+
+```python
+def description_explains_what_is_left_out(self):
+        """When a property is left out, description must be set to explain it (EMD Appendix B 4.2)."""
+        if self.is_sentinel or self.description:
+            return self
+        left_out = [f for f in ("vertical_coordinate", "top_layer_thickness", "bottom_layer_thickness",
+                                "total_thickness") if getattr(self, f) is None]
+        if self.n_z is None and self.n_z_range is None:
+            left_out.append("n_z")
+        if left_out:
+            raise ValueError(f"description is required to explain what is left out: {left_out}")
+        return self
+```
+
+</details>
+
+<details markdown="1" id="other-top_layer_within_column" open>
+<summary><strong>top_layer_within_column</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py">[source]</a></summary>
+
+The top layer cannot be thicker than the whole column.
+
+```python
+def top_layer_within_column(self):
+        """The top layer cannot be thicker than the whole column."""
+        top, total = self.top_layer_thickness, self.total_thickness
+        if top and total and top > total:
+            raise ValueError(f"top_layer_thickness {top} m is more than total_thickness {total} m")
+        return self
+
+    # --------------------------------------------------------------- warnings: the record loads
+```
+
+</details>
+
+<details markdown="1" id="other-bottom_layer_is_not_whole_column" open>
+<summary><strong>bottom_layer_is_not_whole_column</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py">[source]</a></summary>
+
+A bottom layer as thick as the whole column is usually a copy-paste error.
+
+```python
+def bottom_layer_is_not_whole_column(self):
+        """A bottom layer as thick as the whole column is usually a copy-paste error."""
+        if self.bottom_layer_thickness is not None and self.bottom_layer_thickness == self.total_thickness:
+            warn(f"{self.id}: bottom_layer_thickness equals total_thickness ({self.total_thickness:g} m)")
+        return self
+```
+
+</details>
+
+<details markdown="1" id="other-top_and_bottom_fit_in_column" open>
+<summary><strong>top_and_bottom_fit_in_column</strong> <a href="https://github.com/WCRP-CMIP/Essential-Model-Documentation/blob/main/.github/EMD_tests/vertical_computational_grid.py">[source]</a></summary>
+
+The top and bottom layers together fit inside the column.
+
+```python
+def top_and_bottom_fit_in_column(self):
+        """The top and bottom layers together fit inside the column."""
+        top, bottom, total = self.top_layer_thickness, self.bottom_layer_thickness, self.total_thickness
+        if None not in (top, bottom, total) and top + bottom > total:
+            warn(f"{self.id}: top {top:g} m + bottom {bottom:g} m is more than total_thickness {total:g} m")
+        return self
+
+
+model = VerticalComputationalGrid
 ```
 
 </details>
@@ -135,19 +205,12 @@ def validate_vertical_coordinate(cls, v):
 
 **Direct Access:**
 
-- JSON: [`https://emd.wcrp-cmip.org/vertical_computational_grid/v100.json`](https://emd.wcrp-cmip.org/vertical_computational_grid/v100.json)
-- Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Avertical_computational_grid/v100)
+- JSON: [`https://emd.wcrp-cmip.org/vertical_computational_grid/no-vertical.json`](https://emd.wcrp-cmip.org/vertical_computational_grid/no-vertical.json)
+- Viewer: [Open in CMIP-LD Viewer](https://wcrp-cmip.github.io/CMIPLD/viewer/index.html?uri=emd%3Avertical_computational_grid/no-vertical)
 
 **Python (cmipld):**
 
 ```python
 import cmipld
-data = cmipld.get("emd:vertical_computational_grid/v100")
-```
-
-**Python (esgvoc):**
-
-```python
-from esgvoc.api import search
-results = search.find("vertical_computational_grid", term="v100")
+data = cmipld.get("emd:vertical_computational_grid/no-vertical")
 ```
