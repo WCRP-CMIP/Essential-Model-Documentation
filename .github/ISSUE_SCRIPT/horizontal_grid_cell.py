@@ -175,14 +175,29 @@ def run(parsed_issue, issue, dry_run=False):
 
     print(f"\033[92m  [+ new] Grid cell '{temp_id}'\033[0m", flush=True)
 
-    return {
+    return attach_errors({
         file_path:        data,
         '_pydantic_data': {file_path: pydantic_data},
         '_author':        issue.get('author'),
         '_contributors':  contributors,
         '_make_pull':     True,
         '_atid':          temp_id,
-    }
+    })
+
+
+# ── EMD_tests pydantic check ─────────────────────────────────────────────
+# Loaded by path: handlers run with an arbitrary cwd.
+import importlib.util as _val_importlib
+_val_spec = _val_importlib.spec_from_file_location(
+    '_emd_validation',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_emd_validation.py'),
+)
+_emd_validation = _val_importlib.module_from_spec(_val_spec)
+_val_spec.loader.exec_module(_emd_validation)
+validation_block = _emd_validation.validation_block
+collapse = _emd_validation.collapse
+attach_errors = _emd_validation.attach_errors
+print_validation = _emd_validation.print_summary
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
@@ -204,7 +219,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 item=report_item, link_threshold=85.0,
                 val_result=pre_val,
             ).build()
-            data['_validation_report'] = report
+            schema = validation_block(kind, report_item)
+            print_validation(kind, report_item)
+            data['_validation_report'] = '\n\n'.join(p for p in (schema, collapse(report)) if p)
             print(f"\033[92m  Report generated ({len(report)} chars)\033[0m", flush=True)
         except Exception as e:
             import traceback

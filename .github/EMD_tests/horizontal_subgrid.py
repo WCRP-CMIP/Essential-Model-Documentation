@@ -1,7 +1,7 @@
 """horizontal_subgrid/: the variables that sit on one grid cell (EMD v1.1 4.1.2)."""
-from pydantic import Field, model_validator
+from pydantic import Field, ValidationInfo, model_validator
 
-from base import EMDRecord, Link, Links, warn
+from base import EMDRecord, Link, Links, used_by, warn
 
 
 class HorizontalSubgrid(EMDRecord):
@@ -25,7 +25,8 @@ class HorizontalSubgrid(EMDRecord):
         """velocity is not listed with x-velocity or y-velocity (EMD Appendix B 4.1.2)."""
         types = set(self.cell_variable_type)
         if "velocity" in types and types & {"x-velocity", "y-velocity"}:
-            raise ValueError("list velocity, or x-velocity and y-velocity, not both")
+            raise ValueError(f"`{', '.join(self.cell_variable_type)}` lists both velocity and x/y-velocity. Only one form should be used, "
+                             f"e.g. `mass, velocity` or `mass, x-velocity, y-velocity`.")
         return self
 
     # --------------------------------------------------------------- warnings: the record loads
@@ -42,6 +43,14 @@ class HorizontalSubgrid(EMDRecord):
         in_id = set(self.id.split("_")[1:])
         if in_id and in_id != set(self.cell_variable_type):
             warn(f"{self.id}: the id names {sorted(in_id)}, but cell_variable_type is {sorted(self.cell_variable_type)}")
+        return self
+
+    @model_validator(mode="after")
+    def belongs_to_a_computational_grid(self, info: ValidationInfo):
+        """A subgrid is part of a horizontal computational grid and cannot stand alone (EMD Appendix A)."""
+        if used_by(self, info, "horizontal_computational_grid", "horizontal_subgrids") is False:
+            raise ValueError(f"`{self.id}` is not listed by any horizontal computational grid. It should be added to one, "
+                             f"e.g. to the subgrids of `h100`.")
         return self
 
 

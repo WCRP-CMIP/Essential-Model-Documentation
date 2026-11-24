@@ -1,7 +1,7 @@
 """component_config/: a component and the grids it runs on (EMD v1.1 3)."""
-from pydantic import model_validator
+from pydantic import ValidationInfo, model_validator
 
-from base import EMDRecord, Link, warn
+from base import EMDRecord, Link, used_by, warn
 
 
 class ComponentConfig(EMDRecord):
@@ -26,6 +26,13 @@ class ComponentConfig(EMDRecord):
         parts = [self.model_component, self.horizontal_computational_grid, self.vertical_computational_grid]
         if None not in parts and not self.id.endswith("_" + "_".join(parts)):
             warn(f"{self.id}: the id should end with '_{'_'.join(parts)}'")
+        return self
+
+    @model_validator(mode="after")
+    def used_by_a_model(self, info: ValidationInfo):
+        """Every configuration should belong to a model's model_components (EMD 2)."""
+        if used_by(self, info, "model", "model_components") is False:
+            warn(f"{self.id}: no model lists this configuration")
         return self
 
 

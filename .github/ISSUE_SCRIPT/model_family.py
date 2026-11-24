@@ -28,6 +28,8 @@ _val_spec = _importlib_util.spec_from_file_location(
 _emd_validation = _importlib_util.module_from_spec(_val_spec)
 _val_spec.loader.exec_module(_emd_validation)
 validation_block = _emd_validation.validation_block
+collapse = _emd_validation.collapse
+attach_errors = _emd_validation.attach_errors
 print_validation = _emd_validation.print_summary
 
 kind = __file__.split('/')[-1].replace('.py', '')
@@ -144,12 +146,12 @@ def run(parsed_issue, issue, dry_run=False):
                    if collab_str else []
     file_path    = os.path.join(kind, f"{atid.lower()}.json")
 
-    return {
+    return attach_errors({
         file_path:       data,
         '_author':       issue.get('author'),
         '_contributors': contributors,
         '_make_pull':    True,
-    }
+    })
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
@@ -167,5 +169,5 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         schema = validation_block(folder, data)
         print_validation(folder, data)
         data['_validation_report'] = '\n\n'.join(
-            p for p in (schema, build_similarity_report(proposed_id, folder)) if p
+            p for p in (schema, collapse(build_similarity_report(proposed_id, folder))) if p
         )

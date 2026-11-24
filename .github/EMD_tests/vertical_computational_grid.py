@@ -1,7 +1,7 @@
 """vertical_computational_grid/: the levels of one component (EMD v1.1 4.2.1)."""
-from pydantic import Field, model_validator
+from pydantic import Field, ValidationInfo, model_validator
 
-from base import EMDRecord, Link, Positive, PositiveInt, not_both, warn
+from base import EMDRecord, Link, Positive, PositiveInt, not_both, used_by, warn
 
 
 class VerticalComputationalGrid(EMDRecord):
@@ -25,7 +25,8 @@ class VerticalComputationalGrid(EMDRecord):
     def range_runs_low_to_high(self):
         """n_z_range is [minimum, maximum]."""
         if self.n_z_range and self.n_z_range[0] > self.n_z_range[1]:
-            raise ValueError(f"n_z_range {self.n_z_range} must be [minimum, maximum]")
+            raise ValueError(f"n_z_range `{', '.join(map(str, self.n_z_range))}` goes from high to low. It should be written as minimum then maximum, "
+                             f"e.g. `{', '.join(map(str, sorted(self.n_z_range)))}`.")
         return self
 
     @model_validator(mode="after")
@@ -38,7 +39,9 @@ class VerticalComputationalGrid(EMDRecord):
         if self.n_z is None and self.n_z_range is None:
             left_out.append("n_z")
         if left_out:
-            raise ValueError(f"description is required to explain what is left out: {left_out}")
+            names = " and ".join([", ".join(left_out[:-1]), left_out[-1]] if len(left_out) > 1 else left_out)
+            raise ValueError(f"{names} {'are' if len(left_out) > 1 else 'is'} left out with no description. "
+                             f"A description should say why, e.g. 'Soil has 15 layers. Lakes have 10.'")
         return self
 
     @model_validator(mode="after")
@@ -46,7 +49,8 @@ class VerticalComputationalGrid(EMDRecord):
         """The top layer cannot be thicker than the whole column."""
         top, total = self.top_layer_thickness, self.total_thickness
         if top and total and top > total:
-            raise ValueError(f"top_layer_thickness {top} m is more than total_thickness {total} m")
+            raise ValueError(f"top_layer_thickness ({top:g} m) is more than total_thickness ({total:g} m). The top layer should be thinner than the total, "
+                             f"e.g. top 150 m in a total of 48000 m.")
         return self
 
     # --------------------------------------------------------------- warnings: the record loads
@@ -63,6 +67,13 @@ class VerticalComputationalGrid(EMDRecord):
         top, bottom, total = self.top_layer_thickness, self.bottom_layer_thickness, self.total_thickness
         if None not in (top, bottom, total) and top + bottom > total:
             warn(f"{self.id}: top {top:g} m + bottom {bottom:g} m is more than total_thickness {total:g} m")
+        return self
+
+    @model_validator(mode="after")
+    def used_by_a_component_config(self, info: ValidationInfo):
+        """A grid no component is integrated on is usually a leftover from an earlier submission."""
+        if used_by(self, info, "component_config", "vertical_computational_grid") is False:
+            warn(f"{self.id}: no component_config uses this grid")
         return self
 
 

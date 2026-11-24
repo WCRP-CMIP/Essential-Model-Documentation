@@ -115,13 +115,28 @@ def run(parsed_issue, issue, dry_run=False):
 
     print(f"\033[92m  [+ new] Vertical grid '{temp_id}'\033[0m", flush=True)
 
-    return {
+    return attach_errors({
         file_path:       data,
         '_author':       issue.get('author'),
         '_contributors': contributors,
         '_make_pull':    True,
         '_atid':         temp_id,
-    }
+    })
+
+
+# ── EMD_tests pydantic check ─────────────────────────────────────────────
+# Loaded by path: handlers run with an arbitrary cwd.
+import importlib.util as _val_importlib
+_val_spec = _val_importlib.spec_from_file_location(
+    '_emd_validation',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_emd_validation.py'),
+)
+_emd_validation = _val_importlib.module_from_spec(_val_spec)
+_val_spec.loader.exec_module(_emd_validation)
+validation_block = _emd_validation.validation_block
+collapse = _emd_validation.collapse
+attach_errors = _emd_validation.attach_errors
+print_validation = _emd_validation.print_summary
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
@@ -132,10 +147,13 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
             continue
         print(f"\033[92m  Generating review report for {file_path} ...\033[0m", flush=True)
         try:
-            data['_validation_report'] = ReportBuilder(
+            schema = validation_block(kind, data)
+            print_validation(kind, data)
+            report = ReportBuilder(
                 folder_url=f"emd:{kind}", kind=kind,
                 item=data, link_threshold=80.0,
             ).build()
+            data['_validation_report'] = '\n\n'.join(p for p in (schema, collapse(report)) if p)
         except Exception as e:
             print(f"\033[91m  WARNING Report generation failed: {e}\033[0m", flush=True)
             data['_validation_report'] = ''

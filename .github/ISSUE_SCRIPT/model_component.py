@@ -159,7 +159,9 @@ def run(parsed_issue, issue, dry_run=False):
         config_path = os.path.join('component_config', f"{config_id}.json")
         result[config_path] = config_data
 
-    return result
+    # The component and its configuration are checked together, so the config may
+    # link to the component this same issue creates.
+    return attach_errors(result)
 
 
 _LINK_FORM_URL = (
@@ -178,6 +180,21 @@ def _post_issue_comment(issue_number, body):
         )
     except Exception as e:
         print(f'\033[91m  ⚠ Could not post issue comment: {e}\033[0m', flush=True)
+
+
+# ── EMD_tests pydantic check ─────────────────────────────────────────────
+# Loaded by path: handlers run with an arbitrary cwd.
+import importlib.util as _val_importlib
+_val_spec = _val_importlib.spec_from_file_location(
+    '_emd_validation',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_emd_validation.py'),
+)
+_emd_validation = _val_importlib.module_from_spec(_val_spec)
+_val_spec.loader.exec_module(_emd_validation)
+validation_block = _emd_validation.validation_block
+collapse = _emd_validation.collapse
+attach_errors = _emd_validation.attach_errors
+print_validation = _emd_validation.print_summary
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
@@ -244,6 +261,10 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
         proposed_id = data.get('@id', '')
         existing_report = data.get('_validation_report') or ''
         parts: list[str] = []
+        schema = validation_block(folder, data)
+        print_validation(folder, data)
+        if schema:
+            parts.append(schema)
         if 'model_component' in file_path:
             details = build_details_block(
                 name=proposed_id,
@@ -254,7 +275,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 parts.append(details)
         similarity = build_similarity_report(proposed_id, folder)
         if similarity:
-            parts.append(similarity)
+            parts.append(collapse(similarity))
         # Preserve anything already appended earlier in this function (e.g.
         # the component-only "Next steps" notice).
         if existing_report:

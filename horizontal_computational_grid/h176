@@ -1,0 +1,18 @@
+{
+  "validation_key": "h176",
+  "ui_label": "",
+  "description": "",
+  "arrangement": "arakawa-c",
+  "horizontal_subgrids": [
+    "g280_mass",
+    "g281_x-velocity",
+    "g282_y-velocity"
+  ],
+  "@context": "_context",
+  "@type": [
+    "emd",
+    "wcrp:horizontal_computational_grid",
+    "esgvoc:HorizontalComputationalGrid"
+  ],
+  "@id": "h176"
+}
