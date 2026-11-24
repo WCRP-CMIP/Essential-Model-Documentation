@@ -1,0 +1,21 @@
+{
+    "validation_key": "tempgrid_wolfiex-1795517172",
+    "ui_label": "atmosphere-hybrid-sigma-pressure-coordinate grid.",
+    "description": "test",
+    "bottom_layer_thickness": 10000,
+    "n_z": "",
+    "n_z_range": [
+        40,
+        80
+    ],
+    "top_layer_thickness": 50000,
+    "total_thickness": 60000,
+    "vertical_coordinate": "atmosphere-hybrid-sigma-pressure-coordinate",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_wolfiex-1795517172"
+}
