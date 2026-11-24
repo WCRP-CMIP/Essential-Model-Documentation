@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import importlib
 import os
+import re
 import sys
 import warnings
 
@@ -169,3 +170,59 @@ def attach_errors(files_to_write: dict) -> dict:
             data['_errors'] = existing + [f'{e}  _(`.github/EMD_tests/{folder}.py`)_' for e in errors]
             print(f"\033[91m  ✗ {file_path}: {len(errors)} schema error(s)\033[0m", flush=True)
     return files_to_write
+
+
+def collapse(report: str) -> str:
+    """Fold a review report into collapsed items, one per section, keeping its introduction open.
+
+    Sections are cut at the report's top heading level (### for the ReportBuilder report,
+    #### for the name-similarity report), never inside a code block. A report with no
+    headings is returned unchanged. The record validation block is not passed through
+    here: it stays open at the top of the PR so the reviewer reads it first.
+    """
+    if not report:
+        return report
+
+    def heading_level(line: str) -> int:
+        match = re.match(r'(#{2,6}) \S', line)
+        return len(match.group(1)) if match else 0
+
+    lines = report.splitlines()
+    in_code, levels = False, []
+    for line in lines:
+        if line.lstrip().startswith('```'):
+            in_code = not in_code
+        elif not in_code and heading_level(line):
+            levels.append(heading_level(line))
+    if not levels:
+        return report
+    top = min(levels)
+
+    intro, sections, in_code = [], [], False
+    for line in lines:
+        if line.lstrip().startswith('```'):
+            in_code = not in_code
+        if not in_code and heading_level(line) == top:
+            sections.append([line.lstrip('#').strip()])
+            continue
+        (sections[-1] if sections else intro).append(line)
+
+    out = ['\n'.join(intro).rstrip()] if any(l.strip() for l in intro) else []
+    for title, *body in sections:
+        out.append('\n'.join([
+            '<details>', f'<summary><strong>{title}</strong></summary>', '',
+            '\n'.join(body).strip(), '', '</details>',
+        ]))
+    folded = '\n\n'.join(out)
+
+    # Inside a section the reviewer has chosen to open, these should already be showing.
+    for title in OPEN_INSIDE:
+        folded = folded.replace(f'<details><summary>{title}', f'<details open><summary>{title}')
+    return folded
+
+
+# Blocks within a report section that are shown open once that section is expanded.
+OPEN_INSIDE = (
+    'Graph of links in submission',    # 2. Controlled Vocabulary Links
+    'Fields included in comparison',   # 3. Content Similarity
+)

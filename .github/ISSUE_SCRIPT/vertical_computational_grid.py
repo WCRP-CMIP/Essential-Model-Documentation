@@ -134,6 +134,7 @@ _val_spec = _val_importlib.spec_from_file_location(
 _emd_validation = _val_importlib.module_from_spec(_val_spec)
 _val_spec.loader.exec_module(_emd_validation)
 validation_block = _emd_validation.validation_block
+collapse = _emd_validation.collapse
 attach_errors = _emd_validation.attach_errors
 print_validation = _emd_validation.print_summary
 
@@ -152,7 +153,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 folder_url=f"emd:{kind}", kind=kind,
                 item=data, link_threshold=80.0,
             ).build()
-            data['_validation_report'] = '\n\n'.join(p for p in (schema, report) if p)
+            data['_validation_report'] = '\n\n'.join(p for p in (schema, collapse(report)) if p)
         except Exception as e:
             print(f"\033[91m  WARNING Report generation failed: {e}\033[0m", flush=True)
             data['_validation_report'] = ''

@@ -192,6 +192,7 @@ _val_spec = _val_importlib.spec_from_file_location(
 _emd_validation = _val_importlib.module_from_spec(_val_spec)
 _val_spec.loader.exec_module(_emd_validation)
 validation_block = _emd_validation.validation_block
+collapse = _emd_validation.collapse
 attach_errors = _emd_validation.attach_errors
 print_validation = _emd_validation.print_summary
 
@@ -274,7 +275,7 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 parts.append(details)
         similarity = build_similarity_report(proposed_id, folder)
         if similarity:
-            parts.append(similarity)
+            parts.append(collapse(similarity))
         # Preserve anything already appended earlier in this function (e.g.
         # the component-only "Next steps" notice).
         if existing_report:
