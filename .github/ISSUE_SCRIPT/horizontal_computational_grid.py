@@ -240,6 +240,19 @@ def run(parsed_issue, issue, dry_run=False):
     }
 
 
+# ── EMD_tests pydantic check ─────────────────────────────────────────────
+# Loaded by path: handlers run with an arbitrary cwd.
+import importlib.util as _val_importlib
+_val_spec = _val_importlib.spec_from_file_location(
+    '_emd_validation',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '_emd_validation.py'),
+)
+_emd_validation = _val_importlib.module_from_spec(_val_spec)
+_val_spec.loader.exec_module(_emd_validation)
+validation_block = _emd_validation.validation_block
+print_validation = _emd_validation.print_summary
+
+
 def update(files_to_write, parsed_issue, issue, dry_run=False):
     atid        = files_to_write.get('_atid', '')
     slot_report = files_to_write.get('_slot_report', [])
@@ -274,7 +287,11 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 folder_items = []
             try:
                 clean = {k: v for k, v in data.items() if not k.startswith('_')}
-                data['_validation_report'] = build_subgrid_report(clean, folder_items)
+                schema = validation_block(report_kind, clean)
+                print_validation(report_kind, clean)
+                data['_validation_report'] = '\n\n'.join(
+                    p for p in (schema, build_subgrid_report(clean, folder_items)) if p
+                )
             except Exception as e:
                 print(f"\033[91m  ⚠ Subgrid report failed for {file_path}: {e}\033[0m",
                       flush=True)
@@ -299,7 +316,9 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 folder_url=folder_url, kind=report_kind,
                 item=validate_data, link_threshold=80.0,
             ).build()
-            data['_validation_report'] = report
+            schema = validation_block(report_kind, validate_data)
+            print_validation(report_kind, validate_data)
+            data['_validation_report'] = '\n\n'.join(p for p in (schema, report) if p)
             status = '✓' if report else '(empty)'
         except Exception as e:
             print(f"\033[91m  ⚠ Report generation failed for {file_path}: {e}\033[0m", flush=True)
