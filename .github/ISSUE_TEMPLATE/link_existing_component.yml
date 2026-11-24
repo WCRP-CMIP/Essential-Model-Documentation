@@ -103,7 +103,6 @@ body:
         - "gfdl-om4p5"
         - "gfs"
         - "giss-atmospheric-model-v3-1"
-        - "giss-ocean-model"
         - "glomap-mode"
         - "hadam3"
         - "hadcm3-aerosol"
@@ -142,6 +141,7 @@ body:
         - "lmdz6-5"
         - "lmdz6-5-dynamico"
         - "lpj-guess-4-1"
+        - "m-sim"
         - "marbl1"
         - "masingar-mk-3r2"
         - "matrix"
@@ -292,6 +292,9 @@ body:
         - "h171"
         - "h172"
         - "h173"
+        - "h174"
+        - "h175"
+        - "h176"
         - "no-horizontal"
       default: 0
     validations:
@@ -379,7 +382,6 @@ body:
         - "v160"
         - "v161"
         - "v162"
-        - "v163"
         - "v164"
         - "v165"
         - "v166"
@@ -402,6 +404,7 @@ body:
         - "v183"
         - "v184"
         - "v185"
+        - "v186"
       default: 0
     validations:
       required: true

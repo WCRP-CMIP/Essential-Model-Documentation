@@ -39,7 +39,7 @@
         "land-surface_orchidee-v2_h165_v158",
         "ocean_nemo-v3-6_h152_v167",
         "ocean-biogeochemistry_pisces-v2_h152_v167",
-        "sea-ice_lim3_h152_v167"
+        "sea-ice_lim3_h152_v186"
     ],
     "name": "ipsl-cm6-esmco2",
     "omitted_components": [],
@@ -55,7 +55,8 @@
     "@context": "_context",
     "@type": [
         "emd",
-        "wcrp:model"
+        "wcrp:model",
+        "esgvoc:Model"
     ],
     "@id": "ipsl-cm6-esmco2"
 }
