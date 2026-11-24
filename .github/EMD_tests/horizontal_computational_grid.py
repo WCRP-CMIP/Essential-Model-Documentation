@@ -24,9 +24,9 @@ class HorizontalComputationalGrid(EMDRecord):
         if self.is_sentinel:
             return self
         if self.arrangement is None:
-            raise ValueError("arrangement is required")
+            raise ValueError("No arrangement is selected. An arrangement should be selected, e.g. `arakawa-c`.")
         if not self.horizontal_subgrids:
-            raise ValueError("horizontal_subgrids is required")
+            raise ValueError("No grid cell slots are filled in. At least slot 1 should be filled in, e.g. `g010` with `mass`.")
         return self
 
     @model_validator(mode="after")
@@ -35,8 +35,9 @@ class HorizontalComputationalGrid(EMDRecord):
         need = MIN_SUBGRIDS.get(self.arrangement or "", 1)
         given = len(self.horizontal_subgrids)
         if not self.is_sentinel and given < need:
-            raise ValueError(f"{self.arrangement} puts velocity apart from mass, so it needs at least "
-                             f"{need} subgrids: one for mass and one or more for velocity. {given} given")
+            raise ValueError(f"`{self.arrangement}` has only {given} grid cell slot{'s' if given != 1 else ''}. "
+                             f"It should have at least {need}: one for mass and one or more for velocity, "
+                             f"e.g. add slot 2 `x-velocity` and slot 3 `y-velocity`.")
         return self
 
     # --------------------------------------------------------------- warnings: a reviewer should look

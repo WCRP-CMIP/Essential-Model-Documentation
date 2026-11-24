@@ -50,7 +50,9 @@ class HorizontalGridCell(EMDRecord):
     def units_given_with_resolution(self):
         """A resolution needs its units (EMD 4.1.3)."""
         if (self.x_resolution or self.y_resolution) and not self.units:
-            raise ValueError("set units when x_resolution or y_resolution is set")
+            given = " and ".join(f"{k} {getattr(self, k):g}" for k in ("x_resolution", "y_resolution") if getattr(self, k) is not None)
+            raise ValueError(f"{given} {'are' if ' and ' in given else 'is'} given without units. "
+                             f"Units should be added, e.g. `degree`.")
         return self
 
     @model_validator(mode="after")

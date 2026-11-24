@@ -26,6 +26,9 @@ import re
 import sys
 import warnings
 
+# Closes every list of errors (on the issue) and of warnings (on the PR).
+GUIDANCE = 'If you are unsure, consult the guidance and specification from https://emd.wcrp-cmip.org.'
+
 TESTS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'EMD_tests'
 )
@@ -114,6 +117,7 @@ def validation_block(folder: str, data: dict, heading: str = 'Record validation'
     if notes:
         lines += ['> [!NOTE]', '> Valid, but worth a reviewer check:', '>']
         lines += [f'> - {n}' for n in notes]
+        lines += ['>', f'> {GUIDANCE}']
     else:
         lines += ['> [!TIP]', f'> Validates cleanly against {source}.']
     return '\n'.join(lines)
@@ -172,6 +176,7 @@ def attach_errors(files_to_write: dict) -> dict:
     overrides = files_to_write.get('_pydantic_data', {})
     siblings = submission_ids(files_to_write)
     records = submission_records(files_to_write)
+    last = None
     for file_path, data in files_to_write.items():
         if str(file_path).startswith('_') or not isinstance(data, dict):
             continue
@@ -184,6 +189,12 @@ def attach_errors(files_to_write: dict) -> dict:
             existing = list(data.get('_errors') or [])
             data['_errors'] = existing + [f'{e}  _(`.github/EMD_tests/{folder}.py`)_' for e in errors]
             print(f"\033[91m  ✗ {file_path}: {len(errors)} schema error(s)\033[0m", flush=True)
+            last = data
+
+    # One closing line after all of them. new_issue.py writes each error as a "- " bullet, so a
+    # blank line before it ends the list and the line reads as its own paragraph.
+    if last is not None:
+        last['_errors'][-1] += f'\n\n{GUIDANCE}'
     return files_to_write
 
 

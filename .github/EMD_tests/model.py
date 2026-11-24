@@ -141,23 +141,25 @@ class Model(EMDRecord):
         """validation_key (the model's CMIP7 source_id) uses only a-z, A-Z, 0-9 and "-" (CMIP7 source_id guidance 1)."""
         bad = sorted(set(re.sub(r"[A-Za-z0-9-]", "", self.validation_key)))
         if bad:
-            raise ValueError(f"validation_key '{self.validation_key}' may use only letters, digits and '-'; "
-                             f"remove {bad}. Write a version 3.2.4 as 3-2-4")
+            fixed = re.sub(r"-+", "-", re.sub(r"[^A-Za-z0-9-]", "-", self.validation_key)).strip("-")
+            raise ValueError(f"validation_key `{self.validation_key}` contains characters that are not allowed ({' '.join(bad)}). "
+                             f"It should use only letters, digits and '-', e.g. `{fixed}`.")
         return self
 
     @model_validator(mode="after")
     def validation_key_at_most_25_characters(self):
         """validation_key is at most 25 characters, because it appears in every file name (CMIP7 source_id guidance 2)."""
         if len(self.validation_key) > KEY_MAX:
-            raise ValueError(f"validation_key '{self.validation_key}' is {len(self.validation_key)} characters; "
-                             f"the limit is {KEY_MAX}")
+            raise ValueError(f"validation_key `{self.validation_key}` is {len(self.validation_key)} characters long. "
+                             f"It should be {KEY_MAX} characters or fewer, e.g. `HadGEM3-GC31-HH`.")
         return self
 
     @model_validator(mode="after")
     def dynamic_not_also_omitted(self):
         """A component cannot be simulated and also absent (EMD 2)."""
         if both := set(self.dynamic_components) & set(self.omitted_components):
-            raise ValueError(f"{sorted(both)} are both dynamic and omitted")
+            raise ValueError(f"`{', '.join(sorted(both))}` is listed as both dynamic and omitted. Each component should be in only one list, "
+                             f"e.g. remove `{sorted(both)[0]}` from omitted_components.")
         return self
 
     @model_validator(mode="after")
@@ -166,7 +168,8 @@ class Model(EMDRecord):
         for field in ("embedded_components", "coupled_components"):
             for a, b in getattr(self, field):
                 if a == b or not {a, b} <= set(self.dynamic_components):
-                    raise ValueError(f"{field} pair ({a}, {b}) must name two different dynamic components")
+                    raise ValueError(f"The {field} pair ({a}, {b}) does not name two different dynamic components. "
+                                     f"Each pair should name two, e.g. (sea-ice, ocean).")
         return self
 
     @model_validator(mode="after")
@@ -174,14 +177,15 @@ class Model(EMDRecord):
         """An embedded component has one host (EMD 3.1)."""
         children = [child for child, _ in self.embedded_components]
         if many := sorted({c for c in children if children.count(c) > 1}):
-            raise ValueError(f"{many} are embedded in more than one host")
+            raise ValueError(f"`{', '.join(sorted(many))}` is embedded in more than one host. Each component should have only one host, "
+                             f"e.g. (aerosol, atmospheric-chemistry).")
         return self
 
     @model_validator(mode="after")
     def no_embedding_cycle(self):
         """A component cannot be embedded, directly or indirectly, in itself."""
         if cycle := first_cycle(dict(self.embedded_components)):
-            raise ValueError(f"the embedding makes a cycle: {' -> '.join(cycle)}")
+            raise ValueError(f"The embedding loops back on itself: {' -> '.join(cycle)}. One pair should be removed so it does not loop.")
         return self
 
     @model_validator(mode="after")
@@ -189,14 +193,16 @@ class Model(EMDRecord):
         """An embedded component cannot be coupled with any other component (EMD 3.1)."""
         embedded = {child for child, _ in self.embedded_components}
         if both := embedded & {x for pair in self.coupled_components for x in pair}:
-            raise ValueError(f"{sorted(both)} are embedded and also coupled")
+            raise ValueError(f"`{', '.join(sorted(both))}` is both embedded and coupled. An embedded component should not be coupled, "
+                             f"e.g. remove it from coupled_components.")
         return self
 
     @model_validator(mode="after")
     def hosts_coupled_into_one_group(self):
         """With more than one superior host, the couplings join them all into one group (EMD 3.1)."""
         if len(self.hosts) > 1 and len(groups := connected_groups(self.hosts, self.coupled_components)) > 1:
-            raise ValueError(f"the couplings leave separate groups: {[sorted(g) for g in groups]}")
+            raise ValueError(f"The couplings make separate groups {[sorted(g) for g in groups]}. They should form one group, "
+                             f"e.g. add ({sorted(groups[0])[0]}, {sorted(groups[1])[0]}).")
         return self
 
     # --------------------------------------------------------------- warnings: the record loads

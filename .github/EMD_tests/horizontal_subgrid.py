@@ -25,7 +25,8 @@ class HorizontalSubgrid(EMDRecord):
         """velocity is not listed with x-velocity or y-velocity (EMD Appendix B 4.1.2)."""
         types = set(self.cell_variable_type)
         if "velocity" in types and types & {"x-velocity", "y-velocity"}:
-            raise ValueError("list velocity, or x-velocity and y-velocity, not both")
+            raise ValueError(f"`{', '.join(self.cell_variable_type)}` lists both velocity and x/y-velocity. Only one form should be used, "
+                             f"e.g. `mass, velocity` or `mass, x-velocity, y-velocity`.")
         return self
 
     # --------------------------------------------------------------- warnings: the record loads
@@ -48,7 +49,8 @@ class HorizontalSubgrid(EMDRecord):
     def belongs_to_a_computational_grid(self, info: ValidationInfo):
         """A subgrid is part of a horizontal computational grid and cannot stand alone (EMD Appendix A)."""
         if used_by(self, info, "horizontal_computational_grid", "horizontal_subgrids") is False:
-            raise ValueError("no horizontal_computational_grid lists this subgrid")
+            raise ValueError(f"`{self.id}` is not listed by any horizontal computational grid. It should be added to one, "
+                             f"e.g. to the subgrids of `h100`.")
         return self
 
 

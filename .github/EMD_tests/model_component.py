@@ -25,7 +25,7 @@ class ModelComponent(EMDRecord):
     def has_a_name(self):
         """name is required (EMD Appendix B 3). The repository usually holds it in ui_label, so either counts."""
         if not (self.name or self.ui_label):
-            raise ValueError("set name or ui_label")
+            raise ValueError("No name is given. A name should be added, e.g. `CLM4`.")
         return self
 
     # --------------------------------------------------------------- warnings: the record loads
