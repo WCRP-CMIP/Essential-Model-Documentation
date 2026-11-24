@@ -1,7 +1,7 @@
 {
     "validation_key": "ARTS-ESM-L",
     "ui_label": "ARTS-ESM-L",
-    "description": "Earth system model ARTS-ESM-L is developed on the basis of previous version INMCM48 that participated in CMIP6. ARTS-ESM-L consists of atmospheric model with interactive aerosol and land surface components and ocean model, supplemented with sea ice dynamics and thermodynamics block. This model also includes modules of carbon cycle in ocean as well as on land, allowing to perform fully coupled climate–carbon cycle simulations.",
+    "description": "Earth system model ARTS-ESM-L is developed on the basis of previous version INMCM48 that participated in CMIP6. ARTS-ESM-L consists of atmospheric model with interactive aerosol and land surface components and ocean model, supplemented with sea ice dynamics and thermodynamics block. This model also includes modules of carbon cycle in ocean as well as on land, allowing to perform fully coupled climate–carbon cycle simulations. Three dimensional concentrations of ozone are prescribed.",
     "calendar": [
         "365-day"
     ],
@@ -15,15 +15,20 @@
             "aerosol"
         ]
     ],
-    "crs": "A[L](Ae,O)AeO[Si]",
+    "crs": "A[L](Ae,O)AeO[ObSi]Ac^",
     "dynamic_components": [
         "aerosol",
         "atmosphere",
         "land-surface",
         "ocean",
+        "ocean-biogeochemistry",
         "sea-ice"
     ],
     "embedded_components": [
+        [
+            "ocean-biogeochemistry",
+            "ocean"
+        ],
         [
             "sea-ice",
             "ocean"
@@ -39,13 +44,16 @@
         "aerosol_inmaer2_h147_v156",
         "land-surface_inmlnd2-1_h147_v165",
         "ocean_inmom6l_h146_v153",
+        "ocean-biogeochemistry_inmocm1-0_h146_v153",
         "sea-ice_inmice2l_h146_no-vertical"
     ],
     "name": "arts-esm-l",
     "omitted_components": [],
-    "prescribed_components": [],
+    "prescribed_components": [
+        "atmospheric-chemistry"
+    ],
     "references": [
-        "https://doi.org/10.21203/rs.3.rs-8969494/v1"
+        "https://doi.org/10.21203/rs.3.rs-8969494/v2"
     ],
     "release_year": 2025,
     "@context": "_context",
