@@ -6,6 +6,10 @@ from pydantic import Field, model_validator
 
 from base import EMDRecord, Link, Links, References, warn
 
+# CMIP7 source_id guidance: https://wcrp-cmip.github.io/cmip7-guidance/latest/CMIP7/Source_ID_guidance/
+KEY_MAX = 25     # rule 2: the limit
+KEY_SHORT = 15   # rule 2: 90% of CMIP6 source_ids were this long or shorter
+
 Domain = Link("scientific_domain")
 Pair = tuple[Domain, Domain]
 
@@ -133,6 +137,23 @@ class Model(EMDRecord):
 
     # --------------------------------------------------------------- errors: the record is rejected
     @model_validator(mode="after")
+    def validation_key_uses_allowed_characters(self):
+        """validation_key (the model's CMIP7 source_id) uses only a-z, A-Z, 0-9 and "-" (CMIP7 source_id guidance 1)."""
+        bad = sorted(set(re.sub(r"[A-Za-z0-9-]", "", self.validation_key)))
+        if bad:
+            raise ValueError(f"validation_key '{self.validation_key}' may use only letters, digits and '-'; "
+                             f"remove {bad}. Write a version 3.2.4 as 3-2-4")
+        return self
+
+    @model_validator(mode="after")
+    def validation_key_at_most_25_characters(self):
+        """validation_key is at most 25 characters, because it appears in every file name (CMIP7 source_id guidance 2)."""
+        if len(self.validation_key) > KEY_MAX:
+            raise ValueError(f"validation_key '{self.validation_key}' is {len(self.validation_key)} characters; "
+                             f"the limit is {KEY_MAX}")
+        return self
+
+    @model_validator(mode="after")
     def dynamic_not_also_omitted(self):
         """A component cannot be simulated and also absent (EMD 2)."""
         if both := set(self.dynamic_components) & set(self.omitted_components):
@@ -179,6 +200,32 @@ class Model(EMDRecord):
         return self
 
     # --------------------------------------------------------------- warnings: the record loads
+    @model_validator(mode="after")
+    def validation_key_is_short(self):
+        """validation_key should be much shorter than 25: 90% of CMIP6 models used 15 characters or fewer (CMIP7 source_id guidance 2)."""
+        if KEY_SHORT < len(self.validation_key) <= KEY_MAX:
+            warn(f"{self.id}: validation_key '{self.validation_key}' is {len(self.validation_key)} characters; "
+                 f"most are {KEY_SHORT} or fewer")
+        return self
+
+    @model_validator(mode="after")
+    def validation_key_has_a_version(self):
+        """validation_key is typically a model name followed by a version number (CMIP7 source_id guidance 3)."""
+        if not re.search(r"\d", self.validation_key):
+            warn(f"{self.id}: validation_key '{self.validation_key}' has no version number")
+        return self
+
+    @model_validator(mode="after")
+    def validation_key_matches_what_was_submitted(self):
+        """The issue form turns dots into "-" and drops other characters; say so when that changed the name.
+
+        The name as typed is kept in ui_label, so the reviewer can see what the submitter wrote.
+        """
+        typed = (self.ui_label or "").strip()
+        if typed and typed.replace(".", "-") != self.validation_key:
+            warn(f"{self.id}: submitted as '{typed}', registered as validation_key '{self.validation_key}'")
+        return self
+
     @model_validator(mode="after")
     def family_given(self):
         """family is given; a model with no family uses no-family."""

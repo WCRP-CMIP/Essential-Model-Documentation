@@ -56,13 +56,14 @@ def _model_for(folder: str):
         return None
 
 
-def validate(folder: str, data: dict, pending: dict | None = None):
+def validate(folder: str, data: dict, pending: dict | None = None, records: dict | None = None):
     """Validate one record.
 
     Returns (errors, warnings) as lists of strings, or None when the folder has
     no model. Handler-internal keys (leading '_') are dropped first — they are
     scaffolding, not part of the record that gets written. `pending` maps each
-    folder to the ids this submission is creating, so siblings may link to each other.
+    folder to the ids this submission is creating, so siblings may link to each other;
+    `records` holds those records by id, so a model can read a sibling's fields.
     """
     model = _model_for(folder)
     if model is None:
@@ -80,7 +81,7 @@ def validate(folder: str, data: dict, pending: dict | None = None):
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter('always')
         try:
-            model.model_validate(record, context={'pending': pending or {}})
+            model.model_validate(record, context={'pending': pending or {}, 'records': records or {}})
         except ValidationError as exc:
             for e in exc.errors():
                 where = '.'.join(str(p) for p in e['loc'])
@@ -130,6 +131,19 @@ def print_summary(folder: str, data: dict) -> None:
         print(f"\033[92m  ✓ {folder}: validates against EMD_tests\033[0m", flush=True)
 
 
+def submission_records(files_to_write: dict) -> dict:
+    """{id: record} for every record this submission creates, including inline subgrids."""
+    found: dict = {}
+    for file_path, data in files_to_write.items():
+        if str(file_path).startswith('_') or not isinstance(data, dict):
+            continue
+        found[data.get('@id')] = data
+        for sub in data.get('horizontal_subgrids') or []:
+            if isinstance(sub, dict) and sub.get('@id'):
+                found[sub['@id']] = sub
+    return found
+
+
 def submission_ids(files_to_write: dict) -> dict:
     """{folder: ids} for every record this submission creates, including subgrids a
     computational grid carries inline."""
@@ -157,11 +171,12 @@ def attach_errors(files_to_write: dict) -> dict:
     """
     overrides = files_to_write.get('_pydantic_data', {})
     siblings = submission_ids(files_to_write)
+    records = submission_records(files_to_write)
     for file_path, data in files_to_write.items():
         if str(file_path).startswith('_') or not isinstance(data, dict):
             continue
         folder = os.path.dirname(file_path)
-        result = validate(folder, overrides.get(file_path, data), siblings)
+        result = validate(folder, overrides.get(file_path, data), siblings, records)
         if result is None:
             continue
         errors, _ = result
@@ -209,8 +224,9 @@ def collapse(report: str) -> str:
 
     out = ['\n'.join(intro).rstrip()] if any(l.strip() for l in intro) else []
     for title, *body in sections:
+        opening = '<details open>' if any(s in title for s in OPEN_SECTIONS) else '<details>'
         out.append('\n'.join([
-            '<details>', f'<summary><strong>{title}</strong></summary>', '',
+            opening, f'<summary><strong>{title}</strong></summary>', '',
             '\n'.join(body).strip(), '', '</details>',
         ]))
     folded = '\n\n'.join(out)
@@ -221,8 +237,12 @@ def collapse(report: str) -> str:
     return folded
 
 
+# Report sections shown open; the rest start collapsed.
+OPEN_SECTIONS = (
+    'Similarity to existing entries',
+)
+
 # Blocks within a report section that are shown open once that section is expanded.
 OPEN_INSIDE = (
-    'Graph of links in submission',    # 2. Controlled Vocabulary Links
-    'Fields included in comparison',   # 3. Content Similarity
+    'Fields included in comparison',
 )

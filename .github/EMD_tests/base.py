@@ -108,6 +108,18 @@ def pending(info: ValidationInfo, folder: str) -> frozenset[str]:
     return frozenset(((info.context or {}).get("pending") or {}).get(folder, ()))
 
 
+def record(info: ValidationInfo, folder: str, record_id: str) -> dict | None:
+    """Read another record: one the same submission is creating, else the file on disk. None if neither.
+
+    The issue handlers pass the submission's records in as context={"records": {id: record}}.
+    """
+    found = ((info.context or {}).get("records") or {}).get(record_id)
+    if found is not None:
+        return found
+    path = REPO / folder / f"{record_id}.json"
+    return json.loads(path.read_text("utf-8")) if path.is_file() else None
+
+
 def Link(folder: str):
     """A value that must name an entry of `folder`, e.g. Link("grid_type") or Link("model_family").
 
