@@ -1,7 +1,7 @@
 """horizontal_computational_grid/: an arrangement and the subgrids that build it (EMD v1.1 4.1.1)."""
-from pydantic import model_validator
+from pydantic import ValidationInfo, model_validator
 
-from base import EMDRecord, Link, Links
+from base import EMDRecord, Link, Links, used_by, warn
 
 
 class HorizontalComputationalGrid(EMDRecord):
@@ -20,6 +20,13 @@ class HorizontalComputationalGrid(EMDRecord):
             raise ValueError("arrangement is required")
         if not self.horizontal_subgrids:
             raise ValueError("horizontal_subgrids is required")
+        return self
+
+    @model_validator(mode="after")
+    def used_by_a_component_config(self, info: ValidationInfo):
+        """A grid no component is integrated on is usually a leftover from an earlier submission."""
+        if used_by(self, info, "component_config", "horizontal_computational_grid") is False:
+            warn(f"{self.id}: no component_config uses this grid")
         return self
 
 

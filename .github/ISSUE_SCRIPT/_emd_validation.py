@@ -55,12 +55,13 @@ def _model_for(folder: str):
         return None
 
 
-def validate(folder: str, data: dict):
+def validate(folder: str, data: dict, pending: dict | None = None):
     """Validate one record.
 
     Returns (errors, warnings) as lists of strings, or None when the folder has
     no model. Handler-internal keys (leading '_') are dropped first — they are
-    scaffolding, not part of the record that gets written.
+    scaffolding, not part of the record that gets written. `pending` maps each
+    folder to the ids this submission is creating, so siblings may link to each other.
     """
     model = _model_for(folder)
     if model is None:
@@ -78,7 +79,7 @@ def validate(folder: str, data: dict):
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter('always')
         try:
-            model.model_validate(record)
+            model.model_validate(record, context={'pending': pending or {}})
         except ValidationError as exc:
             for e in exc.errors():
                 where = '.'.join(str(p) for p in e['loc'])
@@ -96,33 +97,23 @@ def validate(folder: str, data: dict):
 
 
 def validation_block(folder: str, data: dict, heading: str = 'Record validation') -> str:
-    """Markdown for the PR body. '' when the folder has no model."""
+    """The reviewer's view for the PR body: warnings only. '' when the folder has no model.
+
+    Errors never get this far — `attach_errors()` in `run()` has already stopped the issue —
+    so anything this model still has to say is advice for the reviewer.
+    """
     result = validate(folder, data)
     if result is None:
         return ''
-    errors, notes = result
+    _, notes = result
 
     source = f'`.github/EMD_tests/{folder}.py`'
     lines = [f'#### {heading}', '']
-
-    if errors:
-        lines += [
-            '> [!CAUTION]',
-            f'> **This record does not validate against {source}.** '
-            'Resolve before merging:',
-            '>',
-        ]
-        lines += [f'> - {e}' for e in errors]
-        if notes:
-            lines.append('')
-
     if notes:
         lines += ['> [!NOTE]', '> Valid, but worth a reviewer check:', '>']
         lines += [f'> - {n}' for n in notes]
-
-    if not errors and not notes:
+    else:
         lines += ['> [!TIP]', f'> Validates cleanly against {source}.']
-
     return '\n'.join(lines)
 
 
@@ -131,10 +122,50 @@ def print_summary(folder: str, data: dict) -> None:
     result = validate(folder, data)
     if result is None:
         return
-    errors, notes = result
-    for e in errors:
-        print(f"\033[91m  ✗ {folder}: {e}\033[0m", flush=True)
+    _, notes = result
     for n in notes:
         print(f"\033[93m  ⚠ {folder}: {n}\033[0m", flush=True)
-    if not errors and not notes:
+    if not notes:
         print(f"\033[92m  ✓ {folder}: validates against EMD_tests\033[0m", flush=True)
+
+
+def submission_ids(files_to_write: dict) -> dict:
+    """{folder: ids} for every record this submission creates, including subgrids a
+    computational grid carries inline."""
+    found: dict = {}
+    for file_path, data in files_to_write.items():
+        if str(file_path).startswith('_') or not isinstance(data, dict):
+            continue
+        found.setdefault(os.path.dirname(file_path), set()).add(data.get('@id'))
+        for sub in data.get('horizontal_subgrids') or []:
+            if isinstance(sub, dict) and sub.get('@id'):
+                found.setdefault('horizontal_subgrid', set()).add(sub['@id'])
+    return found
+
+
+def attach_errors(files_to_write: dict) -> dict:
+    """Put each record's validation errors on `_errors`, so a bad submission never reaches a PR.
+
+    `new_issue.py` STEP 1b folds `_errors` into the run's validation errors, which are posted
+    as a comment on the issue and stop the run before any branch or PR is made — the same
+    path the schema checks use. Call this from a handler's `run()`, on what it is about to
+    return, because STEP 1b reads the files before `update()` is reached.
+
+    Warnings are deliberately left out: they belong on the PR, and `validation_block()` in
+    `update()` puts them there.
+    """
+    overrides = files_to_write.get('_pydantic_data', {})
+    siblings = submission_ids(files_to_write)
+    for file_path, data in files_to_write.items():
+        if str(file_path).startswith('_') or not isinstance(data, dict):
+            continue
+        folder = os.path.dirname(file_path)
+        result = validate(folder, overrides.get(file_path, data), siblings)
+        if result is None:
+            continue
+        errors, _ = result
+        if errors:
+            existing = list(data.get('_errors') or [])
+            data['_errors'] = existing + [f'{e}  _(`.github/EMD_tests/{folder}.py`)_' for e in errors]
+            print(f"\033[91m  ✗ {file_path}: {len(errors)} schema error(s)\033[0m", flush=True)
+    return files_to_write

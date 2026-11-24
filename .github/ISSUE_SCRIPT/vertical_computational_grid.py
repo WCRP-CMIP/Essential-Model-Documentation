@@ -115,13 +115,13 @@ def run(parsed_issue, issue, dry_run=False):
 
     print(f"\033[92m  [+ new] Vertical grid '{temp_id}'\033[0m", flush=True)
 
-    return {
+    return attach_errors({
         file_path:       data,
         '_author':       issue.get('author'),
         '_contributors': contributors,
         '_make_pull':    True,
         '_atid':         temp_id,
-    }
+    })
 
 
 # ── EMD_tests pydantic check ─────────────────────────────────────────────
@@ -134,6 +134,7 @@ _val_spec = _val_importlib.spec_from_file_location(
 _emd_validation = _val_importlib.module_from_spec(_val_spec)
 _val_spec.loader.exec_module(_emd_validation)
 validation_block = _emd_validation.validation_block
+attach_errors = _emd_validation.attach_errors
 print_validation = _emd_validation.print_summary
 
 

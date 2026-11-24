@@ -159,7 +159,9 @@ def run(parsed_issue, issue, dry_run=False):
         config_path = os.path.join('component_config', f"{config_id}.json")
         result[config_path] = config_data
 
-    return result
+    # The component and its configuration are checked together, so the config may
+    # link to the component this same issue creates.
+    return attach_errors(result)
 
 
 _LINK_FORM_URL = (
@@ -190,6 +192,7 @@ _val_spec = _val_importlib.spec_from_file_location(
 _emd_validation = _val_importlib.module_from_spec(_val_spec)
 _val_spec.loader.exec_module(_emd_validation)
 validation_block = _emd_validation.validation_block
+attach_errors = _emd_validation.attach_errors
 print_validation = _emd_validation.print_summary
 
 

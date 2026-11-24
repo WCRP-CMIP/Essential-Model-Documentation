@@ -67,14 +67,55 @@ def entries(folder: str) -> frozenset[str]:
     return frozenset(p.stem for p in (REPO / folder).glob("*.json") if not p.stem.startswith("_"))
 
 
+@lru_cache(maxsize=None)
+def referenced_ids(folder: str, field: str) -> frozenset[str]:
+    """Every id named by `field` in the records of `folder`, i.e. who points at what."""
+    found = set()
+    for path in (REPO / folder).glob("*.json"):
+        if path.stem.startswith("_"):
+            continue
+        try:
+            record = json.loads(path.read_text("utf-8"))
+        except ValueError:
+            continue              # a malformed file is reported by its own folder's run
+        value = record.get(field)
+        for item in (value if isinstance(value, list) else [value]):
+            item = unwrap_id(item)
+            if isinstance(item, str):
+                found.add(item)
+    return frozenset(found)
+
+
+def used_by(record, info: ValidationInfo, folder: str, field: str) -> bool | None:
+    """Is this record named by `field` in any record of `folder`? None when the rule does not apply.
+
+    Only records read from disk by load() are answered. A submission arriving from an issue is
+    not in any folder yet — and its parent is often created in the same submission — so an
+    orphan rule must not fire on it.
+    """
+    if (info.context or {}).get("file") is None or record.is_sentinel:
+        return None
+    return record.id in referenced_ids(folder, field)
+
+
+def pending(info: ValidationInfo, folder: str) -> frozenset[str]:
+    """Ids of `folder` that the same submission is creating.
+
+    An issue often creates linked records together — a computational grid with its subgrids, a
+    component with its configuration — so a record may link to a sibling not yet on disk.
+    The issue handlers pass these in as context={"pending": {folder: ids}}.
+    """
+    return frozenset(((info.context or {}).get("pending") or {}).get(folder, ()))
+
+
 def Link(folder: str):
     """A value that must name an entry of `folder`, e.g. Link("grid_type") or Link("model_family").
 
     Controlled vocabularies and other records are both folders of JSON files, so one rule covers both.
     A near miss in spelling ("land_surface" for "land-surface") is suggested in the error.
     """
-    def exists(value: str) -> str:
-        if value not in entries(folder):
+    def exists(value: str, info: ValidationInfo) -> str:
+        if value not in entries(folder) | pending(info, folder):
             guess = re.sub(r"[_\s]+", "-", value.strip().lower())
             hint = f" Did you mean '{guess}'?" if guess in entries(folder) else ""
             raise ValueError(f"'{value}' is not an entry of {folder}/.{hint}")
@@ -93,14 +134,16 @@ Latitude = Annotated[float, Field(ge=-90, le=90)]
 Longitude = Annotated[float, Field(ge=0, lt=360)]
 TextList = Annotated[list[str], BeforeValidator(as_list)]
 
-DOI = re.compile(r"https://doi\.org/10\.\d{4,9}/\S+")
+DOI = re.compile(r"https://(?:dx\.)?doi\.org/10\.\d{4,9}/\S+")
 UNDER_REVIEW = "https://paper.under.review"
 
 
 def reference(value: str) -> str:
-    """A reference is a URL (error), ideally a DOI written https://doi.org/10.xxxx/... (warning).
+    """A reference is a URL (error), and a DOI unless the paper is still in preparation (warning).
 
-    Source: EMD v1.1 5. https://paper.under.review stands for a paper in preparation.
+    Source: EMD v1.1 5. A DOI is written https://doi.org/10.xxxx/...; the legacy
+    dx.doi.org host resolves to the same work and is accepted.
+    https://paper.under.review stands for a paper in preparation.
     """
     value = value.strip()
     if not value.startswith(("http://", "https://")):
@@ -204,6 +247,20 @@ class EMDRecord(BaseModel):
         file = (info.context or {}).get("file")
         if file is not None and file != self.id:
             raise ValueError(f"file name '{file}.json' must match @id '{self.id}'")
+        return self
+
+    @model_validator(mode="after")
+    def id_is_not_a_submission_placeholder(self, info: ValidationInfo):
+        """A record kept in the repository has its real id, not the one its issue was given.
+
+        Issue handlers mint a temporary id (tempgrid_<submitter>-<number>) and a later job renames
+        the file; one that survives into the repository means that rename did not run. Only files
+        on disk are checked, so a submission still carrying its temporary id passes.
+        """
+        if (info.context or {}).get("file") is None:
+            return self
+        if "tempgrid" in self.id:
+            raise ValueError(f"@id '{self.id}' is still a submission placeholder: it was never renamed")
         return self
 
 

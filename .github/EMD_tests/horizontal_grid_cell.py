@@ -1,9 +1,9 @@
 """horizontal_grid_cell/: the horizontal discretisation of one set of grid points (EMD v1.1 4.1.3)."""
 import math
 
-from pydantic import Field, model_validator
+from pydantic import Field, ValidationInfo, model_validator
 
-from base import EMDRecord, Latitude, Link, Links, Longitude, Positive, PositiveInt, both_or_neither, warn
+from base import EMDRecord, Latitude, Link, Links, Longitude, Positive, PositiveInt, both_or_neither, used_by, warn
 
 KM_PER_DEGREE = 40075 / 360   # 111.32 km
 
@@ -128,6 +128,13 @@ class HorizontalGridCell(EMDRecord):
         if (self.grid_type == "plane-projection" and not projected) or \
                 (self.grid_type == "regular-latitude-longitude" and projected):
             warn(f"{self.id}: grid_mapping '{self.grid_mapping}' does not suit grid_type '{self.grid_type}'")
+        return self
+
+    @model_validator(mode="after")
+    def used_by_a_subgrid(self, info: ValidationInfo):
+        """Grid cells may describe an output grid on their own (EMD 4.1.3), so an unused one is only odd."""
+        if used_by(self, info, "horizontal_subgrid", "horizontal_grid_cell") is False:
+            warn(f"{self.id}: no horizontal_subgrid uses this grid cell")
         return self
 
 

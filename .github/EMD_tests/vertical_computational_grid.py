@@ -1,7 +1,7 @@
 """vertical_computational_grid/: the levels of one component (EMD v1.1 4.2.1)."""
-from pydantic import Field, model_validator
+from pydantic import Field, ValidationInfo, model_validator
 
-from base import EMDRecord, Link, Positive, PositiveInt, not_both, warn
+from base import EMDRecord, Link, Positive, PositiveInt, not_both, used_by, warn
 
 
 class VerticalComputationalGrid(EMDRecord):
@@ -63,6 +63,13 @@ class VerticalComputationalGrid(EMDRecord):
         top, bottom, total = self.top_layer_thickness, self.bottom_layer_thickness, self.total_thickness
         if None not in (top, bottom, total) and top + bottom > total:
             warn(f"{self.id}: top {top:g} m + bottom {bottom:g} m is more than total_thickness {total:g} m")
+        return self
+
+    @model_validator(mode="after")
+    def used_by_a_component_config(self, info: ValidationInfo):
+        """A grid no component is integrated on is usually a leftover from an earlier submission."""
+        if used_by(self, info, "component_config", "vertical_computational_grid") is False:
+            warn(f"{self.id}: no component_config uses this grid")
         return self
 
 
