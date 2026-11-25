@@ -48,11 +48,11 @@ body:
         </details>
       options:
         - "Not specified"
-        - "arakawa-a"
-        - "arakawa-b"
-        - "arakawa-c"
-        - "arakawa-d"
-        - "arakawa-e"
+        - "arakawa_a"
+        - "arakawa_b"
+        - "arakawa_c"
+        - "arakawa_d"
+        - "arakawa_e"
       default: 0
     validations:
       required: true
@@ -294,6 +294,7 @@ body:
         - "g283"
         - "g284"
         - "g285"
+        - "g286"
       default: 0
     validations:
       required: true
@@ -545,6 +546,7 @@ body:
         - "g283"
         - "g284"
         - "g285"
+        - "g286"
       default: 0
 
   - type: dropdown
@@ -778,6 +780,7 @@ body:
         - "g283"
         - "g284"
         - "g285"
+        - "g286"
       default: 0
 
   - type: dropdown
@@ -1011,6 +1014,7 @@ body:
         - "g283"
         - "g284"
         - "g285"
+        - "g286"
       default: 0
 
   - type: dropdown
