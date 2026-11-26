@@ -1,0 +1,19 @@
+{
+    "validation_key": "jsbach3-1-nesm",
+    "ui_label": "JSBACH3.1-NESM",
+    "description": "The land surface component is based on JSBACH v3.1 (Reick et al., 2013; Cao et al., 2018), coupled inline to the ECHAM v6.3.02 atmospheric model on the T63 Gaussian horizontal grid (192 x 96). It simulates land-atmosphere exchanges of energy, momentum, moisture, and carbon across 11 subgrid land-cover tiles representing plant functional types, bare soil, glaciers, and lakes. The model includes a 5-layer soil hydrology and thermal diffusion scheme (total depth 9.834 m), snow cover and canopy interception processes, interactive photosynthesis and stomatal conductance, prognostic leaf area index (LAI) phenology, and terrestrial carbon pools.",
+    "code_base": "private",
+    "component": "land-surface",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1002/jame.20022",
+        "https://doi.org/10.5194/gmd-11-2975-2018"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "jsbach3-1-nesm"
+}
