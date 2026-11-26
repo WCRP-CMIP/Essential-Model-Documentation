@@ -1,0 +1,18 @@
+{
+    "validation_key": "tempgrid_jiancao-nuist-1795672721",
+    "ui_label": "height grid with 5 levels.",
+    "description": "5-layer thermodynamic vertical grid used by the CICE v6.0 sea ice model (1 layer of snow and 4 layers of ice). Top layer thickness, bottom layer thickness, and total thickness are unspecified because they co-vary with local snow and ice thickness.",
+    "bottom_layer_thickness": "",
+    "n_z": 5,
+    "n_z_range": "",
+    "top_layer_thickness": "",
+    "total_thickness": "",
+    "vertical_coordinate": "height",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:vertical_computational_grid",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "tempgrid_jiancao-nuist-1795672721"
+}
