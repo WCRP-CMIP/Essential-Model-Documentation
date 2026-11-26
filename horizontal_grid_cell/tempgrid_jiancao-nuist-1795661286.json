@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_jiancao-nuist-1795661286",
+    "ui_label": "Horizontal grid cell with a quadratic spectral gaussian grid type.",
+    "description": "Quadratic spectral Gaussian horizontal grid (192 longitudes x 96 Gaussian latitudes = 18,432 cells) associated with triangular spectral truncation T63. Zonal spacing is uniform at 1.875 degrees; meridional Gaussian spacing varies between 1.84964 and 1.86526 degrees (~1.865 degrees).",
+    "alias": [
+        "T63",
+        "N48 (192x96)"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "quadratic-spectral-gaussian",
+    "n_cells": 18432,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -88.572169,
+    "temporal_refinement": "static",
+    "truncation_method": "triangular",
+    "truncation_number": 63,
+    "units": "",
+    "westernmost_longitude": 0,
+    "x_resolution": "",
+    "y_resolution": "",
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_jiancao-nuist-1795661286"
+}
