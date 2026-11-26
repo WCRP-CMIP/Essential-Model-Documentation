@@ -1,0 +1,19 @@
+{
+    "validation_key": "echam6-3-nesm",
+    "ui_label": "ECHAM6.3-NESM",
+    "description": "The atmospheric component is based on ECHAM v6.3.02, originally developed by the Max Planck Institute for Meteorology and adapted within the NUIST Earth System Model (NESM; Cao et al., 2018). It employs a spectral dynamical core with triangular truncation at wavenumber 63 (T63) on an associated 192 x 96 Gaussian grid (~1.875 degree resolution) with 47 vertical hybrid sigma-pressure levels and a flux-form semi-Lagrangian scheme for tracer transport. Physical parameterizations include the RRTMG shortwave and longwave radiative transfer scheme, the Tiedtke-Nordeng mass-flux cumulus convection parameterization with convective momentum transport, a prognostic cloud microphysics and cloud cover scheme, turbulent vertical diffusion based on high-order closure, and subgrid-scale orographic gravity wave drag.",
+    "code_base": "private",
+    "component": "atmosphere",
+    "family": "",
+    "references": [
+        "https://doi.org/10.1002/jame.20015",
+        "https://doi.org/10.5194/gmd-11-2975-2018"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "echam6-3-nesm"
+}
