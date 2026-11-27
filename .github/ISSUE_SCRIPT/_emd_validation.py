@@ -173,7 +173,6 @@ def attach_errors(files_to_write: dict) -> dict:
     Warnings are deliberately left out: they belong on the PR, and `validation_block()` in
     `update()` puts them there.
     """
-    overrides = files_to_write.get('_pydantic_data', {})
     siblings = submission_ids(files_to_write)
     records = submission_records(files_to_write)
     last = None
@@ -181,7 +180,9 @@ def attach_errors(files_to_write: dict) -> dict:
         if str(file_path).startswith('_') or not isinstance(data, dict):
             continue
         folder = os.path.dirname(file_path)
-        result = validate(folder, overrides.get(file_path, data), siblings, records)
+        # The record itself: EMD_tests uses the record's own field names. (_pydantic_data renames
+        # fields for the old esgvoc schema, e.g. units -> horizontal_units, and must not be used.)
+        result = validate(folder, data, siblings, records)
         if result is None:
             continue
         errors, _ = result

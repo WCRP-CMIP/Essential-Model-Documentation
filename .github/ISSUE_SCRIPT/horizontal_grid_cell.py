@@ -167,7 +167,8 @@ def run(parsed_issue, issue, dry_run=False):
         pydantic_data['region'] = region_val[0] if region_val else None
     elif not region_val:
         pydantic_data.pop('region', None)
-    # Translate units → horizontal_units (the EMD model field name).
+    # Translate units → horizontal_units: the name the esgvoc check in new_issue.py still uses.
+    # The EMD_tests models use the record's own name, units, and are given the record itself.
     if 'units' in pydantic_data and 'horizontal_units' not in pydantic_data:
         pydantic_data['horizontal_units'] = pydantic_data.pop('units')
 
@@ -219,8 +220,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 item=report_item, link_threshold=85.0,
                 val_result=pre_val,
             ).build()
-            schema = validation_block(kind, report_item)
-            print_validation(kind, report_item)
+            schema = validation_block(kind, data)
+            print_validation(kind, data)
             data['_validation_report'] = '\n\n'.join(p for p in (schema, collapse(report)) if p)
             print(f"\033[92m  Report generated ({len(report)} chars)\033[0m", flush=True)
         except Exception as e:

@@ -118,6 +118,21 @@ def _retitle_issue(issue_number, title: str):
 # Entry points
 # ---------------------------------------------------------------------------
 
+def _esgvoc_grid_cell(data: dict) -> dict:
+    """The copy of a grid cell that new_issue.py's esgvoc check reads.
+
+    That check still uses esgvoc's field names: one region rather than a list, and
+    horizontal_units rather than units. Same translation as horizontal_grid_cell.py.
+    """
+    copy = {k: v for k, v in data.items() if not k.startswith('_') and v not in ("", None, [], {})}
+    region = copy.get('region')
+    if isinstance(region, list):
+        copy['region'] = region[0] if region else None
+    if 'units' in copy and 'horizontal_units' not in copy:
+        copy['horizontal_units'] = copy.pop('units')
+    return copy
+
+
 def run(parsed_issue, issue, dry_run=False):
     folder        = _clean(parsed_issue.get('folder'))
     filename      = _clean(parsed_issue.get('filename'))
@@ -344,7 +359,7 @@ def run(parsed_issue, issue, dry_run=False):
     # intent here, not an accident. Without it the writer's "File already exists"
     # guard rejects every submission from this form, since the guard only skips
     # when issue_kind == 'modify' and no handler sets issue_kind.
-    return {
+    result = {
         rel_path:         data,
         '_author':        issue.get('author'),
         '_contributors':  contributors,
@@ -357,6 +372,11 @@ def run(parsed_issue, issue, dry_run=False):
         '_modify_old':    applied[0][1] if len(applied) == 1 else '',
         '_modify_new':    applied[0][2] if len(applied) == 1 else '',
     }
+    # Without this the esgvoc check sees `units`, not `horizontal_units`, and rejects every
+    # modified grid cell that has a resolution (issue #1842).
+    if folder == 'horizontal_grid_cell':
+        result['_pydantic_data'] = {rel_path: _esgvoc_grid_cell(data)}
+    return result
 
 
 def update(files_to_write, parsed_issue, issue, dry_run=False):
