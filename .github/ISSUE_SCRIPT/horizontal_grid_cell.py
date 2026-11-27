@@ -219,8 +219,8 @@ def update(files_to_write, parsed_issue, issue, dry_run=False):
                 item=report_item, link_threshold=85.0,
                 val_result=pre_val,
             ).build()
-            schema = validation_block(kind, report_item)
-            print_validation(kind, report_item)
+            schema = validation_block(kind, data)
+            print_validation(kind, data)
             data['_validation_report'] = '\n\n'.join(p for p in (schema, collapse(report)) if p)
             print(f"\033[92m  Report generated ({len(report)} chars)\033[0m", flush=True)
         except Exception as e:
