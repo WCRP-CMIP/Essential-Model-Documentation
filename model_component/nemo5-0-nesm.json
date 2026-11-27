@@ -1,0 +1,20 @@
+{
+    "validation_key": "nemo5-0-nesm",
+    "ui_label": "NEMO5.0-NESM",
+    "description": "The ocean general circulation component in NESM is based on the Nucleus for European Modelling of the Ocean version 5.0 (NEMO v5.0; Madec et al., 2024), configured on the global tripolar ORCA1 Arakawa-C horizontal grid (~1.0 degree nominal resolution, 360 x 291 unique cells, with meridional refinement down to ~0.33 degrees near the Equator) and 46 vertical levels (6.19 m surface layer thickness). It solves the three-dimensional hydrostatic primitive equations using the NEMO v5.0 third-order Runge-Kutta (RK3) baroclinic time-stepping scheme with a split-explicit nonlinear free surface. Physical parameterizations include a turbulent kinetic energy (TKE) vertical mixing closure with enhanced internal wave mixing, lateral Laplacian momentum viscosity, isoneutral Laplacian tracer diffusion, and the Gent-McWilliams (GM) eddy-induced velocity parameterization.",
+    "code_base": "https://forge.nemo-ocean.eu/nemo/nemo/-/releases/5.0",
+    "component": "ocean",
+    "family": "",
+    "references": [
+        "https://doi.org/10.5281/zenodo.14515373",
+        "https://doi.org/10.5281/zenodo.1464816",
+        "https://doi.org/10.5194/gmd-11-2975-2018"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model_component",
+        "esgvoc:ModelComponent"
+    ],
+    "@id": "nemo5-0-nesm"
+}
