@@ -1,0 +1,29 @@
+{
+    "validation_key": "tempgrid_tomaslovato-1795445003",
+    "ui_label": "Horizontal grid cell with a tripolar grid type and 1 x 1 degree resolution.",
+    "description": "",
+    "alias": [
+        "ORCA1"
+    ],
+    "grid_mapping": "latitude-longitude",
+    "grid_type": "tripolar",
+    "n_cells": 104760,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -78.57995,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.60816,
+    "x_resolution": 1,
+    "y_resolution": 1,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_tomaslovato-1795445003"
+}
