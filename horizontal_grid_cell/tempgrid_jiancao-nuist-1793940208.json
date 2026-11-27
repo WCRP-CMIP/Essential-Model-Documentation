@@ -1,0 +1,30 @@
+{
+    "validation_key": "tempgrid_jiancao-nuist-1793940208",
+    "ui_label": "Horizontal grid cell with a displaced pole grid type and 1.125 x 0.53 degree resolution.",
+    "description": "Velocity (U-cell, northeast corner of T-cell) locations of the CICE v6.0 Arakawa-B displaced-pole horizontal grid (320 x 384 = 122,880 cells; first array column i=0 starts at 321.125009E).",
+    "alias": [
+        "gx1v6",
+        "U-"
+    ],
+    "grid_mapping": "rotated-latitude-longitude",
+    "grid_type": "displaced-pole",
+    "n_cells": 122880,
+    "region": [
+        "global"
+    ],
+    "southernmost_latitude": -78.952895,
+    "temporal_refinement": "static",
+    "truncation_method": "",
+    "truncation_number": "",
+    "units": "degree",
+    "westernmost_longitude": 0.5,
+    "x_resolution": 1.125,
+    "y_resolution": 0.53,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
+    ],
+    "@id": "tempgrid_jiancao-nuist-1793940208"
+}
