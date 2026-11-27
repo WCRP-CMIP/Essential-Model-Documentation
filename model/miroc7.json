@@ -1,0 +1,57 @@
+{
+    "validation_key": "MIROC7",
+    "ui_label": "MIROC7",
+    "description": "MIROC7 is a coupled model developed by a Japanese research collaboration. It comprises atmosphere, aerosol, ocean, and land-surface components. Sea-ice processes are represented within the ocean component. River runoff from the land-surface component is supplied to the ocean component. Atmospheric chemistry and land ice are prescribed, and ocean biogeochemistry is not included.",
+    "calendar": [
+        "proleptic-gregorian"
+    ],
+    "coupled_components": [
+        [
+            "atmosphere",
+            "ocean"
+        ],
+        [
+            "atmosphere",
+            "land-surface"
+        ]
+    ],
+    "crs": "A[Ae](L,O)LOAc^Li^",
+    "dynamic_components": [
+        "atmosphere",
+        "aerosol",
+        "ocean",
+        "land-surface"
+    ],
+    "embedded_components": [
+        [
+            "aerosol",
+            "atmosphere"
+        ]
+    ],
+    "family": "miroc",
+    "model_components": [
+        "atmosphere_miroc7-agcm_h172_v177",
+        "aerosol_sprintars_h172_v177",
+        "ocean_coco-4-9_h171_v178",
+        "land-surface_miroc7-ils_h174_v180"
+    ],
+    "name": "miroc7",
+    "omitted_components": [
+        "ocean-biogeochemistry"
+    ],
+    "prescribed_components": [
+        "atmospheric-chemistry",
+        "land-ice"
+    ],
+    "references": [
+        "https://paper.under.review"
+    ],
+    "release_year": 2026,
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:model",
+        "esgvoc:Model"
+    ],
+    "@id": "miroc7"
+}
