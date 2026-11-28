@@ -2,7 +2,10 @@
     "validation_key": "g100",
     "ui_label": "Horizontal grid cell with a regular latitude longitude grid type and 1.25 x 0.9 degree resolution.",
     "description": "",
-    "alias": ["f09", "f09 (288x192)"],
+    "alias": [
+        "f09",
+        "f09 (288x192)"
+    ],
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
     "n_cells": 55296,
@@ -20,7 +23,8 @@
     "@context": "_context",
     "@type": [
         "emd",
-        "wcrp:horizontal_grid_cell"
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
     ],
     "@id": "g100"
 }

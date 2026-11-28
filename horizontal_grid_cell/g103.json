@@ -2,7 +2,10 @@
     "validation_key": "g103",
     "ui_label": "Horizontal grid cell with a tripolar grid type.",
     "description": "",
-    "alias": ["eORCA1", "U-"],
+    "alias": [
+        "eORCA1",
+        "U-"
+    ],
     "grid_mapping": "latitude-longitude",
     "grid_type": "tripolar",
     "n_cells": 105705,
@@ -20,7 +23,8 @@
     "@context": "_context",
     "@type": [
         "emd",
-        "wcrp:horizontal_grid_cell"
+        "wcrp:horizontal_grid_cell",
+        "esgvoc:HorizontalGridCell"
     ],
     "@id": "g103"
 }

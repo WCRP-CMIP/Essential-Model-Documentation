@@ -1,17 +1,18 @@
 {
-  "validation_key": "h123",
-  "ui_label": "",
-  "description": "GFDL 0.25 Deg OM5/MOM6 Grid",
-  "arrangement": "arakawa-c",
-  "horizontal_subgrids": [
-    "g170_mass",
-    "g171_x-velocity",
-    "g172_y-velocity"
-  ],
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_computational_grid",
-    "emd"
-  ],
-  "@id": "h123"
+    "validation_key": "h123",
+    "ui_label": "",
+    "description": "GFDL 0.25 Deg OM5/MOM6 Grid",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g170_mass",
+        "g171_x-velocity",
+        "g172_y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "emd",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "h123"
 }

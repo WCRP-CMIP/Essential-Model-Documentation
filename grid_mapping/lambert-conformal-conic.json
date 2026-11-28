@@ -5,7 +5,8 @@
     "@context": "_context",
     "@type": [
         "wcrp:grid_mapping",
-        "emd"
+        "emd",
+        "esgvoc:GridMapping"
     ],
     "@id": "lambert-conformal-conic"
 }

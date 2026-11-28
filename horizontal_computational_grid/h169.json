@@ -1,17 +1,18 @@
 {
-  "validation_key": "h169",
-  "ui_label": "",
-  "description": "FV3 D-grid",
-  "arrangement": "arakawa-d",
-  "horizontal_subgrids": [
-    "g254_mass",
-    "g263_x-velocity",
-    "g255_y-velocity"
-  ],
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:horizontal_computational_grid"
-  ],
-  "@id": "h169"
+    "validation_key": "h169",
+    "ui_label": "",
+    "description": "FV3 D-grid",
+    "arrangement": "arakawa-d",
+    "horizontal_subgrids": [
+        "g254_mass",
+        "g263_x-velocity",
+        "g255_y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "h169"
 }

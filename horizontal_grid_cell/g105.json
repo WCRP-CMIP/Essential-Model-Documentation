@@ -2,7 +2,9 @@
     "validation_key": "g105",
     "ui_label": "Regular latitude-longitude output grid for atmosphere (based on TL127 spectral grid), 1.4 x 1.4 degree resolution.",
     "description": "",
-    "alias": ["TL127"],
+    "alias": [
+        "TL127"
+    ],
     "grid_mapping": "latitude-longitude",
     "grid_type": "regular-latitude-longitude",
     "n_cells": 32768,
@@ -20,7 +22,8 @@
     "@context": "_context",
     "@type": [
         "wcrp:horizontal_grid_cell",
-        "emd"
+        "emd",
+        "esgvoc:HorizontalGridCell"
     ],
     "@id": "g105"
 }
