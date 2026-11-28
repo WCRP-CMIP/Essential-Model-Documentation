@@ -1,17 +1,18 @@
 {
-  "validation_key": "h167",
-  "ui_label": "",
-  "description": "",
-  "arrangement": "arakawa-c",
-  "horizontal_subgrids": [
-    "g256_mass",
-    "g265_x-velocity",
-    "g264_y-velocity"
-  ],
-  "@context": "_context",
-  "@type": [
-    "emd",
-    "wcrp:horizontal_computational_grid"
-  ],
-  "@id": "h167"
+    "validation_key": "h167",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-c",
+    "horizontal_subgrids": [
+        "g256_mass",
+        "g265_x-velocity",
+        "g264_y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "emd",
+        "wcrp:horizontal_computational_grid",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "h167"
 }

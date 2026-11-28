@@ -1,17 +1,18 @@
 {
-  "validation_key": "v141",
-  "ui_label": "atmosphere-sigma-coordinate grid with 73 levels.",
-  "description": "",
-  "bottom_layer_thickness": 100,
-  "n_z": 73,
-  "n_z_range": "",
-  "top_layer_thickness": 3000,
-  "total_thickness": 65000,
-  "vertical_coordinate": "atmosphere-sigma-coordinate",
-  "@context": "_context",
-  "@type": [
-    "wcrp:vertical_computational_grid",
-    "emd"
-  ],
-  "@id": "v141"
+    "validation_key": "v141",
+    "ui_label": "atmosphere-sigma-coordinate grid with 73 levels.",
+    "description": "",
+    "bottom_layer_thickness": 100,
+    "n_z": 73,
+    "n_z_range": "",
+    "top_layer_thickness": 3000,
+    "total_thickness": 65000,
+    "vertical_coordinate": "atmosphere-sigma-coordinate",
+    "@context": "_context",
+    "@type": [
+        "wcrp:vertical_computational_grid",
+        "emd",
+        "esgvoc:VerticalComputationalGrid"
+    ],
+    "@id": "v141"
 }

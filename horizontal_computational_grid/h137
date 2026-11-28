@@ -1,16 +1,17 @@
 {
-  "validation_key": "h137",
-  "ui_label": "",
-  "description": "HadCM3 ocean grids",
-  "arrangement": "arakawa-b",
-  "horizontal_subgrids": [
-    "g200_mass",
-    "g189_x-velocity_y-velocity"
-  ],
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_computational_grid",
-    "emd"
-  ],
-  "@id": "h137"
+    "validation_key": "h137",
+    "ui_label": "",
+    "description": "HadCM3 ocean grids",
+    "arrangement": "arakawa-b",
+    "horizontal_subgrids": [
+        "g200_mass",
+        "g189_x-velocity_y-velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "emd",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "h137"
 }

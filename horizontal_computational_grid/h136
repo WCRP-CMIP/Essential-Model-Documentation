@@ -1,16 +1,17 @@
 {
-  "validation_key": "h136",
-  "ui_label": "",
-  "description": "",
-  "arrangement": "arakawa-b",
-  "horizontal_subgrids": [
-    "g179_mass",
-    "g198_velocity"
-  ],
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_computational_grid",
-    "emd"
-  ],
-  "@id": "h136"
+    "validation_key": "h136",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-b",
+    "horizontal_subgrids": [
+        "g179_mass",
+        "g198_velocity"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "emd",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "h136"
 }

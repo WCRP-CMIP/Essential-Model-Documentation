@@ -1,15 +1,16 @@
 {
-  "validation_key": "h106",
-  "ui_label": "",
-  "description": "",
-  "arrangement": "arakawa-a",
-  "horizontal_subgrids": [
-    "g122_mass"
-  ],
-  "@context": "_context",
-  "@type": [
-    "wcrp:horizontal_computational_grid",
-    "emd"
-  ],
-  "@id": "h106"
+    "validation_key": "h106",
+    "ui_label": "",
+    "description": "",
+    "arrangement": "arakawa-a",
+    "horizontal_subgrids": [
+        "g122_mass"
+    ],
+    "@context": "_context",
+    "@type": [
+        "wcrp:horizontal_computational_grid",
+        "emd",
+        "esgvoc:HorizontalComputationalGrid"
+    ],
+    "@id": "h106"
 }
